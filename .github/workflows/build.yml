@@ -1,0 +1,51 @@
+name: Build plugin
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Build web assets (minify scripts, strip CSS comments)
+        run: |
+          npm install --no-save terser@5.31.6
+          node build-assets.mjs
+
+      - name: Version
+        id: v
+        run: echo "version=1.0.${{ github.run_number }}.0" >> "$GITHUB_OUTPUT"
+
+      - name: Build plugin
+        run: >
+          dotnet publish src/Jellyfin.Plugin.UshereatsTheme/Jellyfin.Plugin.UshereatsTheme.csproj
+          -c Release -o out
+          -p:Version=${{ steps.v.outputs.version }}
+
+      - name: Package (zip + plugin repository manifest)
+        run: python3 ci/package.py "${{ steps.v.outputs.version }}" "${{ github.repository }}"
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.v.outputs.version }}
+          name: Ushereats Theme ${{ steps.v.outputs.version }}
+          make_latest: true
+          files: |
+            dist/ushereats-theme_${{ steps.v.outputs.version }}.zip
+            dist/manifest.json

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Ushereats Theme</title></head>
+<body>
+<div id="UshereatsThemePage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-checkbox">
+  <div data-role="content">
+    <div class="content-primary">
+      <form id="UshereatsThemeForm">
+        <div class="verticalSection">
+          <h2 class="sectionTitle">Ushereats Theme</h2>
+          <p>Changes apply on the next page reload. Needs SleekFin and File Transformation.</p>
+        </div>
+
+        <div class="verticalSection">
+          <h3 class="sectionTitle">Features</h3>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="WelcomeSplash" /><span>Welcome splash</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Greeting + sound once per session after sign-in.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="AmbientBackground" /><span>Ambient background</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Soft colour from the hero / hovered card behind every page.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="HoverCards" /><span>Hover cards</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Info overlay when hovering posters (mouse only).</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="QualityBadges" /><span>Quality badges</span></label>
+          <div class="fieldDescription checkboxFieldDescription">4K / Dolby Vision / HDR chips on posters.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="TimeRemaining" /><span>Time remaining</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Time left badge on Continue Watching.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="ReleaseDates" /><span>Release dates</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Digital release date badges + sorting on Latest Releases.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="NewEpisodeTags" /><span>New episode tags</span></label>
+          <div class="fieldDescription checkboxFieldDescription">New episode / new season tags.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="MarkSections" /><span>Home rows</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Continue Watching layout, row arrows, scroll effects (needed by the theme).</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="LibraryStats" /><span>Library stats</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Movies / shows counts on the home page.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="HeaderAvatar" /><span>Header avatar</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Your picture in the header.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="UserMenu" /><span>User menu</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Glass profile menu.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="SearchRestyle" /><span>Search restyle</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Search page look.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="EpisodeList" /><span>Episode list</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Netflix-style episode list on show pages.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="PlayerSkin" /><span>Player skin</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Title logo in the player.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="PauseScreen" /><span>Pause screen</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Info screen when you pause.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="LoginExtras" /><span>Sign-in extras</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Discord pill + Quick Connect style.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="CustomIcon" /><span>Custom icon</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Your icon in the tab, header and loading screen.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="AccentColour" /><span>Accent colour</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Shares SleekFin's accent with the theme (needed by the theme).</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="DashboardSkin" /><span>Dashboard skin</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Admin dashboard redesign.</div>
+        </div>
+        </div>
+
+        <div class="verticalSection">
+          <h3 class="sectionTitle">Release dates (TMDB)</h3>
+        <div class="inputContainer">
+          <label class="inputLabel inputLabelUnfocused" for="tb-TmdbKey">TMDB API key</label>
+          <input is="emby-input" id="tb-TmdbKey" type="text" data-key="TmdbKey" />
+          <div class="fieldDescription">API Key (32 characters) or Read Access Token. Empty = premiere dates only.</div>
+        </div>
+        <div class="inputContainer">
+          <label class="inputLabel inputLabelUnfocused" for="tb-TmdbCountries">Countries</label>
+          <input is="emby-input" id="tb-TmdbCountries" type="text" data-key="TmdbCountries" />
+          <div class="fieldDescription">Preferred order, comma separated, e.g. AU,US</div>
+        </div>
+        </div>
+
+        <div class="verticalSection">
+          <h3 class="sectionTitle">Look</h3>
+        <div class="inputContainer">
+          <label class="inputLabel inputLabelUnfocused" for="tb-IconUrl">Icon URL</label>
+          <input is="emby-input" id="tb-IconUrl" type="text" data-key="IconUrl" />
+          <div class="fieldDescription">Direct image link (512x512 PNG).</div>
+        </div>
+        <div class="inputContainer">
+          <label class="inputLabel inputLabelUnfocused" for="tb-AmbientDim">Ambient dim</label>
+          <input is="emby-input" id="tb-AmbientDim" type="number" data-key="AmbientDim" step="0.01" min="0" max="1" />
+          <div class="fieldDescription">0 = full colour, 1 = black.</div>
+        </div>
+        <div class="inputContainer">
+          <label class="inputLabel inputLabelUnfocused" for="tb-SearchHue">Search background hue</label>
+          <input is="emby-input" id="tb-SearchHue" type="number" data-key="SearchHue" data-int="1" step="1" min="0" max="360" />
+          <div class="fieldDescription">105 green, 210 blue, 280 purple, 0 red.</div>
+        </div>
+        <div class="inputContainer">
+          <label class="inputLabel inputLabelUnfocused" for="tb-SearchTitle">Search title</label>
+          <input is="emby-input" id="tb-SearchTitle" type="text" data-key="SearchTitle" />
+          <div class="fieldDescription"></div>
+        </div>
+        </div>
+
+        <div class="verticalSection">
+          <h3 class="sectionTitle">Welcome splash</h3>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="SplashSound" /><span>Startup sound</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Browsers may block sound until the first click.</div>
+        </div>
+        <div class="inputContainer">
+          <label class="inputLabel inputLabelUnfocused" for="tb-SplashVolume">Volume</label>
+          <input is="emby-input" id="tb-SplashVolume" type="number" data-key="SplashVolume" step="0.05" min="0" max="1" />
+          <div class="fieldDescription">0 to 1</div>
+        </div>
+        </div>
+
+        <div class="verticalSection">
+          <h3 class="sectionTitle">Pause screen</h3>
+        <div class="inputContainer">
+          <label class="inputLabel inputLabelUnfocused" for="tb-PauseStyle">Style</label>
+          <input is="emby-input" id="tb-PauseStyle" type="text" data-key="PauseStyle" />
+          <div class="fieldDescription">netflix or full</div>
+        </div>
+        <div class="inputContainer">
+          <label class="inputLabel inputLabelUnfocused" for="tb-PauseDelaySeconds">Delay (seconds)</label>
+          <input is="emby-input" id="tb-PauseDelaySeconds" type="number" data-key="PauseDelaySeconds" data-int="1" step="1" min="0" />
+          <div class="fieldDescription">0 = instant</div>
+        </div>
+        </div>
+
+        <div class="verticalSection">
+          <h3 class="sectionTitle">Sign-in page</h3>
+        <div class="inputContainer">
+          <label class="inputLabel inputLabelUnfocused" for="tb-DiscordUrl">Discord link</label>
+          <input is="emby-input" id="tb-DiscordUrl" type="text" data-key="DiscordUrl" />
+          <div class="fieldDescription"></div>
+        </div>
+        <div class="inputContainer">
+          <label class="inputLabel inputLabelUnfocused" for="tb-DiscordText1">Discord text (line 1)</label>
+          <input is="emby-input" id="tb-DiscordText1" type="text" data-key="DiscordText1" />
+          <div class="fieldDescription"></div>
+        </div>
+        <div class="inputContainer">
+          <label class="inputLabel inputLabelUnfocused" for="tb-DiscordText2">Discord text (line 2)</label>
+          <input is="emby-input" id="tb-DiscordText2" type="text" data-key="DiscordText2" />
+          <div class="fieldDescription"></div>
+        </div>
+        </div>
+
+        <div class="verticalSection">
+          <h3 class="sectionTitle">Dashboard</h3>
+        <div class="inputContainer">
+          <label class="inputLabel inputLabelUnfocused" for="tb-DashboardHoldMs">Hold to confirm (ms)</label>
+          <input is="emby-input" id="tb-DashboardHoldMs" type="number" data-key="DashboardHoldMs" data-int="1" step="100" min="0" />
+          <div class="fieldDescription">Restart / Shutdown hold time</div>
+        </div>
+        <div class="inputContainer">
+          <label class="inputLabel inputLabelUnfocused" for="tb-DashboardRecentCount">Recently added posters</label>
+          <input is="emby-input" id="tb-DashboardRecentCount" type="number" data-key="DashboardRecentCount" data-int="1" step="1" min="0" />
+          <div class="fieldDescription">0 = hide</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="DashboardBlurIps" /><span>Blur IP addresses</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Until hover.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="DashboardPluginsCollapsed" /><span>Plugins menu collapsed</span></label>
+          <div class="fieldDescription checkboxFieldDescription">By default.</div>
+        </div>
+        </div>
+
+        <div class="verticalSection">
+          <h3 class="sectionTitle">Extra CSS</h3>
+          <div class="inputContainer">
+            <textarea is="emby-textarea" class="emby-textarea" data-key="ExtraCss" rows="10" style="width:100%;font-family:monospace"></textarea>
+            <div class="fieldDescription">Added after the theme. For quick tweaks without rebuilding.</div>
+          </div>
+        </div>
+
+        <button is="emby-button" type="submit" class="raised button-submit block emby-button"><span>Save</span></button>
+      </form>
+    </div>
+  </div>
+  <script type="text/javascript">
+    (function () {
+      var PLUGIN_ID = "01c723cc-57de-4e19-b13c-514b644491a5";
+      var page = document.querySelector("#UshereatsThemePage");
+      var fields = function () { return page.querySelectorAll("[data-key]"); };
+      page.addEventListener("pageshow", function () {
+        Dashboard.showLoadingMsg();
+        ApiClient.getPluginConfiguration(PLUGIN_ID).then(function (cfg) {
+          fields().forEach(function (el) {
+            var v = cfg[el.getAttribute("data-key")];
+            if (el.type === "checkbox") el.checked = !!v;
+            else el.value = v == null ? "" : v;
+          });
+          Dashboard.hideLoadingMsg();
+        });
+      });
+      page.querySelector("#UshereatsThemeForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        Dashboard.showLoadingMsg();
+        ApiClient.getPluginConfiguration(PLUGIN_ID).then(function (cfg) {
+          fields().forEach(function (el) {
+            var k = el.getAttribute("data-key");
+            if (el.type === "checkbox") cfg[k] = el.checked;
+            else if (el.type === "number") { var n = el.hasAttribute("data-int") ? parseInt(el.value, 10) : parseFloat(el.value); cfg[k] = isNaN(n) ? cfg[k] : n; }
+            else cfg[k] = el.value;
+          });
+          ApiClient.updatePluginConfiguration(PLUGIN_ID, cfg).then(function (r) {
+            Dashboard.processPluginConfigurationUpdateResult(r);
+          });
+        });
+        return false;
+      });
+    })();
+  </script>
+</div>
+</body>
+</html>

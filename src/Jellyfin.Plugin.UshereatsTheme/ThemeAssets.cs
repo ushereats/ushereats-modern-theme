@@ -13,12 +13,27 @@ namespace Jellyfin.Plugin.UshereatsTheme;
 public sealed class ThemeBuild
 {
     public string Key { get; init; } = string.Empty;
+
+    /// <summary>Version of theme.css + theme.js (changes whenever either changes).</summary>
     public string Version { get; init; } = string.Empty;
-    public string Mp3Version { get; init; } = string.Empty;
-    public string FontsUrl { get; init; } = string.Empty;
+
+    public string SplashVersion { get; init; } = string.Empty;
+
+    public string FontVersion { get; init; } = string.Empty;
+
     public PluginConfiguration Config { get; init; } = new PluginConfiguration();
+
     public Payload Css { get; init; } = Payload.Empty;
+
+    /// <summary>Everything except the splash and the dashboard skin.</summary>
     public Payload Js { get; init; } = Payload.Empty;
+
+    /// <summary>Only downloaded on a new session (when the welcome splash can show).</summary>
+    public Payload SplashJs { get; init; } = Payload.Empty;
+
+    /// <summary>Only downloaded when you open the admin dashboard.</summary>
+    public Payload DashboardJs { get; init; } = Payload.Empty;
+
     public byte[] Mp3 { get; init; } = Array.Empty<byte>();
 }
 
@@ -31,12 +46,18 @@ public sealed class Payload
         Raw = raw;
         Gzip = Compress(raw, false);
         Brotli = Compress(raw, true);
-        ETag = "\"" + Convert.ToHexString(SHA256.HashData(raw)).Substring(0, 16).ToLowerInvariant() + "\"";
+        Hash = Convert.ToHexString(SHA256.HashData(raw)).Substring(0, 12).ToLowerInvariant();
+        ETag = "\"" + Hash + "\"";
     }
 
     public byte[] Raw { get; }
+
     public byte[] Gzip { get; }
+
     public byte[] Brotli { get; }
+
+    public string Hash { get; }
+
     public string ETag { get; }
 
     private static byte[] Compress(byte[] data, bool brotli)
@@ -60,11 +81,22 @@ public sealed class Payload
 
 public static class ThemeAssets
 {
+    /// <summary>Self-hosted fonts: URL name -> embedded file.</summary>
+    public static readonly IReadOnlyDictionary<string, string> Fonts = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+    {
+        ["funnel-latin.woff2"] = "font_funnel_latin.woff2",
+        ["funnel-latin-ext.woff2"] = "font_funnel_latin_ext.woff2",
+        ["bebas-latin.woff2"] = "font_bebas_latin.woff2",
+        ["bebas-latin-ext.woff2"] = "font_bebas_latin_ext.woff2",
+    };
+
+    private const string SplashFile = "js_02_welcome_splash.js";
+    private const string DashboardFile = "js_19_dashboard_skin.js";
+
     // file name in Assets -> setting that switches it on (in load order)
     private static readonly (string File, Func<PluginConfiguration, bool> On)[] Features =
     {
         ("js_01_library_stats.js", c => c.LibraryStats),
-        ("js_02_welcome_splash.js", c => c.WelcomeSplash),
         ("js_03_time_remaining.js", c => c.TimeRemaining),
         ("js_04_header_avatar.js", c => c.HeaderAvatar),
         ("js_05_mark_sections.js", c => c.MarkSections),
@@ -81,12 +113,11 @@ public static class ThemeAssets
         ("js_16_accent_colour.js", c => c.AccentColour),
         ("js_17_episode_list.js", c => c.EpisodeList),
         ("js_18_user_menu.js", c => c.UserMenu),
-        ("js_19_dashboard_skin.js", c => c.DashboardSkin),
     };
 
     private static readonly object Gate = new object();
     private static readonly Dictionary<string, string> TextCache = new Dictionary<string, string>();
-    private static byte[]? s_mp3;
+    private static readonly Dictionary<string, byte[]> ByteCache = new Dictionary<string, byte[]>();
     private static ThemeBuild? s_current;
 
     public static ThemeBuild Get()
@@ -114,10 +145,27 @@ public static class ThemeAssets
         }
     }
 
+    /// <summary>Embedded font bytes, or null for an unknown name.</summary>
+    public static byte[]? GetFont(string name)
+    {
+        return Fonts.TryGetValue(name, out string? file) ? ReadBytes(file) : null;
+    }
+
     private static ThemeBuild Build(PluginConfiguration config, string key)
     {
-        byte[] mp3 = s_mp3 ??= ReadBytes("splash.mp3");
+        byte[] mp3 = ReadBytes("splash.mp3");
         string mp3Version = Short(SHA256.HashData(mp3));
+
+        string fontVersion;
+        using (IncrementalHash fh = IncrementalHash.CreateHash(HashAlgorithmName.SHA256))
+        {
+            foreach (string file in Fonts.Values)
+            {
+                fh.AppendData(ReadBytes(file));
+            }
+
+            fontVersion = Short(fh.GetHashAndReset());
+        }
 
         // ── CSS ──
         StringBuilder css = new StringBuilder();
@@ -137,22 +185,43 @@ public static class ThemeAssets
         }
 
         // ── JS ──
-        StringBuilder js = new StringBuilder();
-        js.Append("window.TB_CONFIG=").Append(JsonSerializer.Serialize(config)).Append(";\n");
-        js.Append("window.tbCfg=function(k,d){var c=window.TB_CONFIG||{},v=c[k];return v===undefined||v===null||v===\"\"?d:v};\n");
+        // settings for the scripts (each file carries them, so they work in any load order)
+        string prefix = "window.TB_CONFIG=" + JsonSerializer.Serialize(config) + ";\n"
+            + "window.tbCfg=function(k,d){var c=window.TB_CONFIG||{},v=c[k];return v===undefined||v===null||v===\"\"?d:v};\n";
+
+        Payload splash = Payload.Empty;
+        if (config.WelcomeSplash)
+        {
+            StringBuilder sj = new StringBuilder(prefix);
+            AppendFeature(sj, SplashFile, mp3Version);
+            splash = new Payload(Encoding.UTF8.GetBytes(sj.ToString()));
+        }
+
+        Payload dashboard = Payload.Empty;
+        if (config.DashboardSkin)
+        {
+            StringBuilder dj = new StringBuilder(prefix);
+            AppendFeature(dj, DashboardFile, mp3Version);
+            dashboard = new Payload(Encoding.UTF8.GetBytes(dj.ToString()));
+        }
+
+        StringBuilder js = new StringBuilder(prefix);
         // Jellyfin never used Custom CSS on admin pages: keep the theme stylesheet off there too
         js.Append("(function(){var l=document.getElementById(\"tb-theme-css\");if(!l||!document.body)return;function s(){var m=document.body.classList.contains(\"dashboardDocument\")?\"not all\":\"all\";if(l.media!==m)l.media=m}s();new MutationObserver(s).observe(document.body,{attributes:true,attributeFilter:[\"class\"]})})();\n");
+        if (config.DashboardSkin)
+        {
+            // dashboard skin is only downloaded the first time you open the admin dashboard
+            js.Append("(function(){if(!document.body)return;var done=false,mo;function c(){if(done||!document.body.classList.contains(\"dashboardDocument\"))return;done=true;mo.disconnect();var s=document.createElement(\"script\");s.src=\"../UshereatsTheme/dashboard.js?v=")
+              .Append(dashboard.Hash)
+              .Append("\";document.head.appendChild(s)}mo=new MutationObserver(c);mo.observe(document.body,{attributes:true,attributeFilter:[\"class\"]});c()})();\n");
+        }
 
         foreach ((string file, Func<PluginConfiguration, bool> on) in Features)
         {
-            if (!on(config))
+            if (on(config))
             {
-                continue;
+                AppendFeature(js, file, mp3Version);
             }
-
-            string code = ReadText(file).Replace("__TB_MP3__", "../UshereatsTheme/splash.mp3?v=" + mp3Version, StringComparison.Ordinal);
-            // each feature isolated: one failing never stops the others
-            js.Append("try{").Append(code).Append("\n}catch(e){console.error(\"[Ushereats Theme] ").Append(file).Append("\",e)}\n");
         }
 
         byte[] cssBytes = Encoding.UTF8.GetBytes(css.ToString());
@@ -166,14 +235,23 @@ public static class ThemeAssets
             {
                 Key = key,
                 Version = Short(h.GetHashAndReset()),
-                Mp3Version = mp3Version,
-                FontsUrl = ReadText("fonts.txt").Trim(),
+                SplashVersion = splash.Hash,
+                FontVersion = fontVersion,
                 Config = config,
                 Css = new Payload(cssBytes),
                 Js = new Payload(jsBytes),
+                SplashJs = splash,
+                DashboardJs = dashboard,
                 Mp3 = mp3,
             };
         }
+    }
+
+    // each feature isolated: one failing never stops the others
+    private static void AppendFeature(StringBuilder sb, string file, string mp3Version)
+    {
+        string code = ReadText(file).Replace("__TB_MP3__", "../UshereatsTheme/splash.mp3?v=" + mp3Version, StringComparison.Ordinal);
+        sb.Append("try{").Append(code).Append("\n}catch(e){console.error(\"[Ushereats Theme] ").Append(file).Append("\",e)}\n");
     }
 
     private static string Short(byte[] hash) => Convert.ToHexString(hash).Substring(0, 12).ToLowerInvariant();
@@ -201,14 +279,24 @@ public static class ThemeAssets
 
     private static byte[] ReadBytes(string name)
     {
-        using Stream? stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name);
-        if (stream == null)
+        lock (ByteCache)
         {
-            return Array.Empty<byte>();
-        }
+            if (ByteCache.TryGetValue(name, out byte[]? cached))
+            {
+                return cached;
+            }
 
-        using MemoryStream ms = new MemoryStream();
-        stream.CopyTo(ms);
-        return ms.ToArray();
+            using Stream? stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name);
+            if (stream == null)
+            {
+                return Array.Empty<byte>();
+            }
+
+            using MemoryStream ms = new MemoryStream();
+            stream.CopyTo(ms);
+            byte[] bytes = ms.ToArray();
+            ByteCache[name] = bytes;
+            return bytes;
+        }
     }
 }

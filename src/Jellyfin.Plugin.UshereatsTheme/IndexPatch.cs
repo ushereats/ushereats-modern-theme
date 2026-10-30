@@ -18,6 +18,10 @@ public static class IndexPatch
 {
     private const string Marker = "<!-- ushereats-theme -->";
 
+    private const string LatinRange = "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD";
+
+    private const string LatinExtRange = "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF";
+
     public static string Apply(PatchPayload payload)
     {
         string html = payload.Contents ?? string.Empty;
@@ -36,19 +40,25 @@ public static class IndexPatch
         StringBuilder sb = new StringBuilder();
         sb.Append(Marker);
 
-        // Fonts: connect early, load in parallel with the theme
-        sb.Append("<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">");
-        sb.Append("<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>");
-        if (ThemeAssets.IsHttpUrl(build.FontsUrl))
-        {
-            sb.Append("<link rel=\"stylesheet\" href=\"").Append(WebUtility.HtmlEncode(build.FontsUrl)).Append("\">");
-        }
+        // Fonts: self-hosted, preloaded, always on (also on admin pages)
+        string fv = build.FontVersion;
+        sb.Append("<link rel=\"preload\" href=\"../UshereatsTheme/font/funnel-latin.woff2?v=").Append(fv).Append("\" as=\"font\" type=\"font/woff2\" crossorigin>");
+        sb.Append("<link rel=\"preload\" href=\"../UshereatsTheme/font/bebas-latin.woff2?v=").Append(fv).Append("\" as=\"font\" type=\"font/woff2\" crossorigin>");
+        sb.Append("<style>");
+        AppendFont(sb, "Funnel Sans", "300 900", "funnel-latin.woff2", fv, LatinRange);
+        AppendFont(sb, "Funnel Sans", "300 900", "funnel-latin-ext.woff2", fv, LatinExtRange);
+        AppendFont(sb, "Bebas Neue", "400", "bebas-latin.woff2", fv, LatinRange);
+        AppendFont(sb, "Bebas Neue", "400", "bebas-latin-ext.woff2", fv, LatinExtRange);
+        sb.Append("</style>");
 
         // Welcome splash: instant black cover on a new session, so the site never shows before it
         if (build.Config.WelcomeSplash)
         {
             sb.Append("<style>html.tb-cover::after{content:\"\";position:fixed;top:0;right:0;bottom:0;left:0;z-index:999998;background:#040405;pointer-events:none;transition:opacity 250ms ease}html.tb-cover.tb-cover-out::after{opacity:0}</style>");
-            sb.Append("<script>try{if(!sessionStorage.getItem(\"jf-welcomed\")){var d=document.documentElement;d.classList.add(\"tb-cover\");setTimeout(function(){d.classList.remove(\"tb-cover\",\"tb-cover-out\")},4500)}}catch(e){}</script>");
+            // ...and the splash code is only downloaded on a new session
+            sb.Append("<script>try{if(!sessionStorage.getItem(\"jf-welcomed\")){var d=document.documentElement;d.classList.add(\"tb-cover\");setTimeout(function(){d.classList.remove(\"tb-cover\",\"tb-cover-out\")},4500);var s=document.createElement(\"script\");s.src=\"../UshereatsTheme/splash.js?v=")
+              .Append(build.SplashVersion)
+              .Append("\";document.head.appendChild(s)}}catch(e){}</script>");
         }
 
         // Your icon in the tab / home screen from the first frame
@@ -64,5 +74,13 @@ public static class IndexPatch
         sb.Append("<script src=\"../UshereatsTheme/theme.js?v=").Append(build.Version).Append("\" defer></script>");
 
         return html.Insert(head, sb.ToString());
+    }
+
+    // font-display: block = text waits (briefly, the files are preloaded) instead of flashing a fallback font
+    private static void AppendFont(StringBuilder sb, string family, string weight, string file, string version, string range)
+    {
+        sb.Append("@font-face{font-family:\"").Append(family).Append("\";font-style:normal;font-weight:").Append(weight)
+          .Append(";font-display:block;src:url(\"../UshereatsTheme/font/").Append(file).Append("?v=").Append(version)
+          .Append("\") format(\"woff2\");unicode-range:").Append(range).Append('}');
     }
 }

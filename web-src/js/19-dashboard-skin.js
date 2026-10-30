@@ -25,13 +25,8 @@
   var st = document.createElement("style");
   st.id = "tb-dashboard-skin";
   st.textContent = CSS;
-  function addFont() {
-    if (document.querySelector("link[href*='family=Bebas+Neue']")) return;
-    var f = document.createElement("link");
-    f.rel = "stylesheet";
-    f.href = "https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap";
-    document.head.appendChild(f);
-  }
+  // Fonts (Bebas Neue / Funnel Sans) are self-hosted by the plugin from the page head.
+
 
   var DAY = 86400000;
   function noop() {}
@@ -625,7 +620,6 @@
   function enter() {
     if (active) return;
     active = true;
-    addFont();
     if (!st.parentNode) document.head.appendChild(st);
     mo.observe(document.body, { childList: true, subtree: true });
     heroTimer = setInterval(function () { if (page() && !document.hidden) run(); }, 15000);   // live numbers in the hero

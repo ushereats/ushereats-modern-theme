@@ -43,5 +43,9 @@ fs.writeFileSync(path.join(OUT, "theme.css"), min);
 console.log("css", css.length, "->", min.length);
 
 fs.copyFileSync(path.join(SRC, "splash.mp3"), path.join(OUT, "splash.mp3"));
-fs.copyFileSync(path.join(SRC, "fonts.txt"), path.join(OUT, "fonts.txt"));
+
+// Fonts: self-hosted woff2 (Funnel Sans variable + Bebas Neue, latin + latin-ext), SIL OFL
+for (const f of fs.readdirSync(path.join(SRC, "fonts")).filter((f) => f.endsWith(".woff2"))) {
+  fs.copyFileSync(path.join(SRC, "fonts", f), path.join(OUT, "font_" + f.replace(/-/g, "_")));
+}
 console.log("done");

@@ -1,7 +1,7 @@
 /* Font file — change the family name here AND in --app-font below */
 /* (fonts are linked from the page head by the plugin, see fonts.txt) */
 /* Intro Skipper button base styles (inlined instead of @import = one less download before the page can draw) */
-:root{--skip-hide-duration:8s;--skip-btn-transition-speed:0.16s;--skip-btn-ease-out:cubic-bezier(0.23, 1, 0.32, 1);--skip-btn-bottom:9em;--skip-btn-bottom-idle:3em;--skip-btn-right:calc(2em + var(--sidePadding, 3.3%));--skip-btn-bg:var(--headerColor, rgba(30, 40, 54, 0.8));--skip-btn-border-color:var(--textColor, rgb(209, 213, 219));--skip-btn-text-color:var(--textColor, rgb(209, 213, 219));--skip-btn-shadow:var(--shadow, 0 0.1em 0.15em rgba(0, 0, 0, 0.3));--skip-btn-bg-hover:rgba(255, 255, 255, 0.95);--skip-btn-text-color-hover:#111827;--skip-btn-accent:var(--accentColor, hsl(243, 75%, 62%));--skip-btn-ring-shadow:0 0.25em 0.5em rgba(0, 0, 0, 0.25), 0 0 0 0.125em var(--skip-btn-accent);} .skip-button-container{bottom:var(--skip-btn-bottom);} body:has(.videoOsdBottom-hidden) .skip-button-container{transform:translateY(calc(var(--skip-btn-bottom) - var(--skip-btn-bottom-idle)));} .skip-button{position:relative;overflow:hidden;isolation:isolate;flex-direction:row-reverse;gap:0;margin-inline-start:auto;margin-inline-end:var(--skip-btn-right);padding:0.75em 2.125em;-webkit-padding-start:1.75em;padding-inline-start:1.75em;background-color:var(--skip-btn-bg);border:var(--borderWidthDouble, 0.12em) solid var(--skip-btn-border-color);border-radius:var(--largerRadius, 1.25em);color:var(--skip-btn-text-color);text-shadow:var(--skip-btn-shadow);box-shadow:var(--skip-btn-shadow), inset 0 0.0625em 0 rgba(255, 255, 255, 0.1);transition-property:background-color, border-color, color, box-shadow, opacity;transition-duration:var(--skip-btn-transition-speed);transition-timing-function:var(--skip-btn-ease-out);} .skip-button > .material-icons{-webkit-margin-end:0.5em;margin-inline-end:0.5em;} .skip-button.no-transition{transition:none;} @keyframes skipButtonLoading{from{transform:scaleX(0);}} .skip-button:not(.no-transition)::before{content:"";position:absolute;top:0;right:0;bottom:0;left:0;z-index:-1;background:var(--skip-btn-accent);transform-origin:left;animation:skipButtonLoading var(--skip-hide-duration) linear forwards;} [dir="rtl"] .skip-button::before{transform-origin:right;} @media (prefers-reduced-motion:reduce){.skip-button:not(.no-transition)::before{content:none;}} @media (hover:hover) and (pointer:fine){.skip-button:hover{background-color:var(--skip-btn-bg-hover);border-color:var(--skip-btn-bg-hover);color:var(--skip-btn-text-color-hover);text-shadow:none;box-shadow:var(--skip-btn-ring-shadow);} .skip-button:hover::before{opacity:0;}} .skip-button:active{background-color:var(--skip-btn-bg-hover);border-color:var(--skip-btn-bg-hover);color:var(--skip-btn-text-color-hover);text-shadow:none;transform:scale(0.97);box-shadow:0 0.1em 0.2em rgba(0, 0, 0, 0.3);} .skip-button:focus-visible{outline:0.125em solid transparent !important;box-shadow:var(--skip-btn-ring-shadow);} .skip-button.show-focus:focus{background-color:var(--skip-btn-bg-hover) !important;border-color:var(--skip-btn-bg-hover);color:var(--skip-btn-text-color-hover) !important;text-shadow:none;box-shadow:var(--skip-btn-ring-shadow);} .skip-button.skip-button-hidden{opacity:0;pointer-events:none;} @media (prefers-reduced-motion:no-preference){.skip-button-container{transition:transform 0.3s var(--skip-btn-ease-out);} .skip-button{transition-property:background-color, border-color, color, box-shadow, opacity, transform;} .skip-button.skip-button-hidden{transform:translateY(0.5em);}} .layout-mobile .skip-button-container{--skip-btn-bottom:5em;--skip-btn-right:calc(1em + var(--sidePadding, 3.3%));} .layout-mobile .skip-button{padding:0.625em 1.5em;padding-inline-start:1.25em;font-size:0.9em;}
+:root{--skip-btn-transition-speed:0.16s;--skip-btn-ease-out:cubic-bezier(0.23, 1, 0.32, 1);--skip-btn-bottom:9em;--skip-btn-bottom-idle:3em;--skip-btn-right:calc(2em + var(--sidePadding, 3.3%));} .skip-button-container{bottom:var(--skip-btn-bottom);} body:has(.videoOsdBottom-hidden) .skip-button-container{transform:translateY(calc(var(--skip-btn-bottom) - var(--skip-btn-bottom-idle)));} .skip-button{position:relative;overflow:hidden;isolation:isolate;flex-direction:row-reverse;gap:0;margin-inline-start:auto;margin-inline-end:var(--skip-btn-right);-webkit-padding-start:1.75em;padding-inline-start:1.75em;background-color:var(--skip-btn-bg);border:var(--borderWidthDouble, 0.12em) solid var(--skip-btn-border-color);color:var(--skip-btn-text-color);text-shadow:var(--skip-btn-shadow);box-shadow:var(--skip-btn-shadow), inset 0 0.0625em 0 rgba(255, 255, 255, 0.1);transition-property:background-color, border-color, color, box-shadow, opacity;transition-duration:var(--skip-btn-transition-speed);transition-timing-function:var(--skip-btn-ease-out);} .skip-button > .material-icons{-webkit-margin-end:0.5em;margin-inline-end:0.5em;} .skip-button.no-transition{transition:none;} @keyframes skipButtonLoading{from{transform:scaleX(0);}} .skip-button:not(.no-transition)::before{content:"";position:absolute;right:0;bottom:0;left:0;z-index:-1;background:var(--skip-btn-accent);transform-origin:left;animation:skipButtonLoading var(--skip-hide-duration) linear forwards;} [dir="rtl"] .skip-button::before{transform-origin:right;} @media (prefers-reduced-motion:reduce){.skip-button:not(.no-transition)::before{content:none;}} @media (hover:hover) and (pointer:fine){.skip-button:hover{background-color:var(--skip-btn-bg-hover);border-color:var(--skip-btn-bg-hover);color:var(--skip-btn-text-color-hover);text-shadow:none;box-shadow:var(--skip-btn-ring-shadow);} .skip-button:hover::before{opacity:0;}} .skip-button:active{background-color:var(--skip-btn-bg-hover);border-color:var(--skip-btn-bg-hover);color:var(--skip-btn-text-color-hover);text-shadow:none;transform:scale(0.97);box-shadow:0 0.1em 0.2em rgba(0, 0, 0, 0.3);} .skip-button:focus-visible{outline:0.125em solid transparent !important;box-shadow:var(--skip-btn-ring-shadow);} .skip-button.show-focus:focus{background-color:var(--skip-btn-bg-hover) !important;border-color:var(--skip-btn-bg-hover);color:var(--skip-btn-text-color-hover) !important;text-shadow:none;box-shadow:var(--skip-btn-ring-shadow);} .skip-button.skip-button-hidden{opacity:0;pointer-events:none;} @media (prefers-reduced-motion:no-preference){.skip-button-container{transition:transform 0.3s var(--skip-btn-ease-out);} .skip-button{transition-property:background-color, border-color, color, box-shadow, opacity, transform;} .skip-button.skip-button-hidden{transform:translateY(0.5em);}} .layout-mobile .skip-button-container{--skip-btn-bottom:5em;--skip-btn-right:calc(1em + var(--sidePadding, 3.3%));} .layout-mobile .skip-button{padding-inline-start:1.25em;}
 
 :root {
     --skip-hide-duration: 8s;
@@ -14,14 +14,44 @@ html:root:root:root {
     --sleekfin-font-family: var(--app-font);
 }
 html body,
-body :is(button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, a, li, label, td, th):not(.material-icons):not([class*="icon" i]),
-body :is(.MuiTypography-root, .MuiButton-root, .MuiInputBase-root, .MuiMenuItem-root, .MuiListItemText-root, .MuiTab-root, .MuiChip-label),
-body :is(.sectionTitle, .sectionTitleTextButton, .cardText, .cardFooter, .itemName, .emby-button, .listItemBodyText, .detailPagePrimaryContainer),
+body button:not(.material-icons):not([class*="icon" i]),
+body input:not(.material-icons):not([class*="icon" i]),
+body select:not(.material-icons):not([class*="icon" i]),
+body textarea:not(.material-icons):not([class*="icon" i]),
+body h1:not(.material-icons):not([class*="icon" i]),
+body h2:not(.material-icons):not([class*="icon" i]),
+body h3:not(.material-icons):not([class*="icon" i]),
+body h4:not(.material-icons):not([class*="icon" i]),
+body h5:not(.material-icons):not([class*="icon" i]),
+body h6:not(.material-icons):not([class*="icon" i]),
+body p:not(.material-icons):not([class*="icon" i]),
+body a:not(.material-icons):not([class*="icon" i]),
+body li:not(.material-icons):not([class*="icon" i]),
+body label:not(.material-icons):not([class*="icon" i]),
+body td:not(.material-icons):not([class*="icon" i]),
+body th:not(.material-icons):not([class*="icon" i]),
+body .MuiTypography-root,
+body .MuiButton-root,
+body .MuiInputBase-root,
+body .MuiMenuItem-root,
+body .MuiListItemText-root,
+body .MuiTab-root,
+body .MuiChip-label,
+body .sectionTitle,
+body .sectionTitleTextButton,
+body .cardText,
+body .cardFooter,
+body .itemName,
+body .emby-button,
+body .listItemBodyText,
+body .detailPagePrimaryContainer,
 body :is(.time-remaining-badge, .release-date-badge, .tb-quality-badge, .tb-ep, #jf-stats) {
     font-family: var(--app-font) !important;
 }
 /* Row titles — Bebas Neue like the reference (bold, 36px, -0.025em; all-caps by design) */
-html body :is(.sectionTitle, .sectionTitleTextButton, .sleekfin-details-season-title):not(#tb-x) {
+html body .sectionTitle:not(#tb-x),
+html body .sectionTitleTextButton:not(#tb-x),
+html body .sleekfin-details-season-title:not(#tb-x) {
     font-family: var(--title-font) !important;
     font-weight: 700 !important;
     letter-spacing: -0.025em !important;
@@ -29,14 +59,17 @@ html body :is(.sectionTitle, .sectionTitleTextButton, .sleekfin-details-season-t
     line-height: 1.05 !important;
 }
 @media (min-width: 768px) {
-    html body :is(.sectionTitle, .sectionTitleTextButton, .sleekfin-details-season-title):not(#tb-x) {
+    html body .sectionTitle:not(#tb-x),
+html body .sectionTitleTextButton:not(#tb-x),
+html body .sleekfin-details-season-title:not(#tb-x) {
         font-size: 36px !important;
     }
 }
 /* The ">" / icons inside title buttons keep their icon font */
 html body :is(.sectionTitle, .sectionTitleTextButton):not(#tb-x) .material-icons { font-family: "Material Icons" !important; }
 /* Search page keeps its small grey headings in the normal font */
-html body #searchPage :is(.sectionTitle, .sectionTitleTextButton):not(#tb-x) { font-family: var(--app-font) !important; }
+html body #searchPage .sectionTitle:not(#tb-x),
+html body #searchPage .sectionTitleTextButton:not(#tb-x) { font-family: var(--app-font) !important; }
 
 [data-active-page="home"] #homeTab {
     margin-top: 0 !important;
@@ -459,10 +492,12 @@ html:not(.layout-tv) :not(#tb-x) #indexPage .sleekfin-hero ~ .homeSectionsContai
 @media (min-width: 900px) {
   /* smooth the change */
   html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-toolbar],
-  html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-toolbar]::after,
-  html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-segment],
-  html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-segment] :is(a, button),
-  html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header] :is(img, svg) {
+html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-toolbar]::after,
+html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-segment],
+html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-segment] a,
+html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-segment] button,
+html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header] img,
+html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header] svg {
     /* no width transition here: SleekFin sets the pill width itself */
     transition: height 240ms ease, min-height 240ms ease, top 240ms ease,
                 background-color 240ms ease, box-shadow 240ms ease !important;
@@ -596,8 +631,6 @@ html body #loginPage h1:not(#tb-x) {
 html body #loginPage h1:not(#tb-x)::after {
   content: "Sign in";
   display: block;
-  font-family: var(--app-font, Inter, sans-serif);
-  font-size: 34px; font-weight: 700; line-height: 1.1; letter-spacing: -0.025em;
   color: #fff; text-transform: none;
 }
 html body #loginPage .manualLoginForm > .flex::after {
@@ -609,9 +642,7 @@ html body #loginPage .manualLoginForm > .flex::after {
 /* fields */
 html body #loginPage .inputContainer { margin: 0 0 18px !important; }
 html body #loginPage .inputLabel:not(#tb-x) {
-  display: block; text-align: left;
-  font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6) !important;
+  display: block; text-align: left; font-weight: 600; text-transform: uppercase;
   margin: 0 0 8px; transform: none;
 }
 html body #loginPage .emby-input:not(#tb-x) {
@@ -637,7 +668,7 @@ html body #loginPage .checkboxContainer:not(#tb-x) {
   position: relative; display: table !important;
   width: auto !important; margin: 2px 0 24px !important;
 }
-html body #loginPage .checkboxLabel { font-size: 14px; color: rgba(255, 255, 255, 0.7); }
+html body #loginPage .checkboxLabel { color: rgba(255, 255, 255, 0.7); }
 html body #loginPage .checkboxOutline:not(#tb-x) {
   border-radius: 6px !important; border: 1px solid rgba(255, 255, 255, 0.25) !important;
   background: rgba(255, 255, 255, 0.04) !important;
@@ -653,8 +684,7 @@ html body #loginPage .emby-button.block:not(#tb-x) {
   height: 50px; width: 100%; box-sizing: border-box;
   margin: 0 0 10px !important; padding: 0 16px !important;
   border-radius: 12px !important;
-  font-family: inherit; font-size: 15px !important; font-weight: 600 !important;
-  text-transform: none !important; letter-spacing: 0 !important;
+  text-transform: none !important;
   background: rgba(255, 255, 255, 0.04) !important; color: #fff !important;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
   box-shadow: none !important;
@@ -674,8 +704,7 @@ html body #loginPage .manualLoginForm > div[style] { margin-top: 0 !important; }
 /* "OR" divider */
 html body #loginPage .readOnlyContent::before {
   content: "OR"; display: block; text-align: center;
-  margin: 14px 0 18px;
-  font-size: 11px; font-weight: 600; letter-spacing: 0.18em; color: rgba(255, 255, 255, 0.35);
+  margin: 14px 0 18px; font-weight: 600; color: rgba(255, 255, 255, 0.35);
   background:
     linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)) left center / calc(50% - 24px) 1px no-repeat,
     linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)) right center / calc(50% - 24px) 1px no-repeat;
@@ -696,8 +725,7 @@ html body #loginPage .loginDisclaimer:not(#tb-x) > * { display: none !important;
 html body #loginPage .loginDisclaimer:not(#tb-x)::before {
   content: "100% Free  ·  As-Is  ·  Independent";
   order: 1; display: block; white-space: pre;
-  font-family: var(--app-font, Inter, sans-serif);
-  font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  font-family: var(--app-font, Inter, sans-serif); font-weight: 700; text-transform: uppercase;
   color: var(--tb-login-red);
 }
 /* headline: white line + gold brand line */
@@ -938,7 +966,8 @@ html body #userProfilePage h2.username:not(#tb-x) {
   font-size: 60px !important; font-weight: 400 !important; line-height: 0.95; letter-spacing: 0.02em; color: #fff !important;
 }
 html body #userProfilePage h2.username:not(#tb-x) + br { display: none; }
-html body #userProfilePage :is(#btnAddImage, #btnDeleteImage):not(#tb-x) {
+html body #userProfilePage #btnAddImage:not(#tb-x),
+html body #userProfilePage #btnDeleteImage:not(#tb-x) {
   height: 40px; margin: 14px 0 0 !important; padding: 0 18px !important; border-radius: 999px !important;
   background: rgba(255, 255, 255, 0.06) !important; color: #fff !important;
   border: 1px solid rgba(255, 255, 255, 0.14) !important; box-shadow: none !important;
@@ -955,27 +984,39 @@ html body #userProfilePage .updatePasswordForm:not(#tb-x)::before {
 }
 
 /* ── Fields everywhere on these pages ── */
-html body .userPreferencesPage :is(.inputLabel, .selectLabel, .checkboxListLabel, .textareaLabel):not(#tb-x) {
+html body .userPreferencesPage .inputLabel:not(#tb-x),
+html body .userPreferencesPage .selectLabel:not(#tb-x),
+html body .userPreferencesPage .checkboxListLabel:not(#tb-x),
+html body .userPreferencesPage .textareaLabel:not(#tb-x) {
   font-size: 13px !important; font-weight: 600 !important; color: rgba(255, 255, 255, 0.72) !important; margin-bottom: 8px;
 }
-html body .userPreferencesPage :is(.emby-input, .emby-select, .emby-textarea):not(#tb-x) {
+html body .userPreferencesPage .emby-input:not(#tb-x),
+html body .userPreferencesPage .emby-select:not(#tb-x),
+html body .userPreferencesPage .emby-textarea:not(#tb-x) {
   background: rgba(255, 255, 255, 0.04) !important; color: #fff !important;
   border: 1px solid rgba(255, 255, 255, 0.10) !important; border-radius: 12px !important;
   font-size: 14px !important; box-sizing: border-box;
   transition: border-color 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
 }
-html body .userPreferencesPage :is(.emby-input, .emby-select):not(#tb-x) { height: 46px; padding: 0 14px !important; }
+html body .userPreferencesPage .emby-input:not(#tb-x),
+html body .userPreferencesPage .emby-select:not(#tb-x) { height: 46px; padding: 0 14px !important; }
 html body .userPreferencesPage .emby-select:not(#tb-x) { padding-right: 40px !important; }
 html body .userPreferencesPage .emby-select:not(#tb-x) option { background: #141416; color: #fff; }
-html body .userPreferencesPage :is(.emby-input, .emby-select, .emby-textarea):not(#tb-x):hover { border-color: rgba(255, 255, 255, 0.2) !important; }
-html body .userPreferencesPage :is(.emby-input, .emby-select, .emby-textarea):not(#tb-x):focus {
+html body .userPreferencesPage .emby-input:not(#tb-x):hover,
+html body .userPreferencesPage .emby-select:not(#tb-x):hover,
+html body .userPreferencesPage .emby-textarea:not(#tb-x):hover { border-color: rgba(255, 255, 255, 0.2) !important; }
+html body .userPreferencesPage .emby-input:not(#tb-x):focus,
+html body .userPreferencesPage .emby-select:not(#tb-x):focus,
+html body .userPreferencesPage .emby-textarea:not(#tb-x):focus {
   outline: none; background: rgba(255, 255, 255, 0.06) !important;
   border-color: var(--sleekfin-accent, rgb(233, 196, 106)) !important;
   box-shadow: 0 0 0 4px rgba(var(--tb-accent-rgb, 233, 196, 106), 0.14);
 }
 html body .userPreferencesPage .fieldDescription:not(#tb-x) { font-size: 12.5px; line-height: 1.5; color: rgba(255, 255, 255, 0.5) !important; margin-top: 6px; }
 html body .userPreferencesPage .checkboxOutline:not(#tb-x) { border-radius: 6px !important; }
-html body .userPreferencesPage :is(.inputContainer, .selectContainer, .checkboxContainer):not(#tb-x) { margin-bottom: 18px !important; }
+html body .userPreferencesPage .inputContainer:not(#tb-x),
+html body .userPreferencesPage .selectContainer:not(#tb-x),
+html body .userPreferencesPage .checkboxContainer:not(#tb-x) { margin-bottom: 18px !important; }
 
 /* ── Buttons: gold Save, outlined secondary ── */
 html body .userPreferencesPage .button-submit:not(#tb-x) {
@@ -1163,7 +1204,8 @@ html body .show-card-titles .card .innerCardFooter:not(#tb-x)::before {
   left: -14px; right: -14px; bottom: -10px; height: 70px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
 }
-html body .show-card-titles .card :is(.itemProgressBar, .itemLinearProgress):not(#tb-x) {
+html body .show-card-titles .card .itemProgressBar:not(#tb-x),
+html body .show-card-titles .card .itemLinearProgress:not(#tb-x) {
   height: 4px !important; border-radius: 3px !important; overflow: hidden;
   background: rgba(255, 255, 255, 0.28) !important;
 }

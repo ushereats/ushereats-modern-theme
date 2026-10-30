@@ -21,6 +21,26 @@ public class ThemeController : ControllerBase
     [HttpGet("theme.js")]
     public IActionResult GetJs() => Serve(ThemeAssets.Get().Js, "application/javascript; charset=utf-8");
 
+    [HttpGet("splash.js")]
+    public IActionResult GetSplashJs() => Serve(ThemeAssets.Get().SplashJs, "application/javascript; charset=utf-8");
+
+    [HttpGet("dashboard.js")]
+    public IActionResult GetDashboardJs() => Serve(ThemeAssets.Get().DashboardJs, "application/javascript; charset=utf-8");
+
+    [HttpGet("font/{name}")]
+    public IActionResult GetFont([FromRoute] string name)
+    {
+        byte[]? font = ThemeAssets.GetFont(name);
+        if (font == null || font.Length == 0)
+        {
+            return NotFound();
+        }
+
+        Response.Headers["Cache-Control"] = CacheForever;
+        Response.Headers["Access-Control-Allow-Origin"] = "*";
+        return File(font, "font/woff2");
+    }
+
     [HttpGet("splash.mp3")]
     public IActionResult GetSplash()
     {

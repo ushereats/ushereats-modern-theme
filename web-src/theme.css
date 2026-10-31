@@ -874,12 +874,28 @@ html body .alphaPicker:not(#tb-x) .alphaPickerButton.Mui-focusVisible { box-shad
 /* the page never scrolls sideways (rows scroll inside themselves) */
 html body { overflow-x: clip; }
 
-@media (max-width: 899px) {
-  /* once you scroll, the top bar gets a solid backing so rows don't show through the logo */
-  html.sleekfin-header-mounted [data-sleekfin-header][data-sleekfin-scrolled="true"]::before {
-    background: linear-gradient(180deg, rgba(6, 6, 8, 0.97) 0%, rgba(6, 6, 8, 0.9) 62%, rgba(6, 6, 8, 0) 100%);
-    height: calc(var(--sleekfin-header-height) + 22px);
+/* once you scroll, the top bar gets a solid backing so rows and banner text don't show through the logo */
+html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"]::before {
+  background: linear-gradient(180deg, rgba(6, 6, 8, 0.97) 0%, rgba(6, 6, 8, 0.9) 62%, rgba(6, 6, 8, 0) 100%) !important;
+  height: calc(var(--sleekfin-header-height) + 22px) !important;
+}
+
+/* portrait monitors (taller than wide): the banners are as tall as a wide picture fits, not 85% of a very
+   tall screen (the title and buttons sat near the bottom of a mostly empty picture, rows far below) */
+@media (min-width: 900px) and (orientation: portrait) {
+  html .sleekfin-hero:not(#tb-x) {
+    height: min(var(--sleekfin-hero-desktop-height, 85vh), 75vw) !important;
+    min-height: min(420px, 75vw) !important;
   }
+  html:is(.sleekfin-hero-boot-loading, .sleekfin-hero-loading) #indexPage #homeTab.is-active > .sections::before {
+    height: min(var(--sleekfin-hero-desktop-height, 85vh), 75vw) !important;
+  }
+  html.sleekfin-details-mounted:not(#tb-x) {
+    --sleekfin-details-hero-height: min(85vh, 75vw);
+  }
+}
+
+@media (max-width: 899px) {
   /* room at the end of every page for the floating button bar */
   html.sleekfin-header-mounted:not(.layout-tv) .page:not(.hide):not(#videoOsdPage) {
     padding-bottom: calc(80px + env(safe-area-inset-bottom)) !important;

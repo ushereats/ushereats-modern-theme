@@ -135,6 +135,7 @@ for (const [vw, vh, tag] of [[1920, 1080, "desktop"], [390, 844, "phone"]]) {
     if (name === "settings" && tag === "desktop") {
       // one Save for every tab: change a field, save, read the plugin settings back
       const before = await api("/Plugins/01c723cc-57de-4e19-b13c-514b644491a5/Configuration");
+      await page.click('.sleekfin-page-nav-button[data-sleekfin-panel="search"]');
       await page.fill("#tb-SearchTitle", "CI saved");
       await page.click(".sleekfin-save-button");
       await page.waitForTimeout(2500);

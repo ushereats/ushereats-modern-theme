@@ -1,0 +1,12 @@
+{
+  "errors": {},
+  "avatar": true,
+  "menuHead": true,
+  "settingsSave": {
+    "title": "CI saved",
+    "rowsKept": false,
+    "accentKept": true,
+    "desktopLogo": 40,
+    "sleekKept": true
+  }
+}

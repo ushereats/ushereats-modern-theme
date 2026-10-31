@@ -30,7 +30,16 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
         {
             Normalize(Configuration.Sleek);
         }
+
+        if (!IsHex(Configuration.AccentColor))
+        {
+            // accent moved to this page: start from the colour SleekFin had
+            Configuration.AccentColor = Configuration.Sleek.AccentColor;
+            SaveConfiguration();
+        }
     }
+
+    internal static bool IsHex(string? s) => s != null && s.Length == 7 && s[0] == '#' && s.Skip(1).All(char.IsAsciiHexDigit);
 
     private readonly IApplicationPaths _paths;
 
@@ -96,6 +105,13 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
         if (configuration is PluginConfiguration c)
         {
             c.Sleek ??= Configuration.Sleek ?? new SleekConfiguration();
+            if (!IsHex(c.AccentColor))
+            {
+                c.AccentColor = IsHex(Configuration.AccentColor) ? Configuration.AccentColor : c.Sleek.AccentColor;
+            }
+
+            c.AccentColor = c.AccentColor.ToLowerInvariant();
+            c.Sleek.AccentColor = c.AccentColor;   // one colour: SleekFin's previews follow it too
             Normalize(c.Sleek);
         }
 

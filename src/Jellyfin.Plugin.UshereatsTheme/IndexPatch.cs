@@ -53,19 +53,21 @@ public static class IndexPatch
         AppendFont(sb, "Bebas Neue", "400", "bebas-latin-ext.woff2", fv, LatinExtRange);
         sb.Append("</style>");
 
+        // The accent colour as plain numbers (see-through glows, dashboard skin): defined once, here, for every page
+        sb.Append("<style>:root{--tb-accent-rgb:").Append(HexToRgb(ThemeAssets.Accent(build.Config))).Append("}</style>");
+
         // SleekFin (built in): its page flags, colours and shapes, set before anything is drawn
         if (ThemeAssets.SleekOn(build.Config))
         {
             SleekConfiguration s = ThemeAssets.SleekOf(build.Config);
-            sb.Append("<style>html.sleekfin-main-ui:root{--sleekfin-accent:").Append(s.AccentColor)
-              .Append(";--sleekfin-card-button-radius:").Append(ShapeRadius(s.CardButtonShape, 4, 12))
+            sb.Append("<style>html.sleekfin-main-ui:root{--sleekfin-card-button-radius:").Append(ShapeRadius(s.CardButtonShape, 4, 12))
               .Append(";--sleekfin-card-play-radius:").Append(ShapeRadius(s.PlayButtonShape, 6, 18))
               .Append(";--sleekfin-card-radius:").Append(ShapeRadius(s.MediaCardShape, 4, 10))
               .Append(";--sleekfin-card-inner-radius:").Append(ShapeRadius(s.MediaCardShape, 3, 9))
               .Append(";--sleekfin-compact-card-radius:").Append(ShapeRadius(s.MediaCardShape, 4, 16))
               .Append(";--sleekfin-person-radius:").Append(ShapeRadius(s.CastCrewShape, 4, 10))
               .Append(";--sleekfin-person-inner-radius:").Append(ShapeRadius(s.CastCrewShape, 3, 9))
-              .Append(";}:root{--tb-accent-rgb:").Append(HexToRgb(s.AccentColor)).Append("}</style>");
+              .Append(";}</style>");
             sb.Append(SleekBoot(s));
             if (s.DetailsEnabled)
             {
@@ -144,7 +146,7 @@ public static class IndexPatch
     }
 
     // "#e8c050" -> "232, 192, 80" (the theme's see-through glows use the accent as plain numbers)
-    private static string HexToRgb(string hex)
+    internal static string HexToRgb(string hex)
     {
         if (hex.Length == 7 && hex[0] == '#'
             && int.TryParse(hex.AsSpan(1), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int v))

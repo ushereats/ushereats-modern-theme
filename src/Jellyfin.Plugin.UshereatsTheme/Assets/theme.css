@@ -61,7 +61,7 @@ font-size: 36px !important;
 html body :is(.sectionTitle, .sectionTitleTextButton):not(#tb-x) .material-icons { font-family: "Material Icons" !important; }
 html body #searchPage .sectionTitle:not(#tb-x),
 html body #searchPage .sectionTitleTextButton:not(#tb-x) { font-family: var(--app-font) !important; }
-[data-active-page="home"] #homeTab {
+#indexPage #homeTab {
 margin-top: 0 !important;
 }
 .ranked-list {
@@ -124,18 +124,6 @@ pointer-events: none;
 letter-spacing: -0.1em;
 transform: translateY(-46%) scaleX(0.78);
 transform-origin: right center;
-}
-[data-active-page="home"] .cardBox .cardFooter,
-[data-active-page="home"] .cardBox .cardText,
-[data-active-page="home"] .cardBox .cardTextStack,
-[data-active-page="home"] .cardBox .sleekfin-meta {
-display: none !important;
-}
-[data-active-page="home"] .show-card-titles .cardBox .cardFooter,
-[data-active-page="home"] .show-card-titles .cardBox .cardText,
-[data-active-page="home"] .show-card-titles .cardBox .cardTextStack,
-[data-active-page="home"] .show-card-titles .cardBox .sleekfin-meta {
-display: block !important;
 }
 .show-card-titles .sleekfin-meta-content:has(svg[data-sleekfin-icon="star"]) {
 display: none !important;

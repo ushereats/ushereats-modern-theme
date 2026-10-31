@@ -71,7 +71,7 @@ html body :is(.sectionTitle, .sectionTitleTextButton):not(#tb-x) .material-icons
 html body #searchPage .sectionTitle:not(#tb-x),
 html body #searchPage .sectionTitleTextButton:not(#tb-x) { font-family: var(--app-font) !important; }
 
-[data-active-page="home"] #homeTab {
+#indexPage #homeTab {
     margin-top: 0 !important;
 }
 
@@ -148,20 +148,6 @@ html body #searchPage .sectionTitleTextButton:not(#tb-x) { font-family: var(--ap
   letter-spacing: -0.1em;
   transform: translateY(-46%) scaleX(0.78);
   transform-origin: right center;
-}
-
-/* Hide titles under posters on home — except Continue Watching */
-[data-active-page="home"] .cardBox .cardFooter,
-[data-active-page="home"] .cardBox .cardText,
-[data-active-page="home"] .cardBox .cardTextStack,
-[data-active-page="home"] .cardBox .sleekfin-meta {
-  display: none !important;
-}
-[data-active-page="home"] .show-card-titles .cardBox .cardFooter,
-[data-active-page="home"] .show-card-titles .cardBox .cardText,
-[data-active-page="home"] .show-card-titles .cardBox .cardTextStack,
-[data-active-page="home"] .show-card-titles .cardBox .sleekfin-meta {
-  display: block !important;
 }
 
 /* Continue Watching: hide star + rating under titles */

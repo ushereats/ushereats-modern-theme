@@ -107,7 +107,8 @@
   function cardsHtml(r, items) {
     var sid = C.serverId(), s = shape(r), out = "";
     var own = r.type === "continue";   // Continue Watching: each episode's own picture (movies: their thumb)
-    for (var i = 0; i < items.length; i++) out += r.type === "studios" ? C.logoCard(items[i], i, sid) : C.card(items[i], s, i, sid, "", own);
+    var noText = !(r.titles != null ? r.titles : r.type === "continue");   // titles under posters: Continue Watching only, unless set
+    for (var i = 0; i < items.length; i++) out += r.type === "studios" ? C.logoCard(items[i], i, sid) : C.card(items[i], s, i, sid, "", own, noText);
     return out;
   }
 

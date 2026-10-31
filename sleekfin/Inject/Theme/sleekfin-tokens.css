@@ -1,5 +1,5 @@
 html.sleekfin-main-ui:root {
-    --sleekfin-accent: #dc2626;
+    --sleekfin-accent: __TB_ACCENT__;
     --sleekfin-background: #000;
     --sleekfin-border: #26292e;
     --sleekfin-border-hover: rgba(241, 242, 244, 0.22);

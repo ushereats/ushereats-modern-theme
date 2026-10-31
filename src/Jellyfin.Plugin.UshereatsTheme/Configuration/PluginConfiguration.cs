@@ -8,6 +8,9 @@ namespace Jellyfin.Plugin.UshereatsTheme.Configuration;
 /// </summary>
 public class PluginConfiguration : BasePluginConfiguration
 {
+    /// <summary>Accent colour for the whole UI (#rrggbb). Empty = SleekFin's saved colour on first start.</summary>
+    public string AccentColor { get; set; } = string.Empty;
+
     // ── Features (each one is only downloaded when switched on) ──
     public bool LibraryStats { get; set; } = true;
     public bool WelcomeSplash { get; set; } = true;

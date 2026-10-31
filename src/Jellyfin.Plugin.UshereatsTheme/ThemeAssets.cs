@@ -225,7 +225,10 @@ public static class ThemeAssets
         bool sleek = SleekOn(config);
         if (sleek)
         {
-            css.Append(ReadText("sleek.css").Replace("__TB_FONT_V__", fontVersion, StringComparison.Ordinal)).Append('\n');
+            css.Append(ReadText("sleek.css")
+                .Replace("__TB_FONT_V__", fontVersion, StringComparison.Ordinal)
+                .Replace("__TB_ACCENT__", Accent(config), StringComparison.Ordinal)
+                ).Append('\n');
         }
 
         css.Append(ReadText("theme.css")).Append('\n');
@@ -335,6 +338,10 @@ public static class ThemeAssets
     internal static bool SleekOn(PluginConfiguration config) => !Plugin.SleekFinPluginLoaded;
 
     private static readonly SleekConfiguration DefaultSleek = new SleekConfiguration();
+
+    /// <summary>The one accent colour for the whole UI (main settings page).</summary>
+    internal static string Accent(PluginConfiguration config) =>
+        Plugin.IsHex(config.AccentColor) ? config.AccentColor.ToLowerInvariant() : SleekOf(config).AccentColor;
 
     /// <summary>SleekFin's settings (defaults if none are saved yet).</summary>
     internal static SleekConfiguration SleekOf(PluginConfiguration config) => config.Sleek ?? DefaultSleek;

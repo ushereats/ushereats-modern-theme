@@ -107,7 +107,7 @@
   }
 
   // one card (images are filled in by load() so off-screen rows don't download yet)
-  function card(it, shape, index, sid, extraClass, own) {
+  function card(it, shape, index, sid, extraClass, own, noText) {
     sid = sid || serverId();
     var cls = SHAPES[shape] || SHAPES.poster, mode = layout(), u = it.UserData || {};
     var src = imageFor(it, shape, own);
@@ -121,7 +121,7 @@
       ' data-prefix="' + esc(prefix) + '" class="card ' + cls + "Card" + (mode === "desktop" ? " card-hoverable" : "") +
       (mode === "tv" ? " show-focus" : "") + (it.Type === "Person" ? " personCard" : "") +
       (/^(MusicAlbum|MusicArtist|Audio)$/.test(it.Type) ? "" : " card-withuserdata") + (extraClass ? " " + extraClass : "") + '">';
-    h += '<div class="cardBox cardBox-bottompadded"><div class="cardScalable"><div class="cardPadder cardPadder-' + cls + '">' +
+    h += '<div class="cardBox' + (noText ? "" : " cardBox-bottompadded") + '"><div class="cardScalable"><div class="cardPadder cardPadder-' + cls + '">' +
       (src ? "" : '<span class="cardImageIcon material-icons ' + (ICONS[it.Type] || "folder") + '" aria-hidden="true"></span>') + "</div>";
     h += '<a href="' + href(it.Id, sid) + '" data-action="link" class="cardImageContainer coveredImage cardContent itemAction"' +
       (src ? ' data-tb-src="' + esc(src) + '"' : "") + ' aria-label="' + esc(name) + '" role="img">';
@@ -130,7 +130,7 @@
     h += "</a>";
     if (mode === "desktop") h += hoverMenu(it, sid);
     else if (PLAYABLE[it.Type] && it.LocationType !== "Virtual") h += '<button is="paper-icon-button-light" class="cardOverlayButton cardOverlayButton-br itemAction" data-action="play" title="Play"><span class="material-icons cardOverlayButtonIcon play_arrow" aria-hidden="true"></span></button>';
-    h += "</div>" + lines(it, sid) + "</div></div>";
+    h += "</div>" + (noText ? "" : lines(it, sid)) + "</div></div>";   // rows without titles: none are drawn at all
     return h;
   }
 

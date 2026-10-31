@@ -35,6 +35,14 @@
         </div>
 
         <div class="verticalSection">
+          <h3 class="sectionTitle">Accent colour</h3>
+          <div class="inputContainer" style="display:flex;align-items:center;gap:14px">
+            <input type="color" id="tb-AccentColor" data-key="AccentColor" style="width:64px;height:40px;padding:0;border:0;background:none;cursor:pointer" />
+            <div class="fieldDescription" style="margin:0">One colour for the whole UI: buttons, progress bars, stars, highlights, glows.</div>
+          </div>
+        </div>
+
+        <div class="verticalSection">
           <h3 class="sectionTitle">Speed &amp; feel</h3>
         <div class="checkboxContainer checkboxContainer-withDescription">
           <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="AmbientFade" /><span>Ambient fade</span></label>
@@ -332,6 +340,7 @@
         if (r.type === "latest") h += check("shuffle", r.shuffle, "Random order");
         if (r.type === "trending") { h += check("released", r.released !== false, "Only titles that are already out"); h += check("ranked", r.ranked, "Top 10 style (big numbers)"); }
         if (r.type === "studios") h += check("shuffle", r.shuffle !== false, "Random order each visit");
+        if (r.type !== "studios") h += check("titles", r.titles != null ? r.titles : r.type === "continue", "Show titles under posters");
         if (r.type !== "studios") h += check("hideTitle", r.hideTitle, "Hide the row title");
         h += "</div>";
         if (r.type === "studios") {

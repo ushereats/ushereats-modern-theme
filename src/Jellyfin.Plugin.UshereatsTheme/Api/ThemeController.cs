@@ -1,6 +1,8 @@
+using MediaBrowser.Controller.Library;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Jellyfin.Plugin.UshereatsTheme.Api;
 
@@ -14,6 +16,31 @@ namespace Jellyfin.Plugin.UshereatsTheme.Api;
 public class ThemeController : ControllerBase
 {
     private const string CacheForever = "public, max-age=31536000, immutable";
+
+    private readonly ILibraryManager _library;
+    private readonly ILogger<ThemeController> _logger;
+
+    public ThemeController(ILibraryManager library, ILogger<ThemeController> logger)
+    {
+        _library = library;
+        _logger = logger;
+    }
+
+    /// <summary>Trending This Week: library item ids in TMDB's order (ids only; each viewer's own access applies when the items are loaded).</summary>
+    [HttpGet("trending")]
+    public IActionResult GetTrending()
+    {
+        if (Trending.IsStale())
+        {
+            // first use / over a day old / new key: refresh in the background, answer with what we have now
+            _ = Task.Run(() => Trending.RefreshAsync(_library, _logger, CancellationToken.None));
+        }
+
+        TrendingList list = Trending.Current;
+        Response.Headers["Cache-Control"] = "no-cache";
+        string json = System.Text.Json.JsonSerializer.Serialize(new { at = list.At, items = list.Items.Select(i => new { id = i.Id, @out = i.Out }) });
+        return Content(json, "application/json; charset=utf-8");
+    }
 
     [HttpGet("theme.css")]
     public IActionResult GetCss() => Serve(ThemeAssets.Get().Css, "text/css; charset=utf-8");

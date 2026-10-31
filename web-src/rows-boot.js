@@ -96,6 +96,22 @@
           return mergeContinue(a, b, L);
         });
       }
+      if (type === "trending") {
+        // TMDB's weekly trending chart, already matched to your library by the server (in TMDB's order)
+        return get("UshereatsTheme/trending", token).then(function (j) {
+          var ids = [], src = (j && j.items) || [];
+          for (var i = 0; i < src.length && ids.length < L + 10; i++) {
+            if (src[i] && src[i].id && (src[i].out || row.released === false)) ids.push(src[i].id);
+          }
+          if (!ids.length) return [];
+          return get("Items?" + U + "&Ids=" + ids.join(",") + COMMON, token).then(function (r) {
+            var items = list(r), byId = {}, out = [], n;
+            for (n = 0; n < items.length; n++) byId[items[n].Id] = items[n];
+            for (n = 0; n < ids.length && out.length < L; n++) if (byId[ids[n]]) out.push(slim(byId[ids[n]]));
+            return out;
+          });
+        });
+      }
       var url;
       if (type === "latest") {
         url = "Items/Latest?" + U + "&Limit=" + L + (row.parentId ? "&ParentId=" + enc(row.parentId) : "") +

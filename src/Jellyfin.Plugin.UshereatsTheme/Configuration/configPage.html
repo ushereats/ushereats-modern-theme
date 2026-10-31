@@ -141,6 +141,7 @@
           <div id="tbRowsList"></div>
           <div class="tbr-add">
             <select id="tbRowsAddType" class="emby-select-withcolor emby-select tbr-sel">
+              <option value="trending">Trending this week (TMDB)</option>
               <option value="items">Collection / filtered list</option>
               <option value="latest">Recently added (library)</option>
               <option value="continue">Continue Watching &amp; Next Up</option>
@@ -277,7 +278,7 @@
       var rows = [];
       var sources = { libs: [], cols: [] };
       var LOGOS = ["AMC","Apple_TV","Columbia_Pictures","Disney+","DreamWorks_Animation","FX","HBO","HBO_Max","Hulu","Lucasfilm","Marvel_Studios","New_Line_Cinema","Paramount+_with_Showtime","Paramount_Pictures","Peacock","Pixar","Prime_Video","Showtime","Universal_Pictures","Walt_Disney_Pictures","Warner_Bros"];
-      var KINDS = { items: "Collection / filtered list", latest: "Recently added", continue: "Continue Watching & Next Up", studios: "Studio logos" };
+      var KINDS = { trending: "Trending this week (TMDB)", items: "Collection / filtered list", latest: "Recently added", continue: "Continue Watching & Next Up", studios: "Studio logos" };
       var SORTS = [["", "Server default (collection order)"], ["PremiereDate", "Release date"], ["DateCreated", "Date added"], ["SortName", "Name"], ["CommunityRating", "Rating"], ["ProductionYear", "Year"], ["DatePlayed", "Last played"], ["PlayCount", "Play count"], ["Random", "Random"]];
       var list = page.querySelector("#tbRowsList");
       var openId = null, dragFrom = -1;
@@ -302,6 +303,7 @@
       function body(r) {
         var h = '<div class="tbr-grid">';
         h += field("Title", text("title", r.title, "Row title"));
+        h += field("Type", select("type", Object.keys(KINDS).map(function (k) { return [k, KINDS[k]]; }), r.type));
         if (r.type !== "studios") {
           h += field("Card shape", select("shape", [["poster", "Poster"], ["thumb", "Wide (thumb)"], ["square", "Square"]], r.shape || (r.type === "continue" ? "thumb" : "poster")));
           h += field("How many", number("limit", r.limit || (r.type === "continue" ? 24 : 16), 1, 100));
@@ -317,6 +319,9 @@
           h += field("Library", select("parentId", sourceOptions(r, true), r.parentId || ""));
           h += field("Types (optional)", text("types", r.types, "e.g. Movie"));
         }
+        if (r.type === "trending") {
+          h += '<div class="tbr-f" style="grid-column:1/-1"><div class="tbr-hint">TMDB\'s "Trending - All - This Week" chart (movies + shows), in its order, only titles in your library. Updated every 12 hours (Scheduled Tasks: "Ushereats Theme: Trending This Week"). Needs the TMDB key below.</div></div>';
+        }
         if (r.type === "continue") {
           h += field("Films in progress (max)", number("resumeLimit", r.resumeLimit || 12, 0, 50));
           h += field("Next Up episodes (max)", number("nextUpLimit", r.nextUpLimit || 24, 0, 50));
@@ -325,6 +330,7 @@
         h += "</div><div>";
         if (r.type === "items") { h += check("released", r.released, "Only titles that are already out"); h += check("ranked", r.ranked, "Top 10 style (big numbers)"); h += check("shuffle", r.shuffle, "Random order"); }
         if (r.type === "latest") h += check("shuffle", r.shuffle, "Random order");
+        if (r.type === "trending") { h += check("released", r.released !== false, "Only titles that are already out"); h += check("ranked", r.ranked, "Top 10 style (big numbers)"); }
         if (r.type === "studios") h += check("shuffle", r.shuffle !== false, "Random order each visit");
         if (r.type !== "studios") h += check("hideTitle", r.hideTitle, "Hide the row title");
         h += "</div>";
@@ -368,6 +374,7 @@
           s[k] = el.value.trim();
           return;
         }
+        if (f === "type") { r.type = el.value; if (r.type === "trending") { delete r.parentId; delete r.sortBy; delete r.types; } render(); return; }
         if (el.type === "checkbox") r[f] = el.checked;
         else if (el.getAttribute("data-num")) { var n = parseInt(el.value, 10); if (n > 0) r[f] = n; }
         else { var v = el.value; if (v === "" && f !== "title") delete r[f]; else r[f] = f === "title" ? v : v.trim(); }
@@ -429,6 +436,7 @@
         if (type === "items") { r.title = "New row"; r.types = "Movie,Series"; r.shape = "poster"; r.limit = 16; }
         if (type === "latest") { r.title = "Recently Added"; r.shape = "poster"; r.limit = 16; }
         if (type === "continue") { r.shape = "thumb"; r.limit = 24; }
+        if (type === "trending") { r.title = "Trending This Week"; r.shape = "poster"; r.limit = 10; r.released = true; r.ranked = true; }
         if (type === "studios") { r.title = "Browse by Studio"; r.shuffle = true; r.items = []; }
         rows.push(r);
         openId = r.id;

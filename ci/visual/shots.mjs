@@ -29,7 +29,7 @@ const pages = [
 const report = { errors: {} };
 const browser = await chromium.launch();
 for (const [vw, vh, tag] of [[1920, 1080, "desktop"], [390, 844, "phone"]]) {
-  const ctx = await browser.newContext({ viewport: { width: vw, height: vh }, deviceScaleFactor: 1, isMobile: tag === "phone", hasTouch: tag === "phone" });
+  const ctx = await browser.newContext({ locale: "en-US", timezoneId: "Australia/Sydney", viewport: { width: vw, height: vh }, deviceScaleFactor: 1, isMobile: tag === "phone", hasTouch: tag === "phone" });
   await ctx.addInitScript(init(true));
   const page = await ctx.newPage();
   page.on("pageerror", (e) => (report.errors[tag] ||= []).push(String(e.message).slice(0, 300)));
@@ -65,7 +65,7 @@ for (const [vw, vh, tag] of [[1920, 1080, "desktop"], [390, 844, "phone"]]) {
   }
   await ctx.close();
 }
-const ctx = await browser.newContext({ viewport: { width: 1920, height: 1080 } });
+const ctx = await browser.newContext({ locale: "en-US", timezoneId: "Australia/Sydney", viewport: { width: 1920, height: 1080 } });
 await ctx.addInitScript(init(false));
 const page = await ctx.newPage();
 await page.goto(s.server + "/web/index.html#/login", { waitUntil: "load" });

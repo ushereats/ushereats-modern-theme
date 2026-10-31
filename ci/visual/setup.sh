@@ -103,6 +103,10 @@ for r in rows:
 c['HomeRowsJson']=json.dumps(rows)
 c['AccentColor']='#46dcff'
 c['WelcomeSplash']=False
+c['AmbientBackground']=False          # random colour per page: not comparable between runs
+for r in rows:
+    r['shuffle']=False                # same order every run
+c['HomeRowsJson']=json.dumps(rows)
 print(json.dumps(c))")
 api POST "/Plugins/$PID/Configuration" "$NEWCFG" >/dev/null
 sudo systemctl restart jellyfin; sleep 2; start

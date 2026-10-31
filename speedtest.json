@@ -1,0 +1,4469 @@
+{
+ "tool": "Ushereats Theme speed test",
+ "when": "2026-10-31T09:56:39.952Z",
+ "url": "http://localhost:8096",
+ "device": {
+  "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/131.0.6778.33 Safari/537.36",
+  "cores": 4,
+  "memoryGb": 8,
+  "net": "4g 10Mbps rtt 0",
+  "screen": "1920x1080@1",
+  "window": "1920x1080"
+ },
+ "state": {
+  "server": {
+   "version": "12.4.0",
+   "os": "",
+   "arch": "X64",
+   "hasPendingRestart": false
+  },
+  "plugins": [
+   "AudioDB 12.4.0.0",
+   "File Transformation 3.0.3.0",
+   "ListenBrainz Similarity Provider 12.4.0.0",
+   "MusicBrainz 12.4.0.0",
+   "OMDb 12.4.0.0",
+   "Studio Images 12.4.0.0",
+   "TMDb 12.4.0.0",
+   "Ushereats Theme 1.0.0.0"
+  ],
+  "tasksRunning": [],
+  "playing": []
+ },
+ "serverRequests": [
+  {
+   "name": "ping",
+   "ms": 8,
+   "min": 7,
+   "max": 12,
+   "kb": 0,
+   "status": 200,
+   "gzip": "br",
+   "cache": "",
+   "cf": ""
+  },
+  {
+   "name": "server info",
+   "ms": 6,
+   "min": 4,
+   "max": 6,
+   "kb": 0,
+   "status": 200,
+   "gzip": "br",
+   "cache": "",
+   "cf": ""
+  },
+  {
+   "name": "me (user)",
+   "ms": 10,
+   "min": 10,
+   "max": 16,
+   "kb": 2,
+   "status": 200,
+   "gzip": "br",
+   "cache": "",
+   "cf": ""
+  },
+  {
+   "name": "libraries",
+   "ms": 24,
+   "min": 21,
+   "max": 24,
+   "kb": 3,
+   "status": 200,
+   "gzip": "br",
+   "cache": "",
+   "cf": ""
+  },
+  {
+   "name": "continue watching",
+   "ms": 37,
+   "min": 35,
+   "max": 95,
+   "kb": 6,
+   "status": 200,
+   "gzip": "br",
+   "cache": "",
+   "cf": ""
+  },
+  {
+   "name": "next up",
+   "ms": 14,
+   "min": 14,
+   "max": 28,
+   "kb": 4,
+   "status": 200,
+   "gzip": "br",
+   "cache": "",
+   "cf": ""
+  },
+  {
+   "name": "latest",
+   "ms": 18,
+   "min": 14,
+   "max": 34,
+   "kb": 5,
+   "status": 200,
+   "gzip": "br",
+   "cache": "",
+   "cf": ""
+  },
+  {
+   "name": "movies list (100)",
+   "ms": 26,
+   "min": 22,
+   "max": 60,
+   "kb": 14,
+   "status": 200,
+   "gzip": "br",
+   "cache": "",
+   "cf": ""
+  },
+  {
+   "name": "item counts",
+   "ms": 14,
+   "min": 13,
+   "max": 26,
+   "kb": 0,
+   "status": 200,
+   "gzip": "br",
+   "cache": "",
+   "cf": ""
+  },
+  {
+   "name": "search 'the'",
+   "ms": 32,
+   "min": 23,
+   "max": 61,
+   "kb": 3,
+   "status": 200,
+   "gzip": "br",
+   "cache": "",
+   "cf": ""
+  },
+  {
+   "name": "trending (plugin)",
+   "ms": 5,
+   "min": 5,
+   "max": 5,
+   "kb": 0,
+   "status": 200,
+   "gzip": "br",
+   "cache": "no-cache",
+   "cf": ""
+  },
+  {
+   "name": "sessions",
+   "ms": 11,
+   "min": 10,
+   "max": 13,
+   "kb": 3,
+   "status": 200,
+   "gzip": "br",
+   "cache": "",
+   "cf": ""
+  },
+  {
+   "name": "theme.css",
+   "ms": 8,
+   "min": 6,
+   "max": 880,
+   "kb": 187,
+   "status": 200,
+   "gzip": "br",
+   "cache": "public, max-age=31536000, immutable",
+   "cf": ""
+  },
+  {
+   "name": "theme.js",
+   "ms": 9,
+   "min": 8,
+   "max": 10,
+   "kb": 216,
+   "status": 200,
+   "gzip": "br",
+   "cache": "public, max-age=31536000, immutable",
+   "cf": ""
+  },
+  {
+   "name": "index.html",
+   "ms": 4,
+   "min": 3,
+   "max": 4,
+   "kb": 21,
+   "status": 200,
+   "gzip": "",
+   "cache": "no-cache",
+   "cf": ""
+  },
+  {
+   "name": "item details",
+   "ms": 22,
+   "min": 19,
+   "max": 23,
+   "kb": 5,
+   "status": 200,
+   "gzip": "br",
+   "cache": "",
+   "cf": ""
+  },
+  {
+   "name": "poster image (400px)",
+   "ms": 8,
+   "min": 7,
+   "max": 36,
+   "kb": 13,
+   "status": 200,
+   "gzip": "",
+   "cache": "public, max-age=31536000, immutable",
+   "cf": ""
+  },
+  {
+   "name": "backdrop image (1920px)",
+   "ms": 11,
+   "min": 8,
+   "max": 64,
+   "kb": 87,
+   "status": 200,
+   "gzip": "",
+   "cache": "public, max-age=31536000, immutable",
+   "cf": ""
+  },
+  {
+   "name": "logo, no size asked (like the details page)",
+   "ms": 8,
+   "min": 8,
+   "max": 38,
+   "kb": 13,
+   "status": 200,
+   "gzip": "",
+   "cache": "public, max-age=31536000, immutable",
+   "cf": "",
+   "logoSized": "sized"
+  },
+  {
+   "name": "similar",
+   "ms": 31,
+   "min": 22,
+   "max": 34,
+   "kb": 13,
+   "status": 200,
+   "gzip": "br",
+   "cache": "",
+   "cf": ""
+  }
+ ],
+ "everyPageLoads": {
+  "kb": 21,
+  "tags": [
+   {
+    "tag": "style",
+    "src": "(inline)",
+    "owner": "inline",
+    "inlineKb": 1
+   },
+   {
+    "tag": "script",
+    "src": "runtime.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.%40jellyfin.sdk.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.%40mui.material.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.%40mui.icons-material.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.%40mui.system.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.%40mui.utils.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.lodash-es.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.%40tanstack.query-core.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.%40tanstack.react-query.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.date-fns.esm.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.react-transition-group.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.core-js.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.%40popperjs.core.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.axios.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.react-dom.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.jquery.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.webcomponents.js.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.resize-observer-polyfill.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.regenerator-runtime.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.jellyfin-apiclient.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.intersection-observer.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.history.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.dompurify.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.react-router.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.react-router-dom.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.%40remix-run.router.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "node_modules.abortcontroller-polyfill.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "1133.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "main.jellyfin.bundle.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "script",
+    "src": "serviceworker.js?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app",
+    "defer": true
+   },
+   {
+    "tag": "link[stylesheet]",
+    "src": "1133.03edf3bb7ee048ee10be.css?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app"
+   },
+   {
+    "tag": "link[stylesheet]",
+    "src": "main.jellyfin.d0fe7ebed50c35511f89.css?d66e3c0638b9381c83a7",
+    "owner": "Jellyfin web app"
+   },
+   {
+    "tag": "link[preload]",
+    "src": "../UshereatsTheme/font/funnel-latin.woff2?v=facb95512f07",
+    "owner": "Ushereats Theme"
+   },
+   {
+    "tag": "link[preload]",
+    "src": "../UshereatsTheme/font/bebas-latin.woff2?v=facb95512f07",
+    "owner": "Ushereats Theme"
+   },
+   {
+    "tag": "style",
+    "src": "(inline)",
+    "owner": "inline",
+    "inlineKb": 1
+   },
+   {
+    "tag": "style",
+    "src": "(inline)",
+    "owner": "inline",
+    "inlineKb": 0
+   },
+   {
+    "tag": "script",
+    "src": "(inline)",
+    "owner": "inline",
+    "inlineKb": 1
+   },
+   {
+    "tag": "script",
+    "src": "(inline)",
+    "owner": "inline",
+    "inlineKb": 1
+   },
+   {
+    "tag": "style",
+    "src": "(inline)",
+    "owner": "inline",
+    "inlineKb": 0
+   },
+   {
+    "tag": "script",
+    "src": "(inline)",
+    "owner": "inline",
+    "inlineKb": 0
+   },
+   {
+    "tag": "style",
+    "src": "(inline)",
+    "owner": "inline",
+    "inlineKb": 1
+   },
+   {
+    "tag": "script",
+    "src": "(inline)",
+    "owner": "inline",
+    "inlineKb": 1
+   },
+   {
+    "tag": "script",
+    "src": "(inline)",
+    "owner": "inline",
+    "inlineKb": 3
+   },
+   {
+    "tag": "style",
+    "src": "(inline)",
+    "owner": "inline",
+    "inlineKb": 0
+   },
+   {
+    "tag": "script",
+    "src": "(inline)",
+    "owner": "inline",
+    "inlineKb": 7
+   },
+   {
+    "tag": "link[stylesheet]",
+    "src": "../UshereatsTheme/theme.css?v=df073e71082e",
+    "owner": "Ushereats Theme"
+   },
+   {
+    "tag": "script",
+    "src": "../UshereatsTheme/theme.js?v=df073e71082e",
+    "owner": "Ushereats Theme",
+    "defer": true
+   }
+  ]
+ },
+ "pages": [
+  {
+   "ready": {
+    "header": 396,
+    "avatar": 396,
+    "banner": 702,
+    "rows": 702,
+    "library": 702,
+    "firstPoster": 837,
+    "badges": 946
+   },
+   "settledMs": 1080,
+   "addedRemoved": 255,
+   "styleChanges": 918,
+   "busiest": [
+    "91x childList head",
+    "72x attributes html.tb-rows.layout-desktop [style]",
+    "57x attributes button [data-sleekfin-header-overflowed]",
+    "46x attributes button.MuiButtonBase-root.MuiIconButton-root [style]",
+    "44x attributes button [data-sleekfin-current]",
+    "36x attributes html.tb-rows.layout-desktop [class]",
+    "36x attributes div.emby-scrollbuttons.padded-right [style]",
+    "32x childList div.cardScalable"
+   ],
+   "stillChanging": [
+    "91x head",
+    "32x div.cardScalable",
+    "32x div.tb-quality",
+    "16x div.cardBox",
+    "16x div.release-date-badge",
+    "9x body"
+   ],
+   "addedToHead": [
+    "2x style[emotion]",
+    "1x script playAccessValidation-plugin.4bb58f8d0bccba4cc775.chunk.js",
+    "1x script experimentalWarnings-plugin.6570756915b50aa277bc.chunk.js",
+    "1x script htmlAudioPlayer-plugin.561e4ddec4927f9c3017.chunk.js",
+    "1x script htmlVideoPlayer-plugin.02b37b7cfd0e06696bd1.chunk.js",
+    "1x script photoPlayer-plugin.37a4fa4172674b436174.chunk.js"
+   ],
+   "timedOut": false,
+   "page": "home (fresh open)",
+   "perf": {
+    "load": {
+     "ttfb": 3,
+     "domReady": 216,
+     "loaded": 247,
+     "protocol": "http/1.1"
+    },
+    "fp": 366,
+    "fcp": 555,
+    "requests": 169,
+    "downloadedKb": 119,
+    "byOwner": {
+     "Jellyfin web app": {
+      "files": 99,
+      "kb": 1813,
+      "slowestMs": 5
+     },
+     "Ushereats Theme": {
+      "files": 23,
+      "kb": 242,
+      "slowestMs": 78
+     },
+     "images": {
+      "files": 16,
+      "kb": 333,
+      "slowestMs": 81
+     },
+     "Jellyfin API": {
+      "files": 20,
+      "kb": 41,
+      "slowestMs": 103
+     },
+     "plugin/other: /UserItems": {
+      "files": 1,
+      "kb": 1,
+      "slowestMs": 89
+     },
+     "Jellyfin web files": {
+      "files": 7,
+      "kb": 171,
+      "slowestMs": 2
+     },
+     "external: i.imgur.com": {
+      "files": 1,
+      "kb": 0,
+      "slowestMs": 0
+     },
+     "external: www.gstatic.com": {
+      "files": 1,
+      "kb": 0,
+      "slowestMs": 0
+     },
+     "plugin/other: /SyncPlay": {
+      "files": 1,
+      "kb": 0,
+      "slowestMs": 51
+     }
+    },
+    "slowest": [
+     {
+      "ms": 103,
+      "wait": 25,
+      "kb": 2,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Items/Latest?userId=5ed45b5d7d2d4e32a83b7b5929919d18&Limit=16&ParentId=a656b907eb3a73532e40e44b968d0225&Fields=PrimaryImageAspectRatio&ImageTypeLimit=1&EnableI"
+     },
+     {
+      "ms": 91,
+      "wait": 87,
+      "kb": 6,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Items/Latest?userId=5ed45b5d7d2d4e32a83b7b5929919d18&Limit=16&ParentId=f137a2dd21bbc1b99aa5c0f6bf02a805&Fields=PrimaryImageAspectRatio&ImageTypeLimit=1&EnableI"
+     },
+     {
+      "ms": 89,
+      "wait": 84,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "plugin/other: /UserItems",
+      "url": "/UserItems/Resume?userId=5ed45b5d7d2d4e32a83b7b5929919d18&MediaTypes=Video&IncludeItemTypes=Movie&Limit=12&Fields=PrimaryImageAspectRatio&ImageTypeLimit=1&Enabl"
+     },
+     {
+      "ms": 86,
+      "wait": 82,
+      "kb": 8,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Items?userId=5ed45b5d7d2d4e32a83b7b5929919d18&Recursive=true&Limit=16&IncludeItemTypes=Movie%2CSeries&SortBy=PremiereDate&SortOrder=Descending&MaxPremiereDate="
+     },
+     {
+      "ms": 81,
+      "wait": 78,
+      "kb": 4,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Items?UserId=5ed45b5d7d2d4e32a83b7b5929919d18&IncludeItemTypes=Movie,Series&Recursive=true&SortBy=PremiereDate,SortName&SortOrder=Descending&Limit=10&Fields=Ov"
+     },
+     {
+      "ms": 81,
+      "wait": 0,
+      "kb": 7,
+      "cached": true,
+      "type": "link",
+      "who": "images",
+      "url": "/Items/532432f63066dc00899d003ab1e6e90c/Images/Logo?tag=f4b6d94f55a1874571dc36f0516cc087&maxHeight=140&quality=90"
+     },
+     {
+      "ms": 78,
+      "wait": 74,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Ushereats Theme",
+      "url": "/UshereatsTheme/trending"
+     },
+     {
+      "ms": 78,
+      "wait": 73,
+      "kb": 2,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Shows/NextUp?userId=5ed45b5d7d2d4e32a83b7b5929919d18&Limit=24&EnableResumable=true&EnableRewatching=false&Fields=PrimaryImageAspectRatio&ImageTypeLimit=1&Enabl"
+     },
+     {
+      "ms": 51,
+      "wait": 46,
+      "kb": 0,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "plugin/other: /SyncPlay",
+      "url": "/SyncPlay/List"
+     },
+     {
+      "ms": 35,
+      "wait": 33,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18"
+     },
+     {
+      "ms": 33,
+      "wait": 31,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Sessions/Capabilities/Full"
+     },
+     {
+      "ms": 27,
+      "wait": 24,
+      "kb": 1,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/System/Info"
+     }
+    ],
+    "lcp": 822
+   },
+   "layoutShift": 0.042,
+   "jumps": [
+    {
+     "at": 836,
+     "value": 0.042,
+     "what": [
+      "div.MuiBox-root.css-2uchni",
+      "#indexPage.page.mainAnimatedPage.homePage"
+     ]
+    }
+   ],
+   "longTasks": {
+    "count": 3,
+    "totalMs": 273,
+    "worstMs": 123
+   }
+  },
+  {
+   "ready": {
+    "header": 67,
+    "avatar": 67,
+    "rows": 67,
+    "firstPoster": 67,
+    "badges": 67,
+    "library": 67
+   },
+   "settledMs": 252,
+   "addedRemoved": 55,
+   "styleChanges": 449,
+   "busiest": [
+    "68x attributes div.itemsContainer.scrollSlider [style]",
+    "68x attributes button.emby-scrollbuttons-button.paper-icon-button-light [class]",
+    "34x attributes div.itemsContainer.scrollSlider [class]",
+    "34x attributes div.verticalSection.hide [class]",
+    "34x attributes button.emby-scrollbuttons-button.paper-icon-button-light [is]",
+    "17x attributes a.more.button-flat [is]",
+    "17x attributes a.more.button-flat [class]",
+    "17x attributes div.padded-top-focusscale.padded-bottom-focusscale [is]"
+   ],
+   "stillChanging": [
+    "17x div.verticalSection.hide",
+    "17x div.emby-scrollbuttons.padded-right",
+    "16x div.cardScalable",
+    "3x head",
+    "1x title",
+    "1x div.sections"
+   ],
+   "addedToHead": [
+    "1x link[stylesheet] favorites.fe3da754ca151eace417.css",
+    "1x script favorites.a085188fd1c7a59cf41b.chunk.js"
+   ],
+   "timedOut": false,
+   "page": "header: Favorites",
+   "perf": {
+    "requests": 19,
+    "downloadedKb": 8,
+    "byOwner": {
+     "Jellyfin web app": {
+      "files": 2,
+      "kb": 8,
+      "slowestMs": 4
+     },
+     "Jellyfin API": {
+      "files": 16,
+      "kb": 0,
+      "slowestMs": 295
+     },
+     "plugin/other: /Artists": {
+      "files": 1,
+      "kb": 0,
+      "slowestMs": 280
+     }
+    },
+    "slowest": [
+     {
+      "ms": 295,
+      "wait": 92,
+      "kb": 0,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Studios?limit=20&fields=PrimaryImageAspectRatio&isFavorite=true&enableImageTypes=Thumb&userId=5ed45b5d7d2d4e32a83b7b5929919d18&enableTotalRecordCount=false"
+     },
+     {
+      "ms": 280,
+      "wait": 156,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "plugin/other: /Artists",
+      "url": "/Artists?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields=PrimaryImageAspectRatio&CollapseBoxSetItems=false&Exclude"
+     },
+     {
+      "ms": 265,
+      "wait": 66,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields=PrimaryImageAspectRa"
+     },
+     {
+      "ms": 264,
+      "wait": 66,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields=PrimaryImageAspectRa"
+     },
+     {
+      "ms": 261,
+      "wait": 60,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields=PrimaryImageAspectRa"
+     },
+     {
+      "ms": 221,
+      "wait": 117,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields=PrimaryImageAspectRa"
+     },
+     {
+      "ms": 214,
+      "wait": 109,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields=PrimaryImageAspectRa"
+     },
+     {
+      "ms": 203,
+      "wait": 28,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields=PrimaryImageAspectRa"
+     },
+     {
+      "ms": 202,
+      "wait": 77,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields=PrimaryImageAspectRa"
+     },
+     {
+      "ms": 202,
+      "wait": 78,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields=PrimaryImageAspectRa"
+     },
+     {
+      "ms": 177,
+      "wait": 52,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Persons?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields=PrimaryImageAspectRatio&CollapseBoxSetItems=false&Exclude"
+     },
+     {
+      "ms": 126,
+      "wait": 125,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields=PrimaryImageAspectRa"
+     }
+    ]
+   },
+   "layoutShift": 0.042,
+   "jumps": [
+    {
+     "at": 65,
+     "value": 0.042,
+     "what": [
+      "#indexPage.page.mainAnimatedPage.homePage"
+     ]
+    }
+   ],
+   "longTasks": {
+    "count": 1,
+    "totalMs": 64,
+    "worstMs": 64
+   }
+  },
+  {
+   "ready": {
+    "header": 145,
+    "avatar": 145,
+    "library": 145
+   },
+   "settledMs": 487,
+   "addedRemoved": 136,
+   "styleChanges": 239,
+   "busiest": [
+    "48x childList div",
+    "36x attributes div.cardText.cardTextCentered [class]",
+    "36x childList div.cardText.cardText-secondary",
+    "28x attributes button [data-sleekfin-current]",
+    "28x attributes button [data-sleekfin-header-overflowed]",
+    "24x attributes img [style]",
+    "24x attributes div.cardText.cardText-secondary [class]",
+    "23x attributes div.padded-top-focusscale.padded-bottom-focusscale [data-scroll-mode-x]"
+   ],
+   "stillChanging": [
+    "48x div",
+    "36x div.cardText.cardText-secondary",
+    "13x div.cardScalable",
+    "12x div.tb-quality",
+    "12x div.cardBox.cardBox-bottompadded",
+    "5x head"
+   ],
+   "timedOut": false,
+   "page": "header: Movies",
+   "perf": {
+    "requests": 21,
+    "downloadedKb": 44,
+    "byOwner": {
+     "Jellyfin web app": {
+      "files": 6,
+      "kb": 66,
+      "slowestMs": 7
+     },
+     "Jellyfin API": {
+      "files": 1,
+      "kb": 3,
+      "slowestMs": 22
+     },
+     "images": {
+      "files": 14,
+      "kb": 134,
+      "slowestMs": 171
+     }
+    },
+    "slowest": [
+     {
+      "ms": 171,
+      "wait": 167,
+      "kb": 31,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/c3b74d7ec89654788a1af18f18cc54cc/Images/Backdrop/0?tag=f447359fe915bfc34e89542c802962a6&maxWidth=1920&quality=80"
+     },
+     {
+      "ms": 22,
+      "wait": 21,
+      "kb": 3,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items/c3b74d7ec89654788a1af18f18cc54cc"
+     },
+     {
+      "ms": 18,
+      "wait": 14,
+      "kb": 10,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/c3b74d7ec89654788a1af18f18cc54cc/Images/Logo?tag=5438e1c5d445f9e1e5d47e629fb2e962&quality=90"
+     },
+     {
+      "ms": 7,
+      "wait": 0,
+      "kb": 40,
+      "cached": true,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/52197.81b1a087776448f650cf.chunk.js"
+     },
+     {
+      "ms": 7,
+      "wait": 0,
+      "kb": 5,
+      "cached": true,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/85401.7a16f94bd4b18fe0ff55.chunk.js"
+     },
+     {
+      "ms": 6,
+      "wait": 0,
+      "kb": 9,
+      "cached": true,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/14553.6ddb0da23f2698557d33.chunk.js"
+     },
+     {
+      "ms": 6,
+      "wait": 1,
+      "kb": 0,
+      "cached": true,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/movies.32e97d454918a7540467.chunk.js"
+     },
+     {
+      "ms": 6,
+      "wait": 0,
+      "kb": 4,
+      "cached": true,
+      "type": "link",
+      "who": "Jellyfin web app",
+      "url": "/web/movies.6b7ab6a1096d9e9f9f51.css"
+     },
+     {
+      "ms": 5,
+      "wait": 0,
+      "kb": 8,
+      "cached": true,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/6f225e4936f38baaa7f572cadb22260f/Images/Primary?fillHeight=320&fillWidth=213&quality=96&tag=173ae1fc3a83f07d2c558300da597197"
+     },
+     {
+      "ms": 5,
+      "wait": 0,
+      "kb": 7,
+      "cached": true,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/ad42af0b48fec94e92fd483535db6ea8/Images/Primary?fillHeight=320&fillWidth=213&quality=96&tag=6cdf2a713f1d97c9ceb70d8be752c537"
+     },
+     {
+      "ms": 5,
+      "wait": 0,
+      "kb": 8,
+      "cached": true,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/532432f63066dc00899d003ab1e6e90c/Images/Primary?fillHeight=320&fillWidth=213&quality=96&tag=25dad55ebf49de6a180dcf2324bc7a46"
+     },
+     {
+      "ms": 5,
+      "wait": 0,
+      "kb": 6,
+      "cached": true,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/d7370aca459f559d6c055fd3f4537ec5/Images/Primary?fillHeight=320&fillWidth=213&quality=96&tag=9d55fc9e889e43d7170901577be2ad7c"
+     }
+    ]
+   },
+   "layoutShift": 0.023,
+   "jumps": [
+    {
+     "at": 286,
+     "value": 0.023,
+     "what": [
+      "#moviesPage.page.mainAnimatedPage.libraryPage"
+     ]
+    }
+   ],
+   "longTasks": {
+    "count": 1,
+    "totalMs": 96,
+    "worstMs": 96
+   }
+  },
+  {
+   "ready": {
+    "header": 82,
+    "avatar": 82,
+    "library": 269
+   },
+   "settledMs": 672,
+   "addedRemoved": 58,
+   "styleChanges": 158,
+   "busiest": [
+    "28x attributes button [data-sleekfin-current]",
+    "28x attributes button [data-sleekfin-header-overflowed]",
+    "22x attributes html.tb-rows.layout-desktop [class]",
+    "16x childList div",
+    "12x attributes div.cardText.cardTextCentered [class]",
+    "12x childList div.cardText.cardText-secondary",
+    "8x attributes img [style]",
+    "8x attributes div.cardText.cardText-secondary [class]"
+   ],
+   "stillChanging": [
+    "16x div",
+    "12x div.cardText.cardText-secondary",
+    "7x ul.MuiList-root.MuiList-padding",
+    "5x div.cardScalable",
+    "4x div.tb-quality",
+    "4x div.cardBox.cardBox-bottompadded"
+   ],
+   "timedOut": false,
+   "page": "header: Shows",
+   "perf": {
+    "requests": 18,
+    "downloadedKb": 5709,
+    "byOwner": {
+     "Jellyfin web app": {
+      "files": 2,
+      "kb": 4,
+      "slowestMs": 3
+     },
+     "Jellyfin API": {
+      "files": 10,
+      "kb": 5637,
+      "slowestMs": 132
+     },
+     "images": {
+      "files": 6,
+      "kb": 68,
+      "slowestMs": 155
+     }
+    },
+    "slowest": [
+     {
+      "ms": 155,
+      "wait": 154,
+      "kb": 29,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/c33ae65a7244565f33d3ef0100f65888/Images/Backdrop/0?tag=4a964508836a99c5ce79a0729671c6f2&maxWidth=1920&quality=80"
+     },
+     {
+      "ms": 132,
+      "wait": 126,
+      "kb": 2,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Items?userId=5ed45b5d7d2d4e32a83b7b5929919d18&startIndex=0&limit=100&recursive=true&sortOrder=Ascending&parentId=a656b907eb3a73532e40e44b968d0225&fields=MediaS"
+     },
+     {
+      "ms": 126,
+      "wait": 119,
+      "kb": 0,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Studios?parentId=a656b907eb3a73532e40e44b968d0225&fields=DateCreated&fields=PrimaryImageAspectRatio&includeItemTypes=Series&enableImageTypes=Thumb&userId=5ed45"
+     },
+     {
+      "ms": 95,
+      "wait": 87,
+      "kb": 7,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/75d32c2d360d4f28ba04d79015b1ecc4/Images/Primary?fillHeight=320&fillWidth=213&quality=96&tag=c9e36ae627a5f2872662cf2eaa656c6a"
+     },
+     {
+      "ms": 94,
+      "wait": 85,
+      "kb": 8,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/c33ae65a7244565f33d3ef0100f65888/Images/Primary?fillHeight=320&fillWidth=213&quality=96&tag=ca8cc3da2d59ca01cf9ed41f5f228aad"
+     },
+     {
+      "ms": 94,
+      "wait": 84,
+      "kb": 9,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/5171c7a6950f550b9b0de561fea6d6b7/Images/Primary?fillHeight=320&fillWidth=213&quality=96&tag=315f79dbe6193dd4f6b62fb857af419c"
+     },
+     {
+      "ms": 93,
+      "wait": 87,
+      "kb": 0,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Items/Filters2?userId=5ed45b5d7d2d4e32a83b7b5929919d18&parentId=a656b907eb3a73532e40e44b968d0225&includeItemTypes=Series"
+     },
+     {
+      "ms": 69,
+      "wait": 63,
+      "kb": 0,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Items/Filters?userId=5ed45b5d7d2d4e32a83b7b5929919d18&parentId=a656b907eb3a73532e40e44b968d0225&includeItemTypes=Series"
+     },
+     {
+      "ms": 69,
+      "wait": 63,
+      "kb": 8,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/78f6eef4587e3881330fa2f083085523/Images/Primary?fillHeight=320&fillWidth=213&quality=96&tag=3e5402143ba0dda1785ecdcb25561f37"
+     },
+     {
+      "ms": 62,
+      "wait": 57,
+      "kb": 1,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Items/a656b907eb3a73532e40e44b968d0225?userId=5ed45b5d7d2d4e32a83b7b5929919d18"
+     },
+     {
+      "ms": 48,
+      "wait": 13,
+      "kb": 4096,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Playback/BitrateTest?Size=3000000"
+     },
+     {
+      "ms": 33,
+      "wait": 31,
+      "kb": 0,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/System/Endpoint"
+     }
+    ]
+   },
+   "layoutShift": 0,
+   "jumps": [
+    {
+     "at": 81,
+     "value": 0,
+     "what": [
+      "svg",
+      "div.MuiBox-root.css-63irmi",
+      "div.MuiStack-root.css-174l32b"
+     ]
+    }
+   ],
+   "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "worstMs": 0
+   }
+  },
+  {
+   "ready": {
+    "header": 77,
+    "avatar": 77
+   },
+   "settledMs": 115,
+   "addedRemoved": 13,
+   "styleChanges": 71,
+   "busiest": [
+    "14x attributes button [data-sleekfin-current]",
+    "14x attributes button [data-sleekfin-header-overflowed]",
+    "10x attributes html.tb-rows.layout-desktop [class]",
+    "5x attributes a.navMenuOption.lnkMediaFolder [class]",
+    "4x childList head",
+    "2x childList div.skinBody",
+    "2x attributes button.smart-search-btn.emby-button [class]",
+    "2x attributes h3.pageTitle [class]"
+   ],
+   "stillChanging": [
+    "4x head",
+    "2x div.skinBody",
+    "1x body.libraryDocument.withSectionTabs",
+    "1x header.MuiPaper-root.MuiPaper-elevation",
+    "1x div.padded-left.padded-right",
+    "1x #searchPage.page.mainAnimatedPage"
+   ],
+   "addedToHead": [
+    "1x link[stylesheet] 47472.ead193e1e4096120377c.css",
+    "1x script 47472.73de9f0f9c4dd7c901a4.chunk.js"
+   ],
+   "timedOut": false,
+   "page": "header: Search",
+   "perf": {
+    "requests": 5,
+    "downloadedKb": 1,
+    "byOwner": {
+     "Jellyfin web app": {
+      "files": 4,
+      "kb": 20,
+      "slowestMs": 1
+     },
+     "Jellyfin API": {
+      "files": 1,
+      "kb": 1,
+      "slowestMs": 29
+     }
+    },
+    "slowest": [
+     {
+      "ms": 29,
+      "wait": 24,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Views"
+     },
+     {
+      "ms": 1,
+      "wait": 0,
+      "kb": 15,
+      "cached": true,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/search.fff94098d1f437e7b84d.chunk.js"
+     },
+     {
+      "ms": 1,
+      "wait": 0,
+      "kb": 2,
+      "cached": true,
+      "type": "link",
+      "who": "Jellyfin web app",
+      "url": "/web/search.d8744ed84b1a641aee12.css"
+     },
+     {
+      "ms": 0,
+      "wait": 0,
+      "kb": 0,
+      "cached": true,
+      "type": "link",
+      "who": "Jellyfin web app",
+      "url": "/web/47472.ead193e1e4096120377c.css"
+     },
+     {
+      "ms": 0,
+      "wait": 0,
+      "kb": 3,
+      "cached": true,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/47472.73de9f0f9c4dd7c901a4.chunk.js"
+     }
+    ]
+   },
+   "layoutShift": 0.023,
+   "jumps": [
+    {
+     "at": 194,
+     "value": 0.023,
+     "what": [
+      "#searchPage.page.mainAnimatedPage.libraryPage"
+     ]
+    }
+   ],
+   "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "worstMs": 0
+   }
+  },
+  {
+   "ready": {
+    "header": 104,
+    "avatar": 104,
+    "library": 104
+   },
+   "settledMs": 356,
+   "addedRemoved": 129,
+   "styleChanges": 211,
+   "busiest": [
+    "48x childList div",
+    "36x attributes div.cardText.cardTextCentered [class]",
+    "36x childList div.cardText.cardText-secondary",
+    "28x attributes button [data-sleekfin-current]",
+    "28x attributes button [data-sleekfin-header-overflowed]",
+    "24x attributes img [style]",
+    "24x attributes div.cardText.cardText-secondary [class]",
+    "14x attributes html.tb-rows.layout-desktop [class]"
+   ],
+   "stillChanging": [
+    "48x div",
+    "36x div.cardText.cardText-secondary",
+    "13x div.cardScalable",
+    "12x div.tb-quality",
+    "12x div.cardBox.cardBox-bottompadded",
+    "2x div.skinBody"
+   ],
+   "timedOut": false,
+   "page": "library: Movies (movies)",
+   "perf": {
+    "requests": 1,
+    "downloadedKb": 1,
+    "byOwner": {
+     "Jellyfin API": {
+      "files": 1,
+      "kb": 1,
+      "slowestMs": 18
+     }
+    },
+    "slowest": [
+     {
+      "ms": 18,
+      "wait": 16,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18"
+     }
+    ]
+   },
+   "layoutShift": 0.023,
+   "jumps": [
+    {
+     "at": 154,
+     "value": 0.023,
+     "what": [
+      "#moviesPage.page.mainAnimatedPage.libraryPage"
+     ]
+    }
+   ],
+   "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "worstMs": 0
+   }
+  },
+  {
+   "ready": {
+    "header": 81,
+    "avatar": 81,
+    "library": 81
+   },
+   "settledMs": 386,
+   "addedRemoved": 54,
+   "styleChanges": 133,
+   "busiest": [
+    "28x attributes button [data-sleekfin-current]",
+    "28x attributes button [data-sleekfin-header-overflowed]",
+    "16x childList div",
+    "14x attributes html.tb-rows.layout-desktop [class]",
+    "12x attributes div.cardText.cardTextCentered [class]",
+    "12x childList div.cardText.cardText-secondary",
+    "8x attributes img [style]",
+    "8x attributes div.cardText.cardText-secondary [class]"
+   ],
+   "stillChanging": [
+    "16x div",
+    "12x div.cardText.cardText-secondary",
+    "7x ul.MuiList-root.MuiList-padding",
+    "5x div.cardScalable",
+    "4x div.tb-quality",
+    "4x div.cardBox.cardBox-bottompadded"
+   ],
+   "timedOut": false,
+   "page": "library: Shows (tvshows)",
+   "perf": {
+    "requests": 0,
+    "downloadedKb": 0,
+    "byOwner": {},
+    "slowest": []
+   },
+   "layoutShift": 0,
+   "jumps": [
+    {
+     "at": 47,
+     "value": 0,
+     "what": [
+      "svg",
+      "div.MuiBox-root.css-63irmi",
+      "div.MuiStack-root.css-174l32b"
+     ]
+    }
+   ],
+   "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "worstMs": 0
+   }
+  },
+  {
+   "ready": {
+    "header": 97,
+    "avatar": 97,
+    "library": 206,
+    "firstPoster": 555,
+    "details": 626
+   },
+   "settledMs": 575,
+   "addedRemoved": 255,
+   "styleChanges": 1050,
+   "busiest": [
+    "89x attributes #itemDetailPage.page.libraryPage [style]",
+    "66x attributes button.cardOverlayButton.cardOverlayButton-hover [class]",
+    "55x childList div.sleekfin-details-similar-meta.sleekfin-meta",
+    "44x attributes button.emby-scrollbuttons-button.paper-icon-button-light [class]",
+    "44x attributes button.cardOverlayButton.cardOverlayButton-hover [is]",
+    "44x attributes span.material-icons.cardOverlayButtonIcon [class]",
+    "41x attributes a.cardImageContainer.coveredImage [class]",
+    "35x attributes html.tb-rows.layout-desktop [class]"
+   ],
+   "stillChanging": [
+    "55x div.sleekfin-details-similar-meta.sleekfin-meta",
+    "24x div.cardScalable",
+    "15x head",
+    "11x div.tb-quality",
+    "11x div.cardBox.cardBox-bottompadded",
+    "10x div.emby-scrollbuttons.padded-right"
+   ],
+   "addedToHead": [
+    "1x script node_modules.markdown-it.577ee674061f4f85a169.chunk.js",
+    "1x script node_modules.entities.de723355ea92068aa757.chunk.js",
+    "1x script node_modules.linkify-it.266387235d0d805c1962.chunk.js",
+    "1x script 70712.9c36c0bc25d212f7dfd1.chunk.js",
+    "1x script 6940.f9e479afc2ca4df4354f.chunk.js",
+    "1x link[stylesheet] itemDetails.c8609767f06ba1b9d6a9.css"
+   ],
+   "timedOut": false,
+   "page": "movie: Winter Orchard",
+   "perf": {
+    "requests": 33,
+    "downloadedKb": 28,
+    "byOwner": {
+     "Jellyfin API": {
+      "files": 7,
+      "kb": 19,
+      "slowestMs": 41
+     },
+     "Jellyfin web app": {
+      "files": 8,
+      "kb": 81,
+      "slowestMs": 5
+     },
+     "Jellyfin web files": {
+      "files": 6,
+      "kb": 0,
+      "slowestMs": 7
+     },
+     "images": {
+      "files": 12,
+      "kb": 127,
+      "slowestMs": 33
+     }
+    },
+    "slowest": [
+     {
+      "ms": 41,
+      "wait": 35,
+      "kb": 6,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Items/6f225e4936f38baaa7f572cadb22260f/Similar?userId=5ed45b5d7d2d4e32a83b7b5929919d18&limit=12&fields=PrimaryImageAspectRatio%2CCanDelete"
+     },
+     {
+      "ms": 35,
+      "wait": 32,
+      "kb": 3,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Items/6f225e4936f38baaa7f572cadb22260f?userId=5ed45b5d7d2d4e32a83b7b5929919d18"
+     },
+     {
+      "ms": 33,
+      "wait": 31,
+      "kb": 0,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Items/6f225e4936f38baaa7f572cadb22260f/ThemeMedia?userId=5ed45b5d7d2d4e32a83b7b5929919d18&inheritFromParent=true&sortBy=Random"
+     },
+     {
+      "ms": 33,
+      "wait": 30,
+      "kb": 9,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/fe509545192160afefdb312796033d71/Images/Primary?fillHeight=335&fillWidth=223&quality=96&tag=2cfaabe9aabf0cbb40580ce1f54c10ac"
+     },
+     {
+      "ms": 27,
+      "wait": 24,
+      "kb": 1,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Items/6f225e4936f38baaa7f572cadb22260f/Ancestors"
+     },
+     {
+      "ms": 21,
+      "wait": 20,
+      "kb": 6,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items?EnableTotalRecordCount=false&Fields=CommunityRating%2CProductionYear&Ids=d20d52dd0dfb390eccf3bc6d42c66edc%2C1d858c"
+     },
+     {
+      "ms": 20,
+      "wait": 18,
+      "kb": 3,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items/6f225e4936f38baaa7f572cadb22260f"
+     },
+     {
+      "ms": 17,
+      "wait": 0,
+      "kb": 10,
+      "cached": true,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/c3b74d7ec89654788a1af18f18cc54cc/Images/Primary?fillHeight=335&fillWidth=223&quality=96&tag=b4d224fcc9db50f47dbd1f4b3c1ce10c"
+     },
+     {
+      "ms": 17,
+      "wait": 4,
+      "kb": 6,
+      "cached": true,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/d7370aca459f559d6c055fd3f4537ec5/Images/Primary?fillHeight=335&fillWidth=223&quality=96&tag=9d55fc9e889e43d7170901577be2ad7c"
+     },
+     {
+      "ms": 17,
+      "wait": 0,
+      "kb": 7,
+      "cached": true,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/ad42af0b48fec94e92fd483535db6ea8/Images/Primary?fillHeight=335&fillWidth=223&quality=96&tag=6cdf2a713f1d97c9ceb70d8be752c537"
+     },
+     {
+      "ms": 17,
+      "wait": 0,
+      "kb": 8,
+      "cached": true,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/532432f63066dc00899d003ab1e6e90c/Images/Primary?fillHeight=335&fillWidth=223&quality=96&tag=25dad55ebf49de6a180dcf2324bc7a46"
+     },
+     {
+      "ms": 13,
+      "wait": 11,
+      "kb": 0,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Items/6f225e4936f38baaa7f572cadb22260f/Collections?userId=5ed45b5d7d2d4e32a83b7b5929919d18&fields=PrimaryImageAspectRatio"
+     }
+    ]
+   },
+   "layoutShift": 0.065,
+   "jumps": [
+    {
+     "at": 553,
+     "value": 0.042,
+     "what": [
+      "a.MuiButtonBase-root.MuiButton-root.MuiButton-text",
+      "main.MuiBox-root.css-1iogify"
+     ]
+    },
+    {
+     "at": 205,
+     "value": 0.023,
+     "what": [
+      "main.MuiBox-root.css-1iogify"
+     ]
+    }
+   ],
+   "longTasks": {
+    "count": 2,
+    "totalMs": 133,
+    "worstMs": 68
+   }
+  },
+  {
+   "ready": {
+    "header": 81,
+    "avatar": 81,
+    "firstPoster": 81,
+    "library": 209,
+    "seasons": 354,
+    "episodes": 643,
+    "details": 725
+   },
+   "settledMs": 615,
+   "addedRemoved": 177,
+   "styleChanges": 1049,
+   "busiest": [
+    "89x attributes #itemDetailPage.page.libraryPage [style]",
+    "46x attributes button.emby-scrollbuttons-button.paper-icon-button-light [class]",
+    "42x attributes button [data-sleekfin-current]",
+    "42x attributes button [data-sleekfin-header-overflowed]",
+    "35x attributes html.tb-rows.layout-desktop [class]",
+    "30x attributes button.cardOverlayButton.cardOverlayButton-hover [class]",
+    "25x attributes button.sleekfin-icon-button.sleekfin-control-3d [class]",
+    "23x attributes a.cardImageContainer.coveredImage [class]"
+   ],
+   "stillChanging": [
+    "15x div.sleekfin-details-similar-meta.sleekfin-meta",
+    "11x div.cardScalable",
+    "10x div.emby-scrollbuttons.padded-right",
+    "10x div.mainDetailButtons.focuscontainer-x",
+    "9x span.sleekfin-details-action-label",
+    "8x div.detailButton-content"
+   ],
+   "timedOut": false,
+   "page": "show: Night Shift Radio",
+   "perf": {
+    "requests": 29,
+    "downloadedKb": 197,
+    "byOwner": {
+     "Jellyfin API": {
+      "files": 13,
+      "kb": 17,
+      "slowestMs": 79
+     },
+     "Jellyfin web files": {
+      "files": 6,
+      "kb": 0,
+      "slowestMs": 5
+     },
+     "images": {
+      "files": 10,
+      "kb": 188,
+      "slowestMs": 210
+     }
+    },
+    "slowest": [
+     {
+      "ms": 210,
+      "wait": 208,
+      "kb": 38,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/78f6eef4587e3881330fa2f083085523/Images/Backdrop/0?tag=ef94208c228aae6244cbff6190844387&maxWidth=1920&quality=80"
+     },
+     {
+      "ms": 208,
+      "wait": 203,
+      "kb": 19,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/34df5836908078685a0414507d7d8ebc/Images/Primary?tag=b70bb83f46b12daf2e40a7e8488a83c9&maxWidth=840&quality=90"
+     },
+     {
+      "ms": 180,
+      "wait": 176,
+      "kb": 20,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/2ffbd5197635711cb6c161f5c7411580/Images/Primary?tag=9da9f5b34573f63bfc50afde3b31ba55&maxWidth=840&quality=90"
+     },
+     {
+      "ms": 155,
+      "wait": 152,
+      "kb": 24,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/5f5ca9e11d7b1d4a61c3e6b822f67254/Images/Primary?tag=a27f4e5c7465127954a3bb8ffe70b4b2&maxWidth=840&quality=90"
+     },
+     {
+      "ms": 153,
+      "wait": 150,
+      "kb": 24,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/e8992ff584200f2541ccf997be4e79bf/Images/Primary?tag=b3943492307d5f057218366197ceb597&maxWidth=840&quality=90"
+     },
+     {
+      "ms": 119,
+      "wait": 116,
+      "kb": 22,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/007a120ffa871233a5c0bb66263f13f0/Images/Primary?tag=4be4a4493204b6a7a7ffa3fa6307812a&maxWidth=840&quality=90"
+     },
+     {
+      "ms": 85,
+      "wait": 82,
+      "kb": 16,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/a79e5743a78fa72248fa61603980d6c9/Images/Primary?tag=582f85aef0e7b44d808325aae40beac6&maxWidth=840&quality=90"
+     },
+     {
+      "ms": 79,
+      "wait": 76,
+      "kb": 2,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Items/78f6eef4587e3881330fa2f083085523/Similar?userId=5ed45b5d7d2d4e32a83b7b5929919d18&limit=12&fields=PrimaryImageAspectRatio%2CCanDelete"
+     },
+     {
+      "ms": 70,
+      "wait": 32,
+      "kb": 0,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Items/78f6eef4587e3881330fa2f083085523/Collections?userId=5ed45b5d7d2d4e32a83b7b5929919d18&fields=PrimaryImageAspectRatio"
+     },
+     {
+      "ms": 65,
+      "wait": 63,
+      "kb": 6,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/78f6eef4587e3881330fa2f083085523/Images/Logo?tag=5fcfeda64c8507b46d9b06e0ae2751cd&quality=90"
+     },
+     {
+      "ms": 60,
+      "wait": 56,
+      "kb": 0,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Items/78f6eef4587e3881330fa2f083085523/ThemeMedia?userId=5ed45b5d7d2d4e32a83b7b5929919d18&inheritFromParent=true&sortBy=Random"
+     },
+     {
+      "ms": 55,
+      "wait": 51,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Shows/78f6eef4587e3881330fa2f083085523/Seasons?userId=5ed45b5d7d2d4e32a83b7b5929919d18&Fields=ItemCounts%2CPrimaryImageAspectRatio%2CCanDelete%2CMediaSourceCou"
+     }
+    ]
+   },
+   "layoutShift": 0.083,
+   "jumps": [
+    {
+     "at": 58,
+     "value": 0.042,
+     "what": [
+      "a.MuiButtonBase-root.MuiButton-root.MuiButton-text",
+      "main.MuiBox-root.css-1iogify"
+     ]
+    },
+    {
+     "at": 516,
+     "value": 0.042,
+     "what": [
+      "a.MuiButtonBase-root.MuiButton-root.MuiButton-text",
+      "main.MuiBox-root.css-1iogify"
+     ]
+    }
+   ],
+   "longTasks": {
+    "count": 2,
+    "totalMs": 124,
+    "worstMs": 72
+   }
+  },
+  {
+   "ready": {
+    "header": 109,
+    "avatar": 109,
+    "firstPoster": 109,
+    "seasons": 109,
+    "library": 109,
+    "episodes": 421,
+    "details": 479
+   },
+   "settledMs": 374,
+   "addedRemoved": 136,
+   "styleChanges": 945,
+   "busiest": [
+    "89x attributes #itemDetailPage.page.libraryPage [style]",
+    "42x attributes button.emby-scrollbuttons-button.paper-icon-button-light [class]",
+    "28x attributes button [data-sleekfin-current]",
+    "28x attributes button [data-sleekfin-header-overflowed]",
+    "25x attributes button.sleekfin-icon-button.sleekfin-control-3d [class]",
+    "24x attributes button.listItemButton.paper-icon-button-light [class]",
+    "24x attributes span.material-icons.check [class]",
+    "24x attributes span.material-icons.favorite [class]"
+   ],
+   "stillChanging": [
+    "10x div.emby-scrollbuttons.padded-right",
+    "10x div.mainDetailButtons.focuscontainer-x",
+    "9x span.sleekfin-details-action-label",
+    "8x div.detailButton-content",
+    "7x span",
+    "6x div.verticalSection.detailVerticalSection"
+   ],
+   "timedOut": false,
+   "page": "season: Season 1",
+   "perf": {
+    "requests": 15,
+    "downloadedKb": 61,
+    "byOwner": {
+     "Jellyfin API": {
+      "files": 7,
+      "kb": 12,
+      "slowestMs": 29
+     },
+     "Jellyfin web files": {
+      "files": 6,
+      "kb": 0,
+      "slowestMs": 6
+     },
+     "images": {
+      "files": 2,
+      "kb": 49,
+      "slowestMs": 96
+     }
+    },
+    "slowest": [
+     {
+      "ms": 96,
+      "wait": 92,
+      "kb": 24,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/007a120ffa871233a5c0bb66263f13f0/Images/Primary?fillWidth=500&fillHeight=500&tag=4be4a4493204b6a7a7ffa3fa6307812a&quality=90"
+     },
+     {
+      "ms": 88,
+      "wait": 85,
+      "kb": 25,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/5f5ca9e11d7b1d4a61c3e6b822f67254/Images/Primary?fillWidth=500&fillHeight=500&tag=a27f4e5c7465127954a3bb8ffe70b4b2&quality=90"
+     },
+     {
+      "ms": 29,
+      "wait": 28,
+      "kb": 0,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Items/637779750c2e28356a978b1d9c7c9e3c/ThemeMedia?userId=5ed45b5d7d2d4e32a83b7b5929919d18&inheritFromParent=true&sortBy=Random"
+     },
+     {
+      "ms": 27,
+      "wait": 27,
+      "kb": 2,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Items/637779750c2e28356a978b1d9c7c9e3c/Ancestors"
+     },
+     {
+      "ms": 24,
+      "wait": 23,
+      "kb": 1,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Items/637779750c2e28356a978b1d9c7c9e3c?userId=5ed45b5d7d2d4e32a83b7b5929919d18"
+     },
+     {
+      "ms": 22,
+      "wait": 21,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items/637779750c2e28356a978b1d9c7c9e3c"
+     },
+     {
+      "ms": 19,
+      "wait": 16,
+      "kb": 4,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Shows/78f6eef4587e3881330fa2f083085523/Episodes?seasonId=637779750c2e28356a978b1d9c7c9e3c&userId=5ed45b5d7d2d4e32a83b7b5929919d18&Fields=Overview%2CCanDownload"
+     },
+     {
+      "ms": 18,
+      "wait": 17,
+      "kb": 4,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Shows/78f6eef4587e3881330fa2f083085523/Episodes?seasonId=637779750c2e28356a978b1d9c7c9e3c&userId=5ed45b5d7d2d4e32a83b7b5929919d18&Fields=ItemCounts%2CPrimaryIm"
+     },
+     {
+      "ms": 15,
+      "wait": 14,
+      "kb": 0,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Items/637779750c2e28356a978b1d9c7c9e3c/Collections?userId=5ed45b5d7d2d4e32a83b7b5929919d18&fields=PrimaryImageAspectRatio"
+     },
+     {
+      "ms": 6,
+      "wait": 0,
+      "kb": 0,
+      "cached": true,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin web files",
+      "url": "/web/config.json"
+     },
+     {
+      "ms": 3,
+      "wait": 0,
+      "kb": 0,
+      "cached": true,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin web files",
+      "url": "/web/config.json"
+     },
+     {
+      "ms": 2,
+      "wait": 0,
+      "kb": 0,
+      "cached": true,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin web files",
+      "url": "/web/config.json"
+     }
+    ]
+   },
+   "layoutShift": 0.083,
+   "jumps": [
+    {
+     "at": 42,
+     "value": 0.042,
+     "what": [
+      "a.MuiButtonBase-root.MuiButton-root.MuiButton-text",
+      "main.MuiBox-root.css-1iogify"
+     ]
+    },
+    {
+     "at": 320,
+     "value": 0.042,
+     "what": [
+      "a.MuiButtonBase-root.MuiButton-root.MuiButton-text",
+      "main.MuiBox-root.css-1iogify"
+     ]
+    }
+   ],
+   "longTasks": {
+    "count": 1,
+    "totalMs": 63,
+    "worstMs": 63
+   }
+  },
+  {
+   "ready": {
+    "header": 83,
+    "avatar": 83,
+    "firstPoster": 83,
+    "seasons": 83,
+    "library": 211,
+    "episodes": 644,
+    "details": 716
+   },
+   "settledMs": 558,
+   "addedRemoved": 154,
+   "styleChanges": 1039,
+   "busiest": [
+    "89x attributes #itemDetailPage.page.libraryPage [style]",
+    "44x attributes button.emby-scrollbuttons-button.paper-icon-button-light [class]",
+    "42x attributes button [data-sleekfin-current]",
+    "36x attributes button.cardOverlayButton.cardOverlayButton-hover [class]",
+    "35x attributes button [data-sleekfin-header-overflowed]",
+    "31x attributes a.cardImageContainer.coveredImage [class]",
+    "28x attributes html.tb-rows.layout-desktop [class]",
+    "25x attributes button.sleekfin-icon-button.sleekfin-control-3d [class]"
+   ],
+   "stillChanging": [
+    "10x div.emby-scrollbuttons.padded-right",
+    "10x div.mainDetailButtons.focuscontainer-x",
+    "9x span.sleekfin-details-action-label",
+    "8x div.cardScalable",
+    "8x div.detailButton-content",
+    "6x div.verticalSection.detailVerticalSection"
+   ],
+   "timedOut": false,
+   "page": "episode: Chapter 6",
+   "perf": {
+    "requests": 28,
+    "downloadedKb": 238,
+    "byOwner": {
+     "Jellyfin API": {
+      "files": 9,
+      "kb": 19,
+      "slowestMs": 57
+     },
+     "Jellyfin web files": {
+      "files": 6,
+      "kb": 0,
+      "slowestMs": 2
+     },
+     "images": {
+      "files": 13,
+      "kb": 219,
+      "slowestMs": 168
+     }
+    },
+    "slowest": [
+     {
+      "ms": 168,
+      "wait": 167,
+      "kb": 46,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/75d32c2d360d4f28ba04d79015b1ecc4/Images/Backdrop/0?tag=600afe0948e5e83765a163b1db404c8a&maxWidth=1920&quality=80"
+     },
+     {
+      "ms": 157,
+      "wait": 153,
+      "kb": 21,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/60402f7e9f550e450ba674d426883e74/Images/Primary?tag=a7fb34363ae11ed25bbfce8372b3b838&maxWidth=840&quality=90"
+     },
+     {
+      "ms": 136,
+      "wait": 133,
+      "kb": 20,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/a4b4216f9ebac236c874711217ec0d68/Images/Primary?tag=03e3daaf262777be54b662745a66f240&maxWidth=840&quality=90"
+     },
+     {
+      "ms": 101,
+      "wait": 96,
+      "kb": 18,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/5acff59c6073e8c6bea629006d97161e/Images/Primary?tag=7eee59aeca21904b0c0c92eb0f44ce3b&maxWidth=840&quality=90"
+     },
+     {
+      "ms": 88,
+      "wait": 86,
+      "kb": 18,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/88f9ea5cd860cb8a6928961e5b6da6dc/Images/Primary?tag=ef975548e6986b96cca5ffc306d28b29&maxWidth=840&quality=90"
+     },
+     {
+      "ms": 84,
+      "wait": 79,
+      "kb": 23,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/cb6b1b480bf4112eae19c7f96f4dd57d/Images/Primary?tag=6fcfcf9434bd6b19a7051b6e5ba029b3&maxWidth=840&quality=90"
+     },
+     {
+      "ms": 84,
+      "wait": 79,
+      "kb": 22,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/ae6770584f7fd5c0eec7f24aa4ab45d2/Images/Primary?tag=3deac1130fa8ca6eb0cad873cb0e6270&maxWidth=840&quality=90"
+     },
+     {
+      "ms": 59,
+      "wait": 53,
+      "kb": 10,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/ae6770584f7fd5c0eec7f24aa4ab45d2/Images/Primary?fillHeight=200&fillWidth=355&quality=96&tag=3deac1130fa8ca6eb0cad873cb0e6270"
+     },
+     {
+      "ms": 57,
+      "wait": 55,
+      "kb": 0,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Items/60402f7e9f550e450ba674d426883e74/ThemeMedia?userId=5ed45b5d7d2d4e32a83b7b5929919d18&inheritFromParent=true&sortBy=Random"
+     },
+     {
+      "ms": 56,
+      "wait": 51,
+      "kb": 9,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/a4b4216f9ebac236c874711217ec0d68/Images/Primary?fillHeight=200&fillWidth=355&quality=96&tag=03e3daaf262777be54b662745a66f240"
+     },
+     {
+      "ms": 55,
+      "wait": 49,
+      "kb": 10,
+      "cached": false,
+      "type": "img",
+      "who": "images",
+      "url": "/Items/cb6b1b480bf4112eae19c7f96f4dd57d/Images/Primary?fillHeight=200&fillWidth=355&quality=96&tag=6fcfcf9434bd6b19a7051b6e5ba029b3"
+     },
+     {
+      "ms": 51,
+      "wait": 44,
+      "kb": 3,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Items/60402f7e9f550e450ba674d426883e74?userId=5ed45b5d7d2d4e32a83b7b5929919d18"
+     }
+    ]
+   },
+   "layoutShift": 0.083,
+   "jumps": [
+    {
+     "at": 49,
+     "value": 0.042,
+     "what": [
+      "a.MuiButtonBase-root.MuiButton-root.MuiButton-text",
+      "main.MuiBox-root.css-1iogify"
+     ]
+    },
+    {
+     "at": 497,
+     "value": 0.042,
+     "what": [
+      "a.MuiButtonBase-root.MuiButton-root.MuiButton-text",
+      "main.MuiBox-root.css-1iogify"
+     ]
+    }
+   ],
+   "longTasks": {
+    "count": 1,
+    "totalMs": 60,
+    "worstMs": 60
+   }
+  },
+  {
+   "ready": {
+    "header": 73,
+    "avatar": 73,
+    "firstPoster": 73,
+    "seasons": 73,
+    "search": 147,
+    "library": 147
+   },
+   "settledMs": 125,
+   "addedRemoved": 12,
+   "styleChanges": 94,
+   "busiest": [
+    "14x attributes button [data-sleekfin-current]",
+    "14x attributes button [data-sleekfin-header-overflowed]",
+    "11x attributes html.tb-rows.layout-desktop [class]",
+    "5x attributes a.navMenuOption.lnkMediaFolder [class]",
+    "4x attributes span.material-icons.detailButton-icon [class]",
+    "3x childList div.cardScalable",
+    "3x childList div.tb-quality",
+    "3x attributes div.tb-quality [data-html]"
+   ],
+   "stillChanging": [
+    "3x div.cardScalable",
+    "3x div.tb-quality",
+    "1x div.skinBody",
+    "1x h3.pageTitle",
+    "1x title",
+    "1x div.padded-left.padded-right"
+   ],
+   "timedOut": false,
+   "page": "search 'the'",
+   "perf": {
+    "requests": 7,
+    "downloadedKb": 2,
+    "byOwner": {
+     "Jellyfin API": {
+      "files": 4,
+      "kb": 2,
+      "slowestMs": 71
+     },
+     "images": {
+      "files": 3,
+      "kb": 16,
+      "slowestMs": 2
+     }
+    },
+    "slowest": [
+     {
+      "ms": 71,
+      "wait": 70,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Items?userId=5ed45b5d7d2d4e32a83b7b5929919d18&IncludeItemTypes=Series&Recursive=true&SearchTerm=the&Limit=40&Fields=PrimaryImageAspectRatio,ProductionYear&Imag"
+     },
+     {
+      "ms": 65,
+      "wait": 64,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Items?userId=5ed45b5d7d2d4e32a83b7b5929919d18&IncludeItemTypes=Movie&Recursive=true&SearchTerm=the&Limit=40&Fields=PrimaryImageAspectRatio,ProductionYear&Image"
+     },
+     {
+      "ms": 52,
+      "wait": 50,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Items?userId=5ed45b5d7d2d4e32a83b7b5929919d18&IncludeItemTypes=Episode&Recursive=true&SearchTerm=the&Limit=40&Fields=PrimaryImageAspectRatio,ProductionYear&Ima"
+     },
+     {
+      "ms": 47,
+      "wait": 46,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Persons?userId=5ed45b5d7d2d4e32a83b7b5929919d18&SearchTerm=the&Limit=40&Fields=PrimaryImageAspectRatio,ProductionYear&ImageTypeLimit=1&EnableImageTypes=Primary"
+     },
+     {
+      "ms": 2,
+      "wait": 1,
+      "kb": 5,
+      "cached": true,
+      "type": "css",
+      "who": "images",
+      "url": "/Items/f4167750ea29fa3fa2d60fb52263145c/Images/Primary?fillWidth=200&fillHeight=300&quality=90&tag=4609b2cab90d5741ca870b3dd2e4cac7"
+     },
+     {
+      "ms": 2,
+      "wait": 1,
+      "kb": 5,
+      "cached": true,
+      "type": "css",
+      "who": "images",
+      "url": "/Items/5171c7a6950f550b9b0de561fea6d6b7/Images/Primary?fillWidth=200&fillHeight=300&quality=90&tag=315f79dbe6193dd4f6b62fb857af419c"
+     },
+     {
+      "ms": 1,
+      "wait": 0,
+      "kb": 6,
+      "cached": true,
+      "type": "css",
+      "who": "images",
+      "url": "/Items/fe509545192160afefdb312796033d71/Images/Primary?fillWidth=200&fillHeight=300&quality=90&tag=2cfaabe9aabf0cbb40580ce1f54c10ac"
+     }
+    ]
+   },
+   "layoutShift": 0.042,
+   "jumps": [
+    {
+     "at": 50,
+     "value": 0.042,
+     "what": [
+      "a.MuiButtonBase-root.MuiButton-root.MuiButton-text",
+      "main.MuiBox-root.css-1iogify"
+     ]
+    }
+   ],
+   "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "worstMs": 0
+   }
+  },
+  {
+   "ready": {
+    "header": 70,
+    "avatar": 70,
+    "firstPoster": 70,
+    "seasons": 70,
+    "search": 70,
+    "library": 70
+   },
+   "settledMs": 4,
+   "addedRemoved": 0,
+   "styleChanges": 21,
+   "busiest": [
+    "7x attributes button [data-sleekfin-current]",
+    "7x attributes button [data-sleekfin-header-overflowed]",
+    "4x attributes html.tb-rows.layout-desktop [class]",
+    "1x attributes button [disabled]",
+    "1x attributes button [data-sleekfin-header-overflow-hidden]",
+    "1x attributes div [data-sleekfin-header-overflow-active]"
+   ],
+   "timedOut": false,
+   "page": "search 'a' (big)",
+   "perf": {
+    "requests": 0,
+    "downloadedKb": 0,
+    "byOwner": {},
+    "slowest": []
+   },
+   "layoutShift": 0,
+   "jumps": [],
+   "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "worstMs": 0
+   }
+  },
+  {
+   "ready": {
+    "header": 81,
+    "avatar": 81,
+    "firstPoster": 81,
+    "seasons": 81,
+    "library": 81
+   },
+   "settledMs": 50,
+   "addedRemoved": 5,
+   "styleChanges": 46,
+   "busiest": [
+    "9x attributes html.tb-rows.layout-desktop [class]",
+    "7x attributes button [data-sleekfin-current]",
+    "7x attributes button [data-sleekfin-header-overflowed]",
+    "5x attributes a.navMenuOption.lnkMediaFolder [class]",
+    "2x childList div.skinBody",
+    "2x attributes div.docspinner.mdl-spinner [class]",
+    "2x attributes h3.pageTitle [class]",
+    "2x attributes a.lnkMediaFolder.navMenuOption [class]"
+   ],
+   "stillChanging": [
+    "2x div.skinBody",
+    "1x head",
+    "1x h3.pageTitle",
+    "1x title"
+   ],
+   "timedOut": false,
+   "page": "settings menu",
+   "perf": {
+    "requests": 2,
+    "downloadedKb": 1,
+    "byOwner": {
+     "Jellyfin web app": {
+      "files": 1,
+      "kb": 2,
+      "slowestMs": 1
+     },
+     "Jellyfin API": {
+      "files": 1,
+      "kb": 1,
+      "slowestMs": 15
+     }
+    },
+    "slowest": [
+     {
+      "ms": 15,
+      "wait": 13,
+      "kb": 1,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Users"
+     },
+     {
+      "ms": 1,
+      "wait": 0,
+      "kb": 2,
+      "cached": true,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/user-settings.5a42b694bca4470e1bbd.chunk.js"
+     }
+    ]
+   },
+   "layoutShift": 0,
+   "jumps": [],
+   "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "worstMs": 0
+   }
+  },
+  {
+   "ready": {
+    "header": 80,
+    "avatar": 80,
+    "firstPoster": 80,
+    "seasons": 80
+   },
+   "settledMs": 68,
+   "addedRemoved": 3,
+   "styleChanges": 25,
+   "busiest": [
+    "8x attributes html.tb-rows.layout-desktop [class]",
+    "7x attributes button [data-sleekfin-current]",
+    "7x attributes button [data-sleekfin-header-overflowed]",
+    "2x childList head",
+    "1x childList div.skinBody",
+    "1x attributes div.docspinner.mdl-spinner [class]",
+    "1x attributes button [data-sleekfin-header-overflow-hidden]",
+    "1x attributes div [data-sleekfin-header-overflow-active]"
+   ],
+   "stillChanging": [
+    "2x head",
+    "1x div.skinBody"
+   ],
+   "timedOut": false,
+   "page": "settings: display",
+   "perf": {
+    "requests": 3,
+    "downloadedKb": 22,
+    "byOwner": {
+     "Jellyfin web app": {
+      "files": 3,
+      "kb": 22,
+      "slowestMs": 8
+     }
+    },
+    "slowest": [
+     {
+      "ms": 8,
+      "wait": 4,
+      "kb": 12,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/92974.57b22fb2be1d5695f8d9.chunk.js"
+     },
+     {
+      "ms": 7,
+      "wait": 5,
+      "kb": 8,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/user-display.edcf4306d0a4cd6afad7.chunk.js"
+     },
+     {
+      "ms": 6,
+      "wait": 3,
+      "kb": 2,
+      "cached": false,
+      "type": "link",
+      "who": "Jellyfin web app",
+      "url": "/web/user-display.14fffe456f27b2c8eecc.css"
+     }
+    ]
+   },
+   "layoutShift": 0,
+   "jumps": [],
+   "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "worstMs": 0
+   }
+  },
+  {
+   "ready": {
+    "header": 108,
+    "avatar": 108,
+    "firstPoster": 108,
+    "library": 237
+   },
+   "settledMs": 189,
+   "addedRemoved": 43,
+   "styleChanges": 177,
+   "busiest": [
+    "24x childList div.selectContainer",
+    "21x attributes button [data-sleekfin-current]",
+    "21x attributes button [data-sleekfin-header-overflowed]",
+    "10x attributes html.tb-rows.layout-desktop [class]",
+    "10x attributes div.padded-top-focusscale.padded-bottom-focusscale [data-scroll-mode-x]",
+    "10x attributes option [value]",
+    "5x childList head",
+    "5x attributes a.navMenuOption.lnkMediaFolder [class]"
+   ],
+   "stillChanging": [
+    "24x div.selectContainer",
+    "5x head",
+    "2x div.selectContainer.hide",
+    "2x label.fldIncludeInLatest.emby-checkbox-label",
+    "2x label.emby-checkbox-label",
+    "1x div.mainAnimatedPages.skinBody"
+   ],
+   "addedToHead": [
+    "1x link[stylesheet] user-home.9747f456ecf74760700c.css",
+    "1x script user-home.e4ae606b60dda7eefc69.chunk.js",
+    "1x script user-home-index-html.a7433ab99c19df25ac04.chunk.js"
+   ],
+   "timedOut": false,
+   "page": "settings: home",
+   "perf": {
+    "requests": 6,
+    "downloadedKb": 17,
+    "byOwner": {
+     "Jellyfin web app": {
+      "files": 3,
+      "kb": 15,
+      "slowestMs": 11
+     },
+     "Jellyfin API": {
+      "files": 3,
+      "kb": 2,
+      "slowestMs": 39
+     }
+    },
+    "slowest": [
+     {
+      "ms": 39,
+      "wait": 32,
+      "kb": 1,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/UserViews?userId=5ed45b5d7d2d4e32a83b7b5929919d18&includeHidden=true"
+     },
+     {
+      "ms": 30,
+      "wait": 28,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/GroupingOptions"
+     },
+     {
+      "ms": 22,
+      "wait": 21,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18"
+     },
+     {
+      "ms": 11,
+      "wait": 2,
+      "kb": 11,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/user-home.e4ae606b60dda7eefc69.chunk.js"
+     },
+     {
+      "ms": 11,
+      "wait": 2,
+      "kb": 3,
+      "cached": false,
+      "type": "link",
+      "who": "Jellyfin web app",
+      "url": "/web/user-home.9747f456ecf74760700c.css"
+     },
+     {
+      "ms": 11,
+      "wait": 10,
+      "kb": 1,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/user-home-index-html.a7433ab99c19df25ac04.chunk.js"
+     }
+    ]
+   },
+   "layoutShift": 0,
+   "jumps": [],
+   "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "worstMs": 0
+   }
+  },
+  {
+   "ready": {
+    "header": 79,
+    "avatar": 79,
+    "firstPoster": 79
+   },
+   "settledMs": 147,
+   "addedRemoved": 73,
+   "styleChanges": 231,
+   "busiest": [
+    "28x childList div.selectContainer",
+    "16x attributes span.checkboxLabel [class]",
+    "15x attributes label.emby-checkbox-label [class]",
+    "15x childList label.emby-checkbox-label",
+    "14x attributes button [data-sleekfin-current]",
+    "14x attributes button [data-sleekfin-header-overflowed]",
+    "13x attributes html.tb-rows.layout-desktop [class]",
+    "10x attributes div.padded-top-focusscale.padded-bottom-focusscale [data-scroll-mode-x]"
+   ],
+   "stillChanging": [
+    "28x div.selectContainer",
+    "15x label.emby-checkbox-label",
+    "5x head",
+    "2x div.selectContainer.fldVideoInNetworkQuality",
+    "2x div.selectContainer.fldVideoInternetQuality",
+    "2x div.selectContainer.fldChromecastQuality"
+   ],
+   "addedToHead": [
+    "1x link[stylesheet] user-playback.4dc1e171984a8e6fea43.css",
+    "1x script user-playback.f77d59eb1782fed20b77.chunk.js",
+    "1x script user-playback-index-html.9f68a50740c4a83bbea3.chunk.js"
+   ],
+   "timedOut": false,
+   "page": "settings: playback",
+   "perf": {
+    "requests": 7,
+    "downloadedKb": 30,
+    "byOwner": {
+     "Jellyfin web app": {
+      "files": 3,
+      "kb": 15,
+      "slowestMs": 8
+     },
+     "Jellyfin API": {
+      "files": 4,
+      "kb": 15,
+      "slowestMs": 30
+     }
+    },
+    "slowest": [
+     {
+      "ms": 30,
+      "wait": 20,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18"
+     },
+     {
+      "ms": 30,
+      "wait": 26,
+      "kb": 13,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Localization/cultures"
+     },
+     {
+      "ms": 29,
+      "wait": 22,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/System/Endpoint"
+     },
+     {
+      "ms": 14,
+      "wait": 10,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/System/Info"
+     },
+     {
+      "ms": 8,
+      "wait": 1,
+      "kb": 12,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/user-playback.f77d59eb1782fed20b77.chunk.js"
+     },
+     {
+      "ms": 8,
+      "wait": 3,
+      "kb": 1,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/user-playback-index-html.9f68a50740c4a83bbea3.chunk.js"
+     },
+     {
+      "ms": 5,
+      "wait": 1,
+      "kb": 2,
+      "cached": false,
+      "type": "link",
+      "who": "Jellyfin web app",
+      "url": "/web/user-playback.4dc1e171984a8e6fea43.css"
+     }
+    ]
+   },
+   "layoutShift": 0.062,
+   "jumps": [
+    {
+     "at": 148,
+     "value": 0.062,
+     "what": [
+      "div.verticalSection.verticalSection-extrabottompadding",
+      "div.checkboxContainer.checkboxContainer-withDescription.fldEnableNextVideoOverlay",
+      "label.emby-checkbox-label"
+     ]
+    }
+   ],
+   "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "worstMs": 0
+   }
+  },
+  {
+   "ready": {
+    "header": 80,
+    "avatar": 80,
+    "firstPoster": 80
+   },
+   "settledMs": 54,
+   "addedRemoved": 8,
+   "styleChanges": 49,
+   "busiest": [
+    "9x attributes html.tb-rows.layout-desktop [class]",
+    "7x attributes button [data-sleekfin-current]",
+    "7x attributes button [data-sleekfin-header-overflowed]",
+    "6x attributes h3.pageTitle [class]",
+    "5x attributes a.navMenuOption.lnkMediaFolder [class]",
+    "3x childList h3.pageTitle",
+    "3x childList title",
+    "2x attributes a.lnkMediaFolder.navMenuOption [class]"
+   ],
+   "stillChanging": [
+    "3x h3.pageTitle",
+    "3x title",
+    "1x head",
+    "1x div.skinBody"
+   ],
+   "timedOut": false,
+   "page": "profile",
+   "perf": {
+    "requests": 3,
+    "downloadedKb": 1,
+    "byOwner": {
+     "Jellyfin web app": {
+      "files": 1,
+      "kb": 5,
+      "slowestMs": 2
+     },
+     "Jellyfin web files": {
+      "files": 1,
+      "kb": 2,
+      "slowestMs": 2
+     },
+     "Jellyfin API": {
+      "files": 1,
+      "kb": 1,
+      "slowestMs": 15
+     }
+    },
+    "slowest": [
+     {
+      "ms": 15,
+      "wait": 14,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18"
+     },
+     {
+      "ms": 2,
+      "wait": 0,
+      "kb": 2,
+      "cached": true,
+      "type": "css",
+      "who": "Jellyfin web files",
+      "url": "/web/assets/img/avatar.png"
+     },
+     {
+      "ms": 2,
+      "wait": 0,
+      "kb": 5,
+      "cached": true,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/user-userprofile.89e754f1582529b40054.chunk.js"
+     }
+    ]
+   },
+   "layoutShift": 0,
+   "jumps": [],
+   "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "worstMs": 0
+   }
+  },
+  {
+   "ready": {},
+   "settledMs": 1447,
+   "addedRemoved": 111,
+   "styleChanges": 313,
+   "busiest": [
+    "176x attributes html.tb-rows.layout-desktop [class]",
+    "14x childList p.MuiTypography-root.MuiTypography-body1",
+    "11x childList div.tb-num",
+    "10x attributes div.padded-top-focusscale.padded-bottom-focusscale [data-scroll-mode-x]",
+    "10x childList div.MuiBox-root.css-0",
+    "7x childList head",
+    "7x attributes div.MuiListItemIcon-root.css-5pks8q [title]",
+    "7x childList span.MuiLinearProgress-root.MuiLinearProgress-colorSuccess"
+   ],
+   "stillChanging": [
+    "14x p.MuiTypography-root.MuiTypography-body1",
+    "11x div.tb-num",
+    "10x div.MuiBox-root.css-0",
+    "7x head",
+    "7x span.MuiLinearProgress-root.MuiLinearProgress-colorSuccess",
+    "7x div.MuiAvatar-root.MuiAvatar-circular"
+   ],
+   "addedToHead": [
+    "1x script ../UshereatsTheme/dashboard.js",
+    "1x style#tb-dashboard-skin",
+    "1x style#tb-np-css"
+   ],
+   "timedOut": false,
+   "page": "dashboard",
+   "perf": {
+    "requests": 34,
+    "downloadedKb": 113,
+    "byOwner": {
+     "Jellyfin web app": {
+      "files": 5,
+      "kb": 133,
+      "slowestMs": 11
+     },
+     "Ushereats Theme": {
+      "files": 2,
+      "kb": 20,
+      "slowestMs": 20
+     },
+     "Jellyfin API": {
+      "files": 15,
+      "kb": 18,
+      "slowestMs": 136
+     },
+     "plugin/other: /ScheduledTasks": {
+      "files": 2,
+      "kb": 6,
+      "slowestMs": 39
+     },
+     "Jellyfin web files": {
+      "files": 6,
+      "kb": 29,
+      "slowestMs": 5
+     },
+     "images": {
+      "files": 4,
+      "kb": 23,
+      "slowestMs": 63
+     }
+    },
+    "slowest": [
+     {
+      "ms": 136,
+      "wait": 132,
+      "kb": 2,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items?IncludeItemTypes=Movie&Recursive=true&SortBy=DateCreated&SortOrder=Descending&Limit=100&Fields=DateCreated&EnableI"
+     },
+     {
+      "ms": 133,
+      "wait": 127,
+      "kb": 5,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items?IncludeItemTypes=Episode&Recursive=true&SortBy=DateCreated&SortOrder=Descending&Limit=100&Fields=DateCreated&Enabl"
+     },
+     {
+      "ms": 132,
+      "wait": 107,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items/Latest?Limit=16&Fields=PrimaryImageAspectRatio%2CProductionYear&ImageTypeLimit=1&EnableImageTypes=Primary&EnableUs"
+     },
+     {
+      "ms": 84,
+      "wait": 76,
+      "kb": 1,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/System/ActivityLog/Entries?startIndex=0&limit=7&minDate=2026-10-30T09%3A57%3A15.862Z&hasUserId=true"
+     },
+     {
+      "ms": 84,
+      "wait": 77,
+      "kb": 0,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/System/ActivityLog/Entries?startIndex=0&limit=4&minDate=2026-10-24T09%3A57%3A15.864Z&hasUserId=false"
+     },
+     {
+      "ms": 78,
+      "wait": 26,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/System/Info/Storage"
+     },
+     {
+      "ms": 77,
+      "wait": 37,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/System/ActivityLog/Entries?startIndex=0&limit=7&minDate=2026-10-30T09%3A57%3A16.399Z&hasUserId=true"
+     },
+     {
+      "ms": 68,
+      "wait": 66,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Sessions?ActiveWithinSeconds=960"
+     },
+     {
+      "ms": 63,
+      "wait": 62,
+      "kb": 6,
+      "cached": false,
+      "type": "css",
+      "who": "images",
+      "url": "/Items/5171c7a6950f550b9b0de561fea6d6b7/Images/Primary?maxHeight=330&quality=90&tag=315f79dbe6193dd4f6b62fb857af419c"
+     },
+     {
+      "ms": 62,
+      "wait": 61,
+      "kb": 5,
+      "cached": false,
+      "type": "css",
+      "who": "images",
+      "url": "/Items/75d32c2d360d4f28ba04d79015b1ecc4/Images/Primary?maxHeight=330&quality=90&tag=c9e36ae627a5f2872662cf2eaa656c6a"
+     },
+     {
+      "ms": 59,
+      "wait": 58,
+      "kb": 6,
+      "cached": false,
+      "type": "css",
+      "who": "images",
+      "url": "/Items/78f6eef4587e3881330fa2f083085523/Images/Primary?maxHeight=330&quality=90&tag=3e5402143ba0dda1785ecdcb25561f37"
+     },
+     {
+      "ms": 54,
+      "wait": 44,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items?IncludeItemTypes=Series&Recursive=true&SortBy=DateCreated&SortOrder=Descending&Limit=100&Fields=DateCreated&Enable"
+     }
+    ]
+   },
+   "layoutShift": 0.167,
+   "jumps": [
+    {
+     "at": 599,
+     "value": 0.106,
+     "what": [
+      "span.np-pill.np-ds",
+      "span.np-pill.np-rm",
+      "span.np-pill.np-tc"
+     ]
+    },
+    {
+     "at": 266,
+     "value": 0.056,
+     "what": [
+      "div.content-primary.MuiBox-root.css-0"
+     ]
+    },
+    {
+     "at": 258,
+     "value": 0.004,
+     "what": [
+      "ul.MuiList-root.MuiList-padding.MuiList-subheader",
+      "ul.MuiList-root.MuiList-padding.MuiList-subheader",
+      "ul.MuiList-root.MuiList-padding.MuiList-subheader"
+     ]
+    },
+    {
+     "at": 627,
+     "value": 0.001,
+     "what": [
+      "ul.MuiList-root.MuiList-padding.MuiList-subheader",
+      "li.MuiListItem-root.MuiListItem-gutters.css-1ohqk82",
+      "li.MuiListItem-root.MuiListItem-gutters.css-1ohqk82"
+     ]
+    },
+    {
+     "at": 957,
+     "value": 0,
+     "what": [
+      "span.np-up"
+     ]
+    }
+   ],
+   "longTasks": {
+    "count": 6,
+    "totalMs": 615,
+    "worstMs": 207
+   }
+  },
+  {
+   "ready": {
+    "library": 147
+   },
+   "settledMs": 146,
+   "addedRemoved": 9,
+   "styleChanges": 48,
+   "busiest": [
+    "28x attributes html.tb-rows.layout-desktop [class]",
+    "5x attributes a.navMenuOption.lnkMediaFolder [class]",
+    "2x attributes a.MuiButtonBase-root.MuiListItemButton-root [class]",
+    "2x childList div.skinBody",
+    "2x attributes h3.pageTitle [class]",
+    "2x attributes a.lnkMediaFolder.navMenuOption [class]",
+    "1x childList head",
+    "1x childList div.MuiBox-root.css-1riowxi"
+   ],
+   "stillChanging": [
+    "2x div.skinBody",
+    "1x head",
+    "1x div.MuiBox-root.css-1riowxi",
+    "1x h3.pageTitle",
+    "1x title",
+    "1x div.cardScalable.visualCardBox-cardScalable"
+   ],
+   "timedOut": false,
+   "page": "dashboard: users",
+   "perf": {
+    "requests": 3,
+    "downloadedKb": 7,
+    "byOwner": {
+     "Jellyfin web app": {
+      "files": 2,
+      "kb": 6,
+      "slowestMs": 3
+     },
+     "Jellyfin API": {
+      "files": 1,
+      "kb": 1,
+      "slowestMs": 20
+     }
+    },
+    "slowest": [
+     {
+      "ms": 20,
+      "wait": 13,
+      "kb": 1,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Users"
+     },
+     {
+      "ms": 3,
+      "wait": 2,
+      "kb": 5,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/users.f5b80a5f1b08bc92de28.chunk.js"
+     },
+     {
+      "ms": 2,
+      "wait": 1,
+      "kb": 1,
+      "cached": false,
+      "type": "link",
+      "who": "Jellyfin web app",
+      "url": "/web/users.078161ae17ad4d733949.css"
+     }
+    ]
+   },
+   "layoutShift": 0,
+   "jumps": [],
+   "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "worstMs": 0
+   }
+  },
+  {
+   "ready": {},
+   "settledMs": 96,
+   "addedRemoved": 7,
+   "styleChanges": 47,
+   "busiest": [
+    "30x attributes html.tb-rows.layout-desktop [class]",
+    "5x attributes a.navMenuOption.lnkMediaFolder [class]",
+    "3x childList head",
+    "2x childList div.skinBody",
+    "2x attributes div.docspinner.mdl-spinner [class]",
+    "2x attributes h3.pageTitle [class]",
+    "2x attributes a.lnkMediaFolder.navMenuOption [class]",
+    "1x attributes a.MuiButtonBase-root.MuiIconButton-root [href]"
+   ],
+   "stillChanging": [
+    "3x head",
+    "2x div.skinBody",
+    "1x h3.pageTitle",
+    "1x title"
+   ],
+   "timedOut": false,
+   "page": "dashboard: libraries",
+   "perf": {
+    "requests": 7,
+    "downloadedKb": 158,
+    "byOwner": {
+     "Jellyfin web app": {
+      "files": 4,
+      "kb": 42,
+      "slowestMs": 5
+     },
+     "Jellyfin API": {
+      "files": 1,
+      "kb": 1,
+      "slowestMs": 27
+     },
+     "images": {
+      "files": 2,
+      "kb": 115,
+      "slowestMs": 52
+     }
+    },
+    "slowest": [
+     {
+      "ms": 52,
+      "wait": 50,
+      "kb": 65,
+      "cached": false,
+      "type": "css",
+      "who": "images",
+      "url": "/Items/f137a2dd21bbc1b99aa5c0f6bf02a805/Images/Primary?maxWidth=768"
+     },
+     {
+      "ms": 47,
+      "wait": 45,
+      "kb": 50,
+      "cached": false,
+      "type": "css",
+      "who": "images",
+      "url": "/Items/a656b907eb3a73532e40e44b968d0225/Images/Primary?maxWidth=768"
+     },
+     {
+      "ms": 27,
+      "wait": 26,
+      "kb": 1,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Library/VirtualFolders"
+     },
+     {
+      "ms": 5,
+      "wait": 1,
+      "kb": 15,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/95454.2f31dcf488e75e8ef5af.chunk.js"
+     },
+     {
+      "ms": 5,
+      "wait": 1,
+      "kb": 8,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/4350.61757155d557202e3d9a.chunk.js"
+     },
+     {
+      "ms": 5,
+      "wait": 3,
+      "kb": 16,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/libraries.8c8e5d468a65638f9dae.chunk.js"
+     },
+     {
+      "ms": 4,
+      "wait": 2,
+      "kb": 3,
+      "cached": false,
+      "type": "link",
+      "who": "Jellyfin web app",
+      "url": "/web/libraries.1b6e01d67fa7276dd291.css"
+     }
+    ]
+   },
+   "layoutShift": 0,
+   "jumps": [],
+   "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "worstMs": 0
+   }
+  },
+  {
+   "ready": {},
+   "settledMs": 513,
+   "addedRemoved": 333,
+   "styleChanges": 223,
+   "busiest": [
+    "280x childList td.MuiTableCell-root.MuiTableCell-body",
+    "160x attributes span.MuiSkeleton-root.MuiSkeleton-text [style]",
+    "31x attributes html.tb-rows.layout-desktop [class]",
+    "30x childList span.MuiButtonBase-root.MuiTableSortLabel-root",
+    "6x childList head",
+    "6x childList span.MuiBadge-badge.MuiBadge-standard",
+    "6x attributes span.MuiButtonBase-root.MuiTableSortLabel-root [aria-label]",
+    "6x attributes span.MuiBadge-root.css-chz7cr [aria-label]"
+   ],
+   "stillChanging": [
+    "280x td.MuiTableCell-root.MuiTableCell-body",
+    "30x span.MuiButtonBase-root.MuiTableSortLabel-root",
+    "6x head",
+    "6x span.MuiBadge-badge.MuiBadge-standard",
+    "5x tbody.MuiTableBody-root.css-zzh0ni",
+    "2x div.skinBody"
+   ],
+   "addedToHead": [
+    "1x style[emotion]"
+   ],
+   "timedOut": false,
+   "page": "dashboard: activity",
+   "perf": {
+    "requests": 7,
+    "downloadedKb": 96,
+    "byOwner": {
+     "Jellyfin web app": {
+      "files": 5,
+      "kb": 94,
+      "slowestMs": 12
+     },
+     "Jellyfin API": {
+      "files": 2,
+      "kb": 2,
+      "slowestMs": 25
+     }
+    },
+    "slowest": [
+     {
+      "ms": 25,
+      "wait": 24,
+      "kb": 1,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/System/ActivityLog/Entries?startIndex=0&limit=25&sortBy=DateCreated&sortOrder=Descending"
+     },
+     {
+      "ms": 22,
+      "wait": 20,
+      "kb": 1,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Users"
+     },
+     {
+      "ms": 12,
+      "wait": 4,
+      "kb": 22,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/node_modules.@tanstack.table-core.4d12ce2639beaa5b8880.chunk.js"
+     },
+     {
+      "ms": 12,
+      "wait": 6,
+      "kb": 7,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/node_modules.@tanstack.virtual-core.77eaf9b6feedd4e74913.chunk.js"
+     },
+     {
+      "ms": 12,
+      "wait": 4,
+      "kb": 7,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/67734.f5a6f7c78346909ea9ca.chunk.js"
+     },
+     {
+      "ms": 11,
+      "wait": 6,
+      "kb": 5,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/activity.3f7371ceea7d76fda9a7.chunk.js"
+     },
+     {
+      "ms": 6,
+      "wait": 1,
+      "kb": 53,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/node_modules.material-react-table.e3004340204d3d8acb22.chunk.js"
+     }
+    ]
+   },
+   "layoutShift": 0.124,
+   "jumps": [
+    {
+     "at": 515,
+     "value": 0.124,
+     "what": [
+      "tr.MuiTableRow-root.css-vag9oz",
+      "tr.MuiTableRow-root.css-vag9oz",
+      "tr.MuiTableRow-root.css-vag9oz"
+     ]
+    }
+   ],
+   "longTasks": {
+    "count": 3,
+    "totalMs": 437,
+    "worstMs": 227
+   }
+  },
+  {
+   "ready": {},
+   "settledMs": 494,
+   "addedRemoved": 18,
+   "styleChanges": 51,
+   "busiest": [
+    "34x attributes html.tb-rows.layout-desktop [class]",
+    "10x childList span.MuiButtonBase-root.MuiTableSortLabel-root",
+    "5x attributes a.navMenuOption.lnkMediaFolder [class]",
+    "3x childList head",
+    "2x attributes a.MuiButtonBase-root.MuiListItemButton-root [class]",
+    "2x childList div.skinBody",
+    "2x attributes div.docspinner.mdl-spinner [class]",
+    "2x attributes h3.pageTitle [class]"
+   ],
+   "stillChanging": [
+    "10x span.MuiButtonBase-root.MuiTableSortLabel-root",
+    "3x head",
+    "2x div.skinBody",
+    "1x div.MuiBox-root.css-1riowxi",
+    "1x h3.pageTitle",
+    "1x title"
+   ],
+   "addedToHead": [
+    "1x style[emotion]"
+   ],
+   "timedOut": false,
+   "page": "dashboard: plugins",
+   "perf": {
+    "requests": 10,
+    "downloadedKb": 417,
+    "byOwner": {
+     "Jellyfin web app": {
+      "files": 1,
+      "kb": 8,
+      "slowestMs": 5
+     },
+     "Jellyfin web files": {
+      "files": 1,
+      "kb": 1,
+      "slowestMs": 9
+     },
+     "plugin/other: /Packages": {
+      "files": 1,
+      "kb": 70,
+      "slowestMs": 381
+     },
+     "Jellyfin API": {
+      "files": 7,
+      "kb": 338,
+      "slowestMs": 26
+     }
+    },
+    "slowest": [
+     {
+      "ms": 381,
+      "wait": 374,
+      "kb": 70,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "plugin/other: /Packages",
+      "url": "/Packages"
+     },
+     {
+      "ms": 26,
+      "wait": 25,
+      "kb": 60,
+      "cached": false,
+      "type": "css",
+      "who": "Jellyfin API",
+      "url": "/Plugins/a5b2e8c19d4f4a3b8c7e6f1a2b3c4d5e/12.4.0.0/Image"
+     },
+     {
+      "ms": 26,
+      "wait": 21,
+      "kb": 191,
+      "cached": false,
+      "type": "css",
+      "who": "Jellyfin API",
+      "url": "/Plugins/a629c0dafac54c7e931a7174223f14c8/12.4.0.0/Image"
+     },
+     {
+      "ms": 25,
+      "wait": 17,
+      "kb": 66,
+      "cached": false,
+      "type": "css",
+      "who": "Jellyfin API",
+      "url": "/Plugins/a628c0dafac54c7e9d1a7134223f14c8/12.4.0.0/Image"
+     },
+     {
+      "ms": 24,
+      "wait": 21,
+      "kb": 7,
+      "cached": false,
+      "type": "css",
+      "who": "Jellyfin API",
+      "url": "/Plugins/8c95c4d2e50c4fb0a4f36c06ff0f9a1a/12.4.0.0/Image"
+     },
+     {
+      "ms": 24,
+      "wait": 18,
+      "kb": 10,
+      "cached": false,
+      "type": "css",
+      "who": "Jellyfin API",
+      "url": "/Plugins/872a78491171458da6fb3de3d442ad30/12.4.0.0/Image"
+     },
+     {
+      "ms": 23,
+      "wait": 19,
+      "kb": 3,
+      "cached": false,
+      "type": "css",
+      "who": "Jellyfin API",
+      "url": "/Plugins/b8715ed16c4745289ad3f72deb539cd4/12.4.0.0/Image"
+     },
+     {
+      "ms": 13,
+      "wait": 9,
+      "kb": 1,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin API",
+      "url": "/Plugins"
+     },
+     {
+      "ms": 9,
+      "wait": 8,
+      "kb": 1,
+      "cached": false,
+      "type": "xmlhttprequest",
+      "who": "Jellyfin web files",
+      "url": "/web/ConfigurationPages"
+     },
+     {
+      "ms": 5,
+      "wait": 1,
+      "kb": 8,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/plugins.79bfe246fe2f89e392d3.chunk.js"
+     }
+    ]
+   },
+   "layoutShift": 0,
+   "jumps": [],
+   "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "worstMs": 0
+   }
+  },
+  {
+   "ready": {},
+   "settledMs": 71,
+   "addedRemoved": 6,
+   "styleChanges": 45,
+   "busiest": [
+    "29x attributes html.tb-rows.layout-desktop [class]",
+    "5x attributes a.navMenuOption.lnkMediaFolder [class]",
+    "2x childList head",
+    "2x attributes a.MuiButtonBase-root.MuiListItemButton-root [class]",
+    "2x childList div.skinBody",
+    "2x attributes h3.pageTitle [class]",
+    "2x attributes a.lnkMediaFolder.navMenuOption [class]",
+    "1x attributes a.MuiButtonBase-root.MuiIconButton-root [href]"
+   ],
+   "stillChanging": [
+    "2x head",
+    "2x div.skinBody",
+    "1x h3.pageTitle",
+    "1x title"
+   ],
+   "timedOut": false,
+   "page": "dashboard: scheduled tasks",
+   "perf": {
+    "requests": 1,
+    "downloadedKb": 5,
+    "byOwner": {
+     "Jellyfin web app": {
+      "files": 1,
+      "kb": 5,
+      "slowestMs": 3
+     }
+    },
+    "slowest": [
+     {
+      "ms": 3,
+      "wait": 2,
+      "kb": 5,
+      "cached": false,
+      "type": "script",
+      "who": "Jellyfin web app",
+      "url": "/web/tasks.02f46ed3a885ee5252cb.chunk.js"
+     }
+    ]
+   },
+   "layoutShift": 0,
+   "jumps": [],
+   "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "worstMs": 0
+   }
+  },
+  {
+   "ready": {
+    "header": 179,
+    "avatar": 179,
+    "banner": 179,
+    "rows": 179,
+    "firstPoster": 179,
+    "badges": 179,
+    "library": 179
+   },
+   "settledMs": 321,
+   "addedRemoved": 36,
+   "styleChanges": 368,
+   "busiest": [
+    "35x attributes div.emby-scrollbuttons.padded-right [style]",
+    "34x attributes button.emby-scrollbuttons-button.paper-icon-button-light [class]",
+    "28x attributes button [data-sleekfin-current]",
+    "28x attributes button [data-sleekfin-header-overflowed]",
+    "16x attributes html.tb-rows.layout-desktop [class]",
+    "16x attributes div.cardScalable [data-rdb-size]",
+    "15x attributes button.emby-scrollbuttons-button.paper-icon-button-light [disabled]",
+    "14x attributes html.tb-rows.layout-desktop [style]"
+   ],
+   "stillChanging": [
+    "6x body.mouseIdle",
+    "6x div.verticalSection.tb-row",
+    "6x div.emby-scrollbuttons.padded-right",
+    "4x #reactRoot",
+    "4x div.cardText.cardText-secondary",
+    "1x div.MuiToolbar-root.MuiToolbar-gutters"
+   ],
+   "timedOut": false,
+   "page": "home (going back)",
+   "perf": {
+    "requests": 10,
+    "downloadedKb": 31,
+    "byOwner": {
+     "plugin/other: /UserItems": {
+      "files": 1,
+      "kb": 1,
+      "slowestMs": 44
+     },
+     "Jellyfin API": {
+      "files": 8,
+      "kb": 30,
+      "slowestMs": 81
+     },
+     "Ushereats Theme": {
+      "files": 1,
+      "kb": 0,
+      "slowestMs": 39
+     }
+    },
+    "slowest": [
+     {
+      "ms": 81,
+      "wait": 77,
+      "kb": 8,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Items?userId=5ed45b5d7d2d4e32a83b7b5929919d18&Recursive=true&Limit=16&IncludeItemTypes=Movie%2CSeries&SortBy=PremiereDate&SortOrder=Descending&MaxPremiereDate="
+     },
+     {
+      "ms": 72,
+      "wait": 69,
+      "kb": 2,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Items/Latest?userId=5ed45b5d7d2d4e32a83b7b5929919d18&Limit=16&ParentId=a656b907eb3a73532e40e44b968d0225&Fields=PrimaryImageAspectRatio&ImageTypeLimit=1&EnableI"
+     },
+     {
+      "ms": 68,
+      "wait": 66,
+      "kb": 2,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Shows/NextUp?userId=5ed45b5d7d2d4e32a83b7b5929919d18&Limit=24&EnableResumable=true&EnableRewatching=false&Fields=PrimaryImageAspectRatio&ImageTypeLimit=1&Enabl"
+     },
+     {
+      "ms": 64,
+      "wait": 60,
+      "kb": 6,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Items/Latest?userId=5ed45b5d7d2d4e32a83b7b5929919d18&Limit=16&ParentId=f137a2dd21bbc1b99aa5c0f6bf02a805&Fields=PrimaryImageAspectRatio&ImageTypeLimit=1&EnableI"
+     },
+     {
+      "ms": 44,
+      "wait": 42,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "plugin/other: /UserItems",
+      "url": "/UserItems/Resume?userId=5ed45b5d7d2d4e32a83b7b5929919d18&MediaTypes=Video&IncludeItemTypes=Movie&Limit=12&Fields=PrimaryImageAspectRatio&ImageTypeLimit=1&Enabl"
+     },
+     {
+      "ms": 39,
+      "wait": 38,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Ushereats Theme",
+      "url": "/UshereatsTheme/trending"
+     },
+     {
+      "ms": 26,
+      "wait": 24,
+      "kb": 0,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Items/Counts?userId=5ed45b5d7d2d4e32a83b7b5929919d18"
+     },
+     {
+      "ms": 22,
+      "wait": 21,
+      "kb": 10,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18/Items?EnableTotalRecordCount=false&Ids=1d858c5bfd41686f432c5272367f8b67%2Cd20d52dd0dfb390eccf3bc6d42c66edc%2Ccb6b1b480bf"
+     },
+     {
+      "ms": 14,
+      "wait": 13,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Sessions?ActiveWithinSeconds=960"
+     },
+     {
+      "ms": 11,
+      "wait": 10,
+      "kb": 1,
+      "cached": false,
+      "type": "fetch",
+      "who": "Jellyfin API",
+      "url": "/Users/5ed45b5d7d2d4e32a83b7b5929919d18"
+     }
+    ]
+   },
+   "layoutShift": 0.026,
+   "jumps": [
+    {
+     "at": 177,
+     "value": 0.026,
+     "what": [
+      "#indexPage.page.mainAnimatedPage.homePage"
+     ]
+    }
+   ],
+   "longTasks": {
+    "count": 2,
+    "totalMs": 117,
+    "worstMs": 64
+   }
+  },
+  {
+   "page": "home scrolling",
+   "frames": 41,
+   "avgFrameMs": 71,
+   "droppedFrames": 41,
+   "worstFrameMs": 81
+  }
+ ],
+ "afterPages": {
+  "domNodes": 1199,
+  "jsHeapMb": 45,
+  "layoutShiftTotal": 0.889
+ },
+ "server": {
+  "process": {
+   "cpuPercent": 4,
+   "cores": 4,
+   "memoryMb": 452,
+   "managedMb": 119,
+   "threads": 24,
+   "uptimeMinutes": 2,
+   "gcCollections": [
+    83,
+    15,
+    6
+   ]
+  },
+  "slowestTotal": [
+   {
+    "route": "GET /socket",
+    "count": 1,
+    "avgMs": 49840,
+    "maxMs": 49840,
+    "totalMs": 49840,
+    "kb": 0,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Users/{id}/Items",
+    "count": 31,
+    "avgMs": 79,
+    "maxMs": 156,
+    "totalMs": 2474,
+    "kb": 40,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Items/{id}/Images/Primary",
+    "count": 34,
+    "avgMs": 69,
+    "maxMs": 194,
+    "totalMs": 2352,
+    "kb": 559,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /UshereatsTheme/theme.css",
+    "count": 4,
+    "avgMs": 220,
+    "maxMs": 875,
+    "totalMs": 882,
+    "kb": 91,
+    "who": "Ushereats Theme"
+   },
+   {
+    "route": "GET /Items/{id}/Images/Backdrop/{n}",
+    "count": 7,
+    "avgMs": 108,
+    "maxMs": 201,
+    "totalMs": 758,
+    "kb": 403,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Items",
+    "count": 13,
+    "avgMs": 53,
+    "maxMs": 112,
+    "totalMs": 691,
+    "kb": 45,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Packages",
+    "count": 1,
+    "avgMs": 376,
+    "maxMs": 376,
+    "totalMs": 376,
+    "kb": 69,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /UserItems/Resume",
+    "count": 5,
+    "avgMs": 53,
+    "maxMs": 90,
+    "totalMs": 268,
+    "kb": 10,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Users/{id}/Items/{id}",
+    "count": 11,
+    "avgMs": 22,
+    "maxMs": 39,
+    "totalMs": 252,
+    "kb": 21,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Studios",
+    "count": 2,
+    "avgMs": 101,
+    "maxMs": 112,
+    "totalMs": 202,
+    "kb": 0,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Items/Latest",
+    "count": 7,
+    "avgMs": 28,
+    "maxMs": 43,
+    "totalMs": 197,
+    "kb": 20,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /System/ActivityLog/Entries",
+    "count": 4,
+    "avgMs": 48,
+    "maxMs": 75,
+    "totalMs": 192,
+    "kb": 1,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Items/{id}/Similar",
+    "count": 5,
+    "avgMs": 36,
+    "maxMs": 75,
+    "totalMs": 184,
+    "kb": 24,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Sessions",
+    "count": 9,
+    "avgMs": 19,
+    "maxMs": 59,
+    "totalMs": 176,
+    "kb": 8,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Users/{id}",
+    "count": 11,
+    "avgMs": 14,
+    "maxMs": 27,
+    "totalMs": 161,
+    "kb": 9,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Items/{id}/ThemeMedia",
+    "count": 4,
+    "avgMs": 39,
+    "maxMs": 52,
+    "totalMs": 159,
+    "kb": 0,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Items/{id}",
+    "count": 5,
+    "avgMs": 31,
+    "maxMs": 43,
+    "totalMs": 159,
+    "kb": 8,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Artists",
+    "count": 1,
+    "avgMs": 153,
+    "maxMs": 153,
+    "totalMs": 153,
+    "kb": 0,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Shows/NextUp",
+    "count": 6,
+    "avgMs": 23,
+    "maxMs": 39,
+    "totalMs": 142,
+    "kb": 8,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /UserViews",
+    "count": 5,
+    "avgMs": 22,
+    "maxMs": 28,
+    "totalMs": 114,
+    "kb": 4,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Items/Counts",
+    "count": 6,
+    "avgMs": 18,
+    "maxMs": 26,
+    "totalMs": 111,
+    "kb": 0,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Items/{id}/Images/Logo",
+    "count": 7,
+    "avgMs": 14,
+    "maxMs": 58,
+    "totalMs": 104,
+    "kb": 67,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Users/{id}/Items/Latest",
+    "count": 1,
+    "avgMs": 104,
+    "maxMs": 104,
+    "totalMs": 104,
+    "kb": 0,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /System/Info",
+    "count": 5,
+    "avgMs": 20,
+    "maxMs": 41,
+    "totalMs": 102,
+    "kb": 2,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Persons",
+    "count": 2,
+    "avgMs": 47,
+    "maxMs": 50,
+    "totalMs": 95,
+    "kb": 0,
+    "who": "Jellyfin"
+   }
+  ],
+  "slowestSingle": [
+   {
+    "route": "GET /socket",
+    "count": 1,
+    "avgMs": 49840,
+    "maxMs": 49840,
+    "totalMs": 49840,
+    "kb": 0,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /UshereatsTheme/theme.css",
+    "count": 4,
+    "avgMs": 220,
+    "maxMs": 875,
+    "totalMs": 882,
+    "kb": 91,
+    "who": "Ushereats Theme"
+   },
+   {
+    "route": "GET /Packages",
+    "count": 1,
+    "avgMs": 376,
+    "maxMs": 376,
+    "totalMs": 376,
+    "kb": 69,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Items/{id}/Images/Backdrop/{n}",
+    "count": 7,
+    "avgMs": 108,
+    "maxMs": 201,
+    "totalMs": 758,
+    "kb": 403,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Items/{id}/Images/Primary",
+    "count": 34,
+    "avgMs": 69,
+    "maxMs": 194,
+    "totalMs": 2352,
+    "kb": 559,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Users/{id}/Items",
+    "count": 31,
+    "avgMs": 79,
+    "maxMs": 156,
+    "totalMs": 2474,
+    "kb": 40,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Artists",
+    "count": 1,
+    "avgMs": 153,
+    "maxMs": 153,
+    "totalMs": 153,
+    "kb": 0,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Items",
+    "count": 13,
+    "avgMs": 53,
+    "maxMs": 112,
+    "totalMs": 691,
+    "kb": 45,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Studios",
+    "count": 2,
+    "avgMs": 101,
+    "maxMs": 112,
+    "totalMs": 202,
+    "kb": 0,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Users/{id}/Items/Latest",
+    "count": 1,
+    "avgMs": 104,
+    "maxMs": 104,
+    "totalMs": 104,
+    "kb": 0,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /UserItems/Resume",
+    "count": 5,
+    "avgMs": 53,
+    "maxMs": 90,
+    "totalMs": 268,
+    "kb": 10,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Items/Filters2",
+    "count": 1,
+    "avgMs": 83,
+    "maxMs": 83,
+    "totalMs": 83,
+    "kb": 0,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /System/ActivityLog/Entries",
+    "count": 4,
+    "avgMs": 48,
+    "maxMs": 75,
+    "totalMs": 192,
+    "kb": 1,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Items/{id}/Similar",
+    "count": 5,
+    "avgMs": 36,
+    "maxMs": 75,
+    "totalMs": 184,
+    "kb": 24,
+    "who": "Jellyfin"
+   },
+   {
+    "route": "GET /Items/Filters",
+    "count": 1,
+    "avgMs": 61,
+    "maxMs": 61,
+    "totalMs": 61,
+    "kb": 0,
+    "who": "Jellyfin"
+   }
+  ],
+  "byWho": {
+   "Jellyfin": {
+    "requests": 269,
+    "totalMs": 60505,
+    "maxMs": 49840,
+    "kb": 7522
+   },
+   "Ushereats Theme": {
+    "requests": 18,
+    "totalMs": 1028,
+    "maxMs": 875,
+    "kb": 324
+   }
+  },
+  "tasks": [
+   {
+    "name": "Scan Media Library",
+    "category": "Library",
+    "state": "Idle",
+    "lastSeconds": 9,
+    "lastStatus": "Completed",
+    "triggers": [
+     "IntervalTrigger every 720 min"
+    ]
+   },
+   {
+    "name": "Update Plugins",
+    "category": "Application",
+    "state": "Idle",
+    "lastSeconds": 1,
+    "lastStatus": "Completed",
+    "triggers": [
+     "StartupTrigger",
+     "IntervalTrigger every 1440 min"
+    ]
+   },
+   {
+    "name": "Ushereats Theme Startup",
+    "category": "Startup Services",
+    "state": "Idle",
+    "lastSeconds": 1,
+    "lastStatus": "Completed",
+    "triggers": [
+     "StartupTrigger"
+    ]
+   },
+   {
+    "name": "Audio Normalization",
+    "category": "Library",
+    "state": "Idle",
+    "lastSeconds": null,
+    "triggers": [
+     "IntervalTrigger every 1440 min"
+    ]
+   },
+   {
+    "name": "Clean Activity Log",
+    "category": "Maintenance",
+    "state": "Idle",
+    "lastSeconds": null,
+    "triggers": []
+   },
+   {
+    "name": "Clean Cache Directory",
+    "category": "Maintenance",
+    "state": "Idle",
+    "lastSeconds": null,
+    "triggers": [
+     "IntervalTrigger every 1440 min"
+    ]
+   },
+   {
+    "name": "Clean Log Directory",
+    "category": "Maintenance",
+    "state": "Idle",
+    "lastSeconds": null,
+    "triggers": [
+     "IntervalTrigger every 1440 min"
+    ]
+   },
+   {
+    "name": "Clean Transcode Directory",
+    "category": "Maintenance",
+    "state": "Idle",
+    "lastSeconds": 0,
+    "lastStatus": "Completed",
+    "triggers": [
+     "StartupTrigger",
+     "IntervalTrigger every 1440 min"
+    ]
+   },
+   {
+    "name": "Download missing lyrics",
+    "category": "Library",
+    "state": "Idle",
+    "lastSeconds": null,
+    "triggers": [
+     "IntervalTrigger every 1440 min"
+    ]
+   },
+   {
+    "name": "Download missing subtitles",
+    "category": "Library",
+    "state": "Idle",
+    "lastSeconds": null,
+    "triggers": [
+     "IntervalTrigger every 1440 min"
+    ]
+   },
+   {
+    "name": "Extract Chapter Images",
+    "category": "Library",
+    "state": "Idle",
+    "lastSeconds": null,
+    "triggers": [
+     "DailyTrigger at 2h"
+    ]
+   },
+   {
+    "name": "Generate Trickplay Images",
+    "category": "Library",
+    "state": "Idle",
+    "lastSeconds": null,
+    "triggers": [
+     "DailyTrigger at 3h"
+    ]
+   },
+   {
+    "name": "Keyframe Extractor",
+    "category": "Library",
+    "state": "Idle",
+    "lastSeconds": null,
+    "triggers": []
+   },
+   {
+    "name": "Media Segment Scan",
+    "category": "Library",
+    "state": "Idle",
+    "lastSeconds": null,
+    "triggers": [
+     "IntervalTrigger every 720 min"
+    ]
+   },
+   {
+    "name": "Migrate Trickplay Image Location",
+    "category": "Maintenance",
+    "state": "Idle",
+    "lastSeconds": null,
+    "triggers": []
+   },
+   {
+    "name": "Optimize database",
+    "category": "Maintenance",
+    "state": "Idle",
+    "lastSeconds": null,
+    "triggers": [
+     "IntervalTrigger every 360 min"
+    ]
+   },
+   {
+    "name": "Refresh People",
+    "category": "Library",
+    "state": "Idle",
+    "lastSeconds": null,
+    "triggers": [
+     "IntervalTrigger every 10080 min"
+    ]
+   },
+   {
+    "name": "Refresh upcoming and missing episodes (TheMovieDb)",
+    "category": "Library",
+    "state": "Idle",
+    "lastSeconds": null,
+    "triggers": [
+     "IntervalTrigger every 10080 min"
+    ]
+   },
+   {
+    "name": "User data cleanup task",
+    "category": "Maintenance",
+    "state": "Idle",
+    "lastSeconds": null,
+    "triggers": []
+   },
+   {
+    "name": "Ushereats Theme: Trending This Week",
+    "category": "Ushereats Theme",
+    "state": "Idle",
+    "lastSeconds": 0,
+    "lastStatus": "Completed",
+    "triggers": [
+     "StartupTrigger",
+     "IntervalTrigger every 720 min"
+    ]
+   }
+  ]
+ },
+ "problems": [
+  "FREEZE: dashboard froze for 207 ms (6 freezes)",
+  "JUMPS: dashboard layout shift 0.167 ([\"span.np-pill.np-ds\",\"span.np-pill.np-rm\",\"span.np-pill.np-tc\"])",
+  "FREEZE: dashboard: activity froze for 227 ms (3 freezes)",
+  "JUMPS: dashboard: activity layout shift 0.124 ([\"tr.MuiTableRow-root.css-vag9oz\",\"tr.MuiTableRow-root.css-vag9oz\",\"tr.MuiTableRow-root.css-vag9oz\"])",
+  "JANK while scrolling: 41 slow frames, worst 81 ms",
+  "SLOW on the server: GET /socket avg 49840 ms x1 (Jellyfin)",
+  "VERY SLOW once on the server: GET /socket 49840 ms (Jellyfin)"
+ ]
+}

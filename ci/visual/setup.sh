@@ -41,8 +41,8 @@ start
 api() { # method path [json]   (retries while Jellyfin is (re)starting)
   local m=$1 p=$2 d=${3:-} i rc out
   for i in $(seq 1 90); do
-    if [ -n "$d" ]; then out=$(curl -sS -f -X "$m" "$J$p" -H "Authorization: $AUTH${TOKEN:+, Token=\"$TOKEN\"}" -H 'Content-Type: application/json' -d "$d" 2>&1); rc=$?
-    else out=$(curl -sS -f -X "$m" "$J$p" -H "Authorization: $AUTH${TOKEN:+, Token=\"$TOKEN\"}" 2>&1); rc=$?; fi
+    if [ -n "$d" ]; then out=$(curl -sS -f -X "$m" "$J$p" -H "Authorization: $AUTH${TOKEN:+, Token=\"$TOKEN\"}" -H 'Content-Type: application/json' -d "$d" 2>&1) && rc=0 || rc=$?
+    else out=$(curl -sS -f -X "$m" "$J$p" -H "Authorization: $AUTH${TOKEN:+, Token=\"$TOKEN\"}" 2>&1) && rc=0 || rc=$?; fi
     if [ $rc -eq 0 ]; then printf '%s' "$out"; return 0; fi
     if [ $rc -ne 7 ] && [ $rc -ne 52 ] && [ $rc -ne 56 ] && ! echo "$out" | grep -q " 503"; then echo "API $m $p failed: $out" >&2; return $rc; fi
     sleep 1

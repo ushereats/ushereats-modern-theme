@@ -228,6 +228,11 @@ public static class ThemeAssets
             css.Append(ReadText("sleek.css")
                 .Replace("__TB_FONT_V__", fontVersion, StringComparison.Ordinal)
                 .Replace("__TB_ACCENT__", Accent(config), StringComparison.Ordinal)
+                .Replace("__TB_CARD_BUTTON_RADIUS__", IndexPatch.ShapeRadius(SleekOf(config).CardButtonShape, 4, 12), StringComparison.Ordinal)
+                .Replace("__TB_PLAY_RADIUS__", IndexPatch.ShapeRadius(SleekOf(config).PlayButtonShape, 6, 18), StringComparison.Ordinal)
+                .Replace("__TB_COMPACT_RADIUS__", IndexPatch.ShapeRadius(SleekOf(config).MediaCardShape, 4, 16), StringComparison.Ordinal)
+                .Replace("__TB_PERSON_RADIUS__", IndexPatch.ShapeRadius(SleekOf(config).CastCrewShape, 4, 10), StringComparison.Ordinal)
+                .Replace("__TB_PERSON_INNER_RADIUS__", IndexPatch.ShapeRadius(SleekOf(config).CastCrewShape, 3, 9), StringComparison.Ordinal)
                 ).Append('\n');
         }
 

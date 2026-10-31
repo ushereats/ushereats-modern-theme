@@ -890,8 +890,10 @@ html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfi
   html:is(.sleekfin-hero-boot-loading, .sleekfin-hero-loading) #indexPage #homeTab.is-active > .sections::before {
     height: min(var(--sleekfin-hero-desktop-height, 85vh), 75vw) !important;
   }
-  html.sleekfin-details-mounted:not(#tb-x) {
-    --sleekfin-details-hero-height: min(85vh, 75vw);
+  html.sleekfin-details-mounted:not(#tb-x),
+  html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details],
+  html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] > * {
+    --sleekfin-details-hero-height: min(85vh, 75vw) !important;
   }
 }
 

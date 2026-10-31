@@ -108,6 +108,27 @@ body:has(#videoOsdPage:not(.hide)) #tb-header-avatar {
     }
 }
 
+/* opens right under the avatar (top right), whatever button opened it */
+#app-user-menu .MuiPaper-root {
+    left: auto !important;
+    right: var(--sleekfin-page-gutter, 24px) !important;
+    top: calc(var(--sleekfin-header-height, 72px) / 2 + 20px) !important;
+    transform-origin: top right !important;
+}
+
+@media (min-width: 900px) {
+    html:has([data-sleekfin-header][data-sleekfin-scrolled="true"]) #app-user-menu .MuiPaper-root {
+        top: 44px !important; /* shrunk header: 56px tall, 32px avatar */
+    }
+}
+
+@media (max-width: 899px) {
+    #app-user-menu .MuiPaper-root {
+        right: 16px !important;
+        top: calc(env(safe-area-inset-top) + 48px) !important;
+    }
+}
+
 #app-user-menu .MuiMenu-list {
     padding: 0 !important;
 }

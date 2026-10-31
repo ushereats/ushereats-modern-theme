@@ -195,7 +195,7 @@ function menuHead(userId, user) {
   return head;
 }
 
-// drops the opened menu down under the avatar, with your picture and name on top
+// puts your picture and name on top of the opened menu
 function placeMenu(tries) {
   const avatar = document.getElementById(ID);
   const paper = document.querySelector('#app-user-menu .MuiPaper-root');
@@ -206,10 +206,7 @@ function placeMenu(tries) {
   const userId = currentUserId();
   const user = readCache(userId);
   if (user && !paper.querySelector(`.${HEAD}`)) paper.insertBefore(menuHead(userId, user), paper.firstChild);
-  const bounds = avatar.getBoundingClientRect();
-  paper.style.setProperty('left', `${Math.max(8, bounds.right - paper.offsetWidth)}px`, 'important');
-  paper.style.setProperty('top', `${bounds.bottom + 8}px`, 'important');
-  paper.style.setProperty('transform-origin', 'top right', 'important');
+  // (where it opens, under the avatar, is set in the stylesheet: Jellyfin's own positioning can't move it)
 }
 
 function openMenu(event) {

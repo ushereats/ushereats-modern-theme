@@ -1675,6 +1675,7 @@
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="player">Player</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="signin">Sign-in &amp; splash</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="dashboard">Dashboard</button>
+                <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="speed">Speed test</button>
             </nav>
 
             <form id="sleekFinConfigurationForm" class="sleekFinConfigurationForm">
@@ -2108,6 +2109,22 @@
                         </div>
                     </div>
 
+                </div>
+
+                <div class="sleekfin-page-panel" data-sleekfin-panel="speed">
+                    <div class="sleekfin-section-container">
+                        <div class="sleekfin-config-section-title">Speed test</div>
+                        <div class="sleekfin-card">
+                            <p class="sleekfin-field-description" style="margin:0 0 12px">Times every server request the site uses (3 times each), lists what each plugin adds to every page, then opens your real pages (home, a movie, a show, search, back to home, scrolling) and times them: when the header, banner, rows, posters, badges and episodes appear, freezes, layout jumps, the slowest files and who they belong to, running tasks and transcodes. Takes about a minute. Then copy the results and send them.</p>
+                            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+                                <button type="button" id="tbBenchRun" class="sleekfin-builder-config-button">Run speed test</button>
+                                <button type="button" id="tbBenchCopy" class="sleekfin-builder-config-button" hidden>Copy results</button>
+                                <button type="button" id="tbBenchSave" class="sleekfin-builder-config-button" hidden>Download results</button>
+                                <span id="tbBenchStatus" class="sleekfin-field-description"></span>
+                            </div>
+                            <textarea id="tbBenchOut" class="sleekfin-input" rows="18" spellcheck="false" readonly hidden style="width:100%;box-sizing:border-box;margin-top:12px;font:12px/1.4 ui-monospace,monospace"></textarea>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="sleekfin-page-panel" data-sleekfin-panel="dashboard">
@@ -5188,6 +5205,348 @@
         });
         cfg.HomeRowsJson = JSON.stringify(rows);
       };
+    })();
+    </script>
+    <script>
+    (function () {
+      // ── Speed test: times the server, then opens the real pages (in a frame) and times them ──
+      var page = document.querySelector("#sleekFinConfigurationPage");
+      var btn = page.querySelector("#tbBenchRun");
+      var out = page.querySelector("#tbBenchOut");
+      var status = page.querySelector("#tbBenchStatus");
+      if (!btn) return;
+
+      function now() { return performance.now(); }
+      function round(n) { return Math.round(n); }
+      function median(a) { var s = a.slice().sort(function (x, y) { return x - y; }); return s.length ? s[Math.floor(s.length / 2)] : null; }
+      function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+      function say(t) { status.textContent = t; }
+      function kb(b) { return Math.round((b || 0) / 1024); }
+      function headers() { return { "Authorization": 'MediaBrowser Token="' + ApiClient.accessToken() + '"' }; }
+
+      // who a file belongs to (Jellyfin, this theme, another plugin...)
+      function owner(url) {
+        try {
+          var u = new URL(url, location.href);
+          if (u.origin !== location.origin) return "external: " + u.hostname;
+          var p = u.pathname.replace(/^\/+/, "").split("/");
+          if (p[0] === "web") return /\.(js|css)$/.test(u.pathname) ? "Jellyfin web app" : "Jellyfin web files";
+          if (p[0] === "UshereatsTheme") return "Ushereats Theme";
+          if (p[0] === "Items" || p[0] === "Users" && /Images/.test(u.pathname)) return /Images/.test(u.pathname) ? "images" : "Jellyfin API";
+          if (/^(Users|Shows|Sessions|System|Items|Library|UserViews|DisplayPreferences|Branding|Localization|QuickConnect|Playback|Plugins|Studios|Persons|Genres|LiveTv|Videos|Audio)$/i.test(p[0])) return "Jellyfin API";
+          return "plugin/other: /" + p[0];
+        } catch (e) { return "?"; }
+      }
+
+      // ── 1. server: each request 3 times ──
+      function timeReq(name, url, opts) {
+        var times = [], info = {};
+        var full = /^https?:/.test(url) ? url : ApiClient.getUrl(url);
+        function one(i) {
+          var t = now();
+          return fetch(full + (full.indexOf("?") < 0 ? "?" : "&") + "tbBench=" + Date.now() + i, { headers: headers(), cache: "no-store" }).then(function (r) {
+            return r.arrayBuffer().then(function (b) {
+              times.push(now() - t);
+              info.status = r.status; info.kb = kb(b.byteLength);
+              info.encoding = r.headers.get("content-encoding") || "";
+              info.cache = r.headers.get("cache-control") || "";
+              info.server = r.headers.get("server") || "";
+              info.cf = r.headers.get("cf-cache-status") || "";
+            });
+          }).catch(function (e) { info.error = String(e); });
+        }
+        var chain = Promise.resolve();
+        for (var i = 0; i < ((opts && opts.n) || 3); i++) (function (i) { chain = chain.then(function () { return one(i); }); })(i);
+        return chain.then(function () {
+          return { name: name, ms: round(median(times)), min: round(Math.min.apply(null, times)), max: round(Math.max.apply(null, times)), kb: info.kb, status: info.status, gzip: info.encoding, cache: info.cache, cf: info.cf, error: info.error };
+        });
+      }
+
+      function serverTests(uid, sample) {
+        var tests = [
+          ["ping", "System/Ping"],
+          ["server info", "System/Info/Public"],
+          ["me (user)", "Users/" + uid],
+          ["libraries", "UserViews?userId=" + uid],
+          ["continue watching", "UserItems/Resume?userId=" + uid + "&Limit=24&Fields=PrimaryImageAspectRatio&MediaTypes=Video"],
+          ["next up", "Shows/NextUp?userId=" + uid + "&Limit=24&Fields=PrimaryImageAspectRatio"],
+          ["latest", "Items/Latest?userId=" + uid + "&Limit=16&Fields=PrimaryImageAspectRatio"],
+          ["movies list (100)", "Items?userId=" + uid + "&IncludeItemTypes=Movie&Recursive=true&Limit=100&SortBy=SortName&Fields=PrimaryImageAspectRatio"],
+          ["item counts", "Items/Counts?userId=" + uid],
+          ["search 'the'", "Items?userId=" + uid + "&SearchTerm=the&Limit=24&Recursive=true&IncludeItemTypes=Movie,Series"],
+          ["trending (plugin)", "UshereatsTheme/trending"],
+          ["sessions", "Sessions?ActiveWithinSeconds=960"],
+          ["theme.css", "UshereatsTheme/theme.css"],
+          ["theme.js", "UshereatsTheme/theme.js"],
+          ["index.html", location.origin + location.pathname.replace(/[^/]*$/, "") + "index.html"]
+        ];
+        if (sample) {
+          tests.push(["item details", "Users/" + uid + "/Items/" + sample.Id]);
+          tests.push(["poster image (400px)", "Items/" + sample.Id + "/Images/Primary?maxHeight=400&quality=90"]);
+          tests.push(["backdrop image (1920px)", "Items/" + sample.Id + "/Images/Backdrop?maxWidth=1920&quality=80"]);
+          tests.push(["similar", "Items/" + sample.Id + "/Similar?userId=" + uid + "&Limit=12"]);
+        }
+        var res = [], chain = Promise.resolve();
+        tests.forEach(function (t, i) {
+          chain = chain.then(function () { say("Server " + (i + 1) + "/" + tests.length + ": " + t[0]); return timeReq(t[0], t[1]).then(function (r) { res.push(r); }); });
+        });
+        return chain.then(function () { return res; });
+      }
+
+      // ── 2. what's added to every page (by plugins) ──
+      function indexInjections() {
+        return fetch(location.pathname.replace(/[^/]*$/, "") + "index.html", { cache: "no-store" }).then(function (r) { return r.text(); }).then(function (html) {
+          var doc = new DOMParser().parseFromString(html, "text/html");
+          var list = [];
+          doc.querySelectorAll("script, link[rel=stylesheet], link[rel=preload], style").forEach(function (el) {
+            var src = el.getAttribute("src") || el.getAttribute("href") || "";
+            list.push({ tag: el.tagName.toLowerCase() + (el.getAttribute("rel") ? "[" + el.getAttribute("rel") + "]" : ""), src: src || "(inline)", owner: src ? owner(src) : "inline", inlineKb: src ? undefined : kb((el.textContent || "").length), defer: el.hasAttribute("defer") || el.hasAttribute("async") || undefined });
+          });
+          return { kb: kb(html.length), tags: list };
+        });
+      }
+
+      // ── 3. the real pages, opened in a frame ──
+      var overlay, frame;
+      function openFrame() {
+        overlay = document.createElement("div");
+        overlay.style.cssText = "position:fixed;inset:0;z-index:99999;background:#000;display:flex;flex-direction:column";
+        var bar = document.createElement("div");
+        bar.style.cssText = "padding:8px 14px;font:600 13px/1.4 sans-serif;color:#fff;background:#111";
+        bar.textContent = "Speed test running… (don't touch anything)";
+        frame = document.createElement("iframe");
+        frame.style.cssText = "flex:1;border:0;width:100%";
+        overlay.appendChild(bar); overlay.appendChild(frame);
+        document.body.appendChild(overlay);
+      }
+      function closeFrame() { if (overlay) overlay.remove(); overlay = frame = null; }
+
+      function checks(w) {
+        var d = w.document, h = d.documentElement;
+        function vis(sel) { var e = d.querySelector(sel); return !!(e && e.getClientRects().length && w.getComputedStyle(e).visibility !== "hidden" && w.getComputedStyle(e).opacity !== "0"); }
+        return {
+          header: h.classList.contains("sleekfin-header-mounted") && vis("[data-sleekfin-header]"),
+          avatar: !!d.getElementById("tb-header-avatar"),
+          banner: vis(".sleekfin-hero"),
+          rows: !!d.querySelector(".tb-rows-c .card"),
+          firstPoster: !!d.querySelector(".card .cardImageContainer[style*='background-image']"),
+          badges: !!d.querySelector(".tb-quality-badge, .time-remaining-badge, .release-date-badge"),
+          details: vis("#itemDetailPage[data-sleekfin-details]") && !h.classList.contains("sleekfin-details-concealed"),
+          episodes: !!d.querySelector(".sleekfin-details-episode"),
+          search: !!d.querySelector("#searchPage .card"),
+          library: !!d.querySelector("#moviesPage .card, .page:not(.hide) .itemsContainer .card")
+        };
+      }
+
+      // watches one page until nothing changes for 1.5 s (or 20 s pass)
+      function watch(w, startAt, want) {
+        return new Promise(function (resolve) {
+          var marks = {}, lastChange = now(), muts = 0, done = false;
+          var mo = new w.MutationObserver(function (l) { muts += l.length; lastChange = now(); });
+          mo.observe(w.document.documentElement, { childList: true, subtree: true, attributes: true });
+          function tick() {
+            if (done) return;
+            var c = {};
+            try { c = checks(w); } catch (e) {}
+            Object.keys(c).forEach(function (k) { if (c[k] && marks[k] == null) marks[k] = round(now() - startAt); });
+            var ready = want.every(function (k) { return marks[k] != null; });
+            var t = now();
+            if ((ready && t - lastChange > 1500) || t - startAt > 20000) {
+              done = true; mo.disconnect();
+              resolve({ ready: marks, settledMs: round(lastChange - startAt), domChanges: muts, timedOut: !ready });
+              return;
+            }
+            w.requestAnimationFrame(tick);
+          }
+          w.requestAnimationFrame(tick);
+        });
+      }
+
+      function perfOf(w, sinceMs) {
+        var p = w.performance, r = { };
+        var nav = p.getEntriesByType("navigation")[0];
+        if (nav && !sinceMs) r.load = { ttfb: round(nav.responseStart), domReady: round(nav.domContentLoadedEventEnd), loaded: round(nav.loadEventEnd), protocol: nav.nextHopProtocol };
+        if (!sinceMs) p.getEntriesByType("paint").forEach(function (e) { r[e.name === "first-contentful-paint" ? "fcp" : "fp"] = round(e.startTime); });
+        var res = p.getEntriesByType("resource").filter(function (e) { return e.startTime >= (sinceMs || 0); });
+        var byOwner = {};
+        res.forEach(function (e) {
+          var o = owner(e.name), b = byOwner[o] || (byOwner[o] = { files: 0, kb: 0, slowestMs: 0 });
+          b.files++; b.kb += kb(e.transferSize || e.encodedBodySize); b.slowestMs = Math.max(b.slowestMs, round(e.duration));
+        });
+        r.requests = res.length;
+        r.downloadedKb = res.reduce(function (s, e) { return s + kb(e.transferSize); }, 0);
+        r.byOwner = byOwner;
+        r.slowest = res.slice().sort(function (a, b) { return b.duration - a.duration; }).slice(0, 12).map(function (e) {
+          return { ms: round(e.duration), wait: round(e.responseStart - e.requestStart), kb: kb(e.transferSize || e.encodedBodySize), cached: e.transferSize === 0 && e.decodedBodySize > 0, type: e.initiatorType, who: owner(e.name), url: e.name.replace(location.origin, "").replace(/([?&]api_key=)[^&]+/, "$1…").slice(0, 160) };
+        });
+        return r;
+      }
+
+      function navigate(w, hash, want, label) {
+        var since = w.performance.now();
+        var t0 = now();
+        w.__tbLong = [];
+        w.location.hash = hash;
+        return watch(w, t0, want).then(function (m) {
+          var p = perfOf(w, since);
+          var lt = (w.__tbLongAll || []).filter(function (e) { return e.startTime >= since; });
+          m.page = label; m.perf = p;
+          m.longTasks = { count: lt.length, totalMs: round(lt.reduce(function (s, e) { return s + e.duration; }, 0)), worstMs: round(lt.reduce(function (s, e) { return Math.max(s, e.duration); }, 0)) };
+          return m;
+        });
+      }
+
+      function framePages(sample, series) {
+        return new Promise(function (resolve) {
+          openFrame();
+          var base = location.pathname.replace(/[^/]*$/, "") + "index.html";
+          var t0 = now();
+          frame.onload = function () {
+            var w = frame.contentWindow;
+            // long tasks (the page freezing) and layout jumps, from the very start
+            w.__tbLongAll = [];
+            var cls = 0;
+            try { new w.PerformanceObserver(function (l) { l.getEntries().forEach(function (e) { w.__tbLongAll.push(e); }); }).observe({ type: "longtask", buffered: true }); } catch (e) {}
+            try { new w.PerformanceObserver(function (l) { l.getEntries().forEach(function (e) { if (!e.hadRecentInput) cls += e.value; }); }).observe({ type: "layout-shift", buffered: true }); } catch (e) {}
+            var lcp = 0;
+            try { new w.PerformanceObserver(function (l) { var e = l.getEntries(); if (e.length) lcp = e[e.length - 1].startTime; }).observe({ type: "largest-contentful-paint", buffered: true }); } catch (e) {}
+            var results = [];
+            say("Pages: home (first open)");
+            watch(w, t0, ["header", "rows", "banner"]).then(function (m) {
+              m.page = "home (fresh open)";
+              m.perf = perfOf(w, 0);
+              m.perf.lcp = round(lcp);
+              m.layoutShift = Math.round(cls * 1000) / 1000;
+              var lt = w.__tbLongAll;
+              m.longTasks = { count: lt.length, totalMs: round(lt.reduce(function (s, e) { return s + e.duration; }, 0)), worstMs: round(lt.reduce(function (s, e) { return Math.max(s, e.duration); }, 0)) };
+              results.push(m);
+              var steps = [];
+              if (sample) steps.push(["#/details?id=" + sample.Id + "&serverId=" + ApiClient.serverId(), ["header", "details"], "movie details"]);
+              if (series) steps.push(["#/details?id=" + series.Id + "&serverId=" + ApiClient.serverId(), ["header", "details", "episodes"], "series details"]);
+              steps.push(["#/search?tbq=the", ["header", "search"], "search 'the'"]);
+              steps.push(["#/home", ["header", "rows"], "home (going back)"]);
+              var chain = Promise.resolve();
+              steps.forEach(function (s) {
+                chain = chain.then(function () { say("Pages: " + s[2]); return navigate(w, s[0], s[1], s[2]).then(function (r) { results.push(r); }); });
+              });
+              chain.then(function () {
+                // scroll home to the bottom: smoothness while scrolling
+                say("Pages: scrolling home");
+                return scrollTest(w).then(function (s) { results.push(s); });
+              }).then(function () {
+                var info = { domNodes: w.document.getElementsByTagName("*").length, jsHeapMb: w.performance.memory ? Math.round(w.performance.memory.usedJSHeapSize / 1048576) : null, layoutShiftTotal: Math.round(cls * 1000) / 1000 };
+                closeFrame();
+                resolve({ pages: results, after: info });
+              });
+            });
+          };
+          frame.src = base + "#/home";
+        });
+      }
+
+      function scrollTest(w) {
+        return new Promise(function (resolve) {
+          var frames = [], last = now(), y = 0, start = now();
+          var max = Math.max(0, w.document.documentElement.scrollHeight - w.innerHeight);
+          var scroller = w.document.scrollingElement || w.document.documentElement;
+          function step() {
+            var t = now(); frames.push(t - last); last = t;
+            y += 40; scroller.scrollTop = y;
+            w.dispatchEvent(new w.Event("scroll"));
+            if (y < max && t - start < 8000) w.requestAnimationFrame(step);
+            else {
+              scroller.scrollTop = 0;
+              var slow = frames.filter(function (f) { return f > 34; });
+              resolve({ page: "home scrolling", frames: frames.length, avgFrameMs: round(frames.reduce(function (s, f) { return s + f; }, 0) / Math.max(1, frames.length)), droppedFrames: slow.length, worstFrameMs: round(Math.max.apply(null, frames)) });
+            }
+          }
+          w.requestAnimationFrame(step);
+        });
+      }
+
+      // ── 4. server side: plugins, tasks running, playback ──
+      function serverState() {
+        return Promise.all([
+          ApiClient.getJSON(ApiClient.getUrl("System/Info")).catch(function () { return null; }),
+          ApiClient.getJSON(ApiClient.getUrl("Plugins")).catch(function () { return []; }),
+          ApiClient.getJSON(ApiClient.getUrl("ScheduledTasks")).catch(function () { return []; }),
+          ApiClient.getJSON(ApiClient.getUrl("Sessions", { ActiveWithinSeconds: 960 })).catch(function () { return []; })
+        ]).then(function (r) {
+          var si = r[0] || {};
+          return {
+            server: { version: si.Version, os: si.OperatingSystemDisplayName || si.OperatingSystem, arch: si.SystemArchitecture, hasPendingRestart: si.HasPendingRestart, transcodeDir: undefined },
+            plugins: (r[1] || []).map(function (p) { return p.Name + " " + p.Version + (p.Status && p.Status !== "Active" ? " (" + p.Status + ")" : ""); }),
+            tasksRunning: (r[2] || []).filter(function (t) { return t.State === "Running"; }).map(function (t) { return t.Name + " " + Math.round(t.CurrentProgressPercentage || 0) + "%"; }),
+            playing: (r[3] || []).filter(function (s) { return s.NowPlayingItem; }).map(function (s) {
+              var ti = s.TranscodingInfo;
+              return { client: s.Client, device: s.DeviceName, item: s.NowPlayingItem.Name, method: s.PlayState && s.PlayState.PlayMethod, transcode: ti ? { video: ti.VideoCodec, audio: ti.AudioCodec, hw: ti.HardwareAccelerationType, fps: ti.Framerate, reasons: ti.TranscodeReasons } : null };
+            })
+          };
+        });
+      }
+
+      function summary(r) {
+        var flags = [];
+        r.serverRequests.forEach(function (s) {
+          if (s.error || s.status >= 400) flags.push("FAILED request: " + s.name + " (" + (s.error || s.status) + ")");
+          else if (s.ms > 800) flags.push("SLOW server: " + s.name + " " + s.ms + " ms");
+          if (/theme\.(css|js)|index/.test(s.name) && !s.gzip) flags.push("NOT compressed: " + s.name);
+        });
+        (r.pages || []).forEach(function (p) {
+          if (p.timedOut) flags.push("PAGE never finished: " + p.page + " (got: " + Object.keys(p.ready || {}).join(", ") + ")");
+          if (p.settledMs > 4000) flags.push("SLOW page: " + p.page + " took " + p.settledMs + " ms to settle");
+          if (p.longTasks && p.longTasks.worstMs > 200) flags.push("FREEZE: " + p.page + " froze for " + p.longTasks.worstMs + " ms (" + p.longTasks.count + " freezes)");
+          if (p.droppedFrames > 10) flags.push("JANK while scrolling: " + p.droppedFrames + " slow frames, worst " + p.worstFrameMs + " ms");
+          (p.perf && p.perf.slowest || []).forEach(function (x) { if (x.ms > 1500) flags.push("SLOW file on " + p.page + ": " + x.ms + " ms " + x.who + " " + x.url); });
+        });
+        if (r.state && r.state.tasksRunning.length) flags.push("Tasks running during the test: " + r.state.tasksRunning.join(", "));
+        if (r.state && r.state.playing.some(function (p) { return p.transcode; })) flags.push("Someone is transcoding during the test");
+        return flags.length ? flags : ["Nothing slow found"];
+      }
+
+      btn.addEventListener("click", function () {
+        btn.disabled = true;
+        out.value = "";
+        var report = { tool: "Ushereats Theme speed test", when: new Date().toISOString(), url: location.origin, device: { ua: navigator.userAgent, cores: navigator.hardwareConcurrency, memoryGb: navigator.deviceMemory, net: navigator.connection ? navigator.connection.effectiveType + " " + navigator.connection.downlink + "Mbps rtt " + navigator.connection.rtt : null, screen: screen.width + "x" + screen.height + "@" + devicePixelRatio, window: innerWidth + "x" + innerHeight } };
+        var uid = ApiClient.getCurrentUserId(), sample = null, series = null;
+        say("Finding a movie and a show to test with…");
+        Promise.all([
+          ApiClient.getItems(uid, { IncludeItemTypes: "Movie", Recursive: true, Limit: 1, SortBy: "DateCreated", SortOrder: "Descending" }).then(function (r) { sample = (r.Items || [])[0]; }).catch(function () {}),
+          ApiClient.getItems(uid, { IncludeItemTypes: "Series", Recursive: true, Limit: 1, SortBy: "DateCreated", SortOrder: "Descending" }).then(function (r) { series = (r.Items || [])[0]; }).catch(function () {})
+        ]).then(function () {
+          return serverState().then(function (s) { report.state = s; });
+        }).then(function () {
+          return serverTests(uid, sample).then(function (s) { report.serverRequests = s; });
+        }).then(function () {
+          say("Checking what plugins add to every page…");
+          return indexInjections().then(function (i) { report.everyPageLoads = i; }).catch(function (e) { report.everyPageLoads = { error: String(e) }; });
+        }).then(function () {
+          return framePages(sample, series).then(function (p) { report.pages = p.pages; report.afterPages = p.after; });
+        }).catch(function (e) {
+          closeFrame();
+          report.error = String(e && e.stack || e);
+        }).then(function () {
+          report.problems = summary(report);
+          var text = JSON.stringify(report, null, 1);
+          out.value = text;
+          out.hidden = false;
+          page.querySelector("#tbBenchCopy").hidden = false;
+          page.querySelector("#tbBenchSave").hidden = false;
+          say("Done. Copy the results and send them.");
+          btn.disabled = false;
+        });
+      });
+
+      page.querySelector("#tbBenchCopy").addEventListener("click", function () {
+        out.select();
+        (navigator.clipboard ? navigator.clipboard.writeText(out.value) : Promise.reject()).then(function () { say("Copied."); }, function () { document.execCommand("copy"); say("Copied."); });
+      });
+      page.querySelector("#tbBenchSave").addEventListener("click", function () {
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([out.value], { type: "application/json" }));
+        a.download = "ushereats-speed-test-" + new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-") + ".json";
+        document.body.appendChild(a); a.click(); a.remove();
+      });
     })();
     </script>
 </div>

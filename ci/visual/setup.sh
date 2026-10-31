@@ -79,8 +79,9 @@ NOW=$(date -u +%Y-%m-%dT%H:%M:%S.0000000Z)
 for k in 0 3; do
   api POST "/UserItems/${MOVIES[$k]}/UserData?userId=$USERID" "{\"PlaybackPositionTicks\":12000000,\"LastPlayedDate\":\"$NOW\"}" >/dev/null || true
 done
-for SHOW in "Copper Hills" "Night Shift Radio"; do
-  EPS=($(ids "IncludeItemTypes=Episode&SortBy=SortName&SearchTerm=$(python3 -c "import urllib.parse,sys;print(urllib.parse.quote(sys.argv[1]))" "$SHOW")"))
+SERIES=($(ids "IncludeItemTypes=Series&SortBy=SortName"))
+for SID in "${SERIES[0]}" "${SERIES[2]}"; do
+  EPS=($(ids "IncludeItemTypes=Episode&ParentId=$SID&SortBy=ParentIndexNumber,IndexNumber"))
   api POST "/UserPlayedItems/${EPS[0]}?userId=$USERID" >/dev/null || true
   api POST "/UserPlayedItems/${EPS[1]}?userId=$USERID" >/dev/null || true
   api POST "/UserItems/${EPS[2]}/UserData?userId=$USERID" "{\"PlaybackPositionTicks\":10000000,\"LastPlayedDate\":\"$NOW\"}" >/dev/null || true

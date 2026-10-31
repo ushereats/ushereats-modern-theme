@@ -41,6 +41,18 @@ for (const [vw, vh, tag] of [[1920, 1080, "desktop"], [390, 844, "phone"]]) {
     await page.waitForTimeout(3500);
     await page.mouse.move(5, vh - 5);
     await page.screenshot({ path: `${out}/${tag}-${name}.png`, fullPage: true, animations: "disabled", caret: "hide" });
+    await page.screenshot({ path: `${out}/${tag}-${name}-view.png`, animations: "disabled", caret: "hide" });
+    if (name === "home") {
+      // scrolled (header shrink) + hovering a poster (hover pop / hover card)
+      await page.mouse.wheel(0, 700);
+      await page.waitForTimeout(900);
+      await page.screenshot({ path: `${out}/${tag}-home-scrolled.png`, animations: "disabled", caret: "hide" });
+      if (tag === "desktop") {
+        const card = await page.$('.tb-rows-c [data-tb-row="latest-releases"] .card .cardScalable');
+        if (card) { await card.hover(); await page.waitForTimeout(1200); await page.screenshot({ path: `${out}/desktop-home-hover.png`, animations: "disabled", caret: "hide" }); }
+      }
+      await page.mouse.move(5, vh - 5);
+    }
     // first painted frames after a reload (header / hero / rows appearing)
     if (name === "home" || name === "episode") {
       await page.evaluate(() => { window.__f = []; });

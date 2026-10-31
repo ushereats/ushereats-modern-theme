@@ -21,7 +21,7 @@
   })());
   // ── Settings ──
   var DIM = tbCfg("AmbientDim", 0.48);          // 0 = full colour, 1 = black. How dark the page tint is.
-  var FADE_MS = 1200;      // cross-fade between slides
+  var FADE_MS = tbCfg("AmbientFade", true) ? 1200 : 0;   // cross-fade (plugin setting "Ambient fade")
   var SOURCE_WIDTH = 48;   // size of the image fetched from Jellyfin (tiny = soft + fast)
 
   var ROOT_CLASS = "tb-ambient";
@@ -84,6 +84,7 @@
 
   function show(src) {
     if (!src || src === currentSrc) return;
+    var first = !currentSrc;   // the very first background appears instantly
     currentSrc = src;
     var my = ++token;
     soften(tinyUrl(src), function (data) {
@@ -94,6 +95,10 @@
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
           if (my !== token) return;
+          if (first) {
+            next.style.transition = "none";
+            requestAnimationFrame(function () { next.style.transition = ""; });
+          }
           next.classList.add("on");
           layers[current].classList.remove("on");
           current = 1 - current;
@@ -105,7 +110,7 @@
   // ── Where are we? ──
   function homeHero() {
     var hero = document.querySelector("#indexPage:not(.hide) .sleekfin-hero, .sleekfin-hero");
-    if (!hero || !hero.offsetParent) return null;
+    if (!hero || hero.closest(".hide")) return null;   // class check: no forced layout
     return hero;
   }
   function onVideo() {
@@ -121,7 +126,7 @@
   // Details page (SleekFin): the title's backdrop sits on #itemBackdrop as a CSS background
   function detailsPage() {
     var page = document.querySelector("#itemDetailPage:not(.hide)");
-    if (!page || !page.offsetParent && getComputedStyle(page).display === "none") return null;
+    if (!page || page.closest(".hide")) return null;
     return page;
   }
   function detailsBackdrop(page) {
@@ -137,9 +142,12 @@
   // The page on screen. Jellyfin 10.11 has two kinds: old-style pages inside .mainAnimatedPages,
   // and newer React pages (Movies, Shows, Collections, Settings...) that live elsewhere.
   function visiblePage() {
-    var ps = document.querySelectorAll(".page:not(.hide)");
-    for (var i = ps.length - 1; i >= 0; i--) {
-      if (ps[i].getClientRects().length) return ps[i];
+    // cheap class check first; only measure (forces layout) if it's still ambiguous
+    var ps = document.querySelectorAll(".page:not(.hide)"), live = [];
+    for (var i = 0; i < ps.length; i++) if (!ps[i].closest(".hide")) live.push(ps[i]);
+    if (live.length <= 1) return live[0] || null;
+    for (var j = live.length - 1; j >= 0; j--) {
+      if (live[j].getClientRects().length) return live[j];
     }
     return null;
   }

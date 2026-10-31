@@ -7,7 +7,7 @@
 
   function loadUser() {
     if (!window.ApiClient) return Promise.resolve(null);
-    return Promise.resolve(ApiClient.getCurrentUser()).then(function (u) { user = u; return u; }).catch(function () { return null; });
+    return tbShared.user().then(function (u) { user = u; return u; }).catch(function () { return null; });
   }
 
   function hue(s) {

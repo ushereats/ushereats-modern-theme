@@ -171,7 +171,7 @@
     var userId = ApiClient.getCurrentUserId && ApiClient.getCurrentUserId();
     if (!userId) { imgUrl = null; initial = ""; currentKey = ""; remove(); return; }
     busy = true;
-    Promise.resolve(ApiClient.getUser(userId)).then(function (user) {
+    tbShared.user().then(function (user) {
       var tag = user && user.PrimaryImageTag;
       var name = (user && user.Name) || "";
       var key = userId + ":" + (tag || "") + ":" + name;

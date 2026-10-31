@@ -113,6 +113,7 @@ public static class ThemeAssets
         ("js_16_accent_colour.js", c => c.AccentColour),
         ("js_17_episode_list.js", c => c.EpisodeList),
         ("js_18_user_menu.js", c => c.UserMenu),
+        ("js_20_hero_snapshot.js", c => c.HeroSnapshot),
     };
 
     private static readonly object Gate = new object();
@@ -179,6 +180,15 @@ public static class ThemeAssets
                .Append(".pageTitleWithDefaultLogo,.pageTitleWithLogo{background-position:left center!important}\n");
         }
 
+        // Posters appear the moment they're ready (Jellyfin fades each one in over 0.5 s).
+        // Kept at 1 ms instead of "none" so Jellyfin still gets its animation-end event and clears the blur placeholder.
+        css.Append(".lazy-image-fadein,.lazy-image-fadein-fast{animation-duration:1ms!important}\n");
+
+        if (!config.HeroFade)
+        {
+            css.Append(".sleekfin-hero .sleekfin-hero-slide,.sleekfin-hero .sleekfin-hero-backdrop,.sleekfin-hero .sleekfin-hero-content,.sleekfin-hero img{transition:none!important;animation:none!important}\n");
+        }
+
         if (!string.IsNullOrWhiteSpace(config.ExtraCss))
         {
             css.Append("/* Extra CSS (plugin settings) */\n").Append(config.ExtraCss).Append('\n');
@@ -187,7 +197,11 @@ public static class ThemeAssets
         // ── JS ──
         // settings for the scripts (each file carries them, so they work in any load order)
         string prefix = "window.TB_CONFIG=" + JsonSerializer.Serialize(config) + ";\n"
-            + "window.tbCfg=function(k,d){var c=window.TB_CONFIG||{},v=c[k];return v===undefined||v===null||v===\"\"?d:v};\n";
+            + "window.tbCfg=function(k,d){var c=window.TB_CONFIG||{},v=c[k];return v===undefined||v===null||v===\"\"?d:v};\n"
+            // one shared answer for requests several scripts make at the same time (your user, sessions)
+            + "window.tbShared=window.tbShared||(function(){var m={};function c(k,t,f){var e=m[k],n=Date.now();if(e&&n-e.t<t)return e.p;var p=Promise.resolve().then(f);m[k]={t:n,p:p};p.catch(function(){if(m[k]&&m[k].p===p)delete m[k]});return p}"
+            + "return{user:function(){var id=ApiClient.getCurrentUserId();return c(\"u:\"+id,10000,function(){return ApiClient.getUser(id)})},"
+            + "sessions:function(q){return c(\"s:\"+JSON.stringify(q||{}),4000,function(){return ApiClient.getSessions(q)})}}})();\n";
 
         Payload splash = Payload.Empty;
         if (config.WelcomeSplash)

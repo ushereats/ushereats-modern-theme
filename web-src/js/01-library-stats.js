@@ -1,12 +1,12 @@
 (function libraryStats() {
   var ID = "jf-stats";
-  var COUNTS_EVERY = 5 * 60 * 1000;   // library counts: every 5 min
-  var ACTIVE_EVERY = 15 * 1000;       // active streams: every 15 s
+  // Updates when the page loads, when you come back to the home page, or back to the tab.
+  // No background timers.
 
   var counts = null;
   var active = null;                  // null = unknown / not allowed
   var countsAt = 0;
-  var timer = 0;
+  var stale = true;
   var busy = false;
 
   function isHome() {
@@ -53,17 +53,14 @@
   }
 
   function refresh() {
-    if (busy || !window.ApiClient || !shouldShow()) return;
+    if (busy || !window.ApiClient) return;
     busy = true;
-    var needCounts = !counts || Date.now() - countsAt > COUNTS_EVERY;
-    var countsStep = needCounts
-      ? Promise.resolve(ApiClient.getItemCounts(ApiClient.getCurrentUserId()))
-          .then(function (c) { counts = c; countsAt = Date.now(); })
-          .catch(function () {})
-      : Promise.resolve();
-    countsStep
+    Promise.resolve(ApiClient.getItemCounts(ApiClient.getCurrentUserId()))
+      .then(function (c) { counts = c; })
+      .catch(function () {})
+      // only sessions active in the last 16 min: a few KB instead of every device ever seen.
       // May be refused for non-admin users; then "Active" is just left off
-      .then(function () { return ApiClient.getSessions(); })
+      .then(function () { return tbShared.sessions({ ActiveWithinSeconds: 960 }); })
       .then(function (sessions) {
         active = (sessions || []).filter(function (s) { return s.NowPlayingItem; }).length;
       })
@@ -71,27 +68,19 @@
       .then(function () { busy = false; render(); });
   }
 
-  // Poll only while the home page is visible; stop everywhere else
   function update() {
     render();
-    if (shouldShow()) {
-      if (!timer) {
-        refresh();
-        timer = setInterval(refresh, ACTIVE_EVERY);
-      }
-    } else if (timer) {
-      clearInterval(timer);
-      timer = 0;
-    }
+    if (stale && shouldShow()) { stale = false; refresh(); }
   }
+  function markStale() { if (isHome() && document.visibilityState === "visible") stale = true; }
 
   var poll = setInterval(function () {
     if (window.ApiClient) { clearInterval(poll); update(); }
   }, 500);
 
-  window.addEventListener("hashchange", update);
+  window.addEventListener("hashchange", function () { markStale(); update(); });
   window.addEventListener("resize", update);
-  document.addEventListener("visibilitychange", update);
+  document.addEventListener("visibilitychange", function () { markStale(); update(); });
 
   // Player overlay can appear without a hash change; check once per frame at most
   var queued = false;

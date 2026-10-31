@@ -186,7 +186,7 @@
     try { uid = ApiClient.getCurrentUserId(); } catch (e) {}
     if (!uid) { if (tries > 30) dropCover(true); return; }
     clearInterval(check);
-    Promise.resolve(ApiClient.getCurrentUser()).then(function (user) {
+    tbShared.user().then(function (user) {
       if (!user) { dropCover(true); return; }
       try { sessionStorage.setItem("jf-welcomed", "1"); } catch (e) {}
       showSplash(user.Name || "there");

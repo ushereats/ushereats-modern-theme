@@ -61,6 +61,13 @@ public static class IndexPatch
               .Append("\";document.head.appendChild(s)}}catch(e){}</script>");
         }
 
+        // Hero snapshot: last home hero painted on the first frame + its image download started right away
+        if (build.Config.HeroSnapshot)
+        {
+            sb.Append("<style>html.tb-hs::before{content:\"\";position:absolute;z-index:0;pointer-events:none;left:var(--tb-hs-l,0);top:var(--tb-hs-t,0);width:var(--tb-hs-w,100%);height:var(--tb-hs-h,70vh);background:#0b0b0e var(--tb-hs-img,none) center/cover no-repeat;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 45%,rgba(0,0,0,.75) 62%,rgba(0,0,0,.35) 80%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 45%,rgba(0,0,0,.75) 62%,rgba(0,0,0,.35) 80%,transparent 100%);transition:opacity .3s ease}html.tb-hs.tb-hs-out::before{opacity:0}</style>");
+            sb.Append("<script>try{(function(){var h=location.hash;if(!(h===\"\"||h===\"#\"||/^#\\/?home(\\.html)?([?#]|$)/i.test(h)))return;var j=JSON.parse(localStorage.getItem(\"tbHeroSnap\")||\"null\");if(!j||!j.w||Math.abs(j.vw-innerWidth)>innerWidth*.1||Math.abs(j.vh-innerHeight)>innerHeight*.15)return;var r=document.documentElement,s=r.style;s.setProperty(\"--tb-hs-t\",j.t+\"px\");s.setProperty(\"--tb-hs-l\",j.l+\"px\");s.setProperty(\"--tb-hs-w\",j.w+\"px\");s.setProperty(\"--tb-hs-h\",j.h+\"px\");if(j.src&&/^(https?:|\\/|\\.)/i.test(j.src)){s.setProperty(\"--tb-hs-img\",'url(\"'+String(j.src).replace(/[\"\\\\]/g,\"\")+'\")');var l=document.createElement(\"link\");l.rel=\"preload\";l.as=\"image\";l.href=j.src;l.setAttribute(\"fetchpriority\",\"high\");document.head.appendChild(l)}r.classList.add(\"tb-hs\");setTimeout(function(){r.classList.remove(\"tb-hs\",\"tb-hs-out\")},8000)})()}catch(e){}</script>");
+        }
+
         // Your icon in the tab / home screen from the first frame
         if (build.Config.CustomIcon && ThemeAssets.IsHttpUrl(build.Config.IconUrl))
         {

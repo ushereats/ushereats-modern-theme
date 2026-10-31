@@ -28,6 +28,16 @@ public class PluginConfiguration : BasePluginConfiguration
     public bool UserMenu { get; set; } = true;
     public bool DashboardSkin { get; set; } = true;
 
+    // ── Speed / feel ──
+    /// <summary>Show the last home hero on the very first frame (and preload its image).</summary>
+    public bool HeroSnapshot { get; set; } = true;
+
+    /// <summary>SleekFin's hero fades in / between slides (off = instant).</summary>
+    public bool HeroFade { get; set; } = true;
+
+    /// <summary>Ambient background cross-fades when it changes (off = instant). The first one is always instant.</summary>
+    public bool AmbientFade { get; set; } = true;
+
     // ── Settings ──
     public string TmdbKey { get; set; } = string.Empty;
     public string TmdbCountries { get; set; } = "AU,US";

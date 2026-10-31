@@ -11,12 +11,12 @@
   function savePrefs() { try { localStorage.setItem(PREF, JSON.stringify(prefs)); } catch (e) {} }
 
   var CSS = [
-    "#tb-np{--np-acc:rgb(var(--tb-accent-rgb,233,196,106));margin:0 0 24px;color:#fff;font-family:var(--app-font,'Funnel Sans',Inter,sans-serif)}",
+    "#tb-np{--np-acc:rgb(var(--tb-accent-rgb,233,196,106));--np-font:var(--app-font,'Funnel Sans',Inter,sans-serif);margin:0 0 24px;color:#fff;font-family:var(--app-font,'Funnel Sans',Inter,sans-serif)}",
     "#tb-np *{box-sizing:border-box}",
     "#tb-np .np-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}",
     "#tb-np .np-title{display:flex;align-items:center;gap:10px;font:400 30px/1 var(--title-font,'Bebas Neue',sans-serif);letter-spacing:.02em;margin-right:6px}",
     "#tb-np .np-title svg{width:26px;height:26px}",
-    "#tb-np .np-pill{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;font:600 12px/1 inherit;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);white-space:nowrap}",
+    "#tb-np .np-pill{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;font:600 12px/1 var(--np-font);border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);white-space:nowrap}",
     "#tb-np .np-live::before{content:'';width:6px;height:6px;border-radius:50%;background:#3ee0a1;box-shadow:0 0 8px #3ee0a1;animation:np-pulse 1.6s ease-in-out infinite}",
     "@keyframes np-pulse{50%{opacity:.35}}",
     "#tb-np .np-dp{color:#3ee0a1;border-color:rgba(62,224,161,.35);background:rgba(62,224,161,.08)}",
@@ -25,10 +25,10 @@
     "#tb-np .np-tc{color:#ff6b8a;border-color:rgba(255,107,138,.35);background:rgba(255,107,138,.08)}",
     "#tb-np .np-pa{color:#ffbe55;border-color:rgba(255,190,85,.35);background:rgba(255,190,85,.08)}",
     "#tb-np .np-tools{margin-left:auto;display:flex;gap:8px}",
-    "#tb-np .np-btn{height:32px;padding:0 14px;border-radius:9px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;font:600 13px/1 inherit;cursor:pointer}",
+    "#tb-np .np-btn{height:32px;padding:0 14px;border-radius:9px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;font:600 13px/1 var(--np-font);cursor:pointer}",
     "#tb-np .np-btn:hover{background:rgba(255,255,255,.12)}",
     "#tb-np .np-btn[aria-pressed=true]{border-color:var(--np-acc);color:var(--np-acc)}",
-    "#tb-np .np-stats{display:flex;align-items:center;gap:22px;flex-wrap:wrap;padding:12px 18px;margin-bottom:16px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:rgba(18,18,22,.55);font:600 12px/1 inherit;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55)}",
+    "#tb-np .np-stats{display:flex;align-items:center;gap:22px;flex-wrap:wrap;padding:12px 18px;margin-bottom:16px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:rgba(18,18,22,.55);font:600 12px/1 var(--np-font);letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55)}",
     "#tb-np .np-stats b{font-size:16px;letter-spacing:0;color:#fff;margin-right:6px}",
     "#tb-np .np-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px}",
     "#tb-np.np-compact .np-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}",
@@ -41,36 +41,36 @@
     "#tb-np .np-top{position:relative;display:flex;gap:14px;padding:14px}",
     "#tb-np .np-poster{position:relative;flex:0 0 150px;aspect-ratio:2/3;border-radius:12px;background:#111 center/cover no-repeat;box-shadow:0 10px 24px -10px rgba(0,0,0,.8)}",
     "#tb-np.np-compact .np-poster{flex-basis:96px}",
-    "#tb-np .np-pct{position:absolute;right:8px;bottom:8px;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 10px/1 inherit;background:conic-gradient(var(--np-acc) calc(var(--p)*1%),rgba(255,255,255,.18) 0);}",
+    "#tb-np .np-pct{position:absolute;right:8px;bottom:8px;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 10px/1 var(--np-font);background:conic-gradient(var(--np-acc) calc(var(--p)*1%),rgba(255,255,255,.18) 0);}",
     "#tb-np .np-pct span{width:28px;height:28px;border-radius:50%;background:rgba(10,10,12,.92);display:flex;align-items:center;justify-content:center}",
     "#tb-np .np-info{min-width:0;flex:1;display:flex;flex-direction:column;gap:8px}",
     "#tb-np .np-who{display:flex;align-items:center;gap:10px;min-width:0}",
-    "#tb-np .np-av{flex:0 0 30px;width:30px;height:30px;border-radius:50%;background:#333 center/cover;display:flex;align-items:center;justify-content:center;font:700 13px/1 inherit}",
-    "#tb-np .np-user{font:700 15px/1.2 inherit}",
-    "#tb-np .np-dev{font:500 12px/1.35 inherit;color:rgba(255,255,255,.55);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}",
+    "#tb-np .np-av{flex:0 0 30px;width:30px;height:30px;border-radius:50%;background:#333 center/cover;display:flex;align-items:center;justify-content:center;font:700 13px/1 var(--np-font)}",
+    "#tb-np .np-user{font:700 15px/1.2 var(--np-font)}",
+    "#tb-np .np-dev{font:500 12px/1.35 var(--np-font);color:rgba(255,255,255,.55);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}",
     "#tb-np .np-row{display:flex;flex-wrap:wrap;gap:6px}",
-    "#tb-np .np-name{font:700 18px/1.2 inherit;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
-    "#tb-np .np-sub{font:500 12px/1.3 inherit;color:rgba(255,255,255,.55);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+    "#tb-np .np-name{font:700 18px/1.2 var(--np-font);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+    "#tb-np .np-sub{font:500 12px/1.3 var(--np-font);color:rgba(255,255,255,.55);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
     "#tb-np .np-bar{height:4px;border-radius:3px;background:rgba(255,255,255,.14);overflow:hidden;position:relative}",
     "#tb-np .np-bar i{position:absolute;left:0;top:0;bottom:0;background:var(--np-acc);border-radius:3px}",
     "#tb-np .np-bar u{position:absolute;left:0;top:0;bottom:0;background:rgba(255,255,255,.25);border-radius:3px}",
-    "#tb-np .np-time{display:flex;justify-content:space-between;font:600 11px/1 inherit;color:rgba(255,255,255,.5)}",
-    "#tb-np .np-chip{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px;border-radius:7px;font:600 12px/1 inherit;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);white-space:nowrap}",
+    "#tb-np .np-time{display:flex;justify-content:space-between;font:600 11px/1 var(--np-font);color:rgba(255,255,255,.5)}",
+    "#tb-np .np-chip{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px;border-radius:7px;font:600 12px/1 var(--np-font);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);white-space:nowrap}",
     "#tb-np .np-chip.np-blue{color:#7cc4ff;background:rgba(79,180,255,.1);border-color:rgba(79,180,255,.3)}",
     "#tb-np .np-chip.np-gold{color:#ffd166;background:rgba(255,209,102,.1);border-color:rgba(255,209,102,.3)}",
     "#tb-np .np-chip.np-red{color:#ff8fa5;background:rgba(255,107,138,.1);border-color:rgba(255,107,138,.3)}",
     "#tb-np .np-chip.np-green{color:#5fe8b0;background:rgba(62,224,161,.1);border-color:rgba(62,224,161,.3)}",
     "#tb-np .np-chip.np-violet{color:#c9a6ff;background:rgba(185,140,255,.1);border-color:rgba(185,140,255,.3)}",
-    "#tb-np .np-why{display:flex;align-items:flex-start;gap:6px;padding:7px 10px;border-radius:9px;font:600 12px/1.35 inherit;color:#ff8fa5;background:rgba(255,107,138,.08);border:1px solid rgba(255,107,138,.3)}",
+    "#tb-np .np-why{display:flex;align-items:flex-start;gap:6px;padding:7px 10px;border-radius:9px;font:600 12px/1.35 var(--np-font);color:#ff8fa5;background:rgba(255,107,138,.08);border:1px solid rgba(255,107,138,.3)}",
     "#tb-np .np-why.np-warn{color:#ffd166;background:rgba(255,209,102,.07);border-color:rgba(255,209,102,.3)}",
-    "#tb-np .np-details{position:relative;margin:0 14px 14px;padding:12px 14px;border-radius:12px;background:rgba(6,6,8,.72);border:1px solid rgba(255,255,255,.08);display:grid;grid-template-columns:88px 1fr;gap:9px 12px;font:500 13px/1.35 inherit}",
+    "#tb-np .np-details{position:relative;margin:0 14px 14px;padding:12px 14px;border-radius:12px;background:rgba(6,6,8,.72);border:1px solid rgba(255,255,255,.08);display:grid;grid-template-columns:88px 1fr;gap:9px 12px;font:500 13px/1.35 var(--np-font)}",
     "#tb-np:not(.np-show) .np-details{display:none}",
-    "#tb-np .np-details dt{font:700 10px/1.9 inherit;letter-spacing:.12em;color:rgba(255,255,255,.45);text-transform:uppercase}",
+    "#tb-np .np-details dt{font:700 10px/1.9 var(--np-font);letter-spacing:.12em;color:rgba(255,255,255,.45);text-transform:uppercase}",
     "#tb-np .np-details dd{margin:0;color:rgba(255,255,255,.88)}",
-    "#tb-np .np-details dd em{font-style:normal;display:inline-block;margin-right:8px;padding:2px 8px;border-radius:6px;font:700 10px/1.5 inherit;letter-spacing:.06em}",
+    "#tb-np .np-details dd em{font-style:normal;display:inline-block;margin-right:8px;padding:2px 8px;border-radius:6px;font:700 10px/1.5 var(--np-font);letter-spacing:.06em}",
     "#tb-np .np-details dd em.np-direct{color:#5fe8b0;background:rgba(62,224,161,.12)}",
     "#tb-np .np-details dd em.np-conv{color:#ff8fa5;background:rgba(255,107,138,.12)}",
-    "#tb-np .np-empty{padding:18px;border-radius:14px;border:1px dashed rgba(255,255,255,.14);color:rgba(255,255,255,.5);font:600 13px/1 inherit}",
+    "#tb-np .np-empty{padding:18px;border-radius:14px;border:1px dashed rgba(255,255,255,.14);color:rgba(255,255,255,.5);font:600 13px/1 var(--np-font)}",
     "#tb-np.np-collapsed .np-stats,#tb-np.np-collapsed .np-grid,#tb-np.np-collapsed .np-empty{display:none}",
     "@media (max-width:600px){#tb-np .np-grid{grid-template-columns:1fr}#tb-np .np-poster{flex-basis:96px}#tb-np .np-tools{margin-left:0}}"
   ].join("\n");
@@ -198,7 +198,7 @@
 
     var paused = !!ps.IsPaused;
     var bg = img(it.Type === "Episode" ? it.SeriesId : it.Id, "Backdrop", it.Type === "Episode" ? (it.ParentBackdropImageTags || [])[0] : (it.BackdropImageTags || [])[0], { maxWidth: 480 }) || poster;
-    return '<div class="np-card" data-m="' + m + '" data-paused="' + paused + '">' +
+    var html = '<div class="np-card" data-m="' + m + '" data-paused="' + paused + '">' +
       (bg ? '<div class="np-bg" style="background-image:url(\'' + esc(bg) + '\')"></div>' : "") +
       '<div class="np-top">' +
         '<div class="np-poster" style="' + (poster ? "background-image:url('" + esc(poster) + "')" : "") + '"><div class="np-pct" style="--p:' + Math.round(pct) + '"><span>' + Math.round(pct) + "%</span></div></div>" +
@@ -214,6 +214,7 @@
       "</div>" +
       '<dl class="np-details">' + details + "</dl>" +
     "</div>";
+    return { html: html, bitrate: bitrate };
   }
 
   function header(list) {
@@ -221,8 +222,7 @@
     list.forEach(function (x) {
       c[method(x.s)]++;
       if (x.s.PlayState && x.s.PlayState.IsPaused) paused++;
-      var ti = x.s.TranscodingInfo, v = x.st.filter(function (y) { return y.Type === "Video"; })[0] || {};
-      bw += ti && ti.Bitrate ? ti.Bitrate : (x.s.NowPlayingItem.Bitrate || v.BitRate || 0);
+      bw += x.bitrate || 0;
     });
     return { counts: c, paused: paused, bw: bw };
   }
@@ -277,11 +277,12 @@
       return Promise.all(playing.map(function (s) { return streamsFor(s).then(function (st) { return { s: s, st: st || [] }; }); }));
     }).then(function (list) {
       list.sort(function (a, b) { return (a.s.UserName || "").localeCompare(b.s.UserName || "") || (a.s.DeviceName || "").localeCompare(b.s.DeviceName || ""); });
+      var cards = list.map(function (x) { var r = card(x.s, x.st); x.bitrate = r.bitrate; return r.html; });
       var hd = header(list), c = hd.counts;
       var set = function (k, n, label) { var e = root.querySelector('[data-c="' + k + '"]'); if (e) e.textContent = n + " " + label; };
       set("dp", c.dp, "Direct Play"); set("ds", c.ds, "Direct Stream"); set("rm", c.rm, "Remux"); set("tc", c.tc, "Transcode"); set("pa", hd.paused, "Paused");
       root.querySelector(".np-stats").innerHTML = "<span><b>" + list.length + "</b>Active streams</span><span><b>" + (c.dp + c.ds + c.rm) + "</b>Direct</span><span><b>" + c.tc + "</b>Transcoding</span><span><b>" + (hd.bw / 1e6).toFixed(1) + " Mbps</b>Bandwidth</span>";
-      var html = list.length ? list.map(function (x) { return card(x.s, x.st); }).join("") : '<div class="np-empty">Nothing is playing right now.</div>';
+      var html = list.length ? cards.join("") : '<div class="np-empty">Nothing is playing right now.</div>';
       if (html !== lastHtml) { root.querySelector(".np-grid").innerHTML = html; lastHtml = html; }
     }).catch(function () {}).then(function () { busy = false; });
   }

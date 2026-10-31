@@ -1,0 +1,55 @@
+name: Visual test (real Jellyfin)
+
+# Push a branch named visual/<anything>: builds the plugin, runs it in a real Jellyfin with a fake library,
+# and pushes screenshots to the branch results/<anything> (to compare before/after a change).
+on:
+  push:
+    branches: ["visual/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  shots:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Build plugin
+        run: |
+          npm ci --prefix sleekfin --no-audit --no-fund
+          npm install --no-save terser@5.31.6 playwright@1.49.1
+          node build-assets.mjs
+          dotnet publish src/Jellyfin.Plugin.UshereatsTheme/Jellyfin.Plugin.UshereatsTheme.csproj -c Release -o out -p:Version=1.0.0.0
+          python3 ci/package.py 1.0.0.0 "${{ github.repository }}"
+      - name: Real Jellyfin + fake library
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pip install --break-system-packages -q pillow || pip install -q pillow
+          mkdir -p shots
+          bash ci/visual/setup.sh dist/ushereats-theme_1.0.0.0.zip > shots/setup-log.txt 2>&1 || { tail -n 40 shots/setup-log.txt | sed 's/^/::error::/'; exit 1; }
+      - name: Screenshots
+        if: always()
+        run: |
+          npx playwright install --with-deps chromium >/dev/null 2>&1
+          node ci/visual/shots.mjs shots > shots/shots-log.txt 2>&1 || { tail -n 30 shots/shots-log.txt | sed 's/^/::error::/'; }
+          cp jellyfin-version.txt shots/ || true
+          sudo journalctl -u jellyfin --no-pager | tail -n 400 > shots/jellyfin-log.txt || true
+      - name: Push results
+        if: always()
+        run: |
+          NAME="results/${GITHUB_REF_NAME#visual/}"
+          mkdir -p /tmp/r && cp -r shots/. /tmp/r/ 2>/dev/null || true
+          cd /tmp/r && git init -q && git checkout -q -b r
+          git config user.name ci && git config user.email ci@users.noreply.github.com
+          git add -A && git commit -qm "screenshots for ${GITHUB_SHA}" || true
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" "r:refs/heads/$NAME"

@@ -60,14 +60,7 @@ public static class IndexPatch
         if (ThemeAssets.SleekOn(build.Config))
         {
             SleekConfiguration s = ThemeAssets.SleekOf(build.Config);
-            sb.Append("<style>html.sleekfin-main-ui:root{--sleekfin-card-button-radius:").Append(ShapeRadius(s.CardButtonShape, 4, 12))
-              .Append(";--sleekfin-card-play-radius:").Append(ShapeRadius(s.PlayButtonShape, 6, 18))
-              .Append(";--sleekfin-card-radius:").Append(ShapeRadius(s.MediaCardShape, 4, 10))
-              .Append(";--sleekfin-card-inner-radius:").Append(ShapeRadius(s.MediaCardShape, 3, 9))
-              .Append(";--sleekfin-compact-card-radius:").Append(ShapeRadius(s.MediaCardShape, 4, 16))
-              .Append(";--sleekfin-person-radius:").Append(ShapeRadius(s.CastCrewShape, 4, 10))
-              .Append(";--sleekfin-person-inner-radius:").Append(ShapeRadius(s.CastCrewShape, 3, 9))
-              .Append(";}</style>");
+            // (card shapes and the accent are written into the stylesheet itself, from these settings)
             sb.Append(SleekBoot(s));
             if (s.DetailsEnabled)
             {
@@ -158,7 +151,7 @@ public static class IndexPatch
     }
 
     // Browsers scale oversized radii down to half the shortest side, so Circle stays round on square artwork.
-    private static string ShapeRadius(string shape, int square, int squircle) => shape switch
+    internal static string ShapeRadius(string shape, int square, int squircle) => shape switch
     {
         "Square" => square.ToString(CultureInfo.InvariantCulture) + "px",
         "Circle" => "9999px",

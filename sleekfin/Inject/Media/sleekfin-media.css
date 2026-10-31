@@ -229,11 +229,10 @@ html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecomm
 
 html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .cardScalable {
     background: var(--sleekfin-surface);
-    border: 1px solid var(--sleekfin-border);
+    border: 0;
     border-radius: var(--sleekfin-card-radius);
     box-sizing: border-box;
     overflow: hidden;
-    transition: border-color 220ms ease;
 }
 
 html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .cardScalable:has(.cardImageContainer.lazy-hidden)::after {
@@ -257,16 +256,6 @@ html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecomm
     border-radius: var(--sleekfin-card-inner-radius);
 }
 
-html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .cardContent {
-    transform-origin: center;
-    transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .card:hover .cardContent {
-    transform: scale(1.06);
-}
-
-html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .card:hover .cardBox:not(.visualCardBox) .cardScalable,
 html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .card:hover .visualCardBox {
     border-color: var(--sleekfin-border-hover);
 }
@@ -285,7 +274,7 @@ html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecomm
     border-radius: 0;
 }
 
-html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .visualCardBox :is(.cardContent, .cardImageContainer, .cardOverlayContainer, .blurhash-canvas) {
+html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .visualCardBox :is(.cardContent, .cardOverlayContainer, .blurhash-canvas) {
     border-radius: var(--sleekfin-card-inner-radius) var(--sleekfin-card-inner-radius) 0 0;
 }
 

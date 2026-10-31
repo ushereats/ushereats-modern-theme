@@ -116,13 +116,13 @@ html.sleekfin-header-mounted [data-sleekfin-header-source-anchor="true"] {
 }
 
 html.sleekfin-header-mounted [data-sleekfin-header-proxy] {
-    -webkit-backdrop-filter: var(--sleekfin-glass-filter);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
     align-items: center;
-    backdrop-filter: var(--sleekfin-glass-filter);
-    background: var(--sleekfin-header-glass-background);
-    border: var(--sleekfin-glass-border);
-    border-radius: 12px;
-    box-shadow: var(--sleekfin-glass-shadow);
+    backdrop-filter: blur(14px) saturate(120%);
+    background: rgba(12, 12, 14, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 999px;
+    box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.6);
     box-sizing: border-box;
     display: flex;
     flex: 0 1 auto;
@@ -142,13 +142,18 @@ html.sleekfin-header-mounted [data-sleekfin-header-overflow-hidden="true"] {
 }
 
 html.sleekfin-header-mounted [data-sleekfin-header-proxy="modern"] {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
     position: static;
+}
+
+@media (min-width: 900px) {
+    html.sleekfin-header-mounted [data-sleekfin-header-proxy="modern"] {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
 }
 
 html.sleekfin-header-mounted [data-sleekfin-header-proxy] button {
@@ -182,10 +187,17 @@ html.sleekfin-header-mounted [data-sleekfin-header-proxy] button:not([data-sleek
 }
 
 html.sleekfin-header-mounted [data-sleekfin-header-proxy] button[data-sleekfin-current="true"] {
-    background: var(--sleekfin-header-active-background);
-    color: var(--sleekfin-header-active-text);
+    background: var(--sleekfin-accent);
+    border-radius: 999px;
+    box-shadow: 0 6px 18px -6px rgba(var(--tb-accent-rgb), 0.6);
+    color: #111;
     font-weight: 600;
-    opacity: var(--sleekfin-header-active-opacity);
+    opacity: 1;
+}
+
+html.sleekfin-header-mounted [data-sleekfin-header-proxy] button[data-sleekfin-current="true"] svg {
+    color: #111;
+    fill: currentColor;
 }
 
 html.sleekfin-header-mounted [data-sleekfin-header-proxy] button[data-sleekfin-header-icon-only="true"] {
@@ -409,12 +421,6 @@ html.sleekfin-header-mounted [data-sleekfin-header-separator] {
 }
 
 html.sleekfin-header-mounted [data-sleekfin-header-proxy="legacy"] {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
     max-width: none;
     padding: 0;
 }
@@ -427,13 +433,13 @@ html.sleekfin-header-mounted [data-sleekfin-header-proxy="legacy"] {
     }
 
     html.sleekfin-header-mounted:not(.layout-tv) body:not(.layout-tv) [data-sleekfin-header] [data-sleekfin-header-proxy] {
-        -webkit-backdrop-filter: var(--sleekfin-glass-filter);
-        backdrop-filter: var(--sleekfin-glass-filter);
-        background: var(--sleekfin-header-glass-background);
-        border: var(--sleekfin-glass-border);
-        border-radius: 12px;
+        -webkit-backdrop-filter: blur(18px) saturate(1.3);
+        backdrop-filter: blur(18px) saturate(1.3);
+        background: rgba(10, 10, 12, 0.62);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
         bottom: calc(12px + env(safe-area-inset-bottom));
-        box-shadow: var(--sleekfin-glass-shadow);
+        box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.6);
         left: 50%;
         max-width: calc(100vw - 24px);
         padding: var(--sleekfin-header-bar-padding);
@@ -442,5 +448,38 @@ html.sleekfin-header-mounted [data-sleekfin-header-proxy="legacy"] {
         top: auto;
         transform: translateX(-50%);
         z-index: 1103;
+    }
+}
+
+/* Header shrinks when you scroll (PC). SleekFin marks the header data-sleekfin-scrolled="true" after ~20px.
+   Only heights/offsets change (never widths), so the pill measuring stays correct. */
+@media (min-width: 900px) {
+    html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-toolbar],
+    html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-toolbar]::after,
+    html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-segment],
+    html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-segment] a,
+    html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-segment] button,
+    html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header] img,
+    html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header] svg {
+        transition: height 240ms ease, min-height 240ms ease, top 240ms ease, background-color 240ms ease, box-shadow 240ms ease !important;
+    }
+
+    html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"] {
+        --sleekfin-header-height: 56px;
+        --sleekfin-header-bar-top: 10px;
+        --sleekfin-header-item-height: 28px;
+        --sleekfin-header-brand-top: 12px;
+        --sleekfin-header-logo-height: 32px;
+    }
+
+    /* icon-only buttons keep their width so nothing shifts sideways */
+    html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"] [data-sleekfin-header-segment] button,
+    html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"] [data-sleekfin-header-segment] a:not([data-sleekfin-header-link]):not([data-sleekfin-header-brand]) {
+        min-width: 32px !important;
+        width: 32px !important;
+    }
+
+    html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"]::before {
+        height: 84px;
     }
 }

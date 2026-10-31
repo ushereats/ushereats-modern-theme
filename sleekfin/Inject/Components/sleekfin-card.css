@@ -5,11 +5,10 @@ html.sleekfin-main-ui .card:is(.personCard, [data-type="Person"]) {
 
 html.sleekfin-main-ui .card:is([data-type], .chapterCard):not(.sleekfin-details-episode) .cardScalable {
     background: var(--sleekfin-surface);
-    border: 1px solid var(--sleekfin-border);
+    border: 0;
     border-radius: var(--sleekfin-card-radius);
     box-sizing: border-box;
     overflow: hidden;
-    transition: border-color 220ms ease;
 }
 
 html.sleekfin-main-ui .card:is([data-type], .chapterCard) .cardBox:not(.visualCardBox) :is(.cardContent, .cardImageContainer, .cardOverlayContainer, .blurhash-canvas) {
@@ -35,7 +34,7 @@ html.sleekfin-main-ui .card[data-type] .visualCardBox .cardScalable {
     border-radius: 0;
 }
 
-html.sleekfin-main-ui .card[data-type] .visualCardBox :is(.cardContent, .cardImageContainer, .cardOverlayContainer, .blurhash-canvas) {
+html.sleekfin-main-ui .card[data-type] .visualCardBox :is(.cardContent, .cardOverlayContainer, .blurhash-canvas) {
     border-radius: var(--sleekfin-card-inner-radius) var(--sleekfin-card-inner-radius) 0 0;
 }
 
@@ -250,4 +249,56 @@ html.sleekfin-main-ui[data-sleekfin-media-card-shape="Circle"] .sleekfin-details
 html.sleekfin-main-ui[data-sleekfin-media-card-shape="Circle"] .sleekfin-details-episode-list[data-view="grid"] .sleekfin-details-episode-number {
     left: 15%;
     top: 15%;
+}
+
+/* ── Posters: rounded, soft shadow, the whole card pops on hover ── */
+.card .cardScalable {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(0, 0, 0, 0.10) !important;
+    transform: none !important;
+}
+
+.card .cardScalable iframe,
+.card .cardScalable video,
+.card .cardScalable .cardImageContainer {
+    border-radius: var(--sleekfin-card-inner-radius, 9px) !important;
+}
+
+/* rounded clip only while hovered (when trailers play); a permanent clip would cut the resting shadow */
+.card:hover .cardScalable {
+    clip-path: inset(0 round var(--sleekfin-card-radius, 10px));
+}
+
+/* the whole card scales (the clipped poster itself never transforms: Chrome drops its rounded corners) */
+.card .cardBox {
+    transform-origin: 50% 50%;
+    transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 220ms ease !important;
+}
+
+/* Jellyfin's "contain: paint" on cards would slice the scaled poster's edges */
+.card:not(.show-animation) {
+    contain: layout style !important;
+}
+
+.card:hover {
+    position: relative;
+    z-index: 5;
+}
+
+.card:hover .cardBox {
+    filter: drop-shadow(0 0 14px rgba(0, 0, 0, 0.32));
+    transform: scale(1.05) !important;
+}
+
+/* rows marked "no pop" (Continue Watching, Trending, Latest Releases) */
+.no-hover-pop .card:hover .cardBox {
+    filter: none;
+    transform: none !important;
+}
+
+.no-hover-pop .card:hover {
+    z-index: auto;
+}
+
+html.is-scrolling .card .cardBox {
+    transition: none !important;
 }

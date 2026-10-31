@@ -166,3 +166,73 @@
     window.__tbRowsBoot.first = { user: srv.UserId, key: key, at: Date.now(), data: run(rows, srv.UserId, srv.AccessToken) };
   } catch (e) {}
 })();
+
+/* Jellyfin's own home rows: our rows replace them, so Jellyfin shouldn't build them at all (it used to
+   fetch and draw every section in the background, hidden: double the requests and a freeze on Home).
+   This browser is told every home section is "None"; the settings saved on the server are never
+   changed (TV apps keep theirs): when this browser saves its settings, the real home sections are put back
+   in first. Only Jellyfin's "usersettings" (client "emby") are touched. ES5. */
+(function () {
+  try {
+    var KEY = /\/DisplayPreferences\/usersettings\?/i;
+    function isPrefs(url) { return KEY.test(url) && /[?&]client=emby(&|$)/i.test(url); }
+    function hide(text) {
+      try {
+        var j = JSON.parse(text);
+        j.CustomPrefs = j.CustomPrefs || {};
+        for (var i = 0; i < 12; i++) j.CustomPrefs["homesection" + i] = "none";
+        return JSON.stringify(j);
+      } catch (e) { return text; }
+    }
+
+    // reading (Jellyfin's newer code: XMLHttpRequest)
+    var open = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function (method, url) {
+      if (String(method).toUpperCase() === "GET" && isPrefs(String(url))) {
+        var x = this;
+        x.addEventListener("readystatechange", function () {
+          if (x.readyState !== 4 || x.status !== 200) return;
+          var text = hide(x.responseText);
+          try {
+            Object.defineProperty(x, "responseText", { configurable: true, get: function () { return text; } });
+            Object.defineProperty(x, "response", { configurable: true, get: function () { return x.responseType === "json" ? JSON.parse(text) : text; } });
+          } catch (e) {}
+        });
+      }
+      return open.apply(this, arguments);
+    };
+
+    // reading and saving (Jellyfin's older code: fetch)
+    var realFetch = window.fetch;
+    if (!realFetch) return;
+    window.fetch = function (input, init) {
+      var url = typeof input === "string" ? input : (input && input.url) || "";
+      if (!isPrefs(url)) return realFetch.apply(this, arguments);
+      var method = String((init && init.method) || (input && input.method) || "GET").toUpperCase();
+      if (method === "GET") {
+        return realFetch.apply(this, arguments).then(function (r) {
+          if (!r.ok) return r;
+          return r.text().then(function (t) { return new Response(hide(t), { status: r.status, statusText: r.statusText, headers: r.headers }); });
+        });
+      }
+      if (method === "POST" && init && typeof init.body === "string") {
+        // put the real home sections (as saved on the server) back before saving
+        return realFetch(url, { headers: init.headers, credentials: init.credentials || "same-origin" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (saved) {
+          var real = (saved && saved.CustomPrefs) || {};
+          var body = JSON.parse(init.body);
+          body.CustomPrefs = body.CustomPrefs || {};
+          for (var i = 0; i < 12; i++) {
+            var k = "homesection" + i;
+            if (real[k] != null) body.CustomPrefs[k] = real[k];
+            else delete body.CustomPrefs[k];
+          }
+          var next = {};
+          for (var p in init) next[p] = init[p];
+          next.body = JSON.stringify(body);
+          return realFetch(url, next);
+        }, function () { throw new Error("home sections: could not read the saved settings, not saving"); });   // never save the "None"s
+      }
+      return realFetch.apply(this, arguments);
+    };
+  } catch (e) {}
+})();

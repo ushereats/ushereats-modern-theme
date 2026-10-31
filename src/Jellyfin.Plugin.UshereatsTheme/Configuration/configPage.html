@@ -5252,13 +5252,14 @@
               info.cache = r.headers.get("cache-control") || "";
               info.server = r.headers.get("server") || "";
               info.cf = r.headers.get("cf-cache-status") || "";
+              info.logo = r.headers.get("x-ushereats-logo") || "";
             });
           }).catch(function (e) { info.error = String(e); });
         }
         var chain = Promise.resolve();
         for (var i = 0; i < ((opts && opts.n) || 3); i++) (function (i) { chain = chain.then(function () { return one(i); }); })(i);
         return chain.then(function () {
-          return { name: name, ms: round(median(times)), min: round(Math.min.apply(null, times)), max: round(Math.max.apply(null, times)), kb: info.kb, status: info.status, gzip: info.encoding, cache: info.cache, cf: info.cf, error: info.error };
+          return { name: name, ms: round(median(times)), min: round(Math.min.apply(null, times)), max: round(Math.max.apply(null, times)), kb: info.kb, status: info.status, gzip: info.encoding, cache: info.cache, cf: info.cf, logoSized: info.logo || undefined, error: info.error };
         });
       }
 
@@ -5282,8 +5283,10 @@
         ];
         if (sample) {
           tests.push(["item details", "Users/" + uid + "/Items/" + sample.Id]);
-          tests.push(["poster image (400px)", "Items/" + sample.Id + "/Images/Primary?maxHeight=400&quality=90"]);
-          tests.push(["backdrop image (1920px)", "Items/" + sample.Id + "/Images/Backdrop?maxWidth=1920&quality=80"]);
+          var tags = sample.ImageTags || {}, bd = (sample.BackdropImageTags || [])[0];
+          tests.push(["poster image (400px)", "Items/" + sample.Id + "/Images/Primary?maxHeight=400&quality=90" + (tags.Primary ? "&tag=" + tags.Primary : "")]);
+          if (bd) tests.push(["backdrop image (1920px)", "Items/" + sample.Id + "/Images/Backdrop/0?maxWidth=1920&quality=80&tag=" + bd]);
+          if (tags.Logo) tests.push(["logo, no size asked (like the details page)", "Items/" + sample.Id + "/Images/Logo?quality=90&tag=" + tags.Logo]);
           tests.push(["similar", "Items/" + sample.Id + "/Similar?userId=" + uid + "&Limit=12"]);
         }
         var res = [], chain = Promise.resolve();
@@ -5333,6 +5336,7 @@
           badges: !!d.querySelector(".tb-quality-badge, .time-remaining-badge, .release-date-badge"),
           details: vis("#itemDetailPage[data-sleekfin-details]") && !h.classList.contains("sleekfin-details-concealed"),
           episodes: !!d.querySelector(".sleekfin-details-episode"),
+          seasons: !!d.querySelector(".sleekfin-details-season-card, #childrenContent .card"),
           search: !!d.querySelector("#searchPage .card"),
           library: !!d.querySelector("#moviesPage .card, .page:not(.hide) .itemsContainer .card")
         };
@@ -5341,11 +5345,11 @@
       // watches one page until nothing changes for 1.5 s (or 20 s pass)
       function watch(w, startAt, want) {
         return new Promise(function (resolve) {
-          var marks = {}, lastChange = now(), muts = 0, attrs = 0, done = false, who = {};
+          var marks = {}, lastChange = now(), muts = 0, attrs = 0, done = false, who = {}, recent = [];
           function label(n) { var e = n.nodeType === 1 ? n : n.parentElement; if (!e) return "?"; return (e.id ? "#" + e.id : e.tagName.toLowerCase()) + (e.className && typeof e.className === "string" ? "." + e.className.trim().split(/\s+/).slice(0, 2).join(".") : ""); }
           var mo = new w.MutationObserver(function (l) {
             l.forEach(function (m) {
-              if (m.type === "childList") { muts++; lastChange = now(); }   // things added/removed = still building
+              if (m.type === "childList") { muts++; lastChange = now(); recent.push([lastChange, label(m.target)]); }   // things added/removed = still building
               else attrs++;                                                  // styles/classes changing (animations, carousels)
               var k = m.type + " " + label(m.target) + (m.attributeName ? " [" + m.attributeName + "]" : "");
               who[k] = (who[k] || 0) + 1;
@@ -5362,7 +5366,10 @@
             if ((ready && t - lastChange > 1500) || t - startAt > 15000) {
               done = true; mo.disconnect();
               var busiest = Object.keys(who).sort(function (x, y) { return who[y] - who[x]; }).slice(0, 8).map(function (k) { return who[k] + "x " + k; });
-              resolve({ ready: marks, settledMs: round(lastChange - startAt), addedRemoved: muts, styleChanges: attrs, busiest: busiest, timedOut: !ready, neverSettled: t - lastChange <= 1500 || undefined });
+              var late = {};   // what was still being added/removed in the last 3 s
+              recent.forEach(function (r) { if (r[0] > t - 3000) late[r[1]] = (late[r[1]] || 0) + 1; });
+              var stillChanging = Object.keys(late).sort(function (x, y) { return late[y] - late[x]; }).slice(0, 6).map(function (k) { return late[k] + "x " + k; });
+              resolve({ ready: marks, settledMs: round(lastChange - startAt), addedRemoved: muts, styleChanges: attrs, busiest: busiest, stillChanging: stillChanging.length ? stillChanging : undefined, timedOut: !ready, neverSettled: t - lastChange <= 1500 || undefined });
               return;
             }
             w.requestAnimationFrame(tick);
@@ -5400,6 +5407,9 @@
           var p = perfOf(w, since);
           var lt = (w.__tbLongAll || []).filter(function (e) { return e.startTime >= since; });
           m.page = label; m.perf = p;
+          var sh = (w.__tbShifts || []).filter(function (e) { return e.t >= since; });
+          m.layoutShift = Math.round(sh.reduce(function (s, e) { return s + e.value; }, 0) * 1000) / 1000;
+          m.jumps = sh.sort(function (a, b) { return b.value - a.value; }).slice(0, 5).map(function (e) { return { at: round(e.t - since), value: Math.round(e.value * 1000) / 1000, what: e.what }; });
           m.longTasks = { count: lt.length, totalMs: round(lt.reduce(function (s, e) { return s + e.duration; }, 0)), worstMs: round(lt.reduce(function (s, e) { return Math.max(s, e.duration); }, 0)) };
           return m;
         });
@@ -5412,11 +5422,17 @@
           var t0 = now();
           frame.onload = function () {
             var w = frame.contentWindow;
+            try { w.performance.setResourceTimingBufferSize(20000); } catch (e) {}   // default keeps only 250 files
+            w.__tbShifts = [];
             // long tasks (the page freezing) and layout jumps, from the very start
             w.__tbLongAll = [];
             var cls = 0;
             try { new w.PerformanceObserver(function (l) { l.getEntries().forEach(function (e) { w.__tbLongAll.push(e); }); }).observe({ type: "longtask", buffered: true }); } catch (e) {}
-            try { new w.PerformanceObserver(function (l) { l.getEntries().forEach(function (e) { if (!e.hadRecentInput) cls += e.value; }); }).observe({ type: "layout-shift", buffered: true }); } catch (e) {}
+            try { new w.PerformanceObserver(function (l) { l.getEntries().forEach(function (e) {
+              if (e.hadRecentInput) return;
+              cls += e.value;
+              w.__tbShifts.push({ t: e.startTime, value: e.value, what: (e.sources || []).slice(0, 3).map(function (s) { var n = s.node; if (!n) return "?"; var el = n.nodeType === 1 ? n : n.parentElement; return el ? (el.id ? "#" + el.id : el.tagName.toLowerCase()) + (typeof el.className === "string" && el.className ? "." + el.className.trim().split(/\s+/).slice(0, 3).join(".") : "") : "?"; }) });
+            }); }).observe({ type: "layout-shift", buffered: true }); } catch (e) {}
             var lcp = 0;
             try { new w.PerformanceObserver(function (l) { var e = l.getEntries(); if (e.length) lcp = e[e.length - 1].startTime; }).observe({ type: "largest-contentful-paint", buffered: true }); } catch (e) {}
             var results = [];
@@ -5426,12 +5442,13 @@
               m.perf = perfOf(w, 0);
               m.perf.lcp = round(lcp);
               m.layoutShift = Math.round(cls * 1000) / 1000;
+              m.jumps = (w.__tbShifts || []).slice().sort(function (a, b) { return b.value - a.value; }).slice(0, 5).map(function (e) { return { at: round(e.t), value: Math.round(e.value * 1000) / 1000, what: e.what }; });
               var lt = w.__tbLongAll;
               m.longTasks = { count: lt.length, totalMs: round(lt.reduce(function (s, e) { return s + e.duration; }, 0)), worstMs: round(lt.reduce(function (s, e) { return Math.max(s, e.duration); }, 0)) };
               results.push(m);
               var steps = [];
               if (sample) steps.push(["#/details?id=" + sample.Id + "&serverId=" + ApiClient.serverId(), ["header", "details"], "movie details"]);
-              if (series) steps.push(["#/details?id=" + series.Id + "&serverId=" + ApiClient.serverId(), ["header", "details", "episodes"], "series details"]);
+              if (series) steps.push(["#/details?id=" + series.Id + "&serverId=" + ApiClient.serverId(), ["header", "details"], "series details"]);
               steps.push(["#/search?tbq=the", ["header", "search"], "search 'the'"]);
               steps.push(["#/home", ["header", "rows"], "home (going back)"]);
               var chain = Promise.resolve();
@@ -5500,6 +5517,7 @@
           if (s.error || s.status >= 400) flags.push("FAILED request: " + s.name + " (" + (s.error || s.status) + ")");
           else if (s.ms > 800) flags.push("SLOW server: " + s.name + " " + s.ms + " ms");
           if (/theme\.(css|js)/.test(s.name) && !s.gzip) flags.push("NOT compressed: " + s.name);
+          if (/logo, no size/.test(s.name) && s.kb > 400) flags.push("BIG logo: " + s.kb + " KB" + (s.logoSized ? "" : " (not resized)"));
         });
         (r.pages || []).forEach(function (p) {
           if (p.timedOut) flags.push("PAGE never finished: " + p.page + " (got: " + Object.keys(p.ready || {}).join(", ") + ")");
@@ -5508,6 +5526,7 @@
           var last = 0; Object.keys(p.ready || {}).forEach(function (k) { last = Math.max(last, p.ready[k]); });
           if (last > 2500) flags.push("SLOW to show: " + p.page + " " + JSON.stringify(p.ready));
           if (p.longTasks && p.longTasks.worstMs > 200) flags.push("FREEZE: " + p.page + " froze for " + p.longTasks.worstMs + " ms (" + p.longTasks.count + " freezes)");
+          if (p.layoutShift > 0.1) flags.push("JUMPS: " + p.page + " layout shift " + p.layoutShift + " (" + ((p.jumps || [])[0] ? JSON.stringify(p.jumps[0].what) : "") + ")");
           if (p.droppedFrames > 10) flags.push("JANK while scrolling: " + p.droppedFrames + " slow frames, worst " + p.worstFrameMs + " ms");
           (p.perf && p.perf.slowest || []).forEach(function (x) { if (x.ms > 1500) flags.push("SLOW file on " + p.page + ": " + x.ms + " ms " + x.who + " " + x.url); });
         });

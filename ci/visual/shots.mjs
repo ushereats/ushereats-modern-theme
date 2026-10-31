@@ -149,6 +149,21 @@ for (const [vw, vh, tag] of [[1920, 1080, "desktop"], [390, 844, "phone"]]) {
         desktopLogo: after.Sleek && after.Sleek.HeaderDesktopLogoHeight, sleekKept: !!(after.Sleek && after.Sleek.HeaderHeight === before.Sleek.HeaderHeight) };
     }
     if (name === "home" && tag === "desktop") {
+      // Jellyfin's own (hidden) home rows are no longer built, and saving settings keeps the server's home sections
+      report.nativeHome = await page.evaluate(async () => {
+        const urls = performance.getEntriesByType("resource").map((e) => e.name);
+        const native = urls.filter((u) => /fields=Path/i.test(u) || /\/Items\/Latest\?userId=[^&]+&parentId=/i.test(u)).length;
+        const sections = document.querySelectorAll("#homeTab > .sections:not(.tb-rows-c) .verticalSection:not(.hide)").length;
+        const uid = ApiClient.getCurrentUserId();
+        const url = ApiClient.getUrl("DisplayPreferences/usersettings", { userId: uid, client: "emby" });
+        const auth = { Authorization: 'MediaBrowser Token="' + ApiClient.accessToken() + '"', "Content-Type": "application/json" };
+        const seen = await (await fetch(url, { headers: auth })).json();          // what this browser is told
+        const body = JSON.parse(JSON.stringify(seen)); body.CustomPrefs.tbCiProbe = "1";
+        await fetch(url, { method: "POST", headers: auth, body: JSON.stringify(body) });   // a save, like Jellyfin's
+        return { nativeRequests: native, nativeSectionsShown: sections, browserSees: seen.CustomPrefs.homesection0 };
+      });
+      report.serverPrefsAfterSave = await api(`/DisplayPreferences/usersettings?userId=${s.userId}&client=emby`).then((p) => ({ homesection0: p.CustomPrefs.homesection0 ?? null, probe: p.CustomPrefs.tbCiProbe ?? null }));
+      report.logoHeader = await fetch(s.server + `/Items/${movies[0].Id}/Images/Logo`, { headers: H }).then((r) => ({ status: r.status, sized: r.headers.get("x-ushereats-logo") }));
       // the avatar opens the user menu (your picture + name on top)
       const av = await page.$("#tb-header-avatar");
       report.avatar = !!av;

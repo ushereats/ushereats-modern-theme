@@ -62,8 +62,7 @@ public static class IndexPatch
             SleekConfiguration s = ThemeAssets.SleekOf(build.Config);
             sb.Append("<style>html.sleekfin-main-ui:root{--sleekfin-card-button-radius:").Append(ShapeRadius(s.CardButtonShape, 4, 12))
               .Append(";--sleekfin-card-play-radius:").Append(ShapeRadius(s.PlayButtonShape, 6, 18))
-              .Append(";--sleekfin-card-radius:").Append(ShapeRadius(s.MediaCardShape, 4, 10))
-              .Append(";--sleekfin-card-inner-radius:").Append(ShapeRadius(s.MediaCardShape, 3, 9))
+              .Append(";--sleekfin-card-radius:6px;--sleekfin-card-inner-radius:5px")
               .Append(";--sleekfin-compact-card-radius:").Append(ShapeRadius(s.MediaCardShape, 4, 16))
               .Append(";--sleekfin-person-radius:").Append(ShapeRadius(s.CastCrewShape, 4, 10))
               .Append(";--sleekfin-person-inner-radius:").Append(ShapeRadius(s.CastCrewShape, 3, 9))

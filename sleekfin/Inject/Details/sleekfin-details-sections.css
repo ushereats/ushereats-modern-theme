@@ -124,13 +124,10 @@ html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details].sleekfin-de
     width: 100%;
 }
 
-html.layout-tv .sleekfin-details-season-card:focus-within .cardScalable {
-    border-color: var(--sleekfin-accent) !important;
-}
 
 html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] .detailVerticalSection .cardScalable {
     background: var(--sleekfin-surface);
-    border: 1px solid var(--sleekfin-border);
+    border: 0;
     border-radius: var(--sleekfin-card-radius);
     box-sizing: border-box;
     overflow: hidden;

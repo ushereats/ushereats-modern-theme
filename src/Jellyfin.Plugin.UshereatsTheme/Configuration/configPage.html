@@ -5341,8 +5341,16 @@
       // watches one page until nothing changes for 1.5 s (or 20 s pass)
       function watch(w, startAt, want) {
         return new Promise(function (resolve) {
-          var marks = {}, lastChange = now(), muts = 0, done = false;
-          var mo = new w.MutationObserver(function (l) { muts += l.length; lastChange = now(); });
+          var marks = {}, lastChange = now(), muts = 0, attrs = 0, done = false, who = {};
+          function label(n) { var e = n.nodeType === 1 ? n : n.parentElement; if (!e) return "?"; return (e.id ? "#" + e.id : e.tagName.toLowerCase()) + (e.className && typeof e.className === "string" ? "." + e.className.trim().split(/\s+/).slice(0, 2).join(".") : ""); }
+          var mo = new w.MutationObserver(function (l) {
+            l.forEach(function (m) {
+              if (m.type === "childList") { muts++; lastChange = now(); }   // things added/removed = still building
+              else attrs++;                                                  // styles/classes changing (animations, carousels)
+              var k = m.type + " " + label(m.target) + (m.attributeName ? " [" + m.attributeName + "]" : "");
+              who[k] = (who[k] || 0) + 1;
+            });
+          });
           mo.observe(w.document.documentElement, { childList: true, subtree: true, attributes: true });
           function tick() {
             if (done) return;
@@ -5351,9 +5359,10 @@
             Object.keys(c).forEach(function (k) { if (c[k] && marks[k] == null) marks[k] = round(now() - startAt); });
             var ready = want.every(function (k) { return marks[k] != null; });
             var t = now();
-            if ((ready && t - lastChange > 1500) || t - startAt > 20000) {
+            if ((ready && t - lastChange > 1500) || t - startAt > 15000) {
               done = true; mo.disconnect();
-              resolve({ ready: marks, settledMs: round(lastChange - startAt), domChanges: muts, timedOut: !ready });
+              var busiest = Object.keys(who).sort(function (x, y) { return who[y] - who[x]; }).slice(0, 8).map(function (k) { return who[k] + "x " + k; });
+              resolve({ ready: marks, settledMs: round(lastChange - startAt), addedRemoved: muts, styleChanges: attrs, busiest: busiest, timedOut: !ready, neverSettled: t - lastChange <= 1500 || undefined });
               return;
             }
             w.requestAnimationFrame(tick);
@@ -5490,11 +5499,14 @@
         r.serverRequests.forEach(function (s) {
           if (s.error || s.status >= 400) flags.push("FAILED request: " + s.name + " (" + (s.error || s.status) + ")");
           else if (s.ms > 800) flags.push("SLOW server: " + s.name + " " + s.ms + " ms");
-          if (/theme\.(css|js)|index/.test(s.name) && !s.gzip) flags.push("NOT compressed: " + s.name);
+          if (/theme\.(css|js)/.test(s.name) && !s.gzip) flags.push("NOT compressed: " + s.name);
         });
         (r.pages || []).forEach(function (p) {
           if (p.timedOut) flags.push("PAGE never finished: " + p.page + " (got: " + Object.keys(p.ready || {}).join(", ") + ")");
-          if (p.settledMs > 4000) flags.push("SLOW page: " + p.page + " took " + p.settledMs + " ms to settle");
+          if (p.neverSettled) flags.push("NEVER STOPS changing: " + p.page + " (" + (p.busiest || [])[0] + ")");
+          else if (p.settledMs > 4000) flags.push("SLOW page: " + p.page + " took " + p.settledMs + " ms to finish drawing");
+          var last = 0; Object.keys(p.ready || {}).forEach(function (k) { last = Math.max(last, p.ready[k]); });
+          if (last > 2500) flags.push("SLOW to show: " + p.page + " " + JSON.stringify(p.ready));
           if (p.longTasks && p.longTasks.worstMs > 200) flags.push("FREEZE: " + p.page + " froze for " + p.longTasks.worstMs + " ms (" + p.longTasks.count + " freezes)");
           if (p.droppedFrames > 10) flags.push("JANK while scrolling: " + p.droppedFrames + " slow frames, worst " + p.worstFrameMs + " ms");
           (p.perf && p.perf.slowest || []).forEach(function (x) { if (x.ms > 1500) flags.push("SLOW file on " + p.page + ": " + x.ms + " ms " + x.who + " " + x.url); });

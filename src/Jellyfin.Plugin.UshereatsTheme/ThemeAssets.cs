@@ -114,7 +114,12 @@ public static class ThemeAssets
         ("js_17_episode_list.js", c => c.EpisodeList),
         ("js_18_user_menu.js", c => c.UserMenu),
         ("js_21_hero.js", c => c.Hero),
+        ("js_20_cards.js", c => c.HomeRows || c.Search),
+        ("js_22_home_rows.js", c => c.HomeRows),
+        ("js_23_search.js", c => c.Search),
     };
+
+    private static readonly Dictionary<string, Payload?> StudioCache = new Dictionary<string, Payload?>(StringComparer.OrdinalIgnoreCase);
 
     private static readonly object Gate = new object();
     private static readonly Dictionary<string, string> TextCache = new Dictionary<string, string>();
@@ -150,6 +155,41 @@ public static class ThemeAssets
     public static byte[]? GetFont(string name)
     {
         return Fonts.TryGetValue(name, out string? file) ? ReadBytes(file) : null;
+    }
+
+    /// <summary>A bundled studio logo (SVG from KefinTweaks, MIT), by name e.g. "Disney+" or "Marvel_Studios".</summary>
+    public static Payload? GetStudio(string name)
+    {
+        if (string.IsNullOrEmpty(name) || name.Length > 64)
+        {
+            return null;
+        }
+
+        if (name.EndsWith(".svg", StringComparison.OrdinalIgnoreCase))
+        {
+            name = name.Substring(0, name.Length - 4);
+        }
+
+        foreach (char ch in name)
+        {
+            if (!char.IsAsciiLetterOrDigit(ch) && ch != '_' && ch != '+' && ch != '-')
+            {
+                return null;
+            }
+        }
+
+        lock (StudioCache)
+        {
+            if (StudioCache.TryGetValue(name, out Payload? hit))
+            {
+                return hit;
+            }
+
+            byte[] bytes = ReadBytes("studio_" + name.Replace("+", "_plus", StringComparison.Ordinal) + ".svg");
+            Payload? p = bytes.Length == 0 ? null : new Payload(bytes);
+            StudioCache[name] = p;
+            return p;
+        }
     }
 
     private static ThemeBuild Build(PluginConfiguration config, string key)

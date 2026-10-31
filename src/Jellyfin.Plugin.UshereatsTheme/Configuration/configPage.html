@@ -3,6 +3,29 @@
 <head><meta charset="utf-8"><title>Ushereats Theme</title></head>
 <body>
 <div id="UshereatsThemePage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-checkbox">
+  <style>
+#tbRowsList{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.tbr{border:1px solid rgba(255,255,255,.12);border-radius:10px;background:rgba(255,255,255,.03)}
+.tbr.tbr-off{opacity:.55}
+.tbr.tbr-drop{outline:2px solid #00a4dc}
+.tbr-head{display:flex;align-items:center;gap:10px;padding:8px 10px;cursor:pointer;user-select:none}
+.tbr-handle{cursor:grab;font-size:22px;opacity:.6;padding:0 2px}
+.tbr-title{flex:1;min-width:0;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tbr-kind{opacity:.6;font-size:.85em;white-space:nowrap}
+.tbr-btn{background:none;border:0;color:inherit;cursor:pointer;padding:4px;opacity:.75;font-size:20px;line-height:1}
+.tbr-btn:hover{opacity:1}
+.tbr-body{display:none;padding:4px 14px 14px;border-top:1px solid rgba(255,255,255,.08)}
+.tbr.tbr-open .tbr-body{display:block}
+.tbr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px 16px;margin-top:10px}
+.tbr-f label{display:block;font-size:.85em;opacity:.75;margin-bottom:4px}
+.tbr-f input[type=text],.tbr-f input[type=number],.tbr-f select{width:100%;box-sizing:border-box}
+.tbr-chk{display:flex;align-items:center;gap:8px;margin-top:22px}
+.tbr-studios{margin-top:12px}
+.tbr-st{display:grid;grid-template-columns:1.2fr 1.2fr 1.6fr auto auto;gap:6px;align-items:center;margin-bottom:6px}
+.tbr-add{display:flex;gap:10px;align-items:center}
+.tbr-sel{max-width:280px}
+.tbr-hint{font-size:.8em;opacity:.6;margin-top:4px}
+</style>
   <div data-role="content">
     <div class="content-primary">
       <form id="UshereatsThemeForm">
@@ -24,6 +47,14 @@
         <div class="checkboxContainer checkboxContainer-withDescription">
           <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="Hero" /><span>Instant hero</span></label>
           <div class="fieldDescription checkboxFieldDescription">Home banner (SleekFin's look), loads instantly. Turn SleekFin's own hero off.</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="HomeRows" /><span>Home rows</span></label>
+          <div class="fieldDescription checkboxFieldDescription">The rows below on the home page, for everyone (replaces KefinTweaks' home screen and Jellyfin's own rows).</div>
+        </div>
+        <div class="checkboxContainer checkboxContainer-withDescription">
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="Search" /><span>Search</span></label>
+          <div class="fieldDescription checkboxFieldDescription">Search as you type, grouped results, Movies/TV - All - Music - Books chips (replaces KefinTweaks' search).</div>
         </div>
         <div class="checkboxContainer checkboxContainer-withDescription">
           <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="WelcomeSplash" /><span>Welcome splash</span></label>
@@ -54,7 +85,7 @@
           <div class="fieldDescription checkboxFieldDescription">New episode / new season tags.</div>
         </div>
         <div class="checkboxContainer checkboxContainer-withDescription">
-          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="MarkSections" /><span>Home rows</span></label>
+          <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="MarkSections" /><span>Row extras</span></label>
           <div class="fieldDescription checkboxFieldDescription">Continue Watching layout, row arrows, scroll effects (needed by the theme).</div>
         </div>
         <div class="checkboxContainer checkboxContainer-withDescription">
@@ -101,6 +132,22 @@
           <label class="emby-checkbox-label"><input is="emby-checkbox" type="checkbox" data-key="DashboardSkin" /><span>Dashboard skin</span></label>
           <div class="fieldDescription checkboxFieldDescription">Admin dashboard redesign.</div>
         </div>
+        </div>
+
+
+        <div class="verticalSection" id="tbRowsSection">
+          <h3 class="sectionTitle">Home rows</h3>
+          <p class="fieldDescription">Top to bottom, exactly as everyone sees them. Drag the handle (or use the arrows) to reorder. Click a row to edit it. Press Save at the bottom when done.</p>
+          <div id="tbRowsList"></div>
+          <div class="tbr-add">
+            <select id="tbRowsAddType" class="emby-select-withcolor emby-select tbr-sel">
+              <option value="items">Collection / filtered list</option>
+              <option value="latest">Recently added (library)</option>
+              <option value="continue">Continue Watching &amp; Next Up</option>
+              <option value="studios">Studio logos</option>
+            </select>
+            <button is="emby-button" type="button" id="tbRowsAdd" class="raised emby-button"><span>Add row</span></button>
+          </div>
         </div>
 
         <div class="verticalSection">
@@ -226,6 +273,179 @@
       var PLUGIN_ID = "01c723cc-57de-4e19-b13c-514b644491a5";
       var page = document.querySelector("#UshereatsThemePage");
       var fields = function () { return page.querySelectorAll("[data-key]"); };
+      // ── Home rows editor ──
+      var rows = [];
+      var sources = { libs: [], cols: [] };
+      var LOGOS = ["AMC","Apple_TV","Columbia_Pictures","Disney+","DreamWorks_Animation","FX","HBO","HBO_Max","Hulu","Lucasfilm","Marvel_Studios","New_Line_Cinema","Paramount+_with_Showtime","Paramount_Pictures","Peacock","Pixar","Prime_Video","Showtime","Universal_Pictures","Walt_Disney_Pictures","Warner_Bros"];
+      var KINDS = { items: "Collection / filtered list", latest: "Recently added", continue: "Continue Watching & Next Up", studios: "Studio logos" };
+      var SORTS = [["", "Server default (collection order)"], ["PremiereDate", "Release date"], ["DateCreated", "Date added"], ["SortName", "Name"], ["CommunityRating", "Rating"], ["ProductionYear", "Year"], ["DatePlayed", "Last played"], ["PlayCount", "Play count"], ["Random", "Random"]];
+      var list = page.querySelector("#tbRowsList");
+      var openId = null, dragFrom = -1;
+
+      function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+      function newId() { return "r" + Date.now().toString(36) + Math.random().toString(36).slice(2, 5); }
+      function opt(v, label, cur) { return '<option value="' + esc(v) + '"' + (String(cur == null ? "" : cur) === String(v) ? " selected" : "") + ">" + esc(label) + "</option>"; }
+      function field(label, inner, hint) { return '<div class="tbr-f"><label>' + esc(label) + "</label>" + inner + (hint ? '<div class="tbr-hint">' + esc(hint) + "</div>" : "") + "</div>"; }
+      function text(f, v, ph) { return '<input type="text" class="emby-input" data-f="' + f + '" value="' + esc(v) + '"' + (ph ? ' placeholder="' + esc(ph) + '"' : "") + ">"; }
+      function number(f, v, min, max) { return '<input type="number" class="emby-input" data-f="' + f + '" data-num="1" value="' + esc(v) + '" min="' + min + '" max="' + max + '">'; }
+      function check(f, v, label) { return '<label class="tbr-chk"><input type="checkbox" data-f="' + f + '"' + (v ? " checked" : "") + "> " + esc(label) + "</label>"; }
+      function select(f, options, cur) { return '<select class="emby-select-withcolor emby-select" data-f="' + f + '">' + options.map(function (o) { return opt(o[0], o[1], cur); }).join("") + "</select>"; }
+
+      function sourceOptions(r, onlyLibs) {
+        var o = [["", onlyLibs ? "All libraries" : "Whole server"]];
+        sources.libs.forEach(function (l) { o.push([l.Id, "Library: " + l.Name]); });
+        if (!onlyLibs) sources.cols.forEach(function (c) { o.push([c.Id, "Collection: " + c.Name]); });
+        if (r.parentId && !o.some(function (x) { return x[0] === r.parentId; })) o.push([r.parentId, "Other: " + r.parentId]);
+        return o;
+      }
+
+      function body(r) {
+        var h = '<div class="tbr-grid">';
+        h += field("Title", text("title", r.title, "Row title"));
+        if (r.type !== "studios") {
+          h += field("Card shape", select("shape", [["poster", "Poster"], ["thumb", "Wide (thumb)"], ["square", "Square"]], r.shape || (r.type === "continue" ? "thumb" : "poster")));
+          h += field("How many", number("limit", r.limit || (r.type === "continue" ? 24 : 16), 1, 100));
+        }
+        if (r.type === "items") {
+          h += field("From", select("parentId", sourceOptions(r, false), r.parentId || ""), "A collection shows its items (e.g. Trending This Week)");
+          h += field("Types", text("types", r.types == null ? "Movie,Series" : r.types, "Movie,Series"), "Comma separated: Movie, Series, Episode, BoxSet...");
+          h += field("Sort by", select("sortBy", SORTS, r.sortBy || ""));
+          h += field("Order", select("sortOrder", [["Descending", "Newest / highest first"], ["Ascending", "Oldest / lowest first"]], r.sortOrder || "Descending"));
+          h += field("Extra filter (advanced)", text("query", r.query, "e.g. Genres=Comedy&IsFavorite=true"), "Added to the request as is");
+        }
+        if (r.type === "latest") {
+          h += field("Library", select("parentId", sourceOptions(r, true), r.parentId || ""));
+          h += field("Types (optional)", text("types", r.types, "e.g. Movie"));
+        }
+        if (r.type === "continue") {
+          h += field("Films in progress (max)", number("resumeLimit", r.resumeLimit || 12, 0, 50));
+          h += field("Next Up episodes (max)", number("nextUpLimit", r.nextUpLimit || 24, 0, 50));
+        }
+        if (r.type !== "studios") h += field("\"See all\" link (optional)", text("more", r.more, "#/movies.html?topParentId=..."));
+        h += "</div><div>";
+        if (r.type === "items") { h += check("released", r.released, "Only titles that are already out"); h += check("ranked", r.ranked, "Top 10 style (big numbers)"); h += check("shuffle", r.shuffle, "Random order"); }
+        if (r.type === "latest") h += check("shuffle", r.shuffle, "Random order");
+        if (r.type === "studios") h += check("shuffle", r.shuffle !== false, "Random order each visit");
+        if (r.type !== "studios") h += check("hideTitle", r.hideTitle, "Hide the row title");
+        h += "</div>";
+        if (r.type === "studios") {
+          h += '<div class="tbr-studios"><div class="tbr-st" style="opacity:.7;font-size:.85em"><span>Name</span><span>Logo</span><span>Studio ID</span><span></span><span></span></div>';
+          (r.items || []).forEach(function (s, i) {
+            h += '<div class="tbr-st" data-i="' + i + '">' + text("s-name", s.name, "Name") +
+              '<select class="emby-select-withcolor emby-select" data-f="s-logo">' + LOGOS.map(function (l) { return opt(l, l.replace(/_/g, " "), s.logo); }).join("") +
+              (s.logo && LOGOS.indexOf(s.logo) < 0 ? opt(s.logo, s.logo, s.logo) : "") + "</select>" +
+              text("s-id", s.id, "Studio item ID") +
+              '<button type="button" class="tbr-btn" data-act="s-find" title="Find the ID from the name">&#128269;</button>' +
+              '<button type="button" class="tbr-btn" data-act="s-del" title="Remove">&#10005;</button></div>';
+          });
+          h += '<button is="emby-button" type="button" class="emby-button button-flat" data-act="s-add"><span>+ Add studio</span></button>' +
+            '<div class="tbr-hint">Logos are bundled (white). The ID is found from the name with the magnifier.</div></div>';
+        }
+        return h;
+      }
+
+      function render() {
+        list.innerHTML = rows.map(function (r, i) {
+          return '<div class="tbr' + (r.on === false ? " tbr-off" : "") + (openId === r.id ? " tbr-open" : "") + '" data-i="' + i + '">' +
+            '<div class="tbr-head"><span class="tbr-handle" draggable="true" title="Drag to reorder">&#9776;</span>' +
+            '<input type="checkbox" data-f="on" title="Show this row"' + (r.on !== false ? " checked" : "") + '>' +
+            '<span class="tbr-title">' + esc(r.title || "(no title)") + '</span><span class="tbr-kind">' + esc(KINDS[r.type] || r.type) + "</span>" +
+            '<button type="button" class="tbr-btn" data-act="up" title="Move up">&#9650;</button>' +
+            '<button type="button" class="tbr-btn" data-act="down" title="Move down">&#9660;</button>' +
+            '<button type="button" class="tbr-btn" data-act="del" title="Delete row">&#128465;</button></div>' +
+            '<div class="tbr-body">' + (openId === r.id ? body(r) : "") + "</div></div>";
+        }).join("");
+      }
+
+      function rowOf(el) { var c = el.closest(".tbr"); return c ? +c.getAttribute("data-i") : -1; }
+
+      list.addEventListener("input", function (e) {
+        var el = e.target, f = el.getAttribute("data-f"), i = rowOf(el);
+        if (!f || i < 0) return;
+        var r = rows[i];
+        if (f.indexOf("s-") === 0) {
+          var si = +el.closest(".tbr-st").getAttribute("data-i"), s = r.items[si], k = f.slice(2);
+          s[k] = el.value.trim();
+          return;
+        }
+        if (el.type === "checkbox") r[f] = el.checked;
+        else if (el.getAttribute("data-num")) { var n = parseInt(el.value, 10); if (n > 0) r[f] = n; }
+        else { var v = el.value; if (v === "" && f !== "title") delete r[f]; else r[f] = f === "title" ? v : v.trim(); }
+        if (f === "on") el.closest(".tbr").classList.toggle("tbr-off", !el.checked);
+        if (f === "title") el.closest(".tbr").querySelector(".tbr-title").textContent = r.title || "(no title)";
+      });
+
+      list.addEventListener("click", function (e) {
+        var b = e.target.closest("[data-act]"), i = rowOf(e.target);
+        if (i < 0) return;
+        if (!b) {
+          if (e.target.closest(".tbr-head") && !e.target.closest("input,.tbr-handle")) { openId = openId === rows[i].id ? null : rows[i].id; render(); }
+          return;
+        }
+        var act = b.getAttribute("data-act"), r = rows[i];
+        if (act === "up" && i > 0) { rows.splice(i - 1, 0, rows.splice(i, 1)[0]); render(); }
+        else if (act === "down" && i < rows.length - 1) { rows.splice(i + 1, 0, rows.splice(i, 1)[0]); render(); }
+        else if (act === "del") { if (confirm('Delete the row "' + (r.title || "") + '"?')) { rows.splice(i, 1); render(); } }
+        else if (act === "s-add") { (r.items = r.items || []).push({ name: "", id: "", logo: LOGOS[0] }); render(); }
+        else if (act === "s-del") { r.items.splice(+b.closest(".tbr-st").getAttribute("data-i"), 1); render(); }
+        else if (act === "s-find") {
+          var si = +b.closest(".tbr-st").getAttribute("data-i"), s = r.items[si];
+          if (!s.name) return;
+          ApiClient.getJSON(ApiClient.getUrl("Studios", { SearchTerm: s.name, Limit: 5, userId: ApiClient.getCurrentUserId() })).then(function (res) {
+            var hit = (res.Items || [])[0];
+            if (!hit) { Dashboard.alert("No studio called \"" + s.name + "\" in your library."); return; }
+            s.id = hit.Id; render();
+          });
+        }
+        e.preventDefault();
+      });
+
+      // drag to reorder (by the handle)
+      list.addEventListener("dragstart", function (e) {
+        if (!e.target.classList || !e.target.classList.contains("tbr-handle")) return;
+        dragFrom = rowOf(e.target);
+        try { e.dataTransfer.setData("text/plain", String(dragFrom)); e.dataTransfer.setDragImage(e.target.closest(".tbr"), 20, 20); } catch (x) {}
+      });
+      list.addEventListener("dragover", function (e) {
+        if (dragFrom < 0) return;
+        e.preventDefault();
+        var c = e.target.closest(".tbr");
+        list.querySelectorAll(".tbr-drop").forEach(function (x) { if (x !== c) x.classList.remove("tbr-drop"); });
+        if (c) c.classList.add("tbr-drop");
+      });
+      list.addEventListener("drop", function (e) {
+        if (dragFrom < 0) return;
+        e.preventDefault();
+        var to = rowOf(e.target);
+        if (to >= 0 && to !== dragFrom) rows.splice(to, 0, rows.splice(dragFrom, 1)[0]);
+        dragFrom = -1;
+        render();
+      });
+      list.addEventListener("dragend", function () { dragFrom = -1; list.querySelectorAll(".tbr-drop").forEach(function (x) { x.classList.remove("tbr-drop"); }); });
+
+      page.querySelector("#tbRowsAdd").addEventListener("click", function () {
+        var type = page.querySelector("#tbRowsAddType").value;
+        var r = { id: newId(), on: true, type: type, title: KINDS[type] };
+        if (type === "items") { r.title = "New row"; r.types = "Movie,Series"; r.shape = "poster"; r.limit = 16; }
+        if (type === "latest") { r.title = "Recently Added"; r.shape = "poster"; r.limit = 16; }
+        if (type === "continue") { r.shape = "thumb"; r.limit = 24; }
+        if (type === "studios") { r.title = "Browse by Studio"; r.shuffle = true; r.items = []; }
+        rows.push(r);
+        openId = r.id;
+        render();
+      });
+
+      function loadSources() {
+        var uid = ApiClient.getCurrentUserId();
+        return Promise.all([
+          ApiClient.getUserViews({}, uid).then(function (r) { return r.Items || []; }, function () { return []; }),
+          ApiClient.getItems(uid, { IncludeItemTypes: "BoxSet", Recursive: true, SortBy: "SortName", Fields: "", EnableTotalRecordCount: false }).then(function (r) { return r.Items || []; }, function () { return []; })
+        ]).then(function (r) {
+          sources.libs = r[0].filter(function (v) { return v.CollectionType !== "boxsets" && v.CollectionType !== "playlists"; });
+          sources.cols = r[1];
+        });
+      }
+
       page.addEventListener("pageshow", function () {
         Dashboard.showLoadingMsg();
         ApiClient.getPluginConfiguration(PLUGIN_ID).then(function (cfg) {
@@ -234,6 +454,11 @@
             if (el.type === "checkbox") el.checked = !!v;
             else el.value = v == null ? "" : v;
           });
+          try { rows = JSON.parse(cfg.HomeRowsJson || "[]"); } catch (x) { rows = []; }
+          if (!Array.isArray(rows)) rows = [];
+          rows.forEach(function (r) { if (!r.id) r.id = newId(); });
+          render();
+          loadSources().then(render);
           Dashboard.hideLoadingMsg();
         });
       });
@@ -247,6 +472,7 @@
             else if (el.type === "number") { var n = el.hasAttribute("data-int") ? parseInt(el.value, 10) : parseFloat(el.value); cfg[k] = isNaN(n) ? cfg[k] : n; }
             else cfg[k] = el.value;
           });
+          cfg.HomeRowsJson = JSON.stringify(rows);
           ApiClient.updatePluginConfiguration(PLUGIN_ID, cfg).then(function (r) {
             Dashboard.processPluginConfigurationUpdateResult(r);
           });

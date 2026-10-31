@@ -3,7 +3,7 @@
 Your custom look (CSS + all the scripts) served straight from Jellyfin's page head:
 the stylesheet is in the page before the first frame is drawn, so the default Jellyfin look never shows.
 
-Needs: **SleekFin** and **File Transformation** (both already installed). KefinTweaks stays in JS Injector.
+Needs: **SleekFin** and **File Transformation**. KefinTweaks is no longer needed (home rows + search are built in).
 
 ## How it loads (why it's instant)
 - `theme.css` is linked in `<head>` → applied before anything is drawn (also the sign-in page, also the first visit).
@@ -15,6 +15,8 @@ Needs: **SleekFin** and **File Transformation** (both already installed). KefinT
 - CSS cleaned: overridden duplicate declarations removed, `:is()` lists that slow down style matching expanded (identical result).
 - Both files: brotli/gzip pre-compressed, cached by the browser for a year; every change gets a new `?v=` link.
 - Splash sound is its own cached file (not inside a script).
+- Home rows: requested from the page head before Jellyfin starts, drawn instantly from the last visit, then only rows that changed are redrawn. One layout for everyone, edited on the plugin page.
+- Search: every type asked for at once, older searches cancelled, results cached for a minute.
 
 ## Build (GitHub, automatic)
 1. Create a **public** GitHub repo and upload everything in this folder (keep the folder structure, including `.github`).
@@ -30,7 +32,7 @@ Needs: **SleekFin** and **File Transformation** (both already installed). KefinT
 
 ## After installing (important, or everything loads twice)
 1. Dashboard → General → **Custom CSS**: delete everything (save it somewhere first).
-2. JS Injector: delete every script **except** the three KefinTweaks ones.
+2. JS Injector: delete the theme scripts and the three KefinTweaks ones (home rows + search are in the plugin now).
 3. Dashboard → Plugins → **Ushereats Theme**: paste your TMDB key, check the switches, Save.
 4. Hard refresh (Ctrl+F5).
 
@@ -41,6 +43,7 @@ Needs: **SleekFin** and **File Transformation** (both already installed). KefinT
 
 ## Files
 - `web-src/` – the readable theme: CSS, one script per feature, fonts (SIL Open Font License), splash sound.
+- `web-src/studios/` – studio logos from KefinTweaks (MIT, © ranaldsgift, see LICENSE-kefintweaks.txt).
 - `src/Jellyfin.Plugin.UshereatsTheme/` – the plugin (C#, .NET 10).
 - `build-assets.mjs` – minifies `web-src` into the plugin's `Assets`.
 - `ci/package.py` + `.github/workflows/build.yml` – zip + manifest + release.

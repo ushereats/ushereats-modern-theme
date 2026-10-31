@@ -41,6 +41,20 @@ public class ThemeController : ControllerBase
         return File(font, "font/woff2");
     }
 
+    [HttpGet("studio/{name}")]
+    public IActionResult GetStudio([FromRoute] string name)
+    {
+        Payload? svg = ThemeAssets.GetStudio(name);
+        if (svg == null)
+        {
+            return NotFound();
+        }
+
+        Response.Headers["Content-Security-Policy"] = "default-src 'none'; style-src 'unsafe-inline'";
+        Response.Headers["Access-Control-Allow-Origin"] = "*";
+        return Serve(svg, "image/svg+xml");
+    }
+
     [HttpGet("splash.mp3")]
     public IActionResult GetSplash()
     {

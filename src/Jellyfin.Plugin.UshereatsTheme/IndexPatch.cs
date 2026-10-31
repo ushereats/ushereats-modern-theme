@@ -68,6 +68,13 @@ public static class IndexPatch
             sb.Append("<script>").Append(ThemeAssets.Text("hero_boot.js")).Append("</script>");
         }
 
+        // Home rows: Jellyfin's own rows hidden from the first frame, and ours requested before Jellyfin starts
+        if (build.Config.HomeRows)
+        {
+            sb.Append("<style>html.tb-rows #homeTab>.sections:not(.tb-rows-c){display:none!important}</style>");
+            sb.Append("<script>").Append(ThemeAssets.Text("rows_boot.js")).Append("</script>");
+        }
+
         // Your icon in the tab / home screen from the first frame
         if (build.Config.CustomIcon && ThemeAssets.IsHttpUrl(build.Config.IconUrl))
         {

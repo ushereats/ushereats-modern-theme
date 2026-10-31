@@ -285,7 +285,7 @@
 
   // ── state ──
   var root = null, slides = [], list = [], active = 0, look = {};
-  var timer = 0, pointerX = null, handedOver = false, rectSaved = false;
+  var timer = 0, pointerX = null, handedOver = false, rectSaved = false, rectTimer = 0;
 
   function loadBackdrop(i) {
     var s = slides[i];
@@ -341,8 +341,8 @@
     try { localStorage.setItem(CACHE_KEY, JSON.stringify({ items: list, rect: null, at: Date.now() })); } catch (e) {}
   }
 
-  function saveRect() {
-    if (rectSaved || !root || !root.isConnected) return;
+  function saveRect(force) {
+    if ((rectSaved && force !== true) || !root || !root.isConnected || !isHomeRoute()) return;
     var r = root.getBoundingClientRect();   // once per page load
     if (r.width < 200 || r.height < 120) return;
     rectSaved = true;
@@ -394,7 +394,7 @@
     html.classList.add("sleekfin-hero-mounted");
     if (!timer) startTimer();
     handOver();
-    saveRect();
+    if (!rectTimer && !rectSaved) rectTimer = setTimeout(saveRect, 3000);   // once the page has settled
   }
 
   var queued = false;
@@ -407,6 +407,9 @@
   window.addEventListener("hashchange", schedule);
   window.addEventListener("popstate", schedule);
   window.addEventListener("pageshow", schedule);
+  // re-measure right before you leave/reload, when the layout is final
+  window.addEventListener("pagehide", function () { saveRect(true); });
+  document.addEventListener("visibilitychange", function () { if (document.hidden) saveRect(true); });
   document.addEventListener("viewshow", schedule);
   document.addEventListener("load", function (e) {
     var t = e.target;

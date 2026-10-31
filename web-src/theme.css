@@ -310,46 +310,6 @@ a, button, .card, [role="button"] {
   touch-action: manipulation;
 }
 
-/* ── Header bar: dark rounded pill (TryBox style) ── */
-
-/* Desktop: the glass pill behind nav items */
-html.sleekfin-header-mounted [data-sleekfin-header-toolbar]::after {
-    background: rgba(12, 12, 14, 0.92) !important;
-    -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
-    backdrop-filter: blur(14px) saturate(120%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    border-radius: 999px !important;
-    box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.6) !important;
-}
-
-/* Mobile/proxy bar */
-html.sleekfin-header-mounted [data-sleekfin-header-proxy] {
-    background: rgba(12, 12, 14, 0.92) !important;
-    -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
-    backdrop-filter: blur(14px) saturate(120%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    border-radius: 999px !important;
-    box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.6) !important;
-}
-
-/* Keep the modern proxy transparent on desktop only (it rides on the ::after pill).
-   On phones/tablets (<900px) SleekFin turns it into the bottom bar, which needs its background. */
-@media (min-width: 900px) {
-    html.sleekfin-header-mounted [data-sleekfin-header-proxy="modern"] {
-        background: transparent !important;
-        -webkit-backdrop-filter: none !important;
-        backdrop-filter: none !important;
-        border: 0 !important;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-    }
-}
-
-/* Active tab pill: slightly rounder to match the bar */
-html.sleekfin-header-mounted [data-sleekfin-header-link][data-sleekfin-current="true"],
-html.sleekfin-header-mounted [data-sleekfin-header-proxy] button[data-sleekfin-current="true"] {
-    border-radius: 999px !important;
-}
 /* ── Card corner radius (tighter, no outline) ── */
 html.sleekfin-main-ui:root:root {
     --sleekfin-card-radius: 6px;
@@ -472,64 +432,18 @@ html:not(.layout-tv) :not(#tb-x) #indexPage .sleekfin-hero ~ .homeSectionsContai
 html:not(.layout-tv) :not(#tb-x) #indexPage .sleekfin-hero ~ .homeSectionsContainer > * { pointer-events: auto; }
 /* ═══════════════════════════════ end rows rise ═══════════════════════════════ */
 
-/* ════════ Header shrinks when you scroll (PC) — delete this whole block to undo ════════ */
-/* SleekFin marks its header data-sleekfin-scrolled="true" after ~20px of scrolling.
-   Only heights/offsets change (never widths), so SleekFin's pill measuring stays correct. */
+/* Avatar + library stats follow the header when it shrinks on scroll (PC) */
 @media (min-width: 900px) {
-  /* smooth the change */
-  html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-toolbar],
-html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-toolbar]::after,
-html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-segment],
-html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-segment] a,
-html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-segment] button,
-html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header] img,
-html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header] svg {
-    /* no width transition here: SleekFin sets the pill width itself */
-    transition: height 240ms ease, min-height 240ms ease, top 240ms ease,
-                background-color 240ms ease, box-shadow 240ms ease !important;
-  }
   html.sleekfin-header-mounted:not(.layout-tv) #tb-header-avatar {
     transition: top 240ms ease, width 240ms ease, height 240ms ease, transform 180ms ease, box-shadow 180ms ease !important;
   }
-
-  /* compact sizes */
-  html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"] {
-    --sleekfin-header-height: 56px;
-    --sleekfin-header-bar-top: 10px;
-    --sleekfin-header-item-height: 28px;
-    --sleekfin-header-brand-top: 12px;   /* (56 - 32) / 2: logo stays centred on the bar */
-    --sleekfin-header-logo-height: 32px;
-  }
-
-  /* icon-only buttons are as wide as they are tall — keep their width so nothing shifts sideways */
-  html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"] [data-sleekfin-header-segment] button,
-  html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"] [data-sleekfin-header-segment] a:not([data-sleekfin-header-link]):not([data-sleekfin-header-brand]) {
-    width: 32px !important;
-    min-width: 32px !important;
-  }
-
-  /* darker, more solid pill */
-  html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"] [data-sleekfin-header-toolbar]::after {
-    background: rgba(8, 8, 10, 0.96) !important;
-    box-shadow: 0 8px 26px -6px rgba(0, 0, 0, 0.8) !important;
-  }
-
-  /* softer gradient behind the slimmer bar */
-  html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"]::before {
-    height: 84px !important;
-  }
-
-  /* profile button follows the bar */
   html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"] #tb-header-avatar:not(#tb-x):not(#tb-y) {
     width: 32px !important;
     height: 32px !important;
   }
-
-  /* library stats line fades away */
   #jf-stats { transition: opacity 200ms ease; }
-  html.tb-scrolled #jf-stats { opacity: 0 !important; }   /* class set by Mark Sections (cheaper than :has on body) */
+  html.tb-scrolled #jf-stats { opacity: 0 !important; }
 }
-/* ═══════════════════════════════ end header shrink ═══════════════════════════════ */
 
 /* ═══════════ Sign-in page (split screen) ═══════════
    Edit the names/colour below. Delete this whole block to undo. */
@@ -1110,39 +1024,6 @@ html body .alphaPicker:not(#tb-x) .alphaPickerButton:is(.Mui-selected, .alphaPic
 html body .alphaPicker:not(#tb-x) .alphaPickerButton.Mui-focusVisible { box-shadow: 0 0 0 2px var(--sleekfin-accent, rgb(233, 196, 106)) !important; }
 /* ═══════════ end library toolbar ═══════════ */
 
-/* ═══════════ Header bar style: SEE-THROUGH, GOLD ACTIVE TAB ═══════════
-   Delete this block to go back to plain black. */
-@media (min-width: 900px) {
-  html.sleekfin-header-mounted [data-sleekfin-header-toolbar]:not(#tb-x)::after {
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    background: rgba(10, 10, 12, 0.42) !important;
-    -webkit-backdrop-filter: blur(18px) saturate(1.3) !important; backdrop-filter: blur(18px) saturate(1.3) !important;
-    box-shadow: 0 12px 30px -14px rgba(0, 0, 0, 0.6) !important;
-    border-radius: 999px !important;
-  }
-  /* scrolled over posters: a bit darker so the text stays readable */
-  html.sleekfin-header-mounted [data-sleekfin-header][data-sleekfin-scrolled="true"] [data-sleekfin-header-toolbar]:not(#tb-x)::after { background: rgba(10, 10, 12, 0.66) !important; }
-}
-@media (max-width: 899px) {
-  html.sleekfin-header-mounted [data-sleekfin-header-proxy]:not(#tb-x) {
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    background: rgba(10, 10, 12, 0.62) !important;
-    -webkit-backdrop-filter: blur(18px) saturate(1.3) !important; backdrop-filter: blur(18px) saturate(1.3) !important;
-  }
-}
-html.sleekfin-header-mounted [data-sleekfin-header-link]:not([data-sleekfin-current="true"]):not(#tb-x) { color: rgba(255, 255, 255, 0.75) !important; }
-html.sleekfin-header-mounted [data-sleekfin-header-link][data-sleekfin-current="true"]:not(#tb-x),
-html.sleekfin-header-mounted [data-sleekfin-header-proxy] button[data-sleekfin-current="true"]:not(#tb-x) {
-  background: var(--sleekfin-accent, rgb(233, 196, 106)) !important;
-  color: #111 !important; opacity: 1 !important;
-  box-shadow: 0 6px 18px -6px rgba(var(--tb-accent-rgb, 233, 196, 106), 0.6) !important;
-}
-html.sleekfin-header-mounted [data-sleekfin-header-link][data-sleekfin-current="true"]:not(#tb-x),
-html.sleekfin-header-mounted [data-sleekfin-header-proxy] button[data-sleekfin-current="true"]:not(#tb-x) svg { color: #111 !important; fill: currentColor; }
-html.sleekfin-header-mounted [data-sleekfin-header-link]:not([data-sleekfin-current="true"]):not(#tb-x):hover {
-  background: rgba(255, 255, 255, 0.08) !important; color: #fff !important; opacity: 1 !important;
-}
-/* ═══════════ end header bar style ═══════════ */
 
 /* ═══════════ Header: logo, stats, bar and avatar on one centre line (PC) ═══════════
    Everything is centred on the middle of SleekFin's header height, so it stays level

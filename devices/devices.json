@@ -1,0 +1,4490 @@
+{
+ "iphone-portrait": {
+  "pages": {
+   "home": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "usermenu": {
+    "open": true,
+    "rect": [
+     96,
+     56,
+     374,
+     424
+    ],
+    "inView": true
+   },
+   "search": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x19",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20"
+    ],
+    "smallTapCount": 36,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 176,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x19",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20"
+    ],
+    "smallTapCount": 31,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 176,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "season": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15",
+     "div.nameContainer > h3.itemName.infoText.subtitle > bdi > a.button-link.itemAction.emby-button 83x28"
+    ],
+    "smallTapCount": 2,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": false,
+    "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=dc4dbdb46ad945d09e1869d1fb479fcf",
+    "osd": false,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [
+     "div.skinBody > #dashboardPage.page.mainAnimatedPage.type-interior > div.content-primary.MuiBox-root.css-0 > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3 [-11..377]",
+     "#dashboardPage.page.mainAnimatedPage.type-interior > div.content-primary.MuiBox-root.css-0 > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3 > div.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12 [-11..377]"
+    ],
+    "sticksOutCount": 2,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "console: error locking orientation: TypeError: Failed to execute 'lock' on 'ScreenOrientation': Illegal invocation",
+   "undefined"
+  ]
+ },
+ "iphone-landscape": {
+  "pages": {
+   "home": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > bdi > a.itemAction.textActionButton 85x16"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "usermenu": {
+    "open": true,
+    "rect": [
+     550,
+     56,
+     828,
+     364
+    ],
+    "inView": true
+   },
+   "search": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 68x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 83x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 104x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 74x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 91x16"
+    ],
+    "smallTapCount": 5,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 85x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 71x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 52x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 102x16"
+    ],
+    "smallTapCount": 4,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "season": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": false,
+    "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=dc4dbdb46ad945d09e1869d1fb479fcf",
+    "osd": false,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [
+     "div.skinBody > #dashboardPage.page.mainAnimatedPage.type-interior > div.content-primary.MuiBox-root.css-0 > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3 [-11..831]",
+     "#dashboardPage.page.mainAnimatedPage.type-interior > div.content-primary.MuiBox-root.css-0 > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3 > div.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12 [-11..831]"
+    ],
+    "sticksOutCount": 2,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "console: error locking orientation: TypeError: Failed to execute 'lock' on 'ScreenOrientation': Illegal invocation",
+   "undefined"
+  ]
+ },
+ "android-portrait": {
+  "pages": {
+   "home": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "usermenu": {
+    "open": true,
+    "rect": [
+     118,
+     56,
+     396,
+     424
+    ],
+    "inView": true
+   },
+   "search": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21"
+    ],
+    "smallTapCount": 36,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 176,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21"
+    ],
+    "smallTapCount": 31,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 176,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "season": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15",
+     "div.nameContainer > h3.itemName.infoText.subtitle > bdi > a.button-link.itemAction.emby-button 83x28"
+    ],
+    "smallTapCount": 2,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": true,
+    "hash": "#/video",
+    "osd": true,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [
+     "div.skinBody > #dashboardPage.page.mainAnimatedPage.type-interior > div.content-primary.MuiBox-root.css-0 > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3 [-10..398]",
+     "#dashboardPage.page.mainAnimatedPage.type-interior > div.content-primary.MuiBox-root.css-0 > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3 > div.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12 [-10..398]"
+    ],
+    "sticksOutCount": 2,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "console: HLS Error: Type: otherError Details: internalException Fatal: false",
+   "console: error locking orientation: TypeError: Failed to execute 'lock' on 'ScreenOrientation': Illegal invocation"
+  ]
+ },
+ "android-landscape": {
+  "pages": {
+   "home": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 98x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 85x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 83x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 28x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 28x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 28x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 28x28",
+     "div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > bdi > a.itemAction.textActionButton 85x16"
+    ],
+    "smallTapCount": 8,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 56,
+     "width": 915,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "usermenu": {
+    "open": true,
+    "rect": [
+     589,
+     68,
+     867,
+     398
+    ],
+    "inView": true
+   },
+   "search": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 68x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 83x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 104x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 74x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 91x16"
+    ],
+    "smallTapCount": 5,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 85x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 71x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 52x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 102x16"
+    ],
+    "smallTapCount": 4,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "season": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": true,
+    "hash": "#/video",
+    "osd": true,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "console: HLS Error: Type: otherError Details: internalException Fatal: false",
+   "console: error locking orientation: TypeError: Failed to execute 'lock' on 'ScreenOrientation': Illegal invocation"
+  ]
+ },
+ "ipad-portrait": {
+  "pages": {
+   "home": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "usermenu": {
+    "open": true,
+    "rect": [
+     526,
+     56,
+     804,
+     424
+    ],
+    "inView": true
+   },
+   "search": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x19",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20"
+    ],
+    "smallTapCount": 39,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x19",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20"
+    ],
+    "smallTapCount": 31,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "season": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": false,
+    "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=dc4dbdb46ad945d09e1869d1fb479fcf",
+    "osd": false,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [
+     "div.skinBody > #dashboardPage.page.mainAnimatedPage.type-interior > div.content-primary.MuiBox-root.css-0 > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3 [-11..807]",
+     "#dashboardPage.page.mainAnimatedPage.type-interior > div.content-primary.MuiBox-root.css-0 > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3 > div.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12 [-11..807]"
+    ],
+    "sticksOutCount": 3,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "console: error locking orientation: TypeError: Failed to execute 'lock' on 'ScreenOrientation': Illegal invocation",
+   "undefined"
+  ]
+ },
+ "ipad-landscape": {
+  "pages": {
+   "home": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 98x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 85x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 83x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 28x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 28x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 28x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 28x28"
+    ],
+    "smallTapCount": 7,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 56,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "usermenu": {
+    "open": true,
+    "rect": [
+     822,
+     68,
+     1100,
+     436
+    ],
+    "inView": true
+   },
+   "search": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x23",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24"
+    ],
+    "smallTapCount": 37,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x23",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24"
+    ],
+    "smallTapCount": 31,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "season": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": false,
+    "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=dc4dbdb46ad945d09e1869d1fb479fcf",
+    "osd": false,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "console: error locking orientation: TypeError: Failed to execute 'lock' on 'ScreenOrientation': Illegal invocation",
+   "undefined"
+  ]
+ },
+ "tall-1080x1920": {
+  "pages": {
+   "home": {
+    "layout": "layout-desktop",
+    "sideways": 2197,
+    "sticksOut": [
+     "div.verticalSection.tb-row.tb-studios > div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller > div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.tb-logo-card [1040..1136]",
+     "div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller > div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.tb-logo-card > div.cardBox [1040..1124]",
+     "div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.tb-logo-card > div.cardBox > div.cardScalable [1040..1124]",
+     "div.verticalSection.tb-row.show-card-titles > div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller > div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.card-hoverable [864..1256]",
+     "div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller > div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.card-hoverable > div.cardBox.cardBox-bottompadded [864..1244]",
+     "div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.card-hoverable > div.cardBox.cardBox-bottompadded > div.cardScalable [864..1244]"
+    ],
+    "sticksOutCount": 6,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-down": {
+    "layout": "layout-desktop",
+    "sideways": 2197,
+    "sticksOut": [
+     "div.verticalSection.tb-row.tb-studios > div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller > div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.tb-logo-card [1040..1136]",
+     "div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller > div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.tb-logo-card > div.cardBox [1040..1124]",
+     "div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.tb-logo-card > div.cardBox > div.cardScalable [1040..1124]",
+     "div.verticalSection.tb-row.show-card-titles > div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller > div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.card-hoverable [864..1256]",
+     "div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller > div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.card-hoverable > div.cardBox.cardBox-bottompadded [864..1244]",
+     "div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.card-hoverable > div.cardBox.cardBox-bottompadded > div.cardScalable [864..1244]",
+     "div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.card-hoverable > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first [864..1244]",
+     "div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.card-hoverable > div.cardBox.cardBox-bottompadded > div.cardText.cardText-secondary.sleekfin-meta [864..1244]"
+    ],
+    "sticksOutCount": 15,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 56,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "search": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-down": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "season": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": true,
+    "hash": "#/video",
+    "osd": true,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "console: HLS Error: Type: otherError Details: internalException Fatal: false"
+  ]
+ },
+ "tv-1080": {
+  "pages": {
+   "home": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": -338,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": -1720,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-remote": [
+    {
+     "key": "start",
+     "el": "a.cardImageContainer.cardContent.tb-logo-link",
+     "text": "AMC",
+     "inView": true,
+     "rect": [
+      96,
+      838,
+      142,
+      80
+     ],
+     "marked": false
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Aurora Line",
+     "inView": true,
+     "rect": [
+      96,
+      433,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Winter Orchard",
+     "inView": true,
+     "rect": [
+      96,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Velvet Signal",
+     "inView": true,
+     "rect": [
+      296,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Tin Crown",
+     "inView": true,
+     "rect": [
+      496,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Long Hallway",
+     "inView": true,
+     "rect": [
+      696,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Long Hallway",
+     "inView": true,
+     "rect": [
+      696,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "6",
+     "inView": true,
+     "rect": [
+      696,
+      619,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "6",
+     "inView": true,
+     "rect": [
+      696,
+      619,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "6",
+     "inView": true,
+     "rect": [
+      696,
+      619,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "6",
+     "inView": true,
+     "rect": [
+      696,
+      619,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Long Hallway",
+     "inView": true,
+     "rect": [
+      696,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Long Hallway",
+     "inView": true,
+     "rect": [
+      696,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.itemAction.textActionButton",
+     "text": "The Atlas Club",
+     "inView": true,
+     "rect": [
+      882,
+      532,
+      85,
+      16
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Atlas Club",
+     "inView": true,
+     "rect": [
+      880,
+      433,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.cardContent.tb-logo-link",
+     "text": "HBO",
+     "inView": true,
+     "rect": [
+      794,
+      500,
+      142,
+      80
+     ],
+     "marked": false
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.cardContent.tb-logo-link",
+     "text": "HBO",
+     "inView": true,
+     "rect": [
+      794,
+      500,
+      142,
+      80
+     ],
+     "marked": false
+    }
+   ],
+   "search": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-remote": [
+    {
+     "key": "start",
+     "none": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1646,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1680,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1714,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-track-settings",
+     "text": "Info",
+     "inView": true,
+     "rect": [
+      1724,
+      560,
+      44,
+      44
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDStatic Bloom20218.1·2021·Mov",
+     "inView": true,
+     "rect": [
+      1278,
+      749,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDStatic Bloom20218.1·2021·Mov",
+     "inView": true,
+     "rect": [
+      1278,
+      749,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.button-flat.btnPlaystate.detailButton",
+     "text": "Mark played",
+     "inView": true,
+     "rect": [
+      1664,
+      556,
+      53,
+      53
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1646,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1646,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1646,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    }
+   ],
+   "series": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-remote": [
+    {
+     "key": "start",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1646,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.button-flat.btnPlaystate.detailButton",
+     "text": "Mark played",
+     "inView": true,
+     "rect": [
+      1664,
+      514,
+      53,
+      53
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-track-settings",
+     "text": "Info",
+     "inView": true,
+     "rect": [
+      1724,
+      518,
+      44,
+      44
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.button-flat.btnMoreCommands.detailButton",
+     "text": "More",
+     "inView": true,
+     "rect": [
+      1776,
+      514,
+      53,
+      53
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-control",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1788,
+      522,
+      36,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "input.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1745,
+      522,
+      50,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-details-episode-action.cardImageContainer.itemAction",
+     "text": "01Chapter 1Episode 1 of The At",
+     "inView": true,
+     "rect": [
+      96,
+      456,
+      1728,
+      167
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "input.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1745,
+      522,
+      50,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-control",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1788,
+      522,
+      36,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.button-flat.btnMoreCommands.detailButton",
+     "text": "More",
+     "inView": true,
+     "rect": [
+      1776,
+      514,
+      53,
+      53
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1748,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    }
+   ],
+   "season": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": false,
+    "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=dc4dbdb46ad945d09e1869d1fb479fcf",
+    "osd": false,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "undefined"
+  ]
+ },
+ "tv-720": {
+  "pages": {
+   "home": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": -197,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": -1349,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-remote": [
+    {
+     "key": "start",
+     "el": "a.cardImageContainer.cardContent.tb-logo-link",
+     "text": "AMC",
+     "inView": true,
+     "rect": [
+      96,
+      532,
+      90,
+      51
+     ],
+     "marked": false
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Aurora Line",
+     "inView": true,
+     "rect": [
+      96,
+      253,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Winter Orchard",
+     "inView": true,
+     "rect": [
+      96,
+      219,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Velvet Signal",
+     "inView": true,
+     "rect": [
+      296,
+      219,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Tin Crown",
+     "inView": true,
+     "rect": [
+      450,
+      219,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Long Hallway",
+     "inView": true,
+     "rect": [
+      451,
+      219,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Velvet Signal",
+     "inView": true,
+     "rect": [
+      296,
+      220,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.more.button-flat.button-flat-mini",
+     "text": "Recently Added Shows",
+     "inView": true,
+     "rect": [
+      96,
+      332,
+      280,
+      56
+     ],
+     "marked": false
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "3",
+     "inView": true,
+     "rect": [
+      296,
+      294,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "3",
+     "inView": true,
+     "rect": [
+      296,
+      294,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "3",
+     "inView": true,
+     "rect": [
+      296,
+      294,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.more.button-flat.button-flat-mini",
+     "text": "Recently Added Shows",
+     "inView": true,
+     "rect": [
+      96,
+      332,
+      280,
+      56
+     ],
+     "marked": false
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Winter Orchard",
+     "inView": true,
+     "rect": [
+      96,
+      220,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.more.button-flat.button-flat-mini",
+     "text": "Recently Added Movies",
+     "inView": true,
+     "rect": [
+      96,
+      332,
+      284,
+      56
+     ],
+     "marked": false
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Velvet Signal",
+     "inView": true,
+     "rect": [
+      296,
+      219,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Aurora Line",
+     "inView": true,
+     "rect": [
+      96,
+      253,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.cardContent.tb-logo-link",
+     "text": "AMC",
+     "inView": true,
+     "rect": [
+      96,
+      335,
+      90,
+      51
+     ],
+     "marked": false
+    }
+   ],
+   "search": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-remote": [
+    {
+     "key": "start",
+     "none": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1006,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1040,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1074,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-track-settings",
+     "text": "Info",
+     "inView": true,
+     "rect": [
+      1084,
+      338,
+      44,
+      44
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDVelvet Signal20247.4·2024·Mo",
+     "inView": true,
+     "rect": [
+      549,
+      379,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDVelvet Signal20247.4·2024·Mo",
+     "inView": true,
+     "rect": [
+      549,
+      379,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.button-flat.btnUserRating.detailButton",
+     "text": "Add to favorites",
+     "inView": true,
+     "rect": [
+      346,
+      334,
+      197,
+      53
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    }
+   ],
+   "series": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-remote": [
+    {
+     "key": "start",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.button-flat.btnPlay.detailButton",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      85,
+      334,
+      132,
+      53
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.button-flat.btnUserRating.detailButton",
+     "text": "Add to favorites",
+     "inView": true,
+     "rect": [
+      201,
+      334,
+      197,
+      53
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.button-flat.btnPlaystate.detailButton",
+     "text": "Mark played",
+     "inView": true,
+     "rect": [
+      1024,
+      334,
+      53,
+      53
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-icon-button",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1105,
+      343,
+      34,
+      34
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-details-episode-action.cardImageContainer.itemAction",
+     "text": "01Chapter 1Episode 1 of The At",
+     "inView": true,
+     "rect": [
+      96,
+      276,
+      1088,
+      167
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-details-episode-action.cardImageContainer.itemAction",
+     "text": "02Chapter 2Episode 2 of The At",
+     "inView": true,
+     "rect": [
+      96,
+      276,
+      1088,
+      167
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.sleekfin-details-episode-action.cardImageContainer.itemAction",
+     "text": "01Chapter 1Episode 1 of The At",
+     "inView": true,
+     "rect": [
+      96,
+      276,
+      1088,
+      167
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "input.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1105,
+      342,
+      50,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-control",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1148,
+      342,
+      36,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1142,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    }
+   ],
+   "season": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": false,
+    "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=dc4dbdb46ad945d09e1869d1fb479fcf",
+    "osd": false,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "undefined"
+  ]
+ },
+ "xbox": {
+  "pages": {
+   "home": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": -338,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": -1720,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-remote": [
+    {
+     "key": "start",
+     "el": "a.cardImageContainer.cardContent.tb-logo-link",
+     "text": "AMC",
+     "inView": true,
+     "rect": [
+      96,
+      838,
+      142,
+      80
+     ],
+     "marked": false
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Aurora Line",
+     "inView": true,
+     "rect": [
+      96,
+      433,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Winter Orchard",
+     "inView": true,
+     "rect": [
+      96,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Velvet Signal",
+     "inView": true,
+     "rect": [
+      296,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Tin Crown",
+     "inView": true,
+     "rect": [
+      496,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Long Hallway",
+     "inView": true,
+     "rect": [
+      696,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Long Hallway",
+     "inView": true,
+     "rect": [
+      696,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "6",
+     "inView": true,
+     "rect": [
+      696,
+      619,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "6",
+     "inView": true,
+     "rect": [
+      696,
+      619,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "6",
+     "inView": true,
+     "rect": [
+      696,
+      619,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "6",
+     "inView": true,
+     "rect": [
+      696,
+      619,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Long Hallway",
+     "inView": true,
+     "rect": [
+      696,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Long Hallway",
+     "inView": true,
+     "rect": [
+      696,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.itemAction.textActionButton",
+     "text": "The Atlas Club",
+     "inView": true,
+     "rect": [
+      882,
+      532,
+      85,
+      16
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Atlas Club",
+     "inView": true,
+     "rect": [
+      770,
+      433,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.cardContent.tb-logo-link",
+     "text": "FX",
+     "inView": true,
+     "rect": [
+      710,
+      500,
+      142,
+      80
+     ],
+     "marked": false
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.cardContent.tb-logo-link",
+     "text": "FX",
+     "inView": true,
+     "rect": [
+      710,
+      500,
+      142,
+      80
+     ],
+     "marked": false
+    }
+   ],
+   "search": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-remote": [
+    {
+     "key": "start",
+     "none": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1646,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1680,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1714,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-track-settings",
+     "text": "Info",
+     "inView": true,
+     "rect": [
+      1724,
+      560,
+      44,
+      44
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDStatic Bloom20218.1·2021·Mov",
+     "inView": true,
+     "rect": [
+      869,
+      749,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDStatic Bloom20218.1·2021·Mov",
+     "inView": true,
+     "rect": [
+      869,
+      749,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.button-flat.btnUserRating.detailButton",
+     "text": "Add to favorites",
+     "inView": true,
+     "rect": [
+      346,
+      556,
+      197,
+      53
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    }
+   ],
+   "series": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-remote": [
+    {
+     "key": "start",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.button-flat.btnPlay.detailButton",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      85,
+      514,
+      132,
+      53
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.button-flat.btnUserRating.detailButton",
+     "text": "Add to favorites",
+     "inView": true,
+     "rect": [
+      201,
+      514,
+      197,
+      53
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.button-flat.btnPlaystate.detailButton",
+     "text": "Mark played",
+     "inView": true,
+     "rect": [
+      1664,
+      514,
+      53,
+      53
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-icon-button",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1745,
+      523,
+      34,
+      34
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-details-episode-action.cardImageContainer.itemAction",
+     "text": "01Chapter 1Episode 1 of The At",
+     "inView": true,
+     "rect": [
+      96,
+      456,
+      1728,
+      167
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-details-episode-action.cardImageContainer.itemAction",
+     "text": "02Chapter 2Episode 2 of The At",
+     "inView": true,
+     "rect": [
+      96,
+      456,
+      1728,
+      167
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.sleekfin-details-episode-action.cardImageContainer.itemAction",
+     "text": "01Chapter 1Episode 1 of The At",
+     "inView": true,
+     "rect": [
+      96,
+      456,
+      1728,
+      167
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "input.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1745,
+      522,
+      50,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-control",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1788,
+      522,
+      36,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.button-flat.btnMoreCommands.detailButton",
+     "text": "More",
+     "inView": true,
+     "rect": [
+      1776,
+      514,
+      53,
+      53
+     ],
+     "marked": true
+    }
+   ],
+   "season": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": false,
+    "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=dc4dbdb46ad945d09e1869d1fb479fcf",
+    "osd": false,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "console: Error in focusManager.autoFocus: TypeError: e.focus is not a function",
+   "undefined",
+   "console: Error in focusManager.autoFocus: TypeError: e.focus is not a function",
+   "console: Error in focusManager.autoFocus: TypeError: e.focus is not a function"
+  ]
+ }
+}

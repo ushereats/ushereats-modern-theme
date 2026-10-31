@@ -30,9 +30,10 @@ const pages = [
   ["settings", "#/configurationpage?name=UshereatsTheme"],
   ["dashboard", "#/dashboard"],
 ];
-// something "playing" for the Now Playing panel (a playback report from the test client)
-await fetch(s.server + "/Sessions/Playing", { method: "POST", headers: { ...H, "Content-Type": "application/json" },
-  body: JSON.stringify({ ItemId: movies[1].Id, PositionTicks: 12000000000, PlayMethod: "DirectPlay", CanSeek: true, IsPaused: false, AudioStreamIndex: 1 }) }).catch(() => {});
+// something "playing" for the Now Playing panel (a playback report from a separate test player)
+const playing = () => fetch(s.server + "/Sessions/Playing", { method: "POST",
+  headers: { Authorization: `MediaBrowser Client="CI Player", Device="Living Room TV", DeviceId="ci-player", Version="1.0", Token="${s.token}"`, "Content-Type": "application/json" },
+  body: JSON.stringify({ ItemId: movies[1].Id, PositionTicks: 12000000000, PlayMethod: "DirectPlay", CanSeek: true, IsPaused: false }) }).then((r) => r.status).catch((e) => String(e));
 const report = { errors: {} };
 // Which of the theme's rules restyle something a built-in SleekFin rule also styles (same element, same property)?
 const overrides = {};
@@ -114,6 +115,7 @@ for (const [vw, vh, tag] of [[1920, 1080, "desktop"], [390, 844, "phone"]]) {
   const page = await ctx.newPage();
   page.on("pageerror", (e) => (report.errors[tag] ||= []).push(String(e.message).slice(0, 300)));
   for (const [name, hash] of pages) {
+    if (name === "dashboard") report.playingReport = await playing();
     await page.goto(s.server + "/web/index.html" + hash, { waitUntil: "load" });
     await page.waitForTimeout(500);
     await page.reload({ waitUntil: "load" });         // second load = the normal "instant" case (warm caches)

@@ -1,0 +1,11 @@
+done pc-portrait-1080
+done pc-portrait-1440
+done pc-portrait-1200
+done pc-1280x720
+done pc-1366x768
+done pc-1440x900
+done pc-1920x1080
+done pc-2560x1440
+done pc-3440x1440
+done pc-half-960
+devices done

@@ -1,0 +1,52 @@
+{
+  "errors": {},
+  "nativeHome": {
+    "nativeRequests": 0,
+    "nativeSectionsShown": 10,
+    "browserSees": "none"
+  },
+  "serverPrefsAfterSave": {
+    "homesection0": null,
+    "probe": "1"
+  },
+  "logoHeader": {
+    "status": 200,
+    "sized": "sized"
+  },
+  "avatar": true,
+  "menuHead": true,
+  "leaveDetails": {
+    "logo": {
+      "badFrames": 0,
+      "first": [],
+      "frames": 122,
+      "hash": "#/home",
+      "clicked": "<a class=\"MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeLarge MuiButton-textSizeLarge MuiButton-colorInherit MuiButton-root MuiButton-text MuiButton-textInherit "
+    },
+    "logoWithoutFix": {
+      "badFrames": 2,
+      "first": [
+        "89ms native-details",
+        "113ms native-details"
+      ],
+      "frames": 141,
+      "hash": "#/home",
+      "clicked": "<a class=\"MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeLarge MuiButton-textSizeLarge MuiButton-colorInherit MuiButton-root MuiButton-text MuiButton-textInherit "
+    },
+    "back": {
+      "badFrames": 0,
+      "first": [],
+      "frames": 130,
+      "hash": "#/home",
+      "clicked": null
+    }
+  },
+  "settingsSave": {
+    "title": "CI saved",
+    "rowsKept": false,
+    "accentKept": true,
+    "desktopLogo": 40,
+    "sleekKept": true
+  },
+  "playingReport": 204
+}

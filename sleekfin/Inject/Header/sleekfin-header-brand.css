@@ -49,7 +49,7 @@ html.sleekfin-header-mounted [data-sleekfin-header-brand] {
 }
 
 /* PC layout: the brand is a 40px round glass button (same look as the library toolbar buttons) */
-html.sleekfin-header-mounted[data-sleekfin-header-layout="desktop"] [data-sleekfin-header-brand] {
+html.sleekfin-header-mounted[data-sleekfin-header-layout="desktop"][data-sleekfin-header-layout] [data-sleekfin-header-brand] {
     background: rgba(255, 255, 255, 0.05) !important;
     border: 1px solid rgba(255, 255, 255, 0.10) !important;
     border-radius: 50% !important;
@@ -59,7 +59,7 @@ html.sleekfin-header-mounted[data-sleekfin-header-layout="desktop"] [data-sleekf
     width: 40px;
 }
 
-html.sleekfin-header-mounted[data-sleekfin-header-layout="desktop"] [data-sleekfin-header-brand]:hover {
+html.sleekfin-header-mounted[data-sleekfin-header-layout="desktop"][data-sleekfin-header-layout] [data-sleekfin-header-brand]:hover {
     background: rgba(255, 255, 255, 0.12) !important;
     border-color: rgba(255, 255, 255, 0.2) !important;
     color: #fff !important;

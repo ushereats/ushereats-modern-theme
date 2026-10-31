@@ -30,6 +30,11 @@
   var episodeTag = new Map();    // episodeId -> "New season" | "New episode"
   var loadedAt = 0;
   var loading = null;
+  // last answer, remembered on this device: tags are drawn straight away, then refreshed
+  try {
+    var saved = JSON.parse(localStorage.getItem("tbNewTags") || "null");
+    if (saved && saved.s && saved.e) { seriesTag = new Map(saved.s); episodeTag = new Map(saved.e); loadedAt = saved.t || 0; }
+  } catch (e) {}
 
   function getItemId(card) {
     var id = card.getAttribute("data-id");
@@ -98,6 +103,7 @@
         seriesTag = s;
         episodeTag = e;
         loadedAt = Date.now();
+        try { localStorage.setItem("tbNewTags", JSON.stringify({ t: loadedAt, s: Array.from(s), e: Array.from(e) })); } catch (err) {}
     }).catch(function () {}).then(function () { loading = null; });
     return loading;
   }
@@ -172,5 +178,8 @@
   }, 500);
 
   tbWatch(schedule);
+
+  // also run right as our own rows/search draw their cards (so badges are there on the first frame)
+  (window.tbCardDecorators = window.tbCardDecorators || []).push(function () { apply(); });
   window.addEventListener("hashchange", schedule);
 })();

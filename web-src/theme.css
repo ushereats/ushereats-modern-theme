@@ -253,15 +253,8 @@ a, button, .card, [role="button"] {
 
 
 
-/* Avatar + library stats follow the header when it shrinks on scroll (PC) */
+/* Library stats fade out when the header shrinks on scroll (PC) */
 @media (min-width: 900px) {
-  html.sleekfin-header-mounted:not(.layout-tv) #tb-header-avatar {
-    transition: top 240ms ease, width 240ms ease, height 240ms ease, transform 180ms ease, box-shadow 180ms ease !important;
-  }
-  html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"] #tb-header-avatar:not(#tb-x):not(#tb-y) {
-    width: 32px !important;
-    height: 32px !important;
-  }
   #jf-stats { transition: opacity 200ms ease; }
   html.tb-scrolled #jf-stats { opacity: 0 !important; }
 }
@@ -397,7 +390,6 @@ html body #loginPage .checkboxOutline:not(#tb-x) {
 html body #loginPage .emby-checkbox:checked ~ .checkboxOutline:not(#tb-x) {
   background: var(--tb-login-red) !important; border-color: var(--tb-login-red) !important;
 }
-html body #loginPage .checkboxIcon { color: #111 !important; }
 
 /* buttons */
 html body #loginPage .emby-button.block:not(#tb-x) {
@@ -849,21 +841,14 @@ html body .alphaPicker:not(#tb-x) .alphaPickerButton.Mui-focusVisible { box-shad
    Everything is centred on the middle of SleekFin's header height, so it stays level
    when you change the header size in SleekFin and when it shrinks on scroll. */
 @media (min-width: 900px) {
-  html.sleekfin-header-mounted:not(.layout-tv) #jf-stats:not(#tb-x) {
-    top: calc(var(--sleekfin-header-height, 72px) / 2) !important;
-    left: calc(var(--sleekfin-page-gutter, 24px) + var(--sleekfin-header-logo-height, 32px) + 16px) !important;
+  /* library stats (home only): just right of the logo, on the header's centre line */
+  #jf-stats {
+    position: fixed; z-index: 9999; pointer-events: none; white-space: nowrap;
+    top: calc(var(--sleekfin-header-height, 72px) / 2);
+    left: calc(var(--sleekfin-page-gutter, 24px) + var(--sleekfin-header-logo-height, 32px) + 16px);
     transform: translateY(-50%);
-    line-height: 1 !important;
-    font: 600 12px/1 var(--app-font, Inter, sans-serif) !important;
-    color: rgba(255, 255, 255, 0.5) !important;
-  }
-  /* avatar: same size as the PC logo (40px; the logo size is a header setting) */
-  html.sleekfin-header-mounted:not(.layout-tv) #tb-header-avatar:not(#tb-x) {
-    width: 40px !important; height: 40px !important;
-    top: calc(var(--sleekfin-header-height, 72px) / 2 - 20px) !important;
-  }
-  html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"] #tb-header-avatar:not(#tb-x) {
-    top: calc(var(--sleekfin-header-height, 56px) / 2 - 16px) !important;
+    font: 600 12px/1 var(--app-font);
+    color: rgba(255, 255, 255, 0.5);
   }
 }
 /* ═══════════ end header centre line ═══════════ */

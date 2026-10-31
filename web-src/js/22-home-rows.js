@@ -122,7 +122,7 @@
     ic.innerHTML = cardsHtml(r, items);
     var want = items.length ? "" : "none";
     if (sec.style.display !== want) sec.style.display = want;
-    if (attached) { C.upgrade(ic); C.refreshScroller(sec); }
+    if (attached) { C.upgrade(ic); C.refreshScroller(sec); C.decorate(); }
     C.load(sec);
   }
 
@@ -194,6 +194,7 @@
     s.tab.insertBefore(root, s.native.nextSibling);
     everPlaced = true;
     C.upgrade(root);
+    C.decorate();
   }
 
   var started = false, retryAt = 0;

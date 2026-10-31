@@ -306,6 +306,9 @@
   }, 500);
 
   tbWatch(scheduleScan);
+
+  // also run right as our own rows/search draw their cards (so badges are there on the first frame)
+  (window.tbCardDecorators = window.tbCardDecorators || []).push(scan);
   if (!ro) window.addEventListener("resize", function () {
     document.querySelectorAll("." + BADGE_CLASS).forEach(function (b) { b.dataset.key = ""; });
     scheduleScan();

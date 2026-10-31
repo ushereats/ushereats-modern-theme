@@ -57,7 +57,6 @@ public static class IndexPatch
         sb.Append("<style>:root{--tb-accent-rgb:").Append(HexToRgb(ThemeAssets.Accent(build.Config))).Append("}</style>");
 
         // SleekFin (built in): its page flags, colours and shapes, set before anything is drawn
-        if (ThemeAssets.SleekOn(build.Config))
         {
             SleekConfiguration s = ThemeAssets.SleekOf(build.Config);
             // (card shapes and the accent are written into the stylesheet itself, from these settings)
@@ -89,7 +88,6 @@ public static class IndexPatch
         if (build.Config.Hero)
         {
             sb.Append("<style>html.tb-hs::before{content:\"\";position:absolute;z-index:10;pointer-events:none;left:var(--tb-hs-l,0);top:var(--tb-hs-t,0);width:var(--tb-hs-w,100%);height:var(--tb-hs-h,70vh);background:linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.52) 16%,rgba(0,0,0,.34) 32%,rgba(0,0,0,.19) 46%,rgba(0,0,0,.09) 57%,rgba(0,0,0,.03) 64%,transparent 70%),linear-gradient(transparent 50%,rgba(0,0,0,.12) 64%,rgba(0,0,0,.28) 76%,rgba(0,0,0,.46) 86%,rgba(0,0,0,.64) 94%,rgba(0,0,0,.78) 100%),var(--tb-hs-img,none) 50% 28%/cover no-repeat #0b0b0e;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 45%,rgba(0,0,0,.75) 62%,rgba(0,0,0,.35) 80%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 45%,rgba(0,0,0,.75) 62%,rgba(0,0,0,.35) 80%,transparent 100%);transition:opacity .3s ease}html.tb-hs.tb-hs-out::before{opacity:0}html.tb-hs .splashLogo{visibility:hidden!important}</style>");
-            if (ThemeAssets.SleekOn(build.Config))
             {
                 // the hero's look settings, so the hero never waits for a request
                 sb.Append("<script>window.__tbSleekHero=").Append(System.Text.Json.JsonSerializer.Serialize(SleekSettings.Hero(ThemeAssets.SleekOf(build.Config)))).Append("</script>");
@@ -106,7 +104,7 @@ public static class IndexPatch
         }
 
         // Your icon in the tab / home screen from the first frame
-        if (build.Config.CustomIcon && ThemeAssets.IsHttpUrl(build.Config.IconUrl))
+        if (ThemeAssets.IsHttpUrl(build.Config.IconUrl))
         {
             string icon = WebUtility.HtmlEncode(build.Config.IconUrl);
             sb.Append("<link rel=\"icon\" href=\"").Append(icon).Append("\" data-tb-icon>");

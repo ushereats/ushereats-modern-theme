@@ -82,7 +82,7 @@ export function applySettings(mount, settings) {
     '--sleekfin-header-bar-padding': `${settings.barPadding}px`,
     '--sleekfin-header-bar-top': `${(settings.height - settings.itemHeight - 2 * settings.barPadding) / 2}px`,
     '--sleekfin-header-brand-gap': `${settings.brandSpacing}px`,
-    '--sleekfin-header-brand-top': `${(settings.height - logoHeight) / 2}px`,
+    '--sleekfin-header-brand-top': `calc((var(--sleekfin-header-height, ${settings.height}px) - ${logoHeight}px) / 2)`,
     '--sleekfin-header-height': `${settings.height}px`,
     '--sleekfin-header-hover-opacity': String(settings.hoverOpacity / 100),
     '--sleekfin-header-item-background': settings.itemBackgroundColor,

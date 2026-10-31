@@ -27,6 +27,7 @@ const pages = [
   ["movies", `#/movies.html?topParentId=${s.movieLib}&collectionType=movies`],
   ["prefs", "#/mypreferencesmenu.html"],
   ["profile", `#/userprofile.html?userId=${s.userId}`],
+  ["settings", "#/configurationpage?name=UshereatsTheme"],
 ];
 const report = { errors: {} };
 // Which of the theme's rules restyle something a built-in SleekFin rule also styles (same element, same property)?

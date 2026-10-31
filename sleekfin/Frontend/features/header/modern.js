@@ -1,4 +1,6 @@
 import { dom } from '../../shared/runtime.js';
+import { syncAvatar } from './avatar.js';
+import { applyIcon } from './FallbackBrand.jsx';
 import { createHeaderProxy, needsProxyReplacement, refreshHeaderProxy } from './proxy.js';
 import { settingsSignature } from './settings.js';
 import { applySettings, cleanup as cleanupShared, createMount, directChildren, layoutMode, mark, updateScrolledState } from './shared.js';
@@ -122,6 +124,7 @@ export function createModernAdapter(brand) {
       : directChildren(toolbar).filter((child) => child === parts.actions || child === parts.profile || (child === parts.nav && headerMount.layoutMode === 'desktop'));
     mark(headerMount, headerMount.clusterItems[0], 'data-sleekfin-header-first-cluster');
     mark(headerMount, headerMount.clusterItems[headerMount.clusterItems.length - 1], 'data-sleekfin-header-last-cluster');
+    syncAvatar(header);
     if (typeof window.ResizeObserver === 'function') {
       headerMount.resizeObserver = new window.ResizeObserver(() => scheduleMeasurement(headerMount));
       headerMount.resizeObserver.observe(toolbar);
@@ -147,6 +150,8 @@ export function createModernAdapter(brand) {
   }
 
   function refresh(mount) {
+    applyIcon(mount.brand);
+    syncAvatar(mount.header);
     updateScrolledState(mount);
     brand.updateOffset(mount);
     updateActiveControls(mount);

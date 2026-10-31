@@ -115,18 +115,6 @@
     max-width: 100%;
 }
 
-.sleekfin-details-episode-scroll-buttons {
-    display: flex;
-}
-
-.sleekfin-details-episode-scroll-buttons .emby-scrollbuttons-button {
-    color: var(--sleekfin-text);
-    height: 36px;
-    margin: 0;
-    padding: 0;
-    width: 36px;
-}
-
 .sleekfin-details-control,
 .sleekfin-details-episode-download {
     transition: color 180ms ease;
@@ -297,12 +285,6 @@
     white-space: nowrap;
 }
 
-.sleekfin-details-episode-list[data-view="grid"] .sleekfin-details-episode-number {
-    left: 10px;
-    position: absolute;
-    top: 10px;
-}
-
 .sleekfin-details-episode-title.cardText {
     font-style: normal;
     font-weight: 600;
@@ -340,10 +322,6 @@
     font-family: var(--app-font);
     justify-content: space-between;
     margin-top: 9px;
-}
-
-.sleekfin-details-episode-list[data-view="grid"] .sleekfin-details-episode:not(.sleekfin-details-episode-expanded):has(.je-hide-btn) .sleekfin-details-episode-footer {
-    padding-left: 30px;
 }
 
 .sleekfin-details-episode-footer > :where(span) {

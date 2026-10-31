@@ -211,6 +211,9 @@
       var missing = [];
       cards.forEach(function (card) {
         var id = getItemId(card);
+        // our own cards carry runtime + position: no lookup needed
+        var run = +card.getAttribute("data-runtimeticks"), pos = +card.getAttribute("data-positionticks");
+        if (id && run && pos && !cache.has(id)) cache.set(id, run > pos ? (formatTime(run - pos) || "") : "");
         if (id && !cache.has(id) && !pending.has(id) && missing.indexOf(id) < 0) missing.push(id);
       });
       applyBadges(cards);
@@ -252,6 +255,9 @@
   }, 500);
 
   tbWatch(scheduleScan);
+
+  // also run right as our own rows/search draw their cards (so badges are there on the first frame)
+  (window.tbCardDecorators = window.tbCardDecorators || []).push(scan);
 
   // Progress changes after watching — refetch when returning home
   window.addEventListener("hashchange", function () {

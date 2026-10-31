@@ -381,3 +381,8 @@ html:not(.layout-tv) #indexPage .sleekfin-hero ~ .homeSectionsContainer {
 html:not(.layout-tv) #indexPage .sleekfin-hero ~ .homeSectionsContainer > * {
     pointer-events: auto;
 }
+
+/* the rows show together with the banner above them (never first, then pushed down by it) */
+html.tb-hs:not(.tb-rows-ok) #indexPage:not(:has(> .sleekfin-hero)) .tb-rows-c {
+    visibility: hidden;
+}

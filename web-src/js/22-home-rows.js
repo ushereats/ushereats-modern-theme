@@ -195,6 +195,8 @@
     everPlaced = true;
     C.upgrade(root);
     C.decorate();
+    // rows wait (invisible) for the banner above them, so they never jump down when it arrives; 1.5 s at most
+    setTimeout(function () { document.documentElement.classList.add("tb-rows-ok"); }, 1500);
   }
 
   var started = false, retryAt = 0;

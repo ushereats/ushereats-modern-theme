@@ -25,6 +25,15 @@ for (const f of fs.readdirSync(jsDir).filter((f) => f.endsWith(".js")).sort()) {
   console.log("js ", f, code.length, "->", out.code.length);
 }
 
+// Hero boot: inlined in the page head, so ES5 (TVs) and as small as possible
+{
+  const code = fs.readFileSync(path.join(SRC, "hero-boot.js"), "utf8");
+  const out = await minify(code, { ecma: 5, compress: { passes: 2 }, mangle: true, format: { ascii_only: true, comments: false } });
+  if (!out.code || out.code.includes("</")) throw new Error("hero-boot minify failed");
+  fs.writeFileSync(path.join(OUT, "hero_boot.js"), out.code);
+  console.log("js  hero-boot.js", code.length, "->", out.code.length);
+}
+
 // CSS: strip comments and blank space only (never rewrites rules)
 function stripCss(css) {
   let out = "", i = 0, q = null;

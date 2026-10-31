@@ -113,7 +113,7 @@ public static class ThemeAssets
         ("js_16_accent_colour.js", c => c.AccentColour),
         ("js_17_episode_list.js", c => c.EpisodeList),
         ("js_18_user_menu.js", c => c.UserMenu),
-        ("js_20_hero_snapshot.js", c => c.HeroSnapshot),
+        ("js_21_hero.js", c => c.Hero),
     };
 
     private static readonly object Gate = new object();
@@ -183,11 +183,6 @@ public static class ThemeAssets
         // Posters appear the moment they're ready (Jellyfin fades each one in over 0.5 s).
         // Kept at 1 ms instead of "none" so Jellyfin still gets its animation-end event and clears the blur placeholder.
         css.Append(".lazy-image-fadein,.lazy-image-fadein-fast{animation-duration:1ms!important}\n");
-
-        if (!config.HeroFade)
-        {
-            css.Append(".sleekfin-hero .sleekfin-hero-slide,.sleekfin-hero .sleekfin-hero-backdrop,.sleekfin-hero .sleekfin-hero-content,.sleekfin-hero img{transition:none!important;animation:none!important}\n");
-        }
 
         if (!string.IsNullOrWhiteSpace(config.ExtraCss))
         {
@@ -275,6 +270,9 @@ public static class ThemeAssets
         && (s.StartsWith("https://", StringComparison.OrdinalIgnoreCase) || s.StartsWith("http://", StringComparison.OrdinalIgnoreCase));
 
     private static string CssString(string s) => s.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal);
+
+    /// <summary>An embedded text file (used for the inline hero boot script).</summary>
+    internal static string Text(string name) => ReadText(name);
 
     private static string ReadText(string name)
     {

@@ -239,9 +239,9 @@
     r.id = ID;
     r.innerHTML =
       '<div class="np-head"><div class="np-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z" fill="currentColor"/></svg>NOW PLAYING</div>' +
-      '<span class="np-pill np-live">LIVE</span><span class="np-pill np-dp" data-c="dp"></span><span class="np-pill np-ds" data-c="ds"></span><span class="np-pill np-rm" data-c="rm"></span><span class="np-pill np-tc" data-c="tc"></span><span class="np-pill np-pa" data-c="pa"></span>' +
+      '<span class="np-pill np-live">LIVE</span><span class="np-pill np-dp" data-c="dp">0 Direct Play</span><span class="np-pill np-ds" data-c="ds">0 Direct Stream</span><span class="np-pill np-rm" data-c="rm">0 Remux</span><span class="np-pill np-tc" data-c="tc">0 Transcode</span><span class="np-pill np-pa" data-c="pa">0 Paused</span>' +
       '<div class="np-tools"><button type="button" class="np-btn" data-t="compact">Compact</button><button type="button" class="np-btn" data-t="collapsed">Hide</button><button type="button" class="np-btn" data-t="show">Show details</button></div></div>' +
-      '<div class="np-stats"><span class="np-counts"></span><span class="np-up" title="What Jellyfin is sending right now (everything) / just video and music streams. Updated every 5 seconds."><b class="np-up-all">–</b>Upload<i>/</i><b class="np-up-streams">–</b>Streams</span></div><div class="np-grid"></div>';
+      '<div class="np-stats"><span class="np-counts"><span><b>0</b>Active streams</span><span><b>0</b>Direct</span><span><b>0</b>Transcoding</span></span><span class="np-up" title="What Jellyfin is sending right now (everything) / just video and music streams. Updated every 5 seconds."><b class="np-up-all">–</b>Upload<i>/</i><b class="np-up-streams">–</b>Streams</span></div><div class="np-grid"></div>';
     r.addEventListener("click", function (e) {
       var b = e.target.closest && e.target.closest(".np-btn");
       if (!b) return;

@@ -115,7 +115,8 @@ public static partial class ServerMeter
     public static async Task Track(HttpContext context, RequestDelegate next)
     {
         EnsureTimer();
-        if (context.WebSockets.IsWebSocketRequest)
+        if (context.WebSockets.IsWebSocketRequest
+            || string.Equals(context.Request.Headers.Upgrade, "websocket", StringComparison.OrdinalIgnoreCase))
         {
             await next(context).ConfigureAwait(false);
             return;

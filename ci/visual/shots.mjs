@@ -132,6 +132,22 @@ for (const [vw, vh, tag] of [[1920, 1080, "desktop"], [390, 844, "phone"]]) {
       }
       await page.mouse.move(5, vh - 5);
     }
+    if (name === "settings" && tag === "desktop") {
+      // one Save for every tab: change a field, save, read the plugin settings back
+      const before = await api("/Plugins/01c723cc-57de-4e19-b13c-514b644491a5/Configuration");
+      await page.fill("#tb-SearchTitle", "CI saved");
+      await page.click(".sleekfin-save-button");
+      await page.waitForTimeout(2500);
+      const after = await api("/Plugins/01c723cc-57de-4e19-b13c-514b644491a5/Configuration");
+      report.settingsSave = { title: after.SearchTitle, rowsKept: after.HomeRowsJson === before.HomeRowsJson, accentKept: after.AccentColor === before.AccentColor,
+        desktopLogo: after.Sleek && after.Sleek.HeaderDesktopLogoHeight, sleekKept: !!(after.Sleek && after.Sleek.HeaderHeight === before.Sleek.HeaderHeight) };
+    }
+    if (name === "home" && tag === "desktop") {
+      // the avatar opens the user menu (your picture + name on top)
+      const av = await page.$("#tb-header-avatar");
+      report.avatar = !!av;
+      if (av) { await av.click(); await page.waitForTimeout(800); await page.screenshot({ path: `${out}/desktop-usermenu.png`, animations: "disabled", caret: "hide" }); report.menuHead = !!(await page.$("#app-user-menu .tb-um-head")); await page.keyboard.press("Escape"); await page.waitForTimeout(400); }
+    }
     // first painted frames after a reload (header / hero / rows appearing)
     if (name === "home" || name === "episode") {
       await page.evaluate(() => { window.__f = []; });

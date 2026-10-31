@@ -16,7 +16,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - uses: actions/setup-dotnet@v4
         with:
@@ -24,9 +24,10 @@ jobs:
 
       - name: Build web assets (minify scripts, strip CSS comments, build the built-in SleekFin)
         run: |
-          npm ci --prefix sleekfin --no-audit --no-fund
+          set -o pipefail
+          npm ci --prefix sleekfin --no-audit --no-fund 2>&1 | tail -n 25 | sed 's/^/::warning::npm: /'
           npm install --no-save terser@5.31.6
-          node build-assets.mjs
+          node build-assets.mjs > build.log 2>&1 || { tail -n 30 build.log | sed 's/^/::error::/'; exit 1; }
 
       - name: Version
         id: v

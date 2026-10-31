@@ -4,6 +4,8 @@
   //  - the list + SleekFin's look settings were already requested from the page head before Jellyfin started
   //  - the first backdrop was already downloading (and painted) from the head
   //  - it is built once and kept: coming back to Home re-uses it, nothing reloads
+  //  - it lives directly in the home page (#indexPage), OUTSIDE the rows area that KefinTweaks/Jellyfin
+  //    rebuild, and if anything ever removes it, it's put back before the next frame is drawn (no flash)
   //  - only the shown slide + the next one load their backdrop (SleekFin loads all of them at once)
   // Content: the 10 newest movies & shows by release date, random order.
   // Needs SleekFin's own hero switched OFF in SleekFin's settings.
@@ -365,14 +367,33 @@
     });
   }
 
+  // The hero sits right before the Home tab, as a direct child of the home page.
   function findHost() {
-    var hosts = document.querySelectorAll("#indexPage #homeTab.is-active .sections");
-    for (var i = 0; i < hosts.length; i++) if (!hosts[i].closest(".hide")) return hosts[i];
-    return null;
+    var page = document.getElementById("indexPage");
+    if (!page || page.classList.contains("hide")) return null;
+    var tab = page.querySelector(":scope > #homeTab");
+    return tab && tab.querySelector(".sections") ? tab : null;
+  }
+
+  // Runs inside the page watcher, i.e. before the browser paints: keeps the hero in place with no gap.
+  function place(host) {
+    if (!root || !host) return;
+    if (root.parentNode !== host.parentNode || root.nextElementSibling !== host) {
+      host.parentNode.insertBefore(root, host);
+      if (window.CustomElements && typeof window.CustomElements.upgradeSubtree === "function") window.CustomElements.upgradeSubtree(root);
+    }
+  }
+  function fastPlace() {
+    if (!root) return;
+    var home = isHomeRoute();
+    var want = home ? "" : "none";
+    if (root.style.display !== want) root.style.display = want;   // hidden on the other home tabs (Favourites...)
+    if (home) place(findHost());
   }
 
   function reconcile() {
     if (!isHomeRoute()) {
+      if (root && root.style.display !== "none") root.style.display = "none";
       html.classList.remove("sleekfin-hero-mounted", "tb-hs", "tb-hs-out");
       stopTimer();
       return;
@@ -387,10 +408,8 @@
       });
       return;
     }
-    if (root.nextElementSibling !== host || !root.isConnected) {
-      host.parentNode.insertBefore(root, host);
-      if (window.CustomElements && typeof window.CustomElements.upgradeSubtree === "function") window.CustomElements.upgradeSubtree(root);
-    }
+    if (root.style.display) root.style.display = "";
+    place(host);
     html.classList.add("sleekfin-hero-mounted");
     if (!timer) startTimer();
     handOver();
@@ -403,8 +422,8 @@
     queued = true;
     setTimeout(function () { queued = false; reconcile(); }, 0);
   }
-  tbWatch(schedule);
-  window.addEventListener("hashchange", schedule);
+  tbWatch(function () { fastPlace(); schedule(); });
+  window.addEventListener("hashchange", function () { fastPlace(); schedule(); });
   window.addEventListener("popstate", schedule);
   window.addEventListener("pageshow", schedule);
   // re-measure right before you leave/reload, when the layout is final
@@ -415,6 +434,17 @@
     var t = e.target;
     if (t && t.classList && t.classList.contains("sleekfin-hero-backdrop")) handOver();
   }, true);
+  var st = document.createElement("style");
+  st.id = "tb-hero-style";
+  st.textContent = [
+    // the hero now sits before #homeTab (not inside it): same spacing as SleekFin's hero
+    "#indexPage > .sleekfin-hero + #homeTab > .sections { margin-top: 0; }",
+    "html:not(.layout-tv) :not(#tb-x) #indexPage > .sleekfin-hero + #homeTab > .sections.homeSectionsContainer {",
+    "  margin-top: calc(-1 * var(--tb-lift, 0px)) !important; position: relative; z-index: 2; pointer-events: none; }",
+    "html:not(.layout-tv) :not(#tb-x) #indexPage > .sleekfin-hero + #homeTab > .sections.homeSectionsContainer > * { pointer-events: auto; }"
+  ].join("\n");
+  document.head.appendChild(st);
+
   loadData();   // start using the head's data straight away
   schedule();
 })();

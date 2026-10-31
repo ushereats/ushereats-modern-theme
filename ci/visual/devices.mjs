@@ -132,7 +132,7 @@ const probe = () => {
   const logo = document.querySelector(".tb-logo-link");
   const fc = []; for (let n = logo; n; n = n.parentElement) if (/focuscontainer|focusable/.test(n.className || "")) fc.push(nm(n));
   const imgs = Array.from(document.querySelectorAll("[data-sleekfin-header] img, .sleekfin-header-fallback-brand img")).map((i) => nm(i) + " src=" + (i.getAttribute("src") || "(none)").slice(0, 60) + " ok=" + (i.complete && i.naturalWidth > 0));
-  const clock = Array.from(document.querySelectorAll("[class*='lock' i]")).filter((e) => /\d:\d\d/.test(e.textContent || "")).map((e) => nm(e) + " '" + e.textContent.trim().slice(0, 12) + "' " + JSON.stringify(cs(e)));
+  const clock = Array.from(document.querySelectorAll("body *")).filter((e) => !e.children.length && /^\s*\d{1,2}:\d\d/.test(e.textContent || "")).slice(0, 4).map((e) => nm(e) + " '" + e.textContent.trim().slice(0, 12) + "' " + JSON.stringify(cs(e)));
   const proxy = document.querySelector("[data-sleekfin-header-proxy]");
   const dock = proxy ? Array.from(proxy.querySelectorAll("button, a")).map((e) => nm(e) + " aria=" + (e.getAttribute("aria-label") || "") + " " + JSON.stringify(e.getBoundingClientRect().toJSON ? [Math.round(e.getBoundingClientRect().left), Math.round(e.getBoundingClientRect().top)] : 0)) : null;
   return {
@@ -172,6 +172,14 @@ for (const d of devices) {
       if (d.mobile) await page.mouse.move(1, 1).catch(() => {});
       await page.screenshot({ path: `${out}/${d.tag}-${name}.png`, animations: "disabled", caret: "hide" });
       R.pages[name] = await page.evaluate(inspect, d.mobile);
+      // can you actually scroll the page sideways? (a sideways wheel / swipe)
+      if (R.pages[name].sideways) {
+        await page.mouse.move(Math.round(d.w / 2), Math.round(d.h / 3));
+        await page.mouse.wheel(600, 0);
+        await page.waitForTimeout(300);
+        R.pages[name].sidewaysByUser = await page.evaluate(() => scrollX);
+        await page.evaluate(() => window.scrollTo(0, scrollY));
+      }
       if ((name === "home" || name === "movie") && /tv-1080|xbox|iphone-portrait|tall/.test(d.tag)) R.pages[name + "-probe"] = await page.evaluate(probe).catch((e) => ({ error: String(e) }));
       if (name === "home" || name === "series" || name === "movie") {
         // further down the page

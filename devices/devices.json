@@ -1,0 +1,6038 @@
+{
+ "iphone-portrait": {
+  "pages": {
+   "home": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-probe": {
+    "htmlClass": "tb-rows layout-mobile sleekfin-main-ui sleekfin-media-mounted sleekfin-header-mounted sleekfin-hero-mounted tb-rows-ok tb-hdr-ok",
+    "bodyClass": "libraryDocument withSectionTabs",
+    "header": {
+     "rect": [
+      0,
+      0,
+      390,
+      80
+     ],
+     "chain": [
+      "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0.MuiAppBar-root {\"pos\":\"fixed\",\"z\":\"1100\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div.MuiBox-root.css-sjv9i2 {\"pos\":\"relative\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#reactRoot {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "body.libraryDocument.withSectionTabs {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"clip/visible\",\"tr\":\"\",\"iso\":\"auto\"}"
+     ],
+     "coveredBy": "div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense.padded-left",
+     "atLeft": "a.sleekfin-header-fallback-brand"
+    },
+    "backdrops": [
+     "div.backdropContainer [0,0,390x844] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage0.backdropImage [0,0,390x844] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage1.backdropImage [0,0,390x844] disp=block vis=visible op=1 bg=none src=",
+     "img.sleekfin-hero-backdrop [0,0,390x591] disp=block vis=visible op=1 bg=none src=e3773e269914a6e77de9ca9d9&maxWidth=1280&quality=90",
+     "img.sleekfin-hero-backdrop [12,0,390x591] disp=block vis=hidden op=1 bg=none src=68ec9369cffa58062253f3830&maxWidth=1280&quality=90",
+     "img.sleekfin-hero-backdrop [12,0,390x591] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [12,0,390x591] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [12,0,390x591] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [12,0,390x591] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [12,0,390x591] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [12,0,390x591] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [12,0,390x591] disp=block vis=hidden op=0 bg=none src="
+    ],
+    "logoFocusContainers": [
+     "div.itemsContainer.scrollSlider.focuscontainer-x"
+    ],
+    "headerImgs": [
+     "img src=https://i.imgur.com/ckrwhZ1.png ok=true"
+    ],
+    "clock": [],
+    "dock": [
+     "button aria= [128,796]",
+     "button aria= [162,796]",
+     "button aria= [196,796]",
+     "button aria= [230,796]",
+     "button aria= [0,0]"
+    ],
+    "hero": {
+     "rect": "{\"x\":0,\"y\":0,\"width\":390,\"height\":590.796875,\"top\":0,\"right\":390,\"bottom\":590.796875,\"left\":0}",
+     "chain": [
+      "div.sleekfin-hero.itemsContainer {\"pos\":\"relative\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"hidden/hidden\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#indexPage.page.mainAnimatedPage.homePage.libraryPage {\"pos\":\"absolute\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div.skinBody {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}"
+     ]
+    }
+   },
+   "home-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 1284,
+     "pageTop": 0,
+     "before": "1 102px linear-gradient(rgba(6, 6, 8, 0.97) 0%, rgba(6, 6, 8, 0.9) 62%, rgba(6, 6, 8, 0)",
+     "tag": "HEADER"
+    }
+   },
+   "usermenu": {
+    "open": true,
+    "rect": [
+     96,
+     56,
+     374,
+     424
+    ],
+    "inView": true
+   },
+   "search": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x19",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20"
+    ],
+    "smallTapCount": 36,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 176,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x19",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20"
+    ],
+    "smallTapCount": 31,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 176,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-probe": {
+    "htmlClass": "tb-rows layout-mobile sleekfin-main-ui sleekfin-media-mounted sleekfin-header-mounted tb-rows-ok tb-hdr-ok sleekfin-details-mounted",
+    "bodyClass": "libraryDocument",
+    "header": {
+     "rect": [
+      0,
+      0,
+      390,
+      80
+     ],
+     "chain": [
+      "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0.MuiAppBar-root {\"pos\":\"fixed\",\"z\":\"1100\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div.MuiBox-root.css-sjv9i2 {\"pos\":\"relative\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#reactRoot {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "body.libraryDocument {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"hidden/hidden\",\"tr\":\"\",\"iso\":\"auto\"}"
+     ],
+     "coveredBy": "div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense.padded-left",
+     "atLeft": "div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense.padded-left"
+    },
+    "backdrops": [
+     "div.backdropContainer [0,0,390x844] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage0.backdropImage [0,0,390x844] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage1.backdropImage [0,0,390x844] disp=block vis=visible op=1 bg=none src=",
+     "#itemDetailPage.page.libraryPage.itemDetailPage.noSecondaryNavPage [0,0,390x844] disp=block vis=visible op=1 bg=none src=",
+     "#itemBackdrop.itemBackdrop.lazy-image-fadein-fast [0,0,390x717] disp=block vis=visible op=1 bg=none src=",
+     "div.MuiBackdrop-root.MuiBackdrop-invisible.MuiModal-backdrop.css-1lbe2ow [0,0,390x844] disp=flex vis=hidden op=0 bg=none src=",
+     "div.MuiBackdrop-root.MuiBackdrop-invisible.MuiModal-backdrop.css-1lbe2ow [0,0,390x844] disp=flex vis=hidden op=0 bg=none src=",
+     "div.MuiBackdrop-root.MuiBackdrop-invisible.MuiModal-backdrop.css-1lbe2ow [0,0,390x844] disp=flex vis=hidden op=0 bg=none src=",
+     "div.MuiBackdrop-root.MuiBackdrop-invisible.MuiModal-backdrop.css-1lbe2ow [0,0,390x844] disp=flex vis=hidden op=0 bg=none src=",
+     "div.MuiBackdrop-root.MuiModal-backdrop.css-14dl35y [0,0,390x844] disp=flex vis=hidden op=0 bg=none src="
+    ],
+    "logoFocusContainers": [],
+    "headerImgs": [
+     "img src=https://i.imgur.com/ckrwhZ1.png ok=true"
+    ],
+    "clock": [],
+    "dock": [
+     "button aria= [128,796]",
+     "button aria= [162,796]",
+     "button aria= [196,796]",
+     "button aria= [230,796]",
+     "button aria= [0,0]"
+    ],
+    "hero": null
+   },
+   "movie-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "false",
+     "y": 0,
+     "pageTop": 0,
+     "before": "0 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "series": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "false",
+     "y": 0,
+     "pageTop": 0,
+     "before": "0 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "season": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15",
+     "div.nameContainer > h3.itemName.infoText.subtitle > bdi > a.button-link.itemAction.emby-button 83x28"
+    ],
+    "smallTapCount": 2,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": false,
+    "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=59dbee2bd159400aa0032bd4305b8b11",
+    "osd": false,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [
+     "div.skinBody > #dashboardPage.page.mainAnimatedPage.type-interior > div.content-primary.MuiBox-root.css-0 > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3 [-11..377]",
+     "#dashboardPage.page.mainAnimatedPage.type-interior > div.content-primary.MuiBox-root.css-0 > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3 > div.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12 [-11..377]"
+    ],
+    "sticksOutCount": 2,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 390,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "undefined"
+  ]
+ },
+ "iphone-landscape": {
+  "pages": {
+   "home": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > bdi > a.itemAction.textActionButton 85x16"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 624,
+     "pageTop": 0,
+     "before": "1 102px linear-gradient(rgba(6, 6, 8, 0.97) 0%, rgba(6, 6, 8, 0.9) 62%, rgba(6, 6, 8, 0)",
+     "tag": "HEADER"
+    }
+   },
+   "usermenu": {
+    "open": true,
+    "rect": [
+     550,
+     56,
+     828,
+     364
+    ],
+    "inView": true
+   },
+   "search": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 68x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 83x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 104x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 74x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 91x16"
+    ],
+    "smallTapCount": 5,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 85x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 71x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 52x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 102x16"
+    ],
+    "smallTapCount": 4,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "false",
+     "y": 0,
+     "pageTop": 0,
+     "before": "0 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "series": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "false",
+     "y": 0,
+     "pageTop": 0,
+     "before": "0 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "season": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": false,
+    "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=59dbee2bd159400aa0032bd4305b8b11",
+    "osd": false,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [
+     "div.skinBody > #dashboardPage.page.mainAnimatedPage.type-interior > div.content-primary.MuiBox-root.css-0 > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3 [-11..831]",
+     "#dashboardPage.page.mainAnimatedPage.type-interior > div.content-primary.MuiBox-root.css-0 > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3 > div.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12 [-11..831]"
+    ],
+    "sticksOutCount": 2,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 844,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "undefined"
+  ]
+ },
+ "android-portrait": {
+  "pages": {
+   "home": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 1160,
+     "pageTop": 0,
+     "before": "1 102px linear-gradient(rgba(6, 6, 8, 0.97) 0%, rgba(6, 6, 8, 0.9) 62%, rgba(6, 6, 8, 0)",
+     "tag": "HEADER"
+    }
+   },
+   "usermenu": {
+    "open": true,
+    "rect": [
+     118,
+     56,
+     396,
+     424
+    ],
+    "inView": true
+   },
+   "search": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21"
+    ],
+    "smallTapCount": 36,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 176,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 19x21"
+    ],
+    "smallTapCount": 31,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 176,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "false",
+     "y": 0,
+     "pageTop": 0,
+     "before": "0 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "series": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "false",
+     "y": 0,
+     "pageTop": 0,
+     "before": "0 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "season": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15",
+     "div.nameContainer > h3.itemName.infoText.subtitle > bdi > a.button-link.itemAction.emby-button 83x28"
+    ],
+    "smallTapCount": 2,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": true,
+    "hash": "#/video",
+    "osd": true,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [
+     "div.skinBody > #dashboardPage.page.mainAnimatedPage.type-interior > div.content-primary.MuiBox-root.css-0 > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3 [-10..398]",
+     "#dashboardPage.page.mainAnimatedPage.type-interior > div.content-primary.MuiBox-root.css-0 > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3 > div.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12 [-10..398]"
+    ],
+    "sticksOutCount": 2,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 412,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "console: HLS Error: Type: otherError Details: internalException Fatal: false"
+  ]
+ },
+ "android-landscape": {
+  "pages": {
+   "home": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 98x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 85x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 83x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 28x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 28x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 28x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 28x28",
+     "div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > bdi > a.itemAction.textActionButton 85x16"
+    ],
+    "smallTapCount": 8,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 56,
+     "width": 915,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 660,
+     "pageTop": 0,
+     "before": "1 84px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "usermenu": {
+    "open": true,
+    "rect": [
+     589,
+     68,
+     867,
+     398
+    ],
+    "inView": true
+   },
+   "search": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 68x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 83x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 104x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 74x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 91x16"
+    ],
+    "smallTapCount": 5,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 85x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 71x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 52x16",
+     "div.card.portraitCard.card-withuserdata > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first > a.itemAction.textActionButton 102x16"
+    ],
+    "smallTapCount": 4,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "false",
+     "y": 0,
+     "pageTop": 0,
+     "before": "0 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "series": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "false",
+     "y": 0,
+     "pageTop": 0,
+     "before": "0 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "season": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": true,
+    "hash": "#/video",
+    "osd": true,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 915,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "console: HLS Error: Type: otherError Details: internalException Fatal: false"
+  ]
+ },
+ "ipad-portrait": {
+  "pages": {
+   "home": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 1332,
+     "pageTop": 0,
+     "before": "1 102px linear-gradient(rgba(6, 6, 8, 0.97) 0%, rgba(6, 6, 8, 0.9) 62%, rgba(6, 6, 8, 0)",
+     "tag": "HEADER"
+    }
+   },
+   "usermenu": {
+    "open": true,
+    "rect": [
+     526,
+     56,
+     804,
+     424
+    ],
+    "inView": true
+   },
+   "search": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x19",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20"
+    ],
+    "smallTapCount": 39,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x19",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x20"
+    ],
+    "smallTapCount": 31,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "false",
+     "y": 0,
+     "pageTop": 0,
+     "before": "0 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "series": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "false",
+     "y": 0,
+     "pageTop": 0,
+     "before": "0 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "season": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": false,
+    "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=59dbee2bd159400aa0032bd4305b8b11",
+    "osd": false,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [
+     "div.skinBody > #dashboardPage.page.mainAnimatedPage.type-interior > div.content-primary.MuiBox-root.css-0 > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3 [-11..807]",
+     "#dashboardPage.page.mainAnimatedPage.type-interior > div.content-primary.MuiBox-root.css-0 > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-3 > div.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12 [-11..807]"
+    ],
+    "sticksOutCount": 3,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 820,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "undefined"
+  ]
+ },
+ "ipad-landscape": {
+  "pages": {
+   "home": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 98x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 85x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 83x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 28x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 28x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 28x28",
+     "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation1 > div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense > div > button 28x28"
+    ],
+    "smallTapCount": 7,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 56,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 1312,
+     "pageTop": 0,
+     "before": "1 84px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "usermenu": {
+    "open": true,
+    "rect": [
+     822,
+     68,
+     1100,
+     436
+    ],
+    "inView": true
+   },
+   "search": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x23",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24"
+    ],
+    "smallTapCount": 37,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x23",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24",
+     "div.alphaPicker-fixed-right.MuiBox-root.css-11cf6b > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded > div.MuiToggleButtonGroup-root.MuiToggleButtonGroup-vertical.css-1rwi2hd > button.MuiButtonBase-root.MuiToggleButtonGroup-grouped.MuiToggleButtonGroup-groupedVertical 18x24"
+    ],
+    "smallTapCount": 31,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "false",
+     "y": 0,
+     "pageTop": 0,
+     "before": "0 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "series": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "false",
+     "y": 0,
+     "pageTop": 0,
+     "before": "0 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "season": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [
+     "div.nameContainer > h1.parentName.focuscontainer-x > bdi > a.button-link.itemAction.emby-button 94x15"
+    ],
+    "smallTapCount": 1,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": false,
+    "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=59dbee2bd159400aa0032bd4305b8b11",
+    "osd": false,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-mobile",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1180,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "undefined"
+  ]
+ },
+ "tall-1080x1920": {
+  "pages": {
+   "home": {
+    "layout": "layout-desktop",
+    "sideways": 2197,
+    "sticksOut": [
+     "div.verticalSection.tb-row.show-card-titles > div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller > div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.card-hoverable [864..1256]",
+     "div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller > div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.card-hoverable > div.cardBox.cardBox-bottompadded [864..1244]",
+     "div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.card-hoverable > div.cardBox.cardBox-bottompadded > div.cardScalable [864..1244]"
+    ],
+    "sticksOutCount": 3,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-probe": {
+    "htmlClass": "tb-rows layout-desktop sleekfin-main-ui sleekfin-media-mounted sleekfin-header-mounted sleekfin-hero-mounted tb-rows-ok tb-hdr-ok",
+    "bodyClass": "libraryDocument withSectionTabs",
+    "header": {
+     "rect": [
+      0,
+      0,
+      1080,
+      80
+     ],
+     "chain": [
+      "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0.MuiAppBar-root {\"pos\":\"fixed\",\"z\":\"1100\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div.MuiBox-root.css-sjv9i2 {\"pos\":\"relative\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#reactRoot {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "body.libraryDocument.withSectionTabs {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"clip/visible\",\"tr\":\"\",\"iso\":\"auto\"}"
+     ],
+     "coveredBy": "div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense.padded-left",
+     "atLeft": "div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense.padded-left"
+    },
+    "backdrops": [
+     "div.backdropContainer [0,0,1080x1920] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage0.backdropImage [0,0,1080x1920] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage1.backdropImage [0,0,1080x1920] disp=block vis=visible op=1 bg=none src=",
+     "img.sleekfin-hero-backdrop [0,0,1080x1632] disp=block vis=visible op=1 bg=none src=e3773e269914a6e77de9ca9d9&maxWidth=1120&quality=90",
+     "img.sleekfin-hero-backdrop [32,0,1080x1632] disp=block vis=hidden op=1 bg=none src=68ec9369cffa58062253f3830&maxWidth=1120&quality=90",
+     "img.sleekfin-hero-backdrop [32,0,1080x1632] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [32,0,1080x1632] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [32,0,1080x1632] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [32,0,1080x1632] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [32,0,1080x1632] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [32,0,1080x1632] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [32,0,1080x1632] disp=block vis=hidden op=0 bg=none src="
+    ],
+    "logoFocusContainers": [
+     "div.itemsContainer.scrollSlider.focuscontainer-x.animatedScrollX"
+    ],
+    "headerImgs": [
+     "img src=https://i.imgur.com/ckrwhZ1.png ok=true"
+    ],
+    "clock": [],
+    "dock": [
+     "button aria= [582,24]",
+     "button aria= [682,24]",
+     "button aria= [769,24]",
+     "button aria= [854,24]",
+     "button aria= [888,24]",
+     "button aria= [922,24]",
+     "button aria= [956,24]",
+     "button aria= [0,0]"
+    ],
+    "hero": {
+     "rect": "{\"x\":0,\"y\":0,\"width\":1080,\"height\":1632,\"top\":0,\"right\":1080,\"bottom\":1632,\"left\":0}",
+     "chain": [
+      "div.sleekfin-hero.itemsContainer {\"pos\":\"relative\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"hidden/hidden\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#indexPage.page.mainAnimatedPage.homePage.libraryPage {\"pos\":\"absolute\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div.skinBody {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}"
+     ]
+    }
+   },
+   "home-down": {
+    "layout": "layout-desktop",
+    "sideways": 2197,
+    "sticksOut": [
+     "div.verticalSection.tb-row.show-card-titles > div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller > div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.card-hoverable [864..1256]",
+     "div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller > div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.card-hoverable > div.cardBox.cardBox-bottompadded [864..1244]",
+     "div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.card-hoverable > div.cardBox.cardBox-bottompadded > div.cardScalable [864..1244]",
+     "div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.card-hoverable > div.cardBox.cardBox-bottompadded > div.cardText.cardTextCentered.cardText-first [864..1244]",
+     "div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowBackdropCard.card-hoverable > div.cardBox.cardBox-bottompadded > div.cardText.cardText-secondary.sleekfin-meta [864..1244]",
+     "div.verticalSection.tb-row.no-hover-pop > div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller > div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowPortraitCard.card-hoverable [1079..1279]",
+     "div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller > div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowPortraitCard.card-hoverable > div.cardBox [1079..1267]",
+     "div.itemsContainer.scrollSlider.focuscontainer-x > div.card.overflowPortraitCard.card-hoverable > div.cardBox > div.cardScalable [1079..1267]"
+    ],
+    "sticksOutCount": 12,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 56,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 1436,
+     "pageTop": 0,
+     "before": "1 84px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "search": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 128,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-probe": {
+    "htmlClass": "tb-rows layout-desktop sleekfin-main-ui sleekfin-media-mounted sleekfin-header-mounted tb-rows-ok tb-hdr-ok sleekfin-details-mounted",
+    "bodyClass": "libraryDocument mouseIdle",
+    "header": {
+     "rect": [
+      0,
+      0,
+      1080,
+      80
+     ],
+     "chain": [
+      "header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0.MuiAppBar-root {\"pos\":\"fixed\",\"z\":\"1100\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div.MuiBox-root.css-sjv9i2 {\"pos\":\"relative\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#reactRoot {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "body.libraryDocument.mouseIdle {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"hidden/hidden\",\"tr\":\"\",\"iso\":\"auto\"}"
+     ],
+     "coveredBy": "div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense.padded-left",
+     "atLeft": "div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense.padded-left"
+    },
+    "backdrops": [
+     "div.backdropContainer [0,0,1080x1920] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage0.backdropImage.displayingBackdropImage [0,0,1080x1920] disp=block vis=visible op=1 bg=url(\"http://localhost:8096/Items/fe509545192160afefdb3127960 src=",
+     "#backdropImage1.backdropImage [0,0,1080x1920] disp=block vis=visible op=1 bg=none src=",
+     "div.backgroundContainer.withBackdrop [0,0,1080x1920] disp=block vis=visible op=0.86 bg=none src=",
+     "#itemDetailPage.page.libraryPage.itemDetailPage.noSecondaryNavPage [0,0,1080x1920] disp=block vis=visible op=1 bg=none src=",
+     "#itemBackdrop.itemBackdrop [0,0,1080x1632] disp=block vis=visible op=1 bg=none src=",
+     "div.MuiBackdrop-root.MuiBackdrop-invisible.MuiModal-backdrop.css-1lbe2ow [0,0,1080x1920] disp=flex vis=hidden op=0 bg=none src=",
+     "div.MuiBackdrop-root.MuiBackdrop-invisible.MuiModal-backdrop.css-1lbe2ow [0,0,1080x1920] disp=flex vis=hidden op=0 bg=none src=",
+     "div.MuiBackdrop-root.MuiBackdrop-invisible.MuiModal-backdrop.css-1lbe2ow [0,0,1080x1920] disp=flex vis=hidden op=0 bg=none src=",
+     "div.MuiBackdrop-root.MuiBackdrop-invisible.MuiModal-backdrop.css-1lbe2ow [0,0,1080x1920] disp=flex vis=hidden op=0 bg=none src="
+    ],
+    "logoFocusContainers": [],
+    "headerImgs": [
+     "img src=https://i.imgur.com/ckrwhZ1.png ok=true"
+    ],
+    "clock": [],
+    "dock": [
+     "button aria= [582,24]",
+     "button aria= [682,24]",
+     "button aria= [769,24]",
+     "button aria= [854,24]",
+     "button aria= [888,24]",
+     "button aria= [922,24]",
+     "button aria= [956,24]",
+     "button aria= [0,0]"
+    ],
+    "hero": null
+   },
+   "movie-down": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "false",
+     "y": 0,
+     "pageTop": 0,
+     "before": "0 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "series": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "false",
+     "y": 0,
+     "pageTop": 0,
+     "before": "0 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "HEADER"
+    }
+   },
+   "season": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": true,
+    "hash": "#/video",
+    "osd": true,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-desktop",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1080,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "console: HLS Error: Type: otherError Details: internalException Fatal: false"
+  ]
+ },
+ "tv-1080": {
+  "pages": {
+   "home": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": -125,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-probe": {
+    "htmlClass": "tb-rows layout-tv sleekfin-main-ui sleekfin-media-mounted sleekfin-header-mounted sleekfin-hero-mounted tb-scrolled tb-rows-ok tb-hdr-ok",
+    "bodyClass": "withSectionTabs libraryDocument",
+    "header": {
+     "rect": [
+      0,
+      -125,
+      1920,
+      80
+     ],
+     "chain": [
+      "div.skinHeader.focuscontainer-x.skinHeader-withBackground.skinHeader-blurred {\"pos\":\"relative\",\"z\":\"1100\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#reactRoot {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "body.withSectionTabs.libraryDocument {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"clip/visible\",\"tr\":\"\",\"iso\":\"auto\"}"
+     ],
+     "coveredBy": null,
+     "atLeft": null
+    },
+    "backdrops": [
+     "div.backdropContainer [0,0,1920x1080] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage0.backdropImage [0,0,1920x1080] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage1.backdropImage [0,0,1920x1080] disp=block vis=visible op=1 bg=none src=",
+     "img.sleekfin-hero-backdrop [0,-205,1920x918] disp=block vis=visible op=1 bg=none src=e3773e269914a6e77de9ca9d9&maxWidth=1920&quality=90",
+     "img.sleekfin-hero-backdrop [58,-205,1920x918] disp=block vis=hidden op=1 bg=none src=68ec9369cffa58062253f3830&maxWidth=1920&quality=90",
+     "img.sleekfin-hero-backdrop [58,-205,1920x918] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [58,-205,1920x918] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [58,-205,1920x918] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [58,-205,1920x918] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [58,-205,1920x918] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [58,-205,1920x918] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [58,-205,1920x918] disp=block vis=hidden op=0 bg=none src="
+    ],
+    "logoFocusContainers": [
+     "div.itemsContainer.scrollSlider.focuscontainer-x.itemsContainer-tv"
+    ],
+    "headerImgs": [
+     "img src=https://i.imgur.com/ckrwhZ1.png ok=false"
+    ],
+    "clock": [],
+    "dock": [
+     "button aria= [1573,-101]",
+     "button aria= [1634,-101]",
+     "button aria= [1714,-101]",
+     "button aria= [1748,-101]",
+     "button aria= [1782,-101]",
+     "button aria= [0,0]"
+    ],
+    "hero": {
+     "rect": "{\"x\":0,\"y\":-205,\"width\":1920,\"height\":918,\"top\":-205,\"right\":1920,\"bottom\":713,\"left\":0}",
+     "chain": [
+      "div.sleekfin-hero.itemsContainer.itemsContainer-tv {\"pos\":\"relative\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"hidden/hidden\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#indexPage.page.homePage.libraryPage.allLibraryPage {\"pos\":\"absolute\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div.mainAnimatedPages.skinBody {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#reactRoot {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}"
+     ]
+    }
+   },
+   "home-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": -1720,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 1720,
+     "pageTop": 0,
+     "before": "1 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "DIV"
+    }
+   },
+   "home-remote": [
+    {
+     "key": "start",
+     "el": "button.sleekfin-button.sleekfin-button-primary.itemAction",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      91,
+      641,
+      128,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.cardContent.tb-logo-link",
+     "text": "AMC",
+     "inView": true,
+     "rect": [
+      96,
+      500,
+      142,
+      80
+     ],
+     "marked": false
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Aurora Line",
+     "inView": true,
+     "rect": [
+      96,
+      433,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Northbound",
+     "inView": true,
+     "rect": [
+      488,
+      433,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Atlas Club",
+     "inView": true,
+     "rect": [
+      880,
+      433,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Low Tide",
+     "inView": true,
+     "rect": [
+      1272,
+      433,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.itemAction.textActionButton",
+     "text": "Low Tide",
+     "inView": true,
+     "rect": [
+      1274,
+      532,
+      52,
+      16
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "4",
+     "inView": true,
+     "rect": [
+      770,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Saltwater",
+     "inView": true,
+     "rect": [
+      770,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Long Hallway",
+     "inView": true,
+     "rect": [
+      696,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "6",
+     "inView": true,
+     "rect": [
+      696,
+      619,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Long Hallway",
+     "inView": true,
+     "rect": [
+      696,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "4",
+     "inView": true,
+     "rect": [
+      770,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.itemAction.textActionButton",
+     "text": "The Atlas Club",
+     "inView": true,
+     "rect": [
+      882,
+      532,
+      85,
+      16
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Atlas Club",
+     "inView": true,
+     "rect": [
+      880,
+      433,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.cardContent.tb-logo-link",
+     "text": "HBO",
+     "inView": true,
+     "rect": [
+      794,
+      500,
+      142,
+      80
+     ],
+     "marked": false
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.sleekfin-button.sleekfin-button-primary.itemAction",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      91,
+      516,
+      128,
+      48
+     ],
+     "marked": true
+    }
+   ],
+   "search": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-probe": {
+    "htmlClass": "tb-rows layout-tv sleekfin-main-ui sleekfin-media-mounted sleekfin-header-mounted tb-rows-ok tb-hdr-ok sleekfin-details-mounted",
+    "bodyClass": "libraryDocument mouseIdle mouseIdle-tv",
+    "header": {
+     "rect": [
+      0,
+      0,
+      1920,
+      80
+     ],
+     "chain": [
+      "div.skinHeader.focuscontainer-x.skinHeader-withBackground.skinHeader-blurred {\"pos\":\"relative\",\"z\":\"1100\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#reactRoot {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "body.libraryDocument.mouseIdle.mouseIdle-tv {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"hidden/hidden\",\"tr\":\"\",\"iso\":\"auto\"}"
+     ],
+     "coveredBy": "div.flex.align-items-center.flex-grow.headerTop",
+     "atLeft": "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-back"
+    },
+    "backdrops": [
+     "div.backdropContainer [0,0,1920x1080] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage0.backdropImage [0,0,1920x1080] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage1.backdropImage [0,0,1920x1080] disp=block vis=visible op=1 bg=none src=",
+     "#itemDetailPage.page.libraryPage.itemDetailPage.noSecondaryNavPage [0,0,1920x1080] disp=block vis=visible op=1 bg=none src=",
+     "#itemBackdrop.itemBackdrop [0,-242,1920x918] disp=block vis=visible op=1 bg=none src="
+    ],
+    "logoFocusContainers": [],
+    "headerImgs": [
+     "img src=https://i.imgur.com/ckrwhZ1.png ok=false"
+    ],
+    "clock": [],
+    "dock": [
+     "button aria= [1646,24]",
+     "button aria= [1680,24]",
+     "button aria= [1714,24]",
+     "button aria= [1748,24]",
+     "button aria= [1782,24]",
+     "button aria= [0,0]"
+    ],
+    "hero": null
+   },
+   "movie-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 0,
+     "pageTop": 242,
+     "before": "1 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "DIV"
+    }
+   },
+   "movie-remote": [
+    {
+     "key": "start",
+     "el": "button.button-flat.btnPlay.detailButton",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      92,
+      558,
+      118,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDAurora Line20146.0·2014·Movi",
+     "inView": true,
+     "rect": [
+      96,
+      749,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDRed Meridian20196.7·2019·Mov",
+     "inView": true,
+     "rect": [
+      278,
+      749,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDWinter Orchard20258.1·2025·M",
+     "inView": true,
+     "rect": [
+      460,
+      749,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDWinter Orchard20258.1·2025·M",
+     "inView": true,
+     "rect": [
+      460,
+      749,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDWinter Orchard20258.1·2025·M",
+     "inView": true,
+     "rect": [
+      460,
+      749,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDWinter Orchard20258.1·2025·M",
+     "inView": true,
+     "rect": [
+      460,
+      749,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.button-flat.btnUserRating.detailButton",
+     "text": "Add to favorites",
+     "inView": true,
+     "rect": [
+      356,
+      558,
+      177,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    }
+   ],
+   "series": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 0,
+     "pageTop": 284,
+     "before": "1 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "DIV"
+    }
+   },
+   "series-remote": [
+    {
+     "key": "start",
+     "el": "button.button-flat.btnPlay.detailButton",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      92,
+      516,
+      118,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowBackdropCard.show-focus",
+     "text": "S1:E4 - Chapter 4",
+     "inView": true,
+     "rect": [
+      96,
+      422,
+      392,
+      236
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.button-flat.btnPlaystate.detailButton",
+     "text": "Mark played",
+     "inView": true,
+     "rect": [
+      1666,
+      516,
+      48,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-track-settings",
+     "text": "Info",
+     "inView": true,
+     "rect": [
+      1722,
+      516,
+      48,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-icon-button",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1744,
+      522,
+      37,
+      37
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "input.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1745,
+      522,
+      50,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-details-episode-action.cardImageContainer.itemAction",
+     "text": "01Chapter 1Episode 1 of The At",
+     "inView": true,
+     "rect": [
+      96,
+      456,
+      1728,
+      167
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "input.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1745,
+      522,
+      50,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-control",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1787,
+      521,
+      39,
+      39
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.button-flat.btnMoreCommands.detailButton",
+     "text": "More",
+     "inView": true,
+     "rect": [
+      1778,
+      516,
+      48,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1748,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    }
+   ],
+   "season": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": false,
+    "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=59dbee2bd159400aa0032bd4305b8b11",
+    "osd": false,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "undefined"
+  ]
+ },
+ "tv-720": {
+  "pages": {
+   "home": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": -1152,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 1152,
+     "pageTop": 0,
+     "before": "1 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "DIV"
+    }
+   },
+   "home-remote": [
+    {
+     "key": "start",
+     "el": "button.sleekfin-button.sleekfin-button-primary.itemAction",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      91,
+      385,
+      128,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.cardContent.tb-logo-link",
+     "text": "AMC",
+     "inView": true,
+     "rect": [
+      96,
+      335,
+      90,
+      51
+     ],
+     "marked": false
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Aurora Line",
+     "inView": true,
+     "rect": [
+      96,
+      253,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Northbound",
+     "inView": true,
+     "rect": [
+      354,
+      253,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Atlas Club",
+     "inView": true,
+     "rect": [
+      496,
+      253,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Low Tide",
+     "inView": true,
+     "rect": [
+      888,
+      253,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.itemAction.textActionButton",
+     "text": "Low Tide",
+     "inView": true,
+     "rect": [
+      890,
+      352,
+      52,
+      16
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Static Bloom",
+     "inView": true,
+     "rect": [
+      451,
+      219,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "4",
+     "inView": true,
+     "rect": [
+      450,
+      219,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Velvet Signal",
+     "inView": true,
+     "rect": [
+      296,
+      220,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.more.button-flat.button-flat-mini",
+     "text": "Recently Added Shows",
+     "inView": true,
+     "rect": [
+      96,
+      332,
+      280,
+      56
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Winter Orchard",
+     "inView": true,
+     "rect": [
+      96,
+      220,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.more.button-flat.button-flat-mini",
+     "text": "Recently Added Movies",
+     "inView": true,
+     "rect": [
+      96,
+      332,
+      284,
+      56
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Long Hallway",
+     "inView": true,
+     "rect": [
+      451,
+      219,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.itemAction.textActionButton",
+     "text": "The Atlas Club",
+     "inView": true,
+     "rect": [
+      502,
+      352,
+      85,
+      16
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Atlas Club",
+     "inView": true,
+     "rect": [
+      496,
+      253,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.cardContent.tb-logo-link",
+     "text": "FX",
+     "inView": true,
+     "rect": [
+      500,
+      335,
+      90,
+      51
+     ],
+     "marked": false
+    }
+   ],
+   "search": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 0,
+     "pageTop": 158,
+     "before": "1 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "DIV"
+    }
+   },
+   "movie-remote": [
+    {
+     "key": "start",
+     "el": "button.button-flat.btnPlay.detailButton",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      92,
+      336,
+      118,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDAurora Line20146.0·2014·Movi",
+     "inView": true,
+     "rect": [
+      96,
+      379,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDRed Meridian20196.7·2019·Mov",
+     "inView": true,
+     "rect": [
+      278,
+      379,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDWinter Orchard20258.1·2025·M",
+     "inView": true,
+     "rect": [
+      460,
+      379,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDWinter Orchard20258.1·2025·M",
+     "inView": true,
+     "rect": [
+      460,
+      379,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDWinter Orchard20258.1·2025·M",
+     "inView": true,
+     "rect": [
+      460,
+      379,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDWinter Orchard20258.1·2025·M",
+     "inView": true,
+     "rect": [
+      460,
+      379,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.button-flat.btnUserRating.detailButton",
+     "text": "Add to favorites",
+     "inView": true,
+     "rect": [
+      356,
+      336,
+      177,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    }
+   ],
+   "series": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 0,
+     "pageTop": 158,
+     "before": "1 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "DIV"
+    }
+   },
+   "series-remote": [
+    {
+     "key": "start",
+     "el": "button.button-flat.btnPlay.detailButton",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      92,
+      336,
+      118,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowBackdropCard.show-focus",
+     "text": "S1:E4 - Chapter 4",
+     "inView": true,
+     "rect": [
+      96,
+      242,
+      392,
+      236
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1006,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1040,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.button-flat.btnPlaystate.detailButton",
+     "text": "Mark played",
+     "inView": true,
+     "rect": [
+      1026,
+      336,
+      48,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-icon-button",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1104,
+      342,
+      37,
+      37
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "input.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1105,
+      342,
+      50,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-control",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1147,
+      341,
+      39,
+      39
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1142,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.button-flat.btnMoreCommands.detailButton",
+     "text": "More",
+     "inView": true,
+     "rect": [
+      1138,
+      336,
+      48,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1108,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    }
+   ],
+   "season": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": false,
+    "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=59dbee2bd159400aa0032bd4305b8b11",
+    "osd": false,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1280,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "undefined"
+  ]
+ },
+ "xbox": {
+  "pages": {
+   "home": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": -125,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-probe": {
+    "htmlClass": "tb-rows layout-tv sleekfin-main-ui sleekfin-media-mounted sleekfin-header-mounted sleekfin-hero-mounted tb-scrolled tb-rows-ok tb-hdr-ok",
+    "bodyClass": "withSectionTabs libraryDocument",
+    "header": {
+     "rect": [
+      0,
+      -125,
+      1920,
+      80
+     ],
+     "chain": [
+      "div.skinHeader.focuscontainer-x.skinHeader-withBackground.skinHeader-blurred {\"pos\":\"relative\",\"z\":\"1100\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#reactRoot {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "body.withSectionTabs.libraryDocument {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"clip/visible\",\"tr\":\"\",\"iso\":\"auto\"}"
+     ],
+     "coveredBy": null,
+     "atLeft": null
+    },
+    "backdrops": [
+     "div.backdropContainer [0,0,1920x1080] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage0.backdropImage [0,0,1920x1080] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage1.backdropImage [0,0,1920x1080] disp=block vis=visible op=1 bg=none src=",
+     "img.sleekfin-hero-backdrop [0,-205,1920x918] disp=block vis=visible op=1 bg=none src=e3773e269914a6e77de9ca9d9&maxWidth=1920&quality=90",
+     "img.sleekfin-hero-backdrop [58,-205,1920x918] disp=block vis=hidden op=1 bg=none src=68ec9369cffa58062253f3830&maxWidth=1920&quality=90",
+     "img.sleekfin-hero-backdrop [58,-205,1920x918] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [58,-205,1920x918] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [58,-205,1920x918] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [58,-205,1920x918] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [58,-205,1920x918] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [58,-205,1920x918] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [58,-205,1920x918] disp=block vis=hidden op=0 bg=none src="
+    ],
+    "logoFocusContainers": [
+     "div.itemsContainer.scrollSlider.focuscontainer-x.animatedScrollX"
+    ],
+    "headerImgs": [
+     "img src=https://i.imgur.com/ckrwhZ1.png ok=true"
+    ],
+    "clock": [],
+    "dock": [
+     "button aria= [1573,-101]",
+     "button aria= [1634,-101]",
+     "button aria= [1714,-101]",
+     "button aria= [1748,-101]",
+     "button aria= [1782,-101]",
+     "button aria= [0,0]"
+    ],
+    "hero": {
+     "rect": "{\"x\":0,\"y\":-205,\"width\":1920,\"height\":918,\"top\":-205,\"right\":1920,\"bottom\":713,\"left\":0}",
+     "chain": [
+      "div.sleekfin-hero.itemsContainer.itemsContainer-tv {\"pos\":\"relative\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"hidden/hidden\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#indexPage.page.homePage.libraryPage.allLibraryPage {\"pos\":\"absolute\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div.mainAnimatedPages.skinBody {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#reactRoot {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}"
+     ]
+    }
+   },
+   "home-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": -1720,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 1720,
+     "pageTop": 0,
+     "before": "1 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "DIV"
+    }
+   },
+   "home-remote": [
+    {
+     "key": "start",
+     "el": "button.sleekfin-button.sleekfin-button-primary.itemAction",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      91,
+      641,
+      128,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.cardContent.tb-logo-link",
+     "text": "AMC",
+     "inView": true,
+     "rect": [
+      96,
+      500,
+      142,
+      80
+     ],
+     "marked": false
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Aurora Line",
+     "inView": true,
+     "rect": [
+      96,
+      433,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Northbound",
+     "inView": true,
+     "rect": [
+      488,
+      433,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Atlas Club",
+     "inView": true,
+     "rect": [
+      770,
+      433,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Low Tide",
+     "inView": true,
+     "rect": [
+      770,
+      433,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.itemAction.textActionButton",
+     "text": "Low Tide",
+     "inView": true,
+     "rect": [
+      934,
+      532,
+      52,
+      16
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Static Bloom",
+     "inView": true,
+     "rect": [
+      866,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "4",
+     "inView": true,
+     "rect": [
+      866,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Long Hallway",
+     "inView": true,
+     "rect": [
+      696,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "6",
+     "inView": true,
+     "rect": [
+      696,
+      619,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Long Hallway",
+     "inView": true,
+     "rect": [
+      696,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Static Bloom",
+     "inView": true,
+     "rect": [
+      866,
+      399,
+      188,
+      282
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.itemAction.textActionButton",
+     "text": "Low Tide",
+     "inView": true,
+     "rect": [
+      934,
+      532,
+      52,
+      16
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Low Tide",
+     "inView": true,
+     "rect": [
+      770,
+      433,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.cardContent.tb-logo-link",
+     "text": "FX",
+     "inView": true,
+     "rect": [
+      710,
+      500,
+      142,
+      80
+     ],
+     "marked": false
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.sleekfin-button.sleekfin-button-primary.itemAction",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      91,
+      516,
+      128,
+      48
+     ],
+     "marked": true
+    }
+   ],
+   "search": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-probe": {
+    "htmlClass": "tb-rows layout-tv sleekfin-main-ui sleekfin-media-mounted sleekfin-header-mounted tb-rows-ok tb-hdr-ok sleekfin-details-mounted",
+    "bodyClass": "libraryDocument mouseIdle mouseIdle-tv",
+    "header": {
+     "rect": [
+      0,
+      0,
+      1920,
+      80
+     ],
+     "chain": [
+      "div.skinHeader.focuscontainer-x.skinHeader-withBackground.skinHeader-blurred {\"pos\":\"relative\",\"z\":\"1100\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#reactRoot {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "body.libraryDocument.mouseIdle.mouseIdle-tv {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"hidden/hidden\",\"tr\":\"\",\"iso\":\"auto\"}"
+     ],
+     "coveredBy": "div.flex.align-items-center.flex-grow.headerTop",
+     "atLeft": "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-back"
+    },
+    "backdrops": [
+     "div.backdropContainer [0,0,1920x1080] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage0.backdropImage [0,0,1920x1080] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage1.backdropImage [0,0,1920x1080] disp=block vis=visible op=1 bg=none src=",
+     "#itemDetailPage.page.libraryPage.itemDetailPage.noSecondaryNavPage [0,0,1920x1080] disp=block vis=visible op=1 bg=none src=",
+     "#itemBackdrop.itemBackdrop [0,-242,1920x918] disp=block vis=visible op=1 bg=none src="
+    ],
+    "logoFocusContainers": [],
+    "headerImgs": [
+     "img src=https://i.imgur.com/ckrwhZ1.png ok=true"
+    ],
+    "clock": [],
+    "dock": [
+     "button aria= [1646,24]",
+     "button aria= [1680,24]",
+     "button aria= [1714,24]",
+     "button aria= [1748,24]",
+     "button aria= [1782,24]",
+     "button aria= [0,0]"
+    ],
+    "hero": null
+   },
+   "movie-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 0,
+     "pageTop": 242,
+     "before": "1 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "DIV"
+    }
+   },
+   "movie-remote": [
+    {
+     "key": "start",
+     "el": "button.button-flat.btnPlay.detailButton",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      92,
+      558,
+      118,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDAurora Line20146.0·2014·Movi",
+     "inView": true,
+     "rect": [
+      96,
+      749,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDRed Meridian20196.7·2019·Mov",
+     "inView": true,
+     "rect": [
+      278,
+      749,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDWinter Orchard20258.1·2025·M",
+     "inView": true,
+     "rect": [
+      460,
+      749,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDWinter Orchard20258.1·2025·M",
+     "inView": true,
+     "rect": [
+      460,
+      749,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDWinter Orchard20258.1·2025·M",
+     "inView": true,
+     "rect": [
+      460,
+      749,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDWinter Orchard20258.1·2025·M",
+     "inView": true,
+     "rect": [
+      460,
+      749,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.button-flat.btnUserRating.detailButton",
+     "text": "Add to favorites",
+     "inView": true,
+     "rect": [
+      356,
+      558,
+      177,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      146,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    }
+   ],
+   "series": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 0,
+     "pageTop": 284,
+     "before": "1 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "DIV"
+    }
+   },
+   "series-remote": [
+    {
+     "key": "start",
+     "el": "button.button-flat.btnPlay.detailButton",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      92,
+      516,
+      118,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowBackdropCard.show-focus",
+     "text": "S1:E4 - Chapter 4",
+     "inView": true,
+     "rect": [
+      96,
+      422,
+      392,
+      236
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.button-flat.btnPlaystate.detailButton",
+     "text": "Mark played",
+     "inView": true,
+     "rect": [
+      1666,
+      516,
+      48,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-track-settings",
+     "text": "Info",
+     "inView": true,
+     "rect": [
+      1722,
+      516,
+      48,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-icon-button",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1744,
+      522,
+      37,
+      37
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "input.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1745,
+      522,
+      50,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-details-episode-action.cardImageContainer.itemAction",
+     "text": "01Chapter 1Episode 1 of The At",
+     "inView": true,
+     "rect": [
+      96,
+      456,
+      1728,
+      167
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "input.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1745,
+      522,
+      50,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-control",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1787,
+      521,
+      39,
+      39
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.button-flat.btnMoreCommands.detailButton",
+     "text": "More",
+     "inView": true,
+     "rect": [
+      1778,
+      516,
+      48,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      1748,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    }
+   ],
+   "season": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": false,
+    "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=59dbee2bd159400aa0032bd4305b8b11",
+    "osd": false,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 1920,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "console: Error in focusManager.autoFocus: TypeError: e.focus is not a function",
+   "undefined",
+   "console: Error in focusManager.autoFocus: TypeError: e.focus is not a function",
+   "console: Error in focusManager.autoFocus: TypeError: e.focus is not a function",
+   "console: Error in focusManager.autoFocus: TypeError: e.focus is not a function",
+   "console: Error in focusManager.autoFocus: TypeError: e.focus is not a function"
+  ]
+ },
+ "xbox-app": {
+  "pages": {
+   "home": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 960,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "home-probe": {
+    "htmlClass": "tb-rows layout-tv sleekfin-main-ui sleekfin-media-mounted sleekfin-header-mounted sleekfin-hero-mounted tb-rows-ok tb-hdr-ok",
+    "bodyClass": "withSectionTabs libraryDocument",
+    "header": {
+     "rect": [
+      0,
+      0,
+      960,
+      80
+     ],
+     "chain": [
+      "div.skinHeader.focuscontainer-x.skinHeader-withBackground.skinHeader-blurred {\"pos\":\"relative\",\"z\":\"1100\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#reactRoot {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "body.withSectionTabs.libraryDocument {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"clip/visible\",\"tr\":\"\",\"iso\":\"auto\"}"
+     ],
+     "coveredBy": "div",
+     "atLeft": "a.sleekfin-header-fallback-brand"
+    },
+    "backdrops": [
+     "div.backdropContainer [0,0,960x540] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage0.backdropImage [0,0,960x540] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage1.backdropImage [0,0,960x540] disp=block vis=visible op=1 bg=none src=",
+     "img.sleekfin-hero-backdrop [0,-80,960x459] disp=block vis=visible op=1 bg=none src=e3773e269914a6e77de9ca9d9&maxWidth=1920&quality=90",
+     "img.sleekfin-hero-backdrop [29,-80,960x459] disp=block vis=hidden op=1 bg=none src=68ec9369cffa58062253f3830&maxWidth=1920&quality=90",
+     "img.sleekfin-hero-backdrop [29,-80,960x459] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [29,-80,960x459] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [29,-80,960x459] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [29,-80,960x459] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [29,-80,960x459] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [29,-80,960x459] disp=block vis=hidden op=0 bg=none src=",
+     "img.sleekfin-hero-backdrop [29,-80,960x459] disp=block vis=hidden op=0 bg=none src="
+    ],
+    "logoFocusContainers": [
+     "div.itemsContainer.scrollSlider.focuscontainer-x.animatedScrollX"
+    ],
+    "headerImgs": [
+     "img src=https://i.imgur.com/ckrwhZ1.png ok=true"
+    ],
+    "clock": [],
+    "dock": [
+     "button aria= [661,24]",
+     "button aria= [722,24]",
+     "button aria= [802,24]",
+     "button aria= [836,24]",
+     "button aria= [870,24]",
+     "button aria= [0,0]"
+    ],
+    "hero": {
+     "rect": "{\"x\":0,\"y\":-80,\"width\":960,\"height\":459,\"top\":-80,\"right\":960,\"bottom\":379,\"left\":0}",
+     "chain": [
+      "div.sleekfin-hero.itemsContainer.itemsContainer-tv {\"pos\":\"relative\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"hidden/hidden\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#indexPage.page.homePage.libraryPage.allLibraryPage {\"pos\":\"absolute\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div.mainAnimatedPages.skinBody {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#reactRoot {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}"
+     ]
+    }
+   },
+   "home-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": -864,
+     "height": 80,
+     "width": 960,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 864,
+     "pageTop": 0,
+     "before": "1 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "DIV"
+    }
+   },
+   "home-remote": [
+    {
+     "key": "start",
+     "el": "button.sleekfin-button.sleekfin-button-primary.itemAction",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      43,
+      258,
+      128,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.cardContent.tb-logo-link",
+     "text": "AMC",
+     "inView": true,
+     "rect": [
+      48,
+      246,
+      84,
+      47
+     ],
+     "marked": false
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Aurora Line",
+     "inView": true,
+     "rect": [
+      48,
+      163,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Northbound",
+     "inView": true,
+     "rect": [
+      290,
+      163,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Atlas Club",
+     "inView": true,
+     "rect": [
+      290,
+      163,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Low Tide",
+     "inView": true,
+     "rect": [
+      290,
+      163,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.itemAction.textActionButton",
+     "text": "Low Tide",
+     "inView": true,
+     "rect": [
+      454,
+      262,
+      52,
+      16
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Tin Crown",
+     "inView": true,
+     "rect": [
+      348,
+      166,
+      138,
+      207
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "The Long Hallway",
+     "inView": true,
+     "rect": [
+      411,
+      166,
+      138,
+      207
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Tin Crown",
+     "inView": true,
+     "rect": [
+      348,
+      167,
+      138,
+      207
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "6",
+     "inView": true,
+     "rect": [
+      348,
+      210,
+      138,
+      207
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Tin Crown",
+     "inView": true,
+     "rect": [
+      348,
+      167,
+      138,
+      207
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Tin Crown",
+     "inView": true,
+     "rect": [
+      348,
+      166,
+      138,
+      207
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.itemAction.textActionButton",
+     "text": "Low Tide",
+     "inView": true,
+     "rect": [
+      454,
+      262,
+      52,
+      16
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.coveredImage.cardContent",
+     "text": "Low Tide",
+     "inView": true,
+     "rect": [
+      290,
+      163,
+      380,
+      214
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.cardImageContainer.cardContent.tb-logo-link",
+     "text": "Columbia Pictures",
+     "inView": true,
+     "rect": [
+      240,
+      246,
+      84,
+      47
+     ],
+     "marked": false
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.sleekfin-button.sleekfin-button-primary.itemAction",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      43,
+      258,
+      128,
+      48
+     ],
+     "marked": true
+    }
+   ],
+   "search": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 960,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "movies": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 960,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "shows": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 960,
+     "shown": true
+    },
+    "hero": true,
+    "details": false,
+    "rows": 51,
+    "concealed": false
+   },
+   "movie": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 960,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "movie-probe": {
+    "htmlClass": "tb-rows layout-tv sleekfin-main-ui sleekfin-media-mounted sleekfin-header-mounted tb-rows-ok tb-hdr-ok sleekfin-details-mounted",
+    "bodyClass": "libraryDocument mouseIdle mouseIdle-tv",
+    "header": {
+     "rect": [
+      0,
+      0,
+      960,
+      80
+     ],
+     "chain": [
+      "div.skinHeader.focuscontainer-x.skinHeader-withBackground.skinHeader-blurred {\"pos\":\"relative\",\"z\":\"1100\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"flex\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "div {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "#reactRoot {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"visible/visible\",\"tr\":\"\",\"iso\":\"auto\"}",
+      "body.libraryDocument.mouseIdle.mouseIdle-tv {\"pos\":\"static\",\"z\":\"auto\",\"vis\":\"visible\",\"op\":\"1\",\"disp\":\"block\",\"ov\":\"hidden/hidden\",\"tr\":\"\",\"iso\":\"auto\"}"
+     ],
+     "coveredBy": "div",
+     "atLeft": "img"
+    },
+    "backdrops": [
+     "div.backdropContainer [0,0,960x540] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage0.backdropImage [0,0,960x540] disp=block vis=visible op=1 bg=none src=",
+     "#backdropImage1.backdropImage [0,0,960x540] disp=block vis=visible op=1 bg=none src=",
+     "#itemDetailPage.page.libraryPage.itemDetailPage.noSecondaryNavPage [0,0,960x540] disp=block vis=visible op=1 bg=none src=",
+     "#itemBackdrop.itemBackdrop [0,-104,960x459] disp=block vis=visible op=1 bg=none src="
+    ],
+    "logoFocusContainers": [],
+    "headerImgs": [
+     "img src=https://i.imgur.com/ckrwhZ1.png ok=true"
+    ],
+    "clock": [],
+    "dock": [
+     "button aria= [734,24]",
+     "button aria= [768,24]",
+     "button aria= [802,24]",
+     "button aria= [836,24]",
+     "button aria= [870,24]",
+     "button aria= [0,0]"
+    ],
+    "hero": null
+   },
+   "movie-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 960,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 0,
+     "pageTop": 104,
+     "before": "1 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "DIV"
+    }
+   },
+   "movie-remote": [
+    {
+     "key": "start",
+     "el": "button.button-flat.btnPlay.detailButton",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      44,
+      246,
+      118,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDAurora Line20146.0·2014·Movi",
+     "inView": true,
+     "rect": [
+      48,
+      194,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDRed Meridian20196.7·2019·Mov",
+     "inView": true,
+     "rect": [
+      230,
+      194,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDWinter Orchard20258.1·2025·M",
+     "inView": true,
+     "rect": [
+      389,
+      194,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDWinter Orchard20258.1·2025·M",
+     "inView": true,
+     "rect": [
+      389,
+      194,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDWinter Orchard20258.1·2025·M",
+     "inView": true,
+     "rect": [
+      389,
+      194,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowPortraitCard.show-focus",
+     "text": "SDWinter Orchard20258.1·2025·M",
+     "inView": true,
+     "rect": [
+      389,
+      194,
+      182,
+      294
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.button-flat.btnUserRating.detailButton",
+     "text": "Add to favorites",
+     "inView": true,
+     "rect": [
+      308,
+      246,
+      177,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      98,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      98,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "a.sleekfin-header-fallback-brand",
+     "text": "runnervm48cm3",
+     "inView": true,
+     "rect": [
+      98,
+      22,
+      152,
+      36
+     ],
+     "marked": true
+    }
+   ],
+   "series": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 960,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "series-down": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 960,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false,
+    "scrolled": {
+     "attr": "true",
+     "y": 0,
+     "pageTop": 95,
+     "before": "1 96px linear-gradient(rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.48) 43%, rgba(0, 0, 0, 0",
+     "tag": "DIV"
+    }
+   },
+   "series-remote": [
+    {
+     "key": "start",
+     "el": "button.button-flat.btnPlay.detailButton",
+     "text": "Play",
+     "inView": true,
+     "rect": [
+      44,
+      246,
+      118,
+      48
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.card.overflowBackdropCard.show-focus",
+     "text": "S1:E4 - Chapter 4",
+     "inView": true,
+     "rect": [
+      48,
+      152,
+      392,
+      236
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      734,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowRight",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      768,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-icon-button",
+     "text": "",
+     "inView": true,
+     "rect": [
+      832,
+      252,
+      37,
+      37
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "input.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      833,
+      252,
+      50,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowDown",
+     "el": "button.sleekfin-details-episode-action.cardImageContainer.itemAction",
+     "text": "01Chapter 1Episode 1 of The At",
+     "inView": true,
+     "rect": [
+      48,
+      186,
+      864,
+      167
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "input.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      833,
+      252,
+      50,
+      36
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-control",
+     "text": "",
+     "inView": true,
+     "rect": [
+      875,
+      251,
+      39,
+      39
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.",
+     "text": "",
+     "inView": true,
+     "rect": [
+      870,
+      24,
+      32,
+      32
+     ],
+     "marked": true
+    },
+    {
+     "key": "ArrowUp",
+     "el": "button.button-flat.btnMoreCommands.detailButton",
+     "text": "More",
+     "inView": true,
+     "rect": [
+      866,
+      246,
+      48,
+      48
+     ],
+     "marked": true
+    }
+   ],
+   "season": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 960,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "episode": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 960,
+     "shown": true
+    },
+    "hero": false,
+    "details": true,
+    "rows": 0,
+    "concealed": false
+   },
+   "player": {
+    "video": false,
+    "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=59dbee2bd159400aa0032bd4305b8b11",
+    "osd": false,
+    "sideways": false
+   },
+   "prefs": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 960,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "dashboard": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": null,
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   },
+   "login": {
+    "layout": "layout-tv",
+    "sideways": 0,
+    "sticksOut": [],
+    "sticksOutCount": 0,
+    "smallTaps": [],
+    "smallTapCount": 0,
+    "textCut": [],
+    "header": {
+     "top": 0,
+     "height": 80,
+     "width": 960,
+     "shown": true
+    },
+    "hero": false,
+    "details": false,
+    "rows": 0,
+    "concealed": false
+   }
+  },
+  "errors": [
+   "console: Error in focusManager.autoFocus: TypeError: e.focus is not a function",
+   "console: Error in focusManager.autoFocus: TypeError: e.focus is not a function",
+   "undefined",
+   "console: Error in focusManager.autoFocus: TypeError: e.focus is not a function"
+  ]
+ }
+}

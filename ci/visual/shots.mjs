@@ -25,6 +25,8 @@ const pages = [
   ["episode", `#/details?id=${eps[2].Id}&serverId=${s.serverId}`],
   ["search", "#/search?tbq=the"],
   ["movies", `#/movies.html?topParentId=${s.movieLib}&collectionType=movies`],
+  ["prefs", "#/mypreferencesmenu.html"],
+  ["profile", `#/userprofile.html?userId=${s.userId}`],
 ];
 const report = { errors: {} };
 // Which of the theme's rules restyle something a built-in SleekFin rule also styles (same element, same property)?
@@ -44,7 +46,7 @@ async function collect(page, label) {
         const props = [];
         for (let i = 0; i < r.style.length; i++) props.push(r.style[i]);
         if (!props.length) continue;
-        rules.push({ sel: r.selectorText, props, imp: props.filter((p) => r.style.getPropertyPriority(p) === "important") });
+        rules.push({ sel: r.selectorText, props, vals: Object.fromEntries(props.map((p) => [p, r.style.getPropertyValue(p) + r.style.getPropertyPriority(p)])), imp: props.filter((p) => r.style.getPropertyPriority(p) === "important") });
       }
     })(sheet.cssRules);
     const out = [];
@@ -65,14 +67,32 @@ async function collect(page, label) {
         }
       }
     }
+    const cand = [];
     for (const [el, hs] of hits) {
       const sleek = hs.filter((h) => h.ri < marker), theme = hs.filter((h) => h.ri > marker);
       for (const t of theme) for (const s of sleek) {
         if (t.pseudo !== s.pseudo) continue;
         const shared = rules[t.ri].props.filter((x) => rules[s.ri].props.includes(x));
-        if (shared.length) out.push([rules[t.ri].sel.slice(0, 220), rules[s.ri].sel.slice(0, 220), shared.join(" ")]);
+        if (shared.length) cand.push({ el, pseudo: t.pseudo || null, t: rules[t.ri].sel.slice(0, 220), s: rules[s.ri].sel.slice(0, 220), shared, tv: rules[t.ri].vals, sv: rules[s.ri].vals });
       }
     }
+    // Only real overrides count: the theme part must change the computed value of a property SleekFin sets.
+    const read = () => cand.map((c) => { const cs = getComputedStyle(c.el, c.pseudo); return c.shared.map((p) => cs.getPropertyValue(p)); });
+    const withTheme = read();
+    const kill = document.createElement("style");
+    kill.textContent = "*,*::before,*::after{transition:none!important;animation:none!important}";
+    document.head.appendChild(kill);
+    let top = -1;
+    for (let i = 0; i < sheet.cssRules.length; i++) if (sheet.cssRules[i].selectorText === ".tb-sleek-end") top = i;
+    const saved = [];
+    while (sheet.cssRules.length > top + 1) { saved.unshift(sheet.cssRules[sheet.cssRules.length - 1].cssText); sheet.deleteRule(sheet.cssRules.length - 1); }
+    const without = read();
+    for (const r of saved) sheet.insertRule(r, sheet.cssRules.length);
+    kill.remove();
+    cand.forEach((c, i) => {
+      const changed = c.shared.filter((p, j) => /^(transition|animation)/.test(p) ? c.tv[p].replace(/!?important$/, "") !== c.sv[p].replace(/!?important$/, "") : withTheme[i][j] !== without[i][j]);
+      if (changed.length) out.push([c.t, c.s, changed.join(" ")]);
+    });
     return { marker, rules: rules.length, pairs: out };
   });
   if (found.error) { overrides[label] = found; return; }
@@ -129,6 +149,7 @@ const page = await ctx.newPage();
 await page.goto(s.server + "/web/index.html#/login", { waitUntil: "load" });
 await page.waitForTimeout(3000);
 await page.screenshot({ path: `${out}/desktop-login.png`, animations: "disabled", caret: "hide" });
+await collect(page, "desktop-login");
 await browser.close();
 fs.writeFileSync(`${out}/report.json`, JSON.stringify(report, null, 2));
 fs.writeFileSync(`${out}/overrides.json`, JSON.stringify(overrides, null, 1));

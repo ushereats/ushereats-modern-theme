@@ -34,12 +34,62 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
 
     private readonly IApplicationPaths _paths;
 
-    /// <summary>True while the separate SleekFin plugin is still installed (then its copy here stays off).</summary>
-    public static bool SleekFinPluginLoaded => SleekFinCheck.Value;
+    /// <summary>
+    /// True only while the separate SleekFin plugin is really running (its plugin object exists and its file is
+    /// still on disk). Uninstalled / disabled / left-over SleekFin = false, so the built-in copy takes over.
+    /// </summary>
+    public static bool SleekFinPluginLoaded
+    {
+        get
+        {
+            DateTime now = DateTime.UtcNow;
+            if (now < s_sleekCheckedUntil)
+            {
+                return s_sleekRunning;
+            }
 
-    // plugins are loaded once at startup, so checking once is enough
-    private static readonly Lazy<bool> SleekFinCheck = new Lazy<bool>(() => AppDomain.CurrentDomain.GetAssemblies()
-        .Any(a => string.Equals(a.GetName().Name, "Jellyfin.Plugin.SleekFin", StringComparison.Ordinal)));
+            s_sleekRunning = CheckSleekFin();
+            s_sleekCheckedUntil = now.AddSeconds(15);
+            return s_sleekRunning;
+        }
+    }
+
+    private static bool s_sleekRunning;
+    private static DateTime s_sleekCheckedUntil = DateTime.MinValue;
+
+    private static bool CheckSleekFin()
+    {
+        foreach (System.Reflection.Assembly asm in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            if (!string.Equals(asm.GetName().Name, "Jellyfin.Plugin.SleekFin", StringComparison.Ordinal))
+            {
+                continue;
+            }
+
+            try
+            {
+                string location = asm.Location;
+                if (!string.IsNullOrEmpty(location) && !File.Exists(location))
+                {
+                    continue; // uninstalled: file gone, only the old copy in memory is left
+                }
+
+                object? instance = asm.GetType("Jellyfin.Plugin.SleekFin.SleekFinPlugin")
+                    ?.GetProperty("Instance", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)
+                    ?.GetValue(null);
+                if (instance != null)
+                {
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                // can't tell: treat as not running
+            }
+        }
+
+        return false;
+    }
 
     public override void UpdateConfiguration(BasePluginConfiguration configuration)
     {

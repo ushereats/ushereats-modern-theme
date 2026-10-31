@@ -56,7 +56,7 @@ public static class IndexPatch
         // SleekFin (built in): its page flags, colours and shapes, set before anything is drawn
         if (ThemeAssets.SleekOn(build.Config))
         {
-            SleekConfiguration s = build.Config.Sleek!;
+            SleekConfiguration s = ThemeAssets.SleekOf(build.Config);
             sb.Append("<style>html.sleekfin-main-ui:root{--sleekfin-accent:").Append(s.AccentColor)
               .Append(";--sleekfin-card-button-radius:").Append(ShapeRadius(s.CardButtonShape, 4, 12))
               .Append(";--sleekfin-card-play-radius:").Append(ShapeRadius(s.PlayButtonShape, 6, 18))
@@ -97,7 +97,7 @@ public static class IndexPatch
             if (ThemeAssets.SleekOn(build.Config))
             {
                 // the hero's look settings, so the hero never waits for a request
-                sb.Append("<script>window.__tbSleekHero=").Append(System.Text.Json.JsonSerializer.Serialize(SleekSettings.Hero(build.Config.Sleek!))).Append("</script>");
+                sb.Append("<script>window.__tbSleekHero=").Append(System.Text.Json.JsonSerializer.Serialize(SleekSettings.Hero(ThemeAssets.SleekOf(build.Config)))).Append("</script>");
             }
 
             sb.Append("<script>").Append(ThemeAssets.Text("hero_boot.js")).Append("</script>");

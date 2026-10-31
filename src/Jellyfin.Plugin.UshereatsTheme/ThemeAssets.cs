@@ -252,7 +252,7 @@ public static class ThemeAssets
         JsonObject tbConfig = JsonSerializer.SerializeToNode(config)!.AsObject();
         tbConfig.Remove("Sleek");   // SleekFin's settings go separately (below), in the shape its scripts expect
         string prefix = "window.TB_CONFIG=" + tbConfig.ToJsonString() + ";\n"
-            + (sleek ? "window.__tbSleek=window.__tbSleek||" + SleekJson(config.Sleek!) + ";\n" : string.Empty)
+            + (sleek ? "window.__tbSleek=window.__tbSleek||" + SleekJson(ThemeAssets.SleekOf(config)) + ";\n" : string.Empty)
             + "window.tbCfg=function(k,d){var c=window.TB_CONFIG||{},v=c[k];return v===undefined||v===null||v===\"\"?d:v};\n"
             // one shared answer for requests several scripts make at the same time (your user, sessions)
             + "window.tbShared=window.tbShared||(function(){var m={};function c(k,t,f){var e=m[k],n=Date.now();if(e&&n-e.t<t)return e.p;var p=Promise.resolve().then(f);m[k]={t:n,p:p};p.catch(function(){if(m[k]&&m[k].p===p)delete m[k]});return p}"
@@ -291,7 +291,7 @@ public static class ThemeAssets
         {
             foreach (string file in SleekScripts)
             {
-                if (file != "sleek_details.js" || config.Sleek!.DetailsEnabled)
+                if (file != "sleek_details.js" || ThemeAssets.SleekOf(config).DetailsEnabled)
                 {
                     AppendFeature(js, file, mp3Version);
                 }
@@ -332,7 +332,12 @@ public static class ThemeAssets
     private static readonly string[] SleekScripts = { "sleek_runtime.js", "sleek_theme.js", "sleek_header.js", "sleek_media.js", "sleek_details.js" };
 
     /// <summary>The built-in SleekFin is used unless the separate SleekFin plugin is still installed.</summary>
-    internal static bool SleekOn(PluginConfiguration config) => config.Sleek != null && !Plugin.SleekFinPluginLoaded;
+    internal static bool SleekOn(PluginConfiguration config) => !Plugin.SleekFinPluginLoaded;
+
+    private static readonly SleekConfiguration DefaultSleek = new SleekConfiguration();
+
+    /// <summary>SleekFin's settings (defaults if none are saved yet).</summary>
+    internal static SleekConfiguration SleekOf(PluginConfiguration config) => config.Sleek ?? DefaultSleek;
 
     /// <summary>SleekFin's settings in the shape its scripts expect (header, details, hero look).</summary>
     internal static string SleekJson(SleekConfiguration s) => JsonSerializer.Serialize(new

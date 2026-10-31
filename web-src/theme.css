@@ -884,6 +884,8 @@ html body { overflow-x: clip; }
   html.sleekfin-header-mounted:not(.layout-tv) .page:not(.hide):not(#videoOsdPage) {
     padding-bottom: calc(80px + env(safe-area-inset-bottom)) !important;
   }
+  /* your picture (top right) already opens the user menu: no second user button in the floating bar */
+  html:has(#tb-header-avatar) [data-sleekfin-header-proxy] [data-sleekfin-header-proxy-item="jellyfin:user-menu"] { display: none !important; }
   /* library pages: the A-Z strip on the right doesn't cover the last column */
   html:not(.layout-tv) .page:not(.hide):has(.alphaPicker-fixed-right) .itemsContainer {
     padding-inline-end: 30px !important;

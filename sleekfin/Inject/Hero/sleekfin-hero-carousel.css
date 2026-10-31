@@ -1,0 +1,30 @@
+.sleekfin-hero-slide {
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transform: translateX(3%);
+    transition: opacity var(--sleekfin-hero-transition-duration, 380ms) cubic-bezier(0.22, 1, 0.36, 1), transform var(--sleekfin-hero-transition-duration, 380ms) cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear;
+    transition-delay: 0s, 0s, var(--sleekfin-hero-transition-duration, 380ms);
+    visibility: hidden;
+}
+
+.sleekfin-hero-slide[data-active="true"] {
+    transform: translateX(0);
+    transition-delay: 0s;
+    visibility: visible;
+    z-index: 1;
+}
+
+.sleekfin-hero[data-transition-style="fade"] .sleekfin-hero-slide {
+    transform: none;
+}
+
+.sleekfin-hero[data-transition-style="slide"][data-state="ready"] .sleekfin-hero-slide {
+    opacity: 1;
+}
+
+.sleekfin-hero[data-state="ready"] .sleekfin-hero-slide[data-active="true"] {
+    opacity: 1;
+    pointer-events: auto;
+}

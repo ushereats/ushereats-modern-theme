@@ -1,0 +1,9 @@
+html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage) .sleekfin-media-meta-source {
+    display: none !important;
+}
+
+html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage) .cardText-secondary[data-sleekfin-media-meta] {
+    line-height: 1;
+    margin-top: 4px;
+    padding: 0 2px;
+}

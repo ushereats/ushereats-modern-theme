@@ -1,3 +1,4 @@
+using Jellyfin.Plugin.UshereatsTheme.Sleek;
 using MediaBrowser.Model.Plugins;
 
 namespace Jellyfin.Plugin.UshereatsTheme.Configuration;
@@ -64,6 +65,12 @@ public class PluginConfiguration : BasePluginConfiguration
     public int DashboardRecentCount { get; set; } = 16;
     public bool DashboardBlurIps { get; set; } = true;
     public bool DashboardPluginsCollapsed { get; set; } = true;
+
+    /// <summary>
+    /// SleekFin's settings (header, details pages, cards, hero look...). SleekFin is built into this plugin now;
+    /// on first start these are copied from the SleekFin plugin's saved settings.
+    /// </summary>
+    public SleekConfiguration? Sleek { get; set; }
 
     /// <summary>Extra CSS added after the theme (quick tweaks without rebuilding).</summary>
     public string ExtraCss { get; set; } = string.Empty;

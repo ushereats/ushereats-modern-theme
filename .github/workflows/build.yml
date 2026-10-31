@@ -2,7 +2,7 @@ name: Build plugin
 
 on:
   push:
-    branches: [main]
+    branches: ["**"]
   workflow_dispatch:
 
 permissions:
@@ -22,8 +22,9 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
-      - name: Build web assets (minify scripts, strip CSS comments)
+      - name: Build web assets (minify scripts, strip CSS comments, build the built-in SleekFin)
         run: |
+          npm ci --prefix sleekfin --no-audit --no-fund
           npm install --no-save terser@5.31.6
           node build-assets.mjs
 
@@ -41,6 +42,7 @@ jobs:
         run: python3 ci/package.py "${{ steps.v.outputs.version }}" "${{ github.repository }}"
 
       - name: Publish release
+        if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.v.outputs.version }}

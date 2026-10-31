@@ -3,6 +3,8 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
+using Jellyfin.Plugin.UshereatsTheme.Sleek;
 using Jellyfin.Plugin.UshereatsTheme.Configuration;
 
 namespace Jellyfin.Plugin.UshereatsTheme;
@@ -88,6 +90,14 @@ public static class ThemeAssets
         ["funnel-latin-ext.woff2"] = "font_funnel_latin_ext.woff2",
         ["bebas-latin.woff2"] = "font_bebas_latin.woff2",
         ["bebas-latin-ext.woff2"] = "font_bebas_latin_ext.woff2",
+        // SleekFin's font (Inter, SIL OFL)
+        ["inter-latin.woff2"] = "font_inter_latin.woff2",
+        ["inter-latin-ext.woff2"] = "font_inter_latin_ext.woff2",
+        ["inter-cyrillic.woff2"] = "font_inter_cyrillic.woff2",
+        ["inter-cyrillic-ext.woff2"] = "font_inter_cyrillic_ext.woff2",
+        ["inter-greek.woff2"] = "font_inter_greek.woff2",
+        ["inter-greek-ext.woff2"] = "font_inter_greek_ext.woff2",
+        ["inter-vietnamese.woff2"] = "font_inter_vietnamese.woff2",
     };
 
     private const string SplashFile = "js_02_welcome_splash.js";
@@ -110,7 +120,8 @@ public static class ThemeAssets
         ("js_13_login_extras.js", c => c.LoginExtras),
         ("js_14_pause_screen.js", c => c.PauseScreen),
         ("js_15_custom_icon.js", c => c.CustomIcon),
-        ("js_16_accent_colour.js", c => c.AccentColour),
+        // with SleekFin built in, the accent is set from the page head instead (no script needed)
+        ("js_16_accent_colour.js", c => c.AccentColour && !SleekOn(c)),
         ("js_17_episode_list.js", c => c.EpisodeList),
         ("js_18_user_menu.js", c => c.UserMenu),
         ("js_21_hero.js", c => c.Hero),
@@ -129,7 +140,7 @@ public static class ThemeAssets
     public static ThemeBuild Get()
     {
         PluginConfiguration config = Plugin.Instance?.Configuration ?? new PluginConfiguration();
-        string key = JsonSerializer.Serialize(config);
+        string key = JsonSerializer.Serialize(config) + (Plugin.SleekFinPluginLoaded ? "|sf" : string.Empty);
 
         ThemeBuild? current = s_current;
         if (current != null && current.Key == key)
@@ -210,6 +221,13 @@ public static class ThemeAssets
 
         // ── CSS ──
         StringBuilder css = new StringBuilder();
+        // SleekFin (built in): its styles first, then the theme, in one file (nothing loads later and restyles the page)
+        bool sleek = SleekOn(config);
+        if (sleek)
+        {
+            css.Append(ReadText("sleek.css").Replace("__TB_FONT_V__", fontVersion, StringComparison.Ordinal)).Append('\n');
+        }
+
         css.Append(ReadText("theme.css")).Append('\n');
         if (config.CustomIcon && IsHttpUrl(config.IconUrl))
         {
@@ -231,7 +249,10 @@ public static class ThemeAssets
 
         // ── JS ──
         // settings for the scripts (each file carries them, so they work in any load order)
-        string prefix = "window.TB_CONFIG=" + JsonSerializer.Serialize(config) + ";\n"
+        JsonObject tbConfig = JsonSerializer.SerializeToNode(config)!.AsObject();
+        tbConfig.Remove("Sleek");   // SleekFin's settings go separately (below), in the shape its scripts expect
+        string prefix = "window.TB_CONFIG=" + tbConfig.ToJsonString() + ";\n"
+            + (sleek ? "window.__tbSleek=window.__tbSleek||" + SleekJson(config.Sleek!) + ";\n" : string.Empty)
             + "window.tbCfg=function(k,d){var c=window.TB_CONFIG||{},v=c[k];return v===undefined||v===null||v===\"\"?d:v};\n"
             // one shared answer for requests several scripts make at the same time (your user, sessions)
             + "window.tbShared=window.tbShared||(function(){var m={};function c(k,t,f){var e=m[k],n=Date.now();if(e&&n-e.t<t)return e.p;var p=Promise.resolve().then(f);m[k]={t:n,p:p};p.catch(function(){if(m[k]&&m[k].p===p)delete m[k]});return p}"
@@ -265,6 +286,18 @@ public static class ThemeAssets
               .Append("\";document.head.appendChild(s)}mo=new MutationObserver(c);mo.observe(document.body,{attributes:true,attributeFilter:[\"class\"]});c()})();\n");
         }
 
+        // SleekFin's scripts (built in; its own hero is left out: the plugin's hero replaces it)
+        if (sleek)
+        {
+            foreach (string file in SleekScripts)
+            {
+                if (file != "sleek_details.js" || config.Sleek!.DetailsEnabled)
+                {
+                    AppendFeature(js, file, mp3Version);
+                }
+            }
+        }
+
         foreach ((string file, Func<PluginConfiguration, bool> on) in Features)
         {
             if (on(config))
@@ -293,6 +326,49 @@ public static class ThemeAssets
                 DashboardJs = dashboard,
                 Mp3 = mp3,
             };
+        }
+    }
+
+    private static readonly string[] SleekScripts = { "sleek_runtime.js", "sleek_theme.js", "sleek_header.js", "sleek_media.js", "sleek_details.js" };
+
+    /// <summary>The built-in SleekFin is used unless the separate SleekFin plugin is still installed.</summary>
+    internal static bool SleekOn(PluginConfiguration config) => config.Sleek != null && !Plugin.SleekFinPluginLoaded;
+
+    /// <summary>SleekFin's settings in the shape its scripts expect (header, details, hero look).</summary>
+    internal static string SleekJson(SleekConfiguration s) => JsonSerializer.Serialize(new
+    {
+        header = SleekSettings.Header(s),
+        details = SleekSettings.Details(s),
+        hero = SleekSettings.Hero(s),
+    });
+
+    /// <summary>A file the SleekFin settings page loads on its own (details builder script + styles).</summary>
+    internal static Payload? SleekFile(string name)
+    {
+        string? file = name switch
+        {
+            "sleekfin-details-builder.js" => "sleek_details_builder.js",
+            _ when name.StartsWith("sleekfin-", StringComparison.Ordinal) && name.EndsWith(".css", StringComparison.Ordinal)
+                && name.IndexOfAny(new[] { '/', '\\', '.' }, 0, name.Length - 4) < 0 => "sleekcss_" + name.Substring(9).Replace('-', '_'),
+            "sleekfin-runtime.js" => "sleek_runtime.js",
+            _ => null,
+        };
+        if (file == null)
+        {
+            return null;
+        }
+
+        lock (StudioCache)
+        {
+            if (StudioCache.TryGetValue("sf:" + file, out Payload? hit))
+            {
+                return hit;
+            }
+
+            byte[] bytes = ReadBytes(file);
+            Payload? p = bytes.Length == 0 ? null : new Payload(bytes);
+            StudioCache["sf:" + file] = p;
+            return p;
         }
     }
 

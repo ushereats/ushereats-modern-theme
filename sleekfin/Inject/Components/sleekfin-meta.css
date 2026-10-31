@@ -1,0 +1,37 @@
+.sleekfin-meta {
+    align-items: center;
+    color: var(--sleekfin-muted);
+    display: flex;
+    font: 400 11px/1 var(--sleekfin-font-family);
+    gap: 6px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.sleekfin-meta-item,
+.sleekfin-meta-content {
+    align-items: center;
+    display: inline-flex;
+}
+
+.sleekfin-meta-item {
+    flex: 0 0 auto;
+    gap: 6px;
+}
+
+.sleekfin-meta-content {
+    gap: 4px;
+}
+
+.sleekfin-meta-separator {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.sleekfin-meta-accent {
+    color: rgba(220, 38, 38, 0.8);
+}
+
+.sleekfin-meta-content > .sleekfin-icon {
+    height: 10px;
+    width: 10px;
+}

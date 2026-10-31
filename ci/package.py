@@ -6,8 +6,8 @@ GUID = "01c723cc-57de-4e19-b13c-514b644491a5"
 NAME = "Ushereats Theme"
 DLL = "Jellyfin.Plugin.UshereatsTheme.dll"
 ABI = "12.0.0.0"
-OVERVIEW = "Custom look for Jellyfin + SleekFin, loaded instantly."
-DESCRIPTION = "Serves the theme CSS and scripts from the page head (no flash of the default look). Needs SleekFin and File Transformation."
+OVERVIEW = "Custom look for Jellyfin with SleekFin built in, loaded instantly."
+DESCRIPTION = "The whole look (SleekFin built in, header, hero, home rows, search) served from the page head: no flash of the default look. Needs File Transformation. Uninstall the separate SleekFin plugin."
 now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 os.makedirs("dist", exist_ok=True)

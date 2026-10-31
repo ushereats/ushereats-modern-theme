@@ -1,97 +1,6 @@
 (function episodeList() {
-  // Shared page watcher: ONE observer for all custom scripts instead of one each.
-  // While a video is playing full screen (or the tab is hidden) it only checks every 1.5s.
-  var tbWatch = window.tbWatch || (window.tbWatch = (function () {
-    var subs = [], mo = null, last = 0;
-    function busy() {
-      if (document.hidden) return true;
-      var osd = document.getElementById("videoOsdPage");
-      return !!(osd && !osd.classList.contains("hide") && document.querySelector(".videoPlayerContainer"));
-    }
-    window.tbBusy = busy;
-    function fire() {
-      if (busy()) { var now = Date.now(); if (now - last < 1500) return; last = now; }
-      for (var i = 0; i < subs.length; i++) { try { subs[i](); } catch (e) {} }
-    }
-    document.addEventListener("visibilitychange", function () { if (!document.hidden) fire(); });
-    return function (fn) {
-      subs.push(fn);
-      if (!mo) { mo = new MutationObserver(fire); mo.observe(document.documentElement, { childList: true, subtree: true }); }
-    };
-  })());
-  // Netflix-style episode list on show pages (restyles SleekFin's "list" view):
+  // Netflix-style episode list (the episode section is list-only and numbers episodes "01, 02..." itself):
   // big Bebas episode number, wide still with a gold progress bar, title, 2-line synopsis, runtime.
-  // List view only (SleekFin's grid view and its grid/list buttons are removed).
-
-  // ── Settings ──
-  var DEFAULT_VIEW = "list";      // "list" or "grid"
-  var KEY = "tbEpisodeView";
-
-  // List view only: the grid/list buttons are removed, so the list is all there is.
-  function pref() { return "list"; }
-
-  function viewButton(section, view) {
-    var b = section.querySelector('.sleekfin-details-view-controls [data-view="' + view + '"]');
-    if (b) return b;
-    var all = section.querySelectorAll(".sleekfin-details-view-controls button");
-    return all.length === 2 ? all[view === "grid" ? 0 : 1] : null;
-  }
-
-  function scan() {
-    var sections = document.querySelectorAll(".sleekfin-details-episodes");
-    for (var i = 0; i < sections.length; i++) {
-      var sec = sections[i];
-      var list = sec.querySelector(".sleekfin-details-episode-list");
-      if (!list) continue;
-      // open in the preferred view once per show page
-      if (!sec.getAttribute("data-tb-view")) {
-        sec.setAttribute("data-tb-view", "1");
-        var want = pref();
-        if (list.getAttribute("data-view") !== want) {
-          var b = viewButton(sec, want);
-          if (b) b.click();
-        }
-      }
-      // "E3" -> "03" for the big number
-      var nums = list.querySelectorAll(".sleekfin-details-episode-number");
-      for (var j = 0; j < nums.length; j++) {
-        var m = /(\d+)/.exec(nums[j].textContent || "");
-        var v = m ? (m[1].length < 2 ? "0" + m[1] : m[1]) : "";
-        if (nums[j].getAttribute("data-tb-num") !== v) nums[j].setAttribute("data-tb-num", v);
-      }
-    }
-  }
-
-
-  // Open new episode sections in the preferred view straight away (inside the page watcher, i.e. before
-  // the browser paints), so SleekFin's grid never shows first when you prefer the list.
-  function quickView() {
-    var fresh = document.querySelectorAll(".sleekfin-details-episodes:not([data-tb-view])");
-    for (var i = 0; i < fresh.length; i++) {
-      var sec = fresh[i], list = sec.querySelector(".sleekfin-details-episode-list");
-      if (!list) continue;
-      var want = pref(), b = list.getAttribute("data-view") !== want ? viewButton(sec, want) : null;
-      if (list.getAttribute("data-view") !== want && !b) {
-        // buttons not there yet; never leave the episodes hidden if they don't appear
-        if (!sec.__tbWait) sec.__tbWait = setTimeout(function (s) { return function () { s.setAttribute("data-tb-view", "1"); }; }(sec), 1500);
-        continue;
-      }
-      sec.setAttribute("data-tb-view", "1");
-      if (b) b.click();
-    }
-  }
-  document.documentElement.classList.toggle("tb-ep-list", pref() === "list");
-
-  var queued = false;
-  function schedule() {
-    if (queued) return;
-    queued = true;
-    setTimeout(function () { requestAnimationFrame(function () { queued = false; scan(); }); }, 120);
-  }
-  tbWatch(function () { quickView(); schedule(); });
-  quickView();
-  schedule();
-
   // ── Styles (list view only; grid view stays SleekFin's) ──
   var L = "html .sleekfin-details-episode-list[data-view='list']:not(#tb-x)";
   var E = L + " .sleekfin-details-episode";
@@ -99,9 +8,6 @@
   var PLAY = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b0b0b' d='M8 5.5v13l11-6.5z'/%3E%3C/svg%3E\")";
   var css = [
     // while you prefer the list: SleekFin's first (grid) render stays invisible until it switches
-    "html.tb-ep-list .sleekfin-details-episodes:not([data-tb-view]) .sleekfin-details-episode-list[data-view='grid'] { visibility: hidden !important; }",
-    // no grid view: its buttons and its row arrows are gone
-    ".sleekfin-details-episodes .sleekfin-details-view-controls, .sleekfin-details-episodes .sleekfin-details-episode-scroll-buttons { display: none !important; }",
     L + " { gap: 0 !important; margin-top: 14px !important; }",
 
     /* row */
@@ -150,8 +56,6 @@
     "  -webkit-backdrop-filter: none !important; backdrop-filter: none !important;",
     "  font-family: var(--title-font, 'Bebas Neue', sans-serif) !important; font-size: 46px !important; line-height: 1 !important;",
     "  letter-spacing: 0.02em; color: rgba(255,255,255,0.38) !important; }",
-    E + "-number[data-tb-num] { font-size: 0 !important; }",
-    E + "-number[data-tb-num]::after { content: attr(data-tb-num); font-size: 46px; }",
     E + ".card:has(.itemProgressBar) .sleekfin-details-episode-number { color: " + ACC + " !important; }",
 
     /* text */
@@ -185,7 +89,6 @@
     "  " + E + "-action > img { height: auto !important; }",
     "  " + E + " .innerCardFooter { grid-row: 2; }",
     "  " + E + "-number { grid-row: 1 / span 2; font-size: 28px !important; }",
-    "  " + E + "-number[data-tb-num]::after { font-size: 28px; }",
     "  " + E + "-title.cardText { font-size: 15px !important; white-space: normal !important; display: -webkit-box !important;",
     "    -webkit-line-clamp: 2; -webkit-box-orient: vertical; }",
     "  " + E + "-overview { display: -webkit-box !important; grid-area: ov; margin-top: 8px !important; font-size: 13px !important; }",

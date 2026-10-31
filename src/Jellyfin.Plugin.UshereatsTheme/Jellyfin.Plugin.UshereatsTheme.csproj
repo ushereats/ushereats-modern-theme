@@ -28,6 +28,8 @@
     <EmbeddedResource Include="Assets\*" LogicalName="%(Filename)%(Extension)" />
     <None Remove="Configuration\configPage.html" />
     <EmbeddedResource Include="Configuration\configPage.html" LogicalName="configPage.html" />
+    <None Remove="Configuration\sleekPage.html" />
+    <EmbeddedResource Include="Configuration\sleekPage.html" LogicalName="sleekPage.html" />
   </ItemGroup>
 
 </Project>

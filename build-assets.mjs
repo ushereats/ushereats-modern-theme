@@ -62,6 +62,51 @@ console.log("css", css.length, "->", min.length);
 
 fs.copyFileSync(path.join(SRC, "splash.mp3"), path.join(OUT, "splash.mp3"));
 
+// ── SleekFin (MIT, varunaditya-plus), built into the plugin ──
+// Its frontend is built by sleekfin/build.js (esbuild + babel, same as SleekFin); needs `npm ci --prefix sleekfin` first.
+{
+  const SF = "sleekfin";
+  const { execFileSync } = await import("node:child_process");
+  execFileSync(process.execPath, ["build.js"], { cwd: SF, stdio: "inherit" });
+  for (const name of ["runtime", "theme", "header", "media", "details", "details-builder"]) {
+    fs.copyFileSync(path.join(SF, "build", "sleekfin-" + name + ".js"), path.join(OUT, "sleek_" + name.replace(/-/g, "_") + ".js"));
+  }
+  // details page "hide until built" script: inlined in the page head, so ES5 + minified
+  const boot = fs.readFileSync(path.join(SF, "Inject/Details/sleekfin-details-boot.js"), "utf8");
+  const bootMin = await minify(boot, { ecma: 5, compress: { passes: 2 }, mangle: true, format: { ascii_only: true, comments: false } });
+  if (!bootMin.code || bootMin.code.includes("</")) throw new Error("details boot minify failed");
+  fs.writeFileSync(path.join(OUT, "sleek_details_boot.js"), bootMin.code);
+
+  // all of SleekFin's styles in SleekFin's own order, in one file (prepended to theme.css by the plugin).
+  // Left out: Jellyfin Enhanced styles (not installed).
+  const ORDER = [
+    "Theme/sleekfin-fonts.css", "Theme/sleekfin-tokens.css", "Theme/sleekfin-foundation.css",
+    "Components/sleekfin-control-surface.css", "Components/sleekfin-dialog.css", "Components/sleekfin-button.css",
+    "Components/sleekfin-section-heading.css", "Components/sleekfin-fact.css", "Components/sleekfin-meta.css",
+    "Header/sleekfin-header-shared.css", "Header/sleekfin-header-brand.css", "Header/sleekfin-header-modern.css", "Header/sleekfin-header-legacy.css",
+    "Hero/sleekfin-hero.css", "Hero/sleekfin-hero-slide.css", "Hero/sleekfin-hero-carousel.css",
+    "Media/sleekfin-media.css", "Media/sleekfin-media-metadata.css",
+    "Details/sleekfin-details.css", "Details/sleekfin-details-hero.css", "Details/sleekfin-details-actions.css",
+    "Details/sleekfin-details-sections.css", "Details/sleekfin-details-similar.css", "Details/sleekfin-details-episodes.css",
+    "Details/sleekfin-details-dropdown.css", "Details/sleekfin-details-track-picker.css",
+    "Components/sleekfin-card.css"
+  ];
+  let all = "";
+  for (const f of ORDER) all += stripCss(fs.readFileSync(path.join(SF, "Inject", f), "utf8")) + "\n";
+  all = all.replace(/url\("fonts\/(inter-[a-z-]+\.woff2)"\)/g, 'url("font/$1?v=__TB_FONT_V__")');
+  fs.writeFileSync(path.join(OUT, "sleek.css"), all);
+  console.log("css sleekfin", all.length);
+  // single files the SleekFin settings page loads by name (details builder preview)
+  for (const dir of ["Configuration", "Details", "Components", "Theme", "Header", "Hero", "Media"]) {
+    for (const f of fs.readdirSync(path.join(SF, "Inject", dir)).filter((f) => f.endsWith(".css"))) {
+      fs.writeFileSync(path.join(OUT, "sleekcss_" + f.slice(9).replace(/-/g, "_")), stripCss(fs.readFileSync(path.join(SF, "Inject", dir, f), "utf8")));
+    }
+  }
+  for (const f of fs.readdirSync(path.join(SF, "Inject/Fonts")).filter((f) => f.endsWith(".woff2"))) {
+    fs.copyFileSync(path.join(SF, "Inject/Fonts", f), path.join(OUT, "font_" + f.replace(/-/g, "_")));
+  }
+}
+
 // Fonts: self-hosted woff2 (Funnel Sans variable + Bebas Neue, latin + latin-ext), SIL OFL
 for (const f of fs.readdirSync(path.join(SRC, "fonts")).filter((f) => f.endsWith(".woff2"))) {
   fs.copyFileSync(path.join(SRC, "fonts", f), path.join(OUT, "font_" + f.replace(/-/g, "_")));

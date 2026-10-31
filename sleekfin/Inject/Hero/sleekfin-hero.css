@@ -1,0 +1,116 @@
+#indexPage.homePage.libraryPage:has(.sleekfin-hero),
+html:is(.sleekfin-hero-boot-loading, .sleekfin-hero-loading) #indexPage.homePage.libraryPage {
+    background: var(--sleekfin-background);
+    /* Jellyfin's wide absolute-tab rule might load after Modern home override. */
+    padding-top: 0 !important;
+}
+
+/* MediaBar sets its duplicate carousel inline, so hide it while SleekFin owns the home hero. */
+html.sleekfin-hero-mounted #slides-container {
+    display: none !important;
+}
+
+.sleekfin-hero + .sections.homeSectionsContainer {
+    margin-top: 0;
+}
+
+html:is(.sleekfin-hero-boot-loading, .sleekfin-hero-loading) #indexPage #homeTab.is-active > .sections::before {
+    animation: sleekfin-skeleton-pulse 1.4s ease-in-out infinite alternate;
+    background:
+        linear-gradient(var(--sleekfin-skeleton-line-strong, rgba(226, 229, 234, 0.28)) 0 0) var(--sleekfin-page-gutter) calc(100% - 244px) / min(340px, 52vw) 76px no-repeat,
+        linear-gradient(var(--sleekfin-skeleton-line, rgba(211, 215, 221, 0.16)) 0 0) var(--sleekfin-page-gutter) calc(100% - 150px) / min(430px, 68vw) 14px no-repeat,
+        linear-gradient(var(--sleekfin-skeleton-line, rgba(211, 215, 221, 0.16)) 0 0) var(--sleekfin-page-gutter) calc(100% - 122px) / min(360px, 58vw) 14px no-repeat,
+        linear-gradient(var(--sleekfin-skeleton-line-strong, rgba(226, 229, 234, 0.28)) 0 0) var(--sleekfin-page-gutter) calc(100% - 70px) / 120px 40px no-repeat,
+        linear-gradient(115deg, var(--sleekfin-surface, #101113) 15%, var(--sleekfin-surface-raised, #1a1c20) 42%, var(--sleekfin-surface, #101113) 70%);
+    content: "";
+    display: block;
+    height: var(--sleekfin-hero-mobile-height, 70vh);
+    min-height: min(420px, var(--sleekfin-hero-mobile-height, 70vh));
+}
+
+.sleekfin-hero {
+    background: var(--sleekfin-background);
+    box-sizing: border-box;
+    color: #fff;
+    font-family: var(--sleekfin-font-family);
+    height: var(--sleekfin-hero-mobile-height, 70vh);
+    margin-top: 0;
+    min-height: min(420px, var(--sleekfin-hero-mobile-height, 70vh));
+    overflow: hidden;
+    position: relative;
+    touch-action: auto;
+    width: 100%;
+}
+
+.sleekfin-hero[data-swipe-enabled="true"] {
+    touch-action: pan-y;
+}
+
+.sleekfin-hero::before,
+.sleekfin-hero::after {
+    content: "";
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 320ms ease;
+    z-index: 2;
+}
+
+.sleekfin-hero::before {
+    background:
+        linear-gradient(var(--sleekfin-skeleton-line-strong, rgba(226, 229, 234, 0.28)) 0 0) var(--sleekfin-page-gutter) calc(100% - 244px) / min(340px, 52vw) 76px no-repeat,
+        linear-gradient(var(--sleekfin-skeleton-line, rgba(211, 215, 221, 0.16)) 0 0) var(--sleekfin-page-gutter) calc(100% - 150px) / min(430px, 68vw) 14px no-repeat,
+        linear-gradient(var(--sleekfin-skeleton-line, rgba(211, 215, 221, 0.16)) 0 0) var(--sleekfin-page-gutter) calc(100% - 122px) / min(360px, 58vw) 14px no-repeat,
+        linear-gradient(var(--sleekfin-skeleton-line-strong, rgba(226, 229, 234, 0.28)) 0 0) var(--sleekfin-page-gutter) calc(100% - 70px) / 120px 40px no-repeat,
+        linear-gradient(115deg, var(--sleekfin-surface, #101113) 15%, var(--sleekfin-surface-raised, #1a1c20) 42%, var(--sleekfin-surface, #101113) 70%);
+}
+
+.sleekfin-hero::after {
+    animation: sleekfin-skeleton-shimmer 1.6s linear infinite;
+    background: linear-gradient(105deg, transparent 35%, var(--sleekfin-skeleton-shimmer, rgba(226, 229, 234, 0.1)) 50%, transparent 65%);
+    transform: translateX(-100%);
+}
+
+.sleekfin-hero[data-state="loading"]::before,
+.sleekfin-hero[data-state="loading"]::after {
+    opacity: 1;
+}
+
+@keyframes sleekfin-skeleton-pulse {
+    from {
+        opacity: 0.62;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes sleekfin-skeleton-shimmer {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+html:is(.sleekfin-header-boot-loading, .sleekfin-header-loading) .sleekfin-hero,
+html.sleekfin-header-mounted .sleekfin-hero {
+    margin-top: calc(-1 * var(--sleekfin-header-height));
+}
+
+/* Modern reserves the measured AppBar height, which can exceed the configured header height. */
+html:is(.sleekfin-hero-boot-loading, .sleekfin-hero-loading, .sleekfin-hero-mounted):is(.sleekfin-header-boot-loading, .sleekfin-header-loading, .sleekfin-header-mounted) header.MuiAppBar-root + div[aria-hidden="true"] {
+    height: 0 !important;
+}
+
+html:is(.sleekfin-header-boot-loading, .sleekfin-header-loading, .sleekfin-header-mounted) header.MuiAppBar-root ~ main .sleekfin-hero {
+    margin-top: 0;
+}
+
+@media (min-width: 768px) {
+    html:is(.sleekfin-hero-boot-loading, .sleekfin-hero-loading) #indexPage #homeTab.is-active > .sections::before,
+    .sleekfin-hero {
+        height: var(--sleekfin-hero-desktop-height, 85vh);
+        min-height: min(420px, var(--sleekfin-hero-desktop-height, 85vh));
+    }
+}

@@ -83,24 +83,12 @@ html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] {
     background: var(--sleekfin-background) !important;
     box-sizing: border-box;
     color: var(--sleekfin-text);
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
     height: 100% !important;
     overflow-x: hidden;
     padding-bottom: 0 !important;
     padding-top: 0 !important;
-    scrollbar-color: rgba(255, 255, 255, 0.45) transparent;
     top: 0 !important;
-}
-
-html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details]::-webkit-scrollbar {
-    background: transparent;
-    height: 5px;
-    width: 5px;
-}
-
-html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details]::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.45);
-    border-radius: 6px;
 }
 
 /* The hero consumes its own height in page flow, so lower sections start below it without a spacer. */

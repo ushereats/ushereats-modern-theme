@@ -68,6 +68,8 @@ public sealed class SleekConfiguration
 
     public int HeaderLogoHeight { get; set; } = HeaderConfiguration.DefaultLogoHeight;
 
+    public int HeaderDesktopLogoHeight { get; set; } = HeaderConfiguration.DefaultDesktopLogoHeight;
+
     public string HeaderServerNameColor { get; set; } = HeaderConfiguration.DefaultServerNameColor;
 
     public int HeaderBrandSpacing { get; set; } = HeaderConfiguration.DefaultBrandSpacing;

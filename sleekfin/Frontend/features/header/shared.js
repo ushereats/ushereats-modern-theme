@@ -66,8 +66,15 @@ export function setStyle(mount, element, name, value, priority) {
   }
 }
 
+// PCs (900px+, not TV) use the desktop logo size; phones/tablets/TV use the normal one.
+function logoHeightFor(settings) {
+  const wide = typeof window.matchMedia === 'function' ? window.matchMedia('(min-width: 900px)').matches : window.innerWidth >= 900;
+  return wide && !isTvLayout() ? settings.desktopLogoHeight : settings.logoHeight;
+}
+
 export function applySettings(mount, settings) {
   const root = document.documentElement;
+  const logoHeight = logoHeightFor(settings);
   const variables = {
     '--sleekfin-header-active-background': settings.activeItemBackgroundColor,
     '--sleekfin-header-active-opacity': String(settings.activeItemOpacity / 100),
@@ -75,19 +82,20 @@ export function applySettings(mount, settings) {
     '--sleekfin-header-bar-padding': `${settings.barPadding}px`,
     '--sleekfin-header-bar-top': `${(settings.height - settings.itemHeight - 2 * settings.barPadding) / 2}px`,
     '--sleekfin-header-brand-gap': `${settings.brandSpacing}px`,
-    '--sleekfin-header-brand-top': `${(settings.height - settings.logoHeight) / 2}px`,
+    '--sleekfin-header-brand-top': `${(settings.height - logoHeight) / 2}px`,
     '--sleekfin-header-height': `${settings.height}px`,
     '--sleekfin-header-hover-opacity': String(settings.hoverOpacity / 100),
     '--sleekfin-header-item-background': settings.itemBackgroundColor,
     '--sleekfin-header-item-height': `${settings.itemHeight}px`,
     '--sleekfin-header-item-spacing': `${settings.itemSpacing}px`,
     '--sleekfin-header-item-text': settings.itemTextColor,
-    '--sleekfin-header-logo-height': `${settings.logoHeight}px`,
+    '--sleekfin-header-logo-height': `${logoHeight}px`,
     '--sleekfin-header-name-color': settings.serverNameColor,
   };
 
   Object.keys(variables).forEach((name) => setStyle(mount, root, name, variables[name]));
   mark(mount, root, 'data-sleekfin-header-bar-position', settings.barPosition.toLowerCase());
+  mark(mount, root, 'data-sleekfin-header-layout', layoutMode());
   mark(mount, root, 'data-sleekfin-header-brand-display', settings.brandDisplay.toLowerCase());
   mark(mount, root, 'data-sleekfin-header-brand-position', settings.brandPosition.toLowerCase());
 }

@@ -3,7 +3,11 @@ html.sleekfin-header-mounted .sleekfin-header-fallback-brand {
     align-items: center;
     color: var(--sleekfin-header-name-color);
     display: flex;
-    font: 600 14px/1 var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    font-family: var(--app-font);
     gap: var(--sleekfin-header-brand-gap);
     height: var(--sleekfin-header-logo-height);
     max-width: 32vw;
@@ -25,7 +29,11 @@ html.sleekfin-header-mounted [data-sleekfin-header-brand] {
     border-radius: 8px !important;
     color: var(--sleekfin-header-name-color) !important;
     display: flex !important;
-    font: 600 14px/1 var(--sleekfin-font-family) !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
+    font-family: var(--app-font) !important;
     gap: var(--sleekfin-header-brand-gap) !important;
     height: var(--sleekfin-header-logo-height) !important;
     margin: 0 !important;
@@ -38,6 +46,23 @@ html.sleekfin-header-mounted [data-sleekfin-header-brand] {
     top: var(--sleekfin-header-brand-top) !important;
     white-space: nowrap;
     z-index: 2;
+}
+
+/* PC layout: the brand is a 40px round glass button (same look as the library toolbar buttons) */
+html.sleekfin-header-mounted[data-sleekfin-header-layout="desktop"] [data-sleekfin-header-brand] {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    border-radius: 50% !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    height: 40px !important;
+    transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease !important;
+    width: 40px;
+}
+
+html.sleekfin-header-mounted[data-sleekfin-header-layout="desktop"] [data-sleekfin-header-brand]:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
 }
 
 html.sleekfin-header-mounted .sleekfin-header-fallback-brand {

@@ -31,7 +31,11 @@ html.sleekfin-details-mounted #similarCollapsible :is(.cardText-secondary, .blur
 
 html.sleekfin-details-mounted #similarCollapsible .cardText {
     color: var(--sleekfin-text);
-    font: 500 13px/1.375 var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.375;
+    font-family: var(--app-font);
     padding: 10px 2px 0;
     text-align: start !important;
 }

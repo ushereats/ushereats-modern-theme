@@ -139,7 +139,7 @@ html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] .detailVert
 
 html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] .detailVerticalSection .cardText {
     color: var(--sleekfin-text);
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
 }
 
 html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] .detailVerticalSection .cardText-secondary {
@@ -153,10 +153,6 @@ html.sleekfin-details-mounted :is(#castCollapsible, #similarCollapsible) > [is="
 
 html.sleekfin-details-mounted :is(#castCollapsible, #similarCollapsible) > [is="emby-scroller"]:not(.scrollX) {
     overflow-x: hidden;
-}
-
-html.sleekfin-details-mounted :is(#castCollapsible, #similarCollapsible) > .emby-scrollbuttons {
-    padding-right: 0 !important;
 }
 
 html.sleekfin-details-mounted #castCollapsible #castContent {
@@ -189,7 +185,11 @@ html.sleekfin-details-mounted #castCollapsible .cardOverlayContainer {
 }
 
 html.sleekfin-details-mounted #castCollapsible .cardText {
-    font: 500 13px/18px var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 18px;
+    font-family: var(--app-font);
     padding: 6px 0 0;
     text-align: start !important;
 }

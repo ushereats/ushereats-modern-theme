@@ -41,6 +41,7 @@ export const DEFAULT_SETTINGS = Object.freeze({
   itemSpacing: 2,
   itemTextColor: 'rgba(255, 255, 255, 0.7)',
   logoHeight: 36,
+  desktopLogoHeight: 40,
   serverNameColor: '#FFFFFF',
 });
 
@@ -100,9 +101,11 @@ export function normalizeSettings(value) {
     itemSpacing: number(source.itemSpacing, 0, 48, DEFAULT_SETTINGS.itemSpacing),
     itemTextColor: color(source.itemTextColor, DEFAULT_SETTINGS.itemTextColor),
     logoHeight: number(source.logoHeight, 16, 96, DEFAULT_SETTINGS.logoHeight),
+    desktopLogoHeight: number(source.desktopLogoHeight, 16, 96, DEFAULT_SETTINGS.desktopLogoHeight),
     serverNameColor: color(source.serverNameColor, DEFAULT_SETTINGS.serverNameColor),
   };
   settings.logoHeight = Math.min(settings.logoHeight, settings.height);
+  settings.desktopLogoHeight = Math.min(settings.desktopLogoHeight, settings.height);
   settings.itemHeight = Math.min(settings.itemHeight, settings.height);
   settings.barPadding = Math.min(settings.barPadding, Math.floor((settings.height - settings.itemHeight) / 2));
   return settings;

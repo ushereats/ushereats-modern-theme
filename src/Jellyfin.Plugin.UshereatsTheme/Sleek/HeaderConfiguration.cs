@@ -9,6 +9,7 @@ internal static class HeaderConfiguration
     public const string DefaultBarPosition = "Right";
     public const int DefaultHeight = 80;
     public const int DefaultLogoHeight = 36;
+    public const int DefaultDesktopLogoHeight = 40;
     public const string DefaultServerNameColor = "#FFFFFF";
     public const int DefaultBrandSpacing = 10;
     public const int DefaultItemSpacing = 2;
@@ -54,6 +55,7 @@ internal static class HeaderConfiguration
         configuration.HeaderBarPosition = NormalizeOption(configuration.HeaderBarPosition, Positions, DefaultBarPosition);
         configuration.HeaderHeight = Math.Clamp(configuration.HeaderHeight, 48, 160);
         configuration.HeaderLogoHeight = Math.Clamp(configuration.HeaderLogoHeight, 16, Math.Min(96, configuration.HeaderHeight));
+        configuration.HeaderDesktopLogoHeight = Math.Clamp(configuration.HeaderDesktopLogoHeight <= 0 ? DefaultDesktopLogoHeight : configuration.HeaderDesktopLogoHeight, 16, Math.Min(96, configuration.HeaderHeight));
         configuration.HeaderServerNameColor = NormalizeColor(configuration.HeaderServerNameColor, DefaultServerNameColor);
         configuration.HeaderBrandSpacing = Math.Clamp(configuration.HeaderBrandSpacing, 0, 64);
         configuration.HeaderItemSpacing = Math.Clamp(configuration.HeaderItemSpacing, 0, 48);

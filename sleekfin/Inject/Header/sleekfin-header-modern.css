@@ -142,7 +142,11 @@ html.sleekfin-header-mounted [data-sleekfin-header-link] {
     box-shadow: none !important;
     color: rgba(255, 255, 255, 0.75) !important;
     display: inline-flex !important;
-    font: 500 13px/1 var(--sleekfin-font-family) !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+    font-family: var(--app-font) !important;
     gap: 6px !important;
     height: var(--sleekfin-header-item-height) !important;
     letter-spacing: 0 !important;
@@ -162,17 +166,38 @@ html.sleekfin-header-mounted [data-sleekfin-header-link]:not([data-sleekfin-curr
     opacity: 1;
 }
 
-/* current page: accent pill */
+/* PC layout: round glass links (same look as the library toolbar buttons) */
+html.sleekfin-header-mounted[data-sleekfin-header-layout="desktop"] [data-sleekfin-header-link] {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    border-radius: 50% !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    height: 40px !important;
+    padding: 0 !important;
+    transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease !important;
+}
+
+html.sleekfin-header-mounted[data-sleekfin-header-layout="desktop"] [data-sleekfin-header-link]:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+}
+
+/* current page */
 html.sleekfin-header-mounted [data-sleekfin-header-link][data-sleekfin-current="true"] {
-    background: var(--sleekfin-accent) !important;
-    border-radius: 999px !important;
     box-shadow: 0 6px 18px -6px rgba(var(--tb-accent-rgb), 0.6) !important;
-    color: #111 !important;
     font-weight: 600 !important;
     opacity: 1;
 }
 
-html.sleekfin-header-mounted [data-sleekfin-header-link][data-sleekfin-current="true"] svg {
+/* phone/tablet layout: current page is an accent pill */
+html.sleekfin-header-mounted:not([data-sleekfin-header-layout="desktop"]) [data-sleekfin-header-link][data-sleekfin-current="true"] {
+    background: var(--sleekfin-accent) !important;
+    border-radius: 999px !important;
+    color: #111 !important;
+}
+
+html.sleekfin-header-mounted:not([data-sleekfin-header-layout="desktop"]) [data-sleekfin-header-link][data-sleekfin-current="true"] svg {
     color: #111 !important;
     fill: currentColor;
 }

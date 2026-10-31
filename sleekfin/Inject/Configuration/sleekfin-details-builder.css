@@ -101,7 +101,7 @@
 .sleekfin-details-builder-preview,
 .sleekfin-details-builder-palette,
 .sleekfin-details-drag-ghost {
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
 }
 
 .sleekfin-details-builder .sleekfin-details-preview .sleekfin-details-stack > .mainDetailButtons {
@@ -185,7 +185,6 @@
 }
 .sleekfin-details-builder {
     --sleekfin-background: #000;
-    --sleekfin-font-family: Inter, "Noto Sans", sans-serif;
     --sleekfin-muted: #969aa1;
     --sleekfin-surface: #101113;
     --sleekfin-text: #f1f2f4;

@@ -79,6 +79,15 @@ function metadataElement(card, source) {
   return element;
 }
 
+// Ushereats: rows that show titles (Continue Watching) show only "S1 · E1" for episodes, the year for films.
+function shortFacts(mediaItem, type, original) {
+  if (type === 'Episode' && mediaItem?.ParentIndexNumber != null && mediaItem?.IndexNumber != null) {
+    return [{ text: `S${mediaItem.ParentIndexNumber} \u00b7 E${mediaItem.IndexNumber}` }];
+  }
+  const year = /^\d{4}(?:\s*-\s*(?:\d{4}|Present))?$/.test(original) ? original : item.year(mediaItem);
+  return year ? [{ text: String(year).slice(0, 4) }] : [];
+}
+
 export function renderMetadata(card, mediaItem) {
   const type = mediaItem?.Type || card.dataset.type || '';
   if (!item.typeLabel(type) || type === 'CollectionFolder') {
@@ -90,5 +99,6 @@ export function renderMetadata(card, mediaItem) {
   const element = metadataElement(card, source);
   if (!dom.isConnected(element)) return;
 
-  render(<Meta values={facts(mediaItem, type, source?.textContent.trim() || '')} />, element);
+  const original = source?.textContent.trim() || '';
+  render(<Meta values={card.closest('.show-card-titles') ? shortFacts(mediaItem, type, original) : facts(mediaItem, type, original)} />, element);
 }

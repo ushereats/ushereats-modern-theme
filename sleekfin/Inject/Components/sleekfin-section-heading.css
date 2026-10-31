@@ -21,7 +21,12 @@
 
 .sleekfin-section-title {
     color: var(--sleekfin-text);
-    font: 600 20px/28px var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.05;
+    font-family: var(--title-font);
+    letter-spacing: -0.025em;
     margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -33,15 +38,18 @@
     -webkit-line-clamp: 2;
     color: var(--sleekfin-muted);
     display: -webkit-box;
-    font: 400 13px/19.5px var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 19.5px;
+    font-family: var(--app-font);
     margin: 2px 0 0;
     overflow: hidden;
 }
 
 @media (min-width: 768px) {
     .sleekfin-section-title {
-        font-size: 24px;
-        line-height: 32px;
+        font-size: 36px;
     }
 
     .sleekfin-section-subtitle {

@@ -10,7 +10,7 @@ html.sleekfin-main-ui #streaming-settings-modal > div {
     border-radius: 16px !important;
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55) !important;
     color: var(--sleekfin-text) !important;
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
 }
 
 html.sleekfin-main-ui .dialog:not(.actionSheet, .je-launcher-panel),
@@ -115,7 +115,11 @@ html.sleekfin-main-ui .dialog.sleekfin-more-menu {
     border: var(--sleekfin-glass-border) !important;
     border-radius: 12px !important;
     flex-direction: column;
-    font: 500 13px/1 var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1;
+    font-family: var(--app-font);
     height: auto;
     min-width: 200px;
     width: max-content;
@@ -131,12 +135,7 @@ html.sleekfin-main-ui .sleekfin-more-menu .actionSheetScroller {
     gap: 2px;
     max-height: none;
     max-width: none;
-    scrollbar-width: none;
     width: 100%;
-}
-
-html.sleekfin-main-ui .sleekfin-more-menu .actionSheetScroller::-webkit-scrollbar {
-    display: none;
 }
 
 html.sleekfin-main-ui .sleekfin-more-menu .actionSheetMenuItem {

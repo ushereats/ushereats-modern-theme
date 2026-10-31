@@ -24,7 +24,7 @@ html.sleekfin-main-ui .dialog.sleekfin-details-track-dialog,
 
 html.sleekfin-main-ui .sleekfin-details-track-dialog :not(.material-icons),
 .sleekfin-details-preview .sleekfin-details-track-dialog :not(.material-icons) {
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
 }
 
 .sleekfin-details-track-header {
@@ -266,9 +266,12 @@ html.sleekfin-main-ui .sleekfin-details-info-metadata .streaming-lookup-containe
     border-radius: 12px;
     box-sizing: border-box;
     color: var(--sleekfin-text);
-    cursor: pointer;
     display: flex;
-    font: 500 13px/18px var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 18px;
+    font-family: var(--app-font);
     gap: 10px;
     height: 40px;
     margin: 0;
@@ -292,7 +295,6 @@ html.sleekfin-main-ui .sleekfin-details-info-metadata .streaming-lookup-containe
 }
 
 .sleekfin-details-track-trigger:disabled {
-    cursor: default;
 }
 
 .sleekfin-details-track-native:disabled ~ .sleekfin-details-track {

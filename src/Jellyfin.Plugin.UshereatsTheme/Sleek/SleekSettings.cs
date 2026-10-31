@@ -16,6 +16,7 @@ public static class SleekSettings
             barPosition = c.HeaderBarPosition,
             height = c.HeaderHeight,
             logoHeight = c.HeaderLogoHeight,
+            desktopLogoHeight = c.HeaderDesktopLogoHeight,
             serverNameColor = c.HeaderServerNameColor,
             brandSpacing = c.HeaderBrandSpacing,
             itemSpacing = c.HeaderItemSpacing,

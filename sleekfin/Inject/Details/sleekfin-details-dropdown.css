@@ -16,14 +16,9 @@
     padding: 6px;
     pointer-events: auto;
     position: fixed;
-    scrollbar-width: none;
     touch-action: manipulation;
     width: max-content;
     z-index: 20;
-}
-
-.sleekfin-details-dropdown-menu::-webkit-scrollbar {
-    display: none;
 }
 
 .sleekfin-details-dropdown-option {
@@ -31,10 +26,13 @@
     border-radius: 8px;
     box-sizing: border-box;
     color: var(--sleekfin-header-item-text, rgba(255, 255, 255, 0.7));
-    cursor: pointer;
     display: flex;
     flex: 0 0 auto;
-    font: 500 13px/1 var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1;
+    font-family: var(--app-font);
     min-height: 38px;
     overflow: hidden;
     padding: 0 10px;

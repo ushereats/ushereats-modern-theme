@@ -2,7 +2,7 @@ html.sleekfin-main-ui #jellyfin-enhanced-panel {
     background: var(--sleekfin-surface) !important;
     border-color: var(--sleekfin-border) !important;
     color: var(--sleekfin-text) !important;
-    font-family: var(--sleekfin-font-family) !important;
+    font-family: var(--app-font) !important;
 }
 
 html.sleekfin-main-ui #jellyfin-enhanced-panel .panel-header {
@@ -102,7 +102,7 @@ html.sleekfin-main-ui #jellyfin-enhanced-panel .je-pane[data-pane="about"] a[hre
 
 html.sleekfin-main-ui .je-activity-feed {
     color: var(--sleekfin-text);
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
 }
 
 html.sleekfin-main-ui .je-activity-feed :is(.je-activity-title, .je-activity-section-header, .je-activity-line) {
@@ -141,7 +141,7 @@ html.sleekfin-main-ui .je-activity-feed .je-activity-refresh-btn:hover {
 
 html.sleekfin-main-ui :is(.je-hidden-content-page, .je-hidden-management-overlay, .je-hide-confirm-dialog) {
     color: var(--sleekfin-text);
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
 }
 
 html.sleekfin-main-ui :is(.je-hidden-management-header, .je-hidden-management-toolbar, .je-hidden-group-section-title, .je-hidden-group-item, .je-hidden-section-header) {
@@ -203,13 +203,13 @@ html.sleekfin-main-ui .jellyfin-enhanced-toast {
     background: var(--sleekfin-surface) !important;
     border: 1px solid var(--sleekfin-border) !important;
     color: var(--sleekfin-text) !important;
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
     text-shadow: none !important;
 }
 
 html.sleekfin-main-ui :is(.je-bookmarks-wrapper, .je-bm-library-modal-container, .je-bm-player-modal-container) {
     color: var(--sleekfin-text);
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
 }
 
 html.sleekfin-main-ui :is(.je-bookmark-tabs, .je-bookmark-hero, .je-bookmark-actions-footer, .je-bookmark-list-header, .je-bookmark-modal-actions) {
@@ -283,7 +283,7 @@ html.sleekfin-main-ui .je-calendar-page {
     --je-gray: var(--sleekfin-surface);
     --je-gray-hover: var(--sleekfin-surface-raised);
     color: var(--sleekfin-text);
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
 }
 
 html.sleekfin-main-ui .je-calendar-page :is(.je-calendar-title, .je-calendar-card-title, .je-calendar-event-title) {
@@ -325,7 +325,7 @@ html.sleekfin-main-ui .je-calendar-page .je-calendar-day.je-calendar-today :is(.
 
 html.sleekfin-main-ui .je-downloads-page {
     color: var(--sleekfin-text);
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
 }
 
 html.sleekfin-main-ui .je-downloads-page :is(.je-download-card, .je-request-card, .je-issue-card) {
@@ -358,7 +358,7 @@ html.sleekfin-main-ui :is(.jellyseerr-hover-popover, .jellyseerr-4k-popup) {
     background: var(--sleekfin-surface) !important;
     border: 1px solid var(--sleekfin-border);
     color: var(--sleekfin-text);
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
 }
 
 html.sleekfin-main-ui :is(.jellyseerr-season-header-row, .jellyseerr-season-item, .jellyseerr-collection-header-row, .jellyseerr-collection-movie-row, .jellyseerr-inline-progress, .jellyseerr-quota-chip:not(.jellyseerr-quota-chip-warning):not(.jellyseerr-quota-chip-restricted), .je-more-info-modal .stat-item) {
@@ -479,7 +479,7 @@ html.sleekfin-main-ui .je-review-textarea:focus {
 
 html.sleekfin-main-ui .streaming-lookup-container {
     color: var(--sleekfin-text);
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
 }
 
 html.sleekfin-main-ui .streaming-lookup-container > div:not(#streaming-result-container),

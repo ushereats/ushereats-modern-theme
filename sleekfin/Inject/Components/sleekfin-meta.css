@@ -2,7 +2,11 @@
     align-items: center;
     color: var(--sleekfin-muted);
     display: flex;
-    font: 400 11px/1 var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1;
+    font-family: var(--app-font);
     gap: 6px;
     overflow: hidden;
     white-space: nowrap;
@@ -28,7 +32,16 @@
 }
 
 .sleekfin-meta-accent {
-    color: rgba(220, 38, 38, 0.8);
+    color: var(--sleekfin-accent);
+}
+
+/* Continue Watching: the "S1 · E1" / year line */
+.show-card-titles .sleekfin-meta-content {
+    color: rgba(255, 255, 255, 0.55);
+    font-family: var(--app-font, Inter, sans-serif);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
 }
 
 .sleekfin-meta-content > .sleekfin-icon {

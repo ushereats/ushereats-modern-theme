@@ -1,14 +1,15 @@
 html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) {
     background: var(--sleekfin-background) !important;
     color: var(--sleekfin-text);
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
 }
 
 html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .padded-left {
     padding-inline-start: var(--sleekfin-page-gutter) !important;
 }
 
-html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .padded-right {
+/* (row arrows are not padded: they sit at the screen edges) */
+html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .padded-right:not(.emby-scrollbuttons) {
     padding-inline-end: var(--sleekfin-page-gutter) !important;
 }
 
@@ -29,20 +30,15 @@ html.sleekfin-media-mounted.sleekfin-header-mounted [data-sleekfin-header="moder
 html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root {
     box-sizing: border-box;
     color: var(--sleekfin-text);
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
     min-height: 48px;
     padding-inline: var(--sleekfin-page-gutter) !important;
     pointer-events: auto;
 }
 
 html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root > button:first-child {
-    background: transparent;
     border-radius: 8px;
-    color: var(--sleekfin-text);
     gap: 10px;
-    min-width: 0;
-    padding: 4px 6px 4px 0;
-    text-transform: none;
 }
 
 html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root > button:first-child::before,
@@ -56,59 +52,33 @@ html.sleekfin-media-mounted :is(#indexPage, #searchPage, [data-seerrfin-modern-p
     min-height: 1.15em;
 }
 
-html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root > button:first-child .MuiTypography-root,
+/* Row titles: Bebas, bold, tight (all-caps by design) */
 html.sleekfin-media-mounted :is(#indexPage, #searchPage, [data-seerrfin-modern-panel]) .sectionTitle.sectionTitle-cards {
-    font: 600 24px/32px var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.05;
+    font-family: var(--title-font);
+    letter-spacing: -0.025em;
+}
+
+@media (min-width: 768px) {
+    html.sleekfin-media-mounted :is(#indexPage, #searchPage, [data-seerrfin-modern-panel]) .sectionTitle.sectionTitle-cards {
+        font-size: 36px;
+    }
+}
+
+/* Search keeps its headings in the normal font */
+html.sleekfin-media-mounted #searchPage .sectionTitle.sectionTitle-cards {
+    font-family: var(--app-font);
 }
 
 html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root > button:first-child .MuiButton-endIcon {
-    color: var(--sleekfin-muted);
     margin-left: -4px;
 }
 
-html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiChip-root {
-    background: var(--sleekfin-surface-raised);
-    border: 1px solid var(--sleekfin-border);
-    color: var(--sleekfin-muted);
-    font: 500 11px/1 var(--sleekfin-font-family);
-    height: 24px;
-}
-
-html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButtonGroup-root {
+html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButtonGroup-root:not(.MuiButtonGroup-contained) {
     border-radius: 8px;
-}
-
-html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-root {
-    border-color: var(--sleekfin-border);
-    font: 500 13px/1 var(--sleekfin-font-family);
-    text-transform: none;
-    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
-}
-
-html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-contained {
-    background: var(--sleekfin-text);
-    color: var(--sleekfin-background);
-}
-
-html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-contained:hover {
-    background: #fff;
-}
-
-html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-text {
-    color: var(--sleekfin-muted);
-}
-
-html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-text:hover {
-    background: var(--sleekfin-surface-raised);
-    color: var(--sleekfin-text);
-}
-
-@media (max-width: 599px) {
-    html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root > button:first-child .MuiTypography-root,
-    html.sleekfin-media-mounted :is(#indexPage, #searchPage, [data-seerrfin-modern-panel]) .sectionTitle.sectionTitle-cards {
-        font-size: 20px;
-        line-height: 28px;
-    }
 }
 
 html.sleekfin-media-mounted :is(#indexPage, #searchPage, [data-seerrfin-modern-panel]) .verticalSection {
@@ -200,7 +170,11 @@ html.sleekfin-media-mounted #indexPage .homeLibraryButton {
     border-radius: 10px;
     box-shadow: none;
     color: var(--sleekfin-text);
-    font: 500 13px/1 var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1;
+    font-family: var(--app-font);
     transition: background-color 180ms ease, border-color 180ms ease;
 }
 
@@ -212,6 +186,17 @@ html.sleekfin-media-mounted #indexPage .homeLibraryButton:hover {
 html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .cardBox {
     margin: 0 !important;
     margin-inline-end: 12px !important;
+}
+
+/* Top 10: room for the big number before each poster (cards have no padding: the
+   row scroller skips card padding when it lines cards up) */
+#indexPage .ranked-list .itemsContainer > .card .cardBox {
+    margin-inline-end: calc(var(--rank-gap) + 12px) !important;
+    margin-inline-start: var(--rank-num) !important;
+    margin-top: 0 !important;
+    overflow: visible !important;
+    position: relative;
+    width: auto !important;
 }
 
 html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .card.backdropCard,
@@ -284,7 +269,11 @@ html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecomm
 
 html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .cardText {
     color: var(--sleekfin-text);
-    font: 500 13px/1.375 var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.375;
+    font-family: var(--app-font);
     letter-spacing: 0;
 }
 
@@ -314,7 +303,7 @@ html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecomm
     color: var(--sleekfin-accent);
 }
 
-html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .innerCardFooter {
+html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .innerCardFooter:not(.show-card-titles .innerCardFooter) {
     -webkit-backdrop-filter: blur(12px) saturate(120%);
     backdrop-filter: blur(12px) saturate(120%);
     background: rgba(0, 0, 0, 0.78);
@@ -324,12 +313,12 @@ html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecomm
     padding: 8px 10px;
 }
 
-html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .itemProgressBar {
+html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .itemProgressBar:not(.show-card-titles .itemProgressBar) {
     background: rgba(150, 154, 161, 0.28);
     height: 3px;
 }
 
-html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .itemProgressBarForeground {
+html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .itemProgressBarForeground:not(.show-card-titles .itemProgressBarForeground) {
     background: var(--sleekfin-accent) !important;
 }
 
@@ -353,4 +342,50 @@ html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecomm
     html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .cardBox.cardBox-bottompadded {
         margin-bottom: 24px !important;
     }
+}
+
+/* ════════ Home layout (not on TV: remote focus zoom needs the room) ════════ */
+html:not(.layout-tv) {
+    --tb-lift: clamp(40px, 9vh, 100px); /* how far the first row rises into the banner */
+}
+
+@media (max-width: 767px) {
+    html:not(.layout-tv) {
+        --tb-lift: 40px;
+    }
+}
+
+html:not(.layout-tv) #indexPage .homeSectionsContainer > .verticalSection {
+    margin-bottom: 18px;
+}
+
+/* titles under posters only on rows that show them (Continue Watching) */
+html:not(.layout-tv) #indexPage .verticalSection:not(.show-card-titles) .cardBox.cardBox-bottompadded {
+    margin-bottom: 4px !important;
+}
+
+html:not(.layout-tv) #indexPage .verticalSection.show-card-titles .cardBox.cardBox-bottompadded {
+    margin-bottom: 14px !important;
+}
+
+/* room above for the poster shadow, below so the hover pop isn't clipped */
+html:not(.layout-tv) #indexPage .homeSectionsContainer .emby-scroller {
+    padding-bottom: 18px !important;
+    padding-top: 14px !important;
+}
+
+html:not(.layout-tv) #indexPage .sectionTitleContainer {
+    margin-bottom: 6px !important;
+}
+
+/* rows rise over the bottom of the banner */
+html:not(.layout-tv) #indexPage .sleekfin-hero ~ .homeSectionsContainer {
+    margin-top: calc(-1 * var(--tb-lift)) !important;
+    pointer-events: none; /* the empty top of the rows must not block the banner */
+    position: relative;
+    z-index: 2;
+}
+
+html:not(.layout-tv) #indexPage .sleekfin-hero ~ .homeSectionsContainer > * {
+    pointer-events: auto;
 }

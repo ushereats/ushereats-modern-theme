@@ -10,7 +10,7 @@ html.sleekfin-main-ui #je-active-streams-panel {
     border-radius: 12px;
     box-shadow: var(--sleekfin-glass-shadow);
     color: var(--sleekfin-text);
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
     gap: 12px;
     padding: 16px;
 }
@@ -108,7 +108,7 @@ html.sleekfin-main-ui #je-active-streams-panel .je-as-user {
 html.sleekfin-main-ui #je-active-streams-panel .je-as-state,
 html.sleekfin-main-ui #je-active-streams-panel .je-as-badge {
     border-radius: 5px;
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
     letter-spacing: 0;
 }
 
@@ -163,7 +163,7 @@ html.sleekfin-main-ui #je-active-streams-panel :is(.je-as-broadcast-input, .je-a
     border: 1px solid var(--sleekfin-border);
     border-radius: 8px;
     color: var(--sleekfin-text);
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
     font-size: 12px;
 }
 
@@ -192,7 +192,7 @@ html.sleekfin-main-ui #je-active-streams-panel .je-as-broadcast-field-note {
 
 html.sleekfin-main-ui #je-active-streams-panel :is(.je-as-broadcast-send, .je-as-broadcast-cancel) {
     border-radius: 999px;
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
     font-weight: 600;
 }
 

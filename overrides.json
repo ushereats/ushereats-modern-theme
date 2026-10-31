@@ -1,0 +1,8 @@
+{
+ "html body #loginPage .checkboxIcon\n   vs html.sleekfin-main-ui :is(.playstatebutton-played, .ratingbutton-withrating):not(:disabled) :is(.playstatebutton-icon-played, .ratingbutton-icon-withrating), html.sleekfin-main-ui .emby-checkbox:checked:not(:disabled) + ": {
+  "props": "color",
+  "pages": [
+   "desktop-login"
+  ]
+ }
+}

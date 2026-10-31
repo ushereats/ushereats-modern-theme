@@ -1,0 +1,26 @@
+{
+  "errors": {},
+  "nativeHome": {
+    "nativeRequests": 0,
+    "nativeSectionsShown": 10,
+    "browserSees": "none"
+  },
+  "serverPrefsAfterSave": {
+    "homesection0": null,
+    "probe": "1"
+  },
+  "logoHeader": {
+    "status": 200,
+    "sized": "sized"
+  },
+  "avatar": true,
+  "menuHead": true,
+  "settingsSave": {
+    "title": "CI saved",
+    "rowsKept": false,
+    "accentKept": true,
+    "desktopLogo": 40,
+    "sleekKept": true
+  },
+  "playingReport": 204
+}

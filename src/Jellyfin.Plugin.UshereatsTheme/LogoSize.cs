@@ -41,6 +41,11 @@ public static partial class LogoSize
     [GeneratedRegex(@"/Items/[^/]+/Images/Logo(/\d+)?/?$", RegexOptions.IgnoreCase)]
     private static partial Regex LogoPath();
 
+    // the dashboard's Libraries page asks for each library's picture at 1024 px (~700 KB each) and shows it
+    // a few hundred pixels wide
+    [GeneratedRegex(@"/Items/[^/]+/Images/Primary/?$", RegexOptions.IgnoreCase)]
+    private static partial Regex PrimaryPath();
+
     private static readonly string[] SizeKeys = { "maxWidth", "maxHeight", "width", "height", "fillWidth", "fillHeight" };
 
     public static void Apply(HttpContext context)
@@ -52,6 +57,22 @@ public static partial class LogoSize
         }
 
         string path = (request.PathBase.Value ?? string.Empty) + (request.Path.Value ?? string.Empty);
+        if (request.Query.Count == 1 && string.Equals(request.Query["maxWidth"], "1024", StringComparison.Ordinal) && PrimaryPath().IsMatch(path))
+        {
+            request.QueryString = new QueryString("?maxWidth=720&quality=82");
+            context.Response.OnStarting(() =>
+            {
+                context.Response.Headers["X-Ushereats-Logo"] = "sized";
+                if (context.Response.StatusCode == 200)
+                {
+                    context.Response.Headers.CacheControl = "private, max-age=3600";
+                }
+
+                return Task.CompletedTask;
+            });
+            return;
+        }
+
         if (!LogoPath().IsMatch(path))
         {
             return;

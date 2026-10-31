@@ -5625,6 +5625,16 @@
         (r.pages || []).forEach(function (p) { if (p.addedToHead && p.addedToHead.length) { var n = parseInt(p.addedToHead[0], 10); if (n > 30) flags.push("CHURN: " + p.page + " adds to the page head: " + p.addedToHead[0]); } });
         if (r.state && r.state.tasksRunning.length) flags.push("Tasks running during the test: " + r.state.tasksRunning.join(", "));
         if (r.state && r.state.playing.some(function (p) { return p.transcode; })) flags.push("Someone is transcoding during the test");
+        var pb = r.server && r.server.playback;
+        if (pb && pb.reports) {
+          var slowPb = pb.reports.filter(function (x) { return x.maxMs > 1000 && !/Progress/i.test(x.route); });
+          if (slowPb.length) {
+            var who = {};
+            (pb.listeners || []).forEach(function (l) { if (/^plugin: /.test(l.by) && /Playback|PlaybackStart|PlaybackStopped/.test(l.event)) who[l.by.slice(8)] = 1; });
+            flags.push("SLOW PLAY/STOP: " + slowPb.map(function (x) { return x.route + " up to " + x.maxMs + " ms (avg " + x.avgMs + ")"; }).join("; ") +
+              (Object.keys(who).length ? " - plugins that run on play/stop: " + Object.keys(who).join(", ") : ""));
+          }
+        }
         return flags.length ? flags : ["Nothing slow found"];
       }
 
@@ -5670,14 +5680,16 @@
           return framePages(sample, series, targets).then(function (p) { report.pages = p.pages; report.afterPages = p.after; });
         }).then(function () {
           // what the server did during the test: slowest kinds of request (Jellyfin's and every plugin's), CPU, memory
-          return Promise.all([meter("/Routes"), meter("/Process"), tasks()]).then(function (r) {
+          return Promise.all([meter("/Routes"), meter("/Process"), tasks(), meter("/Playback")]).then(function (r) {
             var routes = (r[0] || []).map(function (x) { x.who = whoRoute(x.route); return x; });
             report.server = {
               process: r[1],
               slowestTotal: routes.slice(0, 25),
               slowestSingle: routes.slice().sort(function (a, b) { return b.maxMs - a.maxMs; }).slice(0, 15),
               byWho: byWho(routes),
-              tasks: r[2]
+              tasks: r[2],
+              // pressing play / stop: how long the server took to answer (since it started) and who runs then
+              playback: r[3]
             };
           });
         }).catch(function (e) {

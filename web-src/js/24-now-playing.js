@@ -249,9 +249,19 @@
       prefs[k] = !prefs[k];
       savePrefs();
       applyPrefs(r);
+      rememberHeight();
     });
     applyPrefs(r);
+    // keeps the height it had last time until the first list arrives (nothing below it moves)
+    try { var h = parseInt(localStorage.getItem("tb-np-h"), 10); if (h > 24) r.style.minHeight = (h - 24) + "px"; } catch (e) {}
     return r;
+  }
+  // remembered for the next visit: the main theme keeps this much room for the panel from the first frame
+  function rememberHeight() {
+    if (!root || !root.isConnected) return;
+    var h = Math.round(root.getBoundingClientRect().height) + 24;
+    try { localStorage.setItem("tb-np-h", String(h)); } catch (e) {}
+    document.documentElement.style.setProperty("--tb-np-h", h + "px");
   }
   function applyPrefs(r) {
     ["compact", "collapsed", "show"].forEach(function (k) {
@@ -291,6 +301,8 @@
       if (counts) counts.innerHTML = "<span><b>" + list.length + "</b>Active streams</span><span><b>" + (c.dp + c.ds + c.rm) + "</b>Direct</span><span><b>" + c.tc + "</b>Transcoding</span>";
       var html = list.length ? cards.join("") : '<div class="np-empty">Nothing is playing right now.</div>';
       if (html !== lastHtml) { root.querySelector(".np-grid").innerHTML = html; lastHtml = html; }
+      if (root.style.minHeight) root.style.minHeight = "";
+      rememberHeight();
     }).catch(function () {}).then(function () { busy = false; });
   }
 

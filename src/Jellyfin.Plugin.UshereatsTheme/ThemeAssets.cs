@@ -305,9 +305,21 @@ public static class ThemeAssets
         if (dashboardOn)
         {
             // dashboard skin / Now Playing are only downloaded the first time you open the admin dashboard
-            js.Append("(function(){if(!document.body)return;var done=false,mo;function c(){if(done||!document.body.classList.contains(\"dashboardDocument\"))return;done=true;mo.disconnect();var s=document.createElement(\"script\");s.src=\"../UshereatsTheme/dashboard.js?v=")
+            // Admins who have opened it before get it downloaded (not run) while the browser is idle, so it opens
+            // at once; the Now Playing panel's space is kept from the first frame (its last height), so the
+            // dashboard's own boxes don't get pushed down when it appears.
+            js.Append("(function(){if(!document.body)return;var u=\"../UshereatsTheme/dashboard.js?v=")
               .Append(dashboard.Hash)
-              .Append("\";document.head.appendChild(s)}mo=new MutationObserver(c);mo.observe(document.body,{attributes:true,attributeFilter:[\"class\"]});c()})();\n");
+              .Append("\",done=false,mo,seen=false;try{seen=!!localStorage.getItem(\"tb-dash\")}catch(e){}");
+            if (config.NowPlaying)
+            {
+                js.Append("try{var nh=parseInt(localStorage.getItem(\"tb-np-h\"),10);if(nh>0)document.documentElement.style.setProperty(\"--tb-np-h\",nh+\"px\")}catch(e){}"
+                    + "var ph=document.createElement(\"style\");ph.textContent=\"body.dashboardDocument #dashboardPage:not(.hide) .content-primary:not(:has(> #tb-np))::before{content:'';display:block;height:var(--tb-np-h,0px)}\";document.head.appendChild(ph);");
+            }
+
+            js.Append("function c(){if(done||!document.body.classList.contains(\"dashboardDocument\"))return;done=true;mo.disconnect();try{localStorage.setItem(\"tb-dash\",\"1\")}catch(e){}var s=document.createElement(\"script\");s.src=u;document.head.appendChild(s)}mo=new MutationObserver(c);mo.observe(document.body,{attributes:true,attributeFilter:[\"class\"]});c();"
+                + "if(seen&&!done){var pf=function(){if(done)return;var l=document.createElement(\"link\");l.rel=\"prefetch\";l.as=\"script\";l.href=u;document.head.appendChild(l)};var go=function(){setTimeout(function(){(window.requestIdleCallback||setTimeout)(pf,{timeout:4000})},2500)};if(document.readyState===\"complete\")go();else window.addEventListener(\"load\",go)}"
+                + "})();\n");
         }
 
         // Parts that aren't needed to draw the first page: downloaded when the browser is idle after the page

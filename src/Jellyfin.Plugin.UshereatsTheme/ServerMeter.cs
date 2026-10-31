@@ -24,6 +24,9 @@ public static partial class ServerMeter
     private static readonly object s_lock = new();
 
     private static readonly ConcurrentDictionary<string, RouteStat> s_routes = new(StringComparer.Ordinal);
+
+    // playback reports (start / progress / stop), kept since the server started (never reset)
+    private static readonly ConcurrentDictionary<string, RouteStat> s_playback = new(StringComparer.Ordinal);
     private static readonly Stopwatch s_clock = Stopwatch.StartNew();
 
     [GeneratedRegex(@"[0-9a-fA-F]{32}|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}")]
@@ -103,6 +106,38 @@ public static partial class ServerMeter
 
     public static void ResetRoutes() => s_routes.Clear();
 
+    /// <summary>Playback reports since the server started (how long each kind took).</summary>
+    public static object Playback() => Table(s_playback);
+
+    private static object Table(ConcurrentDictionary<string, RouteStat> table)
+    {
+        return table
+            .Select(kv => new
+            {
+                route = kv.Key,
+                count = kv.Value.Count,
+                avgMs = kv.Value.Count == 0 ? 0 : kv.Value.TotalMs / kv.Value.Count,
+                maxMs = kv.Value.MaxMs,
+                totalMs = kv.Value.TotalMs
+            })
+            .OrderByDescending(r => r.maxMs)
+            .ToArray();
+    }
+
+    private static void Record(ConcurrentDictionary<string, RouteStat> table, string route, long ms, long bytes)
+    {
+        RouteStat stat = table.GetOrAdd(route, _ => new RouteStat());
+        Interlocked.Increment(ref stat.Count);
+        Interlocked.Add(ref stat.TotalMs, ms);
+        Interlocked.Add(ref stat.Bytes, bytes);
+        long max;
+        do
+        {
+            max = Interlocked.Read(ref stat.MaxMs);
+        }
+        while (ms > max && Interlocked.CompareExchange(ref stat.MaxMs, ms, max) != max);
+    }
+
     private static string RouteOf(HttpContext context)
     {
         string path = context.Request.Path.Value ?? "/";
@@ -148,16 +183,12 @@ public static partial class ServerMeter
             if (!stream)
             {
                 long ms = s_clock.ElapsedMilliseconds - start;
-                RouteStat stat = s_routes.GetOrAdd(RouteOf(context), _ => new RouteStat());
-                Interlocked.Increment(ref stat.Count);
-                Interlocked.Add(ref stat.TotalMs, ms);
-                Interlocked.Add(ref stat.Bytes, counting?.Sent ?? 0);
-                long max;
-                do
+                string route = RouteOf(context);
+                Record(s_routes, route, ms, counting?.Sent ?? 0);
+                if (route.Contains("/Sessions/Playing", StringComparison.OrdinalIgnoreCase))
                 {
-                    max = Interlocked.Read(ref stat.MaxMs);
+                    Record(s_playback, route, ms, 0);
                 }
-                while (ms > max && Interlocked.CompareExchange(ref stat.MaxMs, ms, max) != max);
             }
         }
     }

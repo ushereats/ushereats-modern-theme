@@ -175,6 +175,38 @@ for (const [vw, vh, tag] of [[1920, 1080, "desktop"], [390, 844, "phone"]]) {
       report.avatar = !!av;
       if (av) { await av.click(); await page.waitForTimeout(800); await page.screenshot({ path: `${out}/desktop-usermenu.png`, animations: "disabled", caret: "hide" }); report.menuHead = !!(await page.$("#app-user-menu .tb-um-head")); await page.keyboard.press("Escape"); await page.waitForTimeout(400); }
     }
+    if (name === "home" && tag === "desktop") {
+      // details page -> logo (top left) / Back: does any frame show a details page in Jellyfin's own look?
+      const leave = async (how, noFix) => {
+        await page.goto(s.server + "/web/index.html#/home", { waitUntil: "load" });
+        await page.waitForTimeout(2500);
+        await page.evaluate((nf) => { window.__tbNoHomeFix = nf; }, noFix);
+        await page.evaluate((h) => { location.hash = h; }, `#/details?id=${movies[2].Id}&serverId=${s.serverId}`);
+        await page.waitForFunction(() => document.querySelector("#itemDetailPage[data-sleekfin-details='true']") && !document.documentElement.classList.contains("sleekfin-details-concealed"), null, { timeout: 15000 }).catch(() => {});
+        await page.waitForTimeout(800);
+        await page.evaluate(() => {
+          window.__bad = []; window.__frames = 0; const t0 = performance.now();
+          const tick = () => {
+            window.__frames++;
+            const html = document.documentElement;
+            document.querySelectorAll("#itemDetailPage").forEach((p) => {
+              for (let n = p; n && n !== document.body; n = n.parentElement) if (n.classList.contains("hide")) return;
+              if (!p.getClientRects().length || getComputedStyle(p).visibility === "hidden") return;
+              if (p.dataset.sleekfinDetails !== "true") window.__bad.push(Math.round(performance.now() - t0) + "ms native-details" + (html.classList.contains("sleekfin-details-concealed") ? "(concealed?)" : ""));
+            });
+            if (performance.now() - t0 < 2500) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        });
+        if (how === "logo") {
+          const logo = await page.$("[data-sleekfin-header-brand], .sleekfin-header-fallback-brand, .headerHomeButton, a[href='#/']");
+          if (logo) await logo.click(); else return { error: "no logo link" };
+        } else await page.goBack();
+        await page.waitForTimeout(2700);
+        return page.evaluate(() => ({ badFrames: window.__bad.length, first: window.__bad.slice(0, 5), frames: window.__frames, hash: location.hash }));
+      };
+      report.leaveDetails = { logo: await leave("logo", false), logoWithoutFix: await leave("logo", true), back: await leave("back", false) };
+    }
     // first painted frames after a reload (header / hero / rows appearing)
     if (name === "home" || name === "episode") {
       await page.evaluate(() => { window.__f = []; });

@@ -175,7 +175,9 @@
 
   function mount() {
     var page = document.getElementById("searchPage");
-    if (!page || page.querySelector("#smart-search-wrapper") || !window.ApiClient) return;
+    if (!page || !window.ApiClient) return;
+    var have = page.querySelector("#smart-search-wrapper");
+    if (have) return;
     var fields = page.querySelector(".searchFields");
     if (!fields) return;
     var wrap = document.createElement("div");
@@ -222,11 +224,20 @@
     mode = GROUPS[hashParam("tbt")] ? hashParam("tbt") : "videos";
     setMode(mode, e);
     if (start) { input.value = start; run(start); }
+    // opened again with a different search in the link (?tbq=...): run that one
+    wrap.__tbFollow = function () {
+      var q = hashParam("tbq") || hashParam("query");
+      if (q && q !== input.value.trim()) { input.value = q; run(q); }
+    };
     if (!("ontouchstart" in window)) { try { input.focus({ preventScroll: true }); } catch (x) {} }
   }
 
   tbWatch(function () { if (/^#\/search/.test(location.hash)) mount(); });
-  window.addEventListener("hashchange", function () { if (/^#\/search/.test(location.hash)) mount(); });
+  window.addEventListener("hashchange", function () {
+    if (!/^#\/search/.test(location.hash)) return;
+    var have = document.querySelector("#searchPage #smart-search-wrapper");
+    if (have && have.__tbFollow) have.__tbFollow(); else mount();
+  });
 
   var st = document.createElement("style");
   st.id = "tb-search-style";

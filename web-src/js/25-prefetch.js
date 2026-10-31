@@ -42,6 +42,22 @@
     return open.apply(this, arguments);
   };
 
+  // ── the logo (top left) goes straight to home ──
+  // Its link is "/", which Jellyfin first opens as an empty page and only then sends on to home: in between
+  // the page you were on lost its styling for a moment (a details page flashed in Jellyfin's own look).
+  // Going to home directly is the same smooth change as the Back button.
+  document.addEventListener("click", function (e) {
+    if (window.__tbNoHomeFix || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var a = e.target && e.target.closest && e.target.closest("a[href]");
+    if (!a || a.target === "_blank") return;
+    var href = a.getAttribute("href") || "";
+    if (!/^(#!?\/|\/?(web\/)?(index\.html)?#!?\/|\/)$/.test(href)) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if (/^#\/home(\.html)?(\?|$)/.test(location.hash) && !/[?&]tab=/.test(location.hash)) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+    location.hash = "#/home";
+  }, true);
+
   // ── getting a title ready before it's clicked ──
   var warmed = {}, timer = 0;
   function warm(id) {

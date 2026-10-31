@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Real Jellyfin for visual tests (GitHub Actions, Ubuntu 24.04): Jellyfin + File Transformation + this plugin,
 # a fake library, a user with some watch progress, and the plugin's home rows pointed at that library.
-set -euo pipefail
+set -eo pipefail
 PLUGIN_ZIP="$1"             # the packaged plugin zip (dll + meta.json)
 J=http://localhost:8096
 AUTH='MediaBrowser Client="ci", Device="ci", DeviceId="ci-visual", Version="1.0"'
@@ -38,10 +38,16 @@ start() {
 }
 start
 
-api() { # method path [json]
-  local m=$1 p=$2 d=${3:-}
-  if [ -n "$d" ]; then curl -fsS -X "$m" "$J$p" -H "Authorization: $AUTH${TOKEN:+, Token=\"$TOKEN\"}" -H 'Content-Type: application/json' -d "$d"
-  else curl -fsS -X "$m" "$J$p" -H "Authorization: $AUTH${TOKEN:+, Token=\"$TOKEN\"}"; fi
+api() { # method path [json]   (retries while Jellyfin is (re)starting)
+  local m=$1 p=$2 d=${3:-} i rc out
+  for i in $(seq 1 90); do
+    if [ -n "$d" ]; then out=$(curl -sS -f -X "$m" "$J$p" -H "Authorization: $AUTH${TOKEN:+, Token=\"$TOKEN\"}" -H 'Content-Type: application/json' -d "$d" 2>&1); rc=$?
+    else out=$(curl -sS -f -X "$m" "$J$p" -H "Authorization: $AUTH${TOKEN:+, Token=\"$TOKEN\"}" 2>&1); rc=$?; fi
+    if [ $rc -eq 0 ]; then printf '%s' "$out"; return 0; fi
+    if [ $rc -ne 7 ] && [ $rc -ne 52 ] && [ $rc -ne 56 ] && ! echo "$out" | grep -q " 503"; then echo "API $m $p failed: $out" >&2; return $rc; fi
+    sleep 1
+  done
+  echo "API $m $p: server not reachable" >&2; return 7
 }
 
 echo "== wizard"

@@ -199,13 +199,16 @@ for (const [vw, vh, tag] of [[1920, 1080, "desktop"], [390, 844, "phone"]]) {
           requestAnimationFrame(tick);
         });
         if (how === "logo") {
-          const logo = await page.$("[data-sleekfin-header-brand], .sleekfin-header-fallback-brand, .headerHomeButton, a[href='#/']");
-          if (logo) await logo.click(); else return { error: "no logo link" };
+          const logo = page.locator("[data-sleekfin-header-brand]:visible, .sleekfin-header-fallback-brand:visible, a[href='#/']:visible").first();
+          if (!(await logo.count())) return { error: "no logo link" };
+          var clicked = await logo.evaluate((e) => e.outerHTML.slice(0, 200));
+          await logo.click({ timeout: 5000 }).catch((e) => { clicked += " CLICK FAILED " + String(e.message).slice(0, 100); });
         } else await page.goBack();
         await page.waitForTimeout(2700);
-        return page.evaluate(() => ({ badFrames: window.__bad.length, first: window.__bad.slice(0, 5), frames: window.__frames, hash: location.hash }));
+        return page.evaluate((c) => ({ badFrames: window.__bad.length, first: window.__bad.slice(0, 5), frames: window.__frames, hash: location.hash, clicked: c }), typeof clicked === "undefined" ? null : clicked);
       };
-      report.leaveDetails = { logo: await leave("logo", false), logoWithoutFix: await leave("logo", true), back: await leave("back", false) };
+      const safe = (p) => p.catch((e) => ({ error: String(e.message).slice(0, 200) }));
+      report.leaveDetails = { logo: await safe(leave("logo", false)), logoWithoutFix: await safe(leave("logo", true)), back: await safe(leave("back", false)) };
     }
     // first painted frames after a reload (header / hero / rows appearing)
     if (name === "home" || name === "episode") {

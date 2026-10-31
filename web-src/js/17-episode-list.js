@@ -75,7 +75,23 @@
       view = all[0] === b ? "grid" : "list";
     }
     try { localStorage.setItem(KEY, view); } catch (err) {}
+    document.documentElement.classList.toggle("tb-ep-list", view === "list");
   }, true);
+
+  // Open new episode sections in the preferred view straight away (inside the page watcher, i.e. before
+  // the browser paints), so SleekFin's grid never shows first when you prefer the list.
+  function quickView() {
+    var fresh = document.querySelectorAll(".sleekfin-details-episodes:not([data-tb-view])");
+    for (var i = 0; i < fresh.length; i++) {
+      var sec = fresh[i], list = sec.querySelector(".sleekfin-details-episode-list");
+      if (!list) continue;
+      var want = pref(), b = list.getAttribute("data-view") !== want ? viewButton(sec, want) : null;
+      if (list.getAttribute("data-view") !== want && !b) continue;   // buttons not there yet
+      sec.setAttribute("data-tb-view", "1");
+      if (b) b.click();
+    }
+  }
+  document.documentElement.classList.toggle("tb-ep-list", pref() === "list");
 
   var queued = false;
   function schedule() {
@@ -83,7 +99,8 @@
     queued = true;
     setTimeout(function () { requestAnimationFrame(function () { queued = false; scan(); }); }, 120);
   }
-  tbWatch(schedule);
+  tbWatch(function () { quickView(); schedule(); });
+  quickView();
   schedule();
 
   // ── Styles (list view only; grid view stays SleekFin's) ──
@@ -92,6 +109,8 @@
   var ACC = "var(--sleekfin-accent, rgb(233, 196, 106))";
   var PLAY = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b0b0b' d='M8 5.5v13l11-6.5z'/%3E%3C/svg%3E\")";
   var css = [
+    // while you prefer the list: SleekFin's first (grid) render stays invisible until it switches
+    "html.tb-ep-list .sleekfin-details-episodes:not([data-tb-view]) .sleekfin-details-episode-list[data-view='grid'] { visibility: hidden !important; }",
     L + " { gap: 0 !important; margin-top: 14px !important; }",
 
     /* row */

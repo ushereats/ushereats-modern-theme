@@ -3,8 +3,13 @@
   // Updates when the page loads, when you come back to the home page, or back to the tab.
   // No background timers.
 
+  // last known numbers, so the line shows instantly on the next page load (then gets updated)
   var counts = null;
   var active = null;                  // null = unknown / not allowed
+  try {
+    var saved = JSON.parse(localStorage.getItem("tbStats") || "null");
+    if (saved && saved.c) { counts = saved.c; active = saved.a == null ? null : saved.a; }
+  } catch (e) {}
   var countsAt = 0;
   var stale = true;
   var busy = false;
@@ -74,7 +79,11 @@
         active = (sessions || []).filter(function (s) { return s.NowPlayingItem; }).length;
       })
       .catch(function () { active = null; })
-      .then(function () { busy = false; render(); });
+      .then(function () {
+        busy = false;
+        if (counts) { try { localStorage.setItem("tbStats", JSON.stringify({ c: { MovieCount: counts.MovieCount, SeriesCount: counts.SeriesCount, EpisodeCount: counts.EpisodeCount }, a: active })); } catch (e) {} }
+        render();
+      });
   }
 
   var wasHome = false;

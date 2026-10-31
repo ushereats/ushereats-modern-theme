@@ -122,7 +122,7 @@
     ic.innerHTML = cardsHtml(r, items);
     var want = items.length ? "" : "none";
     if (sec.style.display !== want) sec.style.display = want;
-    if (attached) { C.upgrade(ic); C.refreshScroller(sec); }
+    if (attached) { C.upgrade(ic); C.refreshScroller(sec); C.decorate(); }
     C.load(sec);
   }
 
@@ -133,7 +133,11 @@
     root = document.createElement("div");
     root.className = "sections homeSectionsContainer tb-rows-c";
     rows.forEach(function (r) {
-      var cls = "tb-row" + (r.ranked ? " ranked-list" : "") + (r.type === "studios" ? " tb-studios" : "") + (r.cls ? " " + String(r.cls).replace(/[^\w -]/g, "") : "");
+      var titles = r.titles != null ? r.titles : r.type === "continue";
+      var t0 = String(r.title || "").toLowerCase();
+      var noPop = r.type === "continue" || r.type === "trending" || /^(continue watching|next up|trending this week|latest releases)/.test(t0);
+      var cls = "tb-row" + (titles && r.type !== "studios" ? " show-card-titles" : "") + (noPop ? " no-hover-pop" : "") + (r.ranked ? " ranked-list" : "") +
+        (r.type === "studios" ? " tb-studios" : "") + (r.cls ? " " + String(r.cls).replace(/[^\w -]/g, "") : "");
       var sec = C.frag(C.section({ title: r.title, hideTitle: r.hideTitle || r.type === "studios", more: r.more, cls: cls, attrs: ' data-tb-row="' + C.esc(r.id) + '"' }));
       sec.style.display = "none";
       sections[r.id] = sec;
@@ -190,6 +194,7 @@
     s.tab.insertBefore(root, s.native.nextSibling);
     everPlaced = true;
     C.upgrade(root);
+    C.decorate();
   }
 
   var started = false, retryAt = 0;

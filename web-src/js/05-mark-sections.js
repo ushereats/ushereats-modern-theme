@@ -19,33 +19,7 @@
       if (!mo) { mo = new MutationObserver(fire); mo.observe(document.documentElement, { childList: true, subtree: true }); }
     };
   })());
-  var SHOW_TITLES = ["continue watching & next up", "continue watching", "next up"];
-  var NO_POP = ["continue watching & next up", "continue watching", "next up", "trending this week", "latest releases"];
-
-  function mark() {
-    document.querySelectorAll(".sectionTitleContainer").forEach(function (header) {
-      var btn = header.querySelector(".sectionTitleTextButton, .sectionTitle");
-      if (!btn) return;
-      var section = header.parentElement;
-      if (!section) return;
-      var text = btn.textContent.replace(/\s+/g, " ").trim().toLowerCase();
-      // already handled this row with this title: only new cards need their "S1 · E1" line
-      if (section.__tbMarked === text) {
-        if (section.classList.contains("show-card-titles")) formatEpisodeMeta(section);
-        return;
-      }
-      section.__tbMarked = text;
-      var matches = function (list) {
-        return list.some(function (t) { return text.indexOf(t) === 0; });
-      };
-      if (matches(SHOW_TITLES)) {
-        section.classList.add("show-card-titles");
-        formatEpisodeMeta(section);
-      }
-      if (matches(NO_POP)) section.classList.add("no-hover-pop");
-    });
-    watchScrollers();
-  }
+  function mark() { watchScrollers(); }
 
   // Arrow positions only change when a row's size changes -> measure then, not on every DOM change
   var ro = typeof window.ResizeObserver === "function"
@@ -106,55 +80,6 @@
       root.classList.remove("is-scrolling");
     }, 120);
   }, { passive: true, capture: true });
-
-  // "S1:E1  Episode" -> "S1 · E1"   (movies -> year)
-  // Re-checked whenever the card's own text changes; never leaves an empty line behind.
-  function formatEpisodeMeta(section) {
-    section.querySelectorAll(".sleekfin-meta").forEach(function (meta) {
-      var own = meta.querySelector(".tb-ep");
-      var src = "";
-      meta.childNodes.forEach(function (n) {
-        if (n !== own) src += " " + n.textContent;
-      });
-      var shown = own ? own.textContent : "";
-      if (meta.__tbSrc === src && meta.__tbLabel === shown && (shown || !own)) return;   // nothing changed
-      meta.__tbSrc = src;
-
-      var label = "";
-      var m = src.match(/S(\d+)\s*:\s*E(\d+)/i);
-      if (m) {
-        label = "S" + m[1] + " \u00b7 E" + m[2];        // episode
-      } else {
-        var y = src.match(/\b(19|20)\d{2}\b/);
-        label = y ? y[0] : "";                            // movie -> year
-      }
-      meta.__tbLabel = label;
-
-      if (!label) {
-        // nothing to show yet (SleekFin still loading the text): keep SleekFin's own line visible
-        if (own) own.parentNode.removeChild(own);
-        meta.classList.remove("tb-ep-meta");
-        meta.__tbLabel = "";
-        meta.setAttribute("data-tb-done", "");
-        return;
-      }
-      if (!own) {
-        own = document.createElement("span");
-        own.className = "tb-ep";
-        meta.appendChild(own);
-      }
-      own.textContent = label;
-      meta.classList.add("tb-ep-meta");
-      meta.setAttribute("data-tb-done", "");
-    });
-  }
-
-  // Safety net: SleekFin can change a card's text in place (no new elements), which the
-  // page watcher doesn't see. Re-check just the Continue Watching row every 2s on screen.
-  setInterval(function () {
-    if (document.hidden || (window.tbBusy && window.tbBusy())) return;
-    document.querySelectorAll(".show-card-titles").forEach(formatEpisodeMeta);
-  }, 2000);
 
   var queued = false;
   function scheduleMark() {

@@ -15,7 +15,6 @@ public class PluginConfiguration : BasePluginConfiguration
     public bool LibraryStats { get; set; } = true;
     public bool WelcomeSplash { get; set; } = true;
     public bool TimeRemaining { get; set; } = true;
-    public bool HeaderAvatar { get; set; } = true;
     public bool MarkSections { get; set; } = true;
     public bool ReleaseDates { get; set; } = true;
     public bool QualityBadges { get; set; } = true;
@@ -26,10 +25,7 @@ public class PluginConfiguration : BasePluginConfiguration
     public bool PlayerSkin { get; set; } = true;
     public bool LoginExtras { get; set; } = true;
     public bool PauseScreen { get; set; } = true;
-    public bool CustomIcon { get; set; } = true;
-    public bool AccentColour { get; set; } = true;
     public bool EpisodeList { get; set; } = true;
-    public bool UserMenu { get; set; } = true;
     public bool DashboardSkin { get; set; } = true;
 
     /// <summary>Instant home hero (replaces SleekFin's hero; switch SleekFin's hero off).</summary>
@@ -75,6 +71,4 @@ public class PluginConfiguration : BasePluginConfiguration
     /// </summary>
     public SleekConfiguration? Sleek { get; set; }
 
-    /// <summary>Extra CSS added after the theme (quick tweaks without rebuilding).</summary>
-    public string ExtraCss { get; set; } = string.Empty;
 }

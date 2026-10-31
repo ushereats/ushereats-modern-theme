@@ -83,7 +83,7 @@ fs.copyFileSync(path.join(SRC, "splash.mp3"), path.join(OUT, "splash.mp3"));
     "Theme/sleekfin-fonts.css", "Theme/sleekfin-tokens.css", "Theme/sleekfin-foundation.css",
     "Components/sleekfin-control-surface.css", "Components/sleekfin-dialog.css", "Components/sleekfin-button.css",
     "Components/sleekfin-section-heading.css", "Components/sleekfin-fact.css", "Components/sleekfin-meta.css",
-    "Header/sleekfin-header-shared.css", "Header/sleekfin-header-brand.css", "Header/sleekfin-header-modern.css", "Header/sleekfin-header-legacy.css",
+    "Header/sleekfin-header-shared.css", "Header/sleekfin-header-brand.css", "Header/sleekfin-header-modern.css", "Header/sleekfin-header-legacy.css", "Header/sleekfin-header-avatar.css",
     "Hero/sleekfin-hero.css", "Hero/sleekfin-hero-slide.css", "Hero/sleekfin-hero-carousel.css",
     "Media/sleekfin-media.css", "Media/sleekfin-media-metadata.css",
     "Details/sleekfin-details.css", "Details/sleekfin-details-hero.css", "Details/sleekfin-details-actions.css",

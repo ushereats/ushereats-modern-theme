@@ -1,3 +1,4 @@
+import { removeAvatar } from './avatar.js';
 import { dom } from '../../shared/runtime.js';
 import { createBrandController } from './FallbackBrand.jsx';
 import { appRoute, catalogDescriptors, catalogSignature, chromeSignature, cloneCatalogTemplate, cloneChromeTemplate, discoverHeaderChrome, discoverHeaderControls, isDashboardRoute } from './inventory.js';
@@ -258,6 +259,7 @@ function createHeaderFeature() {
   }
 
   function unmount() {
+    removeAvatar();
     cleanupMount();
     brand.removeFallback();
     document.documentElement.classList.remove(ROOT_CLASS);

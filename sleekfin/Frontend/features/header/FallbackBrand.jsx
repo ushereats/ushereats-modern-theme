@@ -10,6 +10,29 @@ function FallbackBrand({ imageSource, serverName }) {
   );
 }
 
+// Your own icon (plugin setting), if there is one
+function iconUrl() {
+  const url = window.__tbSleek?.icon;
+  return typeof url === 'string' && /^https?:\/\//i.test(url) ? url : '';
+}
+
+// Puts your icon in Jellyfin's brand link (in place of Jellyfin's logo), as the header is built
+export function applyIcon(nativeBrand) {
+  const url = iconUrl();
+  if (!url || !nativeBrand) return;
+  nativeBrand.querySelectorAll('img').forEach((image) => {
+    if (image.getAttribute('src') === url) return;
+    image.removeAttribute('srcset');
+    image.setAttribute('src', url);
+  });
+  nativeBrand.querySelectorAll('svg').forEach((svg) => {
+    const image = document.createElement('img');
+    image.alt = '';
+    image.src = url;
+    svg.replaceWith(image);
+  });
+}
+
 export function createBrandController(isActive) {
   const state = {
     fallback: null,
@@ -30,6 +53,7 @@ export function createBrandController(isActive) {
   }
 
   function findImageSource() {
+    if (iconUrl()) return iconUrl();
     const nativeImage = document.querySelector('a[href="#/"] img');
     if (nativeImage) return nativeImage.currentSrc || nativeImage.src;
 
@@ -94,6 +118,7 @@ export function createBrandController(isActive) {
   }
 
   function useNative(mount, nativeBrand) {
+    applyIcon(nativeBrand);
     readServerName(nativeBrand);
     mark(mount, nativeBrand, 'data-sleekfin-header-brand');
     removeFallback();

@@ -173,7 +173,11 @@ html.sleekfin-main-ui .card[data-type] button.cardOverlayButton > .MuiSvgIcon-co
 
 html.sleekfin-main-ui .card:is([data-type], .chapterCard):not(.sleekfin-details-episode) .cardText {
     color: var(--sleekfin-text);
-    font: 500 13px/1.375 var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.375;
+    font-family: var(--app-font);
 }
 
 html.sleekfin-main-ui .card[data-type]:not(.sleekfin-details-episode) .cardText-secondary {
@@ -213,6 +217,51 @@ html.sleekfin-main-ui .card[data-type] .itemLinearProgress .MuiLinearProgress-ba
 html.sleekfin-main-ui .card[data-type] .itemLinearProgress {
     background: rgba(150, 154, 161, 0.28);
     height: 3px;
+}
+
+/* Rows that show titles (Continue Watching): rounder cards, progress bar floating inside the thumbnail */
+html.sleekfin-main-ui .show-card-titles {
+    --sleekfin-card-radius: 12px;
+    --sleekfin-card-inner-radius: 12px;
+}
+
+html.sleekfin-main-ui .show-card-titles .card .innerCardFooter {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: none;
+    border-radius: 3px;
+    bottom: 10px !important;
+    left: 14px !important;
+    max-width: none !important;
+    overflow: visible !important;
+    right: 14px !important;
+    width: auto !important;
+    z-index: 3;
+}
+
+/* soft dark fade behind the bar (drawn by the bar's own box, so it can't cover the bar) */
+html.sleekfin-main-ui .show-card-titles .card .innerCardFooter::before {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
+    bottom: -10px;
+    content: "";
+    height: 70px;
+    left: -14px;
+    pointer-events: none;
+    position: absolute;
+    right: -14px;
+    z-index: -1;
+}
+
+html.sleekfin-main-ui .show-card-titles .card[data-type] :is(.itemProgressBar, .itemLinearProgress) {
+    background: rgba(255, 255, 255, 0.28);
+    border-radius: 3px;
+    height: 4px;
+    overflow: hidden;
+}
+
+html.sleekfin-main-ui .show-card-titles .card[data-type] :is(.itemProgressBarForeground, .itemLinearProgress .MuiLinearProgress-bar) {
+    border-radius: 3px;
+    height: 100%;
 }
 
 html.sleekfin-main-ui[data-sleekfin-cast-crew-shape="Circle"] .card:is(.personCard, [data-type="Person"]) .cardPadder {

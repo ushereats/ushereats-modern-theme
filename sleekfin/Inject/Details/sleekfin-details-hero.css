@@ -197,7 +197,11 @@ html.sleekfin-details-mounted.sleekfin-header-mounted [data-sleekfin-header-menu
 
 .sleekfin-details-hero .sleekfin-details-title :is(h1, .parentName) {
     color: var(--sleekfin-details-title-color, #fff);
-    font: var(--sleekfin-details-title-weight, 800) var(--sleekfin-details-title-size, 48px)/var(--sleekfin-details-title-line-height, 0.95) var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: var(--sleekfin-details-title-weight, 800);
+    font-size: var(--sleekfin-details-title-size, 48px);
+    line-height: var(--sleekfin-details-title-line-height, 0.95);
+    font-family: var(--app-font);
     letter-spacing: var(--sleekfin-details-title-letter-spacing, -0.03em);
     margin: 0;
     text-shadow: 0 3px 14px rgba(0, 0, 0, var(--sleekfin-details-title-shadow, 0.45));
@@ -214,7 +218,11 @@ html.sleekfin-details-mounted.sleekfin-header-mounted [data-sleekfin-header-menu
 .sleekfin-details-hero .sleekfin-details-child-title .parentName {
     color: var(--sleekfin-details-parent-title-color, rgba(255, 255, 255, 0.68));
     display: block;
-    font: 600 var(--sleekfin-details-parent-title-size, 11px)/1.45 var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 600;
+    font-size: var(--sleekfin-details-parent-title-size, 11px);
+    line-height: 1.45;
+    font-family: var(--app-font);
     letter-spacing: 0.05em;
     margin: 0;
     text-transform: uppercase;
@@ -225,7 +233,11 @@ html.sleekfin-details-mounted.sleekfin-header-mounted [data-sleekfin-header-menu
     -webkit-line-clamp: var(--sleekfin-details-child-heading-lines, 2);
     color: var(--sleekfin-details-child-heading-color, #fff);
     display: -webkit-box;
-    font: var(--sleekfin-details-child-heading-weight, 700) var(--sleekfin-details-child-heading-size, 26px)/1.23 var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: var(--sleekfin-details-child-heading-weight, 700);
+    font-size: var(--sleekfin-details-child-heading-size, 26px);
+    line-height: 1.23;
+    font-family: var(--app-font);
     letter-spacing: -0.02em;
     margin: 2px 0 0;
     overflow: hidden;
@@ -240,7 +252,11 @@ html.sleekfin-details-mounted.sleekfin-header-mounted [data-sleekfin-header-menu
 .sleekfin-details-hero .nameContainer .originalTitle {
     color: var(--sleekfin-details-original-title-color, var(--sleekfin-muted));
     display: block;
-    font: 400 var(--sleekfin-details-original-title-size, 14px)/1.43 var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: var(--sleekfin-details-original-title-size, 14px);
+    line-height: 1.43;
+    font-family: var(--app-font);
     letter-spacing: normal;
     margin: 6px 0 0;
     text-shadow: none;
@@ -317,7 +333,11 @@ html.sleekfin-details-mounted.sleekfin-header-mounted [data-sleekfin-header-menu
     -webkit-box-orient: vertical;
     color: var(--sleekfin-details-description-color, rgba(255, 255, 255, 0.88)) !important;
     display: -webkit-box;
-    font: var(--sleekfin-details-description-weight, 400) var(--sleekfin-details-description-size, 14px)/var(--sleekfin-details-description-line-height, 1.45) var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: var(--sleekfin-details-description-weight, 400);
+    font-size: var(--sleekfin-details-description-size, 14px);
+    line-height: var(--sleekfin-details-description-line-height, 1.45);
+    font-family: var(--app-font);
     margin: var(--sleekfin-details-genres-description-spacing, 12px) 0 0 !important;
     max-width: min(var(--sleekfin-details-content-max-width, 520px), var(--sleekfin-details-description-width, 520px));
     overflow: hidden;

@@ -70,7 +70,11 @@ html.sleekfin-header-mounted [data-sleekfin-legacy-cluster] .emby-tab-button {
     border: 0 !important;
     border-radius: 8px !important;
     color: var(--sleekfin-header-item-text) !important;
-    font: 500 13px/1 var(--sleekfin-font-family) !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+    font-family: var(--app-font) !important;
     height: var(--sleekfin-header-item-height) !important;
     margin: 0 !important;
     min-height: var(--sleekfin-header-item-height) !important;

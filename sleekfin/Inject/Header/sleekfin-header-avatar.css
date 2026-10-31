@@ -1,0 +1,238 @@
+/* Your picture (or initial) at the right of the header: opens the user menu */
+#tb-header-avatar {
+    -webkit-appearance: none;
+    appearance: none;
+    background: none;
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.6);
+    height: 36px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    pointer-events: auto;
+    position: absolute;
+    right: var(--sleekfin-page-gutter, 24px);
+    top: calc(var(--sleekfin-header-bar-top, 20px) + 2px);
+    transition: transform 180ms ease, box-shadow 180ms ease;
+    width: 36px;
+    z-index: 4;
+}
+
+#tb-header-avatar:hover {
+    box-shadow: 0 6px 18px -4px rgba(0, 0, 0, 0.75);
+    transform: scale(1.06);
+}
+
+/* visible focus ring for TV / keyboard */
+#tb-header-avatar:focus-visible,
+#tb-header-avatar.show-focus:focus,
+.layout-tv #tb-header-avatar:focus {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+    transform: scale(1.08);
+}
+
+#tb-header-avatar img {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+#tb-header-avatar .tb-av-initial {
+    align-items: center;
+    color: #fff;
+    display: flex;
+    font-family: var(--app-font);
+    font-size: 16px;
+    font-weight: 700;
+    height: 100%;
+    justify-content: center;
+    line-height: 1;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+/* PC: same size as the logo (40px), centred on the header; 32px once the header shrinks */
+@media (min-width: 900px) {
+    html:not(.layout-tv) #tb-header-avatar {
+        height: 40px;
+        top: calc(var(--sleekfin-header-height, 72px) / 2 - 20px);
+        transition: top 240ms ease, width 240ms ease, height 240ms ease, transform 180ms ease, box-shadow 180ms ease;
+        width: 40px;
+    }
+
+    html:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"] #tb-header-avatar {
+        height: 32px;
+        top: calc(var(--sleekfin-header-height, 56px) / 2 - 16px);
+        width: 32px;
+    }
+}
+
+/* phones/tablets: smaller */
+@media (max-width: 899px) {
+    #tb-header-avatar {
+        height: 32px;
+        right: 16px;
+        top: calc(env(safe-area-inset-top) + 16px);
+        width: 32px;
+    }
+}
+
+/* not while a video plays */
+body:has(.videoPlayerContainer:not(.hide)) #tb-header-avatar,
+body:has(#videoOsdPage:not(.hide)) #tb-header-avatar {
+    display: none !important;
+}
+
+/* ── The user menu: dark glass panel, your picture + name on top, accent bar on hover, red Sign out ── */
+#app-user-menu .MuiPaper-root {
+    background: rgba(14, 14, 16, 0.94) !important;
+    background-image: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 24px 60px -16px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(0, 0, 0, 0.4) !important;
+    color: #fff !important;
+    font-family: var(--app-font) !important;
+    margin-top: 8px;
+    min-width: 264px !important;
+    padding: 6px !important;
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    #app-user-menu .MuiPaper-root {
+        -webkit-backdrop-filter: blur(22px) saturate(1.2);
+        backdrop-filter: blur(22px) saturate(1.2);
+        background: rgba(14, 14, 16, 0.78) !important;
+    }
+}
+
+#app-user-menu .MuiMenu-list {
+    padding: 0 !important;
+}
+
+#app-user-menu .tb-um-head {
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    gap: 12px;
+    margin-bottom: 6px;
+    padding: 12px 12px 14px;
+}
+
+#app-user-menu .tb-um-pic {
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12);
+    flex: 0 0 44px;
+    height: 44px;
+    object-fit: cover;
+    width: 44px;
+}
+
+#app-user-menu .tb-um-initial {
+    align-items: center;
+    box-sizing: border-box;
+    color: #fff;
+    display: flex;
+    font-family: var(--title-font);
+    font-size: 24px;
+    justify-content: center;
+    padding-top: 2px;
+}
+
+#app-user-menu .tb-um-text {
+    min-width: 0;
+}
+
+#app-user-menu .tb-um-name {
+    font-family: var(--title-font);
+    font-size: 26px;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#app-user-menu .tb-um-sub {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 3px;
+}
+
+#app-user-menu .MuiMenuItem-root {
+    border-radius: 10px !important;
+    color: rgba(255, 255, 255, 0.88) !important;
+    margin: 1px 0;
+    min-height: 0 !important;
+    padding: 10px 12px !important;
+    position: relative;
+    transition: background-color 120ms ease, color 120ms ease;
+}
+
+#app-user-menu .MuiMenuItem-root .MuiListItemText-root .MuiTypography-root {
+    font-family: var(--app-font) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+
+#app-user-menu .MuiMenuItem-root .MuiListItemIcon-root {
+    color: rgba(255, 255, 255, 0.6) !important;
+    min-width: 32px !important;
+}
+
+#app-user-menu .MuiMenuItem-root .MuiSvgIcon-root {
+    font-size: 20px !important;
+}
+
+#app-user-menu .MuiMenuItem-root:hover,
+#app-user-menu .MuiMenuItem-root.Mui-focusVisible {
+    background: rgba(255, 255, 255, 0.07) !important;
+    color: #fff !important;
+}
+
+#app-user-menu .MuiMenuItem-root::before {
+    background: var(--sleekfin-accent);
+    border-radius: 2px;
+    bottom: 9px;
+    content: "";
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 9px;
+    transform: scaleY(0.4);
+    transition: opacity 120ms ease, transform 160ms ease;
+    width: 3px;
+}
+
+#app-user-menu .MuiMenuItem-root:hover::before,
+#app-user-menu .MuiMenuItem-root.Mui-focusVisible::before {
+    opacity: 1;
+    transform: none;
+}
+
+#app-user-menu .MuiMenuItem-root:hover .MuiListItemIcon-root,
+#app-user-menu .MuiMenuItem-root.Mui-focusVisible .MuiListItemIcon-root {
+    color: var(--sleekfin-accent) !important;
+}
+
+#app-user-menu .MuiDivider-root {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    margin: 6px 8px !important;
+}
+
+/* Sign out: muted red */
+#app-user-menu .MuiMenuItem-root:has(svg[data-testid="LogoutIcon"]),
+#app-user-menu .MuiMenuItem-root:has(svg[data-testid="LogoutIcon"]) .MuiListItemIcon-root {
+    color: #ff7a7a !important;
+}
+
+#app-user-menu .MuiMenuItem-root:has(svg[data-testid="LogoutIcon"]):hover {
+    background: rgba(255, 90, 90, 0.1) !important;
+}
+
+#app-user-menu .MuiMenuItem-root:has(svg[data-testid="LogoutIcon"])::before {
+    background: #ff7a7a;
+}

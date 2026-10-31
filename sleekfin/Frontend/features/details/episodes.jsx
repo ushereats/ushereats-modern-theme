@@ -95,7 +95,7 @@ function seasonLabel(season) {
   return season.Name || `Season ${season.IndexNumber || ''}`;
 }
 
-function Episodes({ client, compactEpisodeGridCardsEnabled, dropdownStyle, list, mediaItem, moreLabel, seasons }) {
+function Episodes({ client, dropdownStyle, list, mediaItem, moreLabel, seasons }) {
   const seasonPickerEnabled = dropdownStyle === 'SeerrFin';
   const firstSeason = useMemo(() => seasons.filter((season) => Number(season.IndexNumber) > 0)[0] || seasons[0] || null, [seasons]);
   const [episodes, setEpisodes] = useState([]);
@@ -104,10 +104,7 @@ function Episodes({ client, compactEpisodeGridCardsEnabled, dropdownStyle, list,
   const [selectedSeasonId, setSelectedSeasonId] = useState(firstSeason?.Id || '');
   const [sortDescending, setSortDescending] = useState(false);
   const [status, setStatus] = useState(firstSeason ? 'loading' : 'error');
-  // Ushereats: list view only (no grid view, no grid/list buttons).
-  const [view] = useState('list');
   const [refresh, setRefresh] = useState(0);
-  const [rowScroll, setRowScroll] = useState({ overflow: false, previous: false, next: false });
   const requestGeneration = useRef(0);
   const searchInput = useRef(null);
   const seasonSelect = useRef(null);
@@ -224,12 +221,12 @@ function Episodes({ client, compactEpisodeGridCardsEnabled, dropdownStyle, list,
     return sortDescending ? filtered.reverse() : filtered;
   }, [episodes, query, sortDescending]);
 
+  // one list (no grid view)
   useEffect(() => {
-    list.dataset.view = view;
     render(
       <Fragment>
         {visibleEpisodes.map((episode) => (
-          <EpisodeCard client={client} episode={episode} expanded={view === 'grid' && !compactEpisodeGridCardsEnabled} moreLabel={moreLabel} key={episode.Id} />
+          <EpisodeCard client={client} episode={episode} expanded={false} moreLabel={moreLabel} key={episode.Id} />
         ))}
       </Fragment>,
       list,
@@ -237,28 +234,9 @@ function Episodes({ client, compactEpisodeGridCardsEnabled, dropdownStyle, list,
     if (window.CustomElements && typeof window.CustomElements.upgradeSubtree === 'function') {
       window.CustomElements.upgradeSubtree(list);
     }
-
-    function updateScroll() {
-      const limit = Math.max(0, list.scrollWidth - list.clientWidth);
-      const position = Math.abs(list.scrollLeft);
-      const next = { overflow: view === 'grid' && limit > 1, previous: position > 1, next: position < limit - 1 };
-      setRowScroll((current) => current.overflow === next.overflow && current.previous === next.previous && current.next === next.next ? current : next);
-    }
-
-    updateScroll();
-    list.addEventListener('scroll', updateScroll, { passive: true });
-    const resizeObserver = typeof window.ResizeObserver === 'function' ? new window.ResizeObserver(updateScroll) : null;
-    resizeObserver?.observe(list);
-    if (!resizeObserver) window.addEventListener('resize', updateScroll);
-    return () => {
-      list.removeEventListener('scroll', updateScroll);
-      resizeObserver?.disconnect();
-      if (!resizeObserver) window.removeEventListener('resize', updateScroll);
-    };
-  }, [client, compactEpisodeGridCardsEnabled, list, moreLabel, view, visibleEpisodes]);
+  }, [client, list, moreLabel, visibleEpisodes]);
 
   const subtitle = status === 'loading' ? 'Loading episodes' : status === 'error' ? 'Episodes unavailable' : `${visibleEpisodes.length}${visibleEpisodes.length === 1 ? ' episode' : ' episodes'}`;
-  const scrollButtonClass = `emby-scrollbuttons-button paper-icon-button-light${document.documentElement.classList.contains('layout-tv') || document.body?.classList.contains('layout-tv') ? ' show-focus' : ''}`;
 
   let title;
   if (mediaItem.Type === 'Series') {
@@ -293,19 +271,6 @@ function Episodes({ client, compactEpisodeGridCardsEnabled, dropdownStyle, list,
     });
   }
 
-  function scrollEpisodes(direction) {
-    const first = list.firstElementChild;
-    if (!first || view !== 'grid') return;
-    const stride = first.nextElementSibling ? Math.abs(first.nextElementSibling.offsetLeft - first.offsetLeft) : first.offsetWidth;
-    if (!stride) return;
-    const step = Math.max(1, Math.floor(list.clientWidth / stride));
-    const index = Math.round(Math.abs(list.scrollLeft) / stride) + direction * step;
-    const position = Math.min(Math.max(0, index * stride), list.scrollWidth - list.clientWidth);
-    const left = window.getComputedStyle(list).direction === 'rtl' ? -position : position;
-    if (typeof list.scrollTo === 'function') list.scrollTo({ left, behavior: 'smooth' });
-    else list.scrollLeft = left;
-  }
-
   return (
     <Fragment>
       <SectionHeading title={title} subtitle={subtitle} />
@@ -315,22 +280,12 @@ function Episodes({ client, compactEpisodeGridCardsEnabled, dropdownStyle, list,
           <input ref={searchInput} type="search" placeholder="Search episodes" value={query} onInput={(event) => setQuery(event.currentTarget.value)} />
         </div>
         <IconButton class="sleekfin-details-control" icon={sortDescending ? 'arrowUpAz' : 'arrowDownAz'} label="Reverse episode order" raised data-active={sortDescending ? 'true' : 'false'} onClick={() => setSortDescending((descending) => !descending)} />
-        {view === 'grid' && rowScroll.overflow && (
-          <span class="sleekfin-details-episode-scroll-buttons">
-            <button type="button" class={scrollButtonClass} title="Previous episodes" disabled={!rowScroll.previous} onClick={() => scrollEpisodes(-1)}>
-              <span class="material-icons chevron_left" aria-hidden="true" />
-            </button>
-            <button type="button" class={scrollButtonClass} title="Next episodes" disabled={!rowScroll.next} onClick={() => scrollEpisodes(1)}>
-              <span class="material-icons chevron_right" aria-hidden="true" />
-            </button>
-          </span>
-        )}
       </div>
     </Fragment>
   );
 }
 
-export function createEpisodes(page, mediaItem, seasons, dropdownStyle, compactEpisodeGridCardsEnabled) {
+export function createEpisodes(page, mediaItem, seasons, dropdownStyle) {
   const client = window.ApiClient;
   const wrapper = page.querySelector('.detailPageWrapperContainer');
   const secondary = page.querySelector('.detailPageSecondaryContainer');
@@ -346,7 +301,7 @@ export function createEpisodes(page, mediaItem, seasons, dropdownStyle, compactE
   section.appendChild(list);
   let destroyed = false;
   const moreLabel = page.querySelector('.btnMoreCommands')?.title || '';
-  render(<Episodes client={client} compactEpisodeGridCardsEnabled={compactEpisodeGridCardsEnabled} dropdownStyle={dropdownStyle} list={list} mediaItem={mediaItem} moreLabel={moreLabel} seasons={seasons} />, header);
+  render(<Episodes client={client} dropdownStyle={dropdownStyle} list={list} mediaItem={mediaItem} moreLabel={moreLabel} seasons={seasons} />, header);
   wrapper.insertBefore(section, secondary);
   window.CustomElements?.upgradeAll?.(section, true);
   page.classList.add('sleekfin-details-has-episodes');

@@ -44,7 +44,6 @@
     if (!el) {
       el = document.createElement("div");
       el.id = ID;
-      el.style.cssText = "position:fixed;top:33px;left:145px;color:rgba(255,255,255,0.4);font-size:0.72rem;z-index:9999;pointer-events:none;white-space:nowrap;";
       document.body.appendChild(el);
     }
     return el;

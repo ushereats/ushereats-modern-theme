@@ -7,12 +7,7 @@
     --skip-hide-duration: 8s;
 }
 
-/* ── Global font (whole UI, incl. SleekFin) ── */
-html:root:root:root {
-    --app-font: "Funnel Sans", Inter, ui-sans-serif, system-ui, sans-serif;
-    --title-font: "Bebas Neue", "Funnel Sans", Inter, sans-serif;   /* row titles */
-    --sleekfin-font-family: var(--app-font);
-}
+/* ── Global font (fonts are defined in sleekfin-tokens.css) ── */
 html body,
 body button:not(.material-icons):not([class*="icon" i]),
 body input:not(.material-icons):not([class*="icon" i]),
@@ -103,15 +98,7 @@ html body #searchPage .sectionTitleTextButton:not(#tb-x) { font-family: var(--ap
   padding-right: 0 !important;
 }
 
-/* :not(#tb-x) outranks SleekFin's "#indexPage .cardBox { margin: 0 !important }" */
-:not(#tb-x) .ranked-list .itemsContainer > .card .cardBox {
-  position: relative;
-  margin-top: 0 !important;      /* bottom margin left to SleekFin, as before */
-  margin-inline-start: var(--rank-num) !important;
-  margin-inline-end: calc(var(--rank-gap) + 12px) !important;  /* +12px = SleekFin's usual card gap */
-  width: auto !important;
-  overflow: visible !important;
-}
+/* (each poster's number space is set with the other card margins, in sleekfin-media.css) */
 
 /* Poster sits above the number */
 .ranked-list .itemsContainer > .card .cardScalable {
@@ -150,46 +137,6 @@ html body #searchPage .sectionTitleTextButton:not(#tb-x) { font-family: var(--ap
   transform-origin: right center;
 }
 
-/* Continue Watching: hide star + rating under titles */
-.show-card-titles .sleekfin-meta-content:has(svg[data-sleekfin-icon="star"]) {
-  display: none !important;
-}
-
-/* Continue Watching: keep the line invisible until Mark Sections has rewritten it
-   (stops the old "S1:E2 Episode" flashing for a moment on load; the space is kept so nothing jumps) */
-.show-card-titles .sleekfin-meta:not([data-tb-done]) {
-  visibility: hidden !important;
-}
-
-/* Continue Watching: show "S1 · E1" only */
-.show-card-titles .tb-ep-meta > :not(.tb-ep) {
-  display: none !important;
-}
-.show-card-titles .tb-ep-meta::before,
-.show-card-titles .tb-ep-meta::after,
-.show-card-titles .tb-ep::before,
-.show-card-titles .tb-ep::after {
-  content: none !important;
-}
-.show-card-titles .tb-ep {
-  display: inline !important;
-  color: rgba(255, 255, 255, 0.55);
-  font-family: Inter, "Noto Sans", sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-}
-
-*::-webkit-scrollbar {
-  display: none !important;
-}
-* {
-  scrollbar-width: none !important;
-}
-
-* {
-  cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="4" fill="white" opacity="0.9"/><circle cx="10" cy="10" r="9" fill="none" stroke="white" stroke-width="1.5" opacity="0.5"/></svg>') 10 10, auto !important;
-}
 
 /* ── Row scroll arrows (bare chevrons on hover) + screen-edge fade ── */
 .verticalSection:has(> .emby-scrollbuttons) {
@@ -214,12 +161,6 @@ html body #searchPage .sectionTitleTextButton:not(#tb-x) { font-family: var(--ap
   pointer-events: none;
   z-index: 6;
   background: none !important;
-}
-
-/* SleekFin pads this by the page gutter (higher priority) — keep arrows at the screen edges */
-:not(#tb-x) .verticalSection > .emby-scrollbuttons.emby-scrollbuttons {
-  padding: 0 10px !important;
-  padding-inline: 10px !important;
 }
 
 /* Just a white chevron with a soft shadow — no pill */
@@ -311,68 +252,9 @@ a, button, .card, [role="button"] {
 }
 
 
-/* ════════ Tighter row spacing (home) — delete this whole block to undo ════════ */
-/* Not applied on TV layouts: their focus zoom needs the extra room */
-html:not(.layout-tv) :not(#tb-x) #indexPage .homeSectionsContainer > .verticalSection {
-  margin-bottom: 18px !important;
-}
-/* Space reserved for titles under posters — titles are hidden on home, so drop it
-   (rows that show titles, like Continue Watching, keep it) */
-html:not(.layout-tv) :not(#tb-x) #indexPage .verticalSection:not(.show-card-titles) .cardBox.cardBox-bottompadded {
-  margin-bottom: 4px !important;
-}
-html:not(.layout-tv) :not(#tb-x) #indexPage .verticalSection.show-card-titles .cardBox.cardBox-bottompadded {
-  margin-bottom: 14px !important;
-}
-/* Row padding (leave a little so the hover pop isn't clipped) */
-html:not(.layout-tv) :not(#tb-x) #indexPage .homeSectionsContainer .emby-scroller {
-  padding-top: 14px !important;     /* room for the poster shadow */
-  padding-bottom: 18px !important;
-}
-/* Gap between a row title and its posters */
-html:not(.layout-tv) :not(#tb-x) #indexPage .sectionTitleContainer {
-  margin-bottom: 6px !important;
-}
-/* ════════════════════════════ end tighter spacing ════════════════════════════ */
 
-/* ════════ Rows rise into the banner fade (home) — delete this whole block to undo ════════ */
-/* Not on TV layouts (remote focus zoom needs the room) */
-html:not(.layout-tv) {
-  --tb-lift: clamp(40px, 9vh, 100px);   /* how far the first row moves up into the banner */
-}
-@media (max-width: 767px) {
-  html:not(.layout-tv) { --tb-lift: 40px; }
-}
-/* Pull the rows up over the bottom of the banner */
-html:not(.layout-tv) :not(#tb-x) #indexPage .sleekfin-hero + .sections.homeSectionsContainer,
-html:not(.layout-tv) :not(#tb-x) #indexPage .sleekfin-hero ~ .homeSectionsContainer {
-  margin-top: calc(-1 * var(--tb-lift)) !important;
-  position: relative;
-  z-index: 2;
-}
-/* Keep at least 56px between the banner buttons and the rows */
-html:not(.layout-tv) :not(#tb-x) .sleekfin-hero .sleekfin-hero-content {
-  padding-bottom: max(64px, calc(var(--tb-lift) + 56px)) !important;
-}
-@media (min-width: 768px) {
-  html:not(.layout-tv) :not(#tb-x) .sleekfin-hero .sleekfin-hero-content {
-    padding-bottom: max(14vh, calc(var(--tb-lift) + 56px)) !important;
-  }
-}
-/* The empty top of the rows container must not block clicks on the banner */
-html:not(.layout-tv) :not(#tb-x) #indexPage .sleekfin-hero ~ .homeSectionsContainer { pointer-events: none; }
-html:not(.layout-tv) :not(#tb-x) #indexPage .sleekfin-hero ~ .homeSectionsContainer > * { pointer-events: auto; }
-/* ═══════════════════════════════ end rows rise ═══════════════════════════════ */
-
-/* Avatar + library stats follow the header when it shrinks on scroll (PC) */
+/* Library stats fade out when the header shrinks on scroll (PC) */
 @media (min-width: 900px) {
-  html.sleekfin-header-mounted:not(.layout-tv) #tb-header-avatar {
-    transition: top 240ms ease, width 240ms ease, height 240ms ease, transform 180ms ease, box-shadow 180ms ease !important;
-  }
-  html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"] #tb-header-avatar:not(#tb-x):not(#tb-y) {
-    width: 32px !important;
-    height: 32px !important;
-  }
   #jf-stats { transition: opacity 200ms ease; }
   html.tb-scrolled #jf-stats { opacity: 0 !important; }
 }
@@ -508,7 +390,6 @@ html body #loginPage .checkboxOutline:not(#tb-x) {
 html body #loginPage .emby-checkbox:checked ~ .checkboxOutline:not(#tb-x) {
   background: var(--tb-login-red) !important; border-color: var(--tb-login-red) !important;
 }
-html body #loginPage .checkboxIcon { color: #111 !important; }
 
 /* buttons */
 html body #loginPage .emby-button.block:not(#tb-x) {
@@ -664,7 +545,6 @@ html body #loginPage a.tb-discord-pill:not(#tb-x):active { transform: scale(0.98
 html body #loginPage a.tb-discord-pill:not(#tb-x):focus { outline: none; box-shadow: 0 0 0 2px #fff; }
 
 /* Loading spinner in the accent colour (whole app) */
-.mdl-spinner__layer:not(#tb-x) { border-color: var(--sleekfin-accent, rgb(232, 192, 80)) !important; }
 /* ═══════════ end sign-in page ═══════════ */
 
 /* ═══════════ Skip Intro button ═══════════
@@ -914,18 +794,18 @@ html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x)
 
 /* Filter / Sort / View + page arrows: round glass buttons */
 html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) { gap: 6px; }
-html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root,
-html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x) {
+html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root:not([data-sleekfin-header-link]):not([data-sleekfin-header-brand]),
+html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):not([data-sleekfin-header-link]):not([data-sleekfin-header-brand]) {
   width: 40px; height: 40px; min-width: 0 !important; padding: 0 !important;
   border-radius: 50% !important; border: 1px solid rgba(255, 255, 255, 0.10) !important;
   background: rgba(255, 255, 255, 0.05) !important; color: rgba(255, 255, 255, 0.85) !important;
   transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease !important;
 }
-html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root:hover,
-html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):hover {
+html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root:not([data-sleekfin-header-link]):not([data-sleekfin-header-brand]):hover,
+html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):not([data-sleekfin-header-link]):not([data-sleekfin-header-brand]):hover {
   background: rgba(255, 255, 255, 0.12) !important; border-color: rgba(255, 255, 255, 0.2) !important; color: #fff !important;
 }
-html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):disabled { opacity: 0.3; }
+html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):not([data-sleekfin-header-link]):not([data-sleekfin-header-brand]):disabled { opacity: 0.3; }
 html body :is(.page, header.MuiAppBar-root) .MuiStack-root .MuiTypography-body2:not(#tb-x) {
   font: 600 13px/1 var(--app-font, Inter, sans-serif) !important; color: rgba(255, 255, 255, 0.6) !important;
 }
@@ -961,58 +841,19 @@ html body .alphaPicker:not(#tb-x) .alphaPickerButton.Mui-focusVisible { box-shad
    Everything is centred on the middle of SleekFin's header height, so it stays level
    when you change the header size in SleekFin and when it shrinks on scroll. */
 @media (min-width: 900px) {
-  html.sleekfin-header-mounted:not(.layout-tv) #jf-stats:not(#tb-x) {
-    top: calc(var(--sleekfin-header-height, 72px) / 2) !important;
-    left: calc(var(--sleekfin-page-gutter, 24px) + var(--sleekfin-header-logo-height, 32px) + 16px) !important;
+  /* library stats (home only): just right of the logo, on the header's centre line */
+  #jf-stats {
+    position: fixed; z-index: 9999; pointer-events: none; white-space: nowrap;
+    top: calc(var(--sleekfin-header-height, 72px) / 2);
+    left: calc(var(--sleekfin-page-gutter, 24px) + var(--sleekfin-header-logo-height, 32px) + 16px);
     transform: translateY(-50%);
-    line-height: 1 !important;
-    font: 600 12px/1 var(--app-font, Inter, sans-serif) !important;
-    color: rgba(255, 255, 255, 0.5) !important;
-  }
-  /* logo and avatar: same size (40px), a touch bigger than before; 32px once the header shrinks */
-  html.sleekfin-header-mounted:not(.layout-tv):not(#tb-x) {
-    --sleekfin-header-logo-height: 40px !important;
-    --sleekfin-header-brand-top: calc((var(--sleekfin-header-height, 72px) - 40px) / 2) !important;
-  }
-  html.sleekfin-header-mounted:not(.layout-tv) #tb-header-avatar:not(#tb-x) {
-    width: 40px !important; height: 40px !important;
-    top: calc(var(--sleekfin-header-height, 72px) / 2 - 20px) !important;
-  }
-  html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"] #tb-header-avatar:not(#tb-x) {
-    top: calc(var(--sleekfin-header-height, 56px) / 2 - 16px) !important;
+    font: 600 12px/1 var(--app-font);
+    color: rgba(255, 255, 255, 0.5);
   }
 }
 /* ═══════════ end header centre line ═══════════ */
 
-/* ═══════════ Continue Watching cards: rounder + progress bar inside the thumbnail ═══════════
-   Delete this block to undo. */
-/* same roundness on every card in the row (12px, like the movie cards) */
-html body .show-card-titles:not(#tb-x) {
-  --sleekfin-card-radius: 12px;
-  --sleekfin-card-inner-radius: 12px;
-}
-/* the bar: floats inside the image, inset from the edges, rounded */
-html body .show-card-titles .card .innerCardFooter:not(#tb-x) {
-  left: 14px !important; right: 14px !important; bottom: 10px !important; width: auto !important; max-width: none !important;
-  background: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
-  border-radius: 3px; z-index: 3; overflow: visible !important;
-}
-/* soft dark fade behind the bar (drawn by the bar's own box, so it can't cover the bar) */
-html body .show-card-titles .card .innerCardFooter:not(#tb-x)::before {
-  content: ""; position: absolute; z-index: -1; pointer-events: none;
-  left: -14px; right: -14px; bottom: -10px; height: 70px;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
-}
-html body .show-card-titles .card .itemProgressBar:not(#tb-x),
-html body .show-card-titles .card .itemLinearProgress:not(#tb-x) {
-  height: 4px !important; border-radius: 3px !important; overflow: hidden;
-  background: rgba(255, 255, 255, 0.28) !important;
-}
-html body .show-card-titles .card :is(.itemProgressBarForeground, .itemLinearProgress .MuiLinearProgress-bar):not(#tb-x) {
-  height: 100%; border-radius: 3px !important;
-  background: var(--sleekfin-accent, rgb(233, 196, 106)) !important;
-}
-/* ═══════════ end Continue Watching cards ═══════════ */
+
 
 /* ═══════════ Hover overlay: even dim + full titles ═══════════
    Delete this block to undo. */

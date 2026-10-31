@@ -35,17 +35,37 @@
 
 .sleekfin-details-season-select > .emby-select.sleekfin-details-season-native,
 .sleekfin-details-season-native,
-.sleekfin-details-season-trigger,
-.sleekfin-details-season-title {
+.sleekfin-details-season-trigger {
     color: var(--sleekfin-text);
-    font: 600 24px/32px var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    font-family: var(--app-font);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
+/* Row-title style (same as every row title) */
 .sleekfin-details-season-title {
+    color: var(--sleekfin-text);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.05;
+    font-family: var(--title-font);
+    letter-spacing: -0.025em;
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+    .sleekfin-details-season-title {
+        font-size: 36px;
+    }
 }
 
 .sleekfin-details-season-native,
@@ -54,7 +74,6 @@
     appearance: none;
     background: transparent;
     border: 0;
-    cursor: pointer;
     max-width: 100%;
     padding: 0 22px 0 0;
 }
@@ -94,18 +113,6 @@
     gap: 8px;
     justify-content: flex-end;
     max-width: 100%;
-}
-
-.sleekfin-details-episode-scroll-buttons {
-    display: flex;
-}
-
-.sleekfin-details-episode-scroll-buttons .emby-scrollbuttons-button {
-    color: var(--sleekfin-text);
-    height: 36px;
-    margin: 0;
-    padding: 0;
-    width: 36px;
 }
 
 .sleekfin-details-control,
@@ -150,7 +157,11 @@
     border: 0;
     box-sizing: border-box;
     color: var(--sleekfin-text);
-    font: 400 13px/1 var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1;
+    font-family: var(--app-font);
     height: 36px;
     inset: 0;
     opacity: 0;
@@ -190,11 +201,6 @@
     overflow-x: auto;
     padding: 0 0 5px;
     scroll-snap-type: x proximity;
-    scrollbar-width: none;
-}
-
-.sleekfin-details-episode-list::-webkit-scrollbar {
-    display: none;
 }
 
 .sleekfin-details-episode.card {
@@ -225,7 +231,6 @@
     background: var(--sleekfin-surface);
     border: 0;
     color: var(--sleekfin-text);
-    cursor: pointer;
     display: block;
     height: 100%;
     padding: 0;
@@ -271,19 +276,21 @@
     border-radius: var(--sleekfin-card-button-radius);
     color: var(--sleekfin-muted);
     display: inline-flex;
-    font: 400 14px/20px var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    font-family: var(--app-font);
     padding: 5px 10px;
     white-space: nowrap;
 }
 
-.sleekfin-details-episode-list[data-view="grid"] .sleekfin-details-episode-number {
-    left: 10px;
-    position: absolute;
-    top: 10px;
-}
-
 .sleekfin-details-episode-title.cardText {
-    font: 600 17px/22px var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 22px;
+    font-family: var(--app-font);
     min-width: 0;
     overflow: visible;
     padding: 0;
@@ -295,7 +302,11 @@
     -webkit-line-clamp: 2;
     color: rgba(241, 242, 244, 0.72);
     display: -webkit-box;
-    font: 400 13px/18px var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    font-family: var(--app-font);
     margin-top: 4px;
     overflow: hidden;
 }
@@ -304,13 +315,13 @@
     align-items: center;
     color: rgba(241, 242, 244, 0.7);
     display: flex;
-    font: 400 12px/16px var(--sleekfin-font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    font-family: var(--app-font);
     justify-content: space-between;
     margin-top: 9px;
-}
-
-.sleekfin-details-episode-list[data-view="grid"] .sleekfin-details-episode:not(.sleekfin-details-episode-expanded):has(.je-hide-btn) .sleekfin-details-episode-footer {
-    padding-left: 30px;
 }
 
 .sleekfin-details-episode-footer > :where(span) {
@@ -399,7 +410,6 @@
     background: transparent;
     border: 0;
     color: inherit;
-    cursor: pointer;
     display: block;
     font: inherit;
     margin: 10px 0 0;
@@ -462,8 +472,7 @@
 @media (max-width: 767px) {
     .sleekfin-details-season-select > .emby-select.sleekfin-details-season-native,
     .sleekfin-details-season-native,
-    .sleekfin-details-season-trigger,
-    .sleekfin-details-season-title {
+    .sleekfin-details-season-trigger {
         font-size: 20px;
         line-height: 28px;
     }

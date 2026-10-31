@@ -108,7 +108,6 @@ public static class ThemeAssets
     {
         ("js_01_library_stats.js", c => c.LibraryStats),
         ("js_03_time_remaining.js", c => c.TimeRemaining),
-        ("js_04_header_avatar.js", c => c.HeaderAvatar),
         ("js_05_mark_sections.js", c => c.MarkSections),
         ("js_06_release_dates.js", c => c.ReleaseDates),
         ("js_07_quality_badges.js", c => c.QualityBadges),
@@ -119,11 +118,8 @@ public static class ThemeAssets
         ("js_12_player_skin.js", c => c.PlayerSkin),
         ("js_13_login_extras.js", c => c.LoginExtras),
         ("js_14_pause_screen.js", c => c.PauseScreen),
-        ("js_15_custom_icon.js", c => c.CustomIcon),
         // with SleekFin built in, the accent is set from the page head instead (no script needed)
-        ("js_16_accent_colour.js", c => c.AccentColour && !SleekOn(c)),
         ("js_17_episode_list.js", c => c.EpisodeList),
-        ("js_18_user_menu.js", c => c.UserMenu),
         ("js_21_hero.js", c => c.Hero),
         ("js_20_cards.js", c => c.HomeRows || c.Search),
         ("js_22_home_rows.js", c => c.HomeRows),
@@ -140,7 +136,7 @@ public static class ThemeAssets
     public static ThemeBuild Get()
     {
         PluginConfiguration config = Plugin.Instance?.Configuration ?? new PluginConfiguration();
-        string key = JsonSerializer.Serialize(config) + (Plugin.SleekFinPluginLoaded ? "|sf" : string.Empty);
+        string key = JsonSerializer.Serialize(config);
 
         ThemeBuild? current = s_current;
         if (current != null && current.Key == key)
@@ -222,8 +218,6 @@ public static class ThemeAssets
         // ── CSS ──
         StringBuilder css = new StringBuilder();
         // SleekFin (built in): its styles first, then the theme, in one file (nothing loads later and restyles the page)
-        bool sleek = SleekOn(config);
-        if (sleek)
         {
             css.Append(ReadText("sleek.css")
                 .Replace("__TB_FONT_V__", fontVersion, StringComparison.Ordinal)
@@ -236,8 +230,9 @@ public static class ThemeAssets
                 ).Append('\n');
         }
 
+        css.Append(".tb-sleek-end{--tb-sleek-end:1}\n");   // marks where the built-in SleekFin's styles end (used by the visual test)
         css.Append(ReadText("theme.css")).Append('\n');
-        if (config.CustomIcon && IsHttpUrl(config.IconUrl))
+        if (IsHttpUrl(config.IconUrl))
         {
             string url = CssString(config.IconUrl);
             css.Append(".splashLogo,.pageTitleWithDefaultLogo,.pageTitleWithLogo{background-image:url(\"").Append(url)
@@ -250,17 +245,13 @@ public static class ThemeAssets
         // Kept at 1 ms instead of "none" so Jellyfin still gets its animation-end event and clears the blur placeholder.
         css.Append(".lazy-image-fadein,.lazy-image-fadein-fast{animation-duration:1ms!important}\n");
 
-        if (!string.IsNullOrWhiteSpace(config.ExtraCss))
-        {
-            css.Append("/* Extra CSS (plugin settings) */\n").Append(config.ExtraCss).Append('\n');
-        }
 
         // ── JS ──
         // settings for the scripts (each file carries them, so they work in any load order)
         JsonObject tbConfig = JsonSerializer.SerializeToNode(config)!.AsObject();
         tbConfig.Remove("Sleek");   // SleekFin's settings go separately (below), in the shape its scripts expect
         string prefix = "window.TB_CONFIG=" + tbConfig.ToJsonString() + ";\n"
-            + (sleek ? "window.__tbSleek=window.__tbSleek||" + SleekJson(ThemeAssets.SleekOf(config)) + ";\n" : string.Empty)
+            + "window.__tbSleek=window.__tbSleek||" + SleekJson(config, ThemeAssets.SleekOf(config)) + ";\n"
             + "window.tbCfg=function(k,d){var c=window.TB_CONFIG||{},v=c[k];return v===undefined||v===null||v===\"\"?d:v};\n"
             // one shared answer for requests several scripts make at the same time (your user, sessions)
             + "window.tbShared=window.tbShared||(function(){var m={};function c(k,t,f){var e=m[k],n=Date.now();if(e&&n-e.t<t)return e.p;var p=Promise.resolve().then(f);m[k]={t:n,p:p};p.catch(function(){if(m[k]&&m[k].p===p)delete m[k]});return p}"
@@ -295,7 +286,6 @@ public static class ThemeAssets
         }
 
         // SleekFin's scripts (built in; its own hero is left out: the plugin's hero replaces it)
-        if (sleek)
         {
             foreach (string file in SleekScripts)
             {
@@ -340,7 +330,6 @@ public static class ThemeAssets
     private static readonly string[] SleekScripts = { "sleek_runtime.js", "sleek_theme.js", "sleek_header.js", "sleek_media.js", "sleek_details.js" };
 
     /// <summary>The built-in SleekFin is used unless the separate SleekFin plugin is still installed.</summary>
-    internal static bool SleekOn(PluginConfiguration config) => !Plugin.SleekFinPluginLoaded;
 
     private static readonly SleekConfiguration DefaultSleek = new SleekConfiguration();
 
@@ -352,8 +341,9 @@ public static class ThemeAssets
     internal static SleekConfiguration SleekOf(PluginConfiguration config) => config.Sleek ?? DefaultSleek;
 
     /// <summary>SleekFin's settings in the shape its scripts expect (header, details, hero look).</summary>
-    internal static string SleekJson(SleekConfiguration s) => JsonSerializer.Serialize(new
+    internal static string SleekJson(PluginConfiguration config, SleekConfiguration s) => JsonSerializer.Serialize(new
     {
+        icon = IsHttpUrl(config.IconUrl) ? config.IconUrl : string.Empty,
         header = SleekSettings.Header(s),
         details = SleekSettings.Details(s),
         hero = SleekSettings.Hero(s),

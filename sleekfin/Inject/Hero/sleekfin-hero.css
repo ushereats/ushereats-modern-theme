@@ -32,7 +32,7 @@ html:is(.sleekfin-hero-boot-loading, .sleekfin-hero-loading) #indexPage #homeTab
     background: var(--sleekfin-background);
     box-sizing: border-box;
     color: #fff;
-    font-family: var(--sleekfin-font-family);
+    font-family: var(--app-font);
     height: var(--sleekfin-hero-mobile-height, 70vh);
     margin-top: 0;
     min-height: min(420px, var(--sleekfin-hero-mobile-height, 70vh));

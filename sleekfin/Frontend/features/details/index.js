@@ -175,7 +175,7 @@ function reloadSettings() {
 }
 
 function applyDetailsSettings(settings) {
-  const episodesChanged = state.settings.compactEpisodeGridCardsEnabled !== settings.compactEpisodeGridCardsEnabled || state.settings.dropdownStyle !== settings.dropdownStyle;
+  const episodesChanged = state.settings.dropdownStyle !== settings.dropdownStyle;
   state.settings = settings;
   if (!state.mount) return;
   const seasonPosters = state.item.Type === 'Series' && settings.seasonPostersEnabled;
@@ -188,7 +188,7 @@ function applyDetailsSettings(settings) {
     state.mount.episodes = null;
   }
   if (!seasonPosters && !state.mount.episodes && ['Series', 'Season', 'Episode'].includes(state.item.Type) && state.seasons.length) {
-    state.mount.episodes = createEpisodes(state.page, state.item, state.seasons, settings.dropdownStyle, settings.compactEpisodeGridCardsEnabled);
+    state.mount.episodes = createEpisodes(state.page, state.item, state.seasons, settings.dropdownStyle);
   }
 }
 
@@ -236,7 +236,7 @@ function mount() {
     if (!state.item?.MediaSources?.some((source) => source.Id === id)) return;
     if ((id !== state.item?.Id || state.loadingId) && id !== state.loadingId) load(id, state.currentServerId, state.page.querySelector('.selectSource'));
   });
-  const episodes = !seasonPosters && ['Series', 'Season', 'Episode'].includes(state.item.Type) && state.seasons.length ? createEpisodes(state.page, state.item, state.seasons, state.settings.dropdownStyle, state.settings.compactEpisodeGridCardsEnabled) : null;
+  const episodes = !seasonPosters && ['Series', 'Season', 'Episode'].includes(state.item.Type) && state.seasons.length ? createEpisodes(state.page, state.item, state.seasons, state.settings.dropdownStyle) : null;
 
   state.mount = {
     actions,
@@ -306,7 +306,7 @@ function load(id, serverId, sourceSelect = null) {
             state.page.classList.toggle('sleekfin-details-season-posters', seasonPosters);
             state.mount.hero.render(state.item, state.seasons, state.settings);
             if (!seasonPosters && !state.mount.episodes && ['Series', 'Season', 'Episode'].includes(state.item.Type) && state.seasons.length) {
-              state.mount.episodes = createEpisodes(state.page, state.item, state.seasons, state.settings.dropdownStyle, state.settings.compactEpisodeGridCardsEnabled);
+              state.mount.episodes = createEpisodes(state.page, state.item, state.seasons, state.settings.dropdownStyle);
             }
           }
           scheduleReconcile();

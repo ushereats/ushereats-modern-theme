@@ -118,6 +118,7 @@
       (it.MediaType ? ' data-mediatype="' + it.MediaType + '"' : "") +
       (it.CollectionType ? ' data-collectiontype="' + it.CollectionType + '"' : "") +
       (u.PlaybackPositionTicks ? ' data-positionticks="' + u.PlaybackPositionTicks + '"' : "") +
+      (it.RunTimeTicks ? ' data-runtimeticks="' + it.RunTimeTicks + '"' : "") +
       ' data-prefix="' + esc(prefix) + '" class="card ' + cls + "Card" + (mode === "desktop" ? " card-hoverable" : "") +
       (mode === "tv" ? " show-focus" : "") + (it.Type === "Person" ? " personCard" : "") +
       (/^(MusicAlbum|MusicArtist|Audio)$/.test(it.Type) ? "" : " card-withuserdata") + (extraClass ? " " + extraClass : "") + '">';
@@ -195,5 +196,11 @@
     if (window.CustomElements && typeof window.CustomElements.upgradeSubtree === "function") { try { window.CustomElements.upgradeSubtree(node); } catch (e) {} }
   }
 
-  window.tbCards = { esc: esc, card: card, logoCard: logoCard, section: section, frag: frag, load: load, refreshScroller: refreshScroller, upgrade: upgrade, base: base, serverId: serverId };
+  // badges (quality, time left, release date, new episode) drawn right away on cards we just put on the page
+  function decorate() {
+    var list = window.tbCardDecorators || [];
+    for (var i = 0; i < list.length; i++) { try { list[i](); } catch (e) {} }
+  }
+
+  window.tbCards = { decorate: decorate, esc: esc, card: card, logoCard: logoCard, section: section, frag: frag, load: load, refreshScroller: refreshScroller, upgrade: upgrade, base: base, serverId: serverId };
 })();

@@ -224,7 +224,9 @@
           pending.delete(item.Id);
           queueContainer(item.Id);   // card had no data-type; it's a show/season
         } else {
-          cache.set(item.Id, parseItem(item));
+          var info = parseItem(item);
+          cache.set(item.Id, info);
+          lsSet(item.Id, info);   // remembered for a day, so the badge is there on the next visit
         }
       });
       ids.forEach(function (id) { if (!seen.has(id)) cache.set(id, null); });
@@ -249,6 +251,8 @@
         return;
       }
       if (pending.has(id)) return;
+      var stored = lsGet(id);
+      if (stored !== undefined) { cache.set(id, stored); card.__tbq = id + "|" + !!card.querySelector(SKIP_IF) + "|" + (card.textContent.indexOf("Today") >= 0); applyBadge(card); return; }
       if (CONTAINERS.indexOf(card.getAttribute("data-type")) >= 0) {
         queueContainer(id);
         if (cache.has(id)) applyBadge(card);
@@ -308,5 +312,8 @@
   }, 500);
 
   tbWatch(scheduleScan);
+
+  // also run right as our own rows/search draw their cards (so badges are there on the first frame)
+  (window.tbCardDecorators = window.tbCardDecorators || []).push(scan);
   window.addEventListener("hashchange", scheduleScan);
 })();

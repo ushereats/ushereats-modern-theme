@@ -180,6 +180,7 @@ for (const d of devices) {
         R.pages[name].sidewaysByUser = await page.evaluate(() => scrollX);
         await page.evaluate(() => window.scrollTo(0, scrollY));
       }
+      if (name === "movies" && /iphone-portrait/.test(d.tag)) R.pages["movies-probe"] = await page.evaluate(() => { const c = document.querySelector(".page:not(.hide) .card"); const out = []; for (let n = c && c.parentElement; n && out.length < 6; n = n.parentElement) { const r = n.getBoundingClientRect(); out.push((n.id ? "#" + n.id : n.tagName.toLowerCase()) + "." + String(n.className).split(/\s+/).slice(0, 4).join(".") + ` [${Math.round(r.left)}..${Math.round(r.right)}] pad=${getComputedStyle(n).paddingRight}`); } const a = document.querySelector(".alphaPicker-fixed-right"); return { chain: out, alpha: a ? JSON.stringify(a.getBoundingClientRect()) : null, alphaParent: a ? a.parentElement.className : null }; });
       if ((name === "home" || name === "movie") && /tv-1080|xbox|iphone-portrait|tall/.test(d.tag)) R.pages[name + "-probe"] = await page.evaluate(probe).catch((e) => ({ error: String(e) }));
       if (name === "home" || name === "series" || name === "movie") {
         // further down the page

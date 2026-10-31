@@ -77,7 +77,7 @@ public static class IndexPatch
         // SleekFin header: Jellyfin's own header (logo, server name, plain tab links) never shows before SleekFin's
         // header is ready, and SleekFin's header appears at once instead of fading in. Safety: shown anyway after 4s,
         // and straight away on pages where SleekFin doesn't draw a header (sign-in, dashboard, player).
-        sb.Append("<style>html[data-sleekfin-header-enabled=\"true\"]:not(.sleekfin-header-mounted):not(.tb-hdr-ok) :is(header.MuiAppBar-root,.skinHeader){visibility:hidden!important}html.sleekfin-header-mounted [data-sleekfin-header]{animation:none!important}</style>");
+        sb.Append("<style>html[data-sleekfin-header-enabled=\"true\"]:not(.sleekfin-header-mounted):not(.tb-hdr-ok) :is(header.MuiAppBar-root,.skinHeader){opacity:0!important}html.sleekfin-header-mounted [data-sleekfin-header]{animation:none!important}</style>");
         sb.Append("<script>(function(){var r=document.documentElement;function ok(){r.className+=\" tb-hdr-ok\"}if(/^#\\/?(login|selectserver|addserver|forgotpassword|wizard|dashboard|configurationpage|metadata|video)/i.test(location.hash))ok();else setTimeout(ok,4000)})();</script>");
 
         // Welcome splash: instant black cover on a new session, so the site never shows before it

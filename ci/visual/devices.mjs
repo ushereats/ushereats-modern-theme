@@ -45,7 +45,22 @@ const devices = [
   // the Xbox app (like every Xbox app) usually draws at 960x540 scaled up x2
   { tag: "xbox-app", w: 960, h: 540, dpr: 2, mobile: false, ua: UA.xbox, tv: true },
 ];
-const only = process.env.DEVICES ? process.env.DEVICES.split(",") : null;
+// PC screens (mouse): portrait monitors and landscape sizes from small laptops to ultrawide.
+// Sizes are the page area inside the browser (the browser's own bars take ~110 px).
+devices.push(
+  { tag: "pc-portrait-1080", w: 1080, h: 1810, dpr: 1, mobile: false, ua: UA.desktop, pc: true },
+  { tag: "pc-portrait-1440", w: 1440, h: 2450, dpr: 1, mobile: false, ua: UA.desktop, pc: true },
+  { tag: "pc-portrait-1200", w: 1200, h: 1810, dpr: 1, mobile: false, ua: UA.desktop, pc: true },
+  { tag: "pc-1280x720", w: 1280, h: 610, dpr: 1, mobile: false, ua: UA.desktop, pc: true },
+  { tag: "pc-1366x768", w: 1366, h: 658, dpr: 1, mobile: false, ua: UA.desktop, pc: true },
+  { tag: "pc-1440x900", w: 1440, h: 790, dpr: 1, mobile: false, ua: UA.desktop, pc: true },
+  { tag: "pc-1920x1080", w: 1920, h: 970, dpr: 1, mobile: false, ua: UA.desktop, pc: true },
+  { tag: "pc-2560x1440", w: 2560, h: 1330, dpr: 1, mobile: false, ua: UA.desktop, pc: true },
+  { tag: "pc-3440x1440", w: 3440, h: 1330, dpr: 1, mobile: false, ua: UA.desktop, pc: true },
+  { tag: "pc-half-960", w: 960, h: 970, dpr: 1, mobile: false, ua: UA.desktop, pc: true },
+);
+const only = process.env.DEVICES ? process.env.DEVICES.split(",")
+  : /desk/.test(process.env.GITHUB_REF_NAME || "") ? devices.filter((d) => d.pc).map((d) => d.tag) : null;
 
 const pages = [
   ["home", "#/home"],
@@ -57,6 +72,7 @@ const pages = [
   ["season", seasons[0] ? `#/details?id=${seasons[0].Id}&serverId=${s.serverId}` : null],
   ["episode", `#/details?id=${eps[2].Id}&serverId=${s.serverId}`],
   ["prefs", "#/mypreferencesmenu"],
+  ["settings", "#/configurationpage?name=UshereatsTheme"],
   ["dashboard", "#/dashboard"],
 ];
 
@@ -192,7 +208,27 @@ for (const d of devices) {
         R.pages[name + "-down"].scrolled = await page.evaluate(() => { const h = document.querySelector("[data-sleekfin-header]"); if (!h) return null; const b = getComputedStyle(h, "::before"); return { attr: h.getAttribute("data-sleekfin-scrolled"), y: Math.round(scrollY), pageTop: Math.max(0, ...Array.from(document.querySelectorAll(".page:not(.hide)"), (p) => p.scrollTop)), before: b.opacity + " " + b.height + " " + b.backgroundImage.slice(0, 80), tag: h.tagName }; });
         await page.evaluate(() => window.scrollTo(0, 0));
       }
-      if (name === "home" && d.mobile) {
+      if (d.pc && (name === "home" || name === "movies" || name === "series")) {
+        // mouse resting on a poster (hover pop / hover card), then the user menu
+        await page.evaluate(() => window.scrollTo(0, 0));
+        const card = page.locator(name === "home" ? '.tb-rows-c [data-tb-row="latest-releases"] .card .cardScalable:visible, .tb-rows-c .card:not(.tb-logo-card) .cardScalable:visible' : ".page:not(.hide) .card .cardScalable:visible").first();
+        if (await card.count()) {
+          await card.scrollIntoViewIfNeeded().catch(() => {});
+          await card.hover({ timeout: 4000 }).catch(() => {});
+          await page.waitForTimeout(1300);
+          await page.screenshot({ path: `${out}/${d.tag}-${name}-hover.png`, animations: "disabled", caret: "hide" });
+          R.pages[name + "-hover"] = await page.evaluate(() => {
+            const h = document.querySelector("#tb-hover-card");
+            const vis = h && getComputedStyle(h).display !== "none" && getComputedStyle(h).visibility !== "hidden" && +getComputedStyle(h).opacity > 0;
+            if (!vis) return { card: false };
+            const r = h.getBoundingClientRect();
+            return { card: true, rect: [Math.round(r.left), Math.round(r.top), Math.round(r.right), Math.round(r.bottom)], inView: r.left >= 0 && r.top >= 0 && r.right <= innerWidth && r.bottom <= innerHeight };
+          });
+          await page.mouse.move(2, Math.round(d.h - 4));
+          await page.evaluate(() => window.scrollTo(0, 0));
+        }
+      }
+      if (name === "home" && (d.mobile || d.pc)) {
         // the user menu (avatar)
         const av = page.locator("#tb-header-avatar:visible").first();
         if (await av.count()) {

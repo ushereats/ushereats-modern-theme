@@ -21,15 +21,14 @@
   })());
   // Netflix-style episode list on show pages (restyles SleekFin's "list" view):
   // big Bebas episode number, wide still with a gold progress bar, title, 2-line synopsis, runtime.
-  // Opens in list view by default; if you switch to grid it remembers that instead.
+  // List view only (SleekFin's grid view and its grid/list buttons are removed).
 
   // ── Settings ──
   var DEFAULT_VIEW = "list";      // "list" or "grid"
   var KEY = "tbEpisodeView";
 
-  function pref() {
-    try { return localStorage.getItem(KEY) || DEFAULT_VIEW; } catch (e) { return DEFAULT_VIEW; }
-  }
+  // List view only: the grid/list buttons are removed, so the list is all there is.
+  function pref() { return "list"; }
 
   function viewButton(section, view) {
     var b = section.querySelector('.sleekfin-details-view-controls [data-view="' + view + '"]');
@@ -63,20 +62,6 @@
     }
   }
 
-  // remember the view you pick
-  document.addEventListener("click", function (e) {
-    if (!e.isTrusted) return;
-    var b = e.target && e.target.closest && e.target.closest(".sleekfin-details-view-controls button");
-    if (!b) return;
-    var sec = b.closest(".sleekfin-details-episodes");
-    var view = b.getAttribute("data-view");
-    if (!view && sec) {
-      var all = sec.querySelectorAll(".sleekfin-details-view-controls button");
-      view = all[0] === b ? "grid" : "list";
-    }
-    try { localStorage.setItem(KEY, view); } catch (err) {}
-    document.documentElement.classList.toggle("tb-ep-list", view === "list");
-  }, true);
 
   // Open new episode sections in the preferred view straight away (inside the page watcher, i.e. before
   // the browser paints), so SleekFin's grid never shows first when you prefer the list.
@@ -86,7 +71,11 @@
       var sec = fresh[i], list = sec.querySelector(".sleekfin-details-episode-list");
       if (!list) continue;
       var want = pref(), b = list.getAttribute("data-view") !== want ? viewButton(sec, want) : null;
-      if (list.getAttribute("data-view") !== want && !b) continue;   // buttons not there yet
+      if (list.getAttribute("data-view") !== want && !b) {
+        // buttons not there yet; never leave the episodes hidden if they don't appear
+        if (!sec.__tbWait) sec.__tbWait = setTimeout(function (s) { return function () { s.setAttribute("data-tb-view", "1"); }; }(sec), 1500);
+        continue;
+      }
       sec.setAttribute("data-tb-view", "1");
       if (b) b.click();
     }
@@ -111,6 +100,8 @@
   var css = [
     // while you prefer the list: SleekFin's first (grid) render stays invisible until it switches
     "html.tb-ep-list .sleekfin-details-episodes:not([data-tb-view]) .sleekfin-details-episode-list[data-view='grid'] { visibility: hidden !important; }",
+    // no grid view: its buttons and its row arrows are gone
+    ".sleekfin-details-episodes .sleekfin-details-view-controls, .sleekfin-details-episodes .sleekfin-details-episode-scroll-buttons { display: none !important; }",
     L + " { gap: 0 !important; margin-top: 14px !important; }",
 
     /* row */

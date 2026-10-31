@@ -155,7 +155,7 @@
     })).then(function (res) {
       fetching = null;
       if (me.id !== user) return false;
-      var ok = false;
+      var ok = !list.length;          // only static rows (studios): nothing to fetch
       list.forEach(function (r, i) {
         if (!res[i]) return;                 // couldn't reach the server: keep what's shown
         ok = true;
@@ -254,7 +254,8 @@
     // studio logos: white, no tile behind them, no titles
     ".tb-studios .itemsContainer > .card { width: 8vw !important; min-width: 96px; }",
     "@media (max-width: 768px) { .tb-studios .itemsContainer > .card { width: 30vw !important; } }",
-    ".tb-studios .cardPadder, .tb-studios .cardImageContainer, .tb-studios .cardContent { background: transparent !important; box-shadow: none !important; border-radius: 0 !important; }",
+    // (:not(#tb-x) outranks SleekFin's "html.sleekfin-main-ui .cardBox:not(.visualCardBox) .cardPadder" tile colour)
+    ".tb-studios .cardPadder:not(#tb-x), .tb-studios .cardImageContainer:not(#tb-x), .tb-studios .cardContent:not(#tb-x) { background: transparent !important; box-shadow: none !important; border-radius: 0 !important; }",
     ".tb-studios .tb-logo-img { position: absolute; top: 10%; left: 8%; right: 8%; bottom: 10%; background: center / contain no-repeat; filter: brightness(0) invert(1); opacity: .92; transition: opacity .15s ease; }",
     ".tb-studios .tb-logo-link:hover .tb-logo-img, .tb-studios .tb-logo-link:focus .tb-logo-img { opacity: 1; }",
     ".tb-studios .cardBox { margin-bottom: 0 !important; }",

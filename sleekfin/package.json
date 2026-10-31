@@ -1,0 +1,33 @@
+{
+  "name": "sleekfin-frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.js",
+    "check": "node build.js --check"
+  },
+  "browserslist": [
+    "last 2 Firefox versions",
+    "last 2 Chrome versions",
+    "last 2 ChromeAndroid versions",
+    "last 2 Safari versions",
+    "iOS > 10",
+    "last 2 Edge versions",
+    "Chrome 27",
+    "Chrome 38",
+    "Chrome 47",
+    "Chrome 53",
+    "Chrome 56",
+    "Chrome 63",
+    "Edge 18",
+    "Firefox ESR"
+  ],
+  "dependencies": {
+    "preact": "10.29.8"
+  },
+  "devDependencies": {
+    "@babel/core": "7.29.7",
+    "@babel/preset-env": "7.29.7",
+    "esbuild": "0.28.2"
+  }
+}

@@ -1,0 +1,151 @@
+/* Added by the synchronous boot asset while a detail route is entered and removed by the details bundle
+   once it has something to show. visibility rather than display hides the page without removing its
+   layout, so the bundle can still select, measure and move those nodes while it builds the hero, and
+   the background keeps Jellyfin's own page from showing through before the theme bundle defines the
+   token. */
+html.sleekfin-details-concealed,
+html.sleekfin-details-concealed body {
+    background: var(--sleekfin-background, #000);
+}
+
+/* A static rule rather than an animation: the boot script reveals the page by removing the class,
+   which is also what restarts this concealment on a later navigation. */
+html.sleekfin-details-concealed #itemDetailPage {
+    visibility: hidden;
+}
+
+/* Jellyfin's detail route raises its own loading ring on a fixed 10vh circle centred on the viewport
+   at z-index 9999999, which both outranks and encloses the loading mark below. Suppressing it while
+   the page is concealed leaves a single loader instead of two concentric ones. It stays hidden only
+   while the concealment gate is open: releasing the class without the bundle, which the boot script
+   failsafe does, brings Jellyfin's loader back with its page. */
+html.sleekfin-details-concealed .docspinner {
+    display: none !important;
+}
+
+html.sleekfin-details-concealed::before {
+    animation: sleekfin-details-skeleton-pulse 1.4s ease-in-out infinite alternate;
+    background:
+        linear-gradient(var(--sleekfin-skeleton-line-strong, rgba(226, 229, 234, 0.28)) 0 0) 0 0 / min(360px, 70vw) 92px no-repeat,
+        linear-gradient(var(--sleekfin-skeleton-line, rgba(211, 215, 221, 0.16)) 0 0) 0 116px / min(430px, 78vw) 14px no-repeat,
+        linear-gradient(var(--sleekfin-skeleton-line, rgba(211, 215, 221, 0.16)) 0 0) 0 144px / min(390px, 72vw) 14px no-repeat,
+        linear-gradient(var(--sleekfin-skeleton-line-strong, rgba(226, 229, 234, 0.28)) 0 0) 0 196px / 120px 40px no-repeat;
+    bottom: 14vh;
+    content: "";
+    height: 236px;
+    left: var(--sleekfin-page-gutter, 24px);
+    position: fixed;
+    width: min(520px, calc(100vw - var(--sleekfin-page-gutter, 24px) * 2));
+    z-index: 1;
+}
+
+@keyframes sleekfin-details-skeleton-pulse {
+    from {
+        opacity: 0.62;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes sleekfin-details-enter {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#itemDetailPage.sleekfin-details-entering {
+    animation: sleekfin-details-enter 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+html.sleekfin-details-mounted {
+    --sleekfin-details-hero-height: 85vh;
+    background: var(--sleekfin-background);
+}
+
+html.sleekfin-details-mounted body {
+    overflow: hidden !important;
+}
+
+/* Jellyfin Modern reserves the fixed header height even when the details artwork fills the page. */
+html.sleekfin-details-mounted.sleekfin-header-mounted [data-sleekfin-header="modern"] + div[aria-hidden="true"] {
+    height: 0 !important;
+}
+
+html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] {
+    background: var(--sleekfin-background) !important;
+    box-sizing: border-box;
+    color: var(--sleekfin-text);
+    font-family: var(--sleekfin-font-family);
+    height: 100% !important;
+    overflow-x: hidden;
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+    scrollbar-color: rgba(255, 255, 255, 0.45) transparent;
+    top: 0 !important;
+}
+
+html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details]::-webkit-scrollbar {
+    background: transparent;
+    height: 5px;
+    width: 5px;
+}
+
+html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details]::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 6px;
+}
+
+/* The hero consumes its own height in page flow, so lower sections start below it without a spacer. */
+html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] > .detailPageWrapperContainer {
+    background: transparent !important;
+    box-sizing: border-box;
+    margin: 0;
+    max-width: none;
+    padding-top: 0;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+}
+
+html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] .detailPagePrimaryContainer {
+    display: block;
+    margin: 0;
+    padding: 0 var(--sleekfin-page-gutter);
+}
+
+/* Keep Jellyfin and plugin information in its original containers and hide only relocated UI. */
+html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] .detailPagePrimaryContainer > :is(.detailImageContainer, .detailRibbon),
+html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] .trackSelections {
+    display: none !important;
+}
+
+html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] .detailPagePrimaryContent {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+/* Keep native metadata queryable while showing it only after it moves into Info. */
+html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] .detailPagePrimaryContent > .detailSection > :is(.detailSectionContent, .itemDetailsGroup) {
+    display: none;
+}
+
+html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] :is(.detailSectionContent, .itemDetailsGroup) {
+    color: var(--sleekfin-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+@media (max-width: 767px) {
+    html.sleekfin-details-mounted {
+        --sleekfin-details-hero-height: max(620px, 85vh);
+    }
+}

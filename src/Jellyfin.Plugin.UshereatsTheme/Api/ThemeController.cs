@@ -1,3 +1,4 @@
+using Jellyfin.Plugin.UshereatsTheme.Sleek;
 using MediaBrowser.Controller.Library;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -66,6 +67,36 @@ public class ThemeController : ControllerBase
         Response.Headers["Cache-Control"] = CacheForever;
         Response.Headers["Access-Control-Allow-Origin"] = "*";
         return File(font, "font/woff2");
+    }
+
+    // ── Built-in SleekFin: its settings (the page already has them; these are for after you change them) ──
+    [HttpGet("Sleek/Header")]
+    public IActionResult GetSleekHeader() => SleekAnswer(SleekSettings.Header);
+
+    [HttpGet("Sleek/Hero/Settings")]
+    public IActionResult GetSleekHero() => SleekAnswer(SleekSettings.Hero);
+
+    [HttpGet("Sleek/Details/Settings")]
+    public IActionResult GetSleekDetails() => SleekAnswer(SleekSettings.Details);
+
+    /// <summary>Files the SleekFin settings page loads by name (details builder script + styles).</summary>
+    [HttpGet("Sleek/{file}")]
+    public IActionResult GetSleekFile([FromRoute] string file)
+    {
+        Payload? p = ThemeAssets.SleekFile(file);
+        if (p == null)
+        {
+            return NotFound();
+        }
+
+        return Serve(p, file.EndsWith(".css", StringComparison.Ordinal) ? "text/css; charset=utf-8" : "application/javascript; charset=utf-8");
+    }
+
+    private IActionResult SleekAnswer(Func<SleekConfiguration, object> pick)
+    {
+        SleekConfiguration s = Plugin.Instance?.Configuration.Sleek ?? new SleekConfiguration();
+        Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
+        return Content(System.Text.Json.JsonSerializer.Serialize(pick(s)), "application/json; charset=utf-8");
     }
 
     [HttpGet("studio/{name}")]

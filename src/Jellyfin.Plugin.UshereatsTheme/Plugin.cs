@@ -1,4 +1,6 @@
+using System.Xml.Serialization;
 using Jellyfin.Plugin.UshereatsTheme.Configuration;
+using Jellyfin.Plugin.UshereatsTheme.Sleek;
 using MediaBrowser.Common.Configuration;
 using MediaBrowser.Common.Plugins;
 using MediaBrowser.Model.Plugins;
@@ -16,6 +18,65 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
         : base(applicationPaths, xmlSerializer)
     {
         Instance = this;
+        _paths = applicationPaths;
+        if (Configuration.Sleek == null)
+        {
+            // first start with SleekFin built in: bring over SleekFin's own saved settings
+            Configuration.Sleek = ImportSleekFin() ?? new SleekConfiguration();
+            Normalize(Configuration.Sleek);
+            SaveConfiguration();
+        }
+        else
+        {
+            Normalize(Configuration.Sleek);
+        }
+    }
+
+    private readonly IApplicationPaths _paths;
+
+    /// <summary>True while the separate SleekFin plugin is still installed (then its copy here stays off).</summary>
+    public static bool SleekFinPluginLoaded => SleekFinCheck.Value;
+
+    // plugins are loaded once at startup, so checking once is enough
+    private static readonly Lazy<bool> SleekFinCheck = new Lazy<bool>(() => AppDomain.CurrentDomain.GetAssemblies()
+        .Any(a => string.Equals(a.GetName().Name, "Jellyfin.Plugin.SleekFin", StringComparison.Ordinal)));
+
+    public override void UpdateConfiguration(BasePluginConfiguration configuration)
+    {
+        if (configuration is PluginConfiguration c)
+        {
+            c.Sleek ??= Configuration.Sleek ?? new SleekConfiguration();
+            Normalize(c.Sleek);
+        }
+
+        base.UpdateConfiguration(configuration);
+    }
+
+    private static void Normalize(SleekConfiguration s)
+    {
+        HeaderConfiguration.Normalize(s);
+        HeroConfiguration.Normalize(s);
+        DetailsConfiguration.Normalize(s);
+    }
+
+    private SleekConfiguration? ImportSleekFin()
+    {
+        try
+        {
+            string file = Path.Combine(_paths.PluginConfigurationsPath, "Jellyfin.Plugin.SleekFin.xml");
+            if (!File.Exists(file))
+            {
+                return null;
+            }
+
+            XmlSerializer xs = new XmlSerializer(typeof(SleekConfiguration), new XmlRootAttribute("PluginConfiguration"));
+            using FileStream fs = File.OpenRead(file);
+            return xs.Deserialize(fs) as SleekConfiguration;
+        }
+        catch (Exception)
+        {
+            return null;
+        }
     }
 
     public override string Name => "Ushereats Theme";
@@ -37,6 +98,15 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
                 EmbeddedResourcePath = "configPage.html",
                 EnableInMainMenu = true,
                 MenuIcon = "palette"
+            },
+            new PluginPageInfo
+            {
+                // SleekFin's settings page (header, details pages, cards, hero look)
+                Name = "UshereatsThemeLook",
+                DisplayName = "Ushereats Theme: Look",
+                EmbeddedResourcePath = "sleekPage.html",
+                EnableInMainMenu = true,
+                MenuIcon = "format_paint"
             }
         };
     }

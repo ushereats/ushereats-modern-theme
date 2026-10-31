@@ -1,0 +1,222 @@
+/* Jellyfin Enhanced sets this variable inline on :root; a local value keeps its widget on SleekFin's accent. */
+html.sleekfin-main-ui #je-active-streams,
+html.sleekfin-main-ui #je-active-streams-panel {
+    --je-as-accent: var(--sleekfin-accent);
+}
+
+html.sleekfin-main-ui #je-active-streams-panel {
+    background: var(--sleekfin-surface);
+    border: 1px solid var(--sleekfin-border);
+    border-radius: 12px;
+    box-shadow: var(--sleekfin-glass-shadow);
+    color: var(--sleekfin-text);
+    font-family: var(--sleekfin-font-family);
+    gap: 12px;
+    padding: 16px;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-panel-header {
+    border-color: var(--sleekfin-border);
+    gap: 4px;
+    justify-content: flex-start;
+    padding-bottom: 12px;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-panel-title {
+    color: var(--sleekfin-text);
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    line-height: 20px;
+    margin-right: auto;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel :is(.je-as-refresh-btn, .je-as-broadcast-btn, .je-as-panel-close) {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    border-radius: 12px;
+    color: var(--sleekfin-muted);
+    height: 30px;
+    justify-content: center;
+    margin: 0;
+    width: 30px;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel :is(.je-as-refresh-btn, .je-as-broadcast-btn, .je-as-panel-close):hover,
+html.sleekfin-main-ui #je-active-streams-panel .je-as-broadcast-btn.je-as-broadcast-active {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--sleekfin-text);
+}
+
+html.sleekfin-main-ui #je-active-streams-panel :is(.je-as-broadcast-btn:hover, .je-as-broadcast-btn.je-as-broadcast-active) {
+    color: var(--jf-palette-primary-light);
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-panel-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 72px;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-panel-empty {
+    align-items: center;
+    color: var(--sleekfin-muted);
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    padding: 18px 0;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-panel-footer {
+    border-color: var(--sleekfin-border);
+    color: var(--sleekfin-muted);
+    font-size: 11px;
+    margin-top: 0;
+    padding-top: 12px;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-card {
+    background: var(--sleekfin-surface-raised);
+    border: 1px solid var(--sleekfin-border);
+    gap: 8px;
+    padding: 12px;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-poster,
+html.sleekfin-main-ui #je-active-streams-panel .je-as-poster-placeholder {
+    background: var(--sleekfin-border);
+    border-radius: 6px;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-card-title {
+    color: var(--sleekfin-text);
+    line-height: 18px;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-card-subtitle,
+html.sleekfin-main-ui #je-active-streams-panel .je-as-user,
+html.sleekfin-main-ui #je-active-streams-panel .je-as-progress-time {
+    color: var(--sleekfin-muted);
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-card-subtitle,
+html.sleekfin-main-ui #je-active-streams-panel .je-as-user {
+    line-height: 16px;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-state,
+html.sleekfin-main-ui #je-active-streams-panel .je-as-badge {
+    border-radius: 5px;
+    font-family: var(--sleekfin-font-family);
+    letter-spacing: 0;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-state-playing {
+    background: rgba(220, 38, 38, 0.18);
+    color: var(--jf-palette-primary-light);
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-state-paused {
+    background: rgba(241, 242, 244, 0.08);
+    color: var(--sleekfin-muted);
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-progress-bar {
+    background: var(--sleekfin-border);
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-badge-direct {
+    background: rgba(16, 185, 129, 0.13);
+    color: #a7f3d0;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-badge-transcode {
+    background: rgba(245, 158, 11, 0.13);
+    color: #fcd34d;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-badge-neutral {
+    background: rgba(241, 242, 244, 0.08);
+    color: var(--sleekfin-muted);
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-badge-reason {
+    background: rgba(220, 38, 38, 0.13);
+    color: var(--jf-palette-primary-light);
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-broadcast-form {
+    border-color: var(--sleekfin-border);
+    gap: 8px;
+    padding: 4px 0 14px;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-broadcast-field-label {
+    color: var(--sleekfin-text);
+    font-size: 11px;
+    letter-spacing: 0;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel :is(.je-as-broadcast-input, .je-as-broadcast-textarea, .je-as-broadcast-timeout-input) {
+    background: var(--sleekfin-surface-raised);
+    border: 1px solid var(--sleekfin-border);
+    border-radius: 8px;
+    color: var(--sleekfin-text);
+    font-family: var(--sleekfin-font-family);
+    font-size: 12px;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel :is(.je-as-broadcast-input, .je-as-broadcast-textarea, .je-as-broadcast-timeout-input):focus {
+    border-color: var(--sleekfin-accent);
+}
+
+html.sleekfin-main-ui #je-active-streams-panel :is(.je-as-broadcast-input, .je-as-broadcast-textarea)::placeholder {
+    color: var(--sleekfin-muted);
+    font-style: normal;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-broadcast-timeout-row {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-broadcast-timeout-label {
+    color: var(--sleekfin-muted);
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-broadcast-field-note {
+    color: #fcd34d;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel :is(.je-as-broadcast-send, .je-as-broadcast-cancel) {
+    border-radius: 999px;
+    font-family: var(--sleekfin-font-family);
+    font-weight: 600;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-broadcast-send {
+    background: var(--sleekfin-accent);
+    color: var(--sleekfin-text);
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-broadcast-cancel {
+    background: var(--sleekfin-surface-raised);
+    border-color: var(--sleekfin-border);
+    color: var(--sleekfin-text);
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-broadcast-cancel:hover {
+    background: var(--sleekfin-border);
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-broadcast-result.je-as-broadcast-ok {
+    background: rgba(16, 185, 129, 0.13);
+    color: #a7f3d0;
+}
+
+html.sleekfin-main-ui #je-active-streams-panel .je-as-broadcast-result.je-as-broadcast-err {
+    background: rgba(220, 38, 38, 0.13);
+    color: var(--jf-palette-primary-light);
+}

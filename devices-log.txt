@@ -1,0 +1,12 @@
+done iphone-portrait
+done iphone-landscape
+done android-portrait
+done android-landscape
+done ipad-portrait
+done ipad-landscape
+done tall-1080x1920
+done tv-1080
+done tv-720
+done xbox
+done xbox-app
+devices done

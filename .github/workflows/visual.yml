@@ -30,15 +30,18 @@ jobs:
           dotnet publish src/Jellyfin.Plugin.UshereatsTheme/Jellyfin.Plugin.UshereatsTheme.csproj -c Release -o out -p:Version=1.0.0.0
           python3 ci/package.py 1.0.0.0 "${{ github.repository }}"
       - name: Real Jellyfin + fake library
+        if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pip install --break-system-packages -q pillow || pip install -q pillow
-          bash ci/visual/setup.sh dist/ushereats-theme_1.0.0.0.zip 2>&1 | tail -n 80
+          mkdir -p shots
+          bash ci/visual/setup.sh dist/ushereats-theme_1.0.0.0.zip > shots/setup-log.txt 2>&1 || { tail -n 40 shots/setup-log.txt | sed 's/^/::error::/'; exit 1; }
       - name: Screenshots
+        if: always()
         run: |
-          npx playwright install --with-deps chromium >/dev/null
-          node ci/visual/shots.mjs shots
+          npx playwright install --with-deps chromium >/dev/null 2>&1
+          node ci/visual/shots.mjs shots > shots/shots-log.txt 2>&1 || { tail -n 30 shots/shots-log.txt | sed 's/^/::error::/'; }
           cp jellyfin-version.txt shots/ || true
           sudo journalctl -u jellyfin --no-pager | grep -iE "ushereats|sleek|FileTransformation|error|exception" | tail -n 200 > shots/jellyfin-log.txt || true
       - name: Push results

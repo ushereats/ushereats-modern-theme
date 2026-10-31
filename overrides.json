@@ -1,0 +1,30 @@
+{
+ "html:has(#tb-header-avatar) [data-sleekfin-header-proxy] [data-sleekfin-header-proxy-item=\"jellyfin:user-menu\"]\n   vs html.sleekfin-header-mounted [data-sleekfin-header-proxy] button": {
+  "props": "display",
+  "pages": [
+   "phone-home",
+   "phone-home-scrolled",
+   "phone-movie",
+   "phone-series",
+   "phone-episode",
+   "phone-search",
+   "phone-movies",
+   "phone-prefs",
+   "phone-profile"
+  ]
+ },
+ "html.sleekfin-header-mounted [data-sleekfin-header][data-sleekfin-scrolled=\"true\"]::before\n   vs html.sleekfin-header-mounted [data-sleekfin-header]::before": {
+  "props": "background-image height",
+  "pages": [
+   "phone-home-scrolled"
+  ]
+ },
+ "html.sleekfin-header-mounted:not(.layout-tv) .page:not(.hide):not(#videoOsdPage)\n   vs html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details]": {
+  "props": "padding-bottom",
+  "pages": [
+   "phone-movie",
+   "phone-series",
+   "phone-episode"
+  ]
+ }
+}

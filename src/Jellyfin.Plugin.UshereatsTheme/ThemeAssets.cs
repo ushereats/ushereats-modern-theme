@@ -236,6 +236,7 @@ public static class ThemeAssets
                 ).Append('\n');
         }
 
+        css.Append(".tb-sleek-end{--tb-sleek-end:1}\n");   // marks where the built-in SleekFin's styles end (used by the visual test)
         css.Append(ReadText("theme.css")).Append('\n');
         if (config.CustomIcon && IsHttpUrl(config.IconUrl))
         {

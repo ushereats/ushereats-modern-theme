@@ -180,6 +180,7 @@ for (const d of devices) {
         await page.waitForTimeout(900);
         await page.screenshot({ path: `${out}/${d.tag}-${name}-down.png`, animations: "disabled", caret: "hide" });
         R.pages[name + "-down"] = await page.evaluate(inspect, d.mobile);
+        R.pages[name + "-down"].scrolled = await page.evaluate(() => { const h = document.querySelector("[data-sleekfin-header]"); if (!h) return null; const b = getComputedStyle(h, "::before"); return { attr: h.getAttribute("data-sleekfin-scrolled"), y: Math.round(scrollY), pageTop: Math.max(0, ...Array.from(document.querySelectorAll(".page:not(.hide)"), (p) => p.scrollTop)), before: b.opacity + " " + b.height + " " + b.backgroundImage.slice(0, 80), tag: h.tagName }; });
         await page.evaluate(() => window.scrollTo(0, 0));
       }
       if (name === "home" && d.mobile) {

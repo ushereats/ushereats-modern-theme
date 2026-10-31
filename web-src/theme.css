@@ -936,4 +936,10 @@ html.layout-tv :is(.sleekfin-button, .detailButton, .sleekfin-icon-button):focus
 }
 /* row of episodes on a show page */
 html.layout-tv .sleekfin-details-episode-action:focus { outline-offset: -3px !important; }
+/* TV / Xbox: Jellyfin switches the title-page backdrop off in its TV look; the banner needs it */
+html.layout-tv.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] > #itemBackdrop { display: block !important; }
+
+/* the studio logos row scrolls inside itself on every screen (on narrow PC windows it pushed the page sideways) */
+html body .tb-studios .emby-scroller { overflow-x: auto !important; overflow-y: hidden !important; scrollbar-width: none; }
+html body .tb-studios .emby-scroller::-webkit-scrollbar { display: none; }
 /* ═══════════ end phones, tablets, TVs ═══════════ */

@@ -9,9 +9,18 @@
   var stale = true;
   var busy = false;
 
+  // Only the main Home screen: not Favourites or other home tabs, not any other page.
+  // Jellyfin changes pages without always firing hashchange, so the page itself is checked too.
   function isHome() {
-    var h = location.hash;
-    return h === "" || h === "#" || /^#\/?(home)(\.html)?([?#]|$)/i.test(h);
+    var h = location.hash, m;
+    if (!(h === "" || h === "#")) {
+      m = /^#\/(?:home)?(?:\.html)?(?:\?([^#]*))?$/.exec(h);
+      if (!m) return false;
+      var q = m[1] || "";
+      if (/(^|&)seerrfinTab=/.test(q) || /(^|&)tab=(?!0(&|$))/.test(q)) return false;
+    }
+    var page = document.getElementById("indexPage");
+    return !!(page && !page.classList.contains("hide"));
   }
 
   function isPlaying() {
@@ -68,7 +77,11 @@
       .then(function () { busy = false; render(); });
   }
 
+  var wasHome = false;
   function update() {
+    var home = isHome();
+    if (home && !wasHome) stale = true;   // came back to Home (by any route)
+    wasHome = home;
     render();
     if (stale && shouldShow()) { stale = false; refresh(); }
   }
@@ -82,11 +95,31 @@
   window.addEventListener("resize", update);
   document.addEventListener("visibilitychange", function () { markStale(); update(); });
 
-  // Player overlay can appear without a hash change; check once per frame at most
+  // Page changes / player overlay: re-check whenever the page changes (shared page watcher)
   var queued = false;
-  new MutationObserver(function () {
+  function soon() {
     if (queued) return;
     queued = true;
-    setTimeout(function () { requestAnimationFrame(function () { queued = false; update(); }); }, 250);   // batched: at most every 250ms
-  }).observe(document.body, { childList: true });
+    requestAnimationFrame(function () { queued = false; update(); });
+  }
+  var tbWatch = window.tbWatch || (window.tbWatch = (function () {
+    var subs = [], mo = null, last = 0;
+    function busy() {
+      if (document.hidden) return true;
+      var osd = document.getElementById("videoOsdPage");
+      return !!(osd && !osd.classList.contains("hide") && document.querySelector(".videoPlayerContainer"));
+    }
+    window.tbBusy = busy;
+    function fire() {
+      if (busy()) { var now = Date.now(); if (now - last < 1500) return; last = now; }
+      for (var i = 0; i < subs.length; i++) { try { subs[i](); } catch (e) {} }
+    }
+    document.addEventListener("visibilitychange", function () { if (!document.hidden) fire(); });
+    return function (fn) {
+      subs.push(fn);
+      if (!mo) { mo = new MutationObserver(fire); mo.observe(document.documentElement, { childList: true, subtree: true }); }
+    };
+  })());
+  tbWatch(soon);
+  window.addEventListener("popstate", soon);
 })();

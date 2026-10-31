@@ -106,7 +106,8 @@
 
   function cardsHtml(r, items) {
     var sid = C.serverId(), s = shape(r), out = "";
-    for (var i = 0; i < items.length; i++) out += r.type === "studios" ? C.logoCard(items[i], i, sid) : C.card(items[i], s, i, sid);
+    var own = r.type === "continue";   // Continue Watching: each episode's own picture (movies: their thumb)
+    for (var i = 0; i < items.length; i++) out += r.type === "studios" ? C.logoCard(items[i], i, sid) : C.card(items[i], s, i, sid, "", own);
     return out;
   }
 
@@ -256,7 +257,11 @@
     ".tb-studios .cardPadder, .tb-studios .cardImageContainer, .tb-studios .cardContent { background: transparent !important; box-shadow: none !important; border-radius: 0 !important; }",
     ".tb-studios .tb-logo-img { position: absolute; top: 10%; left: 8%; right: 8%; bottom: 10%; background: center / contain no-repeat; filter: brightness(0) invert(1); opacity: .92; transition: opacity .15s ease; }",
     ".tb-studios .tb-logo-link:hover .tb-logo-img, .tb-studios .tb-logo-link:focus .tb-logo-img { opacity: 1; }",
-    ".tb-studios .cardBox { margin-bottom: 0 !important; }"
+    ".tb-studios .cardBox { margin-bottom: 0 !important; }",
+    // no poster backing, shadow, dim layer or hover shadow behind the logos
+    ".tb-studios .card .cardScalable:not(#tb-x) { background: none !important; box-shadow: none !important; border: 0 !important; clip-path: none !important; }",
+    ".tb-studios .card .cardScalable:not(#tb-x)::before, .tb-studios .card .cardScalable:not(#tb-x)::after { content: none !important; display: none !important; }",
+    ".tb-studios .card:not(#tb-x) .cardBox, .tb-studios .card:hover:not(#tb-x) .cardBox { filter: none !important; box-shadow: none !important; background: none !important; }"
   ].join("\n");
   document.head.appendChild(st);
 

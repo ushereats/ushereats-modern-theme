@@ -102,6 +102,7 @@ public static class ThemeAssets
 
     private const string SplashFile = "js_02_welcome_splash.js";
     private const string DashboardFile = "js_19_dashboard_skin.js";
+    private const string NowPlayingFile = "js_24_now_playing.js";
 
     // file name in Assets -> setting that switches it on (in load order)
     private static readonly (string File, Func<PluginConfiguration, bool> On)[] Features =
@@ -266,20 +267,31 @@ public static class ThemeAssets
             splash = new Payload(Encoding.UTF8.GetBytes(sj.ToString()));
         }
 
+        // admin dashboard extras: downloaded only when the dashboard is opened
+        bool dashboardOn = config.DashboardSkin || config.NowPlaying;
         Payload dashboard = Payload.Empty;
-        if (config.DashboardSkin)
+        if (dashboardOn)
         {
             StringBuilder dj = new StringBuilder(prefix);
-            AppendFeature(dj, DashboardFile, mp3Version);
+            if (config.DashboardSkin)
+            {
+                AppendFeature(dj, DashboardFile, mp3Version);
+            }
+
+            if (config.NowPlaying)
+            {
+                AppendFeature(dj, NowPlayingFile, mp3Version);
+            }
+
             dashboard = new Payload(Encoding.UTF8.GetBytes(dj.ToString()));
         }
 
         StringBuilder js = new StringBuilder(prefix);
         // Jellyfin never used Custom CSS on admin pages: keep the theme stylesheet off there too
         js.Append("(function(){var l=document.getElementById(\"tb-theme-css\");if(!l||!document.body)return;function s(){var m=document.body.classList.contains(\"dashboardDocument\")?\"not all\":\"all\";if(l.media!==m)l.media=m}s();new MutationObserver(s).observe(document.body,{attributes:true,attributeFilter:[\"class\"]})})();\n");
-        if (config.DashboardSkin)
+        if (dashboardOn)
         {
-            // dashboard skin is only downloaded the first time you open the admin dashboard
+            // dashboard skin / Now Playing are only downloaded the first time you open the admin dashboard
             js.Append("(function(){if(!document.body)return;var done=false,mo;function c(){if(done||!document.body.classList.contains(\"dashboardDocument\"))return;done=true;mo.disconnect();var s=document.createElement(\"script\");s.src=\"../UshereatsTheme/dashboard.js?v=")
               .Append(dashboard.Hash)
               .Append("\";document.head.appendChild(s)}mo=new MutationObserver(c);mo.observe(document.body,{attributes:true,attributeFilter:[\"class\"]});c()})();\n");

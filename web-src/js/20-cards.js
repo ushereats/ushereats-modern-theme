@@ -35,7 +35,7 @@
     return "fillWidth=" + pw + "&fillHeight=" + Math.round(pw * 1.5);
   }
   function img(id, type, tag, shape) {
-    return base + "Items/" + id + "/Images/" + type + "?" + size(shape) + "&quality=96&tag=" + encodeURIComponent(tag);
+    return base + "Items/" + id + "/Images/" + type + "?" + size(shape) + "&quality=90&tag=" + encodeURIComponent(tag);
   }
   // same image choice as Jellyfin's home rows
   function imageFor(it, shape, own) {
@@ -165,13 +165,37 @@
     return t.content.firstElementChild;
   }
 
+  // the image at the size the card really is on this screen (x screen sharpness), in steps of 40px so the
+  // server's resized copies are shared; never bigger than first asked
+  function fitted(url, width) {
+    var m = /fillWidth=(\d+)&fillHeight=(\d+)/.exec(url);
+    if (!m || !width) return url;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = Math.min(+m[1], Math.max(80, Math.ceil(width * dpr / 40) * 40));
+    if (w === +m[1]) return url;
+    return url.replace(m[0], "fillWidth=" + w + "&fillHeight=" + Math.round(w * (+m[2]) / (+m[1])));
+  }
+  function show(e, width) {
+    e.style.backgroundImage = 'url("' + fitted(e.getAttribute("data-tb-src"), width).replace(/["\\]/g, "") + '")';
+    e.removeAttribute("data-tb-src");
+  }
   function fill(scope) {
+    var list = scope.querySelectorAll("[data-tb-src]"), widths = [], i;
+    for (i = 0; i < list.length; i++) widths.push(list[i].offsetWidth);   // all sizes read first, then all images set
+    for (i = 0; i < list.length; i++) show(list[i], widths[i]);
+  }
+  // search: each poster loads when it comes near the screen (not all of them at once)
+  var cardIo = "IntersectionObserver" in window ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      cardIo.unobserve(en.target);
+      if (en.target.hasAttribute("data-tb-src")) show(en.target, en.boundingClientRect.width);
+    });
+  }, { rootMargin: "400px 0px" }) : null;
+  function loadEach(scope) {
+    if (!cardIo) { fill(scope); return; }
     var list = scope.querySelectorAll("[data-tb-src]");
-    for (var i = 0; i < list.length; i++) {
-      var e = list[i];
-      e.style.backgroundImage = 'url("' + e.getAttribute("data-tb-src").replace(/["\\]/g, "") + '")';
-      e.removeAttribute("data-tb-src");
-    }
+    for (var i = 0; i < list.length; i++) cardIo.observe(list[i]);
   }
   // Images start downloading when their row comes near the screen (rows already on screen: straight away)
   var io = "IntersectionObserver" in window ? new IntersectionObserver(function (entries) {
@@ -202,5 +226,5 @@
     for (var i = 0; i < list.length; i++) { try { list[i](); } catch (e) {} }
   }
 
-  window.tbCards = { decorate: decorate, esc: esc, card: card, logoCard: logoCard, section: section, frag: frag, load: load, refreshScroller: refreshScroller, upgrade: upgrade, base: base, serverId: serverId };
+  window.tbCards = { decorate: decorate, loadEach: loadEach, esc: esc, card: card, logoCard: logoCard, section: section, frag: frag, load: load, refreshScroller: refreshScroller, upgrade: upgrade, base: base, serverId: serverId };
 })();

@@ -109,6 +109,11 @@ html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] .detailPage
     padding: 0 var(--sleekfin-page-gutter);
 }
 
+/* Jellyfin's own poster is never shown on these pages: hidden from the start, so it is never downloaded. */
+html[data-sleekfin-details-boot] #itemDetailPage .detailImageContainer {
+    display: none !important;
+}
+
 /* Keep Jellyfin and plugin information in its original containers and hide only relocated UI. */
 html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] .detailPagePrimaryContainer > :is(.detailImageContainer, .detailRibbon),
 html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] .trackSelections {

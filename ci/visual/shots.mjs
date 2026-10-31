@@ -28,7 +28,11 @@ const pages = [
   ["prefs", "#/mypreferencesmenu.html"],
   ["profile", `#/userprofile.html?userId=${s.userId}`],
   ["settings", "#/configurationpage?name=UshereatsTheme"],
+  ["dashboard", "#/dashboard"],
 ];
+// something "playing" for the Now Playing panel (a playback report from the test client)
+await fetch(s.server + "/Sessions/Playing", { method: "POST", headers: { ...H, "Content-Type": "application/json" },
+  body: JSON.stringify({ ItemId: movies[1].Id, PositionTicks: 12000000000, PlayMethod: "DirectPlay", CanSeek: true, IsPaused: false, AudioStreamIndex: 1 }) }).catch(() => {});
 const report = { errors: {} };
 // Which of the theme's rules restyle something a built-in SleekFin rule also styles (same element, same property)?
 const overrides = {};

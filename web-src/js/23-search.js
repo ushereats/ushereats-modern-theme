@@ -130,7 +130,7 @@
       });
       now.results.innerHTML = out || '<div class="noItemsMessage centerMessage">Sorry! No results found for "' + C.esc(term) + '"</div>';
       C.upgrade(now.results);
-      C.load(now.results, true);
+      C.loadEach(now.results);
       C.decorate();
       showResults(now, true);
     });

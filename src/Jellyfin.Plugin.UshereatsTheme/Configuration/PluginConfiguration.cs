@@ -28,6 +28,9 @@ public class PluginConfiguration : BasePluginConfiguration
     public bool EpisodeList { get; set; } = true;
     public bool DashboardSkin { get; set; } = true;
 
+    /// <summary>"Now Playing" panel on the dashboard home (replaces the PlayInfo plugin).</summary>
+    public bool NowPlaying { get; set; } = true;
+
     /// <summary>Instant home hero (replaces SleekFin's hero; switch SleekFin's hero off).</summary>
     public bool Hero { get; set; } = true;
 

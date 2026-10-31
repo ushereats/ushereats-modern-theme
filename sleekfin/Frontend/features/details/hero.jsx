@@ -3,6 +3,29 @@ import { applySettings } from './presentation.js';
 import { DEFAULT_SETTINGS } from './settings.js';
 import { createTrailerPreview } from './trailer.js';
 
+// The same backdrop link Jellyfin's own page background asks for (same size, quality and order), so the
+// browser downloads it once and both use it.
+const STANDARD_WIDTHS = [480, 720, 1280, 1440, 1920, 2560, 3840, 5120, 7680];
+function screenWidth() {
+  let width = Number.isFinite(window.innerWidth) ? window.innerWidth : 3840;
+  const height = Number.isFinite(window.innerHeight) ? window.innerHeight : 2160;
+  if (height > width) width = height * (16.0 / 9.0);
+  return STANDARD_WIDTHS.slice().sort((a, b) => Math.abs(width - a) - Math.abs(width - b))[0];
+}
+function sharedBackdropUrl(mediaItem) {
+  const client = window.ApiClient;
+  let ownerId = mediaItem?.BackdropItemId || mediaItem?.Id;
+  let tag = mediaItem?.BackdropImageTags?.[0];
+  if (!tag && mediaItem?.ParentBackdropItemId && mediaItem?.ParentBackdropImageTags?.length) {
+    ownerId = mediaItem.ParentBackdropItemId;
+    tag = mediaItem.ParentBackdropImageTags[0];
+  }
+  if (!tag || !ownerId || !client || typeof client.getScaledImageUrl !== 'function') {
+    return item.imageUrl(mediaItem, 'Backdrop', { maxWidth: Math.max(960, window.innerWidth), inherit: true, quality: 80 });
+  }
+  return client.getScaledImageUrl(ownerId, { type: 'Backdrop', tag, maxWidth: screenWidth(), index: 0 });
+}
+
 function goBack() {
   if (window.history.length > 1) {
     window.history.back();
@@ -86,7 +109,7 @@ export function createHero(page, { preview = false } = {}) {
       destroyOverview?.();
       destroyOverview = settings.descriptionExpandEnabled ? dom.expandableText(overview) : null;
     }
-    const backdropUrl = item.imageUrl(mediaItem, 'Backdrop', { maxWidth: Math.max(960, window.innerWidth), inherit: true, quality: 90 });
+    const backdropUrl = sharedBackdropUrl(mediaItem);
     const isChild = mediaItem.Type === 'Season' || mediaItem.Type === 'Episode';
     actions.dataset.sleekfinCanDownload = String(['Movie', 'Episode'].includes(mediaItem.Type) && mediaItem.CanDownload === true && (!window.NativeShell || window.NativeShell.AppHost.supports('filedownload')));
     childTitleRoot.hidden = !isChild;

@@ -3,6 +3,6 @@ obj/
 out/
 dist/
 node_modules/
-package-lock.json
+/package-lock.json
 sleekfin/node_modules/
 sleekfin/build/

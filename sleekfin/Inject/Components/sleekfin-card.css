@@ -59,7 +59,7 @@ html.sleekfin-main-ui .card:is(.overflowBackdropCard, .overflowSmallBackdropCard
     }
 }
 
-html.sleekfin-main-ui .card[data-type] :is(button.cardOverlayButton, button.je-hide-btn, .sleekfin-icon-button) {
+html.sleekfin-main-ui .card[data-type] :is(button.cardOverlayButton, .sleekfin-icon-button) {
     align-items: center;
     border-radius: var(--sleekfin-card-button-radius) !important;
     color: var(--sleekfin-muted);
@@ -150,13 +150,12 @@ html.sleekfin-main-ui .card[data-type] .cardOverlayButtonIcon {
     width: 18px !important;
 }
 
-html.sleekfin-main-ui .card[data-type] button.cardOverlayButton > .MuiSvgIcon-root,
-html.sleekfin-main-ui .card[data-type] button.je-hide-btn > :is(svg, .material-icons) {
+html.sleekfin-main-ui .card[data-type] button.cardOverlayButton > .MuiSvgIcon-root {
     height: 18px;
     width: 18px;
 }
 
-html.sleekfin-main-ui .card[data-type] :is(button.cardOverlayButton, button.je-hide-btn, .sleekfin-icon-button):hover {
+html.sleekfin-main-ui .card[data-type] :is(button.cardOverlayButton, .sleekfin-icon-button):hover {
     color: var(--sleekfin-text);
 }
 

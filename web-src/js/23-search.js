@@ -78,9 +78,24 @@
       UserData: { Played: u.Played, PlayedPercentage: u.PlayedPercentage, UnplayedItemCount: u.UnplayedItemCount, IsFavorite: u.IsFavorite }
     };
   }
+  // an answer we already have: this exact search, or a shorter one that returned everything it found
+  // (fewer than LIMIT): typing more letters then only narrows it down, no need to ask the server again
+  function known(type, term) {
+    var t = term.toLowerCase(), hit = cache[type + "|" + t], now = Date.now();
+    if (hit && now - hit.at < TTL) return hit.items;
+    for (var n = t.length - 1; n >= 2; n--) {
+      var p = cache[type + "|" + t.slice(0, n)];
+      if (p && now - p.at < TTL && p.items.length < LIMIT) {
+        return p.items.filter(function (it) {
+          return [it.Name, it.SeriesName, it.OriginalTitle].some(function (s) { return s && s.toLowerCase().indexOf(t) >= 0; });
+        });
+      }
+    }
+    return null;
+  }
   function query(type, term, signal) {
-    var key = type + "|" + term.toLowerCase(), hit = cache[key];
-    if (hit && Date.now() - hit.at < TTL) return Promise.resolve(hit.items);
+    var key = type + "|" + term.toLowerCase(), have = known(type, term);
+    if (have) return Promise.resolve(have);
     var q = "&SearchTerm=" + encodeURIComponent(term) + "&Limit=" + LIMIT + "&Fields=PrimaryImageAspectRatio,ProductionYear&ImageTypeLimit=1&EnableImageTypes=Primary,Backdrop,Thumb&EnableTotalRecordCount=false";
     var uid = encodeURIComponent(ApiClient.getCurrentUserId());
     var url = type === "Person" ? "Persons?userId=" + uid + q
@@ -193,7 +208,10 @@
       clearTimeout(timer);
       var v = input.value.trim();
       if (!v) { run(""); return; }
-      timer = setTimeout(function () { run(input.value.trim()); }, 250);
+      // already known (typed before, or narrowing a finished search): straight away; otherwise a short pause while typing
+      var types = GROUPS[mode] || GROUPS.videos;
+      var ready = types.every(function (ty) { return known(ty, v); });
+      timer = setTimeout(function () { run(input.value.trim()); }, ready ? 0 : 180);
     });
     input.addEventListener("keydown", function (ev) {
       if (ev.key === "Enter") { ev.preventDefault(); run(input.value.trim()); }
@@ -224,7 +242,7 @@
     "#searchPage .smart-search-btn.hide { display: none !important; }",
     "#searchPage #smart-search-results .verticalSection { margin-bottom: 2em; }"
   ].join("\n");
-  document.head.appendChild(st);
+  tbCss(st);
 
   if (/^#\/search/.test(location.hash)) mount();
 })();

@@ -100,5 +100,5 @@
   var style = document.createElement("style");
   style.id = "tb-episode-list";
   style.textContent = css;
-  document.head.appendChild(style);
+  tbCss(style);
 })();

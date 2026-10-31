@@ -331,7 +331,7 @@
   var style = document.createElement("style");
   style.id = "tb-ambient-style";
   style.textContent = css;
-  document.head.appendChild(style);
+  tbCss(style);
 
   // ── Watch for the hero mounting and for slide changes ──
   // New / removed elements come from the shared watcher; attribute changes are filtered here so

@@ -118,8 +118,8 @@
     return null;
   }
 
-  function apply() {
-    document.querySelectorAll(".card").forEach(function (card) {
+  function apply(only) {
+    Array.prototype.forEach.call(only || document.querySelectorAll(".card"), function (card) {
       var label = labelFor(card);
       var key = (getItemId(card) || "") + "|" + (label || "");
       if (card.__tbNew === key && card.__tbNewAt === loadedAt) return;   // nothing changed for this card
@@ -171,13 +171,20 @@
     "  pointer-events: none;",
     "}"
   ].join("\n");
-  document.head.appendChild(style);
+  tbCss(style);
 
   var poll = setInterval(function () {
     if (window.ApiClient) { clearInterval(poll); run(); }
   }, 500);
 
-  tbWatch(schedule);
+  // only the cards that just appeared (the tag list itself is refreshed every 10 min)
+  tbAdded(function (roots) {
+    if (!window.ApiClient) return;
+    var cards = tbIn(roots, ".card");
+    if (!cards.length) return;
+    if (!loadedAt || Date.now() - loadedAt > REFRESH_MS) run();
+    else apply(cards);
+  });
 
   // also run right as our own rows/search draw their cards (so badges are there on the first frame)
   (window.tbCardDecorators = window.tbCardDecorators || []).push(function () { apply(); });

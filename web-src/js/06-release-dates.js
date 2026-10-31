@@ -262,10 +262,10 @@
     });
   }
 
-  function scan() {
+  function scan(only) {
     if (!window.ApiClient) return;
     if (ro) pruneObserved();
-    document.querySelectorAll(".section, .verticalSection").forEach(function (section) {
+    Array.prototype.forEach.call(only || document.querySelectorAll(".section, .verticalSection"), function (section) {
       if (!isTargetSection(section)) return;
       var cards = Array.prototype.slice.call(section.querySelectorAll(".card"));
       var missing = [];
@@ -299,16 +299,21 @@
     "." + BADGE_CLASS + " b { color: rgba(255,255,255,0.92); font-weight: 700; }",
     "." + BADGE_CLASS + " span { font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }"
   ].join("\n");
-  document.head.appendChild(style);
+  tbCss(style);
 
   var poll = setInterval(function () {
     if (window.ApiClient) { clearInterval(poll); scan(); }
   }, 500);
 
-  tbWatch(scheduleScan);
+  // only the rows that just appeared or changed
+  tbAdded(function (roots) {
+    if (!window.ApiClient) return;
+    var secs = tbUp(roots, ".section, .verticalSection");
+    if (secs.length) scan(secs);
+  });
 
   // also run right as our own rows/search draw their cards (so badges are there on the first frame)
-  (window.tbCardDecorators = window.tbCardDecorators || []).push(scan);
+  (window.tbCardDecorators = window.tbCardDecorators || []).push(function () { scan(); });
   if (!ro) window.addEventListener("resize", function () {
     document.querySelectorAll("." + BADGE_CLASS).forEach(function (b) { b.dataset.key = ""; });
     scheduleScan();

@@ -121,7 +121,7 @@
         "  #tb-splash .tb-sp-name { -webkit-text-fill-color: #fff; }",
         "}"].join("\n") : "")
     ].join("\n");
-    document.head.appendChild(style);
+    document.head.appendChild(style);   // (its own block: removed again when the splash ends)
 
     var overlay = document.createElement("div");
     overlay.id = "tb-splash";

@@ -122,5 +122,5 @@
   var style = document.createElement("style");
   style.id = "tb-signin-extras";
   style.textContent = css;
-  document.head.appendChild(style);
+  tbCss(style);
 })();

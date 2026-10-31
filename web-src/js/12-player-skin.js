@@ -306,5 +306,5 @@
   var style = document.createElement("style");
   style.id = "tb-player-skin";
   style.textContent = css;
-  document.head.appendChild(style);
+  tbCss(style);
 })();

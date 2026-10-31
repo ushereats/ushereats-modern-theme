@@ -279,5 +279,5 @@
   var style = document.createElement("style");
   style.id = "tb-search-restyle";
   style.textContent = css;
-  document.head.appendChild(style);
+  tbCss(style);
 })();

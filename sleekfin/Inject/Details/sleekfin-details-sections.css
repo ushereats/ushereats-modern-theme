@@ -3,7 +3,7 @@ html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] .detailPage
     padding: 0 var(--sleekfin-page-gutter) 72px !important;
 }
 
-html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] :is(.detailVerticalSection, .jellyseerr-details-section) {
+html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] :is(.detailVerticalSection) {
     margin: 36px 0 0 !important;
 }
 
@@ -77,14 +77,13 @@ html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details].sleekfin-de
     z-index: 2;
 }
 
-.sleekfin-details-season-card.card :is(.cardOverlayButton, .je-hide-btn),
-.sleekfin-details-season-card.card :is(.cardOverlayButton, .je-hide-btn):hover {
+.sleekfin-details-season-card.card :is(.cardOverlayButton),.sleekfin-details-season-card.card :is(.cardOverlayButton):hover {
     margin: 0;
     opacity: 1;
     transform: none;
 }
 
-.sleekfin-details-season-card :is(.cardOverlayButton, .je-hide-btn) .material-icons {
+.sleekfin-details-season-card :is(.cardOverlayButton) .material-icons {
     font-size: 18px;
     transform: none;
 }
@@ -107,12 +106,6 @@ html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details].sleekfin-de
     display: none;
 }
 
-.sleekfin-details-season-card .je-hide-btn {
-    left: 10px;
-    right: auto;
-    top: 52px;
-}
-
 .sleekfin-details-season-link {
     background: transparent;
     border: 0;
@@ -123,7 +116,6 @@ html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details].sleekfin-de
     text-align: inherit;
     width: 100%;
 }
-
 
 html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] .detailVerticalSection .cardScalable {
     background: var(--sleekfin-surface);

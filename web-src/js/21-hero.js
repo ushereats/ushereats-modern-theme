@@ -443,7 +443,7 @@
     "  margin-top: calc(-1 * var(--tb-lift, 0px)) !important; position: relative; z-index: 2; pointer-events: none; }",
     "html:not(.layout-tv) :not(#tb-x) #indexPage > .sleekfin-hero + #homeTab > .sections.homeSectionsContainer > * { pointer-events: auto; }"
   ].join("\n");
-  document.head.appendChild(st);
+  tbCss(st);
 
   loadData();   // start using the head's data straight away
   schedule();

@@ -1,8 +1,4 @@
-html.sleekfin-main-ui .dialog:not(.actionSheet, .je-launcher-panel),
-html.sleekfin-main-ui .dialog.sleekfin-more-menu,
-html.sleekfin-main-ui .MuiDialog-paper,
-html.sleekfin-main-ui :is(.je-hidden-management-panel, .je-hide-confirm-dialog, .je-bm-library-modal-container, .je-bm-player-modal-container, .jellyseerr-season-content, .je-more-info-modal .modal-container),
-html.sleekfin-main-ui #streaming-settings-modal > div {
+html.sleekfin-main-ui .dialog.sleekfin-more-menu,html.sleekfin-main-ui .MuiDialog-paper,html.sleekfin-main-ui #streaming-settings-modal > div {
     -webkit-backdrop-filter: var(--sleekfin-glass-filter);
     backdrop-filter: var(--sleekfin-glass-filter);
     background: linear-gradient(rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.01)), var(--sleekfin-surface) !important;
@@ -13,38 +9,17 @@ html.sleekfin-main-ui #streaming-settings-modal > div {
     font-family: var(--app-font);
 }
 
-html.sleekfin-main-ui .dialog:not(.actionSheet, .je-launcher-panel),
-html.sleekfin-main-ui .dialog.sleekfin-more-menu,
-html.sleekfin-main-ui .MuiDialog-paper {
+html.sleekfin-main-ui .dialog.sleekfin-more-menu,html.sleekfin-main-ui .MuiDialog-paper {
     box-sizing: border-box;
     max-height: calc(100% - 32px);
     max-width: calc(100% - 32px);
 }
 
-/* Jellyfin's full-size editors otherwise override the inset at mobile and TV sizes. */
-html.sleekfin-main-ui .dialog:not(.actionSheet, .je-launcher-panel).dialog-fullscreen {
-    bottom: 16px !important;
-    height: auto !important;
-    left: 16px !important;
-    position: fixed !important;
-    right: 16px !important;
-    top: 16px !important;
-    width: auto !important;
-}
-
 @media (max-width: 80em), (max-height: 45em) {
-    html.sleekfin-main-ui .dialog:not(.actionSheet, .je-launcher-panel):is(.dialog-fixedSize, .dialog-fullscreen-lowres) {
-        bottom: 16px !important;
-        height: auto !important;
-        left: 16px !important;
-        position: fixed !important;
-        right: 16px !important;
-        top: 16px !important;
-        width: auto !important;
-    }
+
 }
 
-html.sleekfin-main-ui :is(.dialogBackdrop, .MuiBackdrop-root, .je-hidden-management-overlay, .je-hide-confirm-overlay, .je-bm-library-modal-overlay, .je-bm-player-modal-overlay, .jellyseerr-season-modal, .je-more-info-modal, #streaming-settings-modal) {
+html.sleekfin-main-ui :is(.dialogBackdrop, .MuiBackdrop-root, #streaming-settings-modal) {
     -webkit-backdrop-filter: blur(2px);
     backdrop-filter: blur(2px);
     background-color: rgba(0, 0, 0, 0.65) !important;
@@ -54,38 +29,22 @@ html.sleekfin-main-ui .dialogBackdropOpened {
     opacity: 1;
 }
 
-html.sleekfin-main-ui .dialog:not(.actionSheet, .je-launcher-panel) :is(.formDialogHeader, .formDialogFooter),
-html.sleekfin-main-ui .MuiDialogTitle-root,
-html.sleekfin-main-ui .MuiDialogActions-root {
+html.sleekfin-main-ui .MuiDialogTitle-root,html.sleekfin-main-ui .MuiDialogActions-root {
     background-color: transparent !important;
     padding: 16px 20px 12px;
 }
 
-html.sleekfin-main-ui .formDialogHeaderTitle,
-html.sleekfin-main-ui .MuiDialogTitle-root,
-html.sleekfin-main-ui :is(.je-hidden-management-header h2, .je-hide-confirm-dialog h3, .je-bookmarks-modal-header h2, .jellyseerr-season-title),
-html.sleekfin-main-ui #streaming-settings-modal > div > h3 {
+html.sleekfin-main-ui .formDialogHeaderTitle,html.sleekfin-main-ui .MuiDialogTitle-root,html.sleekfin-main-ui #streaming-settings-modal > div > h3 {
     font-size: 15px !important;
     font-weight: 500 !important;
     letter-spacing: -0.025em;
 }
 
-html.sleekfin-main-ui .dialog:not(.actionSheet, .je-launcher-panel) .dialogContentInner {
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-html.sleekfin-main-ui .dialog:not(.actionSheet, .je-launcher-panel) .formDialogContent {
-    min-height: 0;
-}
-
-html.sleekfin-main-ui .dialog:not(.actionSheet, .je-launcher-panel) :is(.paper-icon-button-light, .raised),
 html.sleekfin-main-ui .MuiDialogActions-root .MuiButton-root {
     border-radius: 12px;
 }
 
-html.sleekfin-main-ui .dialog .formDialogHeader .paper-icon-button-light,
-html.sleekfin-main-ui :is(.je-hidden-management-close, .je-bm-library-modal-close, .je-bookmark-modal-close, .je-more-info-modal .modal-close, .je-more-info-modal .modal-refresh) {
+html.sleekfin-main-ui .dialog .formDialogHeader .paper-icon-button-light {
     background: transparent !important;
     border-radius: 50%;
     border: 0;
@@ -99,13 +58,7 @@ html.sleekfin-main-ui .dialog .formDialogHeader .paper-icon-button-light .materi
     font-size: 18px;
 }
 
-html.sleekfin-main-ui .je-more-info-modal :is(.modal-close, .modal-refresh) svg {
-    height: 18px;
-    width: 18px;
-}
-
-html.sleekfin-main-ui .dialog .formDialogHeader .paper-icon-button-light:hover,
-html.sleekfin-main-ui :is(.je-hidden-management-close, .je-bm-library-modal-close, .je-bookmark-modal-close, .je-more-info-modal .modal-close, .je-more-info-modal .modal-refresh):hover {
+html.sleekfin-main-ui .dialog .formDialogHeader .paper-icon-button-light:hover {
     background: rgba(255, 255, 255, 0.06) !important;
     color: rgba(255, 255, 255, 0.7) !important;
 }

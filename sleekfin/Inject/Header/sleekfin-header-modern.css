@@ -111,17 +111,7 @@ html.sleekfin-header-mounted [data-sleekfin-header-actions][data-sleekfin-header
     display: none;
 }
 
-html.sleekfin-header-mounted [data-sleekfin-header-actions] #je-native-tabs-separator {
-    background: rgba(255, 255, 255, 0.12) !important;
-    flex: 0 0 1px !important;
-    height: 16px !important;
-    margin: 8px 6px !important;
-    width: 1px !important;
-}
-
-html.sleekfin-header-mounted [data-sleekfin-header-actions] #je-native-tabs-group button,
-html.sleekfin-header-mounted [data-sleekfin-header-actions] #randomItemButtonContainer,
-html.sleekfin-header-mounted [data-sleekfin-header-actions] #randomItemButton {
+html.sleekfin-header-mounted [data-sleekfin-header-actions] #randomItemButtonContainer,html.sleekfin-header-mounted [data-sleekfin-header-actions] #randomItemButton {
     height: var(--sleekfin-header-item-height) !important;
     margin: 0 !important;
     min-height: var(--sleekfin-header-item-height) !important;

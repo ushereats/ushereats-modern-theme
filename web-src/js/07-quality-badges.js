@@ -236,9 +236,9 @@
     });
   }
 
-  function scan() {
+  function scan(only) {
     if (!window.ApiClient) return;
-    var cards = Array.prototype.slice.call(document.querySelectorAll(".card"))
+    var cards = (only || Array.prototype.slice.call(document.querySelectorAll(".card")))
       .filter(function (c) { return wantedCard(c); });   // no layout reads here (they force a reflow)
     var missing = [];
     cards.forEach(function (card) {
@@ -305,15 +305,20 @@
     ".tb-q-hdr { color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.02em; }",
     ".tb-q-hdr10p { width: 40px; height: 11px; display: block; }"
   ].join("\n");
-  document.head.appendChild(style);
+  tbCss(style);
 
   var poll = setInterval(function () {
     if (window.ApiClient) { clearInterval(poll); scan(); }
   }, 500);
 
-  tbWatch(scheduleScan);
+  // only the cards that just appeared
+  tbAdded(function (roots) {
+    if (!window.ApiClient) return;
+    var cards = tbIn(roots, ".card");
+    if (cards.length) scan(cards);
+  });
 
   // also run right as our own rows/search draw their cards (so badges are there on the first frame)
-  (window.tbCardDecorators = window.tbCardDecorators || []).push(scan);
+  (window.tbCardDecorators = window.tbCardDecorators || []).push(function () { scan(); });
   window.addEventListener("hashchange", scheduleScan);
 })();

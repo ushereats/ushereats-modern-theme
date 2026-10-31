@@ -129,7 +129,8 @@
     h += indicators(it);
     if (pct) h += '<div class="innerCardFooter fullInnerCardFooter innerCardFooterClear"><div class="itemProgressBar"><div class="itemProgressBarForeground" style="width:' + pct + '%;"></div></div></div>';
     h += "</a>";
-    if (mode === "desktop") h += hoverMenu(it, sid);
+    // desktop hover buttons are built the first time the card is hovered or focused (see below), not up front
+    if (mode === "desktop") h = h.replace('<div class="cardScalable">', '<div class="cardScalable" data-tb-menu="' + (u.Played ? "p" : "") + (u.IsFavorite ? "f" : "") + (it.LocationType === "Virtual" ? "v" : "") + '">');
     else if (PLAYABLE[it.Type] && it.LocationType !== "Virtual") h += '<button is="paper-icon-button-light" class="cardOverlayButton cardOverlayButton-br itemAction" data-action="play" title="Play"><span class="material-icons cardOverlayButtonIcon play_arrow" aria-hidden="true"></span></button>';
     h += "</div>" + (noText ? "" : lines(it, sid)) + "</div></div>";   // rows without titles: none are drawn at all
     return h;
@@ -219,6 +220,28 @@
   function upgrade(node) {
     if (window.CustomElements && typeof window.CustomElements.upgradeSubtree === "function") { try { window.CustomElements.upgradeSubtree(node); } catch (e) {} }
   }
+
+  // the hover buttons (play; with hover cards off also watched / favourite / more), built on first hover/focus
+  var hoverCards = window.tbCfg ? tbCfg("HoverCards", true) : true;
+  function buildMenu(scalable) {
+    var flags = scalable.getAttribute("data-tb-menu") || "", card = scalable.closest(".card");
+    scalable.removeAttribute("data-tb-menu");
+    if (!card) return;
+    var it = { Id: card.getAttribute("data-id"), Type: card.getAttribute("data-type"), LocationType: flags.indexOf("v") >= 0 ? "Virtual" : "",
+      UserData: { Played: flags.indexOf("p") >= 0, IsFavorite: flags.indexOf("f") >= 0 } };
+    var html = hoverMenu(it, card.getAttribute("data-serverid") || serverId());
+    if (hoverCards) html = html.replace(/<div class="cardOverlayButton-br flex">[\s\S]*<\/div><\/div>$/, "</div>");   // hidden by hover cards: not built at all
+    scalable.insertAdjacentHTML("beforeend", html);
+    upgrade(scalable);
+  }
+  function onHover(e) {
+    var t = e.target;
+    var s = t && t.closest && t.closest(".card");
+    s = s && s.querySelector(".cardScalable[data-tb-menu]");
+    if (s) buildMenu(s);
+  }
+  document.addEventListener("mouseover", onHover, true);
+  document.addEventListener("focusin", onHover, true);
 
   // badges (quality, time left, release date, new episode) drawn right away on cards we just put on the page
   function decorate() {

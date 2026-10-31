@@ -36,6 +36,9 @@ public sealed class ThemeBuild
     /// <summary>Only downloaded when you open the admin dashboard.</summary>
     public Payload DashboardJs { get; init; } = Payload.Empty;
 
+    /// <summary>Parts loaded only when needed (details pages, the player, the sign-in page), by name.</summary>
+    public IReadOnlyDictionary<string, Payload> Parts { get; init; } = new Dictionary<string, Payload>();
+
     public byte[] Mp3 { get; init; } = Array.Empty<byte>();
 }
 
@@ -107,6 +110,7 @@ public static class ThemeAssets
     // file name in Assets -> setting that switches it on (in load order)
     private static readonly (string File, Func<PluginConfiguration, bool> On)[] Features =
     {
+        ("js_00_no_device_feed.js", c => c.NowPlaying),
         ("js_01_library_stats.js", c => c.LibraryStats),
         ("js_03_time_remaining.js", c => c.TimeRemaining),
         ("js_05_mark_sections.js", c => c.MarkSections),
@@ -125,6 +129,7 @@ public static class ThemeAssets
         ("js_20_cards.js", c => c.HomeRows || c.Search),
         ("js_22_home_rows.js", c => c.HomeRows),
         ("js_23_search.js", c => c.Search),
+        ("js_25_prefetch.js", c => true),
     };
 
     private static readonly Dictionary<string, Payload?> StudioCache = new Dictionary<string, Payload?>(StringComparer.OrdinalIgnoreCase);
@@ -254,6 +259,14 @@ public static class ThemeAssets
         string prefix = "window.TB_CONFIG=" + tbConfig.ToJsonString() + ";\n"
             + "window.__tbSleek=window.__tbSleek||" + SleekJson(config, ThemeAssets.SleekOf(config)) + ";\n"
             + "window.tbCfg=function(k,d){var c=window.TB_CONFIG||{},v=c[k];return v===undefined||v===null||v===\"\"?d:v};\n"
+            // one shared page watcher that hands each script only what was just added (scripts look at those
+            // parts instead of re-checking the whole page), once per frame, before it's drawn
+            + "window.tbAdded=window.tbAdded||(function(){var subs=[],mo=null,pending=[],queued=false;function flush(){queued=false;var r=pending;pending=[];for(var i=0;i<subs.length;i++){try{subs[i](r)}catch(e){}}}"
+            + "return function(fn){subs.push(fn);if(!mo){mo=new MutationObserver(function(l){for(var i=0;i<l.length;i++){var a=l[i].addedNodes;for(var j=0;j<a.length;j++){if(a[j].nodeType===1)pending.push(a[j])}}if(pending.length&&!queued){queued=true;requestAnimationFrame(flush)}});mo.observe(document.documentElement,{childList:true,subtree:true})}}})();\n"
+            // the scripts' own styles all go into one style block (one style recalculation, not one per script)
+            + "window.tbCss=window.tbCss||(function(){var el=null;return function(s){if(!el){el=document.getElementById(\"tb-js-css\");if(!el){el=document.createElement(\"style\");el.id=\"tb-js-css\";document.head.appendChild(el)}}el.appendChild(document.createTextNode(\"\\n\"+s.textContent))}})();\n"
+            + "window.tbIn=function(roots,sel){var out=[],seen=new Set();for(var i=0;i<roots.length;i++){var r=roots[i];if(!r.isConnected)continue;if(r.matches&&r.matches(sel)&&!seen.has(r)){seen.add(r);out.push(r)}var l=r.querySelectorAll?r.querySelectorAll(sel):[];for(var j=0;j<l.length;j++){if(!seen.has(l[j])){seen.add(l[j]);out.push(l[j])}}}return out};\n"
+            + "window.tbUp=function(roots,sel){var out=[],seen=new Set();for(var i=0;i<roots.length;i++){var r=roots[i];if(!r.isConnected||!r.closest)continue;var c=r.closest(sel);if(c&&!seen.has(c)){seen.add(c);out.push(c)}var l=r.querySelectorAll(sel);for(var j=0;j<l.length;j++){if(!seen.has(l[j])){seen.add(l[j]);out.push(l[j])}}}return out};\n"
             // one shared answer for requests several scripts make at the same time (your user, sessions)
             + "window.tbShared=window.tbShared||(function(){var m={};function c(k,t,f){var e=m[k],n=Date.now();if(e&&n-e.t<t)return e.p;var p=Promise.resolve().then(f);m[k]={t:n,p:p};p.catch(function(){if(m[k]&&m[k].p===p)delete m[k]});return p}"
             + "return{user:function(){var id=ApiClient.getCurrentUserId();return c(\"u:\"+id,10000,function(){return ApiClient.getUser(id)})},"
@@ -297,20 +310,76 @@ public static class ThemeAssets
               .Append("\";document.head.appendChild(s)}mo=new MutationObserver(c);mo.observe(document.body,{attributes:true,attributeFilter:[\"class\"]});c()})();\n");
         }
 
-        // SleekFin's scripts (built in; its own hero is left out: the plugin's hero replaces it)
+        // Parts that aren't needed to draw the first page: downloaded when the browser is idle after the page
+        // shows, or straight away when you open the screen that needs them
+        var partFiles = new Dictionary<string, List<string>>(StringComparer.Ordinal)
         {
-            foreach (string file in SleekScripts)
+            ["details"] = new List<string>(),
+            ["player"] = new List<string>(),
+        };
+        if (ThemeAssets.SleekOf(config).DetailsEnabled)
+        {
+            partFiles["details"].Add("sleek_details.js");
+        }
+
+        foreach ((string file, Func<PluginConfiguration, bool> on) in Features)
+        {
+            if (!on(config))
             {
-                if (file != "sleek_details.js" || ThemeAssets.SleekOf(config).DetailsEnabled)
-                {
-                    AppendFeature(js, file, mp3Version);
-                }
+                continue;
+            }
+
+            string? part = file switch
+            {
+                "js_12_player_skin.js" or "js_14_pause_screen.js" => "player",
+                _ => null,
+            };
+            if (part != null)
+            {
+                partFiles[part].Add(file);
+            }
+        }
+
+        var parts = new Dictionary<string, Payload>(StringComparer.Ordinal);
+        StringBuilder partList = new StringBuilder();
+        foreach ((string name, List<string> files) in partFiles)
+        {
+            if (files.Count == 0)
+            {
+                continue;
+            }
+
+            StringBuilder pj = new StringBuilder();
+            foreach (string file in files)
+            {
+                AppendFeature(pj, file, mp3Version);
+            }
+
+            Payload payload = new Payload(Encoding.UTF8.GetBytes(pj.ToString()));
+            parts[name] = payload;
+            partList.Append(partList.Length > 0 ? "," : string.Empty).Append('"').Append(name).Append("\":\"").Append(payload.Hash).Append('"');
+        }
+
+        js.Append("(function(){var P={").Append(partList).Append("},done={};")
+          .Append("function load(n){if(!P[n]||done[n])return;done[n]=1;var s=document.createElement(\"script\");s.src=\"../UshereatsTheme/part/\"+n+\".js?v=\"+P[n];document.head.appendChild(s)}")
+          .Append("window.tbLoadPart=load;")
+          .Append("function route(){var h=location.hash||\"\";if(/^#!?\\/(details|item)/i.test(h))load(\"details\");if(/^#!?\\/video/i.test(h)||document.getElementById(\"videoOsdPage\"))load(\"player\")}")
+          .Append("route();window.addEventListener(\"hashchange\",route);window.addEventListener(\"popstate\",route);")
+          .Append("var idle=window.requestIdleCallback||function(f){return setTimeout(f,1200)};")
+          .Append("window.addEventListener(\"load\",function(){idle(function(){load(\"details\");load(\"player\")},{timeout:2500})})})();\n");
+
+        // SleekFin's scripts (built in; its own hero is left out: the plugin's hero replaces it)
+        foreach (string file in SleekScripts)
+        {
+            if (file != "sleek_details.js")
+            {
+                AppendFeature(js, file, mp3Version);
             }
         }
 
         foreach ((string file, Func<PluginConfiguration, bool> on) in Features)
         {
-            if (on(config))
+            if (on(config) && file is not ("js_12_player_skin.js" or "js_14_pause_screen.js"))
             {
                 AppendFeature(js, file, mp3Version);
             }
@@ -334,6 +403,7 @@ public static class ThemeAssets
                 Js = new Payload(jsBytes),
                 SplashJs = splash,
                 DashboardJs = dashboard,
+                Parts = parts,
                 Mp3 = mp3,
             };
         }

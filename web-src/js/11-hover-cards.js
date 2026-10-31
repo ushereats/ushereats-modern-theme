@@ -208,5 +208,5 @@
   var style = document.createElement("style");
   style.id = "tb-hover-card";
   style.textContent = css;
-  document.head.appendChild(style);
+  tbCss(style);
 })();

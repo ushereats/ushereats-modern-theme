@@ -149,7 +149,7 @@ for (const [vw, vh, tag] of [[1920, 1080, "desktop"], [390, 844, "phone"]]) {
       // the speed test (Speed test tab)
       await page.click('.sleekfin-page-nav-button[data-sleekfin-panel="speed"]');
       await page.click("#tbBenchRun");
-      await page.waitForFunction(() => /^Done/.test(document.querySelector("#tbBenchStatus").textContent), null, { timeout: 180000 }).catch(() => {});
+      await page.waitForFunction(() => /^Done/.test(document.querySelector("#tbBenchStatus").textContent), null, { timeout: 420000 }).catch(() => {});
       fs.writeFileSync(`${out}/speedtest.json`, await page.$eval("#tbBenchOut", (e) => e.value || ("(no result) " + document.querySelector("#tbBenchStatus").textContent)));
       report.settingsSave = { title: after.SearchTitle, rowsKept: after.HomeRowsJson === before.HomeRowsJson, accentKept: after.AccentColor === before.AccentColor,
         desktopLogo: after.Sleek && after.Sleek.HeaderDesktopLogoHeight, sleekKept: !!(after.Sleek && after.Sleek.HeaderHeight === before.Sleek.HeaderHeight) };

@@ -200,10 +200,10 @@
     });
   }
 
-  function scan() {
+  function scan(only) {
     if (!window.ApiClient) return;
     pruneObserved();
-    var sections = document.querySelectorAll(".section, .verticalSection");
+    var sections = only || document.querySelectorAll(".section, .verticalSection");
     sections.forEach(function (section) {
       if (!isContinueWatchingSection(section)) return;
       var cards = Array.prototype.slice.call(section.querySelectorAll(".card"));
@@ -245,7 +245,7 @@
     "  white-space: nowrap;",
     "}"
   ].join("\n");
-  document.head.appendChild(style);
+  tbCss(style);
 
   var poll = setInterval(function () {
     if (window.ApiClient) {
@@ -254,10 +254,15 @@
     }
   }, 500);
 
-  tbWatch(scheduleScan);
+  // only the rows that just appeared or changed
+  tbAdded(function (roots) {
+    if (!window.ApiClient) return;
+    var secs = tbUp(roots, ".section, .verticalSection");
+    if (secs.length) scan(secs);
+  });
 
   // also run right as our own rows/search draw their cards (so badges are there on the first frame)
-  (window.tbCardDecorators = window.tbCardDecorators || []).push(scan);
+  (window.tbCardDecorators = window.tbCardDecorators || []).push(function () { scan(); });
 
   // Progress changes after watching — refetch when returning home
   window.addEventListener("hashchange", function () {

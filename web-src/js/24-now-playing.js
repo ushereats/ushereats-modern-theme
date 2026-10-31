@@ -30,6 +30,13 @@
     "#tb-np .np-btn[aria-pressed=true]{border-color:var(--np-acc);color:var(--np-acc)}",
     "#tb-np .np-stats{display:flex;align-items:center;gap:22px;flex-wrap:wrap;padding:12px 18px;margin-bottom:16px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:rgba(18,18,22,.55);font:600 12px/1 var(--np-font);letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55)}",
     "#tb-np .np-stats b{font-size:16px;letter-spacing:0;color:#fff;margin-right:6px}",
+    "#tb-np .np-counts{display:flex;gap:22px;flex-wrap:wrap}",
+    "#tb-np .np-up{margin-left:auto;display:flex;align-items:center;gap:4px}",
+    "#tb-np .np-up i{font-style:normal;margin:0 8px;color:rgba(255,255,255,.3)}",
+    "#tb-np .np-up b{margin-right:6px}",
+    "#tb-np .np-up .np-up-all{color:var(--np-acc)}",
+    /* the dashboard's Devices list is not shown (and not fed, see the main script) */
+    "#dashboardPage .MuiBox-root:has(> a[href*='dashboard/devices']){display:none!important}",
     "#tb-np .np-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px}",
     "#tb-np.np-compact .np-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}",
     "#tb-np .np-card{position:relative;overflow:hidden;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:rgba(16,16,20,.82)}",
@@ -218,13 +225,12 @@
   }
 
   function header(list) {
-    var c = { dp: 0, ds: 0, rm: 0, tc: 0 }, paused = 0, bw = 0;
+    var c = { dp: 0, ds: 0, rm: 0, tc: 0 }, paused = 0;
     list.forEach(function (x) {
       c[method(x.s)]++;
       if (x.s.PlayState && x.s.PlayState.IsPaused) paused++;
-      bw += x.bitrate || 0;
     });
-    return { counts: c, paused: paused, bw: bw };
+    return { counts: c, paused: paused };
   }
 
   var root = null, timer = 0, busy = false, lastHtml = "";
@@ -235,7 +241,7 @@
       '<div class="np-head"><div class="np-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z" fill="currentColor"/></svg>NOW PLAYING</div>' +
       '<span class="np-pill np-live">LIVE</span><span class="np-pill np-dp" data-c="dp"></span><span class="np-pill np-ds" data-c="ds"></span><span class="np-pill np-rm" data-c="rm"></span><span class="np-pill np-tc" data-c="tc"></span><span class="np-pill np-pa" data-c="pa"></span>' +
       '<div class="np-tools"><button type="button" class="np-btn" data-t="compact">Compact</button><button type="button" class="np-btn" data-t="collapsed">Hide</button><button type="button" class="np-btn" data-t="show">Show details</button></div></div>' +
-      '<div class="np-stats"></div><div class="np-grid"></div>';
+      '<div class="np-stats"><span class="np-counts"></span><span class="np-up" title="What Jellyfin is sending right now (everything) / just video and music streams. Updated every 5 seconds."><b class="np-up-all">–</b>Upload<i>/</i><b class="np-up-streams">–</b>Streams</span></div><div class="np-grid"></div>';
     r.addEventListener("click", function (e) {
       var b = e.target.closest && e.target.closest(".np-btn");
       if (!b) return;
@@ -281,14 +287,26 @@
       var hd = header(list), c = hd.counts;
       var set = function (k, n, label) { var e = root.querySelector('[data-c="' + k + '"]'); if (e) e.textContent = n + " " + label; };
       set("dp", c.dp, "Direct Play"); set("ds", c.ds, "Direct Stream"); set("rm", c.rm, "Remux"); set("tc", c.tc, "Transcode"); set("pa", hd.paused, "Paused");
-      root.querySelector(".np-stats").innerHTML = "<span><b>" + list.length + "</b>Active streams</span><span><b>" + (c.dp + c.ds + c.rm) + "</b>Direct</span><span><b>" + c.tc + "</b>Transcoding</span><span><b>" + (hd.bw / 1e6).toFixed(1) + " Mbps</b>Bandwidth</span>";
+      var counts = root.querySelector(".np-counts");
+      if (counts) counts.innerHTML = "<span><b>" + list.length + "</b>Active streams</span><span><b>" + (c.dp + c.ds + c.rm) + "</b>Direct</span><span><b>" + c.tc + "</b>Transcoding</span>";
       var html = list.length ? cards.join("") : '<div class="np-empty">Nothing is playing right now.</div>';
       if (html !== lastHtml) { root.querySelector(".np-grid").innerHTML = html; lastHtml = html; }
     }).catch(function () {}).then(function () { busy = false; });
   }
 
-  function start() { if (!timer) { timer = setInterval(refresh, 3000); } refresh(); }
-  function stop() { if (timer) { clearInterval(timer); timer = 0; } }
+  // live upload, measured by the plugin on the server (everything Jellyfin sends / just streams), every 5 s
+  var upTimer = 0;
+  function mb(v) { return v == null ? "–" : (v >= 100 ? Math.round(v) : v.toFixed(1)) + " Mbps"; }
+  function upload() {
+    if (document.hidden || !root || !api()) return;
+    api().getJSON(api().getUrl("UshereatsTheme/Meter", { seconds: 5 })).then(function (r) {
+      var a = root.querySelector(".np-up-all"), s = root.querySelector(".np-up-streams");
+      if (a) a.textContent = mb(r.totalMbps);
+      if (s) s.textContent = mb(r.streamsMbps);
+    }).catch(function () {});
+  }
+  function start() { if (!timer) { timer = setInterval(refresh, 3000); upTimer = setInterval(upload, 5000); } refresh(); setTimeout(upload, 50); }
+  function stop() { if (timer) { clearInterval(timer); clearInterval(upTimer); timer = upTimer = 0; } }
 
   // runs while the dashboard home is showing
   var queued = false;

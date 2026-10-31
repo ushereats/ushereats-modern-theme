@@ -52,6 +52,10 @@ public class ThemeController : ControllerBase
     [HttpGet("splash.js")]
     public IActionResult GetSplashJs() => Serve(ThemeAssets.Get().SplashJs, "application/javascript; charset=utf-8");
 
+    [HttpGet("part/{name}.js")]
+    public IActionResult GetPart([FromRoute] string name) =>
+        ThemeAssets.Get().Parts.TryGetValue(name, out Payload? part) ? Serve(part, "application/javascript; charset=utf-8") : NotFound();
+
     [HttpGet("dashboard.js")]
     public IActionResult GetDashboardJs() => Serve(ThemeAssets.Get().DashboardJs, "application/javascript; charset=utf-8");
 

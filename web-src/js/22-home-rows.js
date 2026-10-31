@@ -270,7 +270,7 @@
     ".tb-studios .card .cardScalable:not(#tb-x)::before, .tb-studios .card .cardScalable:not(#tb-x)::after { content: none !important; display: none !important; }",
     ".tb-studios .card:not(#tb-x) .cardBox, .tb-studios .card:hover:not(#tb-x) .cardBox { filter: none !important; box-shadow: none !important; background: none !important; }"
   ].join("\n");
-  document.head.appendChild(st);
+  tbCss(st);
 
   schedule();
 })();

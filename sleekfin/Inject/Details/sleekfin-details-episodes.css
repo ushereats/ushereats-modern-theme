@@ -220,13 +220,6 @@
     position: relative;
 }
 
-.sleekfin-details-episode .je-hide-btn {
-    bottom: 10px;
-    left: 10px;
-    right: auto;
-    top: auto;
-}
-
 .sleekfin-details-episode-action {
     background: var(--sleekfin-surface);
     border: 0;

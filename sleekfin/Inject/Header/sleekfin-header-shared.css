@@ -333,19 +333,6 @@ html.sleekfin-header-mounted [data-sleekfin-header-overflow-space] {
     height: 8px;
 }
 
-html.sleekfin-header-mounted [data-sleekfin-header-overflow-visual] .je-as-sup {
-    font-size: 10px;
-    font-weight: 700;
-    line-height: 1;
-    position: absolute;
-    right: -2px;
-    top: -2px;
-}
-
-html.sleekfin-header-mounted [data-sleekfin-header-overflow-visual] .je-as-sup:empty {
-    display: none;
-}
-
 html.sleekfin-header-mounted [data-sleekfin-header-source-icon] {
     flex: 0 0 auto;
 }
@@ -389,29 +376,6 @@ html.sleekfin-header-mounted [data-sleekfin-header-source-icon] img {
 html.sleekfin-header-mounted [data-sleekfin-header-proxy-item="je:active-streams"] {
     overflow: visible;
     position: relative;
-}
-
-html.sleekfin-header-mounted [data-sleekfin-header-proxy-item="je:active-streams"] .je-as-icon {
-    align-items: center;
-    display: inline-flex;
-    justify-content: center;
-}
-
-html.sleekfin-header-mounted [data-sleekfin-header-proxy-item="je:active-streams"] .je-as-sup {
-    font-size: 11px;
-    font-weight: 700;
-    line-height: 1.1;
-    min-width: 12px;
-    pointer-events: none;
-    position: absolute;
-    right: 2px;
-    text-align: center;
-    top: 2px;
-    white-space: nowrap;
-}
-
-html.sleekfin-header-mounted [data-sleekfin-header-proxy-item="je:active-streams"] .je-as-sup:empty {
-    display: none;
 }
 
 html.sleekfin-header-mounted [data-sleekfin-header-space] {
@@ -489,4 +453,27 @@ html.sleekfin-header-mounted [data-sleekfin-header-proxy="legacy"] {
     html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"]::before {
         height: 84px;
     }
+}
+
+/* Phones, tablets and TVs: glass blur is redrawn on every scroll frame, which stutters on weaker
+   devices. There the bars are solid (a little darker, so they read the same) and nothing else blurs. */
+@media (hover: none), (max-width: 899px) {
+    html.sleekfin-header-mounted [data-sleekfin-header-proxy],
+    html.sleekfin-header-mounted [data-sleekfin-header-toolbar]::after,
+    html.sleekfin-header-mounted [data-sleekfin-header-overflow-drawer],
+    html.sleekfin-main-ui .innerCardFooter {
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+    }
+
+    html.sleekfin-header-mounted [data-sleekfin-header-proxy] {
+        background: rgba(14, 14, 16, 0.94) !important;
+    }
+}
+
+html.layout-tv.sleekfin-header-mounted [data-sleekfin-header-proxy],
+html.layout-tv.sleekfin-header-mounted [data-sleekfin-header-toolbar]::after,
+html.layout-tv .innerCardFooter {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
 }

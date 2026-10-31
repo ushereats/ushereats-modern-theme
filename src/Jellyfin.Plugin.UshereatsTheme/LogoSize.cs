@@ -23,7 +23,7 @@ public class LogoSizeStartupFilter : IStartupFilter
         app.Use(async (context, nextStep) =>
         {
             LogoSize.Apply(context);
-            await nextStep(context).ConfigureAwait(false);
+            await ServerMeter.Track(context, nextStep).ConfigureAwait(false);
         });
         next(app);
     };

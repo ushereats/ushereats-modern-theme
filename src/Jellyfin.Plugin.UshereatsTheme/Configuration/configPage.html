@@ -2115,7 +2115,7 @@
                     <div class="sleekfin-section-container">
                         <div class="sleekfin-config-section-title">Speed test</div>
                         <div class="sleekfin-card">
-                            <p class="sleekfin-field-description" style="margin:0 0 12px">Times every server request the site uses (3 times each), lists what each plugin adds to every page, then opens your real pages (home, a movie, a show, search, back to home, scrolling) and times them: when the header, banner, rows, posters, badges and episodes appear, freezes, layout jumps, the slowest files and who they belong to, running tasks and transcodes. Takes about a minute. Then copy the results and send them.</p>
+                            <p class="sleekfin-field-description" style="margin:0 0 12px">Tests the whole site: times every kind of server request (3 times each), lists what each plugin adds to every page, then opens every page in a frame (everything in the header, every library, a movie, a show, a season, an episode, a person, a collection, music, playlists, search, favourites, your settings, the dashboard) and times when each part appears, freezes, layout jumps, the slowest files and whose they are. Meanwhile the server records every request it answers (Jellyfin's and every plugin's) with how long it took, plus CPU and memory, and the scheduled tasks are listed with how long they last took. Takes 1–3 minutes: don't touch anything. Then copy the results and send them.</p>
                             <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
                                 <button type="button" id="tbBenchRun" class="sleekfin-builder-config-button">Run speed test</button>
                                 <button type="button" id="tbBenchCopy" class="sleekfin-builder-config-button" hidden>Copy results</button>
@@ -5350,18 +5350,25 @@
           episodes: !!d.querySelector(".sleekfin-details-episode"),
           seasons: !!d.querySelector(".sleekfin-details-season-card, #childrenContent .card"),
           search: !!d.querySelector("#searchPage .card"),
-          library: !!d.querySelector("#moviesPage .card, .page:not(.hide) .itemsContainer .card")
+          library: !!d.querySelector("#moviesPage .card, .page:not(.hide) .itemsContainer .card, .page:not(.hide) .listItem, .page:not(.hide) .card")
         };
       }
 
       // watches one page until nothing changes for 1.5 s (or 20 s pass)
       function watch(w, startAt, want) {
         return new Promise(function (resolve) {
-          var marks = {}, lastChange = now(), muts = 0, attrs = 0, done = false, who = {}, recent = [];
+          var marks = {}, lastChange = now(), muts = 0, attrs = 0, done = false, who = {}, recent = [], head = {};
           function label(n) { var e = n.nodeType === 1 ? n : n.parentElement; if (!e) return "?"; return (e.id ? "#" + e.id : e.tagName.toLowerCase()) + (e.className && typeof e.className === "string" ? "." + e.className.trim().split(/\s+/).slice(0, 2).join(".") : ""); }
           var mo = new w.MutationObserver(function (l) {
             l.forEach(function (m) {
-              if (m.type === "childList") { muts++; lastChange = now(); recent.push([lastChange, label(m.target)]); }   // things added/removed = still building
+              if (m.type === "childList") {
+                muts++; lastChange = now(); recent.push([lastChange, label(m.target)]);   // things added/removed = still building
+                if (m.target === w.document.head) Array.prototype.forEach.call(m.addedNodes, function (n) {
+                  if (n.nodeType !== 1) return;
+                  var hk = n.tagName.toLowerCase() + (n.id ? "#" + n.id : "") + (n.getAttribute("data-emotion") ? "[emotion]" : "") + (n.getAttribute("rel") ? "[" + n.getAttribute("rel") + "]" : "") + ((n.getAttribute("src") || n.getAttribute("href") || "").replace(location.origin, "").split("?")[0].slice(0, 60) ? " " + (n.getAttribute("src") || n.getAttribute("href") || "").replace(location.origin, "").split("?")[0].slice(0, 60) : "");
+                  head[hk] = (head[hk] || 0) + 1;
+                });
+              }
               else attrs++;                                                  // styles/classes changing (animations, carousels)
               var k = m.type + " " + label(m.target) + (m.attributeName ? " [" + m.attributeName + "]" : "");
               who[k] = (who[k] || 0) + 1;
@@ -5375,13 +5382,14 @@
             Object.keys(c).forEach(function (k) { if (c[k] && marks[k] == null) marks[k] = round(now() - startAt); });
             var ready = want.every(function (k) { return marks[k] != null; });
             var t = now();
-            if ((ready && t - lastChange > 1500) || t - startAt > 15000) {
+            if ((ready && t - lastChange > 1500) || t - startAt > 12000) {
               done = true; mo.disconnect();
               var busiest = Object.keys(who).sort(function (x, y) { return who[y] - who[x]; }).slice(0, 8).map(function (k) { return who[k] + "x " + k; });
               var late = {};   // what was still being added/removed in the last 3 s
               recent.forEach(function (r) { if (r[0] > t - 3000) late[r[1]] = (late[r[1]] || 0) + 1; });
               var stillChanging = Object.keys(late).sort(function (x, y) { return late[y] - late[x]; }).slice(0, 6).map(function (k) { return late[k] + "x " + k; });
-              resolve({ ready: marks, settledMs: round(lastChange - startAt), addedRemoved: muts, styleChanges: attrs, busiest: busiest, stillChanging: stillChanging.length ? stillChanging : undefined, timedOut: !ready, neverSettled: t - lastChange <= 1500 || undefined });
+              var headAdds = Object.keys(head).sort(function (x, y) { return head[y] - head[x]; }).slice(0, 6).map(function (k) { return head[k] + "x " + k; });
+              resolve({ ready: marks, settledMs: round(lastChange - startAt), addedRemoved: muts, styleChanges: attrs, busiest: busiest, stillChanging: stillChanging.length ? stillChanging : undefined, addedToHead: headAdds.length ? headAdds : undefined, timedOut: !ready, neverSettled: t - lastChange <= 1500 || undefined });
               return;
             }
             w.requestAnimationFrame(tick);
@@ -5427,7 +5435,76 @@
         });
       }
 
-      function framePages(sample, series) {
+      // every page of the site: everything in the header, every library, one of each kind of title,
+      // people, collections, music, search, favourites, your settings, the dashboard
+      function tour(w, x) {
+        var sid = ApiClient.serverId(), steps = [], seen = {};
+        function add(hash, want, label) { if (!hash || seen[hash]) return; seen[hash] = 1; steps.push([hash, want, label]); }
+        // what's in the header bar (as drawn on this site)
+        Array.prototype.forEach.call(w.document.querySelectorAll("[data-sleekfin-header] a[href^='#'], header a[href^='#/']"), function (a) {
+          var h = a.getAttribute("href");
+          if (/^#\/?(home)?(\.html)?$/.test(h) || /dashboard|logout|login/i.test(h)) return;
+          add(h, ["header"], "header: " + ((a.textContent || "").trim() || a.getAttribute("aria-label") || h).slice(0, 30));
+        });
+        // every library
+        (x.views || []).forEach(function (v) {
+          var ct = v.CollectionType || "", route = ct === "movies" ? "movies" : ct === "tvshows" ? "tv" : ct === "music" ? "music" : ct === "livetv" ? "livetv" : ct === "playlists" ? "list" : "list";
+          var hash = "#/" + route + (route === "list" ? "?parentId=" : "?topParentId=") + v.Id + "&serverId=" + sid + (ct ? "&collectionType=" + ct : "");
+          add(hash, ["header", "library"], "library: " + v.Name + (ct ? " (" + ct + ")" : ""));
+        });
+        function item(it, label, want) { if (it) add("#/details?id=" + it.Id + "&serverId=" + sid, want || ["header", "details"], label + ": " + it.Name); }
+        item(x.movie, "movie");
+        item(x.series, "show");
+        item(x.season, "season");
+        item(x.episode, "episode");
+        item(x.person, "person", ["header"]);
+        item(x.boxset, "collection", ["header"]);
+        item(x.album, "music album", ["header"]);
+        item(x.artist, "music artist", ["header"]);
+        item(x.playlist, "playlist", ["header"]);
+        add("#/search?tbq=the", ["header", "search"], "search 'the'");
+        add("#/search?tbq=a", ["header", "search"], "search 'a' (big)");
+        add("#/home?tab=1", ["header"], "favourites");
+        add("#/mypreferencesmenu", ["header"], "settings menu");
+        add("#/mypreferencesdisplay", ["header"], "settings: display");
+        add("#/mypreferenceshome", ["header"], "settings: home");
+        add("#/mypreferencesplayback", ["header"], "settings: playback");
+        add("#/userprofile?userId=" + ApiClient.getCurrentUserId(), ["header"], "profile");
+        add("#/dashboard", [], "dashboard");
+        add("#/dashboard/users", [], "dashboard: users");
+        add("#/dashboard/libraries", [], "dashboard: libraries");
+        add("#/dashboard/activity", [], "dashboard: activity");
+        add("#/dashboard/plugins", [], "dashboard: plugins");
+        add("#/dashboard/tasks", [], "dashboard: scheduled tasks");
+        add("#/home", ["header", "rows"], "home (going back)");
+        return steps;
+      }
+
+      // one of each kind of title to open
+      function findTargets(uid) {
+        var x = {};
+        function first(q) { return ApiClient.getItems(uid, Object.assign({ Recursive: true, Limit: 1, SortBy: "DateCreated", SortOrder: "Descending" }, q)).then(function (r) { return (r.Items || [])[0]; }, function () { return null; }); }
+        return Promise.all([
+          ApiClient.getUserViews({}, uid).then(function (r) { x.views = r.Items || []; }, function () { x.views = []; }),
+          first({ IncludeItemTypes: "Movie" }).then(function (i) { x.movie = i; }),
+          first({ IncludeItemTypes: "Series" }).then(function (i) { x.series = i; }),
+          first({ IncludeItemTypes: "Season" }).then(function (i) { x.season = i; }),
+          first({ IncludeItemTypes: "Episode" }).then(function (i) { x.episode = i; }),
+          first({ IncludeItemTypes: "BoxSet" }).then(function (i) { x.boxset = i; }),
+          first({ IncludeItemTypes: "MusicAlbum" }).then(function (i) { x.album = i; }),
+          first({ IncludeItemTypes: "MusicArtist" }).then(function (i) { x.artist = i; }),
+          first({ IncludeItemTypes: "Playlist" }).then(function (i) { x.playlist = i; })
+        ]).then(function () {
+          if (!x.movie) return x;
+          return ApiClient.getItem(uid, x.movie.Id).then(function (full) {
+            var p = (full.People || []).filter(function (p) { return p.Type === "Actor"; })[0];
+            if (p) x.person = { Id: p.Id, Name: p.Name };
+            return x;
+          }, function () { return x; });
+        });
+      }
+
+      function framePages(sample, series, targets) {
         return new Promise(function (resolve) {
           openFrame();
           var base = location.pathname.replace(/[^/]*$/, "") + "index.html";
@@ -5458,14 +5535,10 @@
               var lt = w.__tbLongAll;
               m.longTasks = { count: lt.length, totalMs: round(lt.reduce(function (s, e) { return s + e.duration; }, 0)), worstMs: round(lt.reduce(function (s, e) { return Math.max(s, e.duration); }, 0)) };
               results.push(m);
-              var steps = [];
-              if (sample) steps.push(["#/details?id=" + sample.Id + "&serverId=" + ApiClient.serverId(), ["header", "details"], "movie details"]);
-              if (series) steps.push(["#/details?id=" + series.Id + "&serverId=" + ApiClient.serverId(), ["header", "details"], "series details"]);
-              steps.push(["#/search?tbq=the", ["header", "search"], "search 'the'"]);
-              steps.push(["#/home", ["header", "rows"], "home (going back)"]);
+              var steps = tour(w, targets);
               var chain = Promise.resolve();
-              steps.forEach(function (s) {
-                chain = chain.then(function () { say("Pages: " + s[2]); return navigate(w, s[0], s[1], s[2]).then(function (r) { results.push(r); }); });
+              steps.forEach(function (s, i) {
+                chain = chain.then(function () { say("Pages " + (i + 1) + "/" + steps.length + ": " + s[2]); return navigate(w, s[0], s[1], s[2]).then(function (r) { results.push(r); }); });
               });
               chain.then(function () {
                 // scroll home to the bottom: smoothness while scrolling
@@ -5542,21 +5615,51 @@
           if (p.droppedFrames > 10) flags.push("JANK while scrolling: " + p.droppedFrames + " slow frames, worst " + p.worstFrameMs + " ms");
           (p.perf && p.perf.slowest || []).forEach(function (x) { if (x.ms > 1500) flags.push("SLOW file on " + p.page + ": " + x.ms + " ms " + x.who + " " + x.url); });
         });
+        if (r.server) {
+          (r.server.slowestTotal || []).forEach(function (x) { if (x.avgMs > 400 && x.count >= 1) flags.push("SLOW on the server: " + x.route + " avg " + x.avgMs + " ms x" + x.count + " (" + x.who + ")"); });
+          (r.server.slowestSingle || []).forEach(function (x) { if (x.maxMs > 2000) flags.push("VERY SLOW once on the server: " + x.route + " " + x.maxMs + " ms (" + x.who + ")"); });
+          Object.keys(r.server.byWho || {}).forEach(function (k) { var b = r.server.byWho[k]; if (/^plugin/.test(k) && b.totalMs > 1000) flags.push("PLUGIN busy: " + k + " " + b.requests + " requests, " + b.totalMs + " ms in total"); });
+          if (r.server.process && r.server.process.cpuPercent > 60) flags.push("SERVER CPU high during the test: " + r.server.process.cpuPercent + "%");
+          (r.server.tasks || []).forEach(function (x) { if (x.lastSeconds > 600) flags.push("LONG task: " + x.name + " took " + Math.round(x.lastSeconds / 60) + " min last time (" + x.category + ")"); });
+        }
+        (r.pages || []).forEach(function (p) { if (p.addedToHead && p.addedToHead.length) { var n = parseInt(p.addedToHead[0], 10); if (n > 30) flags.push("CHURN: " + p.page + " adds to the page head: " + p.addedToHead[0]); } });
         if (r.state && r.state.tasksRunning.length) flags.push("Tasks running during the test: " + r.state.tasksRunning.join(", "));
         if (r.state && r.state.playing.some(function (p) { return p.transcode; })) flags.push("Someone is transcoding during the test");
         return flags.length ? flags : ["Nothing slow found"];
+      }
+
+      // whose request is it: Jellyfin's or a plugin's (plugins answer under their own name)
+      var JELLYFIN = /^(Users|UserViews|UserItems|Items|Shows|Movies|Videos|Audio|Music|Artists|Persons|Genres|Studios|Years|Library|Sessions|System|DisplayPreferences|Playback|Branding|Localization|QuickConnect|LiveTv|Plugins|Packages|ScheduledTasks|Devices|Auth|Startup|Search|Trailers|Collections|Playlists|Images|Environment|Notifications|SyncPlay|Web|web|socket|MediaSegments|Channels|Backup|Lyrics|Tmdb|LiveStreams|Dlna|Configuration|Repositories|ClientLog|Ping|health|favicon\.ico|api-docs)$/i;
+      function whoRoute(route) {
+        var seg = (route.split(" ")[1] || "").replace(/^\/+/, "").split("/")[0];
+        if (!seg) return "Jellyfin";
+        if (/^UshereatsTheme$/i.test(seg)) return "Ushereats Theme";
+        return JELLYFIN.test(seg) ? "Jellyfin" : "plugin: " + seg;
+      }
+      function byWho(routes) {
+        var m = {};
+        routes.forEach(function (x) { var b = m[x.who] || (m[x.who] = { requests: 0, totalMs: 0, maxMs: 0, kb: 0 }); b.requests += x.count; b.totalMs += x.totalMs; b.maxMs = Math.max(b.maxMs, x.maxMs); b.kb += x.kb; });
+        return m;
+      }
+      // scheduled tasks: how long each took last time (plugins add their own)
+      function tasks() {
+        return ApiClient.getJSON(ApiClient.getUrl("ScheduledTasks", { isHidden: false })).then(function (list) {
+          return (list || []).map(function (t) {
+            var r = t.LastExecutionResult, ms = r && r.StartTimeUtc && r.EndTimeUtc ? new Date(r.EndTimeUtc) - new Date(r.StartTimeUtc) : null;
+            return { name: t.Name, category: t.Category, state: t.State, lastSeconds: ms == null ? null : Math.round(ms / 1000), lastStatus: r && r.Status, triggers: (t.Triggers || []).map(function (g) { return g.Type + (g.IntervalTicks ? " every " + Math.round(g.IntervalTicks / 6e8) + " min" : g.TimeOfDayTicks != null ? " at " + Math.floor(g.TimeOfDayTicks / 36e9) + "h" : ""); }) };
+          }).sort(function (a, b) { return (b.lastSeconds || 0) - (a.lastSeconds || 0); });
+        }, function () { return null; });
       }
 
       btn.addEventListener("click", function () {
         btn.disabled = true;
         out.value = "";
         var report = { tool: "Ushereats Theme speed test", when: new Date().toISOString(), url: location.origin, device: { ua: navigator.userAgent, cores: navigator.hardwareConcurrency, memoryGb: navigator.deviceMemory, net: navigator.connection ? navigator.connection.effectiveType + " " + navigator.connection.downlink + "Mbps rtt " + navigator.connection.rtt : null, screen: screen.width + "x" + screen.height + "@" + devicePixelRatio, window: innerWidth + "x" + innerHeight } };
-        var uid = ApiClient.getCurrentUserId(), sample = null, series = null;
-        say("Finding a movie and a show to test with…");
-        Promise.all([
-          ApiClient.getItems(uid, { IncludeItemTypes: "Movie", Recursive: true, Limit: 1, SortBy: "DateCreated", SortOrder: "Descending" }).then(function (r) { sample = (r.Items || [])[0]; }).catch(function () {}),
-          ApiClient.getItems(uid, { IncludeItemTypes: "Series", Recursive: true, Limit: 1, SortBy: "DateCreated", SortOrder: "Descending" }).then(function (r) { series = (r.Items || [])[0]; }).catch(function () {})
-        ]).then(function () {
+        var uid = ApiClient.getCurrentUserId(), sample = null, series = null, targets = {};
+        var meter = function (path, method) { return fetch(ApiClient.getUrl("UshereatsTheme/Meter" + path), { method: method || "GET", headers: headers() }).then(function (r) { return r.status === 204 ? null : r.json(); }).catch(function () { return null; }); };
+        say("Finding one of everything to test with…");
+        // server-side timings start now (every request anyone makes, including other plugins), and the CPU baseline
+        Promise.all([meter("/Routes/Reset", "POST"), meter("/Process"), findTargets(uid).then(function (x) { targets = x; sample = x.movie; series = x.series; })]).then(function () {
           return serverState().then(function (s) { report.state = s; });
         }).then(function () {
           return serverTests(uid, sample).then(function (s) { report.serverRequests = s; });
@@ -5564,7 +5667,19 @@
           say("Checking what plugins add to every page…");
           return indexInjections().then(function (i) { report.everyPageLoads = i; }).catch(function (e) { report.everyPageLoads = { error: String(e) }; });
         }).then(function () {
-          return framePages(sample, series).then(function (p) { report.pages = p.pages; report.afterPages = p.after; });
+          return framePages(sample, series, targets).then(function (p) { report.pages = p.pages; report.afterPages = p.after; });
+        }).then(function () {
+          // what the server did during the test: slowest kinds of request (Jellyfin's and every plugin's), CPU, memory
+          return Promise.all([meter("/Routes"), meter("/Process"), tasks()]).then(function (r) {
+            var routes = (r[0] || []).map(function (x) { x.who = whoRoute(x.route); return x; });
+            report.server = {
+              process: r[1],
+              slowestTotal: routes.slice(0, 25),
+              slowestSingle: routes.slice().sort(function (a, b) { return b.maxMs - a.maxMs; }).slice(0, 15),
+              byWho: byWho(routes),
+              tasks: r[2]
+            };
+          });
         }).catch(function (e) {
           closeFrame();
           report.error = String(e && e.stack || e);

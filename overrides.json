@@ -1,0 +1,38 @@
+{
+ "phone-home": {
+  "error": "no theme sheet"
+ },
+ "phone-home-scrolled": {
+  "error": "no theme sheet"
+ },
+ "phone-movie": {
+  "error": "no theme sheet"
+ },
+ "phone-series": {
+  "error": "no theme sheet"
+ },
+ "phone-episode": {
+  "error": "no theme sheet"
+ },
+ "phone-search": {
+  "error": "no theme sheet"
+ },
+ "phone-movies": {
+  "error": "no theme sheet"
+ },
+ "phone-prefs": {
+  "error": "no theme sheet"
+ },
+ "phone-profile": {
+  "error": "no theme sheet"
+ },
+ "phone-settings": {
+  "error": "no theme sheet"
+ },
+ "phone-dashboard": {
+  "error": "no theme sheet"
+ },
+ "desktop-login": {
+  "error": "no theme sheet"
+ }
+}

@@ -1,0 +1,400 @@
+Oct 31 10:39:29 runnervm48cm3 jellyfin[4961]: [10:39:29] [INF] Post-scan task CollectionPostScanTask completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:29 runnervm48cm3 jellyfin[4961]: [10:39:29] [INF] Running post-scan task 5/9: GenresPostScanTask
+Oct 31 10:39:29 runnervm48cm3 jellyfin[4961]: [10:39:29] [INF] Refreshed metadata for 0 new genres out of 0 total
+Oct 31 10:39:29 runnervm48cm3 jellyfin[4961]: [10:39:29] [INF] Post-scan task GenresPostScanTask completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:29 runnervm48cm3 jellyfin[4961]: [10:39:29] [INF] Running post-scan task 6/9: MusicGenresPostScanTask
+Oct 31 10:39:29 runnervm48cm3 jellyfin[4961]: [10:39:29] [INF] Refreshed metadata for 0 new music genres out of 0 total
+Oct 31 10:39:29 runnervm48cm3 jellyfin[4961]: [10:39:29] [INF] Post-scan task MusicGenresPostScanTask completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:29 runnervm48cm3 jellyfin[4961]: [10:39:29] [INF] Running post-scan task 7/9: StudiosPostScanTask
+Oct 31 10:39:29 runnervm48cm3 jellyfin[4961]: [10:39:29] [INF] Refreshed metadata for 0 new studios out of 0 total
+Oct 31 10:39:29 runnervm48cm3 jellyfin[4961]: [10:39:29] [INF] Post-scan task StudiosPostScanTask completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:29 runnervm48cm3 jellyfin[4961]: [10:39:29] [INF] Running post-scan task 8/9: CleanDatabaseScheduledTask
+Oct 31 10:39:29 runnervm48cm3 jellyfin[4961]: [10:39:29] [INF] Post-scan task CleanDatabaseScheduledTask completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:29 runnervm48cm3 jellyfin[4961]: [10:39:29] [INF] Running post-scan task 9/9: RefreshDatabaseStatisticsPostScanTask
+Oct 31 10:39:29 runnervm48cm3 jellyfin[4961]: [10:39:29] [INF] Post-scan task RefreshDatabaseStatisticsPostScanTask completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:29 runnervm48cm3 jellyfin[4961]: [10:39:29] [INF] All post-scan tasks completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:29 runnervm48cm3 jellyfin[4961]: [10:39:29] [INF] Scan Media Library Completed after 0 minute(s) and 1 seconds
+Oct 31 10:39:30 runnervm48cm3 jellyfin[4961]: [10:39:30] [WRN] Library folder /var/lib/jellyfin/data/playlists is inaccessible or empty, skipping
+Oct 31 10:39:31 runnervm48cm3 jellyfin[4961]: [10:39:31] [INF] Validating media library
+Oct 31 10:39:31 runnervm48cm3 jellyfin[4961]: [10:39:31] [WRN] Library folder /var/lib/jellyfin/data/playlists is inaccessible or empty, skipping
+Oct 31 10:39:31 runnervm48cm3 jellyfin[4961]: [10:39:31] [WRN] Library folder /var/lib/jellyfin/data/playlists is inaccessible or empty, skipping
+Oct 31 10:39:37 runnervm48cm3 jellyfin[4961]: [10:39:37] [INF] Running 9 post-scan task(s)
+Oct 31 10:39:37 runnervm48cm3 jellyfin[4961]: [10:39:37] [INF] Running post-scan task 1/9: SplashscreenPostScanTask
+Oct 31 10:39:39 runnervm48cm3 jellyfin[4961]: [10:39:39] [INF] Post-scan task SplashscreenPostScanTask completed after 0 minute(s) and 1 seconds
+Oct 31 10:39:39 runnervm48cm3 jellyfin[4961]: [10:39:39] [INF] Running post-scan task 2/9: ArtistsPostScanTask
+Oct 31 10:39:39 runnervm48cm3 jellyfin[4961]: [10:39:39] [INF] Refreshed metadata for 0 new artists out of 0 total
+Oct 31 10:39:39 runnervm48cm3 jellyfin[4961]: [10:39:39] [INF] Post-scan task ArtistsPostScanTask completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:39 runnervm48cm3 jellyfin[4961]: [10:39:39] [INF] Running post-scan task 3/9: CollectionPosterVerifyPostScanTask
+Oct 31 10:39:39 runnervm48cm3 jellyfin[4961]: [10:39:39] [INF] Post-scan task CollectionPosterVerifyPostScanTask completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:39 runnervm48cm3 jellyfin[4961]: [10:39:39] [INF] Running post-scan task 4/9: CollectionPostScanTask
+Oct 31 10:39:39 runnervm48cm3 jellyfin[4961]: [10:39:39] [INF] Post-scan task CollectionPostScanTask completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:39 runnervm48cm3 jellyfin[4961]: [10:39:39] [INF] Running post-scan task 5/9: GenresPostScanTask
+Oct 31 10:39:40 runnervm48cm3 jellyfin[4961]: [10:39:40] [INF] Refreshed metadata for 8 new genres out of 8 total
+Oct 31 10:39:40 runnervm48cm3 jellyfin[4961]: [10:39:40] [INF] Post-scan task GenresPostScanTask completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:40 runnervm48cm3 jellyfin[4961]: [10:39:40] [INF] Running post-scan task 6/9: MusicGenresPostScanTask
+Oct 31 10:39:40 runnervm48cm3 jellyfin[4961]: [10:39:40] [INF] Refreshed metadata for 0 new music genres out of 0 total
+Oct 31 10:39:40 runnervm48cm3 jellyfin[4961]: [10:39:40] [INF] Post-scan task MusicGenresPostScanTask completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:40 runnervm48cm3 jellyfin[4961]: [10:39:40] [INF] Running post-scan task 7/9: StudiosPostScanTask
+Oct 31 10:39:40 runnervm48cm3 jellyfin[4961]: [10:39:40] [INF] Refreshed metadata for 2 new studios out of 2 total
+Oct 31 10:39:40 runnervm48cm3 jellyfin[4961]: [10:39:40] [INF] Post-scan task StudiosPostScanTask completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:40 runnervm48cm3 jellyfin[4961]: [10:39:40] [INF] Running post-scan task 8/9: CleanDatabaseScheduledTask
+Oct 31 10:39:40 runnervm48cm3 jellyfin[4961]: [10:39:40] [INF] Post-scan task CleanDatabaseScheduledTask completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:40 runnervm48cm3 jellyfin[4961]: [10:39:40] [INF] Running post-scan task 9/9: RefreshDatabaseStatisticsPostScanTask
+Oct 31 10:39:40 runnervm48cm3 jellyfin[4961]: [10:39:40] [INF] Analyzing jellyfin.db
+Oct 31 10:39:40 runnervm48cm3 jellyfin[4961]: [10:39:40] [INF] Post-scan task RefreshDatabaseStatisticsPostScanTask completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:40 runnervm48cm3 jellyfin[4961]: [10:39:40] [INF] All post-scan tasks completed after 0 minute(s) and 3 seconds
+Oct 31 10:39:40 runnervm48cm3 jellyfin[4961]: [10:39:40] [INF] Scan Media Library Completed after 0 minute(s) and 9 seconds
+Oct 31 10:39:42 runnervm48cm3 systemd[1]: Stopping jellyfin.service - Jellyfin Media Server...
+Oct 31 10:39:42 runnervm48cm3 jellyfin[4961]: [10:39:42] [INF] Sending shutdown notifications
+Oct 31 10:39:42 runnervm48cm3 jellyfin[4961]: [10:39:42] [INF] Preparing the database for shutdown...
+Oct 31 10:39:42 runnervm48cm3 jellyfin[4961]: [10:39:42] [INF] Disposing CoreAppHost
+Oct 31 10:39:42 runnervm48cm3 jellyfin[4961]: [10:39:42] [INF] Disposing Plugin
+Oct 31 10:39:42 runnervm48cm3 systemd[1]: jellyfin.service: Deactivated successfully.
+Oct 31 10:39:42 runnervm48cm3 systemd[1]: Stopped jellyfin.service - Jellyfin Media Server.
+Oct 31 10:39:42 runnervm48cm3 systemd[1]: jellyfin.service: Consumed 24.695s CPU time.
+Oct 31 10:39:42 runnervm48cm3 systemd[1]: Started jellyfin.service - Jellyfin Media Server.
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Setting cache path: /var/cache/jellyfin
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Kestrel is listening on 0.0.0.0
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Jellyfin version: 12.4.0
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Environment Variables: ["[JELLYFIN_DATA_DIR, /var/lib/jellyfin]", "[JELLYFIN_ADDITIONAL_OPTS, ]", "[JELLYFIN_CACHE_DIR, /var/cache/jellyfin]", "[JELLYFIN_NOWEBAPP_OPT, ]", "[JELLYFIN_USER, jellyfin]", "[JELLYFIN_FFMPEG_OPT, --ffmpeg=/usr/lib/jellyfin-ffmpeg/ffmpeg]", "[JELLYFIN_WEB_OPT, --webdir=/usr/share/jellyfin/web]", "[JELLYFIN_LOG_DIR, /var/log/jellyfin]", "[JELLYFIN_SERVICE_OPT, ]", "[JELLYFIN_CONFIG_DIR, /etc/jellyfin]", "[JELLYFIN_ARGS, $JELLYFIN_WEB_OPT $JELLYFIN_FFMPEG_OPT $JELLYFIN_SERVICE_OPT $JELLYFIN_NOWEBAPP_OPT $JELLYFIN_ADDITIONAL_OPTS --datadir $JELLYFIN_DATA_DIR --configdir $JELLYFIN_CONFIG_DIR --logdir $JELLYFIN_LOG_DIR --cachedir $JELLYFIN_CACHE_DIR]"]
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Arguments: ["/usr/lib/jellyfin/bin/jellyfin.dll", "--webdir=/usr/share/jellyfin/web", "--ffmpeg=/usr/lib/jellyfin-ffmpeg/ffmpeg"]
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Operating system: Ubuntu 24.04.5 LTS
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Architecture: X64
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] 64-Bit Process: True
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] User Interactive: True
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Processor count: 4
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Program data path: /var/lib/jellyfin
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Log directory path: /var/log/jellyfin
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Config directory path: /etc/jellyfin
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Cache path: /var/cache/jellyfin
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Temp directory path: /tmp/jellyfin
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Web resources path: /usr/share/jellyfin/web
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Application directory: /usr/lib/jellyfin/bin/
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Storage path `/var/lib/jellyfin/data` (Fixed) successfully checked with 84.5GiB free which is over the minimum of 2GiB.
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Storage path `/var/cache/jellyfin` (Fixed) successfully checked with 84.5GiB free which is over the minimum of 2GiB.
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Storage path `/var/lib/jellyfin` (Fixed) successfully checked with 84.5GiB free which is over the minimum of 2GiB.
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Setting cache path: /var/cache/jellyfin
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] SQLite connection string: Data Source=/var/lib/jellyfin/data/jellyfin.db;Cache=Private;Default Timeout=60;Pooling=True
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] SQLITE connection pragma command set to:
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: PRAGMA locking_mode=NORMAL;
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: PRAGMA journal_size_limit=134217728;
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: PRAGMA synchronous=1;
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: PRAGMA temp_store=2;
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] The database locking mode has been set to: NoLock.
+Oct 31 10:39:43 runnervm48cm3 jellyfin[5470]: [10:39:43] [INF] Initialise Migration service.
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] Setting cache path: /var/cache/jellyfin
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] Registering whitelisted assemblies for plugin "Ushereats Theme"...
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] Loading assemblies
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] Loaded assembly Jellyfin.Plugin.FileTransformation, Version=3.0.3.0, Culture=neutral, PublicKeyToken=null from /var/lib/jellyfin/plugins/FileTransformation_ci/Jellyfin.Plugin.FileTransformation.dll
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] Loaded assembly Jellyfin.Plugin.UshereatsTheme, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null from /var/lib/jellyfin/plugins/UshereatsTheme_ci/Jellyfin.Plugin.UshereatsTheme.dll
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] Defined LAN subnets: ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] Defined LAN exclusions: []
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] Used LAN subnets: ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] Filtered interface addresses: ["127.0.0.1", "10.1.0.224"]
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] Bind Addresses ["0.0.0.0"]
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] Remote IP filter is Allowlist
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] Filtered subnets: []
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] SQLite connection string: Data Source=/var/lib/jellyfin/data/jellyfin.db;Cache=Private;Default Timeout=60;Pooling=True
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] SQLITE connection pragma command set to:
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: PRAGMA locking_mode=NORMAL;
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: PRAGMA journal_size_limit=134217728;
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: PRAGMA synchronous=1;
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: PRAGMA temp_store=2;
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] The database locking mode has been set to: NoLock.
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] Prepare system for possible migrations
+Oct 31 10:39:44 runnervm48cm3 jellyfin[5470]: [10:39:44] [INF] Loaded plugin: File Transformation 3.0.3.0
+Oct 31 10:39:45 runnervm48cm3 jellyfin[5470]: [10:39:45] [INF] Loaded plugin: Ushereats Theme 1.0.0.0
+Oct 31 10:39:45 runnervm48cm3 jellyfin[5470]: [10:39:45] [INF] Loaded plugin: TMDb 12.4.0.0
+Oct 31 10:39:45 runnervm48cm3 jellyfin[5470]: [10:39:45] [INF] Loaded plugin: Studio Images 12.4.0.0
+Oct 31 10:39:45 runnervm48cm3 jellyfin[5470]: [10:39:45] [INF] Loaded plugin: OMDb 12.4.0.0
+Oct 31 10:39:45 runnervm48cm3 jellyfin[5470]: [10:39:45] [INF] Loaded plugin: MusicBrainz 12.4.0.0
+Oct 31 10:39:45 runnervm48cm3 jellyfin[5470]: [10:39:45] [INF] Loaded plugin: ListenBrainz Similarity Provider 12.4.0.0
+Oct 31 10:39:45 runnervm48cm3 jellyfin[5470]: [10:39:45] [INF] Loaded plugin: AudioDB 12.4.0.0
+Oct 31 10:39:45 runnervm48cm3 jellyfin[5470]: [10:39:45] [INF] Registered 0 external search providers: . Fallback providers: Database (priority 100)
+Oct 31 10:39:45 runnervm48cm3 jellyfin[5470]: [10:39:45] [INF] Kestrel is listening on 0.0.0.0
+Oct 31 10:39:46 runnervm48cm3 jellyfin[5470]: [10:39:46] [INF] [FileTransformation] Installing response transformation middleware
+Oct 31 10:39:46 runnervm48cm3 jellyfin[5470]: [10:39:46] [INF] Running startup tasks
+Oct 31 10:39:46 runnervm48cm3 jellyfin[5470]: [10:39:46] [INF] Daily trigger for Generate Trickplay Images set to fire at 2026-11-01 03:00:00.000 +00:00, which is 16:20:13.1134265 from now.
+Oct 31 10:39:46 runnervm48cm3 jellyfin[5470]: [10:39:46] [INF] Daily trigger for Extract Chapter Images set to fire at 2026-11-01 02:00:00.000 +00:00, which is 15:20:13.1107693 from now.
+Oct 31 10:39:46 runnervm48cm3 jellyfin[5470]: [10:39:46] [INF] Found ffmpeg version 8.1.3
+Oct 31 10:39:46 runnervm48cm3 jellyfin[5470]: [10:39:46] [INF] Available decoders: ["libdav1d", "av1", "av1_cuvid", "av1_qsv", "h264", "h264_qsv", "h264_cuvid", "hevc", "hevc_qsv", "hevc_cuvid", "mpeg2video", "mpeg2_qsv", "mpeg2_cuvid", "mpeg4", "mpeg4_cuvid", "msmpeg4", "vc1_qsv", "vc1_cuvid", "vp8", "libvpx", "vp8_cuvid", "vp8_qsv", "vp9", "libvpx-vp9", "vp9_cuvid", "vp9_qsv", "aac", "ac3", "ac4", "dca", "flac", "mp3", "truehd"]
+Oct 31 10:39:46 runnervm48cm3 jellyfin[5470]: [10:39:46] [INF] Available encoders: ["libsvtav1", "av1_nvenc", "av1_qsv", "av1_amf", "av1_vaapi", "libx264", "h264_amf", "h264_nvenc", "h264_qsv", "h264_v4l2m2m", "h264_vaapi", "libx265", "hevc_amf", "hevc_nvenc", "hevc_qsv", "hevc_vaapi", "mjpeg_qsv", "mjpeg_vaapi", "aac", "libfdk_aac", "ac3", "alac", "dca", "flac", "libmp3lame", "libopus", "truehd", "libvorbis", "srt"]
+Oct 31 10:39:46 runnervm48cm3 jellyfin[5470]: [10:39:46] [INF] Available filters: ["bwdif_cuda", "bwdif_opencl", "deinterlace_qsv", "deinterlace_vaapi", "flip_vulkan", "hwupload_cuda", "hwupload_vaapi", "libplacebo", "overlay_opencl", "overlay_qsv", "overlay_vaapi", "overlay_vulkan", "overlay_cuda", "procamp_vaapi", "scale_cuda", "scale_opencl", "scale_qsv", "scale_vaapi", "scale_vulkan", "tonemapx", "tonemap_cuda", "tonemap_opencl", "tonemap_vaapi", "transpose_cuda", "transpose_opencl", "transpose_vaapi", "transpose_vulkan", "vpp_qsv", "yadif_cuda", "yadif_opencl", "zscale", "alphasrc"]
+Oct 31 10:39:47 runnervm48cm3 jellyfin[5470]: [10:39:47] [INF] Available hwaccel types: ["cuda", "vaapi", "qsv", "drm", "opencl", "vulkan", "amf"]
+Oct 31 10:39:48 runnervm48cm3 jellyfin[5470]: [10:39:48] [INF] FFmpeg: /usr/lib/jellyfin-ffmpeg/ffmpeg
+Oct 31 10:39:48 runnervm48cm3 jellyfin[5470]: [10:39:48] [INF] ServerId: ee37c810f31047b092dd6c9c6040c1bb
+Oct 31 10:39:48 runnervm48cm3 jellyfin[5470]: [10:39:48] [INF] Core startup complete
+Oct 31 10:39:48 runnervm48cm3 jellyfin[5470]: [10:39:48] [INF] Startup complete 0:00:05.6938535
+Oct 31 10:39:49 runnervm48cm3 jellyfin[5470]: [10:39:49] [INF] Clean Transcode Directory Completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:49 runnervm48cm3 jellyfin[5470]: [10:39:49] [INF] [Ushereats Theme] Trending: no TMDB key in the plugin settings, skipped.
+Oct 31 10:39:49 runnervm48cm3 jellyfin[5470]: [10:39:49] [INF] Ushereats Theme: Trending This Week Completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:50 runnervm48cm3 jellyfin[5470]: [10:39:50] [INF] [FileTransformation] Registering transformation for 'index.html' (ID: fc34dcce-8a8a-4ac4-a7ae-fdbdc6589563)
+Oct 31 10:39:50 runnervm48cm3 jellyfin[5470]: [10:39:50] [INF] Update Plugins Completed after 0 minute(s) and 0 seconds
+Oct 31 10:39:51 runnervm48cm3 jellyfin[5470]: [10:39:51] [INF] [Ushereats Theme] Registered with File Transformation.
+Oct 31 10:39:51 runnervm48cm3 jellyfin[5470]: [10:39:51] [INF] Ushereats Theme Startup Completed after 0 minute(s) and 1 seconds
+Oct 31 10:40:01 runnervm48cm3 jellyfin[5470]: [10:40:01] [INF] WS 127.0.0.1 request
+Oct 31 10:40:02 runnervm48cm3 jellyfin[5470]: [10:40:02] [INF] WS 127.0.0.1 closed
+Oct 31 10:40:03 runnervm48cm3 jellyfin[5470]: [10:40:03] [INF] WS 127.0.0.1 request
+Oct 31 10:40:34 runnervm48cm3 jellyfin[5470]: [10:40:34] [INF] WS 127.0.0.1 closed
+Oct 31 10:40:35 runnervm48cm3 jellyfin[5470]: [10:40:35] [INF] WS 127.0.0.1 request
+Oct 31 10:40:38 runnervm48cm3 jellyfin[5470]: [10:40:38] [INF] WS 127.0.0.1 closed
+Oct 31 10:40:39 runnervm48cm3 jellyfin[5470]: [10:40:39] [INF] WS 127.0.0.1 request
+Oct 31 10:40:45 runnervm48cm3 jellyfin[5470]: [10:40:45] [INF] WS 127.0.0.1 closed
+Oct 31 10:40:45 runnervm48cm3 jellyfin[5470]: [10:40:45] [INF] WS 127.0.0.1 request
+Oct 31 10:40:51 runnervm48cm3 jellyfin[5470]: [10:40:51] [INF] WS 127.0.0.1 closed
+Oct 31 10:40:52 runnervm48cm3 jellyfin[5470]: [10:40:52] [INF] WS 127.0.0.1 request
+Oct 31 10:40:57 runnervm48cm3 jellyfin[5470]: [10:40:57] [INF] WS 127.0.0.1 closed
+Oct 31 10:40:57 runnervm48cm3 jellyfin[5470]: [10:40:57] [INF] WS 127.0.0.1 request
+Oct 31 10:41:01 runnervm48cm3 jellyfin[5470]: [10:41:01] [INF] WS 127.0.0.1 closed
+Oct 31 10:41:01 runnervm48cm3 jellyfin[5470]: [10:41:01] [INF] WS 127.0.0.1 request
+Oct 31 10:41:07 runnervm48cm3 jellyfin[5470]: [10:41:07] [INF] WS 127.0.0.1 closed
+Oct 31 10:41:07 runnervm48cm3 jellyfin[5470]: [10:41:07] [INF] WS 127.0.0.1 request
+Oct 31 10:41:13 runnervm48cm3 jellyfin[5470]: [10:41:13] [INF] WS 127.0.0.1 closed
+Oct 31 10:41:13 runnervm48cm3 jellyfin[5470]: [10:41:13] [INF] WS 127.0.0.1 request
+Oct 31 10:41:18 runnervm48cm3 jellyfin[5470]: [10:41:18] [INF] WS 127.0.0.1 closed
+Oct 31 10:41:18 runnervm48cm3 jellyfin[5470]: [10:41:18] [INF] WS 127.0.0.1 request
+Oct 31 10:41:24 runnervm48cm3 jellyfin[5470]: [10:41:24] [INF] WS 127.0.0.1 closed
+Oct 31 10:41:24 runnervm48cm3 jellyfin[5470]: [10:41:24] [INF] WS 127.0.0.1 request
+Oct 31 10:41:36 runnervm48cm3 jellyfin[5470]: [10:41:36] [INF] WS 127.0.0.1 request
+Oct 31 10:42:28 runnervm48cm3 jellyfin[5470]: [10:42:28] [INF] WS 127.0.0.1 closed
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]: [10:42:29] [INF] User ci started playback of 'Glass Harbour' (CI Player 1.0)
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]: [10:42:29] [INF] WS 127.0.0.1 closed
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]: [10:42:29] [FTL] Unhandled Exception
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]: System.Net.WebSockets.WebSocketException (0x80004005): The WebSocket is in an invalid state ('Closed') for this operation. Valid states are: 'Open, CloseReceived'
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at System.Net.WebSockets.ManagedWebSocket.ThrowIfInvalidState(ManagedWebSocketStates validStates)
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at System.Net.WebSockets.ManagedWebSocket.SendAsync(ReadOnlyMemory`1 buffer, WebSocketMessageType messageType, WebSocketMessageFlags messageFlags, CancellationToken cancellationToken)
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]: --- End of stack trace from previous location ---
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at Emby.Server.Implementations.HttpServer.WebSocketConnection.SendAsync[T](OutboundWebSocketMessage`1 message, CancellationToken cancellationToken)
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at Emby.Server.Implementations.EntryPoints.UserDataChangeNotifier.UpdateTimerCallback(Object state)
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at System.Threading.Tasks.Task.<>c.<ThrowAsync>b__124_1(Object state)
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at System.Threading.QueueUserWorkItemCallback.Execute()
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at System.Threading.ThreadPoolWorkQueue.Dispatch()
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at System.Threading.Thread.StartCallback()
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]: Unhandled exception. System.Net.WebSockets.WebSocketException (0x80004005): The WebSocket is in an invalid state ('Closed') for this operation. Valid states are: 'Open, CloseReceived'
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at System.Net.WebSockets.ManagedWebSocket.ThrowIfInvalidState(ManagedWebSocketStates validStates)
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at System.Net.WebSockets.ManagedWebSocket.SendAsync(ReadOnlyMemory`1 buffer, WebSocketMessageType messageType, WebSocketMessageFlags messageFlags, CancellationToken cancellationToken)
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]: --- End of stack trace from previous location ---
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at Emby.Server.Implementations.HttpServer.WebSocketConnection.SendAsync[T](OutboundWebSocketMessage`1 message, CancellationToken cancellationToken)
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at Emby.Server.Implementations.EntryPoints.UserDataChangeNotifier.UpdateTimerCallback(Object state)
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at System.Threading.Tasks.Task.<>c.<ThrowAsync>b__124_1(Object state)
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at System.Threading.QueueUserWorkItemCallback.Execute()
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at System.Threading.ThreadPoolWorkQueue.Dispatch()
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()
+Oct 31 10:42:29 runnervm48cm3 jellyfin[5470]:    at System.Threading.Thread.StartCallback()
+Oct 31 10:42:33 runnervm48cm3 systemd[1]: jellyfin.service: Main process exited, code=dumped, status=6/ABRT
+Oct 31 10:42:33 runnervm48cm3 systemd[1]: jellyfin.service: Failed with result 'core-dump'.
+Oct 31 10:42:33 runnervm48cm3 systemd[1]: jellyfin.service: Consumed 52.963s CPU time.
+Oct 31 10:42:33 runnervm48cm3 systemd[1]: jellyfin.service: Scheduled restart job, restart counter is at 1.
+Oct 31 10:42:33 runnervm48cm3 systemd[1]: Started jellyfin.service - Jellyfin Media Server.
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:33] [INF] Setting cache path: /var/cache/jellyfin
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Kestrel is listening on 0.0.0.0
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Jellyfin version: 12.4.0
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Environment Variables: ["[JELLYFIN_CACHE_DIR, /var/cache/jellyfin]", "[JELLYFIN_WEB_OPT, --webdir=/usr/share/jellyfin/web]", "[JELLYFIN_SERVICE_OPT, ]", "[JELLYFIN_NOWEBAPP_OPT, ]", "[JELLYFIN_LOG_DIR, /var/log/jellyfin]", "[JELLYFIN_DATA_DIR, /var/lib/jellyfin]", "[JELLYFIN_FFMPEG_OPT, --ffmpeg=/usr/lib/jellyfin-ffmpeg/ffmpeg]", "[JELLYFIN_USER, jellyfin]", "[JELLYFIN_ARGS, $JELLYFIN_WEB_OPT $JELLYFIN_FFMPEG_OPT $JELLYFIN_SERVICE_OPT $JELLYFIN_NOWEBAPP_OPT $JELLYFIN_ADDITIONAL_OPTS --datadir $JELLYFIN_DATA_DIR --configdir $JELLYFIN_CONFIG_DIR --logdir $JELLYFIN_LOG_DIR --cachedir $JELLYFIN_CACHE_DIR]", "[JELLYFIN_CONFIG_DIR, /etc/jellyfin]", "[JELLYFIN_ADDITIONAL_OPTS, ]"]
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Arguments: ["/usr/lib/jellyfin/bin/jellyfin.dll", "--webdir=/usr/share/jellyfin/web", "--ffmpeg=/usr/lib/jellyfin-ffmpeg/ffmpeg"]
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Operating system: Ubuntu 24.04.5 LTS
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Architecture: X64
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] 64-Bit Process: True
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] User Interactive: True
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Processor count: 4
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Program data path: /var/lib/jellyfin
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Log directory path: /var/log/jellyfin
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Config directory path: /etc/jellyfin
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Cache path: /var/cache/jellyfin
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Temp directory path: /tmp/jellyfin
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Web resources path: /usr/share/jellyfin/web
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Application directory: /usr/lib/jellyfin/bin/
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Storage path `/var/lib/jellyfin/data` (Fixed) successfully checked with 83.2GiB free which is over the minimum of 2GiB.
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Storage path `/var/cache/jellyfin` (Fixed) successfully checked with 83.2GiB free which is over the minimum of 2GiB.
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Storage path `/var/lib/jellyfin` (Fixed) successfully checked with 83.2GiB free which is over the minimum of 2GiB.
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Setting cache path: /var/cache/jellyfin
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] SQLite connection string: Data Source=/var/lib/jellyfin/data/jellyfin.db;Cache=Private;Default Timeout=60;Pooling=True
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] SQLITE connection pragma command set to:
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: PRAGMA locking_mode=NORMAL;
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: PRAGMA journal_size_limit=134217728;
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: PRAGMA synchronous=1;
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: PRAGMA temp_store=2;
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] The database locking mode has been set to: NoLock.
+Oct 31 10:42:34 runnervm48cm3 jellyfin[6532]: [10:42:34] [INF] Initialise Migration service.
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Setting cache path: /var/cache/jellyfin
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Registering whitelisted assemblies for plugin "Ushereats Theme"...
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Loading assemblies
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Loaded assembly Jellyfin.Plugin.FileTransformation, Version=3.0.3.0, Culture=neutral, PublicKeyToken=null from /var/lib/jellyfin/plugins/FileTransformation_ci/Jellyfin.Plugin.FileTransformation.dll
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Loaded assembly Jellyfin.Plugin.UshereatsTheme, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null from /var/lib/jellyfin/plugins/UshereatsTheme_ci/Jellyfin.Plugin.UshereatsTheme.dll
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Defined LAN subnets: ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Defined LAN exclusions: []
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Used LAN subnets: ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Filtered interface addresses: ["127.0.0.1", "10.1.0.224"]
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Bind Addresses ["0.0.0.0"]
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Remote IP filter is Allowlist
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Filtered subnets: []
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] SQLite connection string: Data Source=/var/lib/jellyfin/data/jellyfin.db;Cache=Private;Default Timeout=60;Pooling=True
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] SQLITE connection pragma command set to:
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: PRAGMA locking_mode=NORMAL;
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: PRAGMA journal_size_limit=134217728;
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: PRAGMA synchronous=1;
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: PRAGMA temp_store=2;
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] The database locking mode has been set to: NoLock.
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Prepare system for possible migrations
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Loaded plugin: File Transformation 3.0.3.0
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Loaded plugin: Ushereats Theme 1.0.0.0
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Loaded plugin: TMDb 12.4.0.0
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Loaded plugin: Studio Images 12.4.0.0
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Loaded plugin: OMDb 12.4.0.0
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Loaded plugin: MusicBrainz 12.4.0.0
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Loaded plugin: ListenBrainz Similarity Provider 12.4.0.0
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Loaded plugin: AudioDB 12.4.0.0
+Oct 31 10:42:35 runnervm48cm3 jellyfin[6532]: [10:42:35] [INF] Registered 0 external search providers: . Fallback providers: Database (priority 100)
+Oct 31 10:42:36 runnervm48cm3 jellyfin[6532]: [10:42:36] [INF] Kestrel is listening on 0.0.0.0
+Oct 31 10:42:36 runnervm48cm3 jellyfin[6532]: [10:42:36] [INF] [FileTransformation] Installing response transformation middleware
+Oct 31 10:42:36 runnervm48cm3 jellyfin[6532]: [10:42:36] [INF] Running startup tasks
+Oct 31 10:42:36 runnervm48cm3 jellyfin[6532]: [10:42:36] [INF] Daily trigger for Generate Trickplay Images set to fire at 2026-11-01 03:00:00.000 +00:00, which is 16:17:23.0328549 from now.
+Oct 31 10:42:36 runnervm48cm3 jellyfin[6532]: [10:42:36] [INF] Daily trigger for Extract Chapter Images set to fire at 2026-11-01 02:00:00.000 +00:00, which is 15:17:23.0303195 from now.
+Oct 31 10:42:36 runnervm48cm3 jellyfin[6532]: [10:42:36] [INF] Found ffmpeg version 8.1.3
+Oct 31 10:42:37 runnervm48cm3 jellyfin[6532]: [10:42:37] [INF] Available decoders: ["libdav1d", "av1", "av1_cuvid", "av1_qsv", "h264", "h264_qsv", "h264_cuvid", "hevc", "hevc_qsv", "hevc_cuvid", "mpeg2video", "mpeg2_qsv", "mpeg2_cuvid", "mpeg4", "mpeg4_cuvid", "msmpeg4", "vc1_qsv", "vc1_cuvid", "vp8", "libvpx", "vp8_cuvid", "vp8_qsv", "vp9", "libvpx-vp9", "vp9_cuvid", "vp9_qsv", "aac", "ac3", "ac4", "dca", "flac", "mp3", "truehd"]
+Oct 31 10:42:37 runnervm48cm3 jellyfin[6532]: [10:42:37] [INF] Available encoders: ["libsvtav1", "av1_nvenc", "av1_qsv", "av1_amf", "av1_vaapi", "libx264", "h264_amf", "h264_nvenc", "h264_qsv", "h264_v4l2m2m", "h264_vaapi", "libx265", "hevc_amf", "hevc_nvenc", "hevc_qsv", "hevc_vaapi", "mjpeg_qsv", "mjpeg_vaapi", "aac", "libfdk_aac", "ac3", "alac", "dca", "flac", "libmp3lame", "libopus", "truehd", "libvorbis", "srt"]
+Oct 31 10:42:37 runnervm48cm3 jellyfin[6532]: [10:42:37] [INF] Available filters: ["bwdif_cuda", "bwdif_opencl", "deinterlace_qsv", "deinterlace_vaapi", "flip_vulkan", "hwupload_cuda", "hwupload_vaapi", "libplacebo", "overlay_opencl", "overlay_qsv", "overlay_vaapi", "overlay_vulkan", "overlay_cuda", "procamp_vaapi", "scale_cuda", "scale_opencl", "scale_qsv", "scale_vaapi", "scale_vulkan", "tonemapx", "tonemap_cuda", "tonemap_opencl", "tonemap_vaapi", "transpose_cuda", "transpose_opencl", "transpose_vaapi", "transpose_vulkan", "vpp_qsv", "yadif_cuda", "yadif_opencl", "zscale", "alphasrc"]
+Oct 31 10:42:37 runnervm48cm3 jellyfin[6532]: [10:42:37] [INF] Available hwaccel types: ["cuda", "vaapi", "qsv", "drm", "opencl", "vulkan", "amf"]
+Oct 31 10:42:38 runnervm48cm3 jellyfin[6532]: [10:42:38] [INF] FFmpeg: /usr/lib/jellyfin-ffmpeg/ffmpeg
+Oct 31 10:42:38 runnervm48cm3 jellyfin[6532]: [10:42:38] [INF] ServerId: ee37c810f31047b092dd6c9c6040c1bb
+Oct 31 10:42:38 runnervm48cm3 jellyfin[6532]: [10:42:38] [INF] Core startup complete
+Oct 31 10:42:38 runnervm48cm3 jellyfin[6532]: [10:42:38] [INF] Startup complete 0:00:05.0925462
+Oct 31 10:42:39 runnervm48cm3 jellyfin[6532]: [10:42:39] [INF] WS 127.0.0.1 request
+Oct 31 10:42:39 runnervm48cm3 jellyfin[6532]: [10:42:39] [INF] WS 127.0.0.1 closed
+Oct 31 10:42:39 runnervm48cm3 jellyfin[6532]: [10:42:39] [INF] Clean Transcode Directory Completed after 0 minute(s) and 0 seconds
+Oct 31 10:42:39 runnervm48cm3 jellyfin[6532]: [10:42:39] [INF] [Ushereats Theme] Trending: no TMDB key in the plugin settings, skipped.
+Oct 31 10:42:39 runnervm48cm3 jellyfin[6532]: [10:42:39] [INF] Ushereats Theme: Trending This Week Completed after 0 minute(s) and 0 seconds
+Oct 31 10:42:40 runnervm48cm3 jellyfin[6532]: [10:42:40] [INF] WS 127.0.0.1 request
+Oct 31 10:42:40 runnervm48cm3 jellyfin[6532]: [10:42:40] [INF] [FileTransformation] Registering transformation for 'index.html' (ID: fc34dcce-8a8a-4ac4-a7ae-fdbdc6589563)
+Oct 31 10:42:40 runnervm48cm3 jellyfin[6532]: [10:42:40] [INF] Update Plugins Completed after 0 minute(s) and 0 seconds
+Oct 31 10:42:41 runnervm48cm3 jellyfin[6532]: [10:42:41] [INF] [Ushereats Theme] Registered with File Transformation.
+Oct 31 10:42:41 runnervm48cm3 jellyfin[6532]: [10:42:41] [INF] Ushereats Theme Startup Completed after 0 minute(s) and 1 seconds
+Oct 31 10:42:46 runnervm48cm3 jellyfin[6532]: [10:42:46] [INF] WS 127.0.0.1 closed
+Oct 31 10:42:47 runnervm48cm3 jellyfin[6532]: [10:42:47] [INF] WS 127.0.0.1 request
+Oct 31 10:42:49 runnervm48cm3 jellyfin[6532]: [10:42:49] [INF] WS 127.0.0.1 closed
+Oct 31 10:42:49 runnervm48cm3 jellyfin[6532]: [10:42:49] [INF] WS 127.0.0.1 request
+Oct 31 10:42:54 runnervm48cm3 jellyfin[6532]: [10:42:54] [INF] WS 127.0.0.1 closed
+Oct 31 10:42:54 runnervm48cm3 jellyfin[6532]: [10:42:54] [INF] WS 127.0.0.1 request
+Oct 31 10:42:59 runnervm48cm3 jellyfin[6532]: [10:42:59] [INF] WS 127.0.0.1 closed
+Oct 31 10:43:00 runnervm48cm3 jellyfin[6532]: [10:43:00] [INF] WS 127.0.0.1 request
+Oct 31 10:43:04 runnervm48cm3 jellyfin[6532]: [10:43:04] [INF] WS 127.0.0.1 closed
+Oct 31 10:43:04 runnervm48cm3 jellyfin[6532]: [10:43:04] [INF] WS 127.0.0.1 request
+Oct 31 10:43:06 runnervm48cm3 jellyfin[6532]: [10:43:06] [INF] WS 127.0.0.1 closed
+Oct 31 10:43:07 runnervm48cm3 jellyfin[6532]: [10:43:07] [INF] WS 127.0.0.1 request
+Oct 31 10:43:11 runnervm48cm3 jellyfin[6532]: [10:43:11] [INF] WS 127.0.0.1 closed
+Oct 31 10:43:12 runnervm48cm3 jellyfin[6532]: [10:43:12] [INF] WS 127.0.0.1 request
+Oct 31 10:43:17 runnervm48cm3 jellyfin[6532]: [10:43:17] [INF] WS 127.0.0.1 closed
+Oct 31 10:43:17 runnervm48cm3 jellyfin[6532]: [10:43:17] [INF] WS 127.0.0.1 request
+Oct 31 10:43:22 runnervm48cm3 jellyfin[6532]: [10:43:22] [INF] WS 127.0.0.1 closed
+Oct 31 10:43:22 runnervm48cm3 jellyfin[6532]: [10:43:22] [INF] WS 127.0.0.1 request
+Oct 31 10:43:27 runnervm48cm3 jellyfin[6532]: [10:43:27] [INF] WS 127.0.0.1 closed
+Oct 31 10:43:27 runnervm48cm3 jellyfin[6532]: [10:43:27] [INF] WS 127.0.0.1 request
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]: [10:43:32] [INF] User ci started playback of 'Glass Harbour' (CI Player 1.0)
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]: [10:43:32] [INF] WS 127.0.0.1 closed
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]: [10:43:32] [FTL] Unhandled Exception
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]: System.Net.WebSockets.WebSocketException (0x80004005): The WebSocket is in an invalid state ('Closed') for this operation. Valid states are: 'Open, CloseReceived'
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at System.Net.WebSockets.ManagedWebSocket.ThrowIfInvalidState(ManagedWebSocketStates validStates)
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at System.Net.WebSockets.ManagedWebSocket.SendAsync(ReadOnlyMemory`1 buffer, WebSocketMessageType messageType, WebSocketMessageFlags messageFlags, CancellationToken cancellationToken)
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]: --- End of stack trace from previous location ---
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at Emby.Server.Implementations.HttpServer.WebSocketConnection.SendAsync[T](OutboundWebSocketMessage`1 message, CancellationToken cancellationToken)
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at Emby.Server.Implementations.EntryPoints.UserDataChangeNotifier.UpdateTimerCallback(Object state)
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at System.Threading.Tasks.Task.<>c.<ThrowAsync>b__124_1(Object state)
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at System.Threading.QueueUserWorkItemCallback.Execute()
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at System.Threading.ThreadPoolWorkQueue.Dispatch()
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at System.Threading.Thread.StartCallback()
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]: Unhandled exception. System.Net.WebSockets.WebSocketException (0x80004005): The WebSocket is in an invalid state ('Closed') for this operation. Valid states are: 'Open, CloseReceived'
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at System.Net.WebSockets.ManagedWebSocket.ThrowIfInvalidState(ManagedWebSocketStates validStates)
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at System.Net.WebSockets.ManagedWebSocket.SendAsync(ReadOnlyMemory`1 buffer, WebSocketMessageType messageType, WebSocketMessageFlags messageFlags, CancellationToken cancellationToken)
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]: --- End of stack trace from previous location ---
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at Emby.Server.Implementations.HttpServer.WebSocketConnection.SendAsync[T](OutboundWebSocketMessage`1 message, CancellationToken cancellationToken)
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at Emby.Server.Implementations.EntryPoints.UserDataChangeNotifier.UpdateTimerCallback(Object state)
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at System.Threading.Tasks.Task.<>c.<ThrowAsync>b__124_1(Object state)
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at System.Threading.QueueUserWorkItemCallback.Execute()
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at System.Threading.ThreadPoolWorkQueue.Dispatch()
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()
+Oct 31 10:43:32 runnervm48cm3 jellyfin[6532]:    at System.Threading.Thread.StartCallback()
+Oct 31 10:43:35 runnervm48cm3 systemd[1]: jellyfin.service: Main process exited, code=dumped, status=6/ABRT
+Oct 31 10:43:35 runnervm48cm3 systemd[1]: jellyfin.service: Failed with result 'core-dump'.
+Oct 31 10:43:35 runnervm48cm3 systemd[1]: jellyfin.service: Consumed 27.142s CPU time.
+Oct 31 10:43:35 runnervm48cm3 systemd[1]: jellyfin.service: Scheduled restart job, restart counter is at 2.
+Oct 31 10:43:35 runnervm48cm3 systemd[1]: Started jellyfin.service - Jellyfin Media Server.
+Oct 31 10:43:35 runnervm48cm3 jellyfin[6770]: [10:43:35] [INF] Setting cache path: /var/cache/jellyfin
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Kestrel is listening on 0.0.0.0
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Jellyfin version: 12.4.0
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Environment Variables: ["[JELLYFIN_DATA_DIR, /var/lib/jellyfin]", "[JELLYFIN_ARGS, $JELLYFIN_WEB_OPT $JELLYFIN_FFMPEG_OPT $JELLYFIN_SERVICE_OPT $JELLYFIN_NOWEBAPP_OPT $JELLYFIN_ADDITIONAL_OPTS --datadir $JELLYFIN_DATA_DIR --configdir $JELLYFIN_CONFIG_DIR --logdir $JELLYFIN_LOG_DIR --cachedir $JELLYFIN_CACHE_DIR]", "[JELLYFIN_NOWEBAPP_OPT, ]", "[JELLYFIN_ADDITIONAL_OPTS, ]", "[JELLYFIN_WEB_OPT, --webdir=/usr/share/jellyfin/web]", "[JELLYFIN_USER, jellyfin]", "[JELLYFIN_CONFIG_DIR, /etc/jellyfin]", "[JELLYFIN_CACHE_DIR, /var/cache/jellyfin]", "[JELLYFIN_LOG_DIR, /var/log/jellyfin]", "[JELLYFIN_SERVICE_OPT, ]", "[JELLYFIN_FFMPEG_OPT, --ffmpeg=/usr/lib/jellyfin-ffmpeg/ffmpeg]"]
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Arguments: ["/usr/lib/jellyfin/bin/jellyfin.dll", "--webdir=/usr/share/jellyfin/web", "--ffmpeg=/usr/lib/jellyfin-ffmpeg/ffmpeg"]
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Operating system: Ubuntu 24.04.5 LTS
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Architecture: X64
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] 64-Bit Process: True
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] User Interactive: True
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Processor count: 4
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Program data path: /var/lib/jellyfin
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Log directory path: /var/log/jellyfin
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Config directory path: /etc/jellyfin
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Cache path: /var/cache/jellyfin
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Temp directory path: /tmp/jellyfin
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Web resources path: /usr/share/jellyfin/web
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Application directory: /usr/lib/jellyfin/bin/
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Storage path `/var/lib/jellyfin/data` (Fixed) successfully checked with 83.3GiB free which is over the minimum of 2GiB.
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Storage path `/var/cache/jellyfin` (Fixed) successfully checked with 83.3GiB free which is over the minimum of 2GiB.
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Storage path `/var/lib/jellyfin` (Fixed) successfully checked with 83.3GiB free which is over the minimum of 2GiB.
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Setting cache path: /var/cache/jellyfin
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] SQLite connection string: Data Source=/var/lib/jellyfin/data/jellyfin.db;Cache=Private;Default Timeout=60;Pooling=True
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] SQLITE connection pragma command set to:
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: PRAGMA locking_mode=NORMAL;
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: PRAGMA journal_size_limit=134217728;
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: PRAGMA synchronous=1;
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: PRAGMA temp_store=2;
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] The database locking mode has been set to: NoLock.
+Oct 31 10:43:36 runnervm48cm3 jellyfin[6770]: [10:43:36] [INF] Initialise Migration service.
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Setting cache path: /var/cache/jellyfin
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Registering whitelisted assemblies for plugin "Ushereats Theme"...
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Loading assemblies
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Loaded assembly Jellyfin.Plugin.FileTransformation, Version=3.0.3.0, Culture=neutral, PublicKeyToken=null from /var/lib/jellyfin/plugins/FileTransformation_ci/Jellyfin.Plugin.FileTransformation.dll
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Loaded assembly Jellyfin.Plugin.UshereatsTheme, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null from /var/lib/jellyfin/plugins/UshereatsTheme_ci/Jellyfin.Plugin.UshereatsTheme.dll
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Defined LAN subnets: ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Defined LAN exclusions: []
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Used LAN subnets: ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Filtered interface addresses: ["127.0.0.1", "10.1.0.224"]
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Bind Addresses ["0.0.0.0"]
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Remote IP filter is Allowlist
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Filtered subnets: []
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] SQLite connection string: Data Source=/var/lib/jellyfin/data/jellyfin.db;Cache=Private;Default Timeout=60;Pooling=True
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] SQLITE connection pragma command set to:
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: PRAGMA locking_mode=NORMAL;
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: PRAGMA journal_size_limit=134217728;
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: PRAGMA synchronous=1;
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: PRAGMA temp_store=2;
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] The database locking mode has been set to: NoLock.
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Prepare system for possible migrations
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Loaded plugin: File Transformation 3.0.3.0
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Loaded plugin: Ushereats Theme 1.0.0.0
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Loaded plugin: TMDb 12.4.0.0
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Loaded plugin: Studio Images 12.4.0.0
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Loaded plugin: OMDb 12.4.0.0
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Loaded plugin: MusicBrainz 12.4.0.0
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Loaded plugin: ListenBrainz Similarity Provider 12.4.0.0
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Loaded plugin: AudioDB 12.4.0.0
+Oct 31 10:43:37 runnervm48cm3 jellyfin[6770]: [10:43:37] [INF] Registered 0 external search providers: . Fallback providers: Database (priority 100)
+Oct 31 10:43:38 runnervm48cm3 jellyfin[6770]: [10:43:38] [INF] Kestrel is listening on 0.0.0.0
+Oct 31 10:43:38 runnervm48cm3 jellyfin[6770]: [10:43:38] [INF] [FileTransformation] Installing response transformation middleware
+Oct 31 10:43:38 runnervm48cm3 jellyfin[6770]: [10:43:38] [INF] Running startup tasks
+Oct 31 10:43:38 runnervm48cm3 jellyfin[6770]: [10:43:38] [INF] Daily trigger for Generate Trickplay Images set to fire at 2026-11-01 03:00:00.000 +00:00, which is 16:16:21.1630157 from now.
+Oct 31 10:43:38 runnervm48cm3 jellyfin[6770]: [10:43:38] [INF] Daily trigger for Extract Chapter Images set to fire at 2026-11-01 02:00:00.000 +00:00, which is 15:16:21.1606254 from now.
+Oct 31 10:43:38 runnervm48cm3 jellyfin[6770]: [10:43:38] [INF] Found ffmpeg version 8.1.3
+Oct 31 10:43:38 runnervm48cm3 jellyfin[6770]: [10:43:38] [INF] Available decoders: ["libdav1d", "av1", "av1_cuvid", "av1_qsv", "h264", "h264_qsv", "h264_cuvid", "hevc", "hevc_qsv", "hevc_cuvid", "mpeg2video", "mpeg2_qsv", "mpeg2_cuvid", "mpeg4", "mpeg4_cuvid", "msmpeg4", "vc1_qsv", "vc1_cuvid", "vp8", "libvpx", "vp8_cuvid", "vp8_qsv", "vp9", "libvpx-vp9", "vp9_cuvid", "vp9_qsv", "aac", "ac3", "ac4", "dca", "flac", "mp3", "truehd"]
+Oct 31 10:43:38 runnervm48cm3 jellyfin[6770]: [10:43:38] [INF] Available encoders: ["libsvtav1", "av1_nvenc", "av1_qsv", "av1_amf", "av1_vaapi", "libx264", "h264_amf", "h264_nvenc", "h264_qsv", "h264_v4l2m2m", "h264_vaapi", "libx265", "hevc_amf", "hevc_nvenc", "hevc_qsv", "hevc_vaapi", "mjpeg_qsv", "mjpeg_vaapi", "aac", "libfdk_aac", "ac3", "alac", "dca", "flac", "libmp3lame", "libopus", "truehd", "libvorbis", "srt"]
+Oct 31 10:43:38 runnervm48cm3 jellyfin[6770]: [10:43:38] [INF] Available filters: ["bwdif_cuda", "bwdif_opencl", "deinterlace_qsv", "deinterlace_vaapi", "flip_vulkan", "hwupload_cuda", "hwupload_vaapi", "libplacebo", "overlay_opencl", "overlay_qsv", "overlay_vaapi", "overlay_vulkan", "overlay_cuda", "procamp_vaapi", "scale_cuda", "scale_opencl", "scale_qsv", "scale_vaapi", "scale_vulkan", "tonemapx", "tonemap_cuda", "tonemap_opencl", "tonemap_vaapi", "transpose_cuda", "transpose_opencl", "transpose_vaapi", "transpose_vulkan", "vpp_qsv", "yadif_cuda", "yadif_opencl", "zscale", "alphasrc"]
+Oct 31 10:43:39 runnervm48cm3 jellyfin[6770]: [10:43:39] [INF] Available hwaccel types: ["cuda", "vaapi", "qsv", "drm", "opencl", "vulkan", "amf"]
+Oct 31 10:43:40 runnervm48cm3 jellyfin[6770]: [10:43:40] [INF] FFmpeg: /usr/lib/jellyfin-ffmpeg/ffmpeg
+Oct 31 10:43:40 runnervm48cm3 jellyfin[6770]: [10:43:40] [INF] ServerId: ee37c810f31047b092dd6c9c6040c1bb
+Oct 31 10:43:40 runnervm48cm3 jellyfin[6770]: [10:43:40] [INF] Core startup complete
+Oct 31 10:43:40 runnervm48cm3 jellyfin[6770]: [10:43:40] [INF] Startup complete 0:00:04.9960259
+Oct 31 10:43:41 runnervm48cm3 jellyfin[6770]: [10:43:41] [INF] Clean Transcode Directory Completed after 0 minute(s) and 0 seconds
+Oct 31 10:43:41 runnervm48cm3 jellyfin[6770]: [10:43:41] [INF] [Ushereats Theme] Trending: no TMDB key in the plugin settings, skipped.
+Oct 31 10:43:41 runnervm48cm3 jellyfin[6770]: [10:43:41] [INF] Ushereats Theme: Trending This Week Completed after 0 minute(s) and 0 seconds
+Oct 31 10:43:41 runnervm48cm3 jellyfin[6770]: [10:43:41] [INF] [FileTransformation] Registering transformation for 'index.html' (ID: fc34dcce-8a8a-4ac4-a7ae-fdbdc6589563)
+Oct 31 10:43:42 runnervm48cm3 jellyfin[6770]: [10:43:42] [INF] Update Plugins Completed after 0 minute(s) and 0 seconds
+Oct 31 10:43:42 runnervm48cm3 jellyfin[6770]: [10:43:42] [INF] [Ushereats Theme] Registered with File Transformation.
+Oct 31 10:43:42 runnervm48cm3 jellyfin[6770]: [10:43:42] [INF] Ushereats Theme Startup Completed after 0 minute(s) and 1 seconds

@@ -183,11 +183,15 @@ html.sleekfin-header-mounted[data-sleekfin-header-layout="desktop"][data-sleekfi
     color: #fff !important;
 }
 
-/* current page */
+/* current page: brighter (same weight, so nothing in the bar moves when you change page) */
 html.sleekfin-header-mounted [data-sleekfin-header-link][data-sleekfin-current="true"] {
     box-shadow: 0 6px 18px -6px rgba(var(--tb-accent-rgb), 0.6) !important;
-    font-weight: 600 !important;
+    color: #fff !important;
     opacity: 1;
+}
+
+html.sleekfin-header-mounted[data-sleekfin-header-layout="desktop"][data-sleekfin-header-layout] [data-sleekfin-header-link][data-sleekfin-current="true"] {
+    color: #fff !important;
 }
 
 /* phone/tablet layout: current page is an accent pill */

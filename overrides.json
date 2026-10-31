@@ -1,0 +1,905 @@
+{
+ "html:root:root:root\n   vs html.sleekfin-main-ui:root": {
+  "props": "--sleekfin-font-family",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "desktop-prefs",
+   "desktop-profile",
+   "phone-home",
+   "phone-home-scrolled",
+   "phone-movie",
+   "phone-series",
+   "phone-episode",
+   "phone-search",
+   "phone-movies",
+   "phone-prefs",
+   "phone-profile",
+   "desktop-login"
+  ]
+ },
+ "html:root:root:root\n   vs html.sleekfin-header-boot-loading, html.sleekfin-header-loading, html.sleekfin-header-mounted": {
+  "props": "--sleekfin-font-family",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "desktop-prefs",
+   "desktop-profile",
+   "phone-home",
+   "phone-home-scrolled",
+   "phone-movie",
+   "phone-series",
+   "phone-episode",
+   "phone-search",
+   "phone-movies",
+   "phone-prefs",
+   "phone-profile",
+   "desktop-login"
+  ]
+ },
+ "html.sleekfin-header-mounted:not(.layout-tv):not(#tb-x)\n   vs html.sleekfin-header-boot-loading, html.sleekfin-header-loading, html.sleekfin-header-mounted": {
+  "props": "--sleekfin-header-logo-height --sleekfin-header-brand-top",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "desktop-prefs",
+   "desktop-profile",
+   "desktop-login"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs .sleekfin-button": {
+  "props": "font-family",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "phone-home",
+   "phone-home-scrolled",
+   "phone-movie",
+   "phone-series",
+   "phone-episode"
+  ]
+ },
+ "*\n   vs .sleekfin-button": {
+  "props": "cursor",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "phone-home",
+   "phone-home-scrolled",
+   "phone-movie",
+   "phone-series",
+   "phone-episode"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs .sleekfin-meta": {
+  "props": "font-family",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movies",
+   "phone-home",
+   "phone-home-scrolled",
+   "phone-movies"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .cardText": {
+  "props": "font-family",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-search",
+   "desktop-movies",
+   "phone-home",
+   "phone-home-scrolled",
+   "phone-search",
+   "phone-movies"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs html.sleekfin-main-ui .card:is([data-type], .chapterCard):not(.sleekfin-details-episode) .cardText": {
+  "props": "font-family",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "phone-home",
+   "phone-home-scrolled",
+   "phone-movie",
+   "phone-series",
+   "phone-episode",
+   "phone-search",
+   "phone-movies"
+  ]
+ },
+ ".show-card-titles .tb-ep-meta > :not(.tb-ep)\n   vs .sleekfin-meta-item, .sleekfin-meta-content": {
+  "props": "display",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "phone-home",
+   "phone-home-scrolled"
+  ]
+ },
+ ".show-card-titles .sleekfin-meta-content:has(svg[data-sleekfin-icon=\"star\"])\n   vs .sleekfin-meta-item, .sleekfin-meta-content": {
+  "props": "display",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "phone-home",
+   "phone-home-scrolled"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs html.sleekfin-header-mounted [data-sleekfin-header-link]": {
+  "props": "font-family",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "desktop-prefs",
+   "desktop-profile"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x)\n   vs html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-toolbar], html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header-toolbar]::after, html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin": {
+  "props": "transition-behavior transition-duration transition-timing-function transition-delay transition-property",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "desktop-prefs",
+   "desktop-profile",
+   "desktop-login"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x)\n   vs html.sleekfin-header-mounted [data-sleekfin-header-link]": {
+  "props": "padding-right padding-left border-top-left-radius border-top-right-radius border-bottom-right-radius border-bottom-left-radius border-top-width border-right-width border-bottom-width border-left-width border-top-style border-right-style border-bottom-style border-left-style border-top-color border-right-color border-bottom-color border-left-color background-color color transition-duration transition-property",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "desktop-prefs",
+   "desktop-profile"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x)\n   vs html.sleekfin-header-mounted [data-sleekfin-header-link]:not([data-sleekfin-current=\"true\"]):hover": {
+  "props": "background-color color",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "desktop-prefs",
+   "desktop-profile"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root:hover, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):hover\n   vs html.sleekfin-header-mounted [data-sleekfin-header-link]": {
+  "props": "background-color border-top-color border-right-color border-bottom-color border-left-color color",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "desktop-prefs",
+   "desktop-profile"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root:hover, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):hover\n   vs html.sleekfin-header-mounted [data-sleekfin-header-link]:not([data-sleekfin-current=\"true\"]):hover": {
+  "props": "background-color color",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "desktop-prefs",
+   "desktop-profile"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs html.sleekfin-header-mounted [data-sleekfin-header-proxy] button": {
+  "props": "font-family",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "desktop-prefs",
+   "desktop-profile",
+   "phone-home",
+   "phone-home-scrolled",
+   "phone-movie",
+   "phone-series",
+   "phone-episode",
+   "phone-search",
+   "phone-movies",
+   "phone-prefs",
+   "phone-profile"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs html.sleekfin-header-mounted [data-sleekfin-header-brand], html.sleekfin-header-mounted .sleekfin-header-fallback-brand": {
+  "props": "font-family",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "desktop-prefs",
+   "desktop-profile",
+   "phone-home",
+   "phone-home-scrolled",
+   "phone-movie",
+   "phone-series",
+   "phone-episode",
+   "phone-search",
+   "phone-movies",
+   "phone-prefs",
+   "phone-profile",
+   "desktop-login"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs html.sleekfin-header-mounted [data-sleekfin-header-brand]": {
+  "props": "font-family",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "desktop-prefs",
+   "desktop-profile",
+   "desktop-login"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x)\n   vs html.sleekfin-header-mounted [data-sleekfin-header-brand], html.sleekfin-header-mounted .sleekfin-header-fallback-brand": {
+  "props": "color",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "desktop-prefs",
+   "desktop-profile",
+   "desktop-login"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x)\n   vs html.sleekfin-header-mounted [data-sleekfin-header-brand]": {
+  "props": "border-top-left-radius border-top-right-radius border-bottom-right-radius border-bottom-left-radius border-top-width border-right-width border-bottom-width border-left-width border-top-style border-right-style border-bottom-style border-left-style border-top-color border-right-color border-bottom-color border-left-color color",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "desktop-prefs",
+   "desktop-profile",
+   "desktop-login"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root:hover, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):hover\n   vs html.sleekfin-header-mounted [data-sleekfin-header-brand], html.sleekfin-header-mounted .sleekfin-header-fallback-brand": {
+  "props": "color",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "desktop-prefs",
+   "desktop-profile",
+   "desktop-login"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root:hover, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):hover\n   vs html.sleekfin-header-mounted [data-sleekfin-header-brand]": {
+  "props": "border-top-color border-right-color border-bottom-color border-left-color color",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "desktop-search",
+   "desktop-movies",
+   "desktop-prefs",
+   "desktop-profile",
+   "desktop-login"
+  ]
+ },
+ "html:not(.layout-tv) :not(#tb-x) .sleekfin-hero .sleekfin-hero-content\n   vs .sleekfin-hero-content": {
+  "props": "padding-bottom",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "phone-home",
+   "phone-home-scrolled"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root > button:first-child .MuiTypography-root, html.sleekfin-media-mounted :is(#indexPage, #searchPage, [data-seerrfin-modern-panel]) .se": {
+  "props": "font-family",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-search",
+   "desktop-movies",
+   "phone-home",
+   "phone-home-scrolled",
+   "phone-search",
+   "phone-movies"
+  ]
+ },
+ "html body .sectionTitle:not(#tb-x), html body .sectionTitleTextButton:not(#tb-x), html body .sleekfin-details-season-title:not(#tb-x)\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root > button:first-child .MuiTypography-root, html.sleekfin-media-mounted :is(#indexPage, #searchPage, [data-seerrfin-modern-panel]) .se": {
+  "props": "font-family font-weight font-size line-height",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "desktop-search",
+   "phone-home",
+   "phone-home-scrolled",
+   "phone-search"
+  ]
+ },
+ "html:not(.layout-tv) :not(#tb-x) #indexPage .sectionTitleContainer\n   vs html.sleekfin-media-mounted :is(#indexPage, #searchPage, [data-seerrfin-modern-panel]) .sectionTitleContainer-cards": {
+  "props": "margin-bottom",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "phone-home",
+   "phone-home-scrolled"
+  ]
+ },
+ ":not(#tb-x) .verticalSection > .emby-scrollbuttons.emby-scrollbuttons\n   vs html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .padded-right": {
+  "props": "padding-inline-end",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover"
+  ]
+ },
+ "html:not(.layout-tv) :not(#tb-x) #indexPage .homeSectionsContainer > .verticalSection\n   vs html.sleekfin-media-mounted :is(#indexPage, #searchPage, [data-seerrfin-modern-panel]) .verticalSection": {
+  "props": "margin-bottom",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "phone-home",
+   "phone-home-scrolled"
+  ]
+ },
+ "html:not(.layout-tv) :not(#tb-x) #indexPage .verticalSection:not(.show-card-titles) .cardBox.cardBox-bottompadded\n   vs html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .cardBox": {
+  "props": "margin-bottom",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "phone-home",
+   "phone-home-scrolled"
+  ]
+ },
+ "html:not(.layout-tv) :not(#tb-x) #indexPage .verticalSection:not(.show-card-titles) .cardBox.cardBox-bottompadded\n   vs html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .cardBox.cardBox-bottompadded": {
+  "props": "margin-bottom",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "phone-home",
+   "phone-home-scrolled"
+  ]
+ },
+ "html:not(.layout-tv) :not(#tb-x) #indexPage .verticalSection:not(.show-card-titles) .cardBox.cardBox-bottompadded\n   vs html.sleekfin-main-ui .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not([data-type=\"CollectionFolder\"]):not([data-type=\"UserView\"]) > .cardBox": {
+  "props": "margin-bottom",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "phone-home",
+   "phone-home-scrolled"
+  ]
+ },
+ "html:not(.layout-tv) :not(#tb-x) #indexPage .verticalSection.show-card-titles .cardBox.cardBox-bottompadded\n   vs html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .cardBox": {
+  "props": "margin-bottom",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "phone-home",
+   "phone-home-scrolled"
+  ]
+ },
+ "html:not(.layout-tv) :not(#tb-x) #indexPage .verticalSection.show-card-titles .cardBox.cardBox-bottompadded\n   vs html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .cardBox.cardBox-bottompadded": {
+  "props": "margin-bottom",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "phone-home",
+   "phone-home-scrolled"
+  ]
+ },
+ "html:not(.layout-tv) :not(#tb-x) #indexPage .verticalSection.show-card-titles .cardBox.cardBox-bottompadded\n   vs html.sleekfin-main-ui .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not([data-type=\"CollectionFolder\"]):not([data-type=\"UserView\"]) > .cardBox": {
+  "props": "margin-bottom",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "phone-home",
+   "phone-home-scrolled"
+  ]
+ },
+ "html body .show-card-titles .card .innerCardFooter:not(#tb-x)\n   vs html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .innerCardFooter": {
+  "props": "background-color backdrop-filter",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "phone-home",
+   "phone-home-scrolled"
+  ]
+ },
+ "html body .show-card-titles .card .itemProgressBar:not(#tb-x), html body .show-card-titles .card .itemLinearProgress:not(#tb-x)\n   vs html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage, [data-seerrfin-modern-panel]) .itemProgressBar": {
+  "props": "height background-color",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "phone-home",
+   "phone-home-scrolled"
+  ]
+ },
+ "html body .show-card-titles .card .itemProgressBar:not(#tb-x), html body .show-card-titles .card .itemLinearProgress:not(#tb-x)\n   vs html.sleekfin-main-ui .card[data-type] .itemProgressBar": {
+  "props": "height background-color",
+  "pages": [
+   "desktop-home",
+   "desktop-home-scrolled",
+   "desktop-home-hover",
+   "phone-home",
+   "phone-home-scrolled"
+  ]
+ },
+ "*\n   vs .sleekfin-icon-button": {
+  "props": "cursor",
+  "pages": [
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "phone-movie",
+   "phone-series",
+   "phone-episode"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs .mainDetailButtons.sleekfin-details-actions .sleekfin-details-action-control": {
+  "props": "font-family",
+  "pages": [
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "phone-movie",
+   "phone-series",
+   "phone-episode"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs .sleekfin-section-title": {
+  "props": "font-family",
+  "pages": [
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "phone-movie",
+   "phone-series",
+   "phone-episode"
+  ]
+ },
+ "html body .sectionTitle:not(#tb-x), html body .sectionTitleTextButton:not(#tb-x), html body .sleekfin-details-season-title:not(#tb-x)\n   vs .sleekfin-section-title": {
+  "props": "font-family font-weight font-size line-height",
+  "pages": [
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "phone-movie",
+   "phone-series",
+   "phone-episode"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs .sleekfin-details-hero .sleekfin-details-title :is(h1, .parentName)": {
+  "props": "font-family",
+  "pages": [
+   "desktop-movie",
+   "desktop-series",
+   "phone-movie",
+   "phone-series"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs .sleekfin-details-stack > .overview": {
+  "props": "font-family",
+  "pages": [
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "phone-movie",
+   "phone-series",
+   "phone-episode"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] .detailVerticalSection .cardText": {
+  "props": "font-family",
+  "pages": [
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "phone-movie",
+   "phone-series",
+   "phone-episode"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs html.sleekfin-details-mounted #similarCollapsible .cardText": {
+  "props": "font-family",
+  "pages": [
+   "desktop-movie",
+   "desktop-series",
+   "phone-movie",
+   "phone-series"
+  ]
+ },
+ ".verticalSection > .emby-scrollbuttons\n   vs html.sleekfin-details-mounted :is(#castCollapsible, #similarCollapsible) > .emby-scrollbuttons": {
+  "props": "padding-right",
+  "pages": [
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "phone-movie",
+   "phone-series",
+   "phone-episode"
+  ]
+ },
+ ":not(#tb-x) .verticalSection > .emby-scrollbuttons.emby-scrollbuttons\n   vs html.sleekfin-details-mounted :is(#castCollapsible, #similarCollapsible) > .emby-scrollbuttons": {
+  "props": "padding-right",
+  "pages": [
+   "desktop-movie",
+   "desktop-series",
+   "desktop-episode",
+   "phone-movie",
+   "phone-series",
+   "phone-episode"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs .sleekfin-section-subtitle": {
+  "props": "font-family",
+  "pages": [
+   "desktop-series",
+   "desktop-episode",
+   "phone-series",
+   "phone-episode"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs .sleekfin-details-season-select > .emby-select.sleekfin-details-season-native, .sleekfin-details-season-native, .sleekfin-details-season-trigger, .sleekfin-details-season-title": {
+  "props": "font-family",
+  "pages": [
+   "desktop-series",
+   "desktop-episode",
+   "phone-series",
+   "phone-episode"
+  ]
+ },
+ "*\n   vs .sleekfin-details-season-native, .sleekfin-details-season-trigger": {
+  "props": "cursor",
+  "pages": [
+   "desktop-series",
+   "phone-series"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs .sleekfin-details-search input": {
+  "props": "font-family",
+  "pages": [
+   "desktop-series",
+   "desktop-episode",
+   "phone-series",
+   "phone-episode"
+  ]
+ },
+ "*\n   vs .sleekfin-details-episode-action": {
+  "props": "cursor",
+  "pages": [
+   "desktop-series",
+   "desktop-episode",
+   "phone-series",
+   "phone-episode"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs .sleekfin-details-episode-title.cardText": {
+  "props": "font-family",
+  "pages": [
+   "desktop-series",
+   "desktop-episode",
+   "phone-series",
+   "phone-episode"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs .sleekfin-details-hero .sleekfin-details-child-title .parentName": {
+  "props": "font-family",
+  "pages": [
+   "desktop-episode",
+   "phone-episode"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs .sleekfin-details-hero .sleekfin-details-child-title .itemName": {
+  "props": "font-family",
+  "pages": [
+   "desktop-episode",
+   "phone-episode"
+  ]
+ },
+ "html body .sectionTitle:not(#tb-x), html body .sectionTitleTextButton:not(#tb-x), html body .sleekfin-details-season-title:not(#tb-x)\n   vs .sleekfin-details-season-select > .emby-select.sleekfin-details-season-native, .sleekfin-details-season-native, .sleekfin-details-season-trigger, .sleekfin-details-season-title": {
+  "props": "font-family font-weight font-size line-height",
+  "pages": [
+   "desktop-episode",
+   "phone-episode"
+  ]
+ },
+ "html body #searchPage .sectionTitle:not(#tb-x), html body #searchPage .sectionTitleTextButton:not(#tb-x)\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root > button:first-child .MuiTypography-root, html.sleekfin-media-mounted :is(#indexPage, #searchPage, [data-seerrfin-modern-panel]) .se": {
+  "props": "font-family",
+  "pages": [
+   "desktop-search",
+   "phone-search"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x)\n   vs html.sleekfin-header-mounted [data-sleekfin-header-link][data-sleekfin-current=\"true\"]": {
+  "props": "border-top-left-radius border-top-right-radius border-bottom-right-radius border-bottom-left-radius background-color color",
+  "pages": [
+   "desktop-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root:hover, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):hover\n   vs html.sleekfin-header-mounted [data-sleekfin-header-link][data-sleekfin-current=\"true\"]": {
+  "props": "background-color color",
+  "pages": [
+   "desktop-movies"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-root": {
+  "props": "font-family",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body button[aria-controls=\"library-view-menu\"]:not(#tb-x)\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root > button:first-child": {
+  "props": "color padding-bottom",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body button[aria-controls=\"library-view-menu\"]:not(#tb-x)\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-root": {
+  "props": "font-family font-size font-weight line-height",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body button[aria-controls=\"library-view-menu\"]:not(#tb-x)\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-text": {
+  "props": "color",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body button[aria-controls=\"library-view-menu\"]:not(#tb-x)\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-text:hover": {
+  "props": "color",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body button[aria-controls=\"library-view-menu\"]:not(#tb-x) .MuiTypography-root\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root > button:first-child .MuiTypography-root, html.sleekfin-media-mounted :is(#indexPage, #searchPage, [data-seerrfin-modern-panel]) .se": {
+  "props": "font-family font-size font-weight line-height",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body button[aria-controls=\"library-view-menu\"]:not(#tb-x) .MuiButton-endIcon\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root > button:first-child .MuiButton-endIcon": {
+  "props": "color",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiChip-root:not(#tb-x)\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiChip-root": {
+  "props": "height background-color border-top-color border-right-color border-bottom-color border-left-color color font-weight font-size line-height font-family",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x)\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButtonGroup-root": {
+  "props": "border-top-left-radius border-top-right-radius border-bottom-right-radius border-bottom-left-radius",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x) > .MuiButton-root\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-root": {
+  "props": "border-top-color border-right-color border-bottom-color border-left-color font-weight font-size line-height font-family transition-duration transition-property",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x) > .MuiButton-root\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-contained": {
+  "props": "background-color color",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x) > .MuiButton-root\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-contained:hover": {
+  "props": "background-color",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x) > .MuiButton-root:first-child, html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x) + .MuiButton-contained, htm\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-root": {
+  "props": "border-top-color border-right-color border-bottom-color border-left-color font-weight font-size line-height font-family",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x) > .MuiButton-root:first-child, html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x) + .MuiButton-contained, htm\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-contained": {
+  "props": "background-color color",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x) > .MuiButton-root:first-child, html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x) + .MuiButton-contained, htm\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-contained:hover": {
+  "props": "background-color",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x) > .MuiButton-root:not(:first-child):hover\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-contained": {
+  "props": "background-color",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x) > .MuiButton-root:not(:first-child):hover\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-contained:hover": {
+  "props": "background-color",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x)\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-root": {
+  "props": "border-top-color border-right-color border-bottom-color border-left-color transition-duration transition-property",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x)\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-text": {
+  "props": "color",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x)\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-text:hover": {
+  "props": "background-color color",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root:hover, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):hover\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-root": {
+  "props": "border-top-color border-right-color border-bottom-color border-left-color",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root:hover, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):hover\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-text": {
+  "props": "color",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root:hover, html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):hover\n   vs html.sleekfin-media-mounted header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-text:hover": {
+  "props": "background-color color",
+  "pages": [
+   "desktop-movies",
+   "phone-movies"
+  ]
+ },
+ "html body #loginPage .checkboxIcon\n   vs html.sleekfin-main-ui :is(.playstatebutton-played, .ratingbutton-withrating):not(:disabled) :is(.playstatebutton-icon-played, .ratingbutton-icon-withrating), html.sleekfin-main-ui .emby-checkbox:checked:not(:disabled) + ": {
+  "props": "color",
+  "pages": [
+   "desktop-login"
+  ]
+ }
+}

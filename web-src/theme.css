@@ -869,3 +869,71 @@ html body .alphaPicker:not(#tb-x) .alphaPickerButton.Mui-focusVisible { box-shad
   }
 }
 /* ═══════════ end hover overlay ═══════════ */
+
+/* ═══════════ Phones, tablets, TVs, Xbox ═══════════ */
+/* the page never scrolls sideways (rows scroll inside themselves) */
+html body { overflow-x: clip; }
+
+@media (max-width: 899px) {
+  /* once you scroll, the top bar gets a solid backing so rows don't show through the logo */
+  html.sleekfin-header-mounted [data-sleekfin-header][data-sleekfin-scrolled="true"]::before {
+    background: linear-gradient(180deg, rgba(6, 6, 8, 0.97) 0%, rgba(6, 6, 8, 0.9) 62%, rgba(6, 6, 8, 0) 100%);
+    height: calc(var(--sleekfin-header-height) + 22px);
+  }
+  /* room at the end of every page for the floating button bar */
+  html.sleekfin-header-mounted:not(.layout-tv) .page:not(.hide):not(#videoOsdPage) {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom)) !important;
+  }
+  /* library pages: the A-Z strip on the right doesn't cover the last column */
+  html:not(.layout-tv) .page:not(.hide):has(.alphaPicker-fixed-right) .itemsContainer {
+    padding-inline-end: 30px !important;
+    box-sizing: border-box;
+  }
+}
+
+/* phones on their side: the button bar moves up next to your picture (at the bottom it covered Play),
+   and the home banner fits the short screen under the top bar */
+@media (max-width: 899px) and (max-height: 540px) and (orientation: landscape) {
+  html.sleekfin-header-mounted:not(.layout-tv) body:not(.layout-tv) [data-sleekfin-header] [data-sleekfin-header-proxy] {
+    bottom: auto;
+    left: auto;
+    right: calc(16px + 32px + 10px + env(safe-area-inset-right));
+    top: calc(env(safe-area-inset-top) + 12px);
+    transform: none;
+  }
+  #tb-header-avatar { right: calc(16px + env(safe-area-inset-right)) !important; }
+  html.sleekfin-header-mounted:not(.layout-tv) .page:not(.hide):not(#videoOsdPage) {
+    padding-bottom: calc(16px + env(safe-area-inset-bottom)) !important;
+  }
+  .sleekfin-hero {
+    --sleekfin-hero-title-size: 30px !important;
+    --sleekfin-hero-description-lines: 2 !important;
+    --sleekfin-hero-button-height: 38px !important;
+    height: 100vh !important;
+    height: 100svh !important;
+    min-height: 320px !important;
+  }
+}
+
+/* TV / Xbox (remote or controller): you can always see what's selected */
+html.layout-tv .card:focus-within .cardScalable,
+html.layout-tv .card:focus .cardScalable {
+  outline: 4px solid #fff !important;
+  outline-offset: 3px;
+  transform: scale(1.05);
+  transition: transform 140ms ease, outline-color 140ms ease;
+  z-index: 2;
+}
+html.layout-tv .tb-studios .card:focus-within .cardScalable { outline-offset: 0; }
+html.layout-tv .tb-studios .tb-logo-link:focus .tb-logo-img { opacity: 1; }
+html.layout-tv :is(button, a, input, select, textarea, [tabindex]):not(.card):not(.cardImageContainer):not(.cardContent):focus {
+  outline: 3px solid #fff !important;
+  outline-offset: 3px !important;
+}
+html.layout-tv :is(.sleekfin-button, .detailButton, .sleekfin-icon-button):focus {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.18) !important;
+}
+/* row of episodes on a show page */
+html.layout-tv .sleekfin-details-episode-action:focus { outline-offset: -3px !important; }
+/* ═══════════ end phones, tablets, TVs ═══════════ */

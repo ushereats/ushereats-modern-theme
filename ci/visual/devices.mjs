@@ -42,6 +42,8 @@ const devices = [
   { tag: "tv-1080", w: 1920, h: 1080, dpr: 1, mobile: false, ua: UA.webos, tv: true },
   { tag: "tv-720", w: 1280, h: 720, dpr: 1, mobile: false, ua: UA.webos, tv: true },
   { tag: "xbox", w: 1920, h: 1080, dpr: 1, mobile: false, ua: UA.xbox, tv: true },
+  // the Xbox app (like every Xbox app) usually draws at 960x540 scaled up x2
+  { tag: "xbox-app", w: 960, h: 540, dpr: 2, mobile: false, ua: UA.xbox, tv: true },
 ];
 const only = process.env.DEVICES ? process.env.DEVICES.split(",") : null;
 
@@ -117,6 +119,30 @@ const focusInfo = () => {
   return { el: name, text: (e.textContent || e.getAttribute("aria-label") || "").trim().slice(0, 30), inView: r.top >= -1 && r.bottom <= innerHeight + 1 && r.left >= -1 && r.right <= innerWidth + 1, rect: [Math.round(r.left), Math.round(r.top), Math.round(r.width), Math.round(r.height)], marked: !!marked };
 };
 
+
+// what's going on (for fixing): header, backdrops, focus containers, what covers the top bar
+const probe = () => {
+  const cs = (e) => { const c = getComputedStyle(e); return { pos: c.position, z: c.zIndex, vis: c.visibility, op: c.opacity, disp: c.display, ov: c.overflowX + "/" + c.overflowY, tr: c.transform !== "none" ? "T" : "", iso: c.isolation }; };
+  const nm = (e) => (e.id ? "#" + e.id : e.tagName.toLowerCase()) + (typeof e.className === "string" && e.className.trim() ? "." + e.className.trim().split(/\s+/).slice(0, 4).join(".") : "");
+  const chain = (e) => { const out = []; for (let n = e; n && n !== document.documentElement; n = n.parentElement) out.push(nm(n) + " " + JSON.stringify(cs(n))); return out.slice(0, 8); };
+  const hdr = document.querySelector("[data-sleekfin-header]");
+  const r = hdr && hdr.getBoundingClientRect();
+  const at = (x, y) => { const e = document.elementFromPoint(x, y); return e ? nm(e) : null; };
+  const back = Array.from(document.querySelectorAll(".backdropContainer, .backdropImage, .sleekfin-details-backdrop, [class*='backdrop' i]")).slice(0, 12).map((e) => { const b = e.getBoundingClientRect(); const c = getComputedStyle(e); return nm(e) + ` [${Math.round(b.left)},${Math.round(b.top)},${Math.round(b.width)}x${Math.round(b.height)}] disp=${c.display} vis=${c.visibility} op=${c.opacity} bg=${(c.backgroundImage || "").slice(0, 60)} src=${(e.currentSrc || e.src || "").slice(-50)}`; });
+  const logo = document.querySelector(".tb-logo-link");
+  const fc = []; for (let n = logo; n; n = n.parentElement) if (/focuscontainer|focusable/.test(n.className || "")) fc.push(nm(n));
+  const imgs = Array.from(document.querySelectorAll("[data-sleekfin-header] img, .sleekfin-header-fallback-brand img")).map((i) => nm(i) + " src=" + (i.getAttribute("src") || "(none)").slice(0, 60) + " ok=" + (i.complete && i.naturalWidth > 0));
+  const clock = Array.from(document.querySelectorAll("[class*='lock' i]")).filter((e) => /\d:\d\d/.test(e.textContent || "")).map((e) => nm(e) + " '" + e.textContent.trim().slice(0, 12) + "' " + JSON.stringify(cs(e)));
+  const proxy = document.querySelector("[data-sleekfin-header-proxy]");
+  const dock = proxy ? Array.from(proxy.querySelectorAll("button, a")).map((e) => nm(e) + " aria=" + (e.getAttribute("aria-label") || "") + " " + JSON.stringify(e.getBoundingClientRect().toJSON ? [Math.round(e.getBoundingClientRect().left), Math.round(e.getBoundingClientRect().top)] : 0)) : null;
+  return {
+    htmlClass: document.documentElement.className.slice(0, 300), bodyClass: document.body.className.slice(0, 200),
+    header: r ? { rect: [Math.round(r.left), Math.round(r.top), Math.round(r.width), Math.round(r.height)], chain: chain(hdr), coveredBy: at(r.left + r.width - 60, r.top + 30), atLeft: at(120, r.top + 30) } : null,
+    backdrops: back, logoFocusContainers: fc, headerImgs: imgs, clock, dock,
+    hero: (() => { const h = document.querySelector(".sleekfin-hero"); return h ? { rect: JSON.stringify(h.getBoundingClientRect()), chain: chain(h).slice(0, 4) } : null; })(),
+  };
+};
+
 const report = {};
 const browser = await chromium.launch();
 async function settle(page, ms = 2500) {
@@ -130,7 +156,12 @@ for (const d of devices) {
   await ctx.addInitScript(init(true));
   const page = await ctx.newPage();
   page.on("pageerror", (e) => R.errors.push(String(e.message).slice(0, 200)));
-  page.on("console", (m) => { if (m.type() === "error" && !/Failed to load resource|favicon/.test(m.text())) R.errors.push("console: " + m.text().slice(0, 200)); });
+  page.on("console", async (m) => {
+    if (m.type() !== "error" || /Failed to load resource|favicon|orientation/.test(m.text())) return;
+    let stack = "";
+    for (const a of m.args()) { try { const st = await a.evaluate((e) => (e && e.stack) || ""); if (st) { stack = st.split("\n").slice(0, 4).join(" | "); break; } } catch (e) {} }
+    R.errors.push("console: " + m.text().slice(0, 160) + (stack ? " STACK " + stack.slice(0, 400) : ""));
+  });
   let first = true;
   for (const [name, hash] of pages) {
     if (!hash) continue;
@@ -141,6 +172,7 @@ for (const d of devices) {
       if (d.mobile) await page.mouse.move(1, 1).catch(() => {});
       await page.screenshot({ path: `${out}/${d.tag}-${name}.png`, animations: "disabled", caret: "hide" });
       R.pages[name] = await page.evaluate(inspect, d.mobile);
+      if ((name === "home" || name === "movie") && /tv-1080|xbox|iphone-portrait|tall/.test(d.tag)) R.pages[name + "-probe"] = await page.evaluate(probe).catch((e) => ({ error: String(e) }));
       if (name === "home" || name === "series" || name === "movie") {
         // further down the page
         await page.mouse.wheel(0, Math.round(d.h * 0.8));

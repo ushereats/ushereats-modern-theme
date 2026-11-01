@@ -191,12 +191,9 @@ for (const [tag, vw, vh, mobile] of [["pc", 1920, 1080, false], ["phone", 390, 8
   if (mobile) await menu("drawer", () => click("[data-sleekfin-header] .mainDrawerButton, button[aria-label='Open menu'], [data-sleekfin-header] svg[data-testid='MenuIcon']"));
   // a poster's own menu (three dots)
   await menu("card-menu", async () => {
-    const card = page.locator(".tb-rows-c .card:not(.tb-logo-card):visible").nth(3);
-    await card.hover().catch(() => {});
-    await page.waitForTimeout(600);
-    const b = card.locator("button[data-action='menu'], .cardOverlayButton[data-action='menu'], .tb-card-menu, button[title*='More' i]").first();
-    if (await b.count()) { await b.click({ timeout: 3000 }); return true; }
-    await card.click({ button: "right" }); return true;
+    const card = page.locator(".tb-rows-c .card:not(.tb-logo-card) .cardImageContainer").nth(3);
+    if (!(await card.count())) return false;
+    await card.dispatchEvent("contextmenu"); return true;
   });
   // title page: More menu + its dialogs
   const titleMenu = async (name, label) => {
@@ -219,6 +216,10 @@ for (const [tag, vw, vh, mobile] of [["pc", 1920, 1080, false], ["phone", 390, 8
   await titleMenu("media-info", /Media info/i);
   // library toolbar: sort, filter, view
   await go(pages.find((p) => p[0] === "movies")[1]);
+  report[`${tag}-toolbar`] = await page.evaluate(() => Array.from(document.querySelectorAll(".page:not(.hide) button")).filter((b) => b.getClientRects().length).slice(0, 20).map((b) => (b.getAttribute("title") || b.getAttribute("aria-label") || b.textContent.trim()).slice(0, 30)));
+  for (const t of ["Sort", "Filter", "View", "Random", "Shuffle"]) {
+    await menu("toolbar-" + t, async () => { const l = page.locator(`.page:not(.hide) button[title*='${t}' i]:visible, .page:not(.hide) button[aria-label*='${t}' i]:visible`).first(); if (!(await l.count())) return false; await l.click({ timeout: 3000 }); });
+  }
   for (const [n, re] of [["sort", /sort/i], ["filter", /filter/i], ["view", /view|layout/i]]) {
     await menu("library-" + n, async () => { const l = page.locator(".page:not(.hide) button:visible").filter({ has: page.locator(`[data-testid*='${n === "sort" ? "Sort" : n === "filter" ? "Filter" : "View"}' i]`) }).first(); if (await l.count()) { await l.click({ timeout: 3000 }); return true; } const t = page.locator(`.page:not(.hide) button[title], .page:not(.hide) button[aria-label]`).filter({ hasText: re }).first(); if (await t.count()) { await t.click({ timeout: 3000 }); return true; } const a = page.locator(".page:not(.hide) button:visible").and(page.locator(`[aria-label*='${n}' i], [title*='${n}' i]`)).first(); if (await a.count()) { await a.click({ timeout: 3000 }); return true; } return false; });
   }
@@ -268,7 +269,7 @@ for (const [tag, vw, vh, mobile] of [["pc", 1920, 1080, false], ["phone", 390, 8
         const tick = () => { f.push({ t: Math.round(performance.now() - t0), standIn: !!document.getElementById("tb-instant-bd"), concealed: html.classList.contains("sleekfin-details-concealed"), mounted: !!document.querySelector("#itemDetailPage[data-sleekfin-details='true']:not(.hide)"), home: !!document.querySelector("#indexPage:not(.hide)") }); if (performance.now() - t0 < 1500) requestAnimationFrame(tick); };
         requestAnimationFrame(tick);
       });
-      await card.click({ timeout: 4000 }).catch(() => {});
+      await card.dispatchEvent("click").catch(() => {});
       for (let i = 0; i < 6; i++) { await page.screenshot({ path: `${out}/pc-open-title-${run}-${i}.png` }).catch(() => {}); }
       await page.waitForTimeout(1200);
       const fr = await page.evaluate(() => window.__tbFrames);

@@ -1005,86 +1005,34 @@ html body .tb-studios .emby-scroller::-webkit-scrollbar { display: none; }
 
 
 /* ═══════════ Other title pages: people, collections, albums, artists, songs, playlists, genres ═══════════
-   (movies and shows have SleekFin's banner; these keep Jellyfin's layout, restyled to match) */
+   (movies and shows have SleekFin's banner; these keep Jellyfin's own layout - picture overlapping the band,
+   name and buttons beside it - with the theme's background, fonts and buttons) */
 #itemDetailPage.sleekfin-details-native { background: transparent !important; }
 #itemDetailPage.sleekfin-details-native :is(.detailPageWrapperContainer, .detailPageSecondaryContainer, .detailPageContent, .detailPagePrimaryContainer, .detailRibbon) {
   background: transparent !important;
   background-color: transparent !important;
   box-shadow: none !important;
 }
-/* the band at the top: the ambient colour (or the title's own backdrop) fading into the page */
 #itemDetailPage.sleekfin-details-native > #itemBackdrop {
-  height: clamp(150px, 32vh, 360px) !important;
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 45%, transparent 100%);
-  mask-image: linear-gradient(180deg, #000 0%, #000 45%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
 }
-/* picture + name + buttons on one line, the picture overlapping the band */
-#itemDetailPage.sleekfin-details-native .detailPagePrimaryContainer {
-  align-items: flex-end !important;
-  display: flex !important;
-  gap: 28px;
-  margin-top: -110px !important;
-  padding: 0 var(--sleekfin-page-gutter, 48px) !important;
-  position: relative;
-  z-index: 2;
-}
-#itemDetailPage.sleekfin-details-native .detailImageContainer {
-  display: block !important;
-  flex: 0 0 auto;
-  left: auto !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  position: relative !important;
-  top: auto !important;
-  width: clamp(150px, 15vw, 240px) !important;
-}
-#itemDetailPage.sleekfin-details-native .detailImageContainer .card { margin: 0 !important; width: 100% !important; }
-#itemDetailPage.sleekfin-details-native .detailImageContainer :is(.cardBox, .cardScalable) { margin: 0 !important; }
 #itemDetailPage.sleekfin-details-native .detailImageContainer .cardScalable {
   border-radius: 14px !important;
   box-shadow: 0 22px 48px -16px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.06) !important;
   overflow: hidden;
 }
 #itemDetailPage.sleekfin-details-native[data-sleekfin-native-type="Person"] .detailImageContainer .cardScalable { border-radius: 50% !important; }
-#itemDetailPage.sleekfin-details-native .detailRibbon {
-  align-items: flex-end !important;
-  display: flex !important;
-  flex: 1 1 auto;
-  flex-wrap: wrap;
-  gap: 12px 20px;
-  height: auto !important;
-  justify-content: space-between;
-  margin: 0 !important;
-  min-width: 0;
-  padding: 0 0 6px !important;
-}
-#itemDetailPage.sleekfin-details-native .infoWrapper { flex: 1 1 260px; min-width: 0; padding: 0 !important; }
-#itemDetailPage.sleekfin-details-native .nameContainer { text-align: left !important; }
-#itemDetailPage.sleekfin-details-native .nameContainer .itemName {
-  font: 800 clamp(26px, 3vw, 44px)/1.08 var(--app-font) !important;
-  letter-spacing: -0.01em;
-  margin: 0 0 6px !important;
-  overflow-wrap: anywhere;
-  text-align: left !important;
-  white-space: normal !important;
-}
-#itemDetailPage.sleekfin-details-native .nameContainer .parentName,
-#itemDetailPage.sleekfin-details-native .nameContainer h3.itemName { font: 600 16px/1.3 var(--app-font) !important; color: rgba(255, 255, 255, 0.75) !important; }
-#itemDetailPage.sleekfin-details-native .itemMiscInfo { color: rgba(255, 255, 255, 0.65) !important; font: 500 13px/1.5 var(--app-font) !important; justify-content: flex-start !important; }
-#itemDetailPage.sleekfin-details-native .mainDetailButtons { flex: 0 0 auto; gap: 8px; margin: 0 !important; justify-content: flex-start !important; }
+#itemDetailPage.sleekfin-details-native .nameContainer .itemName:not(.parentName) { font-family: var(--app-font) !important; font-weight: 800 !important; letter-spacing: -0.01em; }
+#itemDetailPage.sleekfin-details-native .itemMiscInfo { color: rgba(255, 255, 255, 0.7) !important; font-family: var(--app-font) !important; }
 #itemDetailPage.sleekfin-details-native .mainDetailButtons .detailButton {
   background: rgba(255, 255, 255, 0.08) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 999px !important;
-  height: 42px; margin: 0 !important; min-width: 42px; width: 42px;
 }
 #itemDetailPage.sleekfin-details-native .mainDetailButtons .detailButton:is(:hover, :focus-visible) { background: rgba(255, 255, 255, 0.16) !important; }
 #itemDetailPage.sleekfin-details-native .mainDetailButtons .detailButton.btnPlay { background: #f1f2f4 !important; color: #05070a !important; }
-#itemDetailPage.sleekfin-details-native .detailButton-content { padding: 0 !important; }
-#itemDetailPage.sleekfin-details-native .detailPageSecondaryContainer { padding-top: 36px !important; }
-#itemDetailPage.sleekfin-details-native .detailPageContent { padding-left: var(--sleekfin-page-gutter, 48px) !important; padding-right: var(--sleekfin-page-gutter, 48px) !important; }
 /* track lists (albums, playlists): a soft panel, rows highlight on hover */
-#itemDetailPage.sleekfin-details-native .childrenItemsContainer.vertical-list,
 #itemDetailPage.sleekfin-details-native .vertical-list:has(> .listItem) {
   background: rgba(10, 10, 12, 0.45) !important;
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -1094,13 +1042,13 @@ html body .tb-studios .emby-scroller::-webkit-scrollbar { display: none; }
 }
 #itemDetailPage.sleekfin-details-native .listItem { border-radius: 10px; border-bottom: 0 !important; font-family: var(--app-font) !important; }
 #itemDetailPage.sleekfin-details-native .listItem:hover { background: rgba(255, 255, 255, 0.06) !important; }
-/* phones: picture on top, then name, then buttons */
+/* phones: name, info and buttons stacked full width (they were squeezed into a narrow column) */
 @media (max-width: 699px) {
-  #itemDetailPage.sleekfin-details-native .detailPagePrimaryContainer { align-items: flex-start !important; flex-direction: column; gap: 14px; margin-top: -80px !important; padding: 0 16px !important; }
-  #itemDetailPage.sleekfin-details-native .detailImageContainer { width: 132px !important; }
-  #itemDetailPage.sleekfin-details-native .detailRibbon { align-items: flex-start !important; flex-direction: column; width: 100%; }
-  #itemDetailPage.sleekfin-details-native .infoWrapper { flex: 0 0 auto; width: 100%; }
-  #itemDetailPage.sleekfin-details-native .detailPageContent { padding-left: 16px !important; padding-right: 16px !important; }
+  #itemDetailPage.sleekfin-details-native .detailPagePrimaryContainer { display: block !important; }
+  #itemDetailPage.sleekfin-details-native :is(.detailRibbon, .detailPagePrimaryContent) { display: block !important; width: auto !important; max-width: none !important; }
+  #itemDetailPage.sleekfin-details-native .infoWrapper { width: auto !important; }
+  #itemDetailPage.sleekfin-details-native .nameContainer .itemName { white-space: normal !important; overflow-wrap: anywhere; }
+  #itemDetailPage.sleekfin-details-native .mainDetailButtons { justify-content: flex-start !important; margin: 10px 0 !important; }
 }
 
 /* ═══════════ Every other pop-up list: player settings, audio / subtitle pickers, poster menus, sort ═══════════ */

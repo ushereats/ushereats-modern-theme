@@ -8,6 +8,7 @@ import { createSimilar } from './similar.jsx';
 import { createTrackPickers } from './trackPickers.js';
 
 const CONCEALED_CLASS = 'sleekfin-details-concealed';
+const NATIVE_CLASS = 'sleekfin-details-native';
 const CONCEAL_EVENT = 'sleekfin:details-conceal';
 const DETAIL_PATH = /(^|\/)details\/?$/;
 const HISTORY_METHODS = ['pushState', 'replaceState'];
@@ -248,6 +249,8 @@ function mount() {
     trackPickers,
   };
   state.page.dataset.sleekfinDetails = 'true';
+  state.page.classList.remove(NATIVE_CLASS);
+  delete state.page.dataset.sleekfinNativeType;
   document.documentElement.classList.add('sleekfin-details-mounted');
   hero.render(state.item, state.seasons, state.settings);
   actions.reconcile();
@@ -483,6 +486,9 @@ function reconcile() {
   }
   if (!SUPPORTED_TYPES.includes(state.item.Type)) {
     destroyMount();
+    // People, collections, albums, artists, songs, playlists, genres: Jellyfin's own layout, restyled by the theme
+    state.page.classList.add(NATIVE_CLASS);
+    state.page.dataset.sleekfinNativeType = state.item.Type;
     revealNativePage();
     return;
   }

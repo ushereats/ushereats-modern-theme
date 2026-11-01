@@ -110,7 +110,7 @@ html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] .detailPage
 }
 
 /* Jellyfin's own poster is never shown on these pages: hidden from the start, so it is never downloaded. */
-html[data-sleekfin-details-boot] #itemDetailPage .detailImageContainer {
+html[data-sleekfin-details-boot] #itemDetailPage:not(.sleekfin-details-native) .detailImageContainer {
     display: none !important;
 }
 

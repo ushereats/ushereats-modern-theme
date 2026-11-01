@@ -245,10 +245,23 @@
     v.addEventListener("play", onPlay);
     v.addEventListener("loadstart", onSource);
   }
-  setInterval(function () {
+  // follow the player's video element: checked when the page changes, and once a second only while a video is open
+  function follow() {
     var v = document.querySelector(".videoPlayerContainer video, video.htmlvideoplayer");
     if (v !== video) attach(v || null);
-  }, 1000);
+  }
+  var ft = 0;
+  function track() {
+    var o = document.getElementById("videoOsdPage"), open = /^#\/?video/i.test(location.hash) || !!(o && !o.classList.contains("hide"));
+    if (open && !ft) ft = setInterval(follow, 1000);
+    else if (!open && ft) { clearInterval(ft); ft = 0; }
+    follow();
+  }
+  window.addEventListener("hashchange", track);
+  window.addEventListener("popstate", track);
+  document.addEventListener("viewshow", track);
+  if (window.tbAdded) window.tbAdded(track);
+  track();
 
   // Any activity resets the idle timer (mouse needs to move more than a few pixels)
   function touch() {

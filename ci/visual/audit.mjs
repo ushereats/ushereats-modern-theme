@@ -63,6 +63,7 @@ const pages = [
   ["prefs", "#/mypreferencesmenu"],
   ["prefs-profile", `#/userprofile?userId=${s.userId}`],
   ["prefs-display", "#/mypreferencesdisplay"],
+  ["prefs-display-user", `#/mypreferencesdisplay?userId=${s.userId}`],
   ["prefs-home", "#/mypreferenceshome"],
   ["prefs-playback", "#/mypreferencesplayback"],
   ["prefs-subtitles", "#/mypreferencessubtitles"],
@@ -190,7 +191,7 @@ for (const [tag, vw, vh, mobile] of [["pc", 1920, 1080, false], ["phone", 390, 8
   if (mobile) await menu("drawer", () => click("[data-sleekfin-header] .mainDrawerButton, button[aria-label='Open menu'], [data-sleekfin-header] svg[data-testid='MenuIcon']"));
   // a poster's own menu (three dots)
   await menu("card-menu", async () => {
-    const card = page.locator(".tb-rows-c .card:not(.tb-logo-card)").nth(3);
+    const card = page.locator(".tb-rows-c .card:not(.tb-logo-card):visible").nth(3);
     await card.hover().catch(() => {});
     await page.waitForTimeout(600);
     const b = card.locator("button[data-action='menu'], .cardOverlayButton[data-action='menu'], .tb-card-menu, button[title*='More' i]").first();
@@ -199,7 +200,8 @@ for (const [tag, vw, vh, mobile] of [["pc", 1920, 1080, false], ["phone", 390, 8
   });
   // title page: More menu + its dialogs
   const titleMenu = async (name, label) => {
-    await go(det(movie));
+    await page.goto(s.server + "/web/index.html" + det(movie), { waitUntil: "load" }).catch(() => {});
+    await page.waitForTimeout(3000);
     await menu(name, async () => {
       if (!(await click(".page:not(.hide) .btnMoreCommands"))) return false;
       if (!label) return true;
@@ -242,6 +244,39 @@ for (const [tag, vw, vh, mobile] of [["pc", 1920, 1080, false], ["phone", 390, 8
   await menu("music-playing", async () => { if (!(await click(".page:not(.hide) .btnPlay:visible, .page:not(.hide) .sleekfin-button-primary:visible, .page:not(.hide) button[title='Play']:visible"))) return false; await page.waitForTimeout(2500); });
   await menu("now-playing-page", async () => { await page.evaluate(() => { location.hash = "#/queue"; }); await page.waitForTimeout(1800); });
   await page.evaluate(() => { try { window.playbackManager && window.playbackManager.stop(); } catch (e) {} document.querySelectorAll("audio,video").forEach((m) => m.pause()); });
+
+  // ── Jellyfin's own title-page layout (people, albums...): structure, so its look can be matched ──
+  for (const n of ["album", "person"]) {
+    await go(pages.find((p) => p[0] === n)[1]);
+    report[`${tag}-dom-${n}`] = await page.evaluate(() => {
+      const pg = document.querySelector("#itemDetailPage:not(.hide)");
+      if (!pg) return null;
+      const walk = (e, d) => { if (!e || d > 4) return []; const r = e.getBoundingClientRect(), c = getComputedStyle(e); const me = "  ".repeat(d) + e.tagName.toLowerCase() + (e.id ? "#" + e.id : "") + (typeof e.className === "string" && e.className ? "." + e.className.trim().split(/\s+/).slice(0, 5).join(".") : "") + ` [${Math.round(r.left)},${Math.round(r.top)} ${Math.round(r.width)}x${Math.round(r.height)}] ${c.display}/${c.position}`; return [me].concat(...Array.from(e.children).slice(0, 8).map((k) => walk(k, d + 1))); };
+      return { cls: pg.className, type: pg.dataset.sleekfinNativeType || null, tree: walk(pg, 0).slice(0, 80) };
+    });
+  }
+
+  // ── a poster clicked on Home: what each frame shows until the title page is up ──
+  if (tag === "pc") {
+    for (let run = 0; run < 2; run++) {
+      await go("#/home");
+      await page.waitForTimeout(1500);
+      const card = page.locator('.tb-rows-c [data-tb-row="latest-releases"] .card .cardImageContainer:visible, .tb-rows-c .card:not(.tb-logo-card) .cardImageContainer:visible').nth(2);
+      if (!(await card.count())) break;
+      await page.evaluate(() => {
+        const f = (window.__tbFrames = []); const t0 = performance.now(); const html = document.documentElement;
+        const tick = () => { f.push({ t: Math.round(performance.now() - t0), standIn: !!document.getElementById("tb-instant-bd"), concealed: html.classList.contains("sleekfin-details-concealed"), mounted: !!document.querySelector("#itemDetailPage[data-sleekfin-details='true']:not(.hide)"), home: !!document.querySelector("#indexPage:not(.hide)") }); if (performance.now() - t0 < 1500) requestAnimationFrame(tick); };
+        requestAnimationFrame(tick);
+      });
+      await card.click({ timeout: 4000 }).catch(() => {});
+      for (let i = 0; i < 6; i++) { await page.screenshot({ path: `${out}/pc-open-title-${run}-${i}.png` }).catch(() => {}); }
+      await page.waitForTimeout(1200);
+      const fr = await page.evaluate(() => window.__tbFrames);
+      const sum = []; let prev = "";
+      for (const x of fr) { const k = `${x.home ? "home" : ""}${x.concealed ? " concealed" : ""}${x.standIn ? " standIn" : ""}${x.mounted ? " mounted" : ""}`; if (k !== prev) { sum.push(`${x.t}ms:${k.trim()}`); prev = k; } }
+      report[`openTitle-${run}`] = sum;
+    }
+  }
 
   // ── how much happens while you leave a page alone (10 s each, PC only) ──
   if (tag === "pc") {

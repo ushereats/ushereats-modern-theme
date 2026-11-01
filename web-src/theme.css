@@ -1002,3 +1002,155 @@ html body .tb-studios .emby-scroller::-webkit-scrollbar { display: none; }
 :is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiDivider-root { border-color: rgba(255, 255, 255, 0.08) !important; margin: 6px 4px !important; }
 :is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiListSubheader-root { background: transparent !important; color: rgba(255, 255, 255, 0.45) !important; font: 700 11px/2.4 var(--app-font) !important; letter-spacing: 0.08em; text-transform: uppercase; }
 /* ═══════════ end top bar menus ═══════════ */
+
+
+/* ═══════════ Other title pages: people, collections, albums, artists, songs, playlists, genres ═══════════
+   (movies and shows have SleekFin's banner; these keep Jellyfin's layout, restyled to match) */
+#itemDetailPage.sleekfin-details-native { background: transparent !important; }
+#itemDetailPage.sleekfin-details-native :is(.detailPageWrapperContainer, .detailPageSecondaryContainer, .detailPageContent, .detailPagePrimaryContainer, .detailRibbon) {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+/* the band at the top: the ambient colour (or the title's own backdrop) fading into the page */
+#itemDetailPage.sleekfin-details-native > #itemBackdrop {
+  height: clamp(150px, 32vh, 360px) !important;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 45%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 45%, transparent 100%);
+}
+/* picture + name + buttons on one line, the picture overlapping the band */
+#itemDetailPage.sleekfin-details-native .detailPagePrimaryContainer {
+  align-items: flex-end !important;
+  display: flex !important;
+  gap: 28px;
+  margin-top: -110px !important;
+  padding: 0 var(--sleekfin-page-gutter, 48px) !important;
+  position: relative;
+  z-index: 2;
+}
+#itemDetailPage.sleekfin-details-native .detailImageContainer {
+  display: block !important;
+  flex: 0 0 auto;
+  left: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative !important;
+  top: auto !important;
+  width: clamp(150px, 15vw, 240px) !important;
+}
+#itemDetailPage.sleekfin-details-native .detailImageContainer .card { margin: 0 !important; width: 100% !important; }
+#itemDetailPage.sleekfin-details-native .detailImageContainer :is(.cardBox, .cardScalable) { margin: 0 !important; }
+#itemDetailPage.sleekfin-details-native .detailImageContainer .cardScalable {
+  border-radius: 14px !important;
+  box-shadow: 0 22px 48px -16px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.06) !important;
+  overflow: hidden;
+}
+#itemDetailPage.sleekfin-details-native[data-sleekfin-native-type="Person"] .detailImageContainer .cardScalable { border-radius: 50% !important; }
+#itemDetailPage.sleekfin-details-native .detailRibbon {
+  align-items: flex-end !important;
+  display: flex !important;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  height: auto !important;
+  justify-content: space-between;
+  margin: 0 !important;
+  min-width: 0;
+  padding: 0 0 6px !important;
+}
+#itemDetailPage.sleekfin-details-native .infoWrapper { flex: 1 1 260px; min-width: 0; padding: 0 !important; }
+#itemDetailPage.sleekfin-details-native .nameContainer { text-align: left !important; }
+#itemDetailPage.sleekfin-details-native .nameContainer .itemName {
+  font: 800 clamp(26px, 3vw, 44px)/1.08 var(--app-font) !important;
+  letter-spacing: -0.01em;
+  margin: 0 0 6px !important;
+  overflow-wrap: anywhere;
+  text-align: left !important;
+  white-space: normal !important;
+}
+#itemDetailPage.sleekfin-details-native .nameContainer .parentName,
+#itemDetailPage.sleekfin-details-native .nameContainer h3.itemName { font: 600 16px/1.3 var(--app-font) !important; color: rgba(255, 255, 255, 0.75) !important; }
+#itemDetailPage.sleekfin-details-native .itemMiscInfo { color: rgba(255, 255, 255, 0.65) !important; font: 500 13px/1.5 var(--app-font) !important; justify-content: flex-start !important; }
+#itemDetailPage.sleekfin-details-native .mainDetailButtons { flex: 0 0 auto; gap: 8px; margin: 0 !important; justify-content: flex-start !important; }
+#itemDetailPage.sleekfin-details-native .mainDetailButtons .detailButton {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 999px !important;
+  height: 42px; margin: 0 !important; min-width: 42px; width: 42px;
+}
+#itemDetailPage.sleekfin-details-native .mainDetailButtons .detailButton:is(:hover, :focus-visible) { background: rgba(255, 255, 255, 0.16) !important; }
+#itemDetailPage.sleekfin-details-native .mainDetailButtons .detailButton.btnPlay { background: #f1f2f4 !important; color: #05070a !important; }
+#itemDetailPage.sleekfin-details-native .detailButton-content { padding: 0 !important; }
+#itemDetailPage.sleekfin-details-native .detailPageSecondaryContainer { padding-top: 36px !important; }
+#itemDetailPage.sleekfin-details-native .detailPageContent { padding-left: var(--sleekfin-page-gutter, 48px) !important; padding-right: var(--sleekfin-page-gutter, 48px) !important; }
+/* track lists (albums, playlists): a soft panel, rows highlight on hover */
+#itemDetailPage.sleekfin-details-native .childrenItemsContainer.vertical-list,
+#itemDetailPage.sleekfin-details-native .vertical-list:has(> .listItem) {
+  background: rgba(10, 10, 12, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  overflow: hidden;
+  padding: 4px !important;
+}
+#itemDetailPage.sleekfin-details-native .listItem { border-radius: 10px; border-bottom: 0 !important; font-family: var(--app-font) !important; }
+#itemDetailPage.sleekfin-details-native .listItem:hover { background: rgba(255, 255, 255, 0.06) !important; }
+/* phones: picture on top, then name, then buttons */
+@media (max-width: 699px) {
+  #itemDetailPage.sleekfin-details-native .detailPagePrimaryContainer { align-items: flex-start !important; flex-direction: column; gap: 14px; margin-top: -80px !important; padding: 0 16px !important; }
+  #itemDetailPage.sleekfin-details-native .detailImageContainer { width: 132px !important; }
+  #itemDetailPage.sleekfin-details-native .detailRibbon { align-items: flex-start !important; flex-direction: column; width: 100%; }
+  #itemDetailPage.sleekfin-details-native .infoWrapper { flex: 0 0 auto; width: 100%; }
+  #itemDetailPage.sleekfin-details-native .detailPageContent { padding-left: 16px !important; padding-right: 16px !important; }
+}
+
+/* ═══════════ Every other pop-up list: player settings, audio / subtitle pickers, poster menus, sort ═══════════ */
+.dialog.actionSheet:not(.sleekfin-more-menu):not(.actionsheet-fullscreen) {
+  background: rgba(18, 18, 20, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 24px 60px -16px rgba(0, 0, 0, 0.85) !important;
+  font-family: var(--app-font) !important;
+  min-width: 220px;
+}
+.dialog.actionSheet.actionsheet-fullscreen { background: rgba(12, 12, 14, 0.97) !important; font-family: var(--app-font) !important; }
+.dialog.actionSheet:not(.sleekfin-more-menu) .actionSheetContent { padding: 6px !important; }
+.dialog.actionSheet:not(.sleekfin-more-menu) .actionSheetTitle { font: 700 12px/2.2 var(--app-font) !important; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.5) !important; padding: 4px 10px !important; margin: 0 !important; }
+.dialog.actionSheet:not(.sleekfin-more-menu) .actionSheetMenuItem {
+  border-radius: 8px !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+  font: 500 13px/1.3 var(--app-font) !important;
+  min-height: 38px;
+  padding: 0 10px !important;
+}
+.dialog.actionSheet:not(.sleekfin-more-menu) .actionSheetMenuItem:is(:hover, :focus) { background: rgba(255, 255, 255, 0.1) !important; color: #fff !important; }
+.dialog.actionSheet:not(.sleekfin-more-menu) .actionsheetListItemBody { padding: 0 !important; }
+.dialog.actionSheet:not(.sleekfin-more-menu) .actionSheetItemAsideText { color: rgba(255, 255, 255, 0.45) !important; font-size: 12px !important; }
+.dialog.actionSheet:not(.sleekfin-more-menu) .actionsheetMenuItemIcon { font-size: 18px !important; margin-right: 10px !important; }
+.dialog.actionSheet:not(.sleekfin-more-menu) .actionsheetMenuItemIcon.check { color: var(--sleekfin-accent) !important; }
+
+/* ═══════════ Phone side menu (☰) ═══════════ */
+.MuiDrawer-paper {
+  background: rgba(12, 12, 14, 0.98) !important;
+  background-image: none !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.06) !important;
+  color: #fff !important;
+  font-family: var(--app-font) !important;
+}
+.MuiDrawer-paper :is(.MuiTypography-root, .MuiListItemText-primary, .MuiListSubheader-root) { font-family: var(--app-font) !important; }
+.MuiDrawer-paper .MuiListSubheader-root { background: transparent !important; color: rgba(255, 255, 255, 0.45) !important; font-size: 11px !important; font-weight: 700 !important; letter-spacing: 0.08em; text-transform: uppercase; }
+.MuiDrawer-paper .MuiListItemButton-root { border-radius: 10px; margin: 1px 8px; }
+.MuiDrawer-paper .MuiListItemButton-root:is(:hover, .Mui-focusVisible) { background: rgba(255, 255, 255, 0.07) !important; }
+.MuiDrawer-paper .MuiListItemButton-root.Mui-selected { background: rgba(var(--tb-accent-rgb, 233, 196, 106), 0.14) !important; }
+.MuiDrawer-paper .MuiListItemButton-root.Mui-selected :is(.MuiListItemIcon-root, .MuiTypography-root) { color: var(--sleekfin-accent) !important; }
+.MuiDrawer-paper .MuiListItemIcon-root { color: rgba(255, 255, 255, 0.65) !important; min-width: 40px !important; }
+.MuiDrawer-paper .MuiDivider-root { border-color: rgba(255, 255, 255, 0.06) !important; }
+
+/* ═══════════ Music bar at the bottom ═══════════ */
+.nowPlayingBar {
+  background: rgba(12, 12, 14, 0.94) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  font-family: var(--app-font) !important;
+}
+.nowPlayingBar :is(.nowPlayingBarText, .nowPlayingBarCurrentTime) { font-family: var(--app-font) !important; }
+.nowPlayingBar .nowPlayingImage { border-radius: 6px; overflow: hidden; }
+/* ═══════════ end ═══════════ */

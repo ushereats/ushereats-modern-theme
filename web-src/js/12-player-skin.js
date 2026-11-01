@@ -162,7 +162,18 @@
     requestAnimationFrame(function () { queued = false; update(); });
   }
   window.addEventListener("hashchange", schedule);
-  setInterval(schedule, 1000);   // cheap check: only does work when the player is open
+  // a once-a-second check only while the player is open (nothing at all otherwise)
+  var vt = 0;
+  function inPlayer() { var o = document.getElementById("videoOsdPage"); return /^#\/?video/i.test(location.hash) || !!(o && !o.classList.contains("hide")); }
+  function track() {
+    if (inPlayer()) { if (!vt) { vt = setInterval(schedule, 1000); schedule(); } }
+    else if (vt) { clearInterval(vt); vt = 0; schedule(); }
+  }
+  window.addEventListener("hashchange", track);
+  window.addEventListener("popstate", track);
+  document.addEventListener("viewshow", track);
+  if (window.tbAdded) window.tbAdded(track);
+  track();
 
   // ── 4. Styles ──
   var X = ":not(#tb-x)";

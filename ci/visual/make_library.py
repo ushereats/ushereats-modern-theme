@@ -53,6 +53,8 @@ MOVIES = ["Aurora Line", "Glass Harbour", "The Quiet Engine", "Northbound", "Pap
           "Static Bloom", "The Long Hallway", "Tin Crown", "Velvet Signal", "Winter Orchard"]
 SHOWS = ["Copper Hills", "Night Shift Radio", "The Atlas Club", "Low Tide"]
 
+ACTORS = ["Alex Rowan", "Mira Castell", "Jonah Pike", "Priya Venkat", "Leo Marsh"]
+ROLES = ["Lead", "Friend", "Rival"]
 os.makedirs(ROOT + "/movies", exist_ok=True)
 os.makedirs(ROOT + "/shows", exist_ok=True)
 for i, name in enumerate(MOVIES):
@@ -71,8 +73,9 @@ for i, name in enumerate(MOVIES):
     open(base + ".nfo", "w").write(
         "<movie><title>%s</title><year>%d</year><premiered>%d-%02d-10</premiered><releasedate>%d-%02d-10</releasedate>"
         "<plot>%s is a made-up film used for visual tests. It has a two-sentence plot so the hero and cards show text.</plot>"
-        "<rating>%.1f</rating><mpaa>M</mpaa><runtime>%d</runtime>%s<studio>Test Studio</studio></movie>"
-        % (esc(name), year, year, month, year, month, esc(name), 6 + (i % 4) * 0.7, 95 + i * 3, "".join("<genre>%s</genre>" % x for x in g)))
+        "<rating>%.1f</rating><mpaa>M</mpaa><runtime>%d</runtime>%s<studio>Test Studio</studio>%s<director>Dana Okafor</director></movie>"
+        % (esc(name), year, year, month, year, month, esc(name), 6 + (i % 4) * 0.7, 95 + i * 3, "".join("<genre>%s</genre>" % x for x in g),
+           "".join("<actor><name>%s</name><role>%s</role><type>Actor</type></actor>" % (ACTORS[(i + k) % len(ACTORS)], ROLES[k]) for k in range(3))))
 
 for s, name in enumerate(SHOWS):
     year = 2018 + s
@@ -95,4 +98,22 @@ for s, name in enumerate(SHOWS):
             "<episodedetails><title>Chapter %d</title><season>1</season><episode>%d</episode><aired>%d-03-%02d</aired>"
             "<plot>Episode %d of %s. A short synopsis long enough to wrap onto a second line in the episode list.</plot>"
             "<runtime>48</runtime><rating>7.%d</rating></episodedetails>" % (e, e, year, e + 1, e, esc(name), e))
+# people: a picture each (in Jellyfin's metadata folder layout is not needed: the NFO path below works offline)
+os.makedirs(ROOT + "/people", exist_ok=True)
+for k, a in enumerate(ACTORS):
+    art(ROOT + "/people/%s.jpg" % a, (400, 600), a, PALETTE[k % len(PALETTE)], "poster")
+
+# music: 2 artists x 1 album x 4 songs, with cover art and tags
+def song(path, title, artist, album, track, year):
+    subprocess.run([FFMPEG, "-v", "error", "-y", "-f", "lavfi", "-i", "sine=frequency=%d:duration=4" % (300 + track * 40),
+                    "-c:a", "libmp3lame", "-b:a", "96k", "-metadata", "title=" + title, "-metadata", "artist=" + artist,
+                    "-metadata", "album_artist=" + artist, "-metadata", "album=" + album, "-metadata", "track=%d" % track,
+                    "-metadata", "date=%d" % year, "-metadata", "genre=Electronic", path], check=True)
+for a, (artist, album) in enumerate([("Neon Harbour", "Afterglow"), ("The Static Pines", "Long Weekend")]):
+    d = "%s/music/%s/%s" % (ROOT, artist, album)
+    os.makedirs(d, exist_ok=True)
+    art(d + "/cover.jpg", (600, 600), album, PALETTE[(a + 5) % len(PALETTE)], "poster")
+    art("%s/music/%s/folder.jpg" % (ROOT, artist), (600, 600), artist, PALETTE[(a + 2) % len(PALETTE)], "poster")
+    for t in range(1, 5):
+        song("%s/%02d - Track %d.mp3" % (d, t, t), "Track %d" % t, artist, album, t, 2020 + a)
 print("library ready")

@@ -65,12 +65,18 @@ SERVERID=$(echo "$LOGIN" | python3 -c "import json,sys; print(json.load(sys.stdi
 echo "== libraries"
 api POST "/Library/VirtualFolders?name=Movies&collectionType=movies&paths=%2Fsrv%2Fmedia%2Fmovies&refreshLibrary=false" '{"LibraryOptions":{"EnableRealtimeMonitor":false}}' >/dev/null
 api POST "/Library/VirtualFolders?name=Shows&collectionType=tvshows&paths=%2Fsrv%2Fmedia%2Fshows&refreshLibrary=false" '{"LibraryOptions":{"EnableRealtimeMonitor":false}}' >/dev/null
+api POST "/Library/VirtualFolders?name=Music&collectionType=music&paths=%2Fsrv%2Fmedia%2Fmusic&refreshLibrary=false" '{"LibraryOptions":{"EnableRealtimeMonitor":false}}' >/dev/null
 api POST /Library/Refresh >/dev/null
 for i in $(seq 1 180); do
   N=$(api GET "/Items?userId=$USERID&Recursive=true&IncludeItemTypes=Movie,Episode&Limit=0" | python3 -c "import json,sys; print(json.load(sys.stdin)['TotalRecordCount'])")
   RUNNING=$(api GET "/ScheduledTasks?isHidden=false" | python3 -c "import json,sys; print(sum(1 for t in json.load(sys.stdin) if t.get('State')=='Running'))")
   echo "items=$N running=$RUNNING"; [ "$N" -ge 36 ] && [ "$RUNNING" = 0 ] && break; sleep 2
 done
+for i in $(seq 1 60); do
+  A=$(api GET "/Items?userId=$USERID&Recursive=true&IncludeItemTypes=Audio&Limit=0" | python3 -c "import json,sys; print(json.load(sys.stdin)['TotalRecordCount'])")
+  [ "$A" -ge 8 ] && break; sleep 2
+done
+echo "songs=$A"
 
 echo "== watch progress"
 ids() { api GET "/Items?userId=$USERID&Recursive=true&$1" | python3 -c "import json,sys; print(' '.join(x['Id'] for x in json.load(sys.stdin)['Items']))"; }
@@ -86,6 +92,19 @@ for SID in "${SERIES[0]}" "${SERIES[2]}"; do
   api POST "/UserPlayedItems/${EPS[1]}?userId=$USERID" >/dev/null || true
   api POST "/UserItems/${EPS[2]}/UserData?userId=$USERID" "{\"PlaybackPositionTicks\":10000000,\"LastPlayedDate\":\"$NOW\"}" >/dev/null || true
 done
+
+echo "== people pictures, a collection, a playlist, favourites"
+for f in /srv/media/people/*.jpg; do
+  NAME=$(basename "$f" .jpg); ENC=$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1]))" "$NAME")
+  PIDP=$(api GET "/Persons/$ENC?userId=$USERID" | python3 -c "import json,sys; print(json.load(sys.stdin)['Id'])" || true)
+  [ -n "$PIDP" ] && curl -sS -f -X POST "$J/Items/$PIDP/Images/Primary" -H "Authorization: $AUTH, Token=\"$TOKEN\"" -H "Content-Type: image/jpeg" --data-binary "$(base64 -w0 "$f")" >/dev/null || echo "no picture for $NAME"
+done
+api POST "/Collections?name=Night%20Stories&ids=${MOVIES[1]},${MOVIES[4]},${MOVIES[7]}" >/dev/null || true
+SONGS=($(ids "IncludeItemTypes=Audio&SortBy=SortName"))
+api POST "/Playlists" "{\"Name\":\"Drive Mix\",\"Ids\":[\"${SONGS[0]}\",\"${SONGS[1]}\",\"${SONGS[5]}\"],\"UserId\":\"$USERID\",\"MediaType\":\"Audio\"}" >/dev/null || true
+api POST "/Playlists" "{\"Name\":\"Weekend Movies\",\"Ids\":[\"${MOVIES[2]}\",\"${MOVIES[6]}\"],\"UserId\":\"$USERID\",\"MediaType\":\"Video\"}" >/dev/null || true
+for k in 2 5 8; do api POST "/UserFavoriteItems/${MOVIES[$k]}?userId=$USERID" >/dev/null || true; done
+api POST "/UserFavoriteItems/${SERIES[1]}?userId=$USERID" >/dev/null || true
 
 echo "== plugin settings"
 LIBS=$(api GET "/Library/VirtualFolders")

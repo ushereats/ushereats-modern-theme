@@ -85,8 +85,8 @@ if (lib) {
   for (let i = 0; i < 2; i++) {
     const ts = Date.now();
     mark("library " + i);
-    await page.evaluate((id) => { location.hash = "#/movies.html?topParentId=" + id; }, lib.Id);
-    await page.waitForSelector("#moviesPage:not(.hide) .card[data-id], .page:not(.hide) .itemsContainer .card[data-id]", { timeout: 15000 }).catch(() => {});
+    await page.evaluate((id) => { location.hash = "#/movies?topParentId=" + id + "&collectionType=movies"; }, lib.Id);
+    await page.waitForSelector(".page:not(.hide) .card[data-id]", { timeout: 15000 }).catch(() => {});
     libTimes.push(Date.now() - ts);
     await page.waitForTimeout(1500);
     if (i === 0) await page.screenshot({ path: out + "/library.png" });

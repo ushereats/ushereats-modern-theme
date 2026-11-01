@@ -34,9 +34,9 @@
       "@keyframes tb-vt-out{to{opacity:0}}@keyframes tb-vt-in{from{opacity:0}}" +
       // nothing else on the page takes part (one blend of the whole screen)
       "html.tb-vt *{view-transition-name:none!important}" +
-      // the pages' own entrance fades (rows, title page) would be frozen at "invisible" while the old screen is
-      // held and then play after the cross-fade (old page -> empty -> page): during a cross-fade they finish at once
-      "html.tb-vt *,html.tb-vt *::before,html.tb-vt *::after{animation-duration:0s!important;animation-delay:0s!important;transition-duration:0s!important;transition-delay:0s!important}";
+      // the rows' own entrance fade would be frozen at "invisible" while the old screen is held and then play
+      // after the cross-fade (old page -> empty -> rows): during a cross-fade the rows are simply there
+      "html.tb-vt :is(#indexPage,#searchPage) .verticalSection,html.tb-vt :is(#moviesPage,#tvshowsPage,#tvRecommendedPage) .itemsContainer{animation:none!important}";
     document.head.appendChild(st);
   }
 

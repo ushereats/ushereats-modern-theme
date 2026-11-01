@@ -85,7 +85,7 @@
   function onEnter(e) {
     var card = e.target.closest && e.target.closest(".card");
     if (!card || card.dataset.tbHover === "off") return;
-    if (card.matches(".personCard, [data-type='Person'], [data-type='CollectionFolder'], [data-type='UserView'], [data-type='Folder']")) return;
+    if (card.matches(".tb-logo-card, .personCard, [data-type='Person'], [data-type='CollectionFolder'], [data-type='UserView'], [data-type='Folder']")) return;
     var scalable = card.querySelector(".cardScalable");
     if (!scalable) return;
     var el = scalable.querySelector("." + INFO_CLASS);
@@ -114,7 +114,7 @@
   }, { passive: true });
 
   var X = ":not(#tb-x)";   // adds ID-level weight so these rules beat SleekFin's
-  var H = ".card:not(.personCard):not([data-type='Person']):hover";
+  var H = ".card:not(.personCard):not(.tb-logo-card):not([data-type='Person']):hover";
   var css = [
     "@media (hover: hover) and (pointer: fine) {",
 

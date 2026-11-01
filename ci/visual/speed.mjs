@@ -24,7 +24,15 @@ const probe = `(function(){
   function desc(n){ if(!n||!n.tagName) return String(n&&n.nodeName); var c=(typeof n.className==='string'?n.className:'').trim().split(/\\s+/).slice(0,3).join('.'); return n.tagName.toLowerCase()+(n.id?'#'+n.id:'')+(c?'.'+c:''); }
   function rect(r){ return r ? [Math.round(r.x),Math.round(r.y),Math.round(r.width),Math.round(r.height)].join(',') : ''; }
   try { new PerformanceObserver(function(l){ l.getEntries().forEach(function(e){ if (e.hadRecentInput) return;
-    R.shifts.push({ at: Math.round(e.startTime), hash: location.hash.slice(0,30), v: +e.value.toFixed(4), src: (e.sources||[]).map(function(x){ return desc(x.node)+' '+rect(x.previousRect)+' -> '+rect(x.currentRect); }) }); }); })
+    var seen = [];
+    (e.sources||[]).forEach(function(x){ var n=x.node; if(!n||!n.querySelectorAll) return;
+      // what in it could actually be seen at that moment (painted, on screen)
+      Array.prototype.slice.call(n.querySelectorAll('img,.cardImageContainer,h2,.sectionTitle,.cardText,bdi,.tb-row,.sleekfin-hero')).some(function(c){
+        var cs=getComputedStyle(c), r=c.getBoundingClientRect();
+        if (cs.visibility==='hidden'||cs.display==='none'||+cs.opacity===0||!r.width||!r.height||r.bottom<0||r.top>innerHeight) return false;
+        for (var p=c; p&&p!==document.body; p=p.parentElement){ var ps=getComputedStyle(p); if(+ps.opacity===0||ps.visibility==='hidden') return false; }
+        seen.push(desc(c)+' '+rect(r)); return seen.length>=3; }); });
+    R.shifts.push({ at: Math.round(e.startTime), hash: location.hash.slice(0,30), v: +e.value.toFixed(4), visible: seen, src: (e.sources||[]).map(function(x){ return desc(x.node)+' '+rect(x.previousRect)+' -> '+rect(x.currentRect); }) }); }); })
     .observe({ type: 'layout-shift', buffered: true }); } catch(e) {}
   new MutationObserver(function(rs){ if(!R.on) return; var t=Math.round((performance.now()-R.t0)/250)*250; rs.forEach(function(r){
     var k = r.type+(r.attributeName?'['+r.attributeName+']':'')+' '+desc(r.target); var m=R.muts[k]||(R.muts[k]={n:0,first:t,last:t}); m.n++; m.last=t; }); })

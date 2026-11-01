@@ -2187,7 +2187,7 @@
                     <div class="sleekfin-section-container">
                         <div class="sleekfin-config-section-title">Refresh posters</div>
                         <div class="sleekfin-card">
-                            <p class="sleekfin-field-description" style="margin:0 0 12px">Gets every movie, show, season and collection in the ticked libraries a new poster from the sources above (unsaved changes to the sources are applied first). Only posters change: other artwork, titles and info stay as they are, and a title keeps its poster if none of the sources has one. Runs on the server, a few titles at a time: you can leave this page.</p>
+                            <p class="sleekfin-field-description" style="margin:0 0 12px">Gets every movie, show, season and collection in the ticked libraries a new poster from the sources above (unsaved changes to the sources are applied first). Only posters change: other artwork, titles and info stay as they are, and a title keeps its poster if none of the sources has one. A poster saved as a file next to the video (poster.jpg, folder.jpg) always stays: Jellyfin prefers your own files. Runs on the server, a few titles at a time: you can leave this page.</p>
                             <div class="tbp-actions" style="margin-top:0">
                                 <button type="button" id="tbPRefresh" class="sleekfin-builder-config-button">Refresh all posters</button>
                                 <button type="button" id="tbPStop" class="sleekfin-builder-config-button" hidden>Stop</button>
@@ -5940,7 +5940,7 @@
         refreshBtn.disabled = !!st.running;
         stopBtn.hidden = !st.running;
         if (st.running) status.textContent = st.total ? "Refreshing posters: " + st.done + " of " + st.total + " (" + (st.changed || 0) + " new)" + (st.failed ? " (" + st.failed + " failed)" : "") : "Finding titles…";
-        else if (st.finishedUtc) status.textContent = (st.cancelled ? "Stopped after " : "Done: ") + st.done + " of " + st.total + " titles, " + (st.changed || 0) + " new posters" + (st.failed ? ", " + st.failed + " failed (see the server log)" : "") + ".";
+        else if (st.finishedUtc) status.textContent = (st.cancelled ? "Stopped after " : "Done: ") + st.done + " of " + st.total + " titles, " + (st.changed || 0) + ((st.changed || 0) === 1 ? " new poster" : " new posters") + (st.failed ? ", " + st.failed + " failed (see the server log)" : "") + ".";
         clearTimeout(poll);
         if (st.running) poll = setTimeout(check, 1500);
       }

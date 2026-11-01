@@ -27,6 +27,7 @@ public static class PosterRefresh
     private static int s_done;
     private static int s_failed;
     private static int s_changed;
+    private static int s_logged;
 
     public static int Done => s_done;
 
@@ -68,6 +69,7 @@ public static class PosterRefresh
             s_done = 0;
             s_failed = 0;
             s_changed = 0;
+            s_logged = 0;
             StartedUtc = DateTime.UtcNow;
             FinishedUtc = null;
             s_cancel?.Dispose();
@@ -139,7 +141,7 @@ public static class PosterRefresh
                     ForceSave = false
                 };
                 string? before = Poster(item);
-                if (Done == 0 && Failed == 0)
+                if (Interlocked.Increment(ref s_logged) == 1)
                 {
                     logger.LogInformation(
                         "Ushereats Theme: poster sources for {Name}: {Sources}",

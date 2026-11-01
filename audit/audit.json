@@ -1,0 +1,2632 @@
+{
+ "pages": {
+  "pc-home": {
+   "hash": "#/home",
+   "pageId": "indexPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": true,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 56,
+    "Bebas Neue": 4
+   },
+   "errorsShown": []
+  },
+  "pc-home-favourites": {
+   "hash": "#/home?tab=1",
+   "pageId": "indexPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 31,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "pc-movies": {
+   "hash": "#/movies?topParentId=f137a2dd21bbc1b99aa5c0f6bf02a805&collectionType=movies",
+   "pageId": "moviesPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 107,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-shows": {
+   "hash": "#/tv?topParentId=a656b907eb3a73532e40e44b968d0225&collectionType=tvshows",
+   "pageId": "tvshowsPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 59,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-music": {
+   "hash": "#/music?topParentId=7e64e319657a9516ec78490da03edccb&collectionType=music",
+   "pageId": "musicPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 42,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-collections": {
+   "hash": "#/list?parentId=9d7ad6afe9afa2dab1a2f6e00ad28fa6&serverId=0b7fbde133b84b76a08f3f",
+   "pageId": "page.libraryPage.noSecondaryNavPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 39
+   },
+   "errorsShown": []
+  },
+  "pc-playlists": {
+   "hash": "#/list?parentId=a7d51ffbedb999b02979ce5ac063a377&serverId=0b7fbde133b84b76a08f3f",
+   "pageId": "page.libraryPage.noSecondaryNavPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 41
+   },
+   "errorsShown": []
+  },
+  "pc-movie": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 91,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "pc-series": {
+   "hash": "#/details?id=5171c7a6950f550b9b0de561fea6d6b7&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 49,
+    "Bebas Neue": 8
+   },
+   "errorsShown": []
+  },
+  "pc-season": {
+   "hash": "#/details?id=ed85bdb606d27697ca4a4fe9e9975377&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 24,
+    "Bebas Neue": 7
+   },
+   "errorsShown": []
+  },
+  "pc-episode": {
+   "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 29,
+    "Bebas Neue": 7
+   },
+   "errorsShown": []
+  },
+  "pc-person": {
+   "hash": "#/details?id=3ddbbdfd108f3c413e62f4a0453f9d9f&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 21,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-collection": {
+   "hash": "#/details?id=0327e4f53c9f431acd379b4a99fb40e1&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 7,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-playlist-music": {
+   "hash": "#/details?id=e2467b0a6a3a6c7c320b641a37564caf&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 9
+   },
+   "errorsShown": []
+  },
+  "pc-playlist-video": {
+   "hash": "#/details?id=0258068fa0f7655ee41def85eba251ab&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 11
+   },
+   "errorsShown": []
+  },
+  "pc-album": {
+   "hash": "#/details?id=cc5ed13fb470d82e0db2ae36f5836374&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 13,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-artist": {
+   "hash": "#/details?id=224d1f2074a36d1f67c7df04ec66efc6&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 10,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "pc-song": {
+   "hash": "#/details?id=033b629b849eb6ffeb9ee7756bb04eb7&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 19,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "pc-genre": {
+   "hash": "#/list?genreId=ce06903d834d2c3417e0889dd4049f3b&serverId=0b7fbde133b84b76a08f3fb",
+   "pageId": "page.libraryPage.noSecondaryNavPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 46
+   },
+   "errorsShown": []
+  },
+  "pc-genre-details": {
+   "hash": "#/details?id=ce06903d834d2c3417e0889dd4049f3b&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 13,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-studio": {
+   "hash": "#/list?studioId=a48502e9e65c13abf56f356f60ee1ade&serverId=0b7fbde133b84b76a08f3f",
+   "pageId": "page.libraryPage.noSecondaryNavPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 43
+   },
+   "errorsShown": []
+  },
+  "pc-search": {
+   "hash": "#/search",
+   "pageId": "searchPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(0, 0, 0) none",
+   "pageBg": "rgb(5, 13, 2) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 30
+   },
+   "errorsShown": []
+  },
+  "pc-search-results": {
+   "hash": "#/search?tbq=the",
+   "pageId": "searchPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(0, 0, 0) none",
+   "pageBg": "rgb(5, 13, 2) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 16
+   },
+   "errorsShown": []
+  },
+  "pc-prefs": {
+   "hash": "#/mypreferencesmenu",
+   "pageId": "myPreferencesMenuPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 7,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-prefs-profile": {
+   "hash": "#/userprofile?userId=a0a222b9e71847b9a72fd61b904fdbde",
+   "pageId": "userProfilePage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 2,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 12,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-prefs-display": {
+   "hash": "#/mypreferencesdisplay",
+   "pageId": null,
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(0, 0, 0) none",
+   "pageBg": null,
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 7
+   },
+   "errorsShown": []
+  },
+  "pc-prefs-display-user": {
+   "hash": "#/mypreferencesdisplay?userId=a0a222b9e71847b9a72fd61b904fdbde",
+   "pageId": "displayPreferencesPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 52,
+    "Noto Sans": 3
+   },
+   "errorsShown": []
+  },
+  "pc-prefs-home": {
+   "hash": "#/mypreferenceshome",
+   "pageId": "homeScreenPreferencesPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 1,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 30,
+    "Bebas Neue": 8
+   },
+   "errorsShown": []
+  },
+  "pc-prefs-playback": {
+   "hash": "#/mypreferencesplayback",
+   "pageId": "languagePreferencesPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 1,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 38,
+    "Bebas Neue": 6
+   },
+   "errorsShown": []
+  },
+  "pc-prefs-subtitles": {
+   "hash": "#/mypreferencessubtitles",
+   "pageId": "homeScreenPreferencesPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 1,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 21,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "pc-prefs-controls": {
+   "hash": "#/mypreferencescontrols",
+   "pageId": "controlsPreferencesPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 1,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 9,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-prefs-quickconnect": {
+   "hash": "#/quickconnect",
+   "pageId": "quickConnectPreferencesPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 1,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 10,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-metadata-manager": {
+   "hash": "#/metadata",
+   "pageId": "editItemMetadataPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {},
+   "errorsShown": []
+  },
+  "pc-dashboard": {
+   "hash": "#/dashboard",
+   "pageId": "dashboardPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 50,
+    "Funnel Sans": 9,
+    "Bebas Neue": 3
+   },
+   "errorsShown": []
+  },
+  "pc-dash-settings": {
+   "hash": "#/dashboard/settings",
+   "pageId": "dashboardGeneralPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 36
+   },
+   "errorsShown": []
+  },
+  "pc-dash-branding": {
+   "hash": "#/dashboard/branding",
+   "pageId": "brandingPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 25
+   },
+   "errorsShown": []
+  },
+  "pc-dash-users": {
+   "hash": "#/dashboard/users",
+   "pageId": "userProfilesPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 20
+   },
+   "errorsShown": []
+  },
+  "pc-dash-user": {
+   "hash": "#/dashboard/users/profile?userId=a0a222b9e71847b9a72fd61b904fdbde",
+   "pageId": "fallbackPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 3
+   },
+   "errorsShown": []
+  },
+  "pc-dash-libraries": {
+   "hash": "#/dashboard/libraries",
+   "pageId": "mediaLibraryPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 29,
+    "Material Icons": 1
+   },
+   "errorsShown": []
+  },
+  "pc-dash-lib-display": {
+   "hash": "#/dashboard/libraries/display",
+   "pageId": "libraryDisplayPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 34
+   },
+   "errorsShown": []
+  },
+  "pc-dash-lib-metadata": {
+   "hash": "#/dashboard/libraries/metadata",
+   "pageId": "metadataImagesConfigurationPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 31
+   },
+   "errorsShown": []
+  },
+  "pc-dash-lib-nfo": {
+   "hash": "#/dashboard/libraries/nfo",
+   "pageId": "metadataNfoPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 32
+   },
+   "errorsShown": []
+  },
+  "pc-dash-transcoding": {
+   "hash": "#/dashboard/playback/transcoding",
+   "pageId": "encodingSettingsPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 78
+   },
+   "errorsShown": []
+  },
+  "pc-dash-resume": {
+   "hash": "#/dashboard/playback/resume",
+   "pageId": "playbackConfigurationPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 33
+   },
+   "errorsShown": []
+  },
+  "pc-dash-streaming": {
+   "hash": "#/dashboard/playback/streaming",
+   "pageId": "streamingSettingsPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 25
+   },
+   "errorsShown": []
+  },
+  "pc-dash-trickplay": {
+   "hash": "#/dashboard/playback/trickplay",
+   "pageId": "trickplayConfigurationPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 46
+   },
+   "errorsShown": []
+  },
+  "pc-dash-devices": {
+   "hash": "#/dashboard/devices",
+   "pageId": "devicesPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 30
+   },
+   "errorsShown": []
+  },
+  "pc-dash-activity": {
+   "hash": "#/dashboard/activity",
+   "pageId": "serverActivityPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 53
+   },
+   "errorsShown": []
+  },
+  "pc-dash-livetv": {
+   "hash": "#/dashboard/livetv",
+   "pageId": "liveTvStatusPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 23
+   },
+   "errorsShown": []
+  },
+  "pc-dash-plugins": {
+   "hash": "#/dashboard/plugins",
+   "pageId": "pluginsPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 52
+   },
+   "errorsShown": []
+  },
+  "pc-dash-catalog": {
+   "hash": "#/dashboard/plugins",
+   "pageId": "pluginsPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 52
+   },
+   "errorsShown": []
+  },
+  "pc-dash-repos": {
+   "hash": "#/dashboard/plugins/repositories",
+   "pageId": "repositories",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 24
+   },
+   "errorsShown": []
+  },
+  "pc-dash-networking": {
+   "hash": "#/dashboard/networking",
+   "pageId": "networkingPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 67
+   },
+   "errorsShown": []
+  },
+  "pc-dash-keys": {
+   "hash": "#/dashboard/keys",
+   "pageId": "apiKeysPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 29
+   },
+   "errorsShown": []
+  },
+  "pc-dash-backups": {
+   "hash": "#/dashboard/backups",
+   "pageId": "backupsPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 23
+   },
+   "errorsShown": []
+  },
+  "pc-dash-logs": {
+   "hash": "#/dashboard/logs",
+   "pageId": "logPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 27
+   },
+   "errorsShown": []
+  },
+  "pc-dash-tasks": {
+   "hash": "#/dashboard/tasks",
+   "pageId": "scheduledTasksPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 51
+   },
+   "errorsShown": []
+  },
+  "pc-theme-settings": {
+   "hash": "#/configurationpage?name=UshereatsTheme",
+   "pageId": "sleekFinConfigurationPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 41,
+    "Material Icons": 2,
+    "Arial": 10
+   },
+   "errorsShown": []
+  },
+  "phone-home": {
+   "hash": "#/home",
+   "pageId": "indexPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 51,
+    "Bebas Neue": 4
+   },
+   "errorsShown": []
+  },
+  "phone-home-favourites": {
+   "hash": "#/home?tab=1",
+   "pageId": "indexPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 26,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "phone-movies": {
+   "hash": "#/movies?topParentId=f137a2dd21bbc1b99aa5c0f6bf02a805&collectionType=movies",
+   "pageId": "moviesPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 102,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "phone-shows": {
+   "hash": "#/tv?topParentId=a656b907eb3a73532e40e44b968d0225&collectionType=tvshows",
+   "pageId": "tvshowsPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 54,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "phone-music": {
+   "hash": "#/music?topParentId=7e64e319657a9516ec78490da03edccb&collectionType=music",
+   "pageId": "musicPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 37,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "phone-collections": {
+   "hash": "#/list?parentId=9d7ad6afe9afa2dab1a2f6e00ad28fa6&serverId=0b7fbde133b84b76a08f3f",
+   "pageId": "page.libraryPage.noSecondaryNavPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 32
+   },
+   "errorsShown": []
+  },
+  "phone-playlists": {
+   "hash": "#/list?parentId=a7d51ffbedb999b02979ce5ac063a377&serverId=0b7fbde133b84b76a08f3f",
+   "pageId": "page.libraryPage.noSecondaryNavPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 33
+   },
+   "errorsShown": []
+  },
+  "phone-movie": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 86,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "phone-series": {
+   "hash": "#/details?id=5171c7a6950f550b9b0de561fea6d6b7&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 44,
+    "Bebas Neue": 8
+   },
+   "errorsShown": []
+  },
+  "phone-season": {
+   "hash": "#/details?id=ed85bdb606d27697ca4a4fe9e9975377&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 19,
+    "Bebas Neue": 7
+   },
+   "errorsShown": []
+  },
+  "phone-episode": {
+   "hash": "#/details?id=d4d0efcbcb3114ada900d2214aeaa124&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 23,
+    "Bebas Neue": 7
+   },
+   "errorsShown": []
+  },
+  "phone-person": {
+   "hash": "#/details?id=3ddbbdfd108f3c413e62f4a0453f9d9f&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 16,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "phone-collection": {
+   "hash": "#/details?id=0327e4f53c9f431acd379b4a99fb40e1&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 2,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "phone-playlist-music": {
+   "hash": "#/details?id=e2467b0a6a3a6c7c320b641a37564caf&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 4
+   },
+   "errorsShown": []
+  },
+  "phone-playlist-video": {
+   "hash": "#/details?id=0258068fa0f7655ee41def85eba251ab&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 6
+   },
+   "errorsShown": []
+  },
+  "phone-album": {
+   "hash": "#/details?id=cc5ed13fb470d82e0db2ae36f5836374&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 8,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "phone-artist": {
+   "hash": "#/details?id=224d1f2074a36d1f67c7df04ec66efc6&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 5,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "phone-song": {
+   "hash": "#/details?id=033b629b849eb6ffeb9ee7756bb04eb7&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 14,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "phone-genre": {
+   "hash": "#/list?genreId=ce06903d834d2c3417e0889dd4049f3b&serverId=0b7fbde133b84b76a08f3fb",
+   "pageId": "page.libraryPage.noSecondaryNavPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 37
+   },
+   "errorsShown": []
+  },
+  "phone-genre-details": {
+   "hash": "#/details?id=ce06903d834d2c3417e0889dd4049f3b&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 8,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "phone-studio": {
+   "hash": "#/list?studioId=a48502e9e65c13abf56f356f60ee1ade&serverId=0b7fbde133b84b76a08f3f",
+   "pageId": "page.libraryPage.noSecondaryNavPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 34
+   },
+   "errorsShown": []
+  },
+  "phone-search": {
+   "hash": "#/search",
+   "pageId": "searchPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(0, 0, 0) none",
+   "pageBg": "rgb(5, 13, 2) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 25
+   },
+   "errorsShown": []
+  },
+  "phone-search-results": {
+   "hash": "#/search?tbq=the",
+   "pageId": "searchPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(0, 0, 0) none",
+   "pageBg": "rgb(5, 13, 2) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 11
+   },
+   "errorsShown": []
+  },
+  "phone-prefs": {
+   "hash": "#/mypreferencesmenu",
+   "pageId": "myPreferencesMenuPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 2,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "phone-prefs-profile": {
+   "hash": "#/userprofile?userId=a0a222b9e71847b9a72fd61b904fdbde",
+   "pageId": "userProfilePage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 2,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 7,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "phone-prefs-display": {
+   "hash": "#/mypreferencesdisplay",
+   "pageId": null,
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(0, 0, 0) none",
+   "pageBg": null,
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 2
+   },
+   "errorsShown": []
+  },
+  "phone-prefs-display-user": {
+   "hash": "#/mypreferencesdisplay?userId=a0a222b9e71847b9a72fd61b904fdbde",
+   "pageId": "displayPreferencesPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 47,
+    "Noto Sans": 3
+   },
+   "errorsShown": []
+  },
+  "phone-prefs-home": {
+   "hash": "#/mypreferenceshome",
+   "pageId": "homeScreenPreferencesPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 1,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 25,
+    "Bebas Neue": 8
+   },
+   "errorsShown": []
+  },
+  "phone-prefs-playback": {
+   "hash": "#/mypreferencesplayback",
+   "pageId": "languagePreferencesPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 1,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 33,
+    "Bebas Neue": 6
+   },
+   "errorsShown": []
+  },
+  "phone-prefs-subtitles": {
+   "hash": "#/mypreferencessubtitles",
+   "pageId": "homeScreenPreferencesPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 1,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 16,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "phone-prefs-controls": {
+   "hash": "#/mypreferencescontrols",
+   "pageId": "controlsPreferencesPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 1,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 4,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "phone-prefs-quickconnect": {
+   "hash": "#/quickconnect",
+   "pageId": "quickConnectPreferencesPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 1,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 5,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "phone-metadata-manager": {
+   "hash": "#/metadata",
+   "pageId": "editItemMetadataPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {},
+   "errorsShown": []
+  },
+  "phone-dashboard": {
+   "hash": "#/dashboard",
+   "pageId": "dashboardPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 20,
+    "Bebas Neue": 3,
+    "Noto Sans": 35
+   },
+   "errorsShown": []
+  },
+  "phone-theme-settings": {
+   "hash": "#/configurationpage?name=UshereatsTheme",
+   "pageId": "sleekFinConfigurationPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(6, 6, 8) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Noto Sans": 18,
+    "Arial": 10
+   },
+   "errorsShown": []
+  }
+ },
+ "menus": {
+  "pc-header-0": {
+   "hash": "#/home?tab=1",
+   "pageId": "indexPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 31,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "pc-header-1": {
+   "hash": "#/boxsets?topParentId=9d7ad6afe9afa2dab1a2f6e00ad28fa6&collectionType=boxsets",
+   "pageId": "boxsetsPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 36,
+    "Bebas Neue": 1,
+    "Material Icons": 1
+   },
+   "errorsShown": []
+  },
+  "pc-header-2": {
+   "hash": "#/movies?topParentId=f137a2dd21bbc1b99aa5c0f6bf02a805&collectionType=movies",
+   "pageId": "moviesPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 107,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-header-3": {
+   "hash": "#/music?topParentId=7e64e319657a9516ec78490da03edccb&collectionType=music",
+   "pageId": "musicPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 42,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-header-4": {
+   "hash": "#/playlists?topParentId=a7d51ffbedb999b02979ce5ac063a377&collectionType=playlist",
+   "pageId": "playlistsPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 37,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-header-5": {
+   "hash": "#/tv?topParentId=a656b907eb3a73532e40e44b968d0225&collectionType=tvshows",
+   "pageId": "tvshowsPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 59,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-header-6": {
+   "hash": "#/tv?topParentId=a656b907eb3a73532e40e44b968d0225&collectionType=tvshows",
+   "pageId": "tvshowsPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded bg=rgba(14, 14, 16, 0.96) radius=16px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 60,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-header-7": {
+   "hash": "#/tv?topParentId=a656b907eb3a73532e40e44b968d0225&collectionType=tvshows",
+   "pageId": "tvshowsPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded bg=rgba(14, 14, 16, 0.96) radius=16px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 60,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-user": {
+   "hash": "#/tv?topParentId=a656b907eb3a73532e40e44b968d0225&collectionType=tvshows",
+   "pageId": "tvshowsPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded bg=rgba(14, 14, 16, 0.78) radius=16px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 65,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-card-menu": {
+   "skipped": true
+  },
+  "pc-more": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "focuscontainer.dialog.actionsheet-not-fullscreen bg=rgba(22, 22, 24, 0.82) radius=12px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 91,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "pc-edit-metadata": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 3,
+   "dialogs": [
+    "focuscontainer.dialog.dialog-fixedSize bg=rgb(0, 0, 0) radius=0px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 133,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "pc-identify": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 1,
+   "dialogs": [
+    "focuscontainer.dialog.dialog-fixedSize bg=rgb(0, 0, 0) radius=0px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 99,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "pc-edit-images": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "focuscontainer.dialog.smoothScrollY bg=rgb(0, 0, 0) radius=0px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 102,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "pc-add-to-playlist": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 1,
+   "dialogs": [
+    "focuscontainer.dialog.dialog-fixedSize bg=rgb(0, 0, 0) radius=0px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 96,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "pc-add-to-collection": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 1,
+   "dialogs": [
+    "focuscontainer.dialog.dialog-fixedSize bg=rgb(0, 0, 0) radius=0px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 96,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "pc-edit-subtitles": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "focuscontainer.dialog.dialog-fixedSize bg=rgb(0, 0, 0) radius=0px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 97,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "pc-media-info": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "focuscontainer.dialog.dialog-fixedSize bg=rgb(0, 0, 0) radius=0px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 150,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "pc-toolbar-Sort": {
+   "skipped": true
+  },
+  "pc-toolbar-Filter": {
+   "skipped": true
+  },
+  "pc-toolbar-View": {
+   "skipped": true
+  },
+  "pc-toolbar-Random": {
+   "skipped": true
+  },
+  "pc-toolbar-Shuffle": {
+   "skipped": true
+  },
+  "pc-library-sort": {
+   "skipped": true
+  },
+  "pc-library-filter": {
+   "skipped": true
+  },
+  "pc-library-view": {
+   "skipped": true
+  },
+  "pc-player": {
+   "hash": "#/video",
+   "pageId": "videoOsdPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "tb-ps-netflix.tb-ps-has-logo bg=rgba(0, 0, 0, 0) radius=0px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 5
+   },
+   "errorsShown": []
+  },
+  "pc-player-settings": {
+   "hash": "#/video",
+   "pageId": "videoOsdPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "focuscontainer.dialog.actionsheet-not-fullscreen bg=rgba(18, 18, 20, 0.95) radius=14px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 2
+   },
+   "errorsShown": []
+  },
+  "pc-player-audio": {
+   "skipped": true
+  },
+  "pc-player-subtitles": {
+   "skipped": true
+  },
+  "pc-player-info": {
+   "skipped": true
+  },
+  "pc-music-playing": {
+   "hash": "#/details?id=cc5ed13fb470d82e0db2ae36f5836374&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 15,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "pc-now-playing-page": {
+   "hash": "#/queue",
+   "pageId": "nowPlayingPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 9
+   },
+   "errorsShown": []
+  },
+  "phone-header-0": {
+   "hash": "#/home",
+   "pageId": "indexPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded bg=rgba(14, 14, 16, 0.96) radius=16px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 52,
+    "Bebas Neue": 4
+   },
+   "errorsShown": []
+  },
+  "phone-header-1": {
+   "hash": "#/home",
+   "pageId": "indexPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded bg=rgba(14, 14, 16, 0.96) radius=16px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 52,
+    "Bebas Neue": 4
+   },
+   "errorsShown": []
+  },
+  "phone-header-2": {
+   "hash": "#/search",
+   "pageId": "searchPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(0, 0, 0) none",
+   "pageBg": "rgb(5, 13, 2) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 25
+   },
+   "errorsShown": []
+  },
+  "phone-user": {
+   "hash": "#/search",
+   "pageId": "searchPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(0, 0, 0) none",
+   "pageBg": "rgb(5, 13, 2) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded bg=rgba(14, 14, 16, 0.78) radius=16px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 31
+   },
+   "errorsShown": []
+  },
+  "phone-drawer": {
+   "hash": "#/search",
+   "pageId": "searchPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgb(0, 0, 0) none",
+   "pageBg": "rgb(5, 13, 2) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 33
+   },
+   "errorsShown": []
+  },
+  "phone-card-menu": {
+   "skipped": true
+  },
+  "phone-more": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "focuscontainer.dialog.actionsheet-not-fullscreen bg=rgba(22, 22, 24, 0.82) radius=12px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 86,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "phone-edit-metadata": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 3,
+   "dialogs": [
+    "focuscontainer.dialog.dialog-fixedSize bg=rgb(0, 0, 0) radius=0px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 128,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "phone-identify": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 1,
+   "dialogs": [
+    "focuscontainer.dialog.dialog-fixedSize bg=rgb(0, 0, 0) radius=0px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 94,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "phone-edit-images": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "focuscontainer.dialog.smoothScrollY bg=rgb(0, 0, 0) radius=0px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 97,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "phone-add-to-playlist": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 1,
+   "dialogs": [
+    "focuscontainer.dialog.dialog-fixedSize bg=rgb(0, 0, 0) radius=0px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 91,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "phone-add-to-collection": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 1,
+   "dialogs": [
+    "focuscontainer.dialog.dialog-fixedSize bg=rgb(0, 0, 0) radius=0px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 91,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "phone-edit-subtitles": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "focuscontainer.dialog.dialog-fixedSize bg=rgb(0, 0, 0) radius=0px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 92,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "phone-media-info": {
+   "hash": "#/details?id=fe509545192160afefdb312796033d71&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-details",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "focuscontainer.dialog.dialog-fixedSize bg=rgb(0, 0, 0) radius=0px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 145,
+    "Bebas Neue": 2
+   },
+   "errorsShown": []
+  },
+  "phone-toolbar-Sort": {
+   "skipped": true
+  },
+  "phone-toolbar-Filter": {
+   "skipped": true
+  },
+  "phone-toolbar-View": {
+   "skipped": true
+  },
+  "phone-toolbar-Random": {
+   "skipped": true
+  },
+  "phone-toolbar-Shuffle": {
+   "skipped": true
+  },
+  "phone-library-sort": {
+   "skipped": true
+  },
+  "phone-library-filter": {
+   "skipped": true
+  },
+  "phone-library-view": {
+   "skipped": true
+  },
+  "phone-player": {
+   "hash": "#/video",
+   "pageId": "videoOsdPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "tb-ps-netflix.tb-ps-has-logo bg=rgba(0, 0, 0, 0) radius=0px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 4
+   },
+   "errorsShown": []
+  },
+  "phone-player-settings": {
+   "hash": "#/video",
+   "pageId": "videoOsdPage",
+   "ambient": "on",
+   "ambientMode": "",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": false,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [
+    "focuscontainer.dialog.actionsheet-not-fullscreen bg=rgba(18, 18, 20, 0.95) radius=14px font=\"Funnel Sans\""
+   ],
+   "fonts": {
+    "Funnel Sans": 1
+   },
+   "errorsShown": []
+  },
+  "phone-player-audio": {
+   "skipped": true
+  },
+  "phone-player-subtitles": {
+   "skipped": true
+  },
+  "phone-player-info": {
+   "skipped": true
+  },
+  "phone-music-playing": {
+   "hash": "#/details?id=cc5ed13fb470d82e0db2ae36f5836374&serverId=0b7fbde133b84b76a08f3fb25",
+   "pageId": "itemDetailPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 10,
+    "Bebas Neue": 1
+   },
+   "errorsShown": []
+  },
+  "phone-now-playing-page": {
+   "hash": "#/queue",
+   "pageId": "nowPlayingPage",
+   "ambient": "on",
+   "ambientMode": "tb-ambient tb-ambient-page",
+   "bodyBg": "rgba(0, 0, 0, 0) none",
+   "pageBg": "rgba(0, 0, 0, 0) none",
+   "header": true,
+   "sideways": false,
+   "oldButtons": 0,
+   "dialogs": [],
+   "fonts": {
+    "Funnel Sans": 4
+   },
+   "errorsShown": []
+  }
+ },
+ "idle": {
+  "home": {
+   "per10s": {
+    "timeout:theme": 7,
+    "observer:jellyfin": 1,
+    "observer:theme": 9,
+    "interval:jellyfin": 5,
+    "timeout:jellyfin": 2,
+    "interval:theme": 1,
+    "frame:theme": 5
+   },
+   "observers": {
+    "jellyfin": 4,
+    "theme": 70
+   },
+   "longTasks": [],
+   "heapMb": 40,
+   "heapGrowKb": 0,
+   "nodes": 2519
+  },
+  "movie": {
+   "per10s": {
+    "interval:jellyfin": 5,
+    "timeout:jellyfin": 2
+   },
+   "observers": {
+    "jellyfin": 4,
+    "theme": 73
+   },
+   "longTasks": [],
+   "heapMb": 40,
+   "heapGrowKb": 0,
+   "nodes": 2069
+  },
+  "movies": {
+   "per10s": {
+    "timeout:theme": 1,
+    "observer:jellyfin": 1,
+    "observer:theme": 1,
+    "interval:jellyfin": 6,
+    "timeout:jellyfin": 2
+   },
+   "observers": {
+    "jellyfin": 4,
+    "theme": 74
+   },
+   "longTasks": [],
+   "heapMb": 40,
+   "heapGrowKb": 0,
+   "nodes": 2432
+  },
+  "dashboard": {
+   "per10s": {
+    "interval:jellyfin": 6,
+    "timeout:jellyfin": 2,
+    "interval:theme": 5,
+    "observer:jellyfin": 12,
+    "observer:theme": 27,
+    "timeout:theme": 22,
+    "frame:theme": 18
+   },
+   "observers": {
+    "jellyfin": 4,
+    "theme": 74
+   },
+   "longTasks": [],
+   "heapMb": 40,
+   "heapGrowKb": 0,
+   "nodes": 1033
+  },
+  "search": {
+   "per10s": {
+    "interval:jellyfin": 6,
+    "timeout:jellyfin": 2
+   },
+   "observers": {
+    "jellyfin": 4,
+    "theme": 74
+   },
+   "longTasks": [],
+   "heapMb": 40,
+   "heapGrowKb": 0,
+   "nodes": 640
+  }
+ },
+ "errors": [
+  "pc console: [userprofile] Unexpected null page reference",
+  "pc ActionSheet closed without resolving",
+  "phone console: [userprofile] Unexpected null page reference",
+  "phone ActionSheet closed without resolving"
+ ],
+ "pc-toolbar": [
+  "#",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S"
+ ],
+ "pc-dom-album": {
+  "cls": "page libraryPage itemDetailPage noSecondaryNavPage selfBackdropPage mainAnimatedPage noBackdropTransparency sleekfin-details-native",
+  "type": "MusicAlbum",
+  "tree": [
+   "div#itemDetailPage.page.libraryPage.itemDetailPage.noSecondaryNavPage.selfBackdropPage [0,80 1920x1000] block/absolute",
+   "  div#itemBackdrop.itemBackdrop [0,80 1920x432] block/relative",
+   "  div.detailLogo.hide [0,0 0x0] none/absolute",
+   "  div.detailPageWrapperContainer [0,512 1920x803] flex/static",
+   "    div.detailPagePrimaryContainer [0,512 1920x350] block/relative",
+   "      div.detailImageContainer.hide-mobile [0,512 1920x0] block/static",
+   "        div.card.squareCard [63,319 480x480] block/relative",
+   "      div.detailRibbon.padded-left.padded-right [0,405 1920x107] flex/relative",
+   "        div.infoWrapper [623,411 959x95] block/static",
+   "        div.mainDetailButtons.focuscontainer-x [1582,433 275x50] flex/static",
+   "      div.detailPagePrimaryContent.padded-right [0,512 1920x350] block/relative",
+   "        div.detailSection [623,545 1234x276] block/static",
+   "    div.detailPageSecondaryContainer.padded-left.padded-bottom-page [0,862 1920x454] block/static",
+   "      div#childrenCollapsible.hide.verticalSection.detailVerticalSection [0,0 0x0] none/static",
+   "        h2.sectionTitle.sectionTitle-cards.hide [0,0 0x0] none/static",
+   "        div [0,0 0x0] block/static",
+   "      div#additionalPartsCollapsible.verticalSection.detailVerticalSection.hide.emby-scroller-container [0,0 0x0] none/relative",
+   "        h2.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.emby-scrollbuttons.padded-right [0,0 0x0] flex/absolute",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller [0,0 0x0] block/static",
+   "      div.verticalSection.detailVerticalSection.moreFromSeasonSection.hide.emby-scroller-container [0,0 0x0] none/relative",
+   "        h2.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.emby-scrollbuttons.padded-right [0,0 0x0] flex/absolute",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller [0,0 0x0] block/static",
+   "      div#lyricsSection.verticalSection-extrabottompadding.detailVerticalSection.lyricsContainer.hide [0,0 0x0] none/static",
+   "        h2.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.vertical-list.lyricsLineContainer.itemsContainer [0,0 0x0] flex/static",
+   "      div.verticalSection.detailVerticalSection.moreFromArtistSection.hide.emby-scroller-container [0,0 0x0] none/relative",
+   "        h2.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.emby-scrollbuttons.padded-right [0,0 0x0] flex/absolute",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller [0,0 0x0] block/static",
+   "      div#castCollapsible.verticalSection.detailVerticalSection.hide.emby-scroller-container [0,0 0x0] none/relative",
+   "        h2#peopleHeader.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.emby-scrollbuttons.padded-right [0,0 0x0] flex/absolute",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller [0,0 0x0] block/static",
+   "      div#guestCastCollapsible.verticalSection.detailVerticalSection.hide.emby-scroller-container [0,0 0x0] none/relative",
+   "        h2#guestCastHeader.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.emby-scrollbuttons.padded-right [0,0 0x0] flex/absolute",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller [0,0 0x0] block/static",
+   "      div#seriesScheduleSection.verticalSection.detailVerticalSection.hide [0,0 0x0] none/static",
+   "        h2.sectionTitle.padded-right [0,0 0x0] block/static",
+   "        div#seriesScheduleList.itemsContainer.vertical-list.padded-right [0,0 0x0] flex/static"
+  ]
+ },
+ "pc-dom-person": {
+  "cls": "page libraryPage itemDetailPage noSecondaryNavPage selfBackdropPage mainAnimatedPage noBackdropTransparency sleekfin-details-native",
+  "type": "Person",
+  "tree": [
+   "div#itemDetailPage.page.libraryPage.itemDetailPage.noSecondaryNavPage.selfBackdropPage [0,80 1920x1000] block/absolute",
+   "  div#itemBackdrop.itemBackdrop [0,80 1920x432] block/relative",
+   "  div.detailLogo.hide [0,0 0x0] none/absolute",
+   "  div.detailPageWrapperContainer [0,512 1920x901] flex/static",
+   "    div.detailPagePrimaryContainer [0,512 1920x808] block/relative",
+   "      div.detailImageContainer.hide-mobile [0,512 1920x0] block/static",
+   "        div.card.portraitCard [63,319 480x720] block/relative",
+   "      div.detailRibbon.padded-left.padded-right [0,405 1920x107] flex/relative",
+   "        div.infoWrapper [623,440 1124x36] block/static",
+   "        div.mainDetailButtons.focuscontainer-x [1747,433 110x50] flex/static",
+   "      div.detailPagePrimaryContent.padded-right [0,512 1920x808] block/relative",
+   "        div.detailSection [623,545 1234x774] block/static",
+   "    div.detailPageSecondaryContainer.padded-left.padded-bottom-page [0,1320 1920x93] block/static",
+   "      div#childrenCollapsible.hide.verticalSection.detailVerticalSection [0,0 0x0] none/static",
+   "        h2.sectionTitle.sectionTitle-cards.hide [0,0 0x0] none/static",
+   "        div [0,0 0x0] block/static",
+   "      div#additionalPartsCollapsible.verticalSection.detailVerticalSection.hide.emby-scroller-container [0,0 0x0] none/relative",
+   "        h2.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.emby-scrollbuttons.padded-right [0,0 0x0] flex/absolute",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller [0,0 0x0] block/static",
+   "      div.verticalSection.detailVerticalSection.moreFromSeasonSection.hide.emby-scroller-container [0,0 0x0] none/relative",
+   "        h2.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.emby-scrollbuttons.padded-right [0,0 0x0] flex/absolute",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller [0,0 0x0] block/static",
+   "      div#lyricsSection.verticalSection-extrabottompadding.detailVerticalSection.lyricsContainer.hide [0,0 0x0] none/static",
+   "        h2.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.vertical-list.lyricsLineContainer.itemsContainer [0,0 0x0] flex/static",
+   "      div.verticalSection.detailVerticalSection.moreFromArtistSection.hide.emby-scroller-container [0,0 0x0] none/relative",
+   "        h2.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.emby-scrollbuttons.padded-right [0,0 0x0] flex/absolute",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller [0,0 0x0] block/static",
+   "      div#castCollapsible.verticalSection.detailVerticalSection.hide.emby-scroller-container [0,0 0x0] none/relative",
+   "        h2#peopleHeader.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.emby-scrollbuttons.padded-right [0,0 0x0] flex/absolute",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller [0,0 0x0] block/static",
+   "      div#guestCastCollapsible.verticalSection.detailVerticalSection.hide.emby-scroller-container [0,0 0x0] none/relative",
+   "        h2#guestCastHeader.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.emby-scrollbuttons.padded-right [0,0 0x0] flex/absolute",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller [0,0 0x0] block/static",
+   "      div#seriesScheduleSection.verticalSection.detailVerticalSection.hide [0,0 0x0] none/static",
+   "        h2.sectionTitle.padded-right [0,0 0x0] block/static",
+   "        div#seriesScheduleList.itemsContainer.vertical-list.padded-right [0,0 0x0] flex/static"
+  ]
+ },
+ "openTitle-0": [
+  "7ms:home",
+  "177ms:concealed",
+  "668ms:mounted"
+ ],
+ "openTitle-1": [
+  "52ms:concealed",
+  "605ms:mounted"
+ ],
+ "phone-toolbar": [
+  "#",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S"
+ ],
+ "phone-dom-album": {
+  "cls": "page libraryPage itemDetailPage noSecondaryNavPage selfBackdropPage mainAnimatedPage sleekfin-details-native",
+  "type": "MusicAlbum",
+  "tree": [
+   "div#itemDetailPage.page.libraryPage.itemDetailPage.noSecondaryNavPage.selfBackdropPage [0,80 390x764] block/absolute",
+   "  div#itemBackdrop.itemBackdrop [0,80 390x338] block/relative",
+   "  div.detailLogo.hide [0,0 0x0] none/absolute",
+   "  div.detailPageWrapperContainer [0,419 390x737] flex/relative",
+   "    div.detailPagePrimaryContainer [0,419 390x350] block/relative",
+   "      div.detailImageContainer.hide-mobile [0,419 390x0] block/static",
+   "        div.card.squareCard [13,419 98x98] block/relative",
+   "      div.detailRibbon.padded-left.padded-right [0,312 390x107] block/relative",
+   "        div.infoWrapper [127,312 251x82] block/static",
+   "        div.mainDetailButtons.focuscontainer-x [127,404 251x47] flex/static",
+   "      div.detailPagePrimaryContent.padded-right [0,419 390x350] block/relative",
+   "        div.detailSection [127,453 251x276] block/static",
+   "    div.detailPageSecondaryContainer.padded-left.padded-bottom-page [0,769 390x387] block/static",
+   "      div#childrenCollapsible.hide.verticalSection.detailVerticalSection [0,0 0x0] none/static",
+   "        h2.sectionTitle.sectionTitle-cards.hide [0,0 0x0] none/static",
+   "        div [0,0 0x0] block/static",
+   "      div#additionalPartsCollapsible.verticalSection.detailVerticalSection.hide [0,0 0x0] none/static",
+   "        h2.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller.scrollX [0,0 0x0] block/static",
+   "      div.verticalSection.detailVerticalSection.moreFromSeasonSection.hide [0,0 0x0] none/static",
+   "        h2.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller.scrollX [0,0 0x0] block/static",
+   "      div#lyricsSection.verticalSection-extrabottompadding.detailVerticalSection.lyricsContainer.hide [0,0 0x0] none/static",
+   "        h2.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.vertical-list.lyricsLineContainer.itemsContainer [0,0 0x0] flex/static",
+   "      div.verticalSection.detailVerticalSection.moreFromArtistSection.hide [0,0 0x0] none/static",
+   "        h2.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller.scrollX [0,0 0x0] block/static",
+   "      div#castCollapsible.verticalSection.detailVerticalSection.hide [0,0 0x0] none/static",
+   "        h2#peopleHeader.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller.scrollX [0,0 0x0] block/static",
+   "      div#guestCastCollapsible.verticalSection.detailVerticalSection.hide [0,0 0x0] none/static",
+   "        h2#guestCastHeader.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller.scrollX [0,0 0x0] block/static",
+   "      div#seriesScheduleSection.verticalSection.detailVerticalSection.hide [0,0 0x0] none/static",
+   "        h2.sectionTitle.padded-right [0,0 0x0] block/static",
+   "        div#seriesScheduleList.itemsContainer.vertical-list.padded-right [0,0 0x0] flex/static"
+  ]
+ },
+ "phone-dom-person": {
+  "cls": "page libraryPage itemDetailPage noSecondaryNavPage selfBackdropPage mainAnimatedPage sleekfin-details-native",
+  "type": "Person",
+  "tree": [
+   "div#itemDetailPage.page.libraryPage.itemDetailPage.noSecondaryNavPage.selfBackdropPage [0,80 390x764] block/absolute",
+   "  div#itemBackdrop.itemBackdrop [0,80 390x338] block/relative",
+   "  div.detailLogo.hide [0,0 0x0] none/absolute",
+   "  div.detailPageWrapperContainer [0,419 390x2108] flex/relative",
+   "    div.detailPagePrimaryContainer [0,419 390x2015] block/relative",
+   "      div.detailImageContainer.hide-mobile [0,419 390x0] block/static",
+   "        div.card.portraitCard [13,419 98x146] block/relative",
+   "      div.detailRibbon.padded-left.padded-right [0,312 390x107] block/relative",
+   "        div.infoWrapper [127,314 251x36] block/static",
+   "        div.mainDetailButtons.focuscontainer-x [127,360 251x47] flex/static",
+   "      div.detailPagePrimaryContent.padded-right [0,419 390x2015] block/relative",
+   "        div.detailSection [127,453 251x1981] block/static",
+   "    div.detailPageSecondaryContainer.padded-left.padded-bottom-page [0,2434 390x93] block/static",
+   "      div#childrenCollapsible.hide.verticalSection.detailVerticalSection [0,0 0x0] none/static",
+   "        h2.sectionTitle.sectionTitle-cards.hide [0,0 0x0] none/static",
+   "        div [0,0 0x0] block/static",
+   "      div#additionalPartsCollapsible.verticalSection.detailVerticalSection.hide [0,0 0x0] none/static",
+   "        h2.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller.scrollX [0,0 0x0] block/static",
+   "      div.verticalSection.detailVerticalSection.moreFromSeasonSection.hide [0,0 0x0] none/static",
+   "        h2.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller.scrollX [0,0 0x0] block/static",
+   "      div#lyricsSection.verticalSection-extrabottompadding.detailVerticalSection.lyricsContainer.hide [0,0 0x0] none/static",
+   "        h2.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.vertical-list.lyricsLineContainer.itemsContainer [0,0 0x0] flex/static",
+   "      div.verticalSection.detailVerticalSection.moreFromArtistSection.hide [0,0 0x0] none/static",
+   "        h2.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller.scrollX [0,0 0x0] block/static",
+   "      div#castCollapsible.verticalSection.detailVerticalSection.hide [0,0 0x0] none/static",
+   "        h2#peopleHeader.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller.scrollX [0,0 0x0] block/static",
+   "      div#guestCastCollapsible.verticalSection.detailVerticalSection.hide [0,0 0x0] none/static",
+   "        h2#guestCastHeader.sectionTitle.sectionTitle-cards.padded-right [0,0 0x0] block/static",
+   "        div.padded-top-focusscale.padded-bottom-focusscale.no-padding.emby-scroller.scrollX [0,0 0x0] block/static",
+   "      div#seriesScheduleSection.verticalSection.detailVerticalSection.hide [0,0 0x0] none/static",
+   "        h2.sectionTitle.padded-right [0,0 0x0] block/static",
+   "        div#seriesScheduleList.itemsContainer.vertical-list.padded-right [0,0 0x0] flex/static"
+  ]
+ }
+}

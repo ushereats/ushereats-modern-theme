@@ -1,0 +1,242 @@
+[
+ [
+  9420,
+  "start #/home"
+ ],
+ [
+  9645,
+  "held"
+ ],
+ [
+  9952,
+  "ready 533ms itemDetailPage"
+ ],
+ [
+  10306,
+  "done"
+ ],
+ [
+  12569,
+  "start #/home"
+ ],
+ [
+  12569,
+  "kept popstate"
+ ],
+ [
+  12678,
+  "kept hashchange"
+ ],
+ [
+  12777,
+  "held"
+ ],
+ [
+  12789,
+  "replayed popstate"
+ ],
+ [
+  12791,
+  "replayed hashchange"
+ ],
+ [
+  12877,
+  "no page change"
+ ],
+ [
+  13187,
+  "done"
+ ],
+ [
+  15615,
+  "start #/home"
+ ],
+ [
+  15733,
+  "held"
+ ],
+ [
+  15853,
+  "ready 238ms itemDetailPage"
+ ],
+ [
+  16182,
+  "done"
+ ],
+ [
+  18702,
+  "start #/home"
+ ],
+ [
+  18702,
+  "kept popstate"
+ ],
+ [
+  18810,
+  "kept hashchange"
+ ],
+ [
+  18896,
+  "held"
+ ],
+ [
+  18899,
+  "replayed popstate"
+ ],
+ [
+  18901,
+  "replayed hashchange"
+ ],
+ [
+  19003,
+  "no page change"
+ ],
+ [
+  19295,
+  "done"
+ ],
+ [
+  21790,
+  "start #/home"
+ ],
+ [
+  21922,
+  "held"
+ ],
+ [
+  22075,
+  "ready 284ms itemDetailPage"
+ ],
+ [
+  22407,
+  "done"
+ ],
+ [
+  24929,
+  "start #/home"
+ ],
+ [
+  24930,
+  "kept popstate"
+ ],
+ [
+  25104,
+  "kept hashchange"
+ ],
+ [
+  25244,
+  "held"
+ ],
+ [
+  25249,
+  "replayed popstate"
+ ],
+ [
+  25251,
+  "replayed hashchange"
+ ],
+ [
+  25251,
+  "no page change"
+ ],
+ [
+  25568,
+  "done"
+ ],
+ [
+  28019,
+  "start #/home"
+ ],
+ [
+  28197,
+  "held"
+ ],
+ [
+  28361,
+  "ready 341ms itemDetailPage"
+ ],
+ [
+  28759,
+  "done"
+ ],
+ [
+  31158,
+  "start #/home"
+ ],
+ [
+  31158,
+  "kept popstate"
+ ],
+ [
+  31298,
+  "kept hashchange"
+ ],
+ [
+  31384,
+  "held"
+ ],
+ [
+  31388,
+  "replayed popstate"
+ ],
+ [
+  31389,
+  "replayed hashchange"
+ ],
+ [
+  31459,
+  "no page change"
+ ],
+ [
+  31747,
+  "done"
+ ],
+ [
+  34510,
+  "start #/home"
+ ],
+ [
+  34648,
+  "held"
+ ],
+ [
+  34764,
+  "ready 254ms itemDetailPage"
+ ],
+ [
+  35105,
+  "done"
+ ],
+ [
+  38098,
+  "start #/details?id=d20d52dd0dfb390eccf3bc6d42c66edc&serverId=c1de8c92853b45a4bcce537e033ee821"
+ ],
+ [
+  38200,
+  "kept popstate"
+ ],
+ [
+  38305,
+  "kept hashchange"
+ ],
+ [
+  38391,
+  "held"
+ ],
+ [
+  38395,
+  "replayed popstate"
+ ],
+ [
+  38396,
+  "replayed hashchange"
+ ],
+ [
+  38907,
+  "ready 809ms indexPage"
+ ],
+ [
+  39182,
+  "done"
+ ]
+]

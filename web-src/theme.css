@@ -874,10 +874,13 @@ html body .alphaPicker:not(#tb-x) .alphaPickerButton.Mui-focusVisible { box-shad
 /* the page never scrolls sideways (rows scroll inside themselves) */
 html body { overflow-x: clip; }
 
-/* once you scroll, the top bar gets a solid backing so rows and banner text don't show through the logo */
-html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"]::before {
-  background: linear-gradient(180deg, rgba(6, 6, 8, 0.97) 0%, rgba(6, 6, 8, 0.9) 62%, rgba(6, 6, 8, 0) 100%) !important;
-  height: calc(var(--sleekfin-header-height) + 22px) !important;
+/* phones/tablets only: once you scroll, the top bar gets a solid backing so rows don't show through the logo
+   (PC keeps SleekFin's own soft fade, which lets the ambient colour through) */
+@media (max-width: 899px) {
+  html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"]::before {
+    background: linear-gradient(180deg, rgba(6, 6, 8, 0.97) 0%, rgba(6, 6, 8, 0.9) 62%, rgba(6, 6, 8, 0) 100%) !important;
+    height: calc(var(--sleekfin-header-height) + 22px) !important;
+  }
 }
 
 /* portrait monitors (taller than wide): the banners are as tall as a wide picture fits, not 85% of a very

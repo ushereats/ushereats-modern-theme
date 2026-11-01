@@ -48,8 +48,9 @@
       if (it.Primary) return img(it.Id, "Primary", it.Primary, shape);
       return "";
     }
-    if (it.Primary) return img(it.Id, "Primary", it.Primary, shape);
+    // a new episode in a poster row shows its show's poster (an episode's own picture is a wide video still)
     if (it.Type === "Episode" && it.SeriesId && it.SeriesPrimaryImageTag) return img(it.SeriesId, "Primary", it.SeriesPrimaryImageTag, shape);
+    if (it.Primary) return img(it.Id, "Primary", it.Primary, shape);
     if (it.Thumb) return img(it.Id, "Thumb", it.Thumb, shape);
     return "";
   }

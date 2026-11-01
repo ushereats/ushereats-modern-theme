@@ -434,8 +434,6 @@ public static class ThemeAssets
 
     private static readonly string[] SleekScripts = { "sleek_runtime.js", "sleek_theme.js", "sleek_header.js", "sleek_media.js", "sleek_details.js" };
 
-    /// <summary>The built-in SleekFin is used unless the separate SleekFin plugin is still installed.</summary>
-
     private static readonly SleekConfiguration DefaultSleek = new SleekConfiguration();
 
     /// <summary>The one accent colour for the whole UI (main settings page).</summary>

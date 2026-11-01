@@ -85,8 +85,8 @@
     window.__tbHero = {
       user: srv.UserId,
       items: get(query).then(function (j) { return (j && j.Items) || null; }),
-      // the look settings are already in the page (built-in SleekFin); the old route only if SleekFin is separate
-      settings: window.__tbSleekHero ? Promise.resolve(window.__tbSleekHero) : get("SleekFin/Hero/Settings")
+      // the look settings are already in the page
+      settings: Promise.resolve(window.__tbSleekHero || null)
     };
   } catch (e) {}
 })();

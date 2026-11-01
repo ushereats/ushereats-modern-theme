@@ -2330,22 +2330,10 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="sleekfin-toggle-row" hidden>
-                                <div class="sleekfin-toggle-copy">
-                                    <label class="sleekfin-toggle-label" for="sleekFinHeroEnabled">Enable hero</label>
-                                    <div class="sleekfin-field-description">Adds a full-width hero carousel to the main Jellyfin home tab above media rows.</div>
-                                </div>
-                                <div class="sleekfin-toggle-actions">
-                                    <label class="sleekfin-toggle">
-                                        <input id="sleekFinHeroEnabled" type="checkbox" checked />
-                                        <span class="sleekfin-toggle-slider"></span>
-                                    </label>
-                                </div>
-                            </div>
                             <div class="sleekfin-toggle-row">
                                 <div class="sleekfin-toggle-copy">
                                     <label class="sleekfin-toggle-label" for="sleekFinDetailsEnabled">Use SleekFin detail pages</label>
-                                    <div class="sleekfin-field-description">Turn this off to keep Jellyfin's original Movie, Series, Season, and Episode pages while keeping the SleekFin header and hero.</div>
+                                    <div class="sleekfin-field-description">Off: Jellyfin's own Movie, Series, Season and Episode pages (the header and home page stay the theme's).</div>
                                 </div>
                                 <div class="sleekfin-toggle-actions">
                                     <label class="sleekfin-toggle">
@@ -2366,21 +2354,9 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="sleekfin-toggle-row" hidden>
-                                <div class="sleekfin-toggle-copy">
-                                    <label class="sleekfin-toggle-label" for="sleekFinDetailsCompactEpisodeGridCardsEnabled">Use compact episode grid cards</label>
-                                    <div class="sleekfin-field-description">Use the more compact version of episode cards which were default before v1.5.3.0</div>
-                                </div>
-                                <div class="sleekfin-toggle-actions">
-                                    <label class="sleekfin-toggle">
-                                        <input id="sleekFinDetailsCompactEpisodeGridCardsEnabled" type="checkbox" />
-                                        <span class="sleekfin-toggle-slider"></span>
-                                    </label>
-                                </div>
-                            </div>
                             <div class="sleekfin-toggle-row">
                                 <div class="sleekfin-toggle-copy">
-                                    <label class="sleekfin-toggle-label" for="sleekFinDropdownStyle">Dropdown style</label> <!-- todo: finish this -->
+                                    <label class="sleekfin-toggle-label" for="sleekFinDropdownStyle">Dropdown style</label>
                                     <div class="sleekfin-field-description">Choose Jellyfin, SeerrFin, or basic browser dropdowns for season and media selectors.</div>
                                 </div>
                                 <div class="sleekfin-toggle-actions">
@@ -2488,34 +2464,6 @@
                             </div>
 
                             <div class="sleekfin-hero-builder-content">
-                                <details class="sleekfin-hero-accordion">
-                                    <summary>Content rules</summary>
-                                    <div class="sleekfin-hero-settings">
-                                        <div class="sleekfin-hero-setting-row">
-                                            <div class="sleekfin-toggle-copy">
-                                                <label class="sleekfin-hero-setting-label" for="sleekFinHeroRandomized">Randomize order</label>
-                                                <div class="sleekfin-field-description">Randomly selects items from the enabled content sources.</div>
-                                            </div>
-                                            <div class="sleekfin-toggle-actions">
-                                                <label class="sleekfin-toggle">
-                                                    <input id="sleekFinHeroRandomized" type="checkbox" />
-                                                    <span class="sleekfin-toggle-slider"></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="sleekfin-hero-source-heading">
-                                            <span class="sleekfin-hero-setting-label">Content sources</span>
-                                            <div class="sleekfin-field-description">Choose which Jellyfin content appears. The first enabled source has the highest priority.</div>
-                                            <div id="sleekFinHeroSources" class="sleekfin-source-list"></div>
-                                        </div>
-                                        <div class="sleekfin-hero-setting-row">
-                                            <label class="sleekfin-hero-setting-label" for="sleekFinHeroSlidesShown">Slides shown</label>
-                                            <div class="sleekfin-input sleekfin-hero-number-field sleekfin-hero-setting-control">
-                                                <input id="sleekFinHeroSlidesShown" type="number" min="1" max="10" value="5" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </details>
 
                                 <details class="sleekfin-hero-accordion">
                                     <summary>Layout</summary>
@@ -3005,11 +2953,11 @@
             var form = document.getElementById('sleekFinConfigurationForm');
             var bannerTitle = page && page.querySelector('.sleekfin-page-banner > span');
             var enabledInput = document.getElementById('sleekFinEnabled');
-            var heroEnabledInput = document.getElementById('sleekFinHeroEnabled');
+            var heroEnabledInput = { checked: true };   // the theme always draws its own banner (setting removed)
             var detailsEnabledInput = document.getElementById('sleekFinDetailsEnabled');
             var detailsTrailerBackgroundInput = document.getElementById('sleekFinDetailsTrailerBackgroundEnabled');
             var detailsSeasonPostersInput = document.getElementById('sleekFinDetailsSeasonPostersEnabled');
-            var detailsCompactEpisodeGridCardsInput = document.getElementById('sleekFinDetailsCompactEpisodeGridCardsEnabled');
+            var detailsCompactEpisodeGridCardsInput = { checked: false };   // episodes are always a list (setting removed)
             var dropdownStyleInput = document.getElementById('sleekFinDropdownStyle');
             var accentInput = document.getElementById('sleekFinAccentColor');
             var shapeInputs = {
@@ -3018,8 +2966,8 @@
                 MediaCardShape: document.getElementById('sleekFinMediaCardShape'),
                 CastCrewShape: document.getElementById('sleekFinCastCrewShape')
             };
-            var randomizedInput = document.getElementById('sleekFinHeroRandomized');
-            var sources = document.getElementById('sleekFinHeroSources');
+            var randomizedInput = { checked: false };   // the banner shows the newest releases (content rules removed)
+            var sources = document.createElement('div');
             var dependencyStatus = document.getElementById('sleekFinDependencyStatus');
             var preview = document.getElementById('sleekFinBuilderPreview');
             var previewBar = document.getElementById('sleekFinBuilderPreviewBar');
@@ -3196,7 +3144,7 @@
                 HeroVignetteStrength: 72
             };
             var heroFields = {
-                HeroSlidesShown: document.getElementById('sleekFinHeroSlidesShown'),
+                HeroSlidesShown: (function () { var i = document.createElement('input'); i.type = 'number'; i.value = '5'; return i; })(),
                 HeroMobileHeight: document.getElementById('sleekFinHeroMobileHeight'),
                 HeroDesktopHeight: document.getElementById('sleekFinHeroDesktopHeight'),
                 HeroContentMaxWidth: document.getElementById('sleekFinHeroContentMaxWidth'),
@@ -4687,7 +4635,6 @@
                         }
                         var configuration = results[0];
                         enabledInput.checked = readValue(configuration, 'HeaderEnabled') !== false;
-                        heroEnabledInput.checked = readValue(configuration, 'HeroEnabled') !== false;
                         detailsEnabledInput.checked = readValue(configuration, 'DetailsEnabled') !== false;
                         detailsTrailerBackgroundInput.checked = readValue(configuration, 'DetailsTrailerBackgroundEnabled') === true;
                         detailsSeasonPostersInput.checked = readValue(configuration, 'DetailsSeasonPostersEnabled') === true;
@@ -4871,10 +4818,6 @@
                 var savedState;
                 if (configurationSavePromise) return;
                 var client = ApiClient;
-                if (heroEnabledInput.checked && !contentOrder.length) {
-                    Dashboard.alert('Select at least one hero content source.');
-                    return;
-                }
                 if (!validateColors()) {
                     return;
                 }
@@ -6037,6 +5980,8 @@
 
     <style>
         /* ── Modern look (layered over SleekFin's settings styles) ── */
+        /* SleekFin's rows set display:flex, which showed rows marked hidden */
+        #sleekFinConfigurationPage [hidden] { display: none !important; }
         #sleekFinConfigurationPage { --tb-a: var(--accent, #00a4dc); --tb-line: rgba(255,255,255,.09); --tb-card: rgba(255,255,255,.035); --tb-dim: rgba(255,255,255,.6); }
         #sleekFinConfigurationPage .content-primary { max-width: 1320px; }
         #sleekFinConfigurationPage .sleekfin-page-banner { background: transparent; color: #fff; padding: 0 0 .1em; font-size: 2.1em; font-weight: 800; letter-spacing: -.02em; text-align: left; }

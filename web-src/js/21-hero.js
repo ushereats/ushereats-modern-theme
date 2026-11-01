@@ -118,7 +118,7 @@
           Fields: "Overview,Genres", ImageTypes: "Backdrop", EnableImageTypes: "Logo,Backdrop", ImageTypeLimit: 1,
           EnableUserData: false, EnableTotalRecordCount: false, MaxPremiereDate: new Date().toISOString()
         })).then(function (j) { return (j && j.Items) || null; })["catch"](function () { return null; }),
-        r[1] ? Promise.resolve(r[1]) : window.__tbSleek && window.__tbSleek.hero ? Promise.resolve(window.__tbSleek.hero) : Promise.resolve(api.ajax({ type: "GET", url: api.getUrl("SleekFin/Hero/Settings"), dataType: "json" }))["catch"](function () { return null; })
+        r[1] ? Promise.resolve(r[1]) : window.__tbSleek && window.__tbSleek.hero ? Promise.resolve(window.__tbSleek.hero) : Promise.resolve(null)
       ]);
     }).then(function (r) {
       var list = (r[0] || []).map(slim).filter(function (x) { return x.Backdrop; });

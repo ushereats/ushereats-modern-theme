@@ -32,10 +32,6 @@ public static class SleekSettings
 
     public static object Hero(SleekConfiguration c) => new
         {
-            enabled = c.HeroEnabled,
-            contentOrder = HeroContentOrder.Normalize(c.HeroContentOrder),
-            randomized = c.HeroRandomized,
-            slidesShown = c.HeroSlidesShown,
             contentAlignment = c.HeroContentAlignment,
             verticalAlignment = c.HeroVerticalAlignment,
             mobileHeight = c.HeroMobileHeight,

@@ -136,14 +136,13 @@ public static class IndexPatch
     private static string SleekBoot(SleekConfiguration c)
     {
         string headerEnabled = c.HeaderEnabled ? "true" : "false";
-        string heroEnabled = c.HeroEnabled ? "true" : "false";
         string headerHeight = c.HeaderHeight.ToString(CultureInfo.InvariantCulture);
         string heroMobileHeight = c.HeroMobileHeight.ToString(CultureInfo.InvariantCulture);
         string heroDesktopHeight = c.HeroDesktopHeight.ToString(CultureInfo.InvariantCulture);
         string cardShape = WebUtility.HtmlEncode(c.MediaCardShape);
         string castShape = WebUtility.HtmlEncode(c.CastCrewShape);
         return "<script>(function(){var r=document.documentElement,t=(location.hash.slice(1)||location.pathname+location.search).replace(/^!+/,''),i=t.search(/[?&]/),p=(i<0?t:t.slice(0,i)).replace(/^[!\\/]+/,'/').replace(/\\/+$/,'')||'/',d=p==='/dashboard'||p.indexOf('/dashboard/')===0||p==='/configurationpage'||p==='/metadata'||p==='/video';"
-            + "r.dataset.sleekfinHeaderEnabled='" + headerEnabled + "';r.dataset.sleekfinHeroEnabled='" + heroEnabled + "';r.dataset.sleekfinMediaCardShape='" + cardShape + "';r.dataset.sleekfinCastCrewShape='" + castShape + "';"
+            + "r.dataset.sleekfinHeaderEnabled='" + headerEnabled + "';r.dataset.sleekfinMediaCardShape='" + cardShape + "';r.dataset.sleekfinCastCrewShape='" + castShape + "';"
             + "r.style.setProperty('--sleekfin-header-height','" + headerHeight + "px');r.style.setProperty('--sleekfin-hero-mobile-height','" + heroMobileHeight + "vh');r.style.setProperty('--sleekfin-hero-desktop-height','" + heroDesktopHeight + "vh');"
             + "if(" + headerEnabled + "&&!d)r.classList.add('sleekfin-header-boot-loading');"
             + "if(" + headerEnabled + ")setTimeout(function(){r.classList.remove('sleekfin-header-boot-loading')},4000)})();</script>";

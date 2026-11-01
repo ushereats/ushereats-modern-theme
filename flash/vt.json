@@ -1,0 +1,242 @@
+[
+ [
+  9966,
+  "start #/home"
+ ],
+ [
+  10386,
+  "held"
+ ],
+ [
+  10912,
+  "ready 526ms itemDetailPage"
+ ],
+ [
+  11453,
+  "done"
+ ],
+ [
+  13142,
+  "start #/home"
+ ],
+ [
+  13142,
+  "kept popstate"
+ ],
+ [
+  13261,
+  "kept hashchange"
+ ],
+ [
+  13329,
+  "held"
+ ],
+ [
+  13335,
+  "replayed popstate"
+ ],
+ [
+  13337,
+  "replayed hashchange"
+ ],
+ [
+  13470,
+  "ready 139ms indexPage"
+ ],
+ [
+  13779,
+  "done"
+ ],
+ [
+  16176,
+  "start #/home"
+ ],
+ [
+  16256,
+  "held"
+ ],
+ [
+  16723,
+  "ready 467ms itemDetailPage"
+ ],
+ [
+  17247,
+  "done"
+ ],
+ [
+  19271,
+  "start #/home"
+ ],
+ [
+  19271,
+  "kept popstate"
+ ],
+ [
+  19374,
+  "kept hashchange"
+ ],
+ [
+  19434,
+  "held"
+ ],
+ [
+  19440,
+  "replayed popstate"
+ ],
+ [
+  19442,
+  "replayed hashchange"
+ ],
+ [
+  19560,
+  "ready 125ms indexPage"
+ ],
+ [
+  19880,
+  "done"
+ ],
+ [
+  52322,
+  "start #/home"
+ ],
+ [
+  52547,
+  "held"
+ ],
+ [
+  52885,
+  "ready 338ms itemDetailPage"
+ ],
+ [
+  53474,
+  "done"
+ ],
+ [
+  55459,
+  "start #/home"
+ ],
+ [
+  55459,
+  "kept popstate"
+ ],
+ [
+  55596,
+  "kept hashchange"
+ ],
+ [
+  55666,
+  "held"
+ ],
+ [
+  55671,
+  "replayed popstate"
+ ],
+ [
+  55673,
+  "replayed hashchange"
+ ],
+ [
+  55807,
+  "ready 141ms indexPage"
+ ],
+ [
+  56109,
+  "done"
+ ],
+ [
+  88459,
+  "start #/home"
+ ],
+ [
+  88573,
+  "held"
+ ],
+ [
+  89130,
+  "ready 557ms itemDetailPage"
+ ],
+ [
+  89652,
+  "done"
+ ],
+ [
+  91580,
+  "start #/home"
+ ],
+ [
+  91580,
+  "kept popstate"
+ ],
+ [
+  91710,
+  "kept hashchange"
+ ],
+ [
+  91771,
+  "held"
+ ],
+ [
+  91795,
+  "replayed popstate"
+ ],
+ [
+  91797,
+  "replayed hashchange"
+ ],
+ [
+  91912,
+  "ready 141ms indexPage"
+ ],
+ [
+  92188,
+  "done"
+ ],
+ [
+  154706,
+  "start #/home"
+ ],
+ [
+  154841,
+  "held"
+ ],
+ [
+  155378,
+  "ready 537ms itemDetailPage"
+ ],
+ [
+  155936,
+  "done"
+ ],
+ [
+  158387,
+  "start #/details?id=d20d52dd0dfb390eccf3bc6d42c66edc&serverId=47a98f273a764fa4b8c5ff8f8609b803"
+ ],
+ [
+  158544,
+  "kept popstate"
+ ],
+ [
+  158544,
+  "held"
+ ],
+ [
+  158550,
+  "replayed popstate"
+ ],
+ [
+  158773,
+  "ready 228ms indexPage"
+ ],
+ [
+  159176,
+  "done"
+ ],
+ [
+  161185,
+  "start #/movies?topParentId=f137a2dd21bbc1b99aa5c0f6bf02a805&collectionType=movies"
+ ],
+ [
+  161186,
+  "kept popstate"
+ ]
+]

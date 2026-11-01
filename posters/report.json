@@ -1,0 +1,85 @@
+{
+ "before": [
+  {
+   "name": "Collections",
+   "type": "boxsets",
+   "types": []
+  },
+  {
+   "name": "Music",
+   "type": "music",
+   "types": []
+  },
+  {
+   "name": "Shows",
+   "type": "tvshows",
+   "types": []
+  },
+  {
+   "name": "Movies",
+   "type": "movies",
+   "types": []
+  }
+ ],
+ "shown": {
+  "libs": [
+   "Collections [x]",
+   "Shows [x]",
+   "Movies [x]"
+  ],
+  "sources": [
+   "1TheMovieDb↑↓",
+   "The Open Movie Databasemovies only↑↓",
+   "Embedded Image Extractormovies only↑↓",
+   "Screen Grabbermovies only↑↓"
+  ],
+  "note": null
+ },
+ "applyStatus": "Applied to 3 libraries.",
+ "shownAfter": [
+  "1Screen Grabbermovies only↑↓",
+  "2TheMovieDb↑↓",
+  "The Open Movie Databasemovies only↑↓",
+  "Embedded Image Extractormovies only↑↓"
+ ],
+ "after": [
+  {
+   "name": "Collections",
+   "type": "boxsets",
+   "types": [
+    "BoxSet: on=[TheMovieDb] order=[TheMovieDb] meta=[TheMovieDb]"
+   ]
+  },
+  {
+   "name": "Music",
+   "type": "music",
+   "types": []
+  },
+  {
+   "name": "Shows",
+   "type": "tvshows",
+   "types": [
+    "Series: on=[TheMovieDb] order=[TheMovieDb] meta=[TheMovieDb,The Open Movie Database]",
+    "Season: on=[TheMovieDb] order=[TheMovieDb] meta=[TheMovieDb]"
+   ]
+  },
+  {
+   "name": "Movies",
+   "type": "movies",
+   "types": [
+    "Movie: on=[Screen Grabber,TheMovieDb] order=[Screen Grabber,TheMovieDb,The Open Movie Database,Embedded Image Extractor] meta=[TheMovieDb,The Open Movie Database]"
+   ]
+  }
+ ],
+ "refresh": {
+  "running": false,
+  "total": 21,
+  "done": 21,
+  "failed": 0,
+  "startedUtc": "2026-11-01T08:43:51.4670266Z",
+  "finishedUtc": "2026-11-01T08:43:51.8638472Z",
+  "cancelled": false
+ },
+ "refreshStatusText": "Done: 21 of 21 titles.",
+ "errors": []
+}

@@ -84,6 +84,13 @@ public static class IndexPatch
               .Append("\";document.head.appendChild(s)}}catch(e){}</script>");
         }
 
+        // Page cross-fade: back / forward are listened to before Jellyfin's own listeners exist, so going back can
+        // hold the old screen before Jellyfin swaps the page (the theme script fills in __tbHold)
+        if (build.Config.PageTransitions)
+        {
+            sb.Append("<script>window.__tbEarlyHold=1;window.addEventListener(\"popstate\",function(e){if(window.__tbHold)window.__tbHold(e)},true);window.addEventListener(\"hashchange\",function(e){if(window.__tbHold)window.__tbHold(e)},true);</script>");
+        }
+
         // WebP images where the browser shows them (smaller than JPEG at the same quality). Asked for by name
         // ("&format=webp") rather than left to the browser's Accept header, so a cache in front of the server
         // (Cloudflare) keeps the WebP and JPEG copies apart and never hands one browser the other's.

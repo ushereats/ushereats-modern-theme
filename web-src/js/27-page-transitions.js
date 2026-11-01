@@ -52,8 +52,12 @@
       var sleek = !!document.querySelector("[data-sleekfin-details]") || html.classList.contains("sleekfin-details-mounted") || html.classList.contains("sleekfin-details-concealed");
       if (sleek) {
         if (!html.classList.contains("sleekfin-details-mounted") || html.classList.contains("sleekfin-details-concealed") || p.getAttribute("data-sleekfin-details") !== "true") return false;
-        var st = p.querySelector(".sleekfin-details-title");
-        if (!st || !(st.childNodes.length)) return false;
+        var st = p.querySelectorAll(".sleekfin-details-title");
+        if (st.length !== 1 || !st[0].childNodes.length) return false;
+        // Jellyfin's own title still showing next to SleekFin's (for a moment the name is there twice)
+        var nat = p.querySelectorAll(".nameContainer, .itemName, .parentName");
+        for (var i = 0; i < nat.length; i++) if (!nat[i].closest(".sleekfin-details-hero") && nat[i].getClientRects().length && nat[i].textContent.trim()) return false;
+        st = st[0];
         return st.innerHTML !== before;   // a new title, not the one we came from
       }
       var n = p.querySelector(".itemName");
@@ -118,7 +122,7 @@
             var now = Date.now(), p = current();
             if (!moved && (location.hash !== from || p !== page0)) moved = now;
             if (!moved && now - t0 > wait) { note("no page change"); return resolve(); }
-            if (moved && (p !== page0 || location.hash !== from) && now - last >= 70 && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); return resolve(); }
+            if (moved && (p !== page0 || location.hash !== from) && now - last >= 100 && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); return resolve(); }
             if (now - t0 > 900) { note("timeout " + (p && p.id)); return resolve(); }   // never hold the screen longer
             setTimeout(tick, 16);
           })();
@@ -155,8 +159,9 @@
       held.push(e.type === "popstate" ? new PopStateEvent("popstate", { state: e.state }) : new HashChangeEvent("hashchange", { oldURL: e.oldURL, newURL: e.newURL }));
       note("kept " + e.type);
     }
-    window.addEventListener("popstate", hold, true);
-    window.addEventListener("hashchange", hold, true);
+    // listened to from the page's first line (the plugin puts a hook there), so before Jellyfin's own listeners
+    if (window.__tbEarlyHold) window.__tbHold = hold;
+    else { window.addEventListener("popstate", hold, true); window.addEventListener("hashchange", hold, true); }
   }
 
   // ── fallback: the new page fades in (browsers without View Transitions) ──

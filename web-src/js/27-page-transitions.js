@@ -66,14 +66,15 @@
     }
     return seen(p) || t > 300;
   }
-  // a poster that's really on screen: laid out, inside the window, and not in something still hidden or faded out
+  // a poster that's really on screen: laid out, inside the window, and not inside something hidden
+  // (fades don't count: they don't move while the old screen is held, and play once it lets go)
   function seen(p) {
     var cards = p.querySelectorAll(".card[data-id], .listItem[data-id]"), h = window.innerHeight || 800;
     for (var i = 0; i < cards.length && i < 30; i++) {
       var r = cards[i].getBoundingClientRect();
       if (!r.height || r.bottom < 0 || r.top > h) continue;
       var e = cards[i], ok = true;
-      while (e && e !== p) { var cs = getComputedStyle(e); if (cs.visibility === "hidden" || +cs.opacity < 0.9 || cs.display === "none") { ok = false; break; } e = e.parentElement; }
+      while (e && e !== p) { var cs = getComputedStyle(e); if (cs.visibility === "hidden" || cs.display === "none") { ok = false; break; } e = e.parentElement; }
       if (ok) return true;
     }
     return false;

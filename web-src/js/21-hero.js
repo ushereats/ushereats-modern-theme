@@ -80,7 +80,7 @@
         var w = Math.min(2560, Math.max(960, Math.ceil((window.innerWidth || 1280) * dpr / 160) * 160));
         return base + "Items/" + id + "/Images/Backdrop/0?tag=" + encodeURIComponent(tag) + "&maxWidth=" + w + "&quality=90" + (window.__tbImgFmt || "");
       }
-      return base + "Items/" + id + "/Images/Logo?tag=" + encodeURIComponent(tag) + "&maxHeight=" + Math.ceil(140 * dpr) + "&quality=90" + (window.__tbImgFmt || "");
+      return base + "Items/" + id + "/Images/Logo?tag=" + encodeURIComponent(tag) + "&maxHeight=" + Math.ceil(140 * dpr) + "&quality=90" + (/webp/.test(window.__tbImgFmt || "") ? window.__tbImgFmt : "");   // logos are see-through: WebP or as they are
     };
   })();
   function shuffle(a) {

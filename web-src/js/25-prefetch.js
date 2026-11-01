@@ -86,6 +86,48 @@
     return open.apply(this, arguments);
   };
 
+  function webp() { return /webp/.test(window.__tbImgFmt || ""); }
+  function fmt(clear) { return webp() ? "webp" : clear ? "" : "jpg"; }
+
+  // ── posters made by Jellyfin's newer pages (they build their own image links, not through ApiClient) ──
+  // The same as below: twice the size, quality 96, WebP. Changed as the link is put on the picture, before it
+  // downloads. Links that already name a format (ours, the theme's own rows) are left alone.
+  var IMG = /\/Items\/[0-9a-f]{32}\/Images\/(Primary|Thumb|Banner)(\/\d+)?\?/i;
+  var DPR = Math.min(3, Math.max(1, window.devicePixelRatio || 1)), K = Math.max(1.5, 2 / DPR);
+  function upK(v) { return v ? Math.min(1000, Math.ceil(v * K / 20) * 20) : v; }
+  function sharpUrl(u) {
+    if (typeof u !== "string" || u.length > 2000 || !IMG.test(u) || /[?&]format=/i.test(u)) return u;
+    try {
+      var i = u.indexOf("?"), q = new URLSearchParams(u.slice(i + 1));
+      var fw = +q.get("fillWidth") || 0, fh = +q.get("fillHeight") || 0;
+      if (!(fw || fh || q.get("maxWidth") || q.get("maxHeight") || q.get("width") || q.get("height"))) return u;
+      if (fw && fh) { var nw = upK(fw); q.set("fillWidth", nw); q.set("fillHeight", Math.round(nw * fh / fw)); }
+      else ["fillWidth", "fillHeight", "maxWidth", "maxHeight", "width", "height"].forEach(function (n) { if (q.get(n)) q.set(n, upK(+q.get(n))); });
+      q.set("quality", Math.max(+q.get("quality") || 0, 96));
+      q.set("format", fmt(false));
+      return u.slice(0, i) + "?" + q.toString();
+    } catch (e) { return u; }
+  }
+  window.tbSharpUrl = sharpUrl;
+  (function patchImages() {
+    try {
+      var d = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+      if (d && d.set && d.configurable) {
+        Object.defineProperty(HTMLImageElement.prototype, "src", { configurable: true, enumerable: d.enumerable, get: d.get, set: function (v) { d.set.call(this, sharpUrl(v)); } });
+      }
+      var sa = Element.prototype.setAttribute;
+      Element.prototype.setAttribute = function (n, v) {
+        if (this.tagName === "IMG" && (n === "src" || n === "SRC")) v = sharpUrl(String(v));
+        return sa.call(this, n, v);
+      };
+      var bd = Object.getOwnPropertyDescriptor(CSSStyleDeclaration.prototype, "backgroundImage");
+      if (bd && bd.set && bd.configurable) {
+        Object.defineProperty(CSSStyleDeclaration.prototype, "backgroundImage", { configurable: true, enumerable: bd.enumerable, get: bd.get,
+          set: function (v) { bd.set.call(this, typeof v === "string" && v.indexOf("/Images/") > 0 ? v.replace(/url\((["']?)([^"')]+)\1\)/g, function (m, qq, u) { return "url(" + qq + sharpUrl(u) + qq + ")"; }) : v); } });
+      }
+    } catch (e) {}
+  })();
+
   // ── title logos at the size they're shown ──
   // Jellyfin's title page asks for a title's logo with no size, so the full original comes down (often
   // 0.3-1 MB, sometimes thousands of pixels wide) for a logo shown about 340 px wide. Every logo link made
@@ -109,7 +151,9 @@
       if (r) c.fillHeight = Math.round(c.fillWidth * r);
       ["maxHeight", "height"].concat(r ? [] : ["fillHeight"]).forEach(function (n) { if (c[n]) c[n] = up(+c[n]); });
       c.quality = Math.max(+c.quality || 0, 96);
-      if (window.__tbImgFmt && !c.format) c.format = "webp";
+      // named format (WebP, else JPEG) so a cache in front of the server keeps them apart; art and disc
+      // images can be see-through, so they only get WebP (JPEG has no transparency)
+      if (!c.format) { var f = fmt(/^(art|disc)$/i.test(String(c.type || ""))); if (f) c.format = f; }
       return c;
     }
     ["getScaledImageUrl", "getImageUrl"].forEach(function (m) {

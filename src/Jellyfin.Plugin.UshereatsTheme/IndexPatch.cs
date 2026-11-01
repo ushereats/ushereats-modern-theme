@@ -88,7 +88,7 @@ public static class IndexPatch
         // ("&format=webp") rather than left to the browser's Accept header, so a cache in front of the server
         // (Cloudflare) keeps the WebP and JPEG copies apart and never hands one browser the other's.
         // The answer is checked once by decoding a tiny WebP and remembered; until then the canvas test decides.
-        sb.Append("<script>(function(){var s=null;try{s=localStorage.getItem(\"tb-webp\")}catch(e){}var ok=s===\"1\";if(s===null){try{ok=document.createElement(\"canvas\").toDataURL(\"image/webp\").indexOf(\"data:image/webp\")===0}catch(e){}}window.__tbImgFmt=ok?\"&format=webp\":\"\";if(s===null){var i=new Image();i.onload=function(){try{localStorage.setItem(\"tb-webp\",i.width>0?\"1\":\"0\")}catch(e){}};i.onerror=function(){try{localStorage.setItem(\"tb-webp\",\"0\")}catch(e){}};i.src=\"data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA\"}})();</script>");
+        sb.Append("<script>(function(){var s=null;try{s=localStorage.getItem(\"tb-webp\")}catch(e){}var ok=s===\"1\";if(s===null){try{ok=document.createElement(\"canvas\").toDataURL(\"image/webp\").indexOf(\"data:image/webp\")===0}catch(e){}}window.__tbImgFmt=ok?\"&format=webp\":\"&format=jpg\";if(s===null){var i=new Image();i.onload=function(){try{localStorage.setItem(\"tb-webp\",i.width>0?\"1\":\"0\")}catch(e){}};i.onerror=function(){try{localStorage.setItem(\"tb-webp\",\"0\")}catch(e){}};i.src=\"data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA\"}})();</script>");
 
         // Instant hero: paints the hero we're about to show and asks for its data before Jellyfin even starts
         if (build.Config.Hero)

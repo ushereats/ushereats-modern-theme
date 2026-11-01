@@ -1,0 +1,400 @@
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20241111131257_AddedCustomDataKey was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20241111135439_AddedCustomDataKeyKey
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20241111135439_AddedCustomDataKeyKey was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20241112152323_FixAncestorIdConfig
+Nov 01 08:45:35 runnervm48cm3 systemd[1]: Stopping jellyfin.service - Jellyfin Media Server...
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20241112152323_FixAncestorIdConfig was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20241112232041_FixMediaStreams
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20241112232041_FixMediaStreams was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20241112234144_FixMediaStreams2
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20241112234144_FixMediaStreams2 was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20241113133548_EnforceUniqueItemValue
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20241113133548_EnforceUniqueItemValue was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20250202021306_FixedCollation
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20250202021306_FixedCollation was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20250204092455_MakeStartEndDateNullable
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20250204092455_MakeStartEndDateNullable was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20250214031148_ChannelIdGuid
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20250214031148_ChannelIdGuid was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20250326065026_AddInheritedParentalRatingSubValue
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20250326065026_AddInheritedParentalRatingSubValue was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20250327101120_AddKeyframeData
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20250327101120_AddKeyframeData was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20250327171413_AddHdr10PlusFlag
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20250327171413_AddHdr10PlusFlag was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20250331182844_FixAttachmentMigration
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20250331182844_FixAttachmentMigration was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20250401142247_FixAncestors
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20250401142247_FixAncestors was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20250405075612_FixItemValuesIndices
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20250405075612_FixItemValuesIndices was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20250609115616_DetachUserDataInsteadOfDelete
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20250609115616_DetachUserDataInsteadOfDelete was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20250622170802_BaseItemImageInfoDateModifiedNullable
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20250622170802_BaseItemImageInfoDateModifiedNullable was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20250714044826_ResetJournalMode
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20250714044826_ResetJournalMode was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20250913211637_AddProperParentChildRelationBaseItemWithCascade
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20250913211637_AddProperParentChildRelationBaseItemWithCascade was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20250925203415_ExtendPeopleMapKey
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20250925203415_ExtendPeopleMapKey was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20260113102337_AddLinkedChildrenTable
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20260113102337_AddLinkedChildrenTable was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20260113203012_ChangeOwnerIdToGuid
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20260113203012_ChangeOwnerIdToGuid was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20260113233000_AddForeignKeyToOwnerId
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [WRN] An operation of type 'SqlOperation' will be attempted while a rebuild of table 'BaseItems' is pending. The database may not be in an expected state. Review the SQL generated by this migration to help diagnose any failures. Consider moving these operations to a subsequent migration.
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [WRN] An operation of type 'UpdateDataOperation' will be attempted while a rebuild of table 'BaseItems' is pending. The database may not be in an expected state. Review the SQL generated by this migration to help diagnose any failures. Consider moving these operations to a subsequent migration.
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20260113233000_AddForeignKeyToOwnerId was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20260113233500_DropExtraIdsColumn
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20260113233500_DropExtraIdsColumn was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20260116114245_AddLatestItemsDateCreatedIndexes
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20260116114245_AddLatestItemsDateCreatedIndexes was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20260118182305_AddIndicesToImageInfo
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20260118182305_AddIndicesToImageInfo was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20260130232147_AddBaseItemNameIndex
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Migration 20260130232147_AddBaseItemNameIndex was successfully applied
+Nov 01 08:45:35 runnervm48cm3 jellyfin[3337]: [08:45:35] [INF] Perform migration 20260206224832_IndexOptimizations
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20260206224832_IndexOptimizations was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20260215201634_ChangePrimaryVersionIdToGuid
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20260215201634_ChangePrimaryVersionIdToGuid was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20260308123920_AddTypeCleanNameIndex
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20260308123920_AddTypeCleanNameIndex was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20260504075755_AddPartialIndexForItemCounts
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20260504075755_AddPartialIndexForItemCounts was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20260522092303_AddNormalizedUsername
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20260522092303_AddNormalizedUsername was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20260524120336_AddUniqueNormalizedUsernameIndex
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20260524120336_AddUniqueNormalizedUsernameIndex was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20260723111547_AllowDuplicatePlaylistChildren
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20260723111547_AllowDuplicatePlaylistChildren was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20260724185102_AddPrimaryVersionIdIndex
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20260724185102_AddPrimaryVersionIdIndex was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20260728170000_AddPeopleNameLowerIndex
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20260728170000_AddPeopleNameLowerIndex was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20260728182152_AddPeopleItemMapCoveringIndex
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20260728182152_AddPeopleItemMapCoveringIndex was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20260812050902_AddMediaStreamFilterIndex
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20260812050902_AddMediaStreamFilterIndex was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20260815063607_RemoveOrphanedUserPermissionsAndPreferences
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20260815063607_RemoveOrphanedUserPermissionsAndPreferences was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20261002210711_MakeOwnerIdIndexesPartial
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20261002210711_MakeOwnerIdIndexesPartial was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Saving system configuration
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Setting cache path: /var/cache/jellyfin
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Loaded plugin: TMDb 12.4.0.0
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Loaded plugin: Studio Images 12.4.0.0
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Loaded plugin: OMDb 12.4.0.0
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Loaded plugin: MusicBrainz 12.4.0.0
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Loaded plugin: ListenBrainz Similarity Provider 12.4.0.0
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Loaded plugin: AudioDB 12.4.0.0
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Registered 0 external search providers: . Fallback providers: Database (priority 100)
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] There are 5 migrations for stage AppInitialisation.
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20250420090000_AddDefaultPluginRepository
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Saving system configuration
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Setting cache path: /var/cache/jellyfin
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20250420090000_AddDefaultPluginRepository was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20250420110000_ReaddDefaultPluginRepository
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20250420110000_ReaddDefaultPluginRepository was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20250420160000_AddDefaultCastReceivers
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Saving system configuration
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Setting cache path: /var/cache/jellyfin
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20250420160000_AddDefaultCastReceivers was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20250420170000_UpdateDefaultPluginRepository
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Saving system configuration
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Setting cache path: /var/cache/jellyfin
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Migration 20250420170000_UpdateDefaultPluginRepository was successfully applied
+Nov 01 08:45:36 runnervm48cm3 jellyfin[3337]: [08:45:36] [INF] Perform migration 20250420230000_MoveTrickplayFiles
+Nov 01 08:45:37 runnervm48cm3 jellyfin[3337]: [08:45:37] [INF] Checked: 5000 - Moved: 0 - Time: 00:00:00.3755018
+Nov 01 08:45:37 runnervm48cm3 jellyfin[3337]: [08:45:37] [INF] Moved 0 items in 00:00:00.3759248
+Nov 01 08:45:37 runnervm48cm3 jellyfin[3337]: [08:45:37] [INF] Migration 20250420230000_MoveTrickplayFiles was successfully applied
+Nov 01 08:45:37 runnervm48cm3 jellyfin[3337]: [08:45:37] [INF] Attempt to cleanup JellyfinDb backup.
+Nov 01 08:45:37 runnervm48cm3 jellyfin[3337]: [08:45:37] [INF] Migrations have been applied, optimizing the database... This might take a while
+Nov 01 08:45:37 runnervm48cm3 jellyfin[3337]: [08:45:37] [INF] Not analyzing jellyfin.db, the library holds no items yet
+Nov 01 08:45:37 runnervm48cm3 jellyfin[3337]: [08:45:37] [INF] jellyfin.db optimized successfully!
+Nov 01 08:45:37 runnervm48cm3 jellyfin[3337]: [08:45:37] [INF] Kestrel is listening on 0.0.0.0
+Nov 01 08:45:37 runnervm48cm3 jellyfin[3337]: [08:45:37] [INF] Running startup tasks
+Nov 01 08:45:38 runnervm48cm3 jellyfin[3337]: [08:45:38] [INF] Daily trigger for Generate Trickplay Images set to fire at 2026-11-02 03:00:00.000 +00:00, which is 18:14:21.9811507 from now.
+Nov 01 08:45:38 runnervm48cm3 jellyfin[3337]: [08:45:38] [INF] Daily trigger for Extract Chapter Images set to fire at 2026-11-02 02:00:00.000 +00:00, which is 17:14:21.9787590 from now.
+Nov 01 08:45:38 runnervm48cm3 jellyfin[3337]: [08:45:38] [INF] Found ffmpeg version 8.1.3
+Nov 01 08:45:38 runnervm48cm3 jellyfin[3337]: [08:45:38] [INF] Available decoders: ["libdav1d", "av1", "av1_cuvid", "av1_qsv", "h264", "h264_qsv", "h264_cuvid", "hevc", "hevc_qsv", "hevc_cuvid", "mpeg2video", "mpeg2_qsv", "mpeg2_cuvid", "mpeg4", "mpeg4_cuvid", "msmpeg4", "vc1_qsv", "vc1_cuvid", "vp8", "libvpx", "vp8_cuvid", "vp8_qsv", "vp9", "libvpx-vp9", "vp9_cuvid", "vp9_qsv", "aac", "ac3", "ac4", "dca", "flac", "mp3", "truehd"]
+Nov 01 08:45:38 runnervm48cm3 jellyfin[3337]: [08:45:38] [INF] Available encoders: ["libsvtav1", "av1_nvenc", "av1_qsv", "av1_amf", "av1_vaapi", "libx264", "h264_amf", "h264_nvenc", "h264_qsv", "h264_v4l2m2m", "h264_vaapi", "libx265", "hevc_amf", "hevc_nvenc", "hevc_qsv", "hevc_vaapi", "mjpeg_qsv", "mjpeg_vaapi", "aac", "libfdk_aac", "ac3", "alac", "dca", "flac", "libmp3lame", "libopus", "truehd", "libvorbis", "srt"]
+Nov 01 08:45:38 runnervm48cm3 jellyfin[3337]: [08:45:38] [INF] Available filters: ["bwdif_cuda", "bwdif_opencl", "deinterlace_qsv", "deinterlace_vaapi", "flip_vulkan", "hwupload_cuda", "hwupload_vaapi", "libplacebo", "overlay_opencl", "overlay_qsv", "overlay_vaapi", "overlay_vulkan", "overlay_cuda", "procamp_vaapi", "scale_cuda", "scale_opencl", "scale_qsv", "scale_vaapi", "scale_vulkan", "tonemapx", "tonemap_cuda", "tonemap_opencl", "tonemap_vaapi", "transpose_cuda", "transpose_opencl", "transpose_vaapi", "transpose_vulkan", "vpp_qsv", "yadif_cuda", "yadif_opencl", "zscale", "alphasrc"]
+Nov 01 08:45:38 runnervm48cm3 jellyfin[3337]: [08:45:38] [INF] Available hwaccel types: ["cuda", "vaapi", "qsv", "drm", "opencl", "vulkan", "amf"]
+Nov 01 08:45:39 runnervm48cm3 jellyfin[3337]: [08:45:39] [INF] FFmpeg: /usr/lib/jellyfin-ffmpeg/ffmpeg
+Nov 01 08:45:39 runnervm48cm3 jellyfin[3337]: [08:45:39] [INF] ServerId: d8a01f52c3e94add8c6db446b0ff52e2
+Nov 01 08:45:39 runnervm48cm3 jellyfin[3337]: [08:45:39] [INF] Core startup complete
+Nov 01 08:45:39 runnervm48cm3 jellyfin[3337]: [08:45:39] [INF] Startup complete 0:00:06.200424
+Nov 01 08:45:41 runnervm48cm3 jellyfin[3337]: [08:45:41] [INF] Clean Transcode Directory Completed after 0 minute(s) and 0 seconds
+Nov 01 08:45:41 runnervm48cm3 jellyfin[3337]: [08:45:41] [INF] Update Plugins Completed after 0 minute(s) and 0 seconds
+Nov 01 08:45:50 runnervm48cm3 systemd[1]: jellyfin.service: State 'stop-sigterm' timed out. Killing.
+Nov 01 08:45:50 runnervm48cm3 systemd[1]: jellyfin.service: Killing process 3337 (jellyfin) with signal SIGKILL.
+Nov 01 08:45:50 runnervm48cm3 systemd[1]: jellyfin.service: Main process exited, code=killed, status=9/KILL
+Nov 01 08:45:50 runnervm48cm3 systemd[1]: jellyfin.service: Failed with result 'timeout'.
+Nov 01 08:45:50 runnervm48cm3 systemd[1]: Stopped jellyfin.service - Jellyfin Media Server.
+Nov 01 08:45:50 runnervm48cm3 systemd[1]: jellyfin.service: Consumed 6.305s CPU time.
+Nov 01 08:45:53 runnervm48cm3 systemd[1]: Started jellyfin.service - Jellyfin Media Server.
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Setting cache path: /var/cache/jellyfin
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Kestrel is listening on 0.0.0.0
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Jellyfin version: 12.4.0
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Environment Variables: ["[JELLYFIN_FFMPEG_OPT, --ffmpeg=/usr/lib/jellyfin-ffmpeg/ffmpeg]", "[JELLYFIN_USER, jellyfin]", "[JELLYFIN_SERVICE_OPT, ]", "[JELLYFIN_ADDITIONAL_OPTS, ]", "[JELLYFIN_NOWEBAPP_OPT, ]", "[JELLYFIN_LOG_DIR, /var/log/jellyfin]", "[JELLYFIN_ARGS, $JELLYFIN_WEB_OPT $JELLYFIN_FFMPEG_OPT $JELLYFIN_SERVICE_OPT $JELLYFIN_NOWEBAPP_OPT $JELLYFIN_ADDITIONAL_OPTS --datadir $JELLYFIN_DATA_DIR --configdir $JELLYFIN_CONFIG_DIR --logdir $JELLYFIN_LOG_DIR --cachedir $JELLYFIN_CACHE_DIR]", "[JELLYFIN_DATA_DIR, /var/lib/jellyfin]", "[JELLYFIN_WEB_OPT, --webdir=/usr/share/jellyfin/web]", "[JELLYFIN_CONFIG_DIR, /etc/jellyfin]", "[JELLYFIN_CACHE_DIR, /var/cache/jellyfin]"]
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Arguments: ["/usr/lib/jellyfin/bin/jellyfin.dll", "--webdir=/usr/share/jellyfin/web", "--ffmpeg=/usr/lib/jellyfin-ffmpeg/ffmpeg"]
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Operating system: Ubuntu 24.04.5 LTS
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Architecture: X64
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] 64-Bit Process: True
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] User Interactive: True
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Processor count: 4
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Program data path: /var/lib/jellyfin
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Log directory path: /var/log/jellyfin
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Config directory path: /etc/jellyfin
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Cache path: /var/cache/jellyfin
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Temp directory path: /tmp/jellyfin
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Web resources path: /usr/share/jellyfin/web
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Application directory: /usr/lib/jellyfin/bin/
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Storage path `/var/lib/jellyfin/data` (Fixed) successfully checked with 84.5GiB free which is over the minimum of 2GiB.
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Storage path `/var/cache/jellyfin` (Fixed) successfully checked with 84.5GiB free which is over the minimum of 2GiB.
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Storage path `/var/lib/jellyfin` (Fixed) successfully checked with 84.5GiB free which is over the minimum of 2GiB.
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Setting cache path: /var/cache/jellyfin
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] SQLite connection string: Data Source=/var/lib/jellyfin/data/jellyfin.db;Cache=Private;Default Timeout=60;Pooling=True
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] SQLITE connection pragma command set to:
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: PRAGMA locking_mode=NORMAL;
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: PRAGMA journal_size_limit=134217728;
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: PRAGMA synchronous=1;
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: PRAGMA temp_store=2;
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] The database locking mode has been set to: NoLock.
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] Initialise Migration service.
+Nov 01 08:45:53 runnervm48cm3 jellyfin[4806]: [08:45:53] [INF] System initialization detected. Seed data. Startup mode is: MediaServer
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Migration system initialisation completed.
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Setting cache path: /var/cache/jellyfin
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Registering whitelisted assemblies for plugin "Ushereats Theme"...
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Loading assemblies
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Loaded assembly Jellyfin.Plugin.FileTransformation, Version=3.0.3.0, Culture=neutral, PublicKeyToken=null from /var/lib/jellyfin/plugins/FileTransformation_ci/Jellyfin.Plugin.FileTransformation.dll
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Loaded assembly Jellyfin.Plugin.UshereatsTheme, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null from /var/lib/jellyfin/plugins/UshereatsTheme_ci/Jellyfin.Plugin.UshereatsTheme.dll
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Defined LAN subnets: ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Defined LAN exclusions: []
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Used LAN subnets: ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Filtered interface addresses: ["127.0.0.1", "10.1.0.219"]
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Bind Addresses ["0.0.0.0"]
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Remote IP filter is Allowlist
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Filtered subnets: []
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] SQLite connection string: Data Source=/var/lib/jellyfin/data/jellyfin.db;Cache=Private;Default Timeout=60;Pooling=True
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] SQLITE connection pragma command set to:
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: PRAGMA locking_mode=NORMAL;
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: PRAGMA journal_size_limit=134217728;
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: PRAGMA synchronous=1;
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: PRAGMA temp_store=2;
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] The database locking mode has been set to: NoLock.
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Prepare system for possible migrations
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Loaded plugin: File Transformation 3.0.3.0
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Loaded plugin: Ushereats Theme 1.0.0.0
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Loaded plugin: TMDb 12.4.0.0
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Loaded plugin: Studio Images 12.4.0.0
+Nov 01 08:45:54 runnervm48cm3 jellyfin[4806]: [08:45:54] [INF] Loaded plugin: OMDb 12.4.0.0
+Nov 01 08:45:55 runnervm48cm3 jellyfin[4806]: [08:45:55] [INF] Loaded plugin: MusicBrainz 12.4.0.0
+Nov 01 08:45:55 runnervm48cm3 jellyfin[4806]: [08:45:55] [INF] Loaded plugin: ListenBrainz Similarity Provider 12.4.0.0
+Nov 01 08:45:55 runnervm48cm3 jellyfin[4806]: [08:45:55] [INF] Loaded plugin: AudioDB 12.4.0.0
+Nov 01 08:45:55 runnervm48cm3 jellyfin[4806]: [08:45:55] [INF] Registered 0 external search providers: . Fallback providers: Database (priority 100)
+Nov 01 08:45:55 runnervm48cm3 jellyfin[4806]: [08:45:55] [INF] Kestrel is listening on 0.0.0.0
+Nov 01 08:45:55 runnervm48cm3 jellyfin[4806]: [08:45:55] [INF] [FileTransformation] Installing response transformation middleware
+Nov 01 08:45:56 runnervm48cm3 jellyfin[4806]: [08:45:56] [INF] Running startup tasks
+Nov 01 08:45:56 runnervm48cm3 jellyfin[4806]: [08:45:56] [INF] Daily trigger for Generate Trickplay Images set to fire at 2026-11-02 03:00:00.000 +00:00, which is 18:14:03.7747451 from now.
+Nov 01 08:45:56 runnervm48cm3 jellyfin[4806]: [08:45:56] [INF] Daily trigger for Extract Chapter Images set to fire at 2026-11-02 02:00:00.000 +00:00, which is 17:14:03.7726340 from now.
+Nov 01 08:45:56 runnervm48cm3 jellyfin[4806]: [08:45:56] [INF] Found ffmpeg version 8.1.3
+Nov 01 08:45:56 runnervm48cm3 jellyfin[4806]: [08:45:56] [INF] Available decoders: ["libdav1d", "av1", "av1_cuvid", "av1_qsv", "h264", "h264_qsv", "h264_cuvid", "hevc", "hevc_qsv", "hevc_cuvid", "mpeg2video", "mpeg2_qsv", "mpeg2_cuvid", "mpeg4", "mpeg4_cuvid", "msmpeg4", "vc1_qsv", "vc1_cuvid", "vp8", "libvpx", "vp8_cuvid", "vp8_qsv", "vp9", "libvpx-vp9", "vp9_cuvid", "vp9_qsv", "aac", "ac3", "ac4", "dca", "flac", "mp3", "truehd"]
+Nov 01 08:45:56 runnervm48cm3 jellyfin[4806]: [08:45:56] [INF] Available encoders: ["libsvtav1", "av1_nvenc", "av1_qsv", "av1_amf", "av1_vaapi", "libx264", "h264_amf", "h264_nvenc", "h264_qsv", "h264_v4l2m2m", "h264_vaapi", "libx265", "hevc_amf", "hevc_nvenc", "hevc_qsv", "hevc_vaapi", "mjpeg_qsv", "mjpeg_vaapi", "aac", "libfdk_aac", "ac3", "alac", "dca", "flac", "libmp3lame", "libopus", "truehd", "libvorbis", "srt"]
+Nov 01 08:45:56 runnervm48cm3 jellyfin[4806]: [08:45:56] [INF] Available filters: ["bwdif_cuda", "bwdif_opencl", "deinterlace_qsv", "deinterlace_vaapi", "flip_vulkan", "hwupload_cuda", "hwupload_vaapi", "libplacebo", "overlay_opencl", "overlay_qsv", "overlay_vaapi", "overlay_vulkan", "overlay_cuda", "procamp_vaapi", "scale_cuda", "scale_opencl", "scale_qsv", "scale_vaapi", "scale_vulkan", "tonemapx", "tonemap_cuda", "tonemap_opencl", "tonemap_vaapi", "transpose_cuda", "transpose_opencl", "transpose_vaapi", "transpose_vulkan", "vpp_qsv", "yadif_cuda", "yadif_opencl", "zscale", "alphasrc"]
+Nov 01 08:45:56 runnervm48cm3 jellyfin[4806]: [08:45:56] [INF] Available hwaccel types: ["cuda", "vaapi", "qsv", "drm", "opencl", "vulkan", "amf"]
+Nov 01 08:45:58 runnervm48cm3 jellyfin[4806]: [08:45:58] [INF] FFmpeg: /usr/lib/jellyfin-ffmpeg/ffmpeg
+Nov 01 08:45:58 runnervm48cm3 jellyfin[4806]: [08:45:58] [INF] ServerId: d8a01f52c3e94add8c6db446b0ff52e2
+Nov 01 08:45:58 runnervm48cm3 jellyfin[4806]: [08:45:58] [INF] Core startup complete
+Nov 01 08:45:58 runnervm48cm3 jellyfin[4806]: [08:45:58] [INF] Startup complete 0:00:04.5941652
+Nov 01 08:45:58 runnervm48cm3 jellyfin[4806]: [08:45:58] [INF] Saving system configuration
+Nov 01 08:45:58 runnervm48cm3 jellyfin[4806]: [08:45:58] [INF] Setting cache path: /var/cache/jellyfin
+Nov 01 08:45:58 runnervm48cm3 jellyfin[4806]: [08:45:58] [WRN] No users, creating one with username jellyfin
+Nov 01 08:45:58 runnervm48cm3 jellyfin[4806]: [08:45:58] [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] Clean Transcode Directory Completed after 0 minute(s) and 0 seconds
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] [Ushereats Theme] Trending: no TMDB key in the plugin settings, skipped.
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] Ushereats Theme: Trending This Week Completed after 0 minute(s) and 0 seconds
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] [FileTransformation] Registering transformation for 'index.html' (ID: fc34dcce-8a8a-4ac4-a7ae-fdbdc6589563)
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] Defined LAN subnets: ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] Defined LAN exclusions: []
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] Used LAN subnets: ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] Filtered interface addresses: ["127.0.0.1", "10.1.0.219"]
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] Bind Addresses ["0.0.0.0"]
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] Remote IP filter is Allowlist
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] Filtered subnets: []
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] Saving system configuration
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] Setting cache path: /var/cache/jellyfin
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] Validating media library
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] Update Plugins Completed after 0 minute(s) and 0 seconds
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] Authentication request for ci has succeeded.
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] Current/Max sessions for user ci: 0/0
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [INF] Creating new access token for user f4c86dff-af22-449b-be52-ac8f774f5aa9
+Nov 01 08:45:59 runnervm48cm3 jellyfin[4806]: [08:45:59] [WRN] Library folder /var/lib/jellyfin/data/playlists is inaccessible or empty, skipping
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [WRN] Library folder /var/lib/jellyfin/data/playlists is inaccessible or empty, skipping
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Running 9 post-scan task(s)
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Running post-scan task 1/9: SplashscreenPostScanTask
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Post-scan task SplashscreenPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Running post-scan task 2/9: ArtistsPostScanTask
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Refreshed metadata for 0 new artists out of 0 total
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Post-scan task ArtistsPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Running post-scan task 3/9: CollectionPosterVerifyPostScanTask
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Post-scan task CollectionPosterVerifyPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Running post-scan task 4/9: CollectionPostScanTask
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Post-scan task CollectionPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Running post-scan task 5/9: GenresPostScanTask
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [WRN] Library folder /var/lib/jellyfin/data/playlists is inaccessible or empty, skipping
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Refreshed metadata for 0 new genres out of 0 total
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] [Ushereats Theme] Registered with File Transformation.
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Ushereats Theme Startup Completed after 0 minute(s) and 1 seconds
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Post-scan task GenresPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Running post-scan task 6/9: MusicGenresPostScanTask
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Refreshed metadata for 0 new music genres out of 0 total
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Post-scan task MusicGenresPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Running post-scan task 7/9: StudiosPostScanTask
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Refreshed metadata for 0 new studios out of 0 total
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Post-scan task StudiosPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Running post-scan task 8/9: CleanDatabaseScheduledTask
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Post-scan task CleanDatabaseScheduledTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Running post-scan task 9/9: RefreshDatabaseStatisticsPostScanTask
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Post-scan task RefreshDatabaseStatisticsPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] All post-scan tasks completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:00 runnervm48cm3 jellyfin[4806]: [08:46:00] [INF] Scan Media Library Completed after 0 minute(s) and 1 seconds
+Nov 01 08:46:01 runnervm48cm3 jellyfin[4806]: [08:46:01] [WRN] Library folder /var/lib/jellyfin/data/playlists is inaccessible or empty, skipping
+Nov 01 08:46:02 runnervm48cm3 jellyfin[4806]: [08:46:02] [WRN] Library folder /var/lib/jellyfin/data/playlists is inaccessible or empty, skipping
+Nov 01 08:46:03 runnervm48cm3 jellyfin[4806]: [08:46:03] [INF] Validating media library
+Nov 01 08:46:03 runnervm48cm3 jellyfin[4806]: [08:46:03] [WRN] Library folder /var/lib/jellyfin/data/playlists is inaccessible or empty, skipping
+Nov 01 08:46:03 runnervm48cm3 jellyfin[4806]: [08:46:03] [WRN] Library folder /var/lib/jellyfin/data/playlists is inaccessible or empty, skipping
+Nov 01 08:46:16 runnervm48cm3 jellyfin[4806]: [08:46:16] [INF] Running 9 post-scan task(s)
+Nov 01 08:46:16 runnervm48cm3 jellyfin[4806]: [08:46:16] [INF] Running post-scan task 1/9: SplashscreenPostScanTask
+Nov 01 08:46:18 runnervm48cm3 jellyfin[4806]: [08:46:18] [INF] Post-scan task SplashscreenPostScanTask completed after 0 minute(s) and 1 seconds
+Nov 01 08:46:18 runnervm48cm3 jellyfin[4806]: [08:46:18] [INF] Running post-scan task 2/9: ArtistsPostScanTask
+Nov 01 08:46:19 runnervm48cm3 jellyfin[4806]: [08:46:19] [INF] Refreshed metadata for 1 new artists out of 3 total
+Nov 01 08:46:19 runnervm48cm3 jellyfin[4806]: [08:46:19] [INF] Post-scan task ArtistsPostScanTask completed after 0 minute(s) and 1 seconds
+Nov 01 08:46:19 runnervm48cm3 jellyfin[4806]: [08:46:19] [INF] Running post-scan task 3/9: CollectionPosterVerifyPostScanTask
+Nov 01 08:46:20 runnervm48cm3 jellyfin[4806]: [08:46:20] [INF] Post-scan task CollectionPosterVerifyPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:20 runnervm48cm3 jellyfin[4806]: [08:46:20] [INF] Running post-scan task 4/9: CollectionPostScanTask
+Nov 01 08:46:20 runnervm48cm3 jellyfin[4806]: [08:46:20] [INF] Post-scan task CollectionPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:20 runnervm48cm3 jellyfin[4806]: [08:46:20] [INF] Running post-scan task 5/9: GenresPostScanTask
+Nov 01 08:46:21 runnervm48cm3 jellyfin[4806]: [08:46:21] [INF] Refreshed metadata for 8 new genres out of 8 total
+Nov 01 08:46:21 runnervm48cm3 jellyfin[4806]: [08:46:21] [INF] Post-scan task GenresPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:21 runnervm48cm3 jellyfin[4806]: [08:46:21] [INF] Running post-scan task 6/9: MusicGenresPostScanTask
+Nov 01 08:46:21 runnervm48cm3 jellyfin[4806]: [08:46:21] [INF] Refreshed metadata for 2 new music genres out of 2 total
+Nov 01 08:46:21 runnervm48cm3 jellyfin[4806]: [08:46:21] [INF] Post-scan task MusicGenresPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:21 runnervm48cm3 jellyfin[4806]: [08:46:21] [INF] Running post-scan task 7/9: StudiosPostScanTask
+Nov 01 08:46:21 runnervm48cm3 jellyfin[4806]: [08:46:21] [INF] Refreshed metadata for 3 new studios out of 3 total
+Nov 01 08:46:21 runnervm48cm3 jellyfin[4806]: [08:46:21] [INF] Post-scan task StudiosPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:21 runnervm48cm3 jellyfin[4806]: [08:46:21] [INF] Running post-scan task 8/9: CleanDatabaseScheduledTask
+Nov 01 08:46:21 runnervm48cm3 jellyfin[4806]: [08:46:21] [INF] Post-scan task CleanDatabaseScheduledTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:21 runnervm48cm3 jellyfin[4806]: [08:46:21] [INF] Running post-scan task 9/9: RefreshDatabaseStatisticsPostScanTask
+Nov 01 08:46:21 runnervm48cm3 jellyfin[4806]: [08:46:21] [INF] Analyzing jellyfin.db
+Nov 01 08:46:21 runnervm48cm3 jellyfin[4806]: [08:46:21] [INF] Post-scan task RefreshDatabaseStatisticsPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:21 runnervm48cm3 jellyfin[4806]: [08:46:21] [INF] All post-scan tasks completed after 0 minute(s) and 4 seconds
+Nov 01 08:46:21 runnervm48cm3 jellyfin[4806]: [08:46:21] [INF] Scan Media Library Completed after 0 minute(s) and 17 seconds
+Nov 01 08:46:23 runnervm48cm3 jellyfin[4806]: [08:46:23] [WRN] Library folder /var/lib/jellyfin/data/playlists is inaccessible or empty, skipping
+Nov 01 08:46:23 runnervm48cm3 jellyfin[4806]: [08:46:23] [INF] Validating media library
+Nov 01 08:46:24 runnervm48cm3 jellyfin[4806]: [08:46:24] [INF] Running 9 post-scan task(s)
+Nov 01 08:46:24 runnervm48cm3 jellyfin[4806]: [08:46:24] [INF] Running post-scan task 1/9: SplashscreenPostScanTask
+Nov 01 08:46:24 runnervm48cm3 systemd[1]: Stopping jellyfin.service - Jellyfin Media Server...
+Nov 01 08:46:24 runnervm48cm3 jellyfin[4806]: [08:46:24] [INF] Sending shutdown notifications
+Nov 01 08:46:24 runnervm48cm3 jellyfin[4806]: [08:46:24] [INF] Preparing the database for shutdown...
+Nov 01 08:46:24 runnervm48cm3 jellyfin[4806]: [08:46:24] [INF] Scan Media Library: Cancelling
+Nov 01 08:46:24 runnervm48cm3 jellyfin[4806]: [08:46:24] [INF] Scan Media Library: Waiting on Task
+Nov 01 08:46:25 runnervm48cm3 jellyfin[4806]: [08:46:25] [INF] Post-scan task SplashscreenPostScanTask completed after 0 minute(s) and 1 seconds
+Nov 01 08:46:25 runnervm48cm3 jellyfin[4806]: [08:46:25] [INF] Running post-scan task 2/9: ArtistsPostScanTask
+Nov 01 08:46:25 runnervm48cm3 jellyfin[4806]: [08:46:25] [INF] Refreshed metadata for 0 new artists out of 3 total
+Nov 01 08:46:25 runnervm48cm3 jellyfin[4806]: [08:46:25] [INF] Post-scan task ArtistsPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:25 runnervm48cm3 jellyfin[4806]: [08:46:25] [INF] Running post-scan task 3/9: CollectionPosterVerifyPostScanTask
+Nov 01 08:46:25 runnervm48cm3 jellyfin[4806]: [08:46:25] [INF] Post-scan task CollectionPosterVerifyPostScanTask cancelled after 0 minute(s) and 0 seconds
+Nov 01 08:46:25 runnervm48cm3 jellyfin[4806]: [08:46:25] [INF] Scan Media Library Cancelled after 0 minute(s) and 2 seconds
+Nov 01 08:46:25 runnervm48cm3 jellyfin[4806]: [08:46:25] [INF] Scan Media Library: Task exited
+Nov 01 08:46:25 runnervm48cm3 jellyfin[4806]: [08:46:25] [INF] Scan Media Library Aborted after 0 minute(s) and 2 seconds
+Nov 01 08:46:25 runnervm48cm3 jellyfin[4806]: [08:46:25] [INF] Disposing CoreAppHost
+Nov 01 08:46:25 runnervm48cm3 jellyfin[4806]: [08:46:25] [INF] Disposing Plugin
+Nov 01 08:46:25 runnervm48cm3 systemd[1]: jellyfin.service: Deactivated successfully.
+Nov 01 08:46:25 runnervm48cm3 systemd[1]: Stopped jellyfin.service - Jellyfin Media Server.
+Nov 01 08:46:25 runnervm48cm3 systemd[1]: jellyfin.service: Consumed 28.265s CPU time.
+Nov 01 08:46:25 runnervm48cm3 systemd[1]: Started jellyfin.service - Jellyfin Media Server.
+Nov 01 08:46:25 runnervm48cm3 jellyfin[5463]: [08:46:25] [INF] Setting cache path: /var/cache/jellyfin
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Kestrel is listening on 0.0.0.0
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Jellyfin version: 12.4.0
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Environment Variables: ["[JELLYFIN_DATA_DIR, /var/lib/jellyfin]", "[JELLYFIN_CACHE_DIR, /var/cache/jellyfin]", "[JELLYFIN_CONFIG_DIR, /etc/jellyfin]", "[JELLYFIN_LOG_DIR, /var/log/jellyfin]", "[JELLYFIN_FFMPEG_OPT, --ffmpeg=/usr/lib/jellyfin-ffmpeg/ffmpeg]", "[JELLYFIN_SERVICE_OPT, ]", "[JELLYFIN_WEB_OPT, --webdir=/usr/share/jellyfin/web]", "[JELLYFIN_ADDITIONAL_OPTS, ]", "[JELLYFIN_ARGS, $JELLYFIN_WEB_OPT $JELLYFIN_FFMPEG_OPT $JELLYFIN_SERVICE_OPT $JELLYFIN_NOWEBAPP_OPT $JELLYFIN_ADDITIONAL_OPTS --datadir $JELLYFIN_DATA_DIR --configdir $JELLYFIN_CONFIG_DIR --logdir $JELLYFIN_LOG_DIR --cachedir $JELLYFIN_CACHE_DIR]", "[JELLYFIN_NOWEBAPP_OPT, ]", "[JELLYFIN_USER, jellyfin]"]
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Arguments: ["/usr/lib/jellyfin/bin/jellyfin.dll", "--webdir=/usr/share/jellyfin/web", "--ffmpeg=/usr/lib/jellyfin-ffmpeg/ffmpeg"]
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Operating system: Ubuntu 24.04.5 LTS
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Architecture: X64
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] 64-Bit Process: True
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] User Interactive: True
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Processor count: 4
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Program data path: /var/lib/jellyfin
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Log directory path: /var/log/jellyfin
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Config directory path: /etc/jellyfin
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Cache path: /var/cache/jellyfin
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Temp directory path: /tmp/jellyfin
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Web resources path: /usr/share/jellyfin/web
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Application directory: /usr/lib/jellyfin/bin/
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Storage path `/var/lib/jellyfin/data` (Fixed) successfully checked with 84.5GiB free which is over the minimum of 2GiB.
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Storage path `/var/cache/jellyfin` (Fixed) successfully checked with 84.5GiB free which is over the minimum of 2GiB.
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Storage path `/var/lib/jellyfin` (Fixed) successfully checked with 84.5GiB free which is over the minimum of 2GiB.
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Setting cache path: /var/cache/jellyfin
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] SQLite connection string: Data Source=/var/lib/jellyfin/data/jellyfin.db;Cache=Private;Default Timeout=60;Pooling=True
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] SQLITE connection pragma command set to:
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: PRAGMA locking_mode=NORMAL;
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: PRAGMA journal_size_limit=134217728;
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: PRAGMA synchronous=1;
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: PRAGMA temp_store=2;
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] The database locking mode has been set to: NoLock.
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Initialise Migration service.
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Setting cache path: /var/cache/jellyfin
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Registering whitelisted assemblies for plugin "Ushereats Theme"...
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Loading assemblies
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Loaded assembly Jellyfin.Plugin.FileTransformation, Version=3.0.3.0, Culture=neutral, PublicKeyToken=null from /var/lib/jellyfin/plugins/FileTransformation_ci/Jellyfin.Plugin.FileTransformation.dll
+Nov 01 08:46:26 runnervm48cm3 jellyfin[5463]: [08:46:26] [INF] Loaded assembly Jellyfin.Plugin.UshereatsTheme, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null from /var/lib/jellyfin/plugins/UshereatsTheme_ci/Jellyfin.Plugin.UshereatsTheme.dll
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Defined LAN subnets: ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Defined LAN exclusions: []
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Used LAN subnets: ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Filtered interface addresses: ["127.0.0.1", "10.1.0.219"]
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Bind Addresses ["0.0.0.0"]
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Remote IP filter is Allowlist
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Filtered subnets: []
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] SQLite connection string: Data Source=/var/lib/jellyfin/data/jellyfin.db;Cache=Private;Default Timeout=60;Pooling=True
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] SQLITE connection pragma command set to:
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: PRAGMA locking_mode=NORMAL;
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: PRAGMA journal_size_limit=134217728;
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: PRAGMA synchronous=1;
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: PRAGMA temp_store=2;
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] The database locking mode has been set to: NoLock.
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Prepare system for possible migrations
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Loaded plugin: File Transformation 3.0.3.0
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Loaded plugin: Ushereats Theme 1.0.0.0
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Loaded plugin: TMDb 12.4.0.0
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Loaded plugin: Studio Images 12.4.0.0
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Loaded plugin: OMDb 12.4.0.0
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Loaded plugin: MusicBrainz 12.4.0.0
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Loaded plugin: ListenBrainz Similarity Provider 12.4.0.0
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Loaded plugin: AudioDB 12.4.0.0
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Registered 0 external search providers: . Fallback providers: Database (priority 100)
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] Kestrel is listening on 0.0.0.0
+Nov 01 08:46:27 runnervm48cm3 jellyfin[5463]: [08:46:27] [INF] [FileTransformation] Installing response transformation middleware
+Nov 01 08:46:28 runnervm48cm3 jellyfin[5463]: [08:46:28] [INF] Running startup tasks
+Nov 01 08:46:28 runnervm48cm3 jellyfin[5463]: [08:46:28] [INF] Daily trigger for Generate Trickplay Images set to fire at 2026-11-02 03:00:00.000 +00:00, which is 18:13:31.7731552 from now.
+Nov 01 08:46:28 runnervm48cm3 jellyfin[5463]: [08:46:28] [INF] Daily trigger for Extract Chapter Images set to fire at 2026-11-02 02:00:00.000 +00:00, which is 17:13:31.7713634 from now.
+Nov 01 08:46:28 runnervm48cm3 jellyfin[5463]: [08:46:28] [INF] Found ffmpeg version 8.1.3
+Nov 01 08:46:28 runnervm48cm3 jellyfin[5463]: [08:46:28] [INF] Available decoders: ["libdav1d", "av1", "av1_cuvid", "av1_qsv", "h264", "h264_qsv", "h264_cuvid", "hevc", "hevc_qsv", "hevc_cuvid", "mpeg2video", "mpeg2_qsv", "mpeg2_cuvid", "mpeg4", "mpeg4_cuvid", "msmpeg4", "vc1_qsv", "vc1_cuvid", "vp8", "libvpx", "vp8_cuvid", "vp8_qsv", "vp9", "libvpx-vp9", "vp9_cuvid", "vp9_qsv", "aac", "ac3", "ac4", "dca", "flac", "mp3", "truehd"]
+Nov 01 08:46:28 runnervm48cm3 jellyfin[5463]: [08:46:28] [INF] Available encoders: ["libsvtav1", "av1_nvenc", "av1_qsv", "av1_amf", "av1_vaapi", "libx264", "h264_amf", "h264_nvenc", "h264_qsv", "h264_v4l2m2m", "h264_vaapi", "libx265", "hevc_amf", "hevc_nvenc", "hevc_qsv", "hevc_vaapi", "mjpeg_qsv", "mjpeg_vaapi", "aac", "libfdk_aac", "ac3", "alac", "dca", "flac", "libmp3lame", "libopus", "truehd", "libvorbis", "srt"]
+Nov 01 08:46:28 runnervm48cm3 jellyfin[5463]: [08:46:28] [INF] Available filters: ["bwdif_cuda", "bwdif_opencl", "deinterlace_qsv", "deinterlace_vaapi", "flip_vulkan", "hwupload_cuda", "hwupload_vaapi", "libplacebo", "overlay_opencl", "overlay_qsv", "overlay_vaapi", "overlay_vulkan", "overlay_cuda", "procamp_vaapi", "scale_cuda", "scale_opencl", "scale_qsv", "scale_vaapi", "scale_vulkan", "tonemapx", "tonemap_cuda", "tonemap_opencl", "tonemap_vaapi", "transpose_cuda", "transpose_opencl", "transpose_vaapi", "transpose_vulkan", "vpp_qsv", "yadif_cuda", "yadif_opencl", "zscale", "alphasrc"]
+Nov 01 08:46:28 runnervm48cm3 jellyfin[5463]: [08:46:28] [INF] Available hwaccel types: ["cuda", "vaapi", "qsv", "drm", "opencl", "vulkan", "amf"]
+Nov 01 08:46:30 runnervm48cm3 jellyfin[5463]: [08:46:30] [INF] FFmpeg: /usr/lib/jellyfin-ffmpeg/ffmpeg
+Nov 01 08:46:30 runnervm48cm3 jellyfin[5463]: [08:46:30] [INF] ServerId: d8a01f52c3e94add8c6db446b0ff52e2
+Nov 01 08:46:30 runnervm48cm3 jellyfin[5463]: [08:46:30] [INF] Core startup complete
+Nov 01 08:46:30 runnervm48cm3 jellyfin[5463]: [08:46:30] [INF] Startup complete 0:00:04.2462444
+Nov 01 08:46:31 runnervm48cm3 jellyfin[5463]: [08:46:31] [INF] Clean Transcode Directory Completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:31 runnervm48cm3 jellyfin[5463]: [08:46:31] [INF] [Ushereats Theme] Trending: no TMDB key in the plugin settings, skipped.
+Nov 01 08:46:31 runnervm48cm3 jellyfin[5463]: [08:46:31] [INF] Ushereats Theme: Trending This Week Completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:31 runnervm48cm3 jellyfin[5463]: [08:46:31] [INF] [FileTransformation] Registering transformation for 'index.html' (ID: fc34dcce-8a8a-4ac4-a7ae-fdbdc6589563)
+Nov 01 08:46:31 runnervm48cm3 jellyfin[5463]: [08:46:31] [INF] Update Plugins Completed after 0 minute(s) and 0 seconds
+Nov 01 08:46:32 runnervm48cm3 jellyfin[5463]: [08:46:32] [INF] [Ushereats Theme] Registered with File Transformation.
+Nov 01 08:46:32 runnervm48cm3 jellyfin[5463]: [08:46:32] [INF] Ushereats Theme Startup Completed after 0 minute(s) and 1 seconds
+Nov 01 08:46:44 runnervm48cm3 jellyfin[5463]: [08:46:44] [INF] WS 127.0.0.1 request
+Nov 01 08:46:56 runnervm48cm3 jellyfin[5463]: [08:46:56] [INF] Ushereats Theme: refreshing 21 posters in 3 libraries
+Nov 01 08:46:57 runnervm48cm3 jellyfin[5463]: [08:46:57] [INF] Ushereats Theme: poster refresh finished (21 titles, 0 failed)
+Nov 01 08:47:00 runnervm48cm3 jellyfin[5463]: [08:47:00] [INF] WS 127.0.0.1 closed

@@ -89,7 +89,16 @@
         }, 700);
       }
     }
-    if (now !== true) setTimeout(function () { if (!layer) html.classList.remove("tb-instant"); }, 400);
+    if (now !== true) {
+      // the page came in with only its content fading (below), so SleekFin's own entrance never runs and never
+      // takes its "entering" mark off. Left on, it re-faded every part of the page drawn later (a blink) and,
+      // once the stand-in was gone, faded the whole page in again from black (the dark dip). Take it off ourselves.
+      setTimeout(function () {
+        var ps = document.querySelectorAll("#itemDetailPage.sleekfin-details-entering");
+        for (var i = 0; i < ps.length; i++) ps[i].classList.remove("sleekfin-details-entering");
+      }, 260);
+      setTimeout(function () { if (!layer) html.classList.remove("tb-instant"); }, 400);
+    }
   }
 
   // only for titles opened by clicking a poster (going Back restores the old page's scroll position instead)

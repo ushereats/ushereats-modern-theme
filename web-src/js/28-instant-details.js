@@ -136,6 +136,10 @@
   // with the picture already there, the page doesn't slide in: only its title, buttons and rows fade in
   var st = document.createElement("style");
   st.textContent = [
+    // while the title page is being put together the stand-in shows through (SleekFin covers the screen in a
+    // solid colour and loading bars then, which made the screen go dark and then the picture snap in)
+    "html.tb-instant.sleekfin-details-concealed body { background: transparent !important; }",
+    "html.tb-instant.sleekfin-details-concealed::before { display: none !important; }",
     "html.tb-instant #itemDetailPage.sleekfin-details-entering { animation: none !important; }",
     "html.tb-instant #itemDetailPage.sleekfin-details-entering > :not(#itemBackdrop) { animation: tb-instant-in 220ms ease both; }",
     "@keyframes tb-instant-in { from { opacity: 0; } to { opacity: 1; } }"

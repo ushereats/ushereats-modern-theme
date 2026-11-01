@@ -26,7 +26,7 @@
   function fx(page) {
     if (off() || !page) return;
     // title pages have their own entrance (SleekFin's); the dashboard is left as it is
-    if (page.id === "itemDetailPage" && html.classList.contains("sleekfin-details-mounted")) return;
+    if (page.id === "itemDetailPage" && (html.classList.contains("sleekfin-details-mounted") || html.classList.contains("sleekfin-details-concealed") || page.hasAttribute("data-sleekfin-details"))) return;
     if (document.body.classList.contains("dashboardDocument")) return;
     var o = { duration: MS, easing: EASE };
     try {

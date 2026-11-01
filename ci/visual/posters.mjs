@@ -66,6 +66,12 @@ fs.writeFileSync(out + "/real-movie-poster-after.jpg", Buffer.from(await img.arr
 report.refreshStatusText = await page.textContent("#tbPStatus");
 await panel.screenshot({ path: `${out}/4-done.png` });
 report.errors = errors;
+// what the poster sources offer for the real film, and what Jellyfin's own "replace all images" does
+const ri = await api(`/Items/${movies[0].Id}/RemoteImages?type=Primary&limit=3&includeAllLanguages=true`);
+report.remoteImages = { total: ri.TotalRecordCount, providers: ri.Providers, first: (ri.Images || []).slice(0, 3).map((x) => x.ProviderName + " " + x.Url) };
+await fetch(s.server + `/Items/${movies[0].Id}/Refresh?metadataRefreshMode=None&imageRefreshMode=FullRefresh&replaceAllImages=true`, { method: "POST", headers: H });
+await new Promise((r) => setTimeout(r, 8000));
+report.afterJellyfinOwnRefresh = await tagOf(movies[0].Id);
 report.realAfter = await api(`/Users/${s.userId}/Items/${movies[0].Id}`).then((x) => ({ ids: x.ProviderIds, tag: (x.ImageTags || {}).Primary }));
 fs.writeFileSync(out + "/report.json", JSON.stringify(report, null, 1));
 await browser.close();

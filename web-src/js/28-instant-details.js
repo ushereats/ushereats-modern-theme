@@ -44,6 +44,8 @@
   }
   function show(url) {
     hide(true);
+    var old = document.querySelectorAll("#tb-instant-bd");
+    for (var i = 0; i < old.length; i++) old[i].remove();
     var l = document.createElement("div");
     l.id = "tb-instant-bd";
     l.setAttribute("aria-hidden", "true");
@@ -60,13 +62,33 @@
     var amb = document.getElementById("tb-ambient");
     if (amb && amb.parentNode === document.body) document.body.insertBefore(l, amb.nextSibling); else document.body.insertBefore(l, document.body.firstChild);
     layer = l;
+    // fade in at the page-change speed (a hard cut from the home page to a full-screen picture is a flash)
+    var ms = Math.max(80, Math.min(600, +tbCfg("PageTransitionMs", 200) || 200));
+    if (tbCfg("PageTransitions", true) && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+      s.opacity = "0";
+      s.transition = "opacity " + ms + "ms ease";
+      requestAnimationFrame(function () { requestAnimationFrame(function () { if (layer === l) s.opacity = "1"; }); });
+    }
     html.classList.add("tb-instant");
     clearTimeout(removeTimer);
     removeTimer = setTimeout(function () { hide(); }, 5000);   // never left behind
   }
   function hide(now) {
     clearTimeout(removeTimer);
-    if (layer) { layer.remove(); layer = null; }
+    var l = layer;
+    layer = null;
+    if (l) {
+      if (now === true) l.remove();
+      else {
+        // the real page sits on top of it now; stay a moment underneath while its picture settles, then fade out
+        // (removing it straight away let the screen dip dark for a moment)
+        setTimeout(function () {
+          l.style.transition = "opacity 300ms ease";
+          l.style.opacity = "0";
+          setTimeout(function () { l.remove(); }, 320);
+        }, 700);
+      }
+    }
     if (now !== true) setTimeout(function () { if (!layer) html.classList.remove("tb-instant"); }, 400);
   }
 
@@ -79,7 +101,14 @@
 
   function onRoute() {
     var id = idFromHash();
-    if (!id) { hide(); return; }
+    if (!id) {
+      // left the title page (maybe while the stand-in was still settling underneath): drop it at once
+      hide(true);
+      var old = document.querySelectorAll("#tb-instant-bd");
+      for (var i = 0; i < old.length; i++) old[i].remove();
+      setTimeout(function () { if (!layer) html.classList.remove("tb-instant"); }, 400);
+      return;
+    }
     if (!clicked || clicked.id !== id || Date.now() - clicked.at > 1500) return;
     var meta = (window.tbItemMeta || {})[id];
     if (!meta || (meta.Type && !TYPES.test(meta.Type)) || !usable() || !window.tbBackdropUrl) return;

@@ -24,6 +24,13 @@
     var m = /^#\/(?:home)?(?:\?([^#]*))?$/.exec(hash);
     var home = hash === "" || hash === "#" || (!!m && !/(^|&)seerrfinTab=/.test(m[1] || "") && !/(^|&)tab=(?!0(&|$))/.test(m[1] || ""));
 
+    // a banner is coming: the page starts under the top bar straight away (it used to start below it and
+    // jump up 80 px when the banner arrived). The hero script takes this off (also if there's no banner).
+    if (home) {
+      root.classList.add("tb-hero-boot");
+      setTimeout(function () { if (!root.classList.contains("sleekfin-hero-mounted")) root.classList.remove("tb-hero-boot"); }, 10000);
+    }
+
     function preload(url, high) {
       var l = document.createElement("link");
       l.rel = "preload";
@@ -37,9 +44,6 @@
     var cache = null;
     try { cache = JSON.parse(localStorage.getItem("tbHeroCache") || "null"); } catch (e) {}
     if (home && cache && cache.items && cache.items.length) {
-      // a banner is coming: the page starts under the top bar straight away (it used to start below it and
-      // jump up 80 px when the banner arrived)
-      root.classList.add("tb-hero-boot");
       var first = cache.items[Math.floor(Math.random() * cache.items.length)];
       window.__tbHeroFirst = first.Id;
       var bg = window.__tbHeroImg(first.Id, "Backdrop", first.Backdrop);

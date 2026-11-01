@@ -1,0 +1,21 @@
+{
+  t: 9.108,
+  what: 'home {"cards":36,"types":["Movie","Movie","Episode","Episode","Movie","Movie","Movie","Movie"]}'
+}
+{
+  t: 9.108,
+  what: 'cards 1d858c5bfd41686f432c5272367f8b67,d20d52dd0dfb390eccf3bc6d42c66edc,6f225e4936f38baaa7f572cadb22260f'
+}
+{ t: 9.77, what: 'click first-ever (no stand-in yet)' }
+{ t: 12.841, what: 'back first-ever (no stand-in yet)' }
+{ t: 15.985, what: 'click same again' }
+{ t: 19.01, what: 'back same again' }
+{ t: 52.119, what: 'click another' }
+{ t: 55.147, what: 'back another' }
+{ t: 88.255, what: 'click third' }
+{ t: 91.281, what: 'back third' }
+{ t: 154.5, what: 'click arrow-test' }
+{ t: 158.02, what: 'back-arrow click' }
+{ t: 160.962, what: 'library 0' }
+{ t: 165.286, what: 'library 1' }
+flash done

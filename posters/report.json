@@ -1,0 +1,117 @@
+{
+ "before": [
+  {
+   "name": "Collections",
+   "type": "boxsets",
+   "types": []
+  },
+  {
+   "name": "Music",
+   "type": "music",
+   "types": []
+  },
+  {
+   "name": "Shows",
+   "type": "tvshows",
+   "types": []
+  },
+  {
+   "name": "Movies",
+   "type": "movies",
+   "types": []
+  }
+ ],
+ "shown": {
+  "libs": [
+   "Collections [x]",
+   "Shows [x]",
+   "Movies [x]"
+  ],
+  "sources": [
+   "1TheMovieDb↑↓",
+   "The Open Movie Databasemovies only↑↓",
+   "Embedded Image Extractormovies only↑↓",
+   "Screen Grabbermovies only↑↓"
+  ],
+  "note": null
+ },
+ "applyStatus": "Applied to 3 libraries.",
+ "shownAfter": [
+  "1TheMovieDb↑↓",
+  "2The Open Movie Databasemovies only↑↓",
+  "Screen Grabbermovies only↑↓",
+  "Embedded Image Extractormovies only↑↓"
+ ],
+ "after": [
+  {
+   "name": "Collections",
+   "type": "boxsets",
+   "types": [
+    "BoxSet: on=[TheMovieDb] order=[TheMovieDb] meta=[TheMovieDb]"
+   ]
+  },
+  {
+   "name": "Music",
+   "type": "music",
+   "types": []
+  },
+  {
+   "name": "Shows",
+   "type": "tvshows",
+   "types": [
+    "Series: on=[TheMovieDb] order=[TheMovieDb] meta=[TheMovieDb,The Open Movie Database]",
+    "Season: on=[TheMovieDb] order=[TheMovieDb] meta=[TheMovieDb]"
+   ]
+  },
+  {
+   "name": "Movies",
+   "type": "movies",
+   "types": [
+    "Movie: on=[TheMovieDb,The Open Movie Database] order=[TheMovieDb,The Open Movie Database,Screen Grabber,Embedded Image Extractor] meta=[TheMovieDb,The Open Movie Database]"
+   ]
+  }
+ ],
+ "setIds": 204,
+ "tagsBefore": {
+  "real": "c16a6ba94f612551b97f616cd664430e",
+  "other": "98dfe51fa9e96be7c53435cfd16a4f38"
+ },
+ "refresh": {
+  "running": false,
+  "total": 21,
+  "done": 21,
+  "failed": 0,
+  "changed": 0,
+  "startedUtc": "2026-11-01T08:52:55.4217435Z",
+  "finishedUtc": "2026-11-01T08:52:55.7803677Z",
+  "cancelled": false
+ },
+ "tagsAfter": {
+  "real": "c16a6ba94f612551b97f616cd664430e",
+  "other": "98dfe51fa9e96be7c53435cfd16a4f38"
+ },
+ "refreshStatusText": "Done: 21 of 21 titles, 0 new posters.",
+ "errors": [
+  "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+ ],
+ "remoteImages": {
+  "total": 235,
+  "providers": [
+   "TheMovieDb",
+   "The Open Movie Database"
+  ],
+  "first": [
+   "TheMovieDb https://image.tmdb.org/t/p/original/xlaY2zyzMfkhk0HSC5VUwzoZPU1.jpg",
+   "TheMovieDb https://image.tmdb.org/t/p/original/ljsZTbVsrQSqZgWeep2B1QiDKuh.jpg",
+   "TheMovieDb https://image.tmdb.org/t/p/original/gqgwNjwjSqGkOqkE2rppogenu4v.jpg"
+  ]
+ },
+ "afterJellyfinOwnRefresh": "c16a6ba94f612551b97f616cd664430e",
+ "realAfter": {
+  "ids": {
+   "Imdb": "tt1375666",
+   "Tmdb": "27205"
+  },
+  "tag": "c16a6ba94f612551b97f616cd664430e"
+ }
+}

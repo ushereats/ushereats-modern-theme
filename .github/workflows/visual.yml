@@ -42,7 +42,9 @@ jobs:
         run: |
           npx playwright install --with-deps chromium >/dev/null 2>&1
           # visual/audit-*: every page, menu and dialog only; visual/dev-* / desk-*: only the screen-size check
-          if [[ "$GITHUB_REF_NAME" == visual/flash-* ]]; then
+          if [[ "$GITHUB_REF_NAME" == visual/speed-* ]]; then
+            node ci/visual/speed.mjs shots > shots/speed-log.txt 2>&1 || { tail -n 30 shots/speed-log.txt | sed 's/^/::error::/'; }
+          elif [[ "$GITHUB_REF_NAME" == visual/flash-* ]]; then
             node ci/visual/flash.mjs shots > shots/flash-log.txt 2>&1 || { tail -n 30 shots/flash-log.txt | sed 's/^/::error::/'; }
           elif [[ "$GITHUB_REF_NAME" == visual/audit-* ]]; then
             node ci/visual/audit.mjs shots > shots/audit-log.txt 2>&1 || { tail -n 30 shots/audit-log.txt | sed 's/^/::error::/'; }

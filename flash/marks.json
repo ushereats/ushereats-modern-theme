@@ -1,0 +1,61 @@
+{
+ "marks": [
+  {
+   "t": 9.201,
+   "what": "home {\"cards\":36,\"types\":[\"Movie\",\"Movie\",\"Episode\",\"Episode\",\"Movie\",\"Movie\",\"Movie\",\"Movie\"]}"
+  },
+  {
+   "t": 9.201,
+   "what": "cards 1d858c5bfd41686f432c5272367f8b67,d20d52dd0dfb390eccf3bc6d42c66edc,6f225e4936f38baaa7f572cadb22260f"
+  },
+  {
+   "t": 9.865,
+   "what": "click first-ever (no stand-in yet)"
+  },
+  {
+   "t": 12.955,
+   "what": "back first-ever (no stand-in yet)"
+  },
+  {
+   "t": 16.097,
+   "what": "click same again"
+  },
+  {
+   "t": 19.133,
+   "what": "back same again"
+  },
+  {
+   "t": 52.239,
+   "what": "click another"
+  },
+  {
+   "t": 55.276,
+   "what": "back another"
+  },
+  {
+   "t": 88.384,
+   "what": "click third"
+  },
+  {
+   "t": 91.43,
+   "what": "back third"
+  },
+  {
+   "t": 154.646,
+   "what": "click arrow-test"
+  },
+  {
+   "t": 158.182,
+   "what": "back-arrow click"
+  },
+  {
+   "t": 161.056,
+   "what": "library 0"
+  },
+  {
+   "t": 165.461,
+   "what": "library 1"
+  }
+ ],
+ "look": "{\"vw\":1280,\"vh\":720,\"amb\":true,\"left\":0,\"top\":0,\"width\":1280,\"height\":612,\"mask\":\"linear-gradient(rgb(0, 0, 0) 0%, rgb(0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 68%, rgba(0, 0, 0, 0.3) 85%, rgba(0, 0, 0, 0) 100%)\",\"art\":{\"pos\":\"50% 24%\",\"size\":\"cover\",\"filter\":\"blur(0px)\",\"opacity\":\"1\"},\"before\":{\"bg\":\"linear-gradient(90deg, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.667) 20%, rgba(0, 0, 0, 0.298) 42%, rgba(0, 0, 0, 0) 68%)\",\"op\":\"0.84\"},\"after\":{\"bg\":\"none\",\"op\":\"1\",\"h\":\"306px\"}}"
+}

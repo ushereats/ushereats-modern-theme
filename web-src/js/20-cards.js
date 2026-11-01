@@ -20,22 +20,24 @@
     try { return window.ApiClient && ApiClient.serverId() || ""; } catch (e) { return ""; }
   }
 
-  // image sizes: matched to how big the card is on this screen (rounded so the server's resize cache is reused)
+  // image sizes: twice as sharp as the card is on this screen (the browser's own shrink keeps posters crisp; a
+  // server copy at exactly the card's size looked soft), rounded so the server's resized copies are shared
+  function sharp() { return Math.max(2, Math.min(window.devicePixelRatio || 1, 3)); }
   function size(shape) {
-    var dpr = Math.min(window.devicePixelRatio || 1, 2), vw = window.innerWidth || 1280;
+    var k = sharp(), vw = window.innerWidth || 1280;
     if (shape === "thumb") {
-      var tw = Math.min(960, Math.ceil(Math.max(280, vw * 0.24) * dpr / 80) * 80);
+      var tw = Math.min(1280, Math.ceil(Math.max(280, vw * 0.24) * k / 80) * 80);
       return "fillWidth=" + tw + "&fillHeight=" + Math.round(tw * 9 / 16);
     }
     if (shape === "square") {
-      var sw = Math.min(600, Math.ceil(Math.max(160, vw * 0.13) * dpr / 80) * 80);
+      var sw = Math.min(800, Math.ceil(Math.max(160, vw * 0.13) * k / 80) * 80);
       return "fillWidth=" + sw + "&fillHeight=" + sw;
     }
-    var pw = Math.min(600, Math.ceil(Math.max(160, vw * 0.13) * dpr / 80) * 80);
+    var pw = Math.min(800, Math.ceil(Math.max(160, vw * 0.13) * k / 80) * 80);
     return "fillWidth=" + pw + "&fillHeight=" + Math.round(pw * 1.5);
   }
   function img(id, type, tag, shape) {
-    return base + "Items/" + id + "/Images/" + type + "?" + size(shape) + "&quality=90&tag=" + encodeURIComponent(tag);
+    return base + "Items/" + id + "/Images/" + type + "?" + size(shape) + "&quality=96&tag=" + encodeURIComponent(tag);
   }
   // same image choice as Jellyfin's home rows
   function imageFor(it, shape, own) {
@@ -175,8 +177,7 @@
   function fitted(url, width) {
     var m = /fillWidth=(\d+)&fillHeight=(\d+)/.exec(url);
     if (!m || !width) return url;
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var w = Math.min(+m[1], Math.max(80, Math.ceil(width * dpr / 40) * 40));
+    var w = Math.min(+m[1], Math.max(80, Math.ceil(width * sharp() / 40) * 40));
     if (w === +m[1]) return url;
     return url.replace(m[0], "fillWidth=" + w + "&fillHeight=" + Math.round(w * (+m[2]) / (+m[1])));
   }

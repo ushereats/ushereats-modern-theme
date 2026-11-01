@@ -5879,9 +5879,19 @@
         ]).then(function (r) {
           libs = (r[0] || []).filter(function (l) { return kindsOf(l) && l.ItemId; }).map(function (l) { l.on = true; return l; });
           order = currentOrder();
+          // Better Posters (your own poster plugin) goes first, ticked: the others are its fallback
+          var bpAt = -1;
+          order.forEach(function (o, i) { if (bpAt < 0 && /better posters/i.test(o.name)) bpAt = i; });
+          if (bpAt >= 0 && (bpAt > 0 || !order[bpAt].on)) {
+            var bpItem = order.splice(bpAt, 1)[0];
+            bpItem.on = true;
+            order.unshift(bpItem);
+            dirty = true;
+          }
           loaded = true;
           renderLibs();
           renderSrc();
+          if (dirty) applyStatus.textContent = "Better Posters moved to the top. Press Apply (or Refresh all posters, which applies it first).";
           var bp = (r[4] || []).filter(function (p) { return /better posters/i.test(p.Name) && p.Status !== "Disabled"; })[0];
           if (bp) {
             note.hidden = false;

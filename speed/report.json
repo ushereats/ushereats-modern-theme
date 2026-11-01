@@ -1,0 +1,365 @@
+{
+ "home first visit": {
+  "cls": 0.443,
+  "shifts": [
+   {
+    "at": 2650,
+    "hash": "#/home",
+    "v": 0.0001,
+    "src": [
+     "null 1714,20,108,40 -> 1672,20,108,40"
+    ]
+   },
+   {
+    "at": 2770,
+    "hash": "#/home",
+    "v": 0.3962,
+    "src": [
+     "div.MuiBox-root.css-2uchni 1784,20,40,40 -> 1820,20,4,40",
+     "div#homeTab.tabContent.pageTabContent.is-active 0,80,1920,1000 -> 0,901,1920,179"
+    ]
+   },
+   {
+    "at": 2809,
+    "hash": "#/home",
+    "v": 0.0417,
+    "src": [
+     "div#indexPage.page.mainAnimatedPage.homePage 0,80,1920,1000 -> 0,0,1920,1080"
+    ]
+   },
+   {
+    "at": 3865,
+    "hash": "#/home",
+    "v": 0.005,
+    "src": [
+     "div.emby-scrollbuttons.padded-right 0,877,1920,55 -> 0,821,1920,112",
+     "div.emby-scrollbuttons.padded-right 0,1006,1920,74 -> 0,1027,1920,53"
+    ]
+   }
+  ],
+  "muts": [
+   "190x childList head (0-2750ms)",
+   "101x attributes[style] html.tb-hero-on.tb-rows.layout-desktop (750-2500ms)",
+   "85x attributes[data-sleekfin-header-overflowed] button (750-2750ms)",
+   "68x attributes[style] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (750-2500ms)",
+   "65x attributes[data-sleekfin-current] button (750-2750ms)",
+   "54x attributes[class] html.tb-hero-on.tb-rows.layout-desktop (500-4000ms)",
+   "36x attributes[style] a.cardImageContainer.coveredImage.cardContent (1750-1750ms)",
+   "36x attributes[data-tb-src] a.cardImageContainer.coveredImage.cardContent (1750-1750ms)",
+   "35x attributes[style] div.emby-scrollbuttons.padded-right (2750-2750ms)",
+   "32x attributes[data-rdb-size] div.cardScalable (2000-2000ms)",
+   "30x attributes[style] div.itemsContainer.scrollSlider.focuscontainer-x (1500-1750ms)",
+   "28x attributes[class] div.cardText.cardTextCentered.cardText-secondary (1750-2750ms)",
+   "24x attributes[class] div.cardText.cardText-secondary.sleekfin-meta (2000-2750ms)",
+   "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (2500-2500ms)",
+   "17x attributes[data-sleekfin-header-source-anchor] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (750-2500ms)",
+   "17x attributes[tabindex] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (750-2500ms)",
+   "17x attributes[data-sleekfin-header-overflow-hidden] button (750-2750ms)",
+   "17x attributes[data-sleekfin-header-overflow-active] div (750-2750ms)",
+   "16x attributes[style] div.cardBox (1750-1750ms)",
+   "16x childList div.cardBox (1750-1750ms)",
+   "16x attributes[data-key] div.release-date-badge (1750-1750ms)",
+   "16x attributes[title] div.release-date-badge (1750-1750ms)",
+   "16x childList div.release-date-badge (1750-1750ms)",
+   "16x attributes[style] div.cardScalable (2000-2000ms)",
+   "16x childList div.cardScalable (2000-2000ms)"
+  ]
+ },
+ "home reload (rows from last visit)": {
+  "cls": 0.0417,
+  "shifts": [
+   {
+    "at": 1208,
+    "hash": "#/home",
+    "v": 0.0417,
+    "src": [
+     "div.MuiBox-root.css-2uchni 1784,20,40,40 -> 1820,20,4,40",
+     "div#indexPage.page.mainAnimatedPage.homePage 0,80,1920,1000 -> 0,0,1920,1080"
+    ]
+   }
+  ],
+  "muts": [
+   "192x childList head (0-1500ms)",
+   "78x attributes[data-sleekfin-header-overflowed] button (750-1500ms)",
+   "72x attributes[style] html.tb-hero-on.tb-hs.tb-rows (750-1250ms)",
+   "62x attributes[data-sleekfin-current] button (750-1500ms)",
+   "46x attributes[style] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (750-1250ms)",
+   "41x attributes[class] html.tb-hero-on.tb-hs.tb-rows (250-1500ms)",
+   "36x attributes[style] div.emby-scrollbuttons.padded-right (1250-1500ms)",
+   "32x childList div.cardScalable (1000-1000ms)",
+   "32x childList div.tb-quality (1000-1000ms)",
+   "32x attributes[data-html] div.tb-quality (1000-1000ms)",
+   "32x attributes[style] a.cardImageContainer.coveredImage.cardContent (1250-1250ms)",
+   "32x attributes[data-tb-src] a.cardImageContainer.coveredImage.cardContent (1250-1250ms)",
+   "32x attributes[data-rdb-size] div.cardScalable (1500-1500ms)",
+   "29x attributes[style] div.itemsContainer.scrollSlider.focuscontainer-x (1000-1500ms)",
+   "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (1250-1250ms)",
+   "16x attributes[style] div.cardBox (1250-1250ms)",
+   "16x childList div.cardBox (1250-1250ms)",
+   "16x attributes[data-key] div.release-date-badge (1250-1250ms)",
+   "16x attributes[title] div.release-date-badge (1250-1250ms)",
+   "16x childList div.release-date-badge (1250-1250ms)",
+   "16x attributes[style] div.cardScalable (1500-1500ms)",
+   "15x childList style#tb-js-css (250-1000ms)",
+   "15x attributes[style] span.tb-logo-img (1250-1250ms)",
+   "15x attributes[data-tb-src] span.tb-logo-img (1250-1250ms)",
+   "14x childList body (0-1000ms)"
+  ]
+ },
+ "movie (reload)": {
+  "cls": 0.0417,
+  "shifts": [
+   {
+    "at": 1126,
+    "hash": "#/details?id=1d858c5bfd41686f4",
+    "v": 0.0417,
+    "src": [
+     "a.MuiButtonBase-root.MuiButton-root.MuiButton-text 96,20,40,40 -> 146,20,40,40",
+     "main.MuiBox-root.css-1iogify 0,80,1920,1000 -> 0,0,1920,1080"
+    ]
+   }
+  ],
+  "muts": [
+   "198x childList head (0-750ms)",
+   "89x attributes[style] div#itemDetailPage.page.libraryPage.itemDetailPage (1000-1000ms)",
+   "72x attributes[style] html.sleekfin-details-concealed.tb-hero-on.tb-rows (250-750ms)",
+   "65x attributes[data-sleekfin-header-overflowed] button (500-1000ms)",
+   "49x attributes[data-sleekfin-current] button (250-1000ms)",
+   "46x attributes[class] html.sleekfin-details-concealed.tb-hero-on.tb-rows (250-1000ms)",
+   "46x attributes[style] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (250-750ms)",
+   "22x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light.hide (750-1000ms)",
+   "21x attributes[style] div.mainDetailButtons.focuscontainer-x.sleekfin-details-actions (1000-1000ms)",
+   "20x attributes[is] button.emby-scrollbuttons-button.paper-icon-button-light (750-750ms)",
+   "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (750-750ms)",
+   "17x childList body (0-750ms)",
+   "15x childList style#tb-js-css (250-500ms)",
+   "12x attributes[style] div.scrollSlider.focuscontainer-x.itemsContainer (750-750ms)",
+   "12x attributes[disabled] button.emby-scrollbuttons-button.paper-icon-button-light.hide (750-1000ms)",
+   "11x attributes[data-sleekfin-header-source-anchor] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (250-750ms)",
+   "11x attributes[tabindex] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (250-750ms)",
+   "10x attributes[data-sleekfin-header-overflow-hidden] button (500-1000ms)",
+   "10x attributes[data-sleekfin-header-overflow-active] div (500-1000ms)",
+   "10x attributes[style] div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense (500-750ms)",
+   "10x attributes[is] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (750-750ms)",
+   "10x attributes[class] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (750-750ms)",
+   "10x attributes[data-scroll-mode-x] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (750-750ms)",
+   "10x attributes[is] div.emby-scrollbuttons.padded-right (750-750ms)",
+   "10x childList div.emby-scrollbuttons.padded-right (750-750ms)"
+  ]
+ },
+ "series (reload)": {
+  "cls": 0.0417,
+  "shifts": [
+   {
+    "at": 672,
+    "hash": "#/details?id=5171c7a6950f550b9",
+    "v": 0,
+    "src": [
+     "div.MuiBox-root.css-2uchni 1784,20,40,40 -> 1820,20,4,40"
+    ]
+   },
+   {
+    "at": 971,
+    "hash": "#/details?id=5171c7a6950f550b9",
+    "v": 0.0417,
+    "src": [
+     "a.MuiButtonBase-root.MuiButton-root.MuiButton-text 96,20,40,40 -> 146,20,40,40",
+     "main.MuiBox-root.css-1iogify 0,80,1920,1000 -> 0,0,1920,1080"
+    ]
+   }
+  ],
+  "muts": [
+   "198x childList head (0-750ms)",
+   "89x attributes[style] div#itemDetailPage.page.libraryPage.itemDetailPage (750-750ms)",
+   "75x attributes[data-sleekfin-header-overflowed] button (250-1000ms)",
+   "72x attributes[style] html.sleekfin-details-concealed.tb-hero-on.tb-rows (250-500ms)",
+   "59x attributes[data-sleekfin-current] button (250-1000ms)",
+   "46x attributes[class] html.sleekfin-details-concealed.tb-hero-on.tb-rows (250-750ms)",
+   "46x attributes[style] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (250-500ms)",
+   "24x attributes[class] button.sleekfin-icon-button.sleekfin-control-3d.emby-button (1000-1000ms)",
+   "22x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light.hide (750-1000ms)",
+   "21x attributes[style] div.mainDetailButtons.focuscontainer-x.sleekfin-details-actions (750-750ms)",
+   "20x attributes[is] button.emby-scrollbuttons-button.paper-icon-button-light (750-750ms)",
+   "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (750-750ms)",
+   "17x childList body (0-500ms)",
+   "15x childList style#tb-js-css (250-250ms)",
+   "12x attributes[style] div.scrollSlider.focuscontainer-x.itemsContainer (500-500ms)",
+   "12x attributes[disabled] button.emby-scrollbuttons-button.paper-icon-button-light.hide (750-1000ms)",
+   "12x attributes[class] html.tb-hero-on.tb-rows.layout-desktop (750-4000ms)",
+   "12x attributes[is] button.sleekfin-icon-button.sleekfin-control-3d.emby-button (1000-1000ms)",
+   "12x attributes[title] button.sleekfin-icon-button.sleekfin-control-3d.emby-button (1000-1000ms)",
+   "12x attributes[class] span.material-icons.favorite (1000-1000ms)",
+   "11x attributes[data-sleekfin-header-source-anchor] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (250-500ms)",
+   "11x attributes[tabindex] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (250-500ms)",
+   "11x attributes[data-sleekfin-header-overflow-hidden] button (250-1000ms)",
+   "11x attributes[data-sleekfin-header-overflow-active] div (250-1000ms)",
+   "10x attributes[style] div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense (250-500ms)"
+  ]
+ },
+ "episode (reload)": {
+  "cls": 0.0417,
+  "shifts": [
+   {
+    "at": 669,
+    "hash": "#/details?id=f6dde552f47cce5c5",
+    "v": 0,
+    "src": [
+     "div.MuiBox-root.css-2uchni 1784,20,40,40 -> 1820,20,4,40"
+    ]
+   },
+   {
+    "at": 1064,
+    "hash": "#/details?id=f6dde552f47cce5c5",
+    "v": 0.0417,
+    "src": [
+     "a.MuiButtonBase-root.MuiButton-root.MuiButton-text 96,20,40,40 -> 146,20,40,40",
+     "main.MuiBox-root.css-1iogify 0,80,1920,1000 -> 0,0,1920,1080"
+    ]
+   }
+  ],
+  "muts": [
+   "198x childList head (0-750ms)",
+   "89x attributes[style] div#itemDetailPage.page.libraryPage.itemDetailPage (1000-1000ms)",
+   "85x attributes[data-sleekfin-header-overflowed] button (250-1250ms)",
+   "72x attributes[style] html.sleekfin-details-concealed.tb-hero-on.tb-rows (250-500ms)",
+   "69x attributes[data-sleekfin-current] button (250-1250ms)",
+   "54x attributes[class] html.sleekfin-details-concealed.tb-hero-on.tb-rows (250-750ms)",
+   "46x attributes[style] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (250-500ms)",
+   "36x attributes[class] button.cardOverlayButton.cardOverlayButton-hover.itemAction (750-750ms)",
+   "36x attributes[class] a.cardImageContainer.coveredImage.cardContent (750-1000ms)",
+   "24x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (500-1000ms)",
+   "24x attributes[is] button.cardOverlayButton.cardOverlayButton-hover.itemAction (750-750ms)",
+   "24x attributes[class] span.material-icons.cardOverlayButtonIcon.cardOverlayButtonIcon-hover (750-750ms)",
+   "24x attributes[class] button.sleekfin-icon-button.sleekfin-control-3d.emby-button (1000-1000ms)",
+   "21x attributes[style] div.mainDetailButtons.focuscontainer-x.sleekfin-details-actions (1000-1000ms)",
+   "20x attributes[is] button.emby-scrollbuttons-button.paper-icon-button-light (500-500ms)",
+   "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light.hide (750-750ms)",
+   "17x childList body (0-500ms)",
+   "15x childList style#tb-js-css (250-500ms)",
+   "13x attributes[style] div.scrollSlider.focuscontainer-x.itemsContainer (500-1000ms)",
+   "12x attributes[data-sleekfin-header-overflow-hidden] button (250-1250ms)",
+   "12x attributes[data-sleekfin-header-overflow-active] div (250-1250ms)",
+   "12x attributes[title] button.cardOverlayButton.cardOverlayButton-hover.itemAction (750-750ms)",
+   "12x attributes[style] a.cardImageContainer.coveredImage.cardContent (1000-1000ms)",
+   "12x attributes[data-src] a.cardImageContainer.coveredImage.cardContent (1000-1000ms)",
+   "12x attributes[is] button.sleekfin-icon-button.sleekfin-control-3d.emby-button (1000-1000ms)"
+  ]
+ },
+ "logos": [
+  {
+   "url": "/Items/5171c7a6950f550b9b0de561fea6d6b7/Images/Logo?tag=de82eafcb5139e017abd2d8407f69f5b&maxHeight=140&quality=90",
+   "kb": 7,
+   "status": 200
+  },
+  {
+   "url": "/Items/75d32c2d360d4f28ba04d79015b1ecc4/Images/Logo?tag=f79052427a9cf9fcc313c3d7b9383578&maxHeight=140&quality=90",
+   "kb": 5,
+   "status": 200
+  },
+  {
+   "url": "/Items/ad42af0b48fec94e92fd483535db6ea8/Images/Logo?tag=2dd65e97d46e745b8db54a2c1c2db9db&maxHeight=140&quality=90",
+   "kb": 7,
+   "status": 200
+  },
+  {
+   "url": "/Items/78f6eef4587e3881330fa2f083085523/Images/Logo?tag=d371bffeaef0fb9bf11c585d91eaf20d&maxHeight=140&quality=90",
+   "kb": 9,
+   "status": 200
+  },
+  {
+   "url": "/Items/fe509545192160afefdb312796033d71/Images/Logo?tag=78c77ba82fd10606f8f99a390fe6285c&maxHeight=140&quality=90",
+   "kb": 9,
+   "status": 200
+  },
+  {
+   "url": "/Items/ee7a019545f8a756d52e0a981aa54bc2/Images/Logo?tag=db9ff27f9af25560f4c184bddaf5aeb4&maxHeight=140&quality=90",
+   "kb": 6,
+   "status": 200
+  },
+  {
+   "url": "/Items/6f225e4936f38baaa7f572cadb22260f/Images/Logo?tag=aaf2f037e9c87666d18787ad5bd157c1&maxHeight=140&quality=90",
+   "kb": 10,
+   "status": 200
+  },
+  {
+   "url": "/Items/d7370aca459f559d6c055fd3f4537ec5/Images/Logo?tag=d0f956dd0d4a781812283bbde38880d4&maxHeight=140&quality=90",
+   "kb": 8,
+   "status": 200
+  },
+  {
+   "url": "/Items/51eb6dedcf4267d3b03e4d797ae97954/Images/Logo?tag=76568d14d3c250ec6f610923ae49eb9f&maxHeight=140&quality=90",
+   "kb": 6,
+   "status": 200
+  },
+  {
+   "url": "/Items/532432f63066dc00899d003ab1e6e90c/Images/Logo?tag=eb750c0f3e559c7fc3049a3bf62df9b3&maxHeight=140&quality=90",
+   "kb": 7,
+   "status": 200
+  },
+  {
+   "url": "/Items/75d32c2d360d4f28ba04d79015b1ecc4/Images/Logo?tag=f79052427a9cf9fcc313c3d7b9383578&maxHeight=140&quality=90",
+   "kb": 5,
+   "status": 200
+  },
+  {
+   "url": "/Items/fe509545192160afefdb312796033d71/Images/Logo?tag=78c77ba82fd10606f8f99a390fe6285c&maxHeight=140&quality=90",
+   "kb": 9,
+   "status": 200
+  },
+  {
+   "url": "/Items/6f225e4936f38baaa7f572cadb22260f/Images/Logo?tag=aaf2f037e9c87666d18787ad5bd157c1&maxHeight=140&quality=90",
+   "kb": 10,
+   "status": 200
+  },
+  {
+   "url": "/Items/ee7a019545f8a756d52e0a981aa54bc2/Images/Logo?tag=db9ff27f9af25560f4c184bddaf5aeb4&maxHeight=140&quality=90",
+   "kb": 6,
+   "status": 200
+  },
+  {
+   "url": "/Items/d7370aca459f559d6c055fd3f4537ec5/Images/Logo?tag=d0f956dd0d4a781812283bbde38880d4&maxHeight=140&quality=90",
+   "kb": 8,
+   "status": 200
+  },
+  {
+   "url": "/Items/5171c7a6950f550b9b0de561fea6d6b7/Images/Logo?tag=de82eafcb5139e017abd2d8407f69f5b&maxHeight=140&quality=90",
+   "kb": 7,
+   "status": 200
+  },
+  {
+   "url": "/Items/ad42af0b48fec94e92fd483535db6ea8/Images/Logo?tag=2dd65e97d46e745b8db54a2c1c2db9db&maxHeight=140&quality=90",
+   "kb": 7,
+   "status": 200
+  },
+  {
+   "url": "/Items/78f6eef4587e3881330fa2f083085523/Images/Logo?tag=d371bffeaef0fb9bf11c585d91eaf20d&maxHeight=140&quality=90",
+   "kb": 9,
+   "status": 200
+  },
+  {
+   "url": "/Items/532432f63066dc00899d003ab1e6e90c/Images/Logo?tag=eb750c0f3e559c7fc3049a3bf62df9b3&maxHeight=140&quality=90",
+   "kb": 7,
+   "status": 200
+  },
+  {
+   "url": "/Items/51eb6dedcf4267d3b03e4d797ae97954/Images/Logo?tag=76568d14d3c250ec6f610923ae49eb9f&maxHeight=140&quality=90",
+   "kb": 6,
+   "status": 200
+  },
+  {
+   "url": "/Items/1d858c5bfd41686f432c5272367f8b67/Images/Logo?tag=3e752218540abc948c2355bf01bb992d&quality=90",
+   "kb": 6,
+   "status": 200
+  },
+  {
+   "url": "/Items/5171c7a6950f550b9b0de561fea6d6b7/Images/Logo?tag=de82eafcb5139e017abd2d8407f69f5b&quality=90",
+   "kb": 7,
+   "status": 200
+  },
+  {
+   "url": "/Items/5171c7a6950f550b9b0de561fea6d6b7/Images/Logo?tag=de82eafcb5139e017abd2d8407f69f5b&quality=90",
+   "kb": 7,
+   "status": 200
+  }
+ ]
+}

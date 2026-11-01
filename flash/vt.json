@@ -1,0 +1,242 @@
+[
+ [
+  8977,
+  "start #/home"
+ ],
+ [
+  9168,
+  "held"
+ ],
+ [
+  9694,
+  "ready 526ms itemDetailPage"
+ ],
+ [
+  9696,
+  "[]"
+ ],
+ [
+  10128,
+  "done"
+ ],
+ [
+  12012,
+  "start #/home"
+ ],
+ [
+  12013,
+  "kept popstate"
+ ],
+ [
+  12025,
+  "kept hashchange"
+ ],
+ [
+  12052,
+  "held"
+ ],
+ [
+  12060,
+  "replayed popstate"
+ ],
+ [
+  12105,
+  "replayed hashchange"
+ ],
+ [
+  12335,
+  "ready 283ms indexPage"
+ ],
+ [
+  12337,
+  "[]"
+ ],
+ [
+  12747,
+  "done"
+ ],
+ [
+  15139,
+  "start #/home"
+ ],
+ [
+  15207,
+  "held"
+ ],
+ [
+  15625,
+  "ready 418ms itemDetailPage"
+ ],
+ [
+  15627,
+  "[]"
+ ],
+ [
+  16056,
+  "done"
+ ],
+ [
+  18156,
+  "start #/home"
+ ],
+ [
+  18156,
+  "kept popstate"
+ ],
+ [
+  18169,
+  "kept hashchange"
+ ],
+ [
+  18193,
+  "held"
+ ],
+ [
+  18198,
+  "replayed popstate"
+ ],
+ [
+  18216,
+  "replayed hashchange"
+ ],
+ [
+  18451,
+  "ready 257ms indexPage"
+ ],
+ [
+  18453,
+  "[]"
+ ],
+ [
+  18826,
+  "done"
+ ],
+ [
+  51263,
+  "start #/home"
+ ],
+ [
+  51339,
+  "held"
+ ],
+ [
+  51797,
+  "ready 457ms itemDetailPage"
+ ],
+ [
+  51799,
+  "[]"
+ ],
+ [
+  52269,
+  "done"
+ ],
+ [
+  54281,
+  "start #/home"
+ ],
+ [
+  54281,
+  "kept popstate"
+ ],
+ [
+  54296,
+  "kept hashchange"
+ ],
+ [
+  54320,
+  "held"
+ ],
+ [
+  54328,
+  "replayed popstate"
+ ],
+ [
+  54377,
+  "replayed hashchange"
+ ],
+ [
+  54660,
+  "ready 340ms indexPage"
+ ],
+ [
+  54663,
+  "[]"
+ ],
+ [
+  55073,
+  "done"
+ ],
+ [
+  87386,
+  "start #/home"
+ ],
+ [
+  87481,
+  "held"
+ ],
+ [
+  87906,
+  "ready 424ms itemDetailPage"
+ ],
+ [
+  87908,
+  "[]"
+ ],
+ [
+  88331,
+  "done"
+ ],
+ [
+  90409,
+  "start #/home"
+ ],
+ [
+  90409,
+  "kept popstate"
+ ],
+ [
+  90423,
+  "kept hashchange"
+ ],
+ [
+  90447,
+  "held"
+ ],
+ [
+  90454,
+  "replayed popstate"
+ ],
+ [
+  90488,
+  "replayed hashchange"
+ ],
+ [
+  90777,
+  "ready 330ms indexPage"
+ ],
+ [
+  90779,
+  "[]"
+ ],
+ [
+  91162,
+  "done"
+ ],
+ [
+  153642,
+  "start #/home"
+ ],
+ [
+  153740,
+  "held"
+ ],
+ [
+  154175,
+  "ready 436ms itemDetailPage"
+ ],
+ [
+  154177,
+  "[]"
+ ]
+]

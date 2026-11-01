@@ -967,3 +967,38 @@ html.layout-tv.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] >
 html body .tb-studios .emby-scroller { overflow-x: auto !important; overflow-y: hidden !important; scrollbar-width: none; }
 html body .tb-studios .emby-scroller::-webkit-scrollbar { display: none; }
 /* ═══════════ end phones, tablets, TVs ═══════════ */
+
+
+/* ═══════════ Top bar menus (SyncPlay, cast, more): same dark panel as your user menu ═══════════ */
+:is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiPaper-root {
+  background: rgba(14, 14, 16, 0.96) !important;
+  background-image: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 24px 60px -16px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(0, 0, 0, 0.4) !important;
+  color: #fff !important;
+  font-family: var(--app-font) !important;
+  margin-top: 8px;
+  min-width: 240px !important;
+  padding: 6px !important;
+}
+:is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiMenu-list { padding: 0 !important; }
+:is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiMenuItem-root {
+  border-radius: 10px !important;
+  color: rgba(255, 255, 255, 0.88) !important;
+  margin: 1px 0;
+  min-height: 0 !important;
+  padding: 10px 12px !important;
+}
+:is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiMenuItem-root :is(.MuiTypography-root, .MuiListItemText-primary) {
+  font-family: var(--app-font) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+:is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiListItemText-secondary { color: rgba(255, 255, 255, 0.5) !important; font-size: 12px !important; }
+:is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiListItemIcon-root { color: rgba(255, 255, 255, 0.6) !important; min-width: 32px !important; }
+:is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiMenuItem-root:is(:hover, .Mui-focusVisible) { background: rgba(255, 255, 255, 0.07) !important; color: #fff !important; }
+:is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiMenuItem-root:is(:hover, .Mui-focusVisible) .MuiListItemIcon-root { color: var(--sleekfin-accent) !important; }
+:is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiDivider-root { border-color: rgba(255, 255, 255, 0.08) !important; margin: 6px 4px !important; }
+:is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiListSubheader-root { background: transparent !important; color: rgba(255, 255, 255, 0.45) !important; font: 700 11px/2.4 var(--app-font) !important; letter-spacing: 0.08em; text-transform: uppercase; }
+/* ═══════════ end top bar menus ═══════════ */

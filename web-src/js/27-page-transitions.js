@@ -2,7 +2,7 @@
   // Smoother page changes, as on cinejoy.pk: opening a title (or anything else) and going back cross-fade the
   // whole screen, top bar included: the old screen fades out while the new one fades in on top of it.
   // Done with the browser's View Transitions (Chrome/Edge 111+, Safari 18+, Firefox 144+): the screen you were on
-  // is held as a picture for the moment the new page takes to appear (never longer than ~0.6 s), then the two
+  // is held as a picture for the moment the new page takes to appear (never longer than ~0.9 s), then the two
   // blend. Browsers without it: the new page fades in (optionally rising a few pixels), as before.
   // Off on TVs, while a video plays, on the very first page, and when the device asks for less motion.
   if (window.__tbPageFx || !tbCfg("PageTransitions", true)) return;
@@ -40,19 +40,38 @@
   // ── cross-fade (View Transitions) ──
   var running = false, started = false;
   // a title page counts as ready once its title is there (the backdrop fades in on its own, as on cinejoy)
-  function ready(p, t) {
+  // (no half-built page in between: no loading placeholders, no empty banner, no rows popping in after)
+  function ready(p, t, before) {
     if (!p) return false;
     if (p.id === "itemDetailPage") {
-      if (html.classList.contains("sleekfin-details-concealed")) return false;
-      var title = p.querySelector(".sleekfin-details-title, .itemName, .detailPageContent");
-      return !!(title && (title.childNodes.length || title.textContent));
+      var sleek = !!document.querySelector("[data-sleekfin-details]") || html.classList.contains("sleekfin-details-mounted") || html.classList.contains("sleekfin-details-concealed");
+      if (sleek) {
+        if (!html.classList.contains("sleekfin-details-mounted") || html.classList.contains("sleekfin-details-concealed") || p.getAttribute("data-sleekfin-details") !== "true") return false;
+        var st = p.querySelector(".sleekfin-details-title");
+        if (!st || !(st.childNodes.length)) return false;
+        return st.innerHTML !== before;   // a new title, not the one we came from
+      }
+      var n = p.querySelector(".itemName");
+      return !!(n && n.textContent.trim()) && n.textContent !== before;
     }
-    return t > 40;
+    if (p.id === "indexPage" || p.querySelector("#homeTab")) {
+      if (html.classList.contains("tb-rows") && !html.classList.contains("tb-rows-ok")) return false;
+      var hero = p.querySelector(".sleekfin-hero");
+      if (html.classList.contains("tb-hero-on") && !hero && t < 400) return false;
+      if (hero && !hero.querySelector(".sleekfin-hero-slide[data-active='true'] .sleekfin-hero-backdrop[data-loaded='true']")) return false;
+      return !!p.querySelector(".card[data-id]") || t > 300;
+    }
+    return !!p.querySelector(".card[data-id], .listItem, .itemsContainer > *") || t > 250;
+  }
+  function stamp(p) {
+    if (!p) return "";
+    var st = p.querySelector(".sleekfin-details-title") || p.querySelector(".itemName");
+    return st ? (st.classList.contains("itemName") ? st.textContent : st.innerHTML) : "";
   }
   function crossfade(wait) {
     if (!VT || running || !started || off()) return false;
     running = true;
-    var from = location.hash, page0 = current(), t0 = Date.now(), moved = 0;
+    var from = location.hash, page0 = current(), t0 = Date.now(), moved = 0, before = stamp(page0);
     var tr;
     try {
       html.classList.add("tb-vt");
@@ -63,8 +82,8 @@
             var now = Date.now(), p = current();
             if (!moved && (location.hash !== from || p !== page0)) moved = now;
             if (!moved && now - t0 > wait) return resolve();        // the click didn't change page
-            if (moved && (p !== page0 || location.hash !== from) && ready(p, now - moved)) return resolve();
-            if (now - t0 > 600) return resolve();                      // never hold the screen longer
+            if (moved && (p !== page0 || location.hash !== from) && ready(p, now - moved, before)) return resolve();
+            if (now - t0 > 900) return resolve();                      // never hold the screen longer
             setTimeout(tick, 16);
           })();
         });

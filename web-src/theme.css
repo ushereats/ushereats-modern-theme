@@ -1116,6 +1116,8 @@ html.sleekfin-details-concealed:is(.sleekfin-header-boot-loading, .sleekfin-head
 }
 
 /* Back arrow (top left): grows a little under the pointer, as on cinejoy.pk */
+html .sleekfin-details-back.sleekfin-details-back, html .sleekfin-details-back.sleekfin-details-back:hover { background: transparent !important; border-color: transparent !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; color: #fff !important; }
+html .sleekfin-details-back.sleekfin-details-back > * { filter: drop-shadow(0 1px 6px rgba(0,0,0,.55)); }
 .sleekfin-details-back > *, .headerBackButton > * { transition: transform .18s cubic-bezier(.2,.8,.2,1); }
 @media (hover: hover) and (pointer: fine) {
   .sleekfin-details-back:hover > *, .headerBackButton:hover > * { transform: scale(1.14); }

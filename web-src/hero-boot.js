@@ -37,6 +37,9 @@
     var cache = null;
     try { cache = JSON.parse(localStorage.getItem("tbHeroCache") || "null"); } catch (e) {}
     if (home && cache && cache.items && cache.items.length) {
+      // a banner is coming: the page starts under the top bar straight away (it used to start below it and
+      // jump up 80 px when the banner arrived)
+      root.classList.add("tb-hero-boot");
       var first = cache.items[Math.floor(Math.random() * cache.items.length)];
       window.__tbHeroFirst = first.Id;
       var bg = window.__tbHeroImg(first.Id, "Backdrop", first.Backdrop);

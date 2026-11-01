@@ -56,14 +56,25 @@ export function mark(mount, element, name, value) {
   }
 }
 
+// What this header last wrote to each style, as given. The browser hands values back rewritten (colours,
+// numbers), so comparing with what it reports always looked "changed": every settings pass rewrote every
+// variable on the page root, restyling the whole page each time (about a hundred times while it starts).
+const written = new WeakMap();
+
 export function setStyle(mount, element, name, value, priority) {
   if (!element) return;
 
   ownStyle(mount, element, name);
   const nextPriority = priority || '';
+  let mine = written.get(element);
+  if (!mine) { mine = new Map(); written.set(element, mine); }
+  const stamp = `${value}|${nextPriority}`;
+  // skip only when it's still exactly what we left there (nothing else changed it since)
+  if (mine.get(name)?.stamp === stamp && element.style.getPropertyValue(name) === mine.get(name).seen && element.style.getPropertyPriority(name) === nextPriority) return;
   if (element.style.getPropertyValue(name) !== value || element.style.getPropertyPriority(name) !== nextPriority) {
     element.style.setProperty(name, value, nextPriority);
   }
+  mine.set(name, { stamp, seen: element.style.getPropertyValue(name) });
 }
 
 // PCs (900px+, not TV) use the desktop logo size; phones/tablets/TV use the normal one.

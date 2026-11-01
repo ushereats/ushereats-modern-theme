@@ -1105,3 +1105,12 @@ html body .tb-studios .emby-scroller::-webkit-scrollbar { display: none; }
 .nowPlayingBar :is(.nowPlayingBarText, .nowPlayingBarCurrentTime) { font-family: var(--app-font) !important; }
 .nowPlayingBar .nowPlayingImage { border-radius: 6px; overflow: hidden; }
 /* ═══════════ end ═══════════ */
+
+/* ═══════════ the page starts where it ends up (no 80 px jump when the top bar takes over) ═══════════ */
+/* Jellyfin keeps an 80 px gap under its own top bar; pages with a banner / backdrop take it away once they're
+   built, which moved the whole page up a moment after it appeared. Taken away from the start instead:
+   home while its banner is on the way, title pages while they're being put together. */
+html.tb-hero-boot:is(.sleekfin-header-boot-loading, .sleekfin-header-loading, .sleekfin-header-mounted) header.MuiAppBar-root + div[aria-hidden="true"],
+html.sleekfin-details-concealed:is(.sleekfin-header-boot-loading, .sleekfin-header-loading, .sleekfin-header-mounted) :is(header.MuiAppBar-root, [data-sleekfin-header="modern"]) + div[aria-hidden="true"] {
+  height: 0 !important;
+}

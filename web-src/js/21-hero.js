@@ -394,7 +394,7 @@
   function reconcile() {
     if (!isHomeRoute()) {
       if (root && root.style.display !== "none") root.style.display = "none";
-      html.classList.remove("sleekfin-hero-mounted", "tb-hs", "tb-hs-out");
+      html.classList.remove("sleekfin-hero-mounted", "tb-hs", "tb-hs-out", "tb-hero-boot");
       stopTimer();
       return;
     }
@@ -402,6 +402,7 @@
     if (!host) return;
     if (!root) {
       loadData().then(function (data) {
+        if (!data || !data.list.length) html.classList.remove("tb-hero-boot");   // no banner after all
         if (!data || !data.list.length || root) return;
         build(data);
         schedule();
@@ -411,6 +412,7 @@
     if (root.style.display) root.style.display = "";
     place(host);
     html.classList.add("sleekfin-hero-mounted");
+    html.classList.remove("tb-hero-boot");
     if (!timer) startTimer();
     handOver();
     if (!rectTimer && !rectSaved) rectTimer = setTimeout(saveRect, 3000);   // once the page has settled

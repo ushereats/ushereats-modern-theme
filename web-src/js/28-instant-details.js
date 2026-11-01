@@ -23,7 +23,7 @@
     if (!r.width || !r.height) return;
     var c = getComputedStyle(bd), a = getComputedStyle(art), b = getComputedStyle(bd, "::before"), f = getComputedStyle(bd, "::after");
     look = {
-      vw: innerWidth, vh: innerHeight, amb: html.classList.contains("tb-ambient-details"),
+      vw: innerWidth, vh: innerHeight, amb: !!tbCfg("AmbientBackground", true),
       left: Math.round(r.left), top: Math.round(r.top - pg.top), width: Math.round(r.width), height: Math.round(r.height),
       mask: c.webkitMaskImage || c.maskImage || "none",
       art: { pos: a.backgroundPosition, size: a.backgroundSize, filter: a.filter, opacity: a.opacity },
@@ -40,7 +40,7 @@
     return m ? m[1] : null;
   }
   function usable() {
-    return look && look.vw === innerWidth && look.vh === innerHeight && look.amb === html.classList.contains("tb-ambient-details");
+    return look && look.vw === innerWidth && look.vh === innerHeight && look.amb === !!tbCfg("AmbientBackground", true);
   }
   function show(url) {
     hide(true);

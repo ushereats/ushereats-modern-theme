@@ -1114,3 +1114,10 @@ html.tb-hero-boot:is(.sleekfin-header-boot-loading, .sleekfin-header-loading, .s
 html.sleekfin-details-concealed:is(.sleekfin-header-boot-loading, .sleekfin-header-loading, .sleekfin-header-mounted) :is(header.MuiAppBar-root, [data-sleekfin-header="modern"]) + div[aria-hidden="true"] {
   height: 0 !important;
 }
+
+/* Back arrow (top left): grows a little under the pointer, as on cinejoy.pk */
+.sleekfin-details-back > *, .headerBackButton > * { transition: transform .18s cubic-bezier(.2,.8,.2,1); }
+@media (hover: hover) and (pointer: fine) {
+  .sleekfin-details-back:hover > *, .headerBackButton:hover > * { transform: scale(1.14); }
+}
+.sleekfin-details-back:active > *, .headerBackButton:active > * { transform: scale(.94); }

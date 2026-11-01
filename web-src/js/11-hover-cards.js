@@ -1,5 +1,5 @@
 (function hoverCard() {
-  // Hover look: dimmed poster, white round play button, bold title, "2026 ★ 7.1"
+  // Hover look (as cinejoy.pk): the poster dims evenly, a small white round play button fades in, the title and "2026 ★ 7.1" under it
   var INFO_CLASS = "tb-hover-info";
   var STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.94 6.2 6.81.8-5.04 4.66 1.36 6.72L12 17.52l-6.07 3.36 1.36-6.72L2.25 9.5l6.81-.8z"/></svg>';
 
@@ -121,8 +121,8 @@
     /* dim layer */
     "  .card .cardScalable::after {",
     "    content: ''; position: absolute; inset: 0; z-index: 3; pointer-events: none;",
-    "    background: linear-gradient(180deg, rgba(0,0,0,0.38) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.62) 100%);",
-    "    opacity: 0; transition: opacity 180ms ease;",
+    "    background: rgba(0,0,0,0.56);",
+    "    opacity: 0; transition: opacity 160ms ease;",
     "    border-radius: inherit;",
     "  }",
     "  " + H + " .cardScalable::after { opacity: 1; }",
@@ -138,43 +138,45 @@
     "  " + X + " .card .cardOverlayContainer > button.cardOverlayFab-primary,",
     "  " + X + " .card button.cardOverlayButton-centered {",
     "    position: absolute !important; left: 50% !important; top: 50% !important;",
-    "    width: 54px !important; height: 54px !important;",
-    "    margin: -52px 0 0 -27px !important; padding: 0 !important;",
+    "    width: 42px !important; height: 42px !important;",
+    "    margin: -38px 0 0 -21px !important; padding: 0 !important;",
     "    border-radius: 50% !important;",
     "    background: #fff !important; color: #0b0b0b !important;",
     "    border: 0 !important; outline: none !important;",
     "    background-image: none !important;",
     "    -webkit-backdrop-filter: none !important; backdrop-filter: none !important;",
     "    opacity: 1 !important;",
-    "    box-shadow: 0 6px 18px -4px rgba(0,0,0,0.55) !important;",
+    "    box-shadow: 0 4px 14px -4px rgba(0,0,0,0.5) !important;",
     "    display: flex !important; align-items: center; justify-content: center;",
-    "    transition: transform 150ms ease !important;",
+    "    transition: transform 160ms ease, opacity 160ms ease !important;",
     "  }",
+    /* the button fades in with the dim */
+    "  " + X + " .card:not(:hover) :is(.cardOverlayContainer > button.cardOverlayFab-primary, button.cardOverlayButton-centered) { opacity: 0 !important; transform: scale(0.92) !important; }",
     "  " + X + " .card .cardOverlayContainer > button.cardOverlayFab-primary:hover { transform: scale(1.07) !important; background: #fff !important; }",
     "  " + X + " .card :is(.cardOverlayContainer > button.cardOverlayFab-primary, button.cardOverlayButton-centered) > :is(.cardOverlayButtonIcon, .material-icons, .MuiSvgIcon-root, svg) {",
-    "    font-size: 32px !important; width: 32px !important; height: 32px !important;",
-    "    color: #0b0b0b !important; fill: #0b0b0b !important; margin: 0 0 0 3px !important;",
+    "    font-size: 24px !important; width: 24px !important; height: 24px !important;",
+    "    color: #0b0b0b !important; fill: #0b0b0b !important; margin: 0 0 0 2px !important;",
     "    opacity: 1 !important; background: none !important;",
     "  }",
 
     /* title + meta */
     "  .card ." + INFO_CLASS + " {",
-    "    position: absolute; left: 8px; right: 8px; top: calc(50% + 14px); z-index: 5;",
-    "    display: flex; flex-direction: column; align-items: center; gap: 4px;",
+    "    position: absolute; left: 8px; right: 8px; top: calc(50% + 12px); z-index: 5;",
+    "    display: flex; flex-direction: column; align-items: center; gap: 3px;",
     "    text-align: center; color: #fff; pointer-events: none;",
     "    font-family: var(--app-font, Inter, sans-serif);",
-    "    opacity: 0; transform: translateY(4px);",
-    "    transition: opacity 180ms ease, transform 180ms ease;",
+    "    opacity: 0; transform: translateY(3px);",
+    "    transition: opacity 160ms ease, transform 160ms ease;",
     "  }",
     "  " + H + " ." + INFO_CLASS + " { opacity: 1; transform: none; }",
     "  .tb-hv-title {",
-    "    max-width: 100%; font-size: 15px; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em;",
+    "    max-width: 100%; font-size: 13px; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em;",
     "    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;",
     "    text-shadow: 0 1px 8px rgba(0,0,0,0.5);",
     "  }",
-    "  .tb-hv-meta { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.82); }",
+    "  .tb-hv-meta { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.78); }",
     "  .tb-hv-rate { display: inline-flex; align-items: center; gap: 3px; color: #fff; }",
-    "  .tb-hv-rate svg { width: 14px; height: 14px; fill: #f5c518; }",
+    "  .tb-hv-rate svg { width: 11px; height: 11px; fill: #f5c518; }",
 
     /* ── Wide cards (Continue Watching etc.): logo bottom-left, smaller centred play ── */
     "  " + X + " .card.tb-wide-card .cardOverlayContainer > button.cardOverlayFab-primary {",

@@ -233,6 +233,8 @@
   }
 
   tbWatch(function () { if (/^#\/search/.test(location.hash)) mount(); });
+  // downloaded on its own when search is opened: the search page may already be there
+  if (/^#\/search/.test(location.hash)) setTimeout(mount, 0);
   window.addEventListener("hashchange", function () {
     if (!/^#\/search/.test(location.hash)) return;
     var have = document.querySelector("#searchPage #smart-search-wrapper");

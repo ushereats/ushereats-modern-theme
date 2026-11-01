@@ -53,6 +53,55 @@ if (ids[0]) await open(ids[0], "first-ever (no stand-in yet)");
 if (ids[0]) await open(ids[0], "same again");
 if (ids[1]) await open(ids[1], "another");
 if (ids[2]) await open(ids[2], "third");
+// hover look on a poster, then a title's back arrow: hovered (grows) and clicked
+if (ids[1]) {
+  const card = page.locator(`.card[data-id="${ids[1]}"]`).first();
+  await card.scrollIntoViewIfNeeded().catch(() => {});
+  await card.hover().catch(() => {});
+  await page.waitForTimeout(700);
+  const bx = await card.boundingBox().catch(() => null);
+  if (bx) await page.screenshot({ path: out + "/hover.png", clip: { x: Math.max(0, bx.x - 20), y: Math.max(0, bx.y - 20), width: Math.min(400, bx.width + 40), height: Math.min(600, bx.height + 40) } });
+  mark("click arrow-test");
+  await card.evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
+  await page.waitForTimeout(3000);
+  const back = page.locator(".sleekfin-details-back").first();
+  if (await back.count()) {
+    await page.screenshot({ path: out + "/arrow-off.png", clip: { x: 0, y: 0, width: 220, height: 110 } });
+    await back.hover().catch(() => {});
+    await page.waitForTimeout(400);
+    await page.screenshot({ path: out + "/arrow-on.png", clip: { x: 0, y: 0, width: 220, height: 110 } });
+    mark("back-arrow click");
+    await back.click().catch(() => {});
+    await page.waitForTimeout(2500);
+  }
+}
+// a library page: the image links it asks for (sharpness, WebP) and how fast it shows the second time
+const imgs = [];
+page.on("request", (r) => { if (/\/Images\/(Primary|Thumb)/.test(r.url())) imgs.push(r.url().replace(/^https?:\/\/[^/]+/, "")); });
+const views = await fetch(s.server + `/Users/${s.userId}/Views`, { headers: H }).then((r) => r.json()).catch(() => ({ Items: [] }));
+const lib = (views.Items || []).find((v) => v.CollectionType === "movies") || (views.Items || [])[0];
+const libTimes = [];
+if (lib) {
+  for (let i = 0; i < 2; i++) {
+    const ts = Date.now();
+    mark("library " + i);
+    await page.evaluate((id) => { location.hash = "#/movies.html?topParentId=" + id; }, lib.Id);
+    await page.waitForSelector("#moviesPage:not(.hide) .card[data-id], .page:not(.hide) .itemsContainer .card[data-id]", { timeout: 15000 }).catch(() => {});
+    libTimes.push(Date.now() - ts);
+    await page.waitForTimeout(1500);
+    if (i === 0) await page.screenshot({ path: out + "/library.png" });
+    await page.evaluate(() => { location.hash = "#/home"; });
+    await page.waitForTimeout(2000);
+  }
+}
+const webp = await page.evaluate(() => window.__tbImgFmt);
+fs.writeFileSync(out + "/library.json", JSON.stringify({ libTimes, webp, imgs: imgs.slice(0, 40) }, null, 1));
+// the settings page, and its search
+await page.evaluate(() => { location.hash = "#/configurationpage?name=UshereatsTheme"; });
+await page.waitForTimeout(4000);
+await page.screenshot({ path: out + "/settings.png" });
+const q = page.locator(".tb-cfg-search input").first();
+if (await q.count()) { await q.fill("fade"); await page.waitForTimeout(500); await page.screenshot({ path: out + "/settings-search.png" }); }
 const look = await page.evaluate(() => localStorage.getItem("tb-bd-look"));
 await ctx.close();
 await browser.close();

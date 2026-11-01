@@ -37,7 +37,7 @@
     return "fillWidth=" + pw + "&fillHeight=" + Math.round(pw * 1.5);
   }
   function img(id, type, tag, shape) {
-    return base + "Items/" + id + "/Images/" + type + "?" + size(shape) + "&quality=96&tag=" + encodeURIComponent(tag);
+    return base + "Items/" + id + "/Images/" + type + "?" + size(shape) + "&quality=96" + (window.__tbImgFmt || "") + "&tag=" + encodeURIComponent(tag);
   }
   // same image choice as Jellyfin's home rows
   function imageFor(it, shape, own) {

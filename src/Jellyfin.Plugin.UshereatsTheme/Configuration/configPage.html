@@ -1768,7 +1768,7 @@
                             <div class="sleekfin-toggle-row">
                                 <div class="sleekfin-toggle-copy">
                                     <label class="sleekfin-toggle-label" for="tb-PageTransitions">Smooth page changes</label>
-                                    <div class="sleekfin-field-description">The page you open fades in instead of appearing in one frame. The top bar and background stay still, and nothing waits for it. Off on TVs, during video, and when the device asks for less motion.</div>
+                                    <div class="sleekfin-field-description">Opening a title, going back and changing page cross-fade the whole screen (as on cinejoy.pk). Older browsers: the new page fades in, styled below. Off on TVs, during video, and when the device asks for less motion.</div>
                                 </div>
                                 <div class="sleekfin-toggle-actions">
                                     <label class="sleekfin-toggle">
@@ -1779,7 +1779,7 @@
                             </div>
                             <div class="sleekfin-input-group">
                                 <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-PageTransitionStyle">Style</label>
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-PageTransitionStyle">Older browsers</label>
                                     <div class="sleekfin-input-stack">
                                         <select id="tb-PageTransitionStyle" class="sleekfin-input" data-key="PageTransitionStyle">
                                             <option value="Fade">Fade</option>
@@ -6016,6 +6016,145 @@
         if (b) { load(); check(); }
       });
       page.addEventListener("viewhide", function () { clearTimeout(poll); });
+    })();
+    </script>
+
+    <style>
+        /* ── Modern look (layered over SleekFin's settings styles) ── */
+        #sleekFinConfigurationPage { --tb-a: var(--accent, #00a4dc); --tb-line: rgba(255,255,255,.09); --tb-card: rgba(255,255,255,.035); --tb-dim: rgba(255,255,255,.6); }
+        #sleekFinConfigurationPage .content-primary { max-width: 1320px; }
+        #sleekFinConfigurationPage .sleekfin-page-banner { background: transparent; color: #fff; padding: 0 0 .1em; font-size: 2.1em; font-weight: 800; letter-spacing: -.02em; text-align: left; }
+        #sleekFinConfigurationPage .sleekfin-page-banner a { color: var(--tb-dim); font-size: .4em; font-weight: 500; text-decoration: none; }
+        #sleekFinConfigurationPage .sleekfin-page-banner a:hover { color: #fff; }
+        #sleekFinConfigurationPage .tb-cfg-search { position: relative; width: 100%; margin: 0 0 .6em; }
+        #sleekFinConfigurationPage .tb-cfg-search input { width: 100%; box-sizing: border-box; font: inherit; font-size: .95em; color: #fff; background: rgba(255,255,255,.06); border: 1px solid var(--tb-line); border-radius: 12px; padding: .7em .9em .7em 2.4em; outline: none; transition: border-color .15s, background .15s; }
+        #sleekFinConfigurationPage .tb-cfg-search input:focus { border-color: var(--tb-a); background: rgba(255,255,255,.09); }
+        #sleekFinConfigurationPage .tb-cfg-search svg { position: absolute; left: .8em; top: 50%; width: 16px; height: 16px; transform: translateY(-50%); opacity: .55; pointer-events: none; }
+        #sleekFinConfigurationPage .tb-cfg-search kbd { position: absolute; right: .7em; top: 50%; transform: translateY(-50%); font: inherit; font-size: .75em; color: var(--tb-dim); border: 1px solid var(--tb-line); border-radius: 6px; padding: 0 .45em; pointer-events: none; }
+        #sleekFinConfigurationPage .sleekfin-page-nav { gap: 4px !important; }
+        #sleekFinConfigurationPage .sleekfin-page-nav-button, #sleekFinConfigurationPage .sleekfin-builder-subnav-item { display: flex; align-items: center; gap: .7em; border: 0 !important; border-radius: 10px !important; padding: .62em .85em !important; color: rgba(255,255,255,.72); font-weight: 600; background: transparent; transition: background .15s, color .15s; cursor: pointer; }
+        #sleekFinConfigurationPage .sleekfin-page-nav-button:hover, #sleekFinConfigurationPage .sleekfin-builder-subnav-item:hover { background: rgba(255,255,255,.06); color: #fff; }
+        #sleekFinConfigurationPage .sleekfin-page-nav-button.is-active, #sleekFinConfigurationPage .sleekfin-builder-subnav-item.is-active { background: rgba(255,255,255,.1); color: #fff !important; box-shadow: inset 3px 0 0 var(--tb-a); }
+        #sleekFinConfigurationPage .tb-nav-ico { display: inline-flex; flex: 0 0 auto; }
+        #sleekFinConfigurationPage .tb-nav-ico svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: .9; }
+        #sleekFinConfigurationPage .sleekfin-builder-subnav { gap: 2px; padding-left: 1.6em; }
+        @media (min-width: 1000px) {
+            #sleekFinConfigurationPage .sleekfin-container { display: grid !important; grid-template-columns: 250px minmax(0, 1fr); column-gap: 36px; align-items: start; }
+            #sleekFinConfigurationPage .sleekfin-page-banner { grid-column: 1 / -1; }
+            #sleekFinConfigurationPage .sleekfin-page-nav { position: sticky; top: calc(var(--header-height, 4.5em) + 12px); display: flex !important; flex-direction: column !important; flex-wrap: nowrap !important; margin: 1.2em 0 0 !important; max-height: calc(100vh - 8em); overflow: auto; scrollbar-width: thin; }
+            #sleekFinConfigurationPage .sleekfin-page-nav-button { width: 100% !important; flex: 0 0 auto !important; text-align: left; }
+            #sleekFinConfigurationPage .sleekfin-builder-subnav { flex-direction: column; }
+            #sleekFinConfigurationPage .sleekfin-builder-nav.is-active > .sleekfin-page-nav-button { display: flex !important; }
+        }
+        @media (max-width: 999px) {
+            #sleekFinConfigurationPage .sleekfin-page-nav { position: sticky; top: var(--header-height, 4.5em); z-index: 6; flex-wrap: nowrap !important; overflow-x: auto; display: flex !important; background: rgba(16,16,18,.92); backdrop-filter: blur(12px); padding: .5em 0; scrollbar-width: none; }
+            #sleekFinConfigurationPage .sleekfin-page-nav-button { flex: 0 0 auto !important; }
+            #sleekFinConfigurationPage .tb-cfg-search { flex: 0 0 220px; margin: 0; }
+            #sleekFinConfigurationPage .sleekfin-builder-nav { width: auto; flex: 0 0 auto; }
+        }
+        #sleekFinConfigurationPage .sleekfin-config-section-title { text-align: left !important; font-size: 1.08em !important; font-weight: 700 !important; letter-spacing: -.01em; margin: 0 0 .7em !important; color: #fff; }
+        #sleekFinConfigurationPage .sleekfin-card { border: 1px solid var(--tb-line) !important; background: var(--tb-card); border-radius: 16px; padding: .3em 1.25em !important; }
+        #sleekFinConfigurationPage .sleekfin-card > .sleekfin-toggle-row, #sleekFinConfigurationPage .sleekfin-card > .sleekfin-input-group { margin: 0 !important; padding: .95em 0; border-top: 1px solid var(--tb-line); }
+        #sleekFinConfigurationPage .sleekfin-card > :is(.sleekfin-toggle-row, .sleekfin-input-group):first-child { border-top: 0; }
+        #sleekFinConfigurationPage .sleekfin-toggle-label, #sleekFinConfigurationPage .sleekfin-label { font-weight: 650; }
+        #sleekFinConfigurationPage .sleekfin-field-description { color: var(--tb-dim); font-size: .88em; line-height: 1.45; }
+        #sleekFinConfigurationPage .sleekfin-input { border-radius: 10px !important; background: rgba(255,255,255,.06) !important; border: 1px solid var(--tb-line) !important; }
+        #sleekFinConfigurationPage .sleekfin-input:focus { border-color: var(--tb-a) !important; }
+        #sleekFinConfigurationPage .sleekfin-save-button { position: sticky; bottom: 18px; z-index: 7; align-self: flex-end; width: auto; min-width: 180px; margin-top: 40px; padding: .85em 2.2em; border-radius: 14px; font-weight: 700; font-size: 1em; box-shadow: 0 14px 34px rgba(0,0,0,.5); transition: transform .12s, opacity .15s; }
+        #sleekFinConfigurationPage .sleekfin-save-button:active { transform: scale(.97); }
+        /* search across every section */
+        #sleekFinConfigurationPage.tb-q .sleekfin-page-panel { display: none !important; }
+        #sleekFinConfigurationPage.tb-q .sleekfin-page-panel.tb-q-hit { display: flex !important; flex-direction: column; gap: 1.6em; margin-bottom: 2.2em; }
+        #sleekFinConfigurationPage.tb-q .sleekfin-page-panel.tb-q-hit::before { content: attr(data-tb-label); font-size: .78em; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--tb-a); }
+        #sleekFinConfigurationPage.tb-q .tb-q-miss { display: none !important; }
+        #sleekFinConfigurationPage.tb-q .sleekfin-page-nav-button.is-active, #sleekFinConfigurationPage.tb-q .sleekfin-builder-subnav-item.is-active { background: transparent; box-shadow: none; color: rgba(255,255,255,.72) !important; }
+        #sleekFinConfigurationPage .tb-q-none { display: none; color: var(--tb-dim); padding: 2em 0; }
+        #sleekFinConfigurationPage.tb-q.tb-q-empty .tb-q-none { display: block; }
+        #sleekFinConfigurationPage .tb-q-mark { background: color-mix(in srgb, var(--tb-a) 35%, transparent); color: #fff; border-radius: 3px; }
+    </style>
+
+    <script>
+    (function () {
+      // Modern settings page: icons in the menu, a sticky side menu on wide screens, and one search box that finds
+      // any setting in any section ("/" jumps to it)
+      var page = document.getElementById("sleekFinConfigurationPage");
+      if (!page || page.__tbModern) return;
+      page.__tbModern = true;
+      var nav = page.querySelector(".sleekfin-page-nav");
+      var I = {
+        general: '<path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/><circle cx="12" cy="12" r="4"/>',
+        home: '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/>',
+        "ui-builder": '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/>',
+        overview: '<path d="M12 3a9 9 0 1 0 0 18c1 0 1.5-.8 1.5-1.6 0-1.3-1-1.6-1-2.6 0-.9.7-1.6 1.6-1.6H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/>',
+        posters: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M5 16l4-4 3 3 2-2 5 5"/>',
+        search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',
+        player: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/>',
+        signin: '<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5M15 12H3"/>',
+        dashboard: '<rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/>',
+        speed: '<path d="M12 14l4-4"/><path d="M3.5 18a9 9 0 1 1 17 0"/>'
+      };
+      if (nav) {
+        Array.prototype.forEach.call(nav.querySelectorAll(".sleekfin-page-nav-button"), function (b) {
+          var k = b.getAttribute("data-sleekfin-panel");
+          if (I[k] && !b.querySelector(".tb-nav-ico")) b.insertAdjacentHTML("afterbegin", '<span class="tb-nav-ico"><svg viewBox="0 0 24 24">' + I[k] + "</svg></span>");
+          var panel = page.querySelector('.sleekfin-page-panel[data-sleekfin-panel="' + k + '"]');
+          if (panel) panel.setAttribute("data-tb-label", b.textContent.trim());
+        });
+        // search box at the top of the menu
+        var box = document.createElement("div");
+        box.className = "tb-cfg-search";
+        box.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" placeholder="Find a setting" aria-label="Find a setting" autocomplete="off" spellcheck="false"><kbd>/</kbd>';
+        nav.insertBefore(box, nav.firstChild);
+        var none = document.createElement("div");
+        none.className = "tb-q-none";
+        none.textContent = "No setting matches that.";
+        var form = page.querySelector("#sleekFinConfigurationForm");
+        if (form) form.insertBefore(none, form.firstChild);
+        var input = box.querySelector("input");
+        var ROWS = ".sleekfin-toggle-row, .sleekfin-input-group, .sleekfin-hero-accordion, details";
+        function run() {
+          var q = input.value.trim().toLowerCase();
+          box.querySelector("kbd").style.display = q ? "none" : "";
+          page.classList.toggle("tb-q", !!q);
+          var any = false;
+          Array.prototype.forEach.call(page.querySelectorAll(".sleekfin-page-panel[data-sleekfin-panel]"), function (panel) {
+            var hit = false;
+            if (q && panel.getAttribute("data-sleekfin-panel") !== "ui-builder") {
+              var label = (panel.getAttribute("data-tb-label") || "").toLowerCase();
+              Array.prototype.forEach.call(panel.querySelectorAll(ROWS), function (row) {
+                if (row.parentElement && row.parentElement.closest(ROWS)) return;   // judged with its row
+                var m = label.indexOf(q) >= 0 || row.textContent.toLowerCase().indexOf(q) >= 0;
+                row.classList.toggle("tb-q-miss", !m);
+                if (m) hit = true;
+              });
+              // cards and sections with nothing left in them go too
+              Array.prototype.forEach.call(panel.querySelectorAll(".sleekfin-card, .sleekfin-section-container"), function (c) {
+                var rows = c.querySelectorAll(ROWS);
+                if (!rows.length) { c.classList.toggle("tb-q-miss", label.indexOf(q) < 0 && c.textContent.toLowerCase().indexOf(q) < 0); return; }
+                c.classList.toggle("tb-q-miss", !c.querySelector(":is(" + ROWS + "):not(.tb-q-miss)"));
+              });
+            } else {
+              Array.prototype.forEach.call(panel.querySelectorAll(".tb-q-miss"), function (e) { e.classList.remove("tb-q-miss"); });
+            }
+            panel.classList.toggle("tb-q-hit", hit);
+            if (hit) any = true;
+          });
+          page.classList.toggle("tb-q-empty", !!q && !any);
+        }
+        input.addEventListener("input", run);
+        input.addEventListener("keydown", function (e) { if (e.key === "Escape") { input.value = ""; run(); input.blur(); } });
+        // picking a section from the menu ends the search
+        nav.addEventListener("click", function (e) {
+          if (e.target.closest(".sleekfin-page-nav-button, .sleekfin-builder-subnav-item") && input.value) { input.value = ""; run(); }
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key !== "/" || !page.isConnected || page.classList.contains("hide")) return;
+          var t = e.target;
+          if (t && (t.isContentEditable || /^(input|textarea|select)$/i.test(t.tagName))) return;
+          e.preventDefault();
+          input.focus();
+        });
+      }
     })();
     </script>
 </div>

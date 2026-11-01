@@ -15,9 +15,9 @@
     window.__tbHeroImg = function (id, type, tag) {
       if (type === "Backdrop") {
         var w = Math.min(2560, Math.max(960, Math.ceil((window.innerWidth || 1280) * dpr / 160) * 160));
-        return base + "Items/" + id + "/Images/Backdrop/0?tag=" + encodeURIComponent(tag) + "&maxWidth=" + w + "&quality=90";
+        return base + "Items/" + id + "/Images/Backdrop/0?tag=" + encodeURIComponent(tag) + "&maxWidth=" + w + "&quality=90" + (window.__tbImgFmt || "");
       }
-      return base + "Items/" + id + "/Images/Logo?tag=" + encodeURIComponent(tag) + "&maxHeight=" + Math.ceil(140 * dpr) + "&quality=90";
+      return base + "Items/" + id + "/Images/Logo?tag=" + encodeURIComponent(tag) + "&maxHeight=" + Math.ceil(140 * dpr) + "&quality=90" + (window.__tbImgFmt || "");
     };
 
     var hash = location.hash;

@@ -5939,8 +5939,8 @@
         bar.firstElementChild.style.width = (st.running ? pct : st.total ? 100 : 0) + "%";
         refreshBtn.disabled = !!st.running;
         stopBtn.hidden = !st.running;
-        if (st.running) status.textContent = st.total ? "Refreshing posters: " + st.done + " of " + st.total + (st.failed ? " (" + st.failed + " failed)" : "") : "Finding titles…";
-        else if (st.finishedUtc) status.textContent = (st.cancelled ? "Stopped after " : "Done: ") + st.done + " of " + st.total + " titles" + (st.failed ? ", " + st.failed + " failed (see the server log)" : "") + ".";
+        if (st.running) status.textContent = st.total ? "Refreshing posters: " + st.done + " of " + st.total + " (" + (st.changed || 0) + " new)" + (st.failed ? " (" + st.failed + " failed)" : "") : "Finding titles…";
+        else if (st.finishedUtc) status.textContent = (st.cancelled ? "Stopped after " : "Done: ") + st.done + " of " + st.total + " titles, " + (st.changed || 0) + " new posters" + (st.failed ? ", " + st.failed + " failed (see the server log)" : "") + ".";
         clearTimeout(poll);
         if (st.running) poll = setTimeout(check, 1500);
       }

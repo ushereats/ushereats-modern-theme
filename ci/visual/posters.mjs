@@ -66,6 +66,7 @@ fs.writeFileSync(out + "/real-movie-poster-after.jpg", Buffer.from(await img.arr
 report.refreshStatusText = await page.textContent("#tbPStatus");
 await panel.screenshot({ path: `${out}/4-done.png` });
 report.errors = errors;
+report.realAfter = await api(`/Users/${s.userId}/Items/${movies[0].Id}`).then((x) => ({ ids: x.ProviderIds, tag: (x.ImageTags || {}).Primary }));
 fs.writeFileSync(out + "/report.json", JSON.stringify(report, null, 1));
 await browser.close();
 console.log(JSON.stringify(report).slice(0, 1500));

@@ -26,10 +26,14 @@ public static class PosterRefresh
 
     private static int s_done;
     private static int s_failed;
+    private static int s_changed;
 
     public static int Done => s_done;
 
     public static int Failed => s_failed;
+
+    /// <summary>Titles that got a different poster.</summary>
+    public static int Changed => s_changed;
 
     public static DateTime? StartedUtc { get; private set; }
 
@@ -37,7 +41,7 @@ public static class PosterRefresh
 
     public static bool Cancelled { get; private set; }
 
-    public static object Status() => new { running = Running, total = Total, done = Done, failed = Failed, startedUtc = StartedUtc, finishedUtc = FinishedUtc, cancelled = Cancelled };
+    public static object Status() => new { running = Running, total = Total, done = Done, failed = Failed, changed = Changed, startedUtc = StartedUtc, finishedUtc = FinishedUtc, cancelled = Cancelled };
 
     public static void Cancel()
     {
@@ -63,6 +67,7 @@ public static class PosterRefresh
             Total = 0;
             s_done = 0;
             s_failed = 0;
+            s_changed = 0;
             StartedUtc = DateTime.UtcNow;
             FinishedUtc = null;
             s_cancel?.Dispose();
@@ -90,6 +95,12 @@ public static class PosterRefresh
             }
         });
         return true;
+    }
+
+    private static string? Poster(BaseItem item)
+    {
+        ItemImageInfo? p = item.GetImageInfo(ImageType.Primary, 0);
+        return p is null ? null : p.Path + "|" + p.DateModified.Ticks;
     }
 
     private static bool HasPoster(BaseItem i) => !i.IsVirtualItem && i is Movie or Series or Season or BoxSet;
@@ -127,7 +138,20 @@ public static class PosterRefresh
                     ReplaceAllMetadata = false,
                     ForceSave = false
                 };
+                string? before = Poster(item);
+                if (Done == 0 && Failed == 0)
+                {
+                    logger.LogInformation(
+                        "Ushereats Theme: poster sources for {Name}: {Sources}",
+                        item.Name,
+                        string.Join(", ", providers.GetImageProviders(item, options).Select(p => p.Name)));
+                }
+
                 await providers.RefreshSingleItem(item, options, ct).ConfigureAwait(false);
+                if (Poster(item) != before)
+                {
+                    Interlocked.Increment(ref s_changed);
+                }
             }
             catch (OperationCanceledException)
             {
@@ -144,6 +168,6 @@ public static class PosterRefresh
             }
         }).ConfigureAwait(false);
 
-        logger.LogInformation("Ushereats Theme: poster refresh finished ({Done} titles, {Failed} failed)", Done, Failed);
+        logger.LogInformation("Ushereats Theme: poster refresh finished ({Done} titles, {Changed} new posters, {Failed} failed)", Done, Changed, Failed);
     }
 }

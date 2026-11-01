@@ -107,8 +107,11 @@
   }
 
   // one card (images are filled in by load() so off-screen rows don't download yet)
+  // what a title page needs to draw its backdrop the moment the card is clicked (see 28-instant-details)
+  var META = window.tbItemMeta || (window.tbItemMeta = {});
   function card(it, shape, index, sid, extraClass, own, noText) {
     sid = sid || serverId();
+    if (it && it.Id && (it.BackdropImageTags || it.ParentBackdropImageTags)) META[it.Id] = { Id: it.Id, Type: it.Type, BackdropImageTags: it.BackdropImageTags, ParentBackdropItemId: it.ParentBackdropItemId, ParentBackdropImageTags: it.ParentBackdropImageTags };
     var cls = SHAPES[shape] || SHAPES.poster, mode = layout(), u = it.UserData || {};
     var src = imageFor(it, shape, own);
     var pct = u.PlayedPercentage && u.PlayedPercentage < 100 ? u.PlayedPercentage : 0;

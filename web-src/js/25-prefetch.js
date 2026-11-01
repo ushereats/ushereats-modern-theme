@@ -19,7 +19,11 @@
   window.fetch = function (input, init) {
     var url = typeof input === "string" ? input : (input && input.url) || "";
     var method = String((init && init.method) || (input && input.method) || "GET").toUpperCase();
-    if (method !== "GET") { clear(); return realFetch.apply(this, arguments); }
+    if (method !== "GET") {
+      clear();
+      if (/\/Sessions\/Playing\/Stopped/i.test(url)) { try { window.dispatchEvent(new Event("tb-playback-stopped")); } catch (e) {} }
+      return realFetch.apply(this, arguments);
+    }
     if (!ITEM.test(url) || /[?&](fields|Fields)=/.test(url) || (init && init.cache === "no-store")) return realFetch.apply(this, arguments);
     var k = key(url), hit = cache[k];
     if (!hit || Date.now() - hit.at > TTL) {
@@ -37,8 +41,11 @@
   };
   // changes made through Jellyfin's newer code (XMLHttpRequest) also clear it
   var open = XMLHttpRequest.prototype.open;
-  XMLHttpRequest.prototype.open = function (method) {
-    if (String(method).toUpperCase() !== "GET") clear();
+  XMLHttpRequest.prototype.open = function (method, url) {
+    if (String(method).toUpperCase() !== "GET") {
+      clear();
+      if (/\/Sessions\/Playing\/Stopped/i.test(String(url || ""))) { try { window.dispatchEvent(new Event("tb-playback-stopped")); } catch (e) {} }
+    }
     return open.apply(this, arguments);
   };
 
@@ -58,6 +65,21 @@
     location.hash = "#/home";
   }, true);
 
+  // the backdrop link a title page uses (exactly SleekFin's / Jellyfin's, so the browser downloads it once)
+  function backdropUrl(item) {
+    var api = window.ApiClient;
+    if (!api || !item) return null;
+    var widths = [480, 720, 1280, 1440, 1920, 2560, 3840, 5120, 7680];
+    var w = window.innerWidth || 3840, h = window.innerHeight || 2160;
+    if (h > w) w = h * 16 / 9;
+    widths.sort(function (a, b) { return Math.abs(w - a) - Math.abs(w - b); });
+    var own = item.BackdropImageTags && item.BackdropImageTags.length;
+    var bOwner = own ? item.BackdropItemId || item.Id : item.ParentBackdropItemId;
+    var bTag = own ? item.BackdropImageTags[0] : (item.ParentBackdropImageTags || [])[0];
+    return bOwner && bTag ? api.getScaledImageUrl(bOwner, { type: "Backdrop", tag: bTag, maxWidth: widths[0], index: 0 }) : null;
+  }
+  window.tbBackdropUrl = backdropUrl;
+
   // ── getting a title ready before it's clicked ──
   var warmed = {}, timer = 0;
   function warm(id) {
@@ -73,14 +95,9 @@
       .then(function (item) {
         if (!item) return;
         var urls = [];
-        // backdrop: exactly the link the details page and Jellyfin's background use
-        var widths = [480, 720, 1280, 1440, 1920, 2560, 3840, 5120, 7680];
-        var w = window.innerWidth || 3840, h = window.innerHeight || 2160;
-        if (h > w) w = h * 16 / 9;
-        widths.sort(function (a, b) { return Math.abs(w - a) - Math.abs(w - b); });
-        var bOwner = item.BackdropImageTags && item.BackdropImageTags.length ? item.BackdropItemId || item.Id : item.ParentBackdropItemId;
-        var bTag = item.BackdropImageTags && item.BackdropImageTags.length ? item.BackdropImageTags[0] : (item.ParentBackdropImageTags || [])[0];
-        if (bOwner && bTag) urls.push(api.getScaledImageUrl(bOwner, { type: "Backdrop", tag: bTag, maxWidth: widths[0], index: 0 }));
+        (window.tbItemMeta || (window.tbItemMeta = {}))[item.Id] = item;
+        var bd = backdropUrl(item);
+        if (bd) urls.push(bd);
         // logo: the link Jellyfin's details page uses
         if (item.ImageTags && item.ImageTags.Logo) urls.push(api.getScaledImageUrl(item.Id, { type: "Logo", tag: item.ImageTags.Logo }));
         else if (item.ParentLogoItemId && item.ParentLogoImageTag) urls.push(api.getScaledImageUrl(item.ParentLogoItemId, { type: "Logo", tag: item.ParentLogoImageTag }));
@@ -101,6 +118,7 @@
     if (id) timer = setTimeout(function () { warm(id); }, 120);
   }, true);
   document.addEventListener("focusin", function (e) { var id = idOf(e.target); if (id) warm(id); }, true);
+  document.addEventListener("pointerdown", function (e) { if (e.pointerType === "mouse" && e.button === 0) { var id = idOf(e.target); if (id) warm(id); } }, true);
   // phones: the moment a finger lands on a poster
   document.addEventListener("touchstart", function (e) { var id = idOf(e.target); if (id) warm(id); }, { capture: true, passive: true });
 })();

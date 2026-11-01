@@ -1748,6 +1748,44 @@
                     </div>
 
                     <div class="sleekfin-section-container">
+                        <div class="sleekfin-config-section-title">Page changes</div>
+                        <div class="sleekfin-card">
+                            <div class="sleekfin-toggle-row">
+                                <div class="sleekfin-toggle-copy">
+                                    <label class="sleekfin-toggle-label" for="tb-PageTransitions">Smooth page changes</label>
+                                    <div class="sleekfin-field-description">The page you open fades in instead of appearing in one frame. The top bar and background stay still, and nothing waits for it. Off on TVs, during video, and when the device asks for less motion.</div>
+                                </div>
+                                <div class="sleekfin-toggle-actions">
+                                    <label class="sleekfin-toggle">
+                                        <input id="tb-PageTransitions" type="checkbox" data-key="PageTransitions" />
+                                        <span class="sleekfin-toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-PageTransitionStyle">Style</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-PageTransitionStyle" class="sleekfin-input" data-key="PageTransitionStyle">
+                                            <option value="Fade">Fade</option>
+                                            <option value="Rise">Fade + rise (the page lifts a few pixels into place)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-PageTransitionMs">Speed (ms)</label>
+                                    <div class="sleekfin-input-stack">
+                                        <input id="tb-PageTransitionMs" class="sleekfin-input" type="number" data-key="PageTransitionMs" data-int="1" step="10" min="80" max="600" />
+                                        <div class="sleekfin-field-description">150 = quick, 200 = normal, 300 = relaxed.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sleekfin-section-container">
                         <div class="sleekfin-config-section-title">Posters</div>
                         <div class="sleekfin-card">
                             <div class="sleekfin-toggle-row">

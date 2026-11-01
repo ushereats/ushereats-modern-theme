@@ -49,6 +49,15 @@ public class PluginConfiguration : BasePluginConfiguration
     /// <summary>Ambient background cross-fades when it changes (off = instant). The first one is always instant.</summary>
     public bool AmbientFade { get; set; } = true;
 
+    /// <summary>Gets or sets a value indicating whether pages fade in when you open them.</summary>
+    public bool PageTransitions { get; set; } = true;
+
+    /// <summary>Gets or sets the page change style: Fade or Rise.</summary>
+    public string PageTransitionStyle { get; set; } = "Rise";
+
+    /// <summary>Gets or sets how long a page change takes (ms).</summary>
+    public int PageTransitionMs { get; set; } = 200;
+
     // ── Settings ──
     public string TmdbKey { get; set; } = string.Empty;
     public string TmdbCountries { get; set; } = "AU,US";

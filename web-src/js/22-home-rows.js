@@ -74,10 +74,14 @@
 
   // ── remembered rows (per user, per layout) ──
   function cacheName(u) { return "tbRowsData:" + u; }
+  var MAX_AGE = 6 * 3600 * 1000;   // older than this: not shown, today's rows are loaded instead
   function readCache(u) {
     try {
       var c = JSON.parse(localStorage.getItem(cacheName(u)) || "null");
-      return c && c.key === cfgKey && c.rows ? c.rows : null;
+      if (!c || c.key !== cfgKey || !c.rows || !(Date.now() - (c.at || 0) < MAX_AGE)) return null;
+      // something was watched since (Continue Watching / Next Up will differ): wait briefly for fresh rows first
+      var st = +(localStorage.getItem("tbRowsStale") || 0);
+      return { rows: c.rows, at: c.at, stale: st > (c.at || 0) };
     } catch (e) { return null; }
   }
   var saveTimer = 0;
@@ -104,12 +108,32 @@
     return a;
   }
 
-  function cardsHtml(r, items) {
-    var sid = C.serverId(), s = shape(r), out = "";
+  function cardHtml(r, item, i, sid) {
     var own = r.type === "continue";   // Continue Watching: each episode's own picture (movies: their thumb)
     var noText = !(r.titles != null ? r.titles : r.type === "continue");   // titles under posters: Continue Watching only, unless set
-    for (var i = 0; i < items.length; i++) out += r.type === "studios" ? C.logoCard(items[i], i, sid) : C.card(items[i], s, i, sid, "", own, noText);
+    return r.type === "studios" ? C.logoCard(item, i, sid) : C.card(item, shape(r), i, sid, "", own, noText);
+  }
+  function cardsHtml(r, items) {
+    var sid = C.serverId(), out = "";
+    for (var i = 0; i < items.length; i++) out += cardHtml(r, items[i], i, sid);
     return out;
+  }
+
+  // Only the cards that changed are touched: unchanged cards stay the same element (same picture, already
+  // drawn, nothing flickers), moved ones are moved, new ones are added, gone ones removed.
+  function patch(r, ic, oldSigs, items, newSigs) {
+    var sid = C.serverId(), pool = {}, kids = Array.prototype.slice.call(ic.children), i;
+    for (i = 0; i < kids.length; i++) { var k = oldSigs[i]; if (k != null) (pool[k] || (pool[k] = [])).push(kids[i]); }
+    var nodes = [];
+    for (i = 0; i < items.length; i++) {
+      var reuse = pool[newSigs[i]] && pool[newSigs[i]].shift();
+      nodes.push(reuse || C.frag(cardHtml(r, items[i], i, sid)));
+    }
+    Object.keys(pool).forEach(function (k) { pool[k].forEach(function (el) { if (el.parentNode === ic) ic.removeChild(el); }); });
+    for (i = 0; i < nodes.length; i++) {
+      if (ic.children[i] !== nodes[i]) ic.insertBefore(nodes[i], ic.children[i] || null);
+      if (nodes[i].getAttribute("data-index") !== String(i)) nodes[i].setAttribute("data-index", String(i));
+    }
   }
 
   function setRow(r, items, attached) {
@@ -119,7 +143,10 @@
     if (sec.__tbSig === sig) return;          // nothing changed: leave it exactly as it is
     sec.__tbSig = sig;
     var ic = sec.querySelector(".itemsContainer");
-    ic.innerHTML = cardsHtml(r, items);
+    var newSigs = items.map(function (x) { return JSON.stringify(x); });
+    if (attached && sec.__tbItemSigs && ic.children.length === sec.__tbItemSigs.length) patch(r, ic, sec.__tbItemSigs, items, newSigs);
+    else ic.innerHTML = cardsHtml(r, items);
+    sec.__tbItemSigs = newSigs;
     var want = items.length ? "" : "none";
     if (sec.style.display !== want) sec.style.display = want;
     if (attached) { C.upgrade(ic); C.refreshScroller(sec); C.decorate(); }
@@ -212,10 +239,23 @@
       started = true;
       var cached = readCache(me.id);
       var first = B.first; B.first = null;
-      if (cached) {
-        build(me.id, cached);               // instant: last visit's rows
+      if (cached && !cached.stale) {
+        build(me.id, cached.rows);          // instant: last visit's rows (the update only touches what changed)
         place();
         refresh(first);
+      } else if (cached) {
+        // something was watched since: fresh rows if they come within 400 ms, else last visit's, then patched
+        user = me.id;
+        var shown = false;
+        var fallback = setTimeout(function () { if (shown) return; shown = true; build(me.id, cached.rows); place(); }, 400);
+        var pr = refresh(first);
+        if (pr) pr.then(function (ok) {
+          if (shown) return;
+          shown = true; clearTimeout(fallback);
+          var fresh = data;
+          build(me.id, ok ? fresh : cached.rows);
+          place();
+        });
       } else {
         user = me.id;
         var p = refresh(first);
@@ -247,6 +287,10 @@
     setTimeout(function () { queued = false; reconcile(); }, 0);
   }
   tbWatch(function () { if (root) place(); schedule(); });
+  window.addEventListener("tb-playback-stopped", function () {
+    try { localStorage.setItem("tbRowsStale", String(Date.now())); } catch (e) {}
+    setTimeout(function () { if (root) refresh(); }, 1500);
+  });
   window.addEventListener("hashchange", function () { onRoute(); schedule(); });
   window.addEventListener("popstate", function () { onRoute(); schedule(); });
   document.addEventListener("viewshow", function () { onRoute(); schedule(); });

@@ -8,6 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
+          pip install -q pillow
           curl -fsSL https://i.imgur.com/ckrwhZ1.png -o docs/logo-white.png
           python3 -c "
           from PIL import Image

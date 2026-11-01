@@ -121,15 +121,19 @@
 
   // Only the cards that changed are touched: unchanged cards stay the same element (same picture, already
   // drawn, nothing flickers), moved ones are moved, new ones are added, gone ones removed.
-  function patch(r, ic, oldSigs, items, newSigs) {
+  // each card remembers which title (and which state of it) it shows, so cards are matched by what they are,
+  // not by their place: other features re-sort a row (release dates), and matching by place then reused the
+  // wrong card for a title (the same title showing two or three times until a reload)
+  function patch(r, ic, items, newSigs) {
     var sid = C.serverId(), pool = {}, kids = Array.prototype.slice.call(ic.children), i;
-    for (i = 0; i < kids.length; i++) { var k = oldSigs[i]; if (k != null) (pool[k] || (pool[k] = [])).push(kids[i]); }
+    for (i = 0; i < kids.length; i++) { var k = kids[i].__tbSig; if (k != null) (pool[k] || (pool[k] = [])).push(kids[i]); }
     var nodes = [];
     for (i = 0; i < items.length; i++) {
       var reuse = pool[newSigs[i]] && pool[newSigs[i]].shift();
-      nodes.push(reuse || C.frag(cardHtml(r, items[i], i, sid)));
+      if (!reuse) { reuse = C.frag(cardHtml(r, items[i], i, sid)); reuse.__tbSig = newSigs[i]; }
+      nodes.push(reuse);
     }
-    Object.keys(pool).forEach(function (k) { pool[k].forEach(function (el) { if (el.parentNode === ic) ic.removeChild(el); }); });
+    for (i = 0; i < kids.length; i++) if (nodes.indexOf(kids[i]) < 0 && kids[i].parentNode === ic) ic.removeChild(kids[i]);
     for (i = 0; i < nodes.length; i++) {
       if (ic.children[i] !== nodes[i]) ic.insertBefore(nodes[i], ic.children[i] || null);
       if (nodes[i].getAttribute("data-index") !== String(i)) nodes[i].setAttribute("data-index", String(i));
@@ -144,9 +148,12 @@
     sec.__tbSig = sig;
     var ic = sec.querySelector(".itemsContainer");
     var newSigs = items.map(function (x) { return JSON.stringify(x); });
-    if (attached && sec.__tbItemSigs && ic.children.length === sec.__tbItemSigs.length) patch(r, ic, sec.__tbItemSigs, items, newSigs);
-    else ic.innerHTML = cardsHtml(r, items);
-    sec.__tbItemSigs = newSigs;
+    var tagged = ic.children.length && Array.prototype.every.call(ic.children, function (c) { return c.__tbSig != null; });
+    if (attached && tagged) patch(r, ic, items, newSigs);
+    else {
+      ic.innerHTML = cardsHtml(r, items);
+      for (var i = 0; i < ic.children.length && i < newSigs.length; i++) ic.children[i].__tbSig = newSigs[i];
+    }
     var want = items.length ? "" : "none";
     if (sec.style.display !== want) sec.style.display = want;
     if (attached) { C.upgrade(ic); C.refreshScroller(sec); C.decorate(); }

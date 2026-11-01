@@ -32,17 +32,25 @@ report.shown = await page.evaluate(() => ({
   sources: Array.from(document.querySelectorAll("#tbPSrc .tbp-row")).map((r) => r.textContent.replace(/\s+/g, " ").trim()),
   note: document.querySelector("#tbPNote").hidden ? null : document.querySelector("#tbPNote").textContent
 }));
-// move the last source to the top and tick it, then apply
+// change the order (last source up one place) and tick the second source too, then apply
 const n = await page.locator("#tbPSrc .tbp-row").count();
-for (let i = n - 1; i > 0; i--) await page.click(`#tbPSrc [data-up="${i}"]`);
-const first = page.locator('#tbPSrc [data-src="0"]');
-if (!(await first.isChecked())) await first.check();
+if (n > 2) await page.click(`#tbPSrc [data-up="${n - 1}"]`);
+const second = page.locator('#tbPSrc [data-src="1"]');
+if (n > 1 && !(await second.isChecked())) await second.check();
 await page.click("#tbPApply");
 await page.waitForTimeout(3000);
 report.applyStatus = await page.textContent("#tbPApplyStatus");
 report.shownAfter = await page.evaluate(() => Array.from(document.querySelectorAll("#tbPSrc .tbp-row")).map((r) => r.textContent.replace(/\s+/g, " ").trim()));
 await panel.screenshot({ path: `${out}/2-applied.png` });
 report.after = summary(await api("/Library/VirtualFolders"));
+// a real film (TMDb id) so a poster source actually has something: its poster must be replaced
+const POST = (p, b) => fetch(s.server + p, { method: "POST", headers: H, body: JSON.stringify(b) });
+const movies = (await api(`/Items?userId=${s.userId}&Recursive=true&IncludeItemTypes=Movie&SortBy=SortName&Limit=2`)).Items;
+const real = await api(`/Users/${s.userId}/Items/${movies[0].Id}`);
+real.ProviderIds = Object.assign({}, real.ProviderIds, { Tmdb: "27205", Imdb: "tt1375666" });
+report.setIds = (await POST(`/Items/${real.Id}`, real)).status;
+const tagOf = async (id) => ((await api(`/Users/${s.userId}/Items/${id}`)).ImageTags || {}).Primary;
+report.tagsBefore = { real: await tagOf(movies[0].Id), other: await tagOf(movies[1].Id) };
 // refresh
 await page.click("#tbPRefresh");
 for (let i = 0; i < 120; i++) {
@@ -52,6 +60,9 @@ for (let i = 0; i < 120; i++) {
   if (!st.running && st.finishedUtc) { report.refresh = st; break; }
 }
 await page.waitForTimeout(2000);
+report.tagsAfter = { real: await tagOf(movies[0].Id), other: await tagOf(movies[1].Id) };
+const img = await fetch(s.server + `/Items/${movies[0].Id}/Images/Primary?maxWidth=400`, { headers: H });
+fs.writeFileSync(out + "/real-movie-poster-after.jpg", Buffer.from(await img.arrayBuffer()));
 report.refreshStatusText = await page.textContent("#tbPStatus");
 await panel.screenshot({ path: `${out}/4-done.png` });
 report.errors = errors;

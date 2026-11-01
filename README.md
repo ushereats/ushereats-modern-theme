@@ -1,6 +1,9 @@
 <div align="center">
 
-<img src="https://i.imgur.com/ckrwhZ1.png" alt="Logo" height="128px" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/logo-white.png" />
+  <img src="docs/logo-black.png" alt="Logo" height="128px" />
+</picture>
 
 # Ushereats Theme
 

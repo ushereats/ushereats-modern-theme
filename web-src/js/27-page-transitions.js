@@ -104,13 +104,18 @@
         replaying = true;
         try { q.forEach(function (ev) { window.dispatchEvent(ev); note("replayed " + ev.type); }); } catch (e) {}
         replaying = false;
-        return new Promise(function (resolve) {
+        // the page counts as finished once it has also stopped changing for a moment (Jellyfin and the theme
+        // put pages together in steps: rows shown after the banner, titles swapped, placeholders removed)
+        var last = Date.now(), mo = new MutationObserver(function () { last = Date.now(); });
+        try { mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["class", "style", "hidden", "src", "data-loaded"] }); } catch (e) {}
+        return new Promise(function (res) {
+          var resolve = function () { mo.disconnect(); res(); };
           // timers, not animation frames: the page isn't drawn while the old screen is held
           (function tick() {
             var now = Date.now(), p = current();
             if (!moved && (location.hash !== from || p !== page0)) moved = now;
             if (!moved && now - t0 > wait) { note("no page change"); return resolve(); }
-            if (moved && (p !== page0 || location.hash !== from) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); return resolve(); }
+            if (moved && (p !== page0 || location.hash !== from) && now - last >= 70 && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); return resolve(); }
             if (now - t0 > 900) { note("timeout " + (p && p.id)); return resolve(); }   // never hold the screen longer
             setTimeout(tick, 16);
           })();

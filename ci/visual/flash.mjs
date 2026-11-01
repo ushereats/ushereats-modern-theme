@@ -42,7 +42,8 @@ async function open(id, label) {
   await card.scrollIntoViewIfNeeded().catch(() => {});
   await page.waitForTimeout(600);
   mark("click " + label);
-  await card.locator(".cardImageContainer, .cardScalable, a").first().click({ timeout: 5000 }).catch(async () => { await card.click({ timeout: 5000 }); });
+  // a click on the poster, as the browser sends it (a covering layer can stop Playwright's own click)
+  await card.evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
   await page.waitForTimeout(3000);
   mark("back " + label);
   await page.goBack();

@@ -1,0 +1,242 @@
+[
+ [
+  9922,
+  "start #/home"
+ ],
+ [
+  10367,
+  "held"
+ ],
+ [
+  11128,
+  "ready 761ms itemDetailPage"
+ ],
+ [
+  11131,
+  "[\"BDI. @96,283 in itemDetailPage op=1\",\"P. @96,423 in itemDetailPage op=1\",\"A.itemAction textActionButton @1554,1332 in similarCollapsible op=1\"]"
+ ],
+ [
+  11530,
+  "30 [\"BDI. @96,283 in itemDetailPage op=1 sleekfin-details-title\",\"P. @96,423 in itemDetailPage op=1 undefined\",\"A.itemAction textActionButton @1554,1332 in similarCollapsible op=1 undefined\"]"
+ ],
+ [
+  11536,
+  "90 [\"BDI. @96,283 in itemDetailPage op=1 sleekfin-details-title\",\"P. @96,423 in itemDetailPage op=1 undefined\",\"A.itemAction textActionButton @1554,1332 in similarCollapsible op=1 undefined\"]"
+ ],
+ [
+  11549,
+  "160 [\"BDI. @96,283 in itemDetailPage op=1 sleekfin-details-title\",\"P. @96,423 in itemDetailPage op=1 undefined\",\"A.itemAction textActionButton @1554,1332 in similarCollapsible op=1 undefined\"]"
+ ],
+ [
+  11551,
+  "260 [\"BDI. @96,283 in itemDetailPage op=1 sleekfin-details-title\",\"P. @96,423 in itemDetailPage op=1 undefined\",\"A.itemAction textActionButton @1554,1332 in similarCollapsible op=1 undefined\"]"
+ ],
+ [
+  11797,
+  "done"
+ ],
+ [
+  13004,
+  "start #/home"
+ ],
+ [
+  13004,
+  "kept popstate"
+ ],
+ [
+  13004,
+  "kept hashchange"
+ ],
+ [
+  13074,
+  "held"
+ ],
+ [
+  13088,
+  "replayed popstate"
+ ],
+ [
+  13128,
+  "replayed hashchange"
+ ],
+ [
+  13484,
+  "ready 409ms indexPage"
+ ],
+ [
+  13487,
+  "[\"BDI. @98,448 in homeTab op=1\",\"BDI. @490,448 in homeTab op=1\"]"
+ ],
+ [
+  13771,
+  "30 [\"BDI. @98,448 in homeTab op=1 verticalSection tb-row show-card-titles no-hover-pop emby-scroller-container\",\"BDI. @490,448 in homeTab op=1 verticalSection tb-row show-card-titles no-hover-pop emby-scroller-container\"]"
+ ],
+ [
+  13782,
+  "90 [\"BDI. @98,448 in homeTab op=1 verticalSection tb-row show-card-titles no-hover-pop emby-scroller-container\",\"BDI. @490,448 in homeTab op=1 verticalSection tb-row show-card-titles no-hover-pop emby-scroller-container\"]"
+ ],
+ [
+  13820,
+  "160 [\"BDI. @98,448 in homeTab op=1 verticalSection tb-row show-card-titles no-hover-pop emby-scroller-container\",\"BDI. @490,448 in homeTab op=1 verticalSection tb-row show-card-titles no-hover-pop emby-scroller-container\"]"
+ ],
+ [
+  13830,
+  "260 [\"BDI. @98,448 in homeTab op=1 verticalSection tb-row show-card-titles no-hover-pop emby-scroller-container\",\"BDI. @490,448 in homeTab op=1 verticalSection tb-row show-card-titles no-hover-pop emby-scroller-container\"]"
+ ],
+ [
+  14037,
+  "done"
+ ],
+ [
+  16147,
+  "start #/home"
+ ],
+ [
+  16238,
+  "held"
+ ],
+ [
+  16873,
+  "ready 635ms itemDetailPage"
+ ],
+ [
+  16875,
+  "[\"BDI. @96,283 in itemDetailPage op=1\",\"P. @96,423 in itemDetailPage op=1\",\"A.itemAction textActionButton @1554,1332 in similarCollapsible op=1\"]"
+ ],
+ [
+  17224,
+  "30 [\"BDI. @96,283 in itemDetailPage op=1 sleekfin-details-title\",\"P. @96,423 in itemDetailPage op=1 undefined\",\"A.itemAction textActionButton @1554,1332 in similarCollapsible op=1 undefined\"]"
+ ],
+ [
+  17233,
+  "90 [\"BDI. @96,283 in itemDetailPage op=1 sleekfin-details-title\",\"P. @96,423 in itemDetailPage op=1 undefined\",\"A.itemAction textActionButton @1554,1332 in similarCollapsible op=1 undefined\"]"
+ ],
+ [
+  17259,
+  "160 [\"BDI. @96,283 in itemDetailPage op=1 sleekfin-details-title\",\"P. @96,423 in itemDetailPage op=1 undefined\",\"A.itemAction textActionButton @1554,1332 in similarCollapsible op=1 undefined\"]"
+ ],
+ [
+  17296,
+  "260 [\"BDI. @96,283 in itemDetailPage op=1 sleekfin-details-title\",\"P. @96,423 in itemDetailPage op=1 undefined\",\"A.itemAction textActionButton @1554,1332 in similarCollapsible op=1 undefined\"]"
+ ],
+ [
+  17472,
+  "done"
+ ],
+ [
+  19176,
+  "start #/home"
+ ],
+ [
+  19176,
+  "kept popstate"
+ ],
+ [
+  19198,
+  "kept hashchange"
+ ],
+ [
+  19242,
+  "held"
+ ],
+ [
+  19248,
+  "replayed popstate"
+ ],
+ [
+  19285,
+  "replayed hashchange"
+ ],
+ [
+  19573,
+  "ready 331ms indexPage"
+ ],
+ [
+  19577,
+  "[\"BDI. @98,448 in homeTab op=1\",\"BDI. @490,448 in homeTab op=1\"]"
+ ],
+ [
+  19831,
+  "30 [\"BDI. @98,448 in homeTab op=1 verticalSection tb-row show-card-titles no-hover-pop emby-scroller-container\",\"BDI. @490,448 in homeTab op=1 verticalSection tb-row show-card-titles no-hover-pop emby-scroller-container\"]"
+ ],
+ [
+  19842,
+  "90 [\"BDI. @98,448 in homeTab op=1 verticalSection tb-row show-card-titles no-hover-pop emby-scroller-container\",\"BDI. @490,448 in homeTab op=1 verticalSection tb-row show-card-titles no-hover-pop emby-scroller-container\"]"
+ ],
+ [
+  19870,
+  "160 [\"BDI. @98,448 in homeTab op=1 verticalSection tb-row show-card-titles no-hover-pop emby-scroller-container\",\"BDI. @490,448 in homeTab op=1 verticalSection tb-row show-card-titles no-hover-pop emby-scroller-container\"]"
+ ],
+ [
+  19883,
+  "260 [\"BDI. @98,448 in homeTab op=1 verticalSection tb-row show-card-titles no-hover-pop emby-scroller-container\",\"BDI. @490,448 in homeTab op=1 verticalSection tb-row show-card-titles no-hover-pop emby-scroller-container\"]"
+ ],
+ [
+  20092,
+  "done"
+ ],
+ [
+  52292,
+  "start #/home"
+ ],
+ [
+  52427,
+  "held"
+ ],
+ [
+  53121,
+  "ready 692ms itemDetailPage"
+ ],
+ [
+  53127,
+  "[\"BDI. @96,257 in itemDetailPage op=1\",\"P. @96,423 in itemDetailPage op=1\",\"A.itemAction textActionButton @1190,1332 in similarCollapsible op=1\"]"
+ ],
+ [
+  53532,
+  "30 [\"BDI. @96,257 in itemDetailPage op=1 sleekfin-details-title\",\"P. @96,423 in itemDetailPage op=1 undefined\",\"A.itemAction textActionButton @1190,1332 in similarCollapsible op=1 undefined\"]"
+ ],
+ [
+  53542,
+  "90 [\"BDI. @96,257 in itemDetailPage op=1 sleekfin-details-title\",\"P. @96,423 in itemDetailPage op=1 undefined\",\"A.itemAction textActionButton @1190,1332 in similarCollapsible op=1 undefined\"]"
+ ],
+ [
+  53558,
+  "160 [\"BDI. @96,257 in itemDetailPage op=1 sleekfin-details-title\",\"P. @96,423 in itemDetailPage op=1 undefined\",\"A.itemAction textActionButton @1190,1332 in similarCollapsible op=1 undefined\"]"
+ ],
+ [
+  53561,
+  "260 [\"BDI. @96,257 in itemDetailPage op=1 sleekfin-details-title\",\"P. @96,423 in itemDetailPage op=1 undefined\",\"A.itemAction textActionButton @1190,1332 in similarCollapsible op=1 undefined\"]"
+ ],
+ [
+  53814,
+  "done"
+ ],
+ [
+  55326,
+  "start #/home"
+ ],
+ [
+  55327,
+  "kept popstate"
+ ],
+ [
+  55350,
+  "kept hashchange"
+ ],
+ [
+  55395,
+  "held"
+ ],
+ [
+  55405,
+  "replayed popstate"
+ ],
+ [
+  55486,
+  "replayed hashchange"
+ ],
+ [
+  55842,
+  "ready 447ms indexPage"
+ ]
+]

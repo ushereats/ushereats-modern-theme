@@ -36,7 +36,7 @@
       "html.tb-vt *{view-transition-name:none!important}" +
       // the rows' own entrance fade would be frozen at "invisible" while the old screen is held and then play
       // after the cross-fade (old page -> empty -> rows): during a cross-fade the rows are simply there
-      "html.tb-vt :is(#indexPage,#searchPage) .verticalSection,html.tb-vt :is(#moviesPage,#tvshowsPage,#tvRecommendedPage) .itemsContainer{animation:none!important}";
+      "html.tb-vt :is(#indexPage,#searchPage) .verticalSection,html.tb-vt :is(#moviesPage,#tvshowsPage,#tvRecommendedPage) .itemsContainer,.verticalSection.tb-noenter,.itemsContainer.tb-noenter{animation:none!important}";
     document.head.appendChild(st);
   }
 
@@ -118,7 +118,12 @@
         var last = Date.now(), mo = new MutationObserver(function () { last = Date.now(); });
         try { mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["class", "style", "hidden", "src", "data-loaded"] }); } catch (e) {}
         return new Promise(function (res) {
-          var resolve = function () { mo.disconnect(); res(); };
+          var resolve = function () {
+            mo.disconnect();
+            // rows already shown don't play their entrance fade again once the cross-fade is over
+            try { Array.prototype.forEach.call(document.querySelectorAll(".verticalSection, .itemsContainer"), function (e) { e.classList.add("tb-noenter"); }); } catch (e) {}
+            res();
+          };
           // timers, not animation frames: the page isn't drawn while the old screen is held
           (function tick() {
             var now = Date.now(), p = current();

@@ -44,9 +44,12 @@ async function open(id, label) {
   mark("click " + label);
   // a click on the poster, as the browser sends it (a covering layer can stop Playwright's own click)
   await card.evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
+  // what's really on screen during the change (screenshots, not the video)
+  if (label === "same again") for (let i = 0; i < 14; i++) { await page.screenshot({ path: `${out}/seq-open-${String(i).padStart(2, "0")}.jpg`, quality: 60, type: "jpeg" }); }
   await page.waitForTimeout(3000);
   mark("back " + label);
   await page.goBack();
+  if (label === "same again") for (let i = 0; i < 14; i++) { await page.screenshot({ path: `${out}/seq-back-${String(i).padStart(2, "0")}.jpg`, quality: 60, type: "jpeg" }); }
   await page.waitForTimeout(2500);
 }
 if (ids[0]) await open(ids[0], "first-ever (no stand-in yet)");

@@ -122,7 +122,7 @@
             var now = Date.now(), p = current();
             if (!moved && (location.hash !== from || p !== page0)) moved = now;
             if (!moved && now - t0 > wait) { note("no page change"); return resolve(); }
-            if (moved && (p !== page0 || location.hash !== from) && now - last >= 100 && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); return resolve(); }
+            if (moved && (p !== page0 || location.hash !== from) && now - last >= 100 && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); if (window.__tbVtDebug && p) { var hh = Array.prototype.filter.call(document.querySelectorAll("*"), function (e) { return e.children.length === 0 && e.getClientRects().length && /AURORA|NORTHBOUND|LINE/.test(e.textContent || ""); }).map(function (e) { var r = e.getBoundingClientRect(); return e.tagName + "." + e.className + " @" + Math.round(r.x) + "," + Math.round(r.y) + " in " + (e.closest("[id]") || {}).id + " op=" + getComputedStyle(e).opacity; }); note(JSON.stringify(hh).slice(0, 3000)); } return resolve(); }
             if (now - t0 > 900) { note("timeout " + (p && p.id)); return resolve(); }   // never hold the screen longer
             setTimeout(tick, 16);
           })();

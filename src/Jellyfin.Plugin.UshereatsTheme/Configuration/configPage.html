@@ -1874,6 +1874,21 @@
                             </div>
                             <div class="sleekfin-input-group">
                                 <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-TrendingRefreshHours">Trending updates</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-TrendingRefreshHours" class="sleekfin-input" data-key="TrendingRefreshHours" data-int="1">
+                                            <option value="1">Every hour</option>
+                                            <option value="3">Every 3 hours</option>
+                                            <option value="6">Every 6 hours</option>
+                                            <option value="12">Every 12 hours</option>
+                                            <option value="24">Once a day</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">How often TMDB's trending chart is read again. A title you add that's on the chart joins Trending This Week straight away (as soon as Jellyfin has its details), whatever this is set to.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
                                     <label class="sleekfin-label sleekfin-label--side" for="tb-TmdbCountries">Release countries</label>
                                     <div class="sleekfin-input-stack">
                                         <input id="tb-TmdbCountries" class="sleekfin-input" type="text" data-key="TmdbCountries" />
@@ -5299,6 +5314,7 @@
           var target = sk ? (cfg.Sleek || (cfg.Sleek = {})) : cfg;
           var k = sk || el.getAttribute("data-key");
           if (el.type === "checkbox") target[k] = el.checked;
+          else if (el.tagName === "SELECT" && el.hasAttribute("data-int")) { var si = parseInt(el.value, 10); target[k] = isNaN(si) ? target[k] : si; }
           else if (el.type === "number") { var n = el.hasAttribute("data-int") || sk ? parseInt(el.value, 10) : parseFloat(el.value); target[k] = isNaN(n) ? target[k] : n; }
           else target[k] = el.value;
         });

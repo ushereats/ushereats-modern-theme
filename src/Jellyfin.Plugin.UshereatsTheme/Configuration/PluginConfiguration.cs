@@ -60,6 +60,9 @@ public class PluginConfiguration : BasePluginConfiguration
 
     // ── Settings ──
     public string TmdbKey { get; set; } = string.Empty;
+
+    /// <summary>Gets or sets how often (hours) TMDB's trending chart is read again. New titles are matched to it straight away.</summary>
+    public int TrendingRefreshHours { get; set; } = 6;
     public string TmdbCountries { get; set; } = "AU,US";
     public string IconUrl { get; set; } = "https://i.imgur.com/ckrwhZ1.png";
     public string DiscordUrl { get; set; } = "https://discord.gg/fgKX5u4Zn9";

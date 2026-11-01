@@ -5,8 +5,9 @@ using Microsoft.Extensions.Logging;
 namespace Jellyfin.Plugin.UshereatsTheme;
 
 /// <summary>
-/// Daily: reads TMDB's "Trending - All - This Week" and keeps the titles you own, in TMDB's order.
-/// Shown under Dashboard > Scheduled Tasks, where it can also be run by hand.
+/// Reads TMDB's "Trending - All - This Week" now and keeps the titles you own, in TMDB's order (run by hand under
+/// Dashboard > Scheduled Tasks). It also happens on its own, as often as the "Trending updates" setting says, and
+/// new titles join the row as soon as they're added (see <see cref="TrendingWatcher"/>).
 /// </summary>
 public class TrendingTask : IScheduledTask
 {
@@ -23,7 +24,7 @@ public class TrendingTask : IScheduledTask
 
     public string Key => "Jellyfin.Plugin.UshereatsTheme.Trending";
 
-    public string Description => "Updates the Trending row from TMDB's weekly trending chart (titles in your library only).";
+    public string Description => "Updates the Trending row from TMDB's weekly trending chart now (titles in your library only). Also runs on its own, as often as the theme's \"Trending updates\" setting says, and new titles join the row as soon as they're added.";
 
     public string Category => "Ushereats Theme";
 
@@ -35,7 +36,7 @@ public class TrendingTask : IScheduledTask
 
     public IEnumerable<TaskTriggerInfo> GetDefaultTriggers()
     {
-        yield return new TaskTriggerInfo { Type = TaskTriggerInfoType.StartupTrigger };
-        yield return new TaskTriggerInfo { Type = TaskTriggerInfoType.IntervalTrigger, IntervalTicks = TimeSpan.FromHours(12).Ticks };
+        // the schedule is the theme's own setting (Trending updates), so nothing here by default
+        yield break;
     }
 }

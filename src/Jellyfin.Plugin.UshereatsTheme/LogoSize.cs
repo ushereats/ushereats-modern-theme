@@ -12,7 +12,11 @@ namespace Jellyfin.Plugin.UshereatsTheme;
 public class ServiceRegistrator : IPluginServiceRegistrator
 {
     public void RegisterServices(IServiceCollection serviceCollection, IServerApplicationHost applicationHost)
-        => serviceCollection.AddTransient<IStartupFilter, LogoSizeStartupFilter>();
+    {
+        serviceCollection.AddTransient<IStartupFilter, LogoSizeStartupFilter>();
+        // Trending This Week: new titles join it straight away, and the chart is re-read on the set schedule
+        serviceCollection.AddHostedService<TrendingWatcher>();
+    }
 }
 
 /// <summary>Puts <see cref="LogoSize"/> in front of Jellyfin's own request handling.</summary>

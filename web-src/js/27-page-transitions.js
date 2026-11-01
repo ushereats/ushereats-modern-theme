@@ -83,18 +83,21 @@
     var st = p.querySelector(".sleekfin-details-title") || p.querySelector(".itemName");
     return st ? (st.classList.contains("itemName") ? st.textContent : st.innerHTML) : "";
   }
-  function crossfade(wait) {
+  function crossfade(wait, already) {
     if (!VT || running || !started || off()) return false;
     running = true;
     captured = false;
     note("start " + location.hash);
-    var from = location.hash, page0 = current(), t0 = Date.now(), moved = 0, before = stamp(page0);
+    // already: the address has changed (back / forward), the page hasn't yet
+    var from = already ? null : location.hash, page0 = current(), t0 = Date.now(), moved = already ? t0 : 0, before = stamp(page0);
     var tr;
     try {
       html.classList.add("tb-vt");
       tr = document.startViewTransition(function () {
         // the old screen is held as a picture from here: back/forward events kept until now go to Jellyfin
         captured = true;
+        t0 = Date.now();
+        if (moved) moved = t0;
         note("held");
         var q = held; held = [];
         replaying = true;
@@ -138,7 +141,7 @@
     function hold(e) {
       if (replaying || !VT || !started || off()) return;
       if (running && captured) return;
-      if (!running && !crossfade(300)) return;
+      if (!running && !crossfade(300, true)) return;
       e.stopImmediatePropagation();
       held.push(e.type === "popstate" ? new PopStateEvent("popstate", { state: e.state }) : new HashChangeEvent("hashchange", { oldURL: e.oldURL, newURL: e.newURL }));
       note("kept " + e.type);

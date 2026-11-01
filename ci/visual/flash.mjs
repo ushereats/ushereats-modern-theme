@@ -18,7 +18,7 @@ const creds = JSON.stringify({ Servers: [{ ManualAddress: s.server, manualAddres
 const init = `(function(){ try{ sessionStorage.setItem('jf-welcomed','1'); localStorage.setItem('jellyfin_credentials', ${JSON.stringify(creds)}); }catch(e){} })();`;
 
 const browser = await chromium.launch({ args: ["--force-color-profile=srgb"] });
-const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 }, recordVideo: { dir: out, size: { width: 1280, height: 720 } } });
+const ctx = await browser.newContext({ locale: "en-US", timezoneId: "Australia/Sydney", viewport: { width: 1280, height: 720 }, recordVideo: { dir: out, size: { width: 1280, height: 720 } } });
 await ctx.addInitScript(init);
 const page = await ctx.newPage();
 const t0 = Date.now();

@@ -22,16 +22,9 @@
 
 ## Screenshots
 
-<table>
-  <tr>
-    <td><img src="docs/details.jpg" alt="Details page" /></td>
-    <td><img src="docs/search.jpg" alt="Search" /></td>
-  </tr>
-  <tr>
-    <td><img src="docs/login.jpg" alt="Sign in" /></td>
-    <td align="center"><img src="docs/phone.jpg" alt="Phone" height="300" /></td>
-  </tr>
-</table>
+<img src="docs/rows.jpg" alt="Home rows" width="100%" />
+
+<img src="docs/login.jpg" alt="Sign in" width="100%" />
 
 ## Features
 

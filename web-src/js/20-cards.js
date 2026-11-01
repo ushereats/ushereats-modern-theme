@@ -148,7 +148,7 @@
     var link = x.url || (x.id ? href(x.id, sid) : "#");
     return '<div data-index="' + index + '" class="card overflowBackdropCard tb-logo-card' + (layout() === "desktop" ? " card-hoverable" : "") + '">' +
       '<div class="cardBox"><div class="cardScalable"><div class="cardPadder cardPadder-overflowBackdrop"></div>' +
-      '<a href="' + esc(link) + '" class="cardImageContainer cardContent tb-logo-link" aria-label="' + esc(x.name) + '" title="' + esc(x.name) + '">' +
+      '<a href="' + esc(link) + '" class="cardImageContainer cardContent tb-logo-link" aria-label="' + esc(x.name) + '">' +
       '<span class="tb-logo-img" data-tb-src="' + esc(src) + '"></span></a></div></div></div>';
   }
 

@@ -50,6 +50,10 @@ const real = await api(`/Users/${s.userId}/Items/${movies[0].Id}`);
 real.ProviderIds = Object.assign({}, real.ProviderIds, { Tmdb: "27205", Imdb: "tt1375666" });
 report.setIds = (await POST(`/Items/${real.Id}`, real)).status;
 const tagOf = async (id) => ((await api(`/Users/${s.userId}/Items/${id}`)).ImageTags || {}).Primary;
+// its poster file next to the video always wins in Jellyfin: take it away, like a library without poster files
+const path = (await api(`/Users/${s.userId}/Items/${real.Id}`)).Path || "";
+const dir = path.replace(/\/[^/]*$/, "");
+for (const f of ["poster.jpg", "folder.jpg", "cover.jpg"]) { try { fs.unlinkSync(dir + "/" + f); report.removed = (report.removed || []).concat(f); } catch (e) {} }
 report.tagsBefore = { real: await tagOf(movies[0].Id), other: await tagOf(movies[1].Id) };
 // refresh
 await page.click("#tbPRefresh");
@@ -61,6 +65,17 @@ for (let i = 0; i < 120; i++) {
 }
 await page.waitForTimeout(2000);
 report.tagsAfter = { real: await tagOf(movies[0].Id), other: await tagOf(movies[1].Id) };
+// second run with The Open Movie Database first: the film's poster must change again
+await page.click('#tbPSrc [data-up="1"]');
+await page.click("#tbPRefresh");
+for (let i = 0; i < 120; i++) {
+  await page.waitForTimeout(1000);
+  const st = await api("/UshereatsTheme/Posters/Status");
+  if (!st.running && st.finishedUtc && i > 1) { report.refresh2 = st; break; }
+}
+report.order2 = await page.evaluate(() => Array.from(document.querySelectorAll("#tbPSrc .tbp-row")).map((r) => r.textContent.replace(/\s+/g, " ").trim()));
+report.tagsAfter2 = { real: await tagOf(movies[0].Id) };
+await panel.screenshot({ path: `${out}/5-second-run.png` });
 const img = await fetch(s.server + `/Items/${movies[0].Id}/Images/Primary?maxWidth=400`, { headers: H });
 fs.writeFileSync(out + "/real-movie-poster-after.jpg", Buffer.from(await img.arrayBuffer()));
 report.refreshStatusText = await page.textContent("#tbPStatus");

@@ -38,7 +38,9 @@
   }
 
   // ── cross-fade (View Transitions) ──
-  var running = false, started = false;
+  var running = false, started = false, captured = false, held = [], replaying = false;
+  var log = window.__tbVt = [];
+  function note(x) { if (log.length < 60) log.push([Math.round(performance.now()), x]); }
   // a title page counts as ready once its title is there (the backdrop fades in on its own, as on cinejoy)
   // (no half-built page in between: no loading placeholders, no empty banner, no rows popping in after)
   function ready(p, t, before) {
@@ -55,13 +57,26 @@
       return !!(n && n.textContent.trim()) && n.textContent !== before;
     }
     if (p.id === "indexPage" || p.querySelector("#homeTab")) {
-      if (html.classList.contains("tb-rows") && !html.classList.contains("tb-rows-ok")) return false;
+      // the banner's picture is in and the rows are really showing (Jellyfin re-draws home on the way back)
       var hero = p.querySelector(".sleekfin-hero");
       if (html.classList.contains("tb-hero-on") && !hero && t < 400) return false;
       if (hero && !hero.querySelector(".sleekfin-hero-slide[data-active='true'] .sleekfin-hero-backdrop[data-loaded='true']")) return false;
-      return !!p.querySelector(".card[data-id]") || t > 300;
+      if (hero && !hero.getClientRects().length) return false;
+      return seen(p) || t > 500;
     }
-    return !!p.querySelector(".card[data-id], .listItem, .itemsContainer > *") || t > 250;
+    return seen(p) || t > 300;
+  }
+  // a poster that's really on screen: laid out, inside the window, and not in something still hidden or faded out
+  function seen(p) {
+    var cards = p.querySelectorAll(".card[data-id], .listItem[data-id]"), h = window.innerHeight || 800;
+    for (var i = 0; i < cards.length && i < 30; i++) {
+      var r = cards[i].getBoundingClientRect();
+      if (!r.height || r.bottom < 0 || r.top > h) continue;
+      var e = cards[i], ok = true;
+      while (e && e !== p) { var cs = getComputedStyle(e); if (cs.visibility === "hidden" || +cs.opacity < 0.9 || cs.display === "none") { ok = false; break; } e = e.parentElement; }
+      if (ok) return true;
+    }
+    return false;
   }
   function stamp(p) {
     if (!p) return "";
@@ -71,26 +86,35 @@
   function crossfade(wait) {
     if (!VT || running || !started || off()) return false;
     running = true;
+    captured = false;
+    note("start " + location.hash);
     var from = location.hash, page0 = current(), t0 = Date.now(), moved = 0, before = stamp(page0);
     var tr;
     try {
       html.classList.add("tb-vt");
       tr = document.startViewTransition(function () {
+        // the old screen is held as a picture from here: back/forward events kept until now go to Jellyfin
+        captured = true;
+        note("held");
+        var q = held; held = [];
+        replaying = true;
+        try { q.forEach(function (ev) { window.dispatchEvent(ev); note("replayed " + ev.type); }); } catch (e) {}
+        replaying = false;
         return new Promise(function (resolve) {
           // timers, not animation frames: the page isn't drawn while the old screen is held
           (function tick() {
             var now = Date.now(), p = current();
             if (!moved && (location.hash !== from || p !== page0)) moved = now;
-            if (!moved && now - t0 > wait) return resolve();        // the click didn't change page
-            if (moved && (p !== page0 || location.hash !== from) && ready(p, now - moved, before)) return resolve();
-            if (now - t0 > 900) return resolve();                      // never hold the screen longer
+            if (!moved && now - t0 > wait) { note("no page change"); return resolve(); }
+            if (moved && (p !== page0 || location.hash !== from) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); return resolve(); }
+            if (now - t0 > 900) { note("timeout " + (p && p.id)); return resolve(); }   // never hold the screen longer
             setTimeout(tick, 16);
           })();
         });
       });
     } catch (e) { running = false; html.classList.remove("tb-vt"); return false; }
-    var done = function () { running = false; html.classList.remove("tb-vt"); };
-    tr.finished.then(done, done);
+    var done = function () { running = false; captured = false; html.classList.remove("tb-vt"); };
+    tr.finished.then(function () { note("done"); done(); }, function (e) { note("skipped " + (e && e.message)); done(); });
     return true;
   }
   window.tbCrossfade = crossfade;
@@ -108,8 +132,19 @@
       if (a && (a.target === "_blank" || !/#!?\//.test(a.getAttribute("href") || ""))) return;
       if (a || t.closest(".card[data-id], [data-action='link']")) crossfade(400);
     }, true);
-    // browser / mouse back and forward (capturing at the window runs before Jellyfin's own listener)
-    window.addEventListener("popstate", function () { crossfade(250); }, true);
+    // browser / mouse back and forward, and the back arrows (they call history.back()). Jellyfin swaps the page
+    // straight away on these, before the old screen could be held: the event is kept from Jellyfin (capturing
+    // at the window runs first) until the old screen is held, then handed on unchanged.
+    function hold(e) {
+      if (replaying || !VT || !started || off()) return;
+      if (running && captured) return;
+      if (!running && !crossfade(300)) return;
+      e.stopImmediatePropagation();
+      held.push(e.type === "popstate" ? new PopStateEvent("popstate", { state: e.state }) : new HashChangeEvent("hashchange", { oldURL: e.oldURL, newURL: e.newURL }));
+      note("kept " + e.type);
+    }
+    window.addEventListener("popstate", hold, true);
+    window.addEventListener("hashchange", hold, true);
   }
 
   // ── fallback: the new page fades in (browsers without View Transitions) ──

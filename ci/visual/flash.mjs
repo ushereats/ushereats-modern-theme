@@ -95,6 +95,8 @@ if (lib) {
   }
 }
 const webp = await page.evaluate(() => window.__tbImgFmt);
+const vt = await page.evaluate(() => window.__tbVt || null);
+fs.writeFileSync(out + "/vt.json", JSON.stringify(vt, null, 1));
 fs.writeFileSync(out + "/library.json", JSON.stringify({ libTimes, webp, imgs: imgs.slice(0, 40) }, null, 1));
 // the settings page, and its search
 await page.evaluate(() => { location.hash = "#/configurationpage?name=UshereatsTheme"; });

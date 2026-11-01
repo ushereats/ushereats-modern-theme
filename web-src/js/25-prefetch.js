@@ -49,6 +49,48 @@
     return open.apply(this, arguments);
   };
 
+  // ── title logos at the size they're shown ──
+  // Jellyfin's title page asks for a title's logo with no size, so the full original comes down (often
+  // 0.3-1 MB, sometimes thousands of pixels wide) for a logo shown about 340 px wide. Every logo link made
+  // through Jellyfin's connection now asks for one a little bigger than it's ever shown (sharp on high-DPI
+  // screens too). Logos asked for with a size of their own are left as they are.
+  function sizeLogos(api) {
+    if (!api || api.__tbLogoSized || typeof api.getScaledImageUrl !== "function") return;
+    api.__tbLogoSized = true;
+    var dpr = Math.min(3, Math.max(1, window.devicePixelRatio || 1));
+    var W = Math.min(1800, Math.ceil(600 * dpr)), H = Math.min(600, Math.ceil(200 * dpr));
+    ["getScaledImageUrl", "getImageUrl"].forEach(function (m) {
+      var orig = api[m];
+      if (typeof orig !== "function") return;
+      api[m] = function (id, o) {
+        if (o && typeof o === "object" && /^logo$/i.test(o.type || "") && !(o.maxWidth || o.maxHeight || o.width || o.height || o.fillWidth || o.fillHeight)) {
+          var c = {};
+          for (var k in o) c[k] = o[k];
+          c.maxWidth = W; c.maxHeight = H;
+          o = c;
+        }
+        return orig.call(this, id, o);
+      };
+    });
+  }
+  (function watchApi() {
+    // Jellyfin sets (and can replace) its connection on window.ApiClient: size logos on whichever is current
+    var current = window.ApiClient;
+    sizeLogos(current);
+    try {
+      var d = Object.getOwnPropertyDescriptor(window, "ApiClient");
+      if (!d || d.configurable) {
+        Object.defineProperty(window, "ApiClient", {
+          configurable: true, enumerable: true,
+          get: function () { return current; },
+          set: function (v) { current = v; try { sizeLogos(v); } catch (e) {} }
+        });
+        return;
+      }
+    } catch (e) {}
+    var n = 0, t = setInterval(function () { sizeLogos(window.ApiClient); if (++n > 40) clearInterval(t); }, 250);
+  })();
+
   // ── the logo (top left) goes straight to home ──
   // Its link is "/", which Jellyfin first opens as an empty page and only then sends on to home: in between
   // the page you were on lost its styling for a moment (a details page flashed in Jellyfin's own look).

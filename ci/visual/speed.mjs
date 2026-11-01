@@ -65,6 +65,21 @@ await measure("movie (reload)", () => page.goto(s.server + `/web/index.html#/det
 await measure("series (reload)", () => page.goto(s.server + `/web/index.html#/details?id=${series.Id}&serverId=${s.serverId}`, { waitUntil: "load" }).then(() => page.reload({ waitUntil: "load" })));
 await measure("episode (reload)", () => page.goto(s.server + `/web/index.html#/details?id=${episode.Id}&serverId=${s.serverId}`, { waitUntil: "load" }).then(() => page.reload({ waitUntil: "load" })));
 report.logos = logos;
+// home reloads on video: does anything visibly move while it loads?
+{
+  const vctx = await browser.newContext({ viewport: { width: 1280, height: 720 }, recordVideo: { dir: out + "/vid", size: { width: 1280, height: 720 } } });
+  await vctx.addInitScript(init);
+  const vp = await vctx.newPage();
+  await vp.goto(s.server + "/web/index.html#/home", { waitUntil: "load" });
+  await vp.waitForTimeout(5000);
+  for (let i = 0; i < 3; i++) { await vp.reload({ waitUntil: "commit" }); await vp.waitForTimeout(4000); }
+  await vctx.close();
+  const { execFileSync } = await import("node:child_process");
+  const vid = fs.readdirSync(out + "/vid").find((f) => f.endsWith(".webm"));
+  fs.mkdirSync(out + "/frames", { recursive: true });
+  const ff = fs.existsSync("/usr/lib/jellyfin-ffmpeg/ffmpeg") ? "/usr/lib/jellyfin-ffmpeg/ffmpeg" : "ffmpeg";
+  execFileSync(ff, ["-v", "error", "-i", `${out}/vid/${vid}`, "-vf", "fps=25,scale=320:-1", "-q:v", "6", `${out}/frames/%04d.jpg`]);
+}
 fs.writeFileSync(out + "/report.json", JSON.stringify(report, null, 1));
 await browser.close();
 console.log("speed done");

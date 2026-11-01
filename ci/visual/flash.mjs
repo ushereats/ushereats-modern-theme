@@ -30,9 +30,12 @@ await page.waitForTimeout(7000);
 // cards of movies / shows on the home page
 const ids = await page.evaluate(() => {
   const meta = window.tbItemMeta || {};
-  return Array.from(document.querySelectorAll(".card[data-id]")).filter((c) => c.getClientRects().length).map((c) => c.getAttribute("data-id"))
-    .filter((id, i, a) => a.indexOf(id) === i && meta[id] && /^(Movie|Series)$/.test(meta[id].Type)).slice(0, 3);
+  const typeOf = (c) => c.getAttribute("data-type") || (meta[c.getAttribute("data-id")] || {}).Type || "";
+  return Array.from(document.querySelectorAll(".card[data-id]")).filter((c) => c.getClientRects().length && /^(Movie|Series)$/.test(typeOf(c)))
+    .map((c) => c.getAttribute("data-id")).filter((id, i, a) => a.indexOf(id) === i).slice(0, 3);
 });
+const counts = await page.evaluate(() => ({ cards: document.querySelectorAll(".card[data-id]").length, types: Array.from(document.querySelectorAll(".card[data-id]")).slice(0, 8).map((c) => c.getAttribute("data-type")) }));
+mark("home " + JSON.stringify(counts));
 mark("cards " + ids.join(","));
 async function open(id, label) {
   const card = page.locator(`.card[data-id="${id}"]`).first();

@@ -33,7 +33,10 @@
       "::view-transition-old(root){animation-name:tb-vt-out}::view-transition-new(root){animation-name:tb-vt-in}" +
       "@keyframes tb-vt-out{to{opacity:0}}@keyframes tb-vt-in{from{opacity:0}}" +
       // nothing else on the page takes part (one blend of the whole screen)
-      "html.tb-vt *{view-transition-name:none!important}";
+      "html.tb-vt *{view-transition-name:none!important}" +
+      // the pages' own entrance fades (rows, title page) would be frozen at "invisible" while the old screen is
+      // held and then play after the cross-fade (old page -> empty -> page): during a cross-fade they finish at once
+      "html.tb-vt *,html.tb-vt *::before,html.tb-vt *::after{animation-duration:0s!important;animation-delay:0s!important;transition-duration:0s!important;transition-delay:0s!important}";
     document.head.appendChild(st);
   }
 

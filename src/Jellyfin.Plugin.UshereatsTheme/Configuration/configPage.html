@@ -1655,6 +1655,20 @@
 .tbr-hint{font-size:.8em;opacity:.6;margin-top:4px}
 .tbr-f input[type=text],.tbr-f input[type=number],.tbr-f select{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;color:inherit;padding:8px 10px}
 .tbr-sel{flex:0 1 280px}
+/* custom posters */
+.tbp-libs{display:flex;flex-wrap:wrap;gap:8px 18px;margin:6px 0 4px}
+.tbp-libs label{display:flex;align-items:center;gap:8px;cursor:pointer}
+.tbp-src{display:flex;flex-direction:column;gap:6px;margin:8px 0 4px;max-width:560px}
+.tbp-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid rgba(255,255,255,.12);border-radius:10px;background:rgba(255,255,255,.03)}
+.tbp-row.tbp-off{opacity:.5}
+.tbp-row.tbp-drop{outline:2px solid var(--sleekfin-accent, #00a4dc)}
+.tbp-n{width:22px;text-align:center;font-weight:700;opacity:.7}
+.tbp-name{flex:1;min-width:0;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tbp-tag{font-size:.78em;opacity:.65;white-space:nowrap}
+.tbp-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.tbp-bar{height:6px;border-radius:3px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:12px;max-width:560px}
+.tbp-bar > i{display:block;height:100%;width:0;background:var(--sleekfin-accent, #00a4dc);transition:width .4s ease}
+.tbp-note{margin-top:12px;padding:10px 12px;border-radius:10px;background:rgba(255,196,0,.08);border:1px solid rgba(255,196,0,.25)}
     </style>
 
     <div class="content-primary">
@@ -1675,6 +1689,7 @@
                     </div>
                 </div>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="overview">Look</button>
+                <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="posters">Custom posters</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="search">Search</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="player">Player</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="signin">Sign-in &amp; splash</button>
@@ -2151,6 +2166,36 @@
                         </div>
                     </div>
 
+                </div>
+
+                <div class="sleekfin-page-panel" data-sleekfin-panel="posters">
+                    <div class="sleekfin-section-container">
+                        <div class="sleekfin-config-section-title">Poster sources</div>
+                        <div class="sleekfin-card">
+                            <p class="sleekfin-field-description" style="margin:0 0 12px">Where your libraries get posters from, set here for all of them at once instead of in each library's settings. The top source is used first; when it has no poster for a title, the next one is tried, and so on. Untick a source to not use it. Jellyfin uses the same order for these titles' backdrops and logos.</p>
+                            <div class="sleekfin-label">Libraries</div>
+                            <div id="tbPLibs" class="tbp-libs"><span class="sleekfin-field-description">Loading…</span></div>
+                            <div class="sleekfin-label" style="margin-top:14px">Sources (drag or use the arrows to change the order)</div>
+                            <div id="tbPSrc" class="tbp-src"></div>
+                            <div class="tbp-actions">
+                                <button type="button" id="tbPApply" class="sleekfin-builder-config-button">Apply to libraries</button>
+                                <span id="tbPApplyStatus" class="sleekfin-field-description"></span>
+                            </div>
+                            <div id="tbPNote" class="tbp-note sleekfin-field-description" hidden></div>
+                        </div>
+                    </div>
+                    <div class="sleekfin-section-container">
+                        <div class="sleekfin-config-section-title">Refresh posters</div>
+                        <div class="sleekfin-card">
+                            <p class="sleekfin-field-description" style="margin:0 0 12px">Gets every movie, show, season and collection in the ticked libraries a new poster from the sources above (unsaved changes to the sources are applied first). Only posters change: other artwork, titles and info stay as they are, and a title keeps its poster if none of the sources has one. Runs on the server, a few titles at a time: you can leave this page.</p>
+                            <div class="tbp-actions" style="margin-top:0">
+                                <button type="button" id="tbPRefresh" class="sleekfin-builder-config-button">Refresh all posters</button>
+                                <button type="button" id="tbPStop" class="sleekfin-builder-config-button" hidden>Stop</button>
+                                <span id="tbPStatus" class="sleekfin-field-description"></span>
+                            </div>
+                            <div class="tbp-bar" id="tbPBar" hidden><i></i></div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="sleekfin-page-panel" data-sleekfin-panel="speed">
@@ -5759,6 +5804,208 @@
         a.download = "ushereats-speed-test-" + new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-") + ".json";
         document.body.appendChild(a); a.click(); a.remove();
       });
+    })();
+    </script>
+    <script>
+    (function customPosters() {
+      // Poster sources for many libraries at once (Jellyfin keeps them per library, per kind of title) and a
+      // button that gets every title a new poster from them.
+      var page = document.querySelector("#sleekFinConfigurationPage");
+      var panel = page.querySelector('.sleekfin-page-panel[data-sleekfin-panel="posters"]');
+      if (!panel) return;
+      var libsEl = panel.querySelector("#tbPLibs"), srcEl = panel.querySelector("#tbPSrc");
+      var applyBtn = panel.querySelector("#tbPApply"), applyStatus = panel.querySelector("#tbPApplyStatus");
+      var refreshBtn = panel.querySelector("#tbPRefresh"), stopBtn = panel.querySelector("#tbPStop");
+      var status = panel.querySelector("#tbPStatus"), bar = panel.querySelector("#tbPBar"), note = panel.querySelector("#tbPNote");
+      // which kinds of title in each kind of library have posters
+      var KINDS = { movies: ["Movie"], tvshows: ["Series", "Season"], boxsets: ["BoxSet"], "": ["Movie", "Series", "Season"], mixed: ["Movie", "Series", "Season"] };
+      var libs = [], avail = {}, order = [], loaded = false, dirty = false, poll = 0, dragFrom = -1;
+
+      function esc(t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+      function kindsOf(lib) { return KINDS[lib.CollectionType || ""] || null; }
+      function post(path, body, noReply) {
+        var r = { type: "POST", url: ApiClient.getUrl(path), data: JSON.stringify(body || {}), contentType: "application/json" };
+        if (!noReply) r.dataType = "json";
+        return ApiClient.ajax(r);
+      }
+      function available(contentType) {
+        return ApiClient.getJSON(ApiClient.getUrl("Libraries/AvailableOptions", contentType ? { libraryContentType: contentType, isNewLibrary: false } : { isNewLibrary: false }))
+          .then(function (o) { (o.TypeOptions || []).forEach(function (t) { avail[t.Type] = t; }); }, function () {});
+      }
+      function fetchersFor(type) { return ((avail[type] || {}).ImageFetchers || []).map(function (f) { return f.Name; }); }
+
+      // the order shown: the first ticked library's current poster order (its movies, or its shows)
+      function currentOrder() {
+        var names = [];
+        ["Movie", "Series", "Season", "BoxSet"].forEach(function (t) { fetchersFor(t).forEach(function (n) { if (names.indexOf(n) < 0) names.push(n); }); });
+        var lib = libs.filter(function (l) { return l.on; })[0] || libs[0];
+        var type = lib ? kindsOf(lib)[0] : "Movie";
+        var to = lib && ((lib.LibraryOptions || {}).TypeOptions || []).filter(function (t) { return t.Type === type; })[0];
+        var defaults = (avail[type] || {}).ImageFetchers || [];
+        var enabled = to ? to.ImageFetchers || [] : defaults.filter(function (f) { return f.DefaultEnabled; }).map(function (f) { return f.Name; });
+        var ord = (to && to.ImageFetcherOrder && to.ImageFetcherOrder.length ? to.ImageFetcherOrder : defaults.map(function (f) { return f.Name; })).slice();
+        names.forEach(function (n) { if (ord.indexOf(n) < 0) ord.push(n); });
+        return ord.filter(function (n) { return names.indexOf(n) >= 0; }).map(function (n) { return { name: n, on: enabled.indexOf(n) >= 0 }; });
+      }
+
+      function renderLibs() {
+        if (!libs.length) { libsEl.innerHTML = '<span class="sleekfin-field-description">No movie, show or collection libraries found.</span>'; return; }
+        libsEl.innerHTML = libs.map(function (l, i) {
+          return '<label><input type="checkbox" data-lib="' + i + '"' + (l.on ? " checked" : "") + "> " + esc(l.Name) + "</label>";
+        }).join("");
+      }
+      function renderSrc() {
+        var n = 0;
+        srcEl.innerHTML = order.map(function (o, i) {
+          var types = ["Movie", "Series", "Season", "BoxSet"].filter(function (t) { return fetchersFor(t).indexOf(o.name) >= 0; });
+          var tag = types.length === 4 ? "" : types.join(", ").replace("BoxSet", "collections").replace("Movie", "movies").replace("Series", "shows").replace("Season", "seasons");
+          return '<div class="tbp-row' + (o.on ? "" : " tbp-off") + '" draggable="true" data-i="' + i + '">' +
+            '<span class="tbp-n">' + (o.on ? ++n : "") + "</span>" +
+            '<input type="checkbox" data-src="' + i + '"' + (o.on ? " checked" : "") + ' aria-label="Use ' + esc(o.name) + '">' +
+            '<span class="tbp-name">' + esc(o.name) + "</span>" +
+            (tag ? '<span class="tbp-tag">' + esc(tag) + " only</span>" : "") +
+            '<button type="button" class="tbr-btn" data-up="' + i + '" title="Up"' + (i ? "" : " disabled") + ">&#8593;</button>" +
+            '<button type="button" class="tbr-btn" data-down="' + i + '" title="Down"' + (i < order.length - 1 ? "" : " disabled") + ">&#8595;</button></div>";
+        }).join("") || '<span class="sleekfin-field-description">No poster sources installed.</span>';
+      }
+      function changed() { dirty = true; applyStatus.textContent = "Not applied yet"; }
+
+      function load() {
+        if (loaded) return Promise.resolve();
+        return Promise.all([
+          ApiClient.getJSON(ApiClient.getUrl("Library/VirtualFolders")),
+          available("movies"), available("tvshows"), available("boxsets"),
+          ApiClient.getJSON(ApiClient.getUrl("Plugins")).catch(function () { return []; })
+        ]).then(function (r) {
+          libs = (r[0] || []).filter(function (l) { return kindsOf(l) && l.ItemId; }).map(function (l) { l.on = true; return l; });
+          order = currentOrder();
+          loaded = true;
+          renderLibs();
+          renderSrc();
+          var bp = (r[4] || []).filter(function (p) { return /better posters/i.test(p.Name) && p.Status !== "Disabled"; })[0];
+          if (bp) {
+            note.hidden = false;
+            note.textContent = bp.Name + " is installed. It also puts posters on titles by itself (new titles, and every night). To have every library follow the order here, turn off its “All movie and show libraries” option: then it only works where it is ticked as a source above.";
+          }
+        }, function () { libsEl.innerHTML = '<span class="sleekfin-field-description">Couldn’t load your libraries.</span>'; });
+      }
+
+      // write the order into each ticked library, for each kind of title it has
+      function apply() {
+        var chosen = libs.filter(function (l) { return l.on; });
+        if (!chosen.length) { applyStatus.textContent = "Tick at least one library."; return Promise.reject(); }
+        applyBtn.disabled = true;
+        applyStatus.textContent = "Applying…";
+        return chosen.reduce(function (p, lib) {
+          return p.then(function () {
+            var lo = lib.LibraryOptions || (lib.LibraryOptions = {});
+            lo.TypeOptions = lo.TypeOptions || [];
+            kindsOf(lib).forEach(function (type) {
+              var here = fetchersFor(type);
+              if (!here.length) return;
+              var to = lo.TypeOptions.filter(function (t) { return t.Type === type; })[0];
+              if (!to) {
+                // a library still on Jellyfin's defaults for this kind: keep its default info sources and image settings
+                var a = avail[type] || {};
+                to = {
+                  Type: type,
+                  MetadataFetchers: (a.MetadataFetchers || []).filter(function (f) { return f.DefaultEnabled; }).map(function (f) { return f.Name; }),
+                  MetadataFetcherOrder: (a.MetadataFetchers || []).map(function (f) { return f.Name; }),
+                  ImageFetchers: [], ImageFetcherOrder: [],
+                  ImageOptions: a.DefaultImageOptions || []
+                };
+                lo.TypeOptions.push(to);
+              }
+              var ord = order.map(function (o) { return o.name; }).filter(function (n) { return here.indexOf(n) >= 0; });
+              here.forEach(function (n) { if (ord.indexOf(n) < 0) ord.push(n); });
+              to.ImageFetcherOrder = ord;
+              to.ImageFetchers = order.filter(function (o) { return o.on && here.indexOf(o.name) >= 0; }).map(function (o) { return o.name; });
+            });
+            return post("Library/VirtualFolders/LibraryOptions", { Id: lib.ItemId, LibraryOptions: lo }, true);
+          });
+        }, Promise.resolve()).then(function () {
+          dirty = false;
+          applyStatus.textContent = "Applied to " + chosen.length + (chosen.length === 1 ? " library." : " libraries.");
+        }, function (e) {
+          applyStatus.textContent = "Couldn’t apply" + (e && e.status ? " (" + e.status + ")" : "") + ".";
+          throw e;
+        }).then(function (x) { applyBtn.disabled = false; return x; }, function (e) { applyBtn.disabled = false; throw e; });
+      }
+
+      function show(st) {
+        if (!st) return;
+        var pct = st.total ? Math.round(st.done * 100 / st.total) : 0;
+        bar.hidden = !(st.running || st.total);
+        bar.firstElementChild.style.width = (st.running ? pct : st.total ? 100 : 0) + "%";
+        refreshBtn.disabled = !!st.running;
+        stopBtn.hidden = !st.running;
+        if (st.running) status.textContent = st.total ? "Refreshing posters: " + st.done + " of " + st.total + (st.failed ? " (" + st.failed + " failed)" : "") : "Finding titles…";
+        else if (st.finishedUtc) status.textContent = (st.cancelled ? "Stopped after " : "Done: ") + st.done + " of " + st.total + " titles" + (st.failed ? ", " + st.failed + " failed (see the server log)" : "") + ".";
+        clearTimeout(poll);
+        if (st.running) poll = setTimeout(check, 1500);
+      }
+      function check() { return ApiClient.getJSON(ApiClient.getUrl("UshereatsTheme/Posters/Status")).then(show, function () {}); }
+
+      libsEl.addEventListener("change", function (e) {
+        var i = e.target.getAttribute("data-lib");
+        if (i == null) return;
+        libs[+i].on = e.target.checked;
+      });
+      srcEl.addEventListener("change", function (e) {
+        var i = e.target.getAttribute("data-src");
+        if (i == null) return;
+        order[+i].on = e.target.checked;
+        renderSrc(); changed();
+      });
+      srcEl.addEventListener("click", function (e) {
+        var b = e.target.closest && e.target.closest("button");
+        if (!b) return;
+        var up = b.getAttribute("data-up"), down = b.getAttribute("data-down");
+        var i = up != null ? +up : down != null ? +down : -1, j = up != null ? i - 1 : i + 1;
+        if (i < 0 || j < 0 || j >= order.length) return;
+        var t = order[i]; order[i] = order[j]; order[j] = t;
+        renderSrc(); changed();
+      });
+      srcEl.addEventListener("dragstart", function (e) { var r = e.target.closest(".tbp-row"); dragFrom = r ? +r.getAttribute("data-i") : -1; });
+      srcEl.addEventListener("dragover", function (e) {
+        var r = e.target.closest(".tbp-row");
+        if (!r || dragFrom < 0) return;
+        e.preventDefault();
+        Array.prototype.forEach.call(srcEl.querySelectorAll(".tbp-drop"), function (x) { x.classList.remove("tbp-drop"); });
+        r.classList.add("tbp-drop");
+      });
+      srcEl.addEventListener("drop", function (e) {
+        var r = e.target.closest(".tbp-row");
+        if (!r || dragFrom < 0) return;
+        e.preventDefault();
+        var to = +r.getAttribute("data-i"), item = order.splice(dragFrom, 1)[0];
+        order.splice(to, 0, item);
+        dragFrom = -1;
+        renderSrc(); changed();
+      });
+      srcEl.addEventListener("dragend", function () { dragFrom = -1; Array.prototype.forEach.call(srcEl.querySelectorAll(".tbp-drop"), function (x) { x.classList.remove("tbp-drop"); }); });
+      applyBtn.addEventListener("click", function () { apply().catch(function () {}); });
+      refreshBtn.addEventListener("click", function () {
+        var ids = libs.filter(function (l) { return l.on; }).map(function (l) { return l.ItemId; });
+        if (!ids.length) { status.textContent = "Tick at least one library."; return; }
+        refreshBtn.disabled = true;
+        (dirty ? apply() : Promise.resolve()).then(function () {
+          status.textContent = "Starting…";
+          return post("UshereatsTheme/Posters/Refresh", { LibraryIds: ids }).then(show, function (e) {
+            if (e && e.status === 409) return check();
+            status.textContent = "Couldn’t start" + (e && e.status ? " (" + e.status + ")" : "") + ".";
+            refreshBtn.disabled = false;
+          });
+        }, function () { refreshBtn.disabled = false; });
+      });
+      stopBtn.addEventListener("click", function () { post("UshereatsTheme/Posters/Cancel").then(show, check); });
+
+      // load when the panel is opened (and pick up a refresh that's still running)
+      page.addEventListener("click", function (e) {
+        var b = e.target.closest && e.target.closest('[data-sleekfin-panel="posters"].sleekfin-page-nav-button');
+        if (b) { load(); check(); }
+      });
+      page.addEventListener("viewhide", function () { clearTimeout(poll); });
     })();
     </script>
 </div>

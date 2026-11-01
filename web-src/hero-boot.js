@@ -6,6 +6,7 @@
 (function () {
   try {
     var root = document.documentElement;
+    root.classList.add("tb-hero-on");   // rows wait for the banner (see sleekfin-media.css)
     var base = location.pathname.replace(/\/web(\/.*)?$/, "/");
     if (base.charAt(base.length - 1) !== "/") base += "/";
     var dpr = window.devicePixelRatio || 1;

@@ -95,7 +95,7 @@
         }
         if (!page) return;
       }
-      if (++tries < 12) timer = setTimeout(attempt, 150);
+      if (++tries < 24) timer = setTimeout(attempt, 150);
     })();
   }
   document.addEventListener("viewshow", function () { clearTimeout(timer); timer = setTimeout(start, 250); });

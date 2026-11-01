@@ -1,0 +1,242 @@
+[
+ [
+  9413,
+  "start #/home"
+ ],
+ [
+  9655,
+  "held"
+ ],
+ [
+  10230,
+  "ready 575ms itemDetailPage"
+ ],
+ [
+  10717,
+  "done"
+ ],
+ [
+  12451,
+  "start #/home"
+ ],
+ [
+  12451,
+  "kept popstate"
+ ],
+ [
+  12452,
+  "kept hashchange"
+ ],
+ [
+  12496,
+  "held"
+ ],
+ [
+  12506,
+  "replayed popstate"
+ ],
+ [
+  12542,
+  "replayed hashchange"
+ ],
+ [
+  12808,
+  "ready 311ms indexPage"
+ ],
+ [
+  13199,
+  "done"
+ ],
+ [
+  15593,
+  "start #/home"
+ ],
+ [
+  15669,
+  "held"
+ ],
+ [
+  16196,
+  "ready 527ms itemDetailPage"
+ ],
+ [
+  16665,
+  "done"
+ ],
+ [
+  20741,
+  "start #/home"
+ ],
+ [
+  20742,
+  "kept popstate"
+ ],
+ [
+  20756,
+  "kept hashchange"
+ ],
+ [
+  20788,
+  "held"
+ ],
+ [
+  20795,
+  "replayed popstate"
+ ],
+ [
+  20833,
+  "replayed hashchange"
+ ],
+ [
+  21111,
+  "ready 323ms indexPage"
+ ],
+ [
+  21563,
+  "done"
+ ],
+ [
+  55764,
+  "start #/home"
+ ],
+ [
+  55848,
+  "held"
+ ],
+ [
+  56481,
+  "ready 633ms itemDetailPage"
+ ],
+ [
+  56943,
+  "done"
+ ],
+ [
+  58782,
+  "start #/home"
+ ],
+ [
+  58782,
+  "kept popstate"
+ ],
+ [
+  58796,
+  "kept hashchange"
+ ],
+ [
+  58836,
+  "held"
+ ],
+ [
+  58844,
+  "replayed popstate"
+ ],
+ [
+  58913,
+  "replayed hashchange"
+ ],
+ [
+  59144,
+  "ready 307ms indexPage"
+ ],
+ [
+  59543,
+  "done"
+ ],
+ [
+  91892,
+  "start #/home"
+ ],
+ [
+  92010,
+  "held"
+ ],
+ [
+  92530,
+  "ready 520ms itemDetailPage"
+ ],
+ [
+  92991,
+  "done"
+ ],
+ [
+  94910,
+  "start #/home"
+ ],
+ [
+  94910,
+  "kept popstate"
+ ],
+ [
+  94925,
+  "kept hashchange"
+ ],
+ [
+  94952,
+  "held"
+ ],
+ [
+  94960,
+  "replayed popstate"
+ ],
+ [
+  94996,
+  "replayed hashchange"
+ ],
+ [
+  95329,
+  "ready 376ms indexPage"
+ ],
+ [
+  95760,
+  "done"
+ ],
+ [
+  158129,
+  "start #/home"
+ ],
+ [
+  158224,
+  "held"
+ ],
+ [
+  158663,
+  "ready 439ms itemDetailPage"
+ ],
+ [
+  159117,
+  "done"
+ ],
+ [
+  161668,
+  "start #/details?id=d20d52dd0dfb390eccf3bc6d42c66edc&serverId=4160715fe12641588226d972b8ab152d"
+ ],
+ [
+  161680,
+  "kept popstate"
+ ],
+ [
+  161684,
+  "kept hashchange"
+ ],
+ [
+  161714,
+  "held"
+ ],
+ [
+  161737,
+  "replayed popstate"
+ ],
+ [
+  161754,
+  "replayed hashchange"
+ ],
+ [
+  162622,
+  "timeout indexPage"
+ ],
+ [
+  163010,
+  "done"
+ ]
+]

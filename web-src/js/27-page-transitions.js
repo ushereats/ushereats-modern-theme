@@ -5,9 +5,36 @@
   // Opening a title, going back (back arrow, browser / mouse back), changing page.
   // Browsers without View Transitions (Firefox before 144, Safari before 18) just change page.
   // Off on TVs, while a video plays, on the very first page, and when the device asks for less motion.
-  if (window.__tbPageFx || !tbCfg("PageTransitions", true)) return;
+  if (window.__tbPageFx) return;
   window.__tbPageFx = true;
-  if (typeof document.startViewTransition !== "function") return;
+
+  // ── where each page was scrolled to (one place for it: SleekFin's own copy is gone) ──
+  // Going back puts you where you were; anything else (a title, the home button, a library) starts at the top.
+  // Set while the old page is still held, and kept for a moment after, because Jellyfin and the rows growing
+  // move the page a moment after it shows (that was the jump seen right after the change).
+  var pos = {}, want = null, until = 0, userMoved = false, running = false;
+  try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch (e) {}
+  function scrolled() { var e = document.scrollingElement || document.documentElement; return Math.max(window.pageYOffset || 0, e ? e.scrollTop : 0); }
+  function scrollNow(y) { try { window.scrollTo({ top: y, left: 0, behavior: "instant" }); } catch (e) { window.scrollTo(0, y); } }
+  window.addEventListener("scroll", function () {
+    if (want !== null && Date.now() < until && !userMoved) { if (Math.abs(scrolled() - want) > 1) scrollNow(want); return; }
+    if (!running) pos[location.hash] = scrolled();
+  }, { passive: true });
+  // you scrolling yourself always wins
+  ["wheel", "touchstart", "keydown", "mousedown"].forEach(function (t) { window.addEventListener(t, function () { if (!running) userMoved = true; }, { passive: true, capture: true }); });
+  function keep(y) {
+    want = y; userMoved = false; until = Date.now() + 2000;
+    scrollNow(y);
+    // rows growing don't send a scroll event: checked a few times too
+    [0, 50, 120, 250, 500, 900, 1400, 1950].forEach(function (d) { setTimeout(function () { if (want === y && Date.now() < until && !userMoved && Math.abs(scrolled() - y) > 1) scrollNow(y); }, d); });
+  }
+  var fx = tbCfg("PageTransitions", true) && typeof document.startViewTransition === "function";
+  window.tbScroll = { top: function () { pos[location.hash] = 0; keep(0); } };
+  if (!fx) {
+    // no cross-fade here: the same scroll handling, straight away
+    window.addEventListener("popstate", function () { var y = pos[location.hash]; if (y !== undefined) setTimeout(function () { keep(y); }, 0); });
+    return;
+  }
 
   var html = document.documentElement;
   var reduce = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : { matches: false };
@@ -27,16 +54,21 @@
   // Only: the rows' own entrance fade would be frozen at "invisible" while the old page is held and play after
   // the cross-fade (old page -> empty -> rows); rows that were there for a cross-fade don't play it.
   var st = document.createElement("style");
-  st.textContent = "html.tb-vt :is(#indexPage,#searchPage) .verticalSection,html.tb-vt :is(#moviesPage,#tvshowsPage,#tvRecommendedPage) .itemsContainer,.verticalSection.tb-noenter,.itemsContainer.tb-noenter{animation:none!important}";
+  st.textContent = "html.tb-vt :is(#indexPage,#searchPage) .verticalSection,html.tb-vt :is(#moviesPage,#tvshowsPage,#tvRecommendedPage) .itemsContainer,.verticalSection.tb-noenter,.itemsContainer.tb-noenter{animation:none!important}" +
+    // SleekFin's own fade-in of a title page would play again after the cross-fade (seen as a second fade)
+    "#itemDetailPage.sleekfin-details-entering{animation:none!important}";
   document.head.appendChild(st);
 
-  var running = false, started = false, captured = false, held = [], replaying = false;
+  var started = false, captured = false, held = [], replaying = false;
+
   var log = window.__tbVt = [];
   function note(x) { if (log.length > 80) log.shift(); log.push([Math.round(performance.now()), x]); }
 
   // ready = what cinejoy fades into: the finished page (no loading placeholders, no empty banner)
   function ready(p, t, before) {
     if (!p) return false;
+    // the background colour follows the page in the same cross-fade (not a slow change after it)
+    if (t < 700 && window.tbAmbientPending && window.tbAmbientPending()) return false;
     if (p.id === "itemDetailPage") {
       var sleek = !!document.querySelector("[data-sleekfin-details]") || html.classList.contains("sleekfin-details-mounted") || html.classList.contains("sleekfin-details-concealed");
       if (sleek) {
@@ -75,7 +107,6 @@
   }
   // a title page you open starts at the top: Jellyfin scrolls there a moment after showing it (seen as a jump);
   // pages you go back to keep where you were, so this only applies to opening a title
-  function scrolled() { var e = document.scrollingElement || document.documentElement; return Math.max(window.pageYOffset || 0, e ? e.scrollTop : 0); }
   function stamp(p) {
     if (!p) return "";
     var st = p.querySelector(".sleekfin-details-title") || p.querySelector(".itemName");
@@ -89,6 +120,9 @@
     note("start " + location.hash);
     // already: the address has changed (back / forward), the page hasn't yet
     var from = already ? null : location.hash, page0 = current(), t0 = Date.now(), moved = already ? t0 : 0, before = stamp(page0);
+    if (!already) pos[location.hash] = scrolled();
+    var target = already ? (pos[location.hash] !== undefined ? pos[location.hash] : null) : 0;
+    want = null;
     var tr;
     try {
       html.classList.add("tb-vt");
@@ -127,8 +161,11 @@
             if (!moved && (location.hash !== from || p !== page0)) moved = now;
             if (moved) watchPage(p);
             if (!moved && now - t0 > wait) { note("no page change"); return resolve(); }
-            if (moved && (from === null ? (p !== page0 || (p && p.id === "itemDetailPage")) : (p !== page0 || location.hash !== from)) && (!p || p.id !== "itemDetailPage" || now - last >= 50) && (from === null || !p || p.id !== "itemDetailPage" || scrolled() < 2) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); return resolve(); }
-            if (now - t0 > 900) { note("timeout " + (p && p.id)); return resolve(); }   // never hold the old page longer
+            var changed = moved && (from === null ? (p !== page0 || (p && p.id === "itemDetailPage")) : (p !== page0 || location.hash !== from));
+            if (changed && target !== null && Math.abs(scrolled() - target) > 1) scrollNow(target);
+            if (changed && (!p || p.id !== "itemDetailPage" || now - last >= 50) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); if (target !== null) keep(target); return resolve(); }
+            // a title page waits for its content (cinejoy fades straight into the finished page, never a placeholder)
+            if (now - t0 > (p && p.id === "itemDetailPage" ? 2500 : 1200)) { note("timeout " + (p && p.id)); if (changed && target !== null) keep(target); return resolve(); }
             setTimeout(tick, 16);
           })();
         });

@@ -203,15 +203,22 @@
   // Going to home directly is the same smooth change as the Back button.
   document.addEventListener("click", function (e) {
     if (window.__tbNoHomeFix || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    var a = e.target && e.target.closest && e.target.closest("a[href]");
-    if (!a || a.target === "_blank") return;
-    var href = a.getAttribute("href") || "";
-    if (!/^(#!?\/|\/?(web\/)?(index\.html)?#!?\/|\/)$/.test(href)) return;
+    var t = e.target && e.target.closest ? e.target : null;
+    if (!t) return;
+    // SleekFin's header Home button, the logo, any link to "/"
+    if (!t.closest("[data-sleekfin-header-proxy-item='jellyfin:home'], .headerHomeButton")) {
+      var a = t.closest("a[href]");
+      if (!a || a.target === "_blank") return;
+      var href = a.getAttribute("href") || "";
+      if (!/^(#!?\/|\/?(web\/)?(index\.html)?#!?\/|\/)$/.test(href)) return;
+    }
     e.preventDefault();
     e.stopPropagation();
     if (/^#\/home(\.html)?(\?|$)/.test(location.hash) && !/[?&]tab=/.test(location.hash)) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+    // like cinejoy: home always opens at the very top, cross-faded
     if (window.tbCrossfade) window.tbCrossfade(300);
     location.hash = "#/home";
+    if (window.tbScroll && !document.documentElement.classList.contains("tb-vt")) window.tbScroll.top();
   }, true);
 
   // the backdrop link a title page uses (exactly SleekFin's / Jellyfin's, so the browser downloads it once)
@@ -246,7 +253,7 @@
         var urls = [];
         (window.tbItemMeta || (window.tbItemMeta = {}))[item.Id] = item;
         var bd = backdropUrl(item);
-        if (bd) urls.push(bd);
+        if (bd) { urls.push(bd); if (window.tbAmbientWarm) window.tbAmbientWarm(bd); }   // and the page's background colour
         // logo: the link Jellyfin's details page uses
         if (item.ImageTags && item.ImageTags.Logo) urls.push(api.getScaledImageUrl(item.Id, { type: "Logo", tag: item.ImageTags.Logo }));
         else if (item.ParentLogoItemId && item.ParentLogoImageTag) urls.push(api.getScaledImageUrl(item.ParentLogoItemId, { type: "Logo", tag: item.ParentLogoImageTag }));

@@ -8,7 +8,9 @@
   var SOURCE_WIDTH = 48;   // size of the image fetched from Jellyfin (tiny = soft + fast)
 
   var ROOT_CLASS = "tb-ambient";
-  var layers = [], current = 0, currentSrc = "", token = 0;
+  var layers = [], current = 0, currentSrc = "", token = 0, shownSrc = "", wanted = "";
+  var softened = {};   // backdrop -> its small soft copy (made once; going back to a page is instant)
+  function pageMoving() { return document.documentElement.classList.contains("tb-vt"); }
 
   // ── Layers: two images for cross-fading + a fixed tint on top ──
   function build() {
@@ -30,6 +32,10 @@
 
   // Tiny image -> small soft blurred picture (done once per slide, no live blur)
   function soften(src, cb) {
+    var k = keyOf(src);
+    if (softened[k]) return cb(softened[k]);
+    var done = cb;
+    cb = function (d) { if (d && d.indexOf("data:") === 0) { var ks = Object.keys(softened); if (ks.length > 60) delete softened[ks[0]]; softened[k] = d; } done(d); };
     var img = new Image();
     img.decoding = "async";
     img.onload = function () {
@@ -55,6 +61,10 @@
     img.src = src;
   }
 
+  // the same picture asked for with other sizes is the same backdrop
+  function keyOf(src) { return String(src).replace(/^https?:\/\/[^/]+/i, "").replace(/\?.*$/, ""); }
+  window.tbAmbientWarm = function (src) { if (src) soften(tinyUrl(src), function () {}); };
+
   function tinyUrl(src) {
     try {
       var u = new URL(src, location.href);
@@ -72,8 +82,20 @@
     var my = ++token;
     soften(tinyUrl(src), function (data) {
       if (my !== token || !data) return;
-      var next = layers[1 - current];
+      var next = layers[1 - current], cur = layers[current];
       next.style.backgroundImage = 'url("' + data + '")';
+      // while the page changes, the new colour goes in at once: the page's cross-fade fades it with everything else
+      // (animation frames don't run while the old page is held)
+      if (first || pageMoving()) {
+        next.style.transition = cur.style.transition = "none";
+        next.classList.add("on");
+        cur.classList.remove("on");
+        void next.offsetWidth;
+        next.style.transition = cur.style.transition = "";
+        current = 1 - current;
+        shownSrc = src;
+        return;
+      }
       // make sure the new image is painted before fading it in
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
@@ -85,6 +107,7 @@
           next.classList.add("on");
           layers[current].classList.remove("on");
           current = 1 - current;
+          shownSrc = src;
         });
       });
     });
@@ -219,6 +242,7 @@
     root.classList.toggle(ROOT_CLASS, on);
     root.classList.toggle(ROOT_CLASS + "-details", mode === "details");
     root.classList.toggle(ROOT_CLASS + "-page", mode === "page");
+    wanted = on && src ? src : "";
     if (!on) return;
     build();
     if (src) show(src);
@@ -241,6 +265,12 @@
       }
     }
   }
+
+  // for the page cross-fade: is the background still catching up with the page on screen?
+  window.tbAmbientPending = function () {
+    try { update(); } catch (e) { return false; }
+    return !!wanted && wanted !== shownSrc;
+  };
 
   var queued = false;
   function schedule() {

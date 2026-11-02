@@ -62,6 +62,30 @@ if (ids[0]) await open(ids[0], "first-ever (no stand-in yet)");
 if (ids[0]) await open(ids[0], "same again");
 if (ids[1]) await open(ids[1], "another");
 if (ids[2]) await open(ids[2], "third");
+// scroll: back keeps where you were, the home button goes to the top; sampled every 40 ms so a jump shows
+{
+  const sc = [];
+  const sample = async (label, ms) => { const end = Date.now() + ms; while (Date.now() < end) { sc.push(label + " " + (Date.now() - t0) + " y=" + await page.evaluate(() => Math.round(window.scrollY)) + " vt=" + await page.evaluate(() => document.documentElement.classList.contains("tb-vt"))); await page.waitForTimeout(40); } };
+  await page.evaluate(() => window.scrollTo(0, 900));
+  await page.waitForTimeout(800);
+  const deep = await page.evaluate(() => { const h = window.innerHeight; return [...document.querySelectorAll(".card[data-id]")].find((c) => { const r = c.getBoundingClientRect(); return r.top > 0 && r.bottom < h && /^(Movie|Series)$/.test(c.getAttribute("data-type") || ""); })?.getAttribute("data-id"); });
+  sc.push("start y=" + await page.evaluate(() => Math.round(window.scrollY)) + " card=" + deep);
+  if (deep) {
+    await page.locator(`.card[data-id="${deep}"]`).first().evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
+    await sample("open", 3000);
+    await page.goBack();
+    await sample("back", 2500);
+    await page.locator(`.card[data-id="${deep}"]`).first().evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
+    await page.waitForTimeout(3000);
+    const home = page.locator(".headerHomeButton, a[href='#/home'], a[href='#!/home'], .sleekfin-header a[href], .pageTitleWithLogo, a.headerLogo").first();
+    sc.push("home button found=" + (await home.count()));
+    if (await home.count()) { await home.evaluate((el) => (el.closest("a[href], button") || el).click()); }
+    else await page.evaluate(() => { location.hash = "#/home"; });
+    await sample("home", 2500);
+    for (let i = 0; i < 4; i++) await page.screenshot({ path: `${out}/seq-home-${i}.jpg`, quality: 60, type: "jpeg" });
+  }
+  fs.writeFileSync(out + "/scroll.txt", sc.join("\n"));
+}
 // hover look on a poster, then a title's back arrow: hovered (grows) and clicked
 if (ids[1]) {
   const card = page.locator(`.card[data-id="${ids[1]}"]`).first();

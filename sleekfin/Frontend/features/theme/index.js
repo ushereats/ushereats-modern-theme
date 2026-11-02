@@ -1,4 +1,3 @@
-import { createScrollFeature } from '../scroll/index.js';
 import { createMoreMenuFeature } from './menus.js';
 
 const ROOT_CLASS = 'sleekfin-main-ui';
@@ -38,9 +37,7 @@ function syncEnhancedTheme(active) {
 function createThemeFeature() {
   let started = false;
   let enhancedTimer = null;
-  // Owned here because this bundle is always injected and is not behind a feature toggle, so it is the
-  // one place guaranteed to be running on the pages whose scroll position Jellyfin does not restore.
-  const scroll = createScrollFeature();
+  // Scroll positions are kept by the theme's page changes (27-page-transitions.js), in one place.
   const moreMenus = createMoreMenuFeature();
 
   function isDashboardRoute() {
@@ -71,7 +68,6 @@ function createThemeFeature() {
     started = true;
     WINDOW_EVENTS.forEach((eventName) => window.addEventListener(eventName, reconcile));
     reconcile();
-    scroll.start();
     moreMenus.start();
   }
 
@@ -82,7 +78,6 @@ function createThemeFeature() {
     enhancedTimer = null;
     document.documentElement?.classList.remove(ROOT_CLASS);
     syncEnhancedTheme(false);
-    scroll.stop();
     moreMenus.stop();
   }
 

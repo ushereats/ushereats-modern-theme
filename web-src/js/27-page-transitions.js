@@ -111,6 +111,12 @@
   }
   // a title page you open starts at the top: Jellyfin scrolls there a moment after showing it (seen as a jump);
   // pages you go back to keep where you were, so this only applies to opening a title
+  function shownTab(p) {
+    if (!p) return null;
+    var ts = p.querySelectorAll(".pageTabContent");
+    for (var i = 0; i < ts.length; i++) if (ts[i].getClientRects().length) return ts[i];
+    return null;
+  }
   function stamp(p) {
     if (!p) return "";
     var st = p.querySelector(".sleekfin-details-title") || p.querySelector(".itemName");
@@ -124,6 +130,8 @@
     note("start " + location.hash);
     // already: the address has changed (back / forward), the page hasn't yet
     var from = already ? null : location.hash, page0 = current(), t0 = Date.now(), moved = already ? t0 : 0, before = stamp(page0);
+    // switching tabs inside a page (home -> Favourites) keeps the same page: the tab on screen is what changes
+    var tab0 = shownTab(page0);
     if (!already) pos[location.hash] = scrolled();
     var target = already ? (pos[location.hash] !== undefined ? pos[location.hash] : null) : 0;
     want = null;
@@ -174,7 +182,7 @@
             if (!moved && (location.hash !== from || p !== page0)) moved = now;
             if (moved) watchPage(p);
             if (!moved && now - t0 > wait) { note("no page change"); return resolve(); }
-            var changed = moved && (from === null ? (p !== page0 || (p && p.id === "itemDetailPage")) : (p !== page0 || location.hash !== from));
+            var changed = moved && (from === null ? (p !== page0 || (p && p.id === "itemDetailPage") || (tab0 && shownTab(p) !== tab0)) : (p !== page0 || location.hash !== from));
             if (changed && target !== null && Math.abs(scrolled() - target) > 1) scrollNow(target);
             var still = changed ? layout(p) : 0;
             if (changed && still >= 60 && (!p || p.id !== "itemDetailPage" || now - last >= 50) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); if (target !== null) keep(target); return resolve(); }

@@ -95,6 +95,12 @@
       if (hero && t < 300 && !hero.getClientRects().length) return false;
       return seen(p) || t > 300;
     }
+    // library pages (Movies, Shows, Music...): Jellyfin adds their tab row to the top bar a moment after the page
+    // shows, which pushed the page down after the fade
+    if (/^#!?\/(movies|tv|music|homevideos|musicvideos|books|livetv)(\.html)?([?#]|$)/i.test(location.hash) && t < 800 &&
+        !document.querySelector("header.MuiAppBar-root .MuiToolbar-root + .MuiToolbar-root")) return false;
+    // search: the theme's search box is put in a moment after Jellyfin's page shows
+    if (p.id === "searchPage" && t < 800 && !p.querySelector("#smart-search-wrapper")) return false;
     return seen(p) || t > 300;
   }
   // a poster that's really on screen: laid out, inside the window, and not inside something hidden

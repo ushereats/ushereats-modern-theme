@@ -68,6 +68,19 @@ public static class IndexPatch
             }
         }
 
+        // Ambient background from the first frame: pages are see-through and SleekFin's pieces take their ambient look
+        // straight away (the script only picks the picture later)
+        if (build.Config.AmbientBackground)
+        {
+            sb.Append("<script>if(!/^#!?\\/?(login|selectserver|addserver|forgotpassword|wizard|dashboard|configurationpage|metadata|video|search)/i.test(location.hash))document.documentElement.classList.add(\"tb-ambient\")</script>");
+        }
+
+        // Poster hover look from the first frame (the script only adds titles and ratings)
+        if (build.Config.HoverCards)
+        {
+            sb.Append("<script>document.documentElement.classList.add(\"tb-hover\")</script>");
+        }
+
         // SleekFin header: Jellyfin's own header (logo, server name, plain tab links) never shows before SleekFin's
         // header is ready, and SleekFin's header appears at once instead of fading in. Safety: shown anyway after 4s,
         // and straight away on pages where SleekFin doesn't draw a header (sign-in, dashboard, player).

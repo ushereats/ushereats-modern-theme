@@ -1,6 +1,6 @@
 #indexPage.homePage.libraryPage:has(.sleekfin-hero),
 html:is(.sleekfin-hero-boot-loading, .sleekfin-hero-loading) #indexPage.homePage.libraryPage {
-    background: var(--sleekfin-background);
+    background: var(--sleekfin-page-background);
     /* Jellyfin's wide absolute-tab rule might load after Modern home override. */
     padding-top: 0 !important;
 }
@@ -29,7 +29,7 @@ html:is(.sleekfin-hero-boot-loading, .sleekfin-hero-loading) #indexPage #homeTab
 }
 
 .sleekfin-hero {
-    background: var(--sleekfin-background);
+    background: var(--sleekfin-page-background);
     box-sizing: border-box;
     color: #fff;
     font-family: var(--app-font);
@@ -113,4 +113,33 @@ html:is(.sleekfin-header-boot-loading, .sleekfin-header-loading, .sleekfin-heade
         height: var(--sleekfin-hero-desktop-height, 85vh);
         min-height: min(420px, var(--sleekfin-hero-desktop-height, 85vh));
     }
+}
+
+/* portrait monitors (taller than wide): the banners are as tall as a wide picture fits, not 85% of a very
+   tall screen (the title and buttons sat near the bottom of a mostly empty picture, rows far below) */
+@media (min-width: 900px) and (orientation: portrait) {
+  html .sleekfin-hero.sleekfin-hero {
+    height: min(var(--sleekfin-hero-desktop-height, 85vh), 75vw) !important;
+    min-height: min(420px, 75vw) !important;
+  }
+  html:is(.sleekfin-hero-boot-loading, .sleekfin-hero-loading) #indexPage #homeTab.is-active > .sections::before {
+    height: min(var(--sleekfin-hero-desktop-height, 85vh), 75vw) !important;
+  }
+  html.sleekfin-details-mounted:not(#tb-x),
+  html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details],
+  html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] > * {
+    --sleekfin-details-hero-height: min(85vh, 75vw) !important;
+  }
+}
+
+/* phones on their side: the home banner fits the short screen under the top bar */
+@media (max-width: 899px) and (max-height: 540px) and (orientation: landscape) {
+  .sleekfin-hero {
+    --sleekfin-hero-title-size: 30px !important;
+    --sleekfin-hero-description-lines: 2 !important;
+    --sleekfin-hero-button-height: 38px !important;
+    height: 100vh !important;
+    height: 100svh !important;
+    min-height: 320px !important;
+  }
 }

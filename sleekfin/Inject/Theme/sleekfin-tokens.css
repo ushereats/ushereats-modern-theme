@@ -6,6 +6,7 @@
 html.sleekfin-main-ui:root {
     --sleekfin-accent: __TB_ACCENT__;
     --sleekfin-background: #000;
+    --sleekfin-page-background: var(--sleekfin-background);   /* behind pages (see-through with the ambient background) */
     --sleekfin-border: #26292e;
     --sleekfin-border-hover: rgba(241, 242, 244, 0.22);
     --sleekfin-card-button-radius: __TB_CARD_BUTTON_RADIUS__;

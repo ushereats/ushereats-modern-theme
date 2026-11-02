@@ -8,8 +8,12 @@
     scrollbar-width: none !important;
 }
 
+html.sleekfin-main-ui:not(.transparentDocument) body {
+    background-color: var(--sleekfin-page-background) !important;
+    background-image: none !important;
+}
+
 html.sleekfin-main-ui:not(.transparentDocument),
-html.sleekfin-main-ui:not(.transparentDocument) body,
 html.sleekfin-main-ui .nowPlayingPlaylist,
 html.sleekfin-main-ui .wizardStartForm,
 html.sleekfin-main-ui .dialog {

@@ -89,7 +89,7 @@ fs.copyFileSync(path.join(SRC, "splash.mp3"), path.join(OUT, "splash.mp3"));
     "Details/sleekfin-details.css", "Details/sleekfin-details-hero.css", "Details/sleekfin-details-actions.css",
     "Details/sleekfin-details-sections.css", "Details/sleekfin-details-similar.css", "Details/sleekfin-details-episodes.css",
     "Details/sleekfin-details-dropdown.css", "Details/sleekfin-details-track-picker.css",
-    "Components/sleekfin-card.css"
+    "Components/sleekfin-card.css", "Components/sleekfin-hover.css", "Theme/sleekfin-ambient.css"
   ];
   let all = "";
   for (const f of ORDER) all += stripCss(fs.readFileSync(path.join(SF, "Inject", f), "utf8")) + "\n";

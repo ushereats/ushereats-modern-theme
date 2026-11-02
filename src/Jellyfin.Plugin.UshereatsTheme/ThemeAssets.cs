@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.IO.Compression;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -234,6 +235,8 @@ public static class ThemeAssets
                 .Replace("__TB_COMPACT_RADIUS__", IndexPatch.ShapeRadius(SleekOf(config).MediaCardShape, 4, 16), StringComparison.Ordinal)
                 .Replace("__TB_PERSON_RADIUS__", IndexPatch.ShapeRadius(SleekOf(config).CastCrewShape, 4, 10), StringComparison.Ordinal)
                 .Replace("__TB_PERSON_INNER_RADIUS__", IndexPatch.ShapeRadius(SleekOf(config).CastCrewShape, 3, 9), StringComparison.Ordinal)
+                .Replace("__TB_AMB_DIM__", Math.Clamp(config.AmbientDim, 0, 1).ToString("0.###", CultureInfo.InvariantCulture), StringComparison.Ordinal)
+                .Replace("__TB_AMB_FADE__", config.AmbientFade ? "1200" : "0", StringComparison.Ordinal)
                 ).Append('\n');
         }
 
@@ -353,7 +356,6 @@ public static class ThemeAssets
             ["details"] = new List<string>(),
             ["player"] = new List<string>(),
             ["search"] = new List<string>(),
-            ["hover"] = new List<string>(),
         };
         if (ThemeAssets.SleekOf(config).DetailsEnabled)
         {
@@ -371,7 +373,6 @@ public static class ThemeAssets
             {
                 "js_12_player_skin.js" or "js_14_pause_screen.js" => "player",
                 "js_09_search_restyle.js" or "js_23_search.js" => "search",
-                "js_11_hover_cards.js" => "hover",
                 _ => null,
             };
             if (part != null)
@@ -404,12 +405,12 @@ public static class ThemeAssets
           .Append("function load(n){if(!P[n]||done[n])return;done[n]=1;var s=document.createElement(\"script\");s.src=\"../UshereatsTheme/part/\"+n+\".js?v=\"+P[n];document.head.appendChild(s)}")
           .Append("window.tbLoadPart=load;")
           .Append("function route(){var h=location.hash||\"\";if(/^#!?\\/(details|item)/i.test(h))load(\"details\");if(/^#!?\\/search/i.test(h))load(\"search\");if(/^#!?\\/video/i.test(h)||document.getElementById(\"videoOsdPage\"))load(\"player\")}")
-          // search: also the moment the pointer or focus reaches the search button; hover look: the first time the pointer is over a poster
-          .Append("function near(e){var t=e.target;if(!t||!t.closest)return;if(t.closest(\".headerSearchButton,[data-sleekfin-header-item-id='jellyfin:search'],a[href*='#/search']\"))load(\"search\");if(e.type===\"pointerover\"&&e.pointerType===\"mouse\"&&t.closest(\".card\"))load(\"hover\")}")
+          // search: also the moment the pointer or focus reaches the search button
+          .Append("function near(e){var t=e.target;if(!t||!t.closest)return;if(t.closest(\".headerSearchButton,[data-sleekfin-header-item-id='jellyfin:search'],a[href*='#/search']\"))load(\"search\")}")
           .Append("document.addEventListener(\"pointerover\",near,{capture:true,passive:true});document.addEventListener(\"focusin\",near,true);")
           .Append("route();window.addEventListener(\"hashchange\",route);window.addEventListener(\"popstate\",route);")
           .Append("var idle=window.requestIdleCallback||function(f){return setTimeout(f,1200)};")
-          .Append("window.addEventListener(\"load\",function(){idle(function(){load(\"hover\");load(\"details\");load(\"search\");load(\"player\")},{timeout:2500})})})();\n");
+          .Append("window.addEventListener(\"load\",function(){idle(function(){load(\"details\");load(\"search\");load(\"player\")},{timeout:2500})})})();\n");
 
         // SleekFin's scripts (built in; its own hero is left out: the plugin's hero replaces it)
         foreach (string file in SleekScripts)
@@ -422,7 +423,7 @@ public static class ThemeAssets
 
         foreach ((string file, Func<PluginConfiguration, bool> on) in Features)
         {
-            if (on(config) && file is not ("js_12_player_skin.js" or "js_14_pause_screen.js" or "js_09_search_restyle.js" or "js_23_search.js" or "js_11_hover_cards.js"))
+            if (on(config) && file is not ("js_12_player_skin.js" or "js_14_pause_screen.js" or "js_09_search_restyle.js" or "js_23_search.js"))
             {
                 AppendFeature(js, file, mp3Version);
             }

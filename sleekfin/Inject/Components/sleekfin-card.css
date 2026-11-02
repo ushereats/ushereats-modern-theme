@@ -77,7 +77,7 @@ html.sleekfin-main-ui .card[data-type] button.cardOverlayButton:not(.cardOverlay
 }
 
 /* Jellyfin centres both Play buttons with negative margins derived from their size. */
-html.sleekfin-main-ui .card[data-type]:not(.sleekfin-details-season-card) :is(.cardOverlayContainer > button.cardOverlayFab-primary, button.cardOverlayButton-centered) {
+html.sleekfin-main-ui:not(.tb-hover) .card[data-type]:not(.sleekfin-details-season-card) :is(.cardOverlayContainer > button.cardOverlayFab-primary, button.cardOverlayButton-centered) {
     border-radius: var(--sleekfin-card-play-radius) !important;
     color: var(--sleekfin-text);
     height: 52px;
@@ -85,11 +85,11 @@ html.sleekfin-main-ui .card[data-type]:not(.sleekfin-details-season-card) :is(.c
     width: 52px;
 }
 
-html.sleekfin-main-ui .card[data-type]:not(.sleekfin-details-season-card) .cardOverlayContainer > button.cardOverlayFab-primary:hover {
+html.sleekfin-main-ui:not(.tb-hover) .card[data-type]:not(.sleekfin-details-season-card) .cardOverlayContainer > button.cardOverlayFab-primary:hover {
     transform: scale(1.06);
 }
 
-html.sleekfin-main-ui .card[data-type]:not(.sleekfin-details-season-card) :is(.cardOverlayContainer > button.cardOverlayFab-primary, button.cardOverlayButton-centered) > :is(.cardOverlayButtonIcon, .MuiSvgIcon-root) {
+html.sleekfin-main-ui:not(.tb-hover) .card[data-type]:not(.sleekfin-details-season-card) :is(.cardOverlayContainer > button.cardOverlayFab-primary, button.cardOverlayButton-centered) > :is(.cardOverlayButtonIcon, .MuiSvgIcon-root) {
     font-size: 30px !important;
     height: 30px !important;
     width: 30px !important;
@@ -97,18 +97,18 @@ html.sleekfin-main-ui .card[data-type]:not(.sleekfin-details-season-card) :is(.c
 
 /* Short backdrops cannot fit a centred Play button beside the action row, so it moves into the space beneath. */
 @container (max-height: 139px) {
-    html.sleekfin-main-ui .card[data-type]:not(.sleekfin-details-season-card) .cardOverlayContainer > button.cardOverlayFab-primary {
+    html.sleekfin-main-ui:not(.tb-hover) .card[data-type]:not(.sleekfin-details-season-card) .cardOverlayContainer > button.cardOverlayFab-primary {
         height: 40px;
         margin: -20px 0 0 -20px;
         top: calc(50% + 21px);
         width: 40px;
     }
 
-    html.sleekfin-main-ui[data-sleekfin-media-card-shape="Circle"] .card[data-type]:not(.personCard):not([data-type="Person"]):not(.sleekfin-details-season-card) .cardOverlayContainer > button.cardOverlayFab-primary {
+    html.sleekfin-main-ui:not(.tb-hover)[data-sleekfin-media-card-shape="Circle"] .card[data-type]:not(.personCard):not([data-type="Person"]):not(.sleekfin-details-season-card) .cardOverlayContainer > button.cardOverlayFab-primary {
         top: calc(50% - 21px);
     }
 
-    html.sleekfin-main-ui .card[data-type]:not(.sleekfin-details-season-card) .cardOverlayContainer > button.cardOverlayFab-primary > :is(.cardOverlayButtonIcon, .MuiSvgIcon-root) {
+    html.sleekfin-main-ui:not(.tb-hover) .card[data-type]:not(.sleekfin-details-season-card) .cardOverlayContainer > button.cardOverlayFab-primary > :is(.cardOverlayButtonIcon, .MuiSvgIcon-root) {
         font-size: 24px !important;
         height: 24px !important;
         width: 24px !important;
@@ -299,10 +299,14 @@ html.sleekfin-main-ui[data-sleekfin-media-card-shape="Circle"] .sleekfin-details
     top: 15%;
 }
 
-/* ── Posters: rounded, soft shadow, the whole card pops on hover ── */
+/* ── Posters: rounded, cinejoy's shadow (Tailwind shadow-xl, black at 40%), the whole card pops on hover ── */
 .card .cardScalable {
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(0, 0, 0, 0.10) !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4) !important;
     transform: none !important;
+}
+
+.card:is(.personCard, [data-type="Person"], .tb-logo-card) .cardScalable {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(0, 0, 0, 0.10) !important;
 }
 
 .card .cardScalable iframe,
@@ -319,7 +323,7 @@ html.sleekfin-main-ui[data-sleekfin-media-card-shape="Circle"] .sleekfin-details
 /* the whole card scales (the clipped poster itself never transforms: Chrome drops its rounded corners) */
 .card .cardBox {
     transform-origin: 50% 50%;
-    transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 220ms ease !important;
+    transition: transform 0.5s cubic-bezier(0, 0, 0.2, 1), filter 0.5s cubic-bezier(0, 0, 0.2, 1) !important;   /* cinejoy: 105% over 0.5 s, easing out */
 }
 
 /* Jellyfin's "contain: paint" on cards would slice the scaled poster's edges */
@@ -329,7 +333,7 @@ html.sleekfin-main-ui[data-sleekfin-media-card-shape="Circle"] .sleekfin-details
 
 .card:hover {
     position: relative;
-    z-index: 5;
+    z-index: 50;
 }
 
 .card:hover .cardBox {
@@ -337,15 +341,6 @@ html.sleekfin-main-ui[data-sleekfin-media-card-shape="Circle"] .sleekfin-details
     transform: scale(1.05) !important;
 }
 
-/* rows marked "no pop" (Continue Watching, Trending, Latest Releases) */
-.no-hover-pop .card:hover .cardBox {
-    filter: none;
-    transform: none !important;
-}
-
-.no-hover-pop .card:hover {
-    z-index: auto;
-}
 
 html.is-scrolling .card .cardBox {
     transition: none !important;

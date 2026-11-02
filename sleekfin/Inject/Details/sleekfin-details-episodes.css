@@ -48,6 +48,21 @@
 }
 
 /* Row-title style (same as every row title) */
+.sleekfin-details-season-title.sleekfin-details-season-title {
+    /* the row-title font (Bebas Neue, bold, 28 / 36 px) */
+    font-family: var(--title-font) !important;
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.025em !important;
+    line-height: 1.05 !important;
+}
+
+@media (min-width: 768px) {
+    .sleekfin-details-season-title.sleekfin-details-season-title {
+        font-size: 36px !important;
+    }
+}
+
 .sleekfin-details-season-title {
     color: var(--sleekfin-text);
     font-style: normal;

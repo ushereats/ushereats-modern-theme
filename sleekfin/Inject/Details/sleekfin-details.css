@@ -78,7 +78,7 @@ html.sleekfin-details-mounted.sleekfin-header-mounted [data-sleekfin-header="mod
 }
 
 html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] {
-    background: var(--sleekfin-background) !important;
+    background: var(--sleekfin-page-background) !important;
     box-sizing: border-box;
     color: var(--sleekfin-text);
     font-family: var(--app-font);

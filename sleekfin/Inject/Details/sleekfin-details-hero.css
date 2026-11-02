@@ -5,6 +5,8 @@ html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] > #itemBack
     inset: 0 0 auto !important;
     margin: 0 !important;
     opacity: 1 !important;
+    -webkit-mask-image: var(--sleekfin-details-backdrop-mask, none) !important;
+    mask-image: var(--sleekfin-details-backdrop-mask, none) !important;
     overflow: hidden;
     position: absolute !important;
     width: 100% !important;
@@ -26,7 +28,7 @@ html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] > #itemBack
 }
 
 html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] > #itemBackdrop::after {
-    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.14) 28%, rgba(0, 0, 0, 0.55) 64%, var(--sleekfin-background) 100%);
+    background: var(--sleekfin-details-bottom-shade, linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.14) 28%, rgba(0, 0, 0, 0.55) 64%, var(--sleekfin-background) 100%));
     height: var(--sleekfin-details-fade-height, 50%);
     inset: auto 0 0;
     opacity: var(--sleekfin-details-bottom-fade, 1);

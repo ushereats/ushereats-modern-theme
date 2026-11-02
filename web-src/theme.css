@@ -45,8 +45,7 @@ body :is(.time-remaining-badge, .release-date-badge, .tb-quality-badge, .tb-ep, 
 }
 /* Row titles — Bebas Neue like the reference (bold, 36px, -0.025em; all-caps by design) */
 html body .sectionTitle:not(#tb-x),
-html body .sectionTitleTextButton:not(#tb-x),
-html body .sleekfin-details-season-title:not(#tb-x) {
+html body .sectionTitleTextButton:not(#tb-x) {
     font-family: var(--title-font) !important;
     font-weight: 700 !important;
     letter-spacing: -0.025em !important;
@@ -55,8 +54,7 @@ html body .sleekfin-details-season-title:not(#tb-x) {
 }
 @media (min-width: 768px) {
     html body .sectionTitle:not(#tb-x),
-html body .sectionTitleTextButton:not(#tb-x),
-html body .sleekfin-details-season-title:not(#tb-x) {
+html body .sectionTitleTextButton:not(#tb-x) {
         font-size: 36px !important;
     }
 }
@@ -855,50 +853,12 @@ html body .alphaPicker:not(#tb-x) .alphaPickerButton.Mui-focusVisible { box-shad
 
 
 
-/* ═══════════ Hover overlay: even dim + full titles ═══════════
-   Delete this block to undo. */
-@media (hover: hover) and (pointer: fine) {
-  /* even darkening instead of a heavy bottom (the poster's own art stays visible) */
-  html body .card .cardScalable::after {
-    background: radial-gradient(120% 90% at 50% 45%, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.40) 60%, rgba(0, 0, 0, 0.30) 100%) !important;
-  }
-  /* long titles wrap onto a second line instead of being cut off */
-  html body .card .tb-hover-info .tb-hv-title {
-    white-space: normal !important; overflow-wrap: anywhere; word-break: normal;
-    max-width: 100%; padding: 0 6px; box-sizing: border-box;
-  }
-}
-/* ═══════════ end hover overlay ═══════════ */
 
 /* ═══════════ Phones, tablets, TVs, Xbox ═══════════ */
 /* the page never scrolls sideways (rows scroll inside themselves) */
 html body { overflow-x: clip; }
 
-/* phones/tablets only: once you scroll, the top bar gets a solid backing so rows don't show through the logo
-   (PC keeps SleekFin's own soft fade, which lets the ambient colour through) */
-@media (max-width: 899px) {
-  html.sleekfin-header-mounted:not(.layout-tv) [data-sleekfin-header][data-sleekfin-scrolled="true"]::before {
-    background: linear-gradient(180deg, rgba(6, 6, 8, 0.97) 0%, rgba(6, 6, 8, 0.9) 62%, rgba(6, 6, 8, 0) 100%) !important;
-    height: calc(var(--sleekfin-header-height) + 22px) !important;
-  }
-}
 
-/* portrait monitors (taller than wide): the banners are as tall as a wide picture fits, not 85% of a very
-   tall screen (the title and buttons sat near the bottom of a mostly empty picture, rows far below) */
-@media (min-width: 900px) and (orientation: portrait) {
-  html .sleekfin-hero:not(#tb-x) {
-    height: min(var(--sleekfin-hero-desktop-height, 85vh), 75vw) !important;
-    min-height: min(420px, 75vw) !important;
-  }
-  html:is(.sleekfin-hero-boot-loading, .sleekfin-hero-loading) #indexPage #homeTab.is-active > .sections::before {
-    height: min(var(--sleekfin-hero-desktop-height, 85vh), 75vw) !important;
-  }
-  html.sleekfin-details-mounted:not(#tb-x),
-  html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details],
-  html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] > * {
-    --sleekfin-details-hero-height: min(85vh, 75vw) !important;
-  }
-}
 
 @media (max-width: 899px) {
   /* room at the end of every page for the floating button bar */
@@ -917,24 +877,9 @@ html body { overflow-x: clip; }
 /* phones on their side: the button bar moves up next to your picture (at the bottom it covered Play),
    and the home banner fits the short screen under the top bar */
 @media (max-width: 899px) and (max-height: 540px) and (orientation: landscape) {
-  html.sleekfin-header-mounted:not(.layout-tv) body:not(.layout-tv) [data-sleekfin-header] [data-sleekfin-header-proxy] {
-    bottom: auto;
-    left: auto;
-    right: calc(16px + 32px + 10px + env(safe-area-inset-right));
-    top: calc(env(safe-area-inset-top) + 12px);
-    transform: none;
-  }
   #tb-header-avatar { right: calc(16px + env(safe-area-inset-right)) !important; }
   html.sleekfin-header-mounted:not(.layout-tv) .page:not(.hide):not(#videoOsdPage) {
     padding-bottom: calc(16px + env(safe-area-inset-bottom)) !important;
-  }
-  .sleekfin-hero {
-    --sleekfin-hero-title-size: 30px !important;
-    --sleekfin-hero-description-lines: 2 !important;
-    --sleekfin-hero-button-height: 38px !important;
-    height: 100vh !important;
-    height: 100svh !important;
-    min-height: 320px !important;
   }
 }
 
@@ -1123,39 +1068,6 @@ html .headerBackButton.headerBackButton { transition: transform .2s cubic-bezier
 @media (hover: hover) and (pointer: fine) { html .headerBackButton.headerBackButton:hover { transform: scale(1.1); } }
 html .headerBackButton.headerBackButton:active { transform: scale(.9); }
 
-/* Rows: cinejoy's fixed sizes on a computer (200 px posters, 16 px apart: more of them on a wider screen),
-   4.5 across on a tablet, 2.5 on a phone */
-html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) { width: 38.4vw !important; max-width: none !important; }
-html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) > .cardBox { margin-inline-end: 2.4vw !important; }
-@media (min-width: 640px) {
-  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) { width: 21.3vw !important; }
-  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) > .cardBox { margin-inline-end: 1.5vw !important; }
-}
-@media (min-width: 1024px) {
-  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) { width: 216px !important; }
-  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) > .cardBox { margin-inline-end: 16px !important; }
-}
-/* Continue Watching and other wide cards: cinejoy's sizes (70% of a phone, at most 280 px; 264 px; 316 px) */
-html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not([data-type="CollectionFolder"]):not([data-type="UserView"]):not(.tb-logo-card) { width: calc(min(70vw, 280px) + 2.4vw) !important; max-width: none !important; }
-html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not(.tb-logo-card) > .cardBox { margin-inline-end: 2.4vw !important; }
-@media (min-width: 640px) {
-  html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not([data-type="CollectionFolder"]):not([data-type="UserView"]):not(.tb-logo-card) { width: calc(264px + 1.5vw) !important; }
-  html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not(.tb-logo-card) > .cardBox { margin-inline-end: 1.5vw !important; }
-}
-@media (min-width: 1024px) {
-  html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not([data-type="CollectionFolder"]):not([data-type="UserView"]):not(.tb-logo-card) { width: 332px !important; }
-  html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not(.tb-logo-card) > .cardBox { margin-inline-end: 16px !important; }
-}
-
-/* Hover: the poster grows to 105% over 0.5 s (easing out) and lifts above its neighbours, in every home row */
-@media (hover: hover) and (pointer: fine) {
-  html .card .cardBox { transition: transform .5s cubic-bezier(0,0,.2,1), filter .5s cubic-bezier(0,0,.2,1) !important; }
-  html #indexPage .verticalSection:not(.tb-studios) .card:hover { position: relative; z-index: 50 !important; }
-  html #indexPage .verticalSection:not(.tb-studios) .card:hover .cardBox { transform: scale(1.05) !important; filter: drop-shadow(0 0 14px rgba(0,0,0,.32)); }
-  /* room above and below a row so a grown poster isn't cut off */
-  html:not(.layout-tv) #indexPage .homeSectionsContainer .emby-scroller { padding-top: max(14px, 1.2vw) !important; padding-bottom: max(18px, 1.4vw) !important; }
-}
-
 /* Row arrows: no background, grow to 110% on hover (0.3 s) */
 html .verticalSection > .emby-scrollbuttons .emby-scrollbuttons-button { transition: transform .3s cubic-bezier(.4,0,.2,1), opacity .3s cubic-bezier(.4,0,.2,1) !important; }
 @media (hover: hover) and (pointer: fine) {
@@ -1163,5 +1075,3 @@ html .verticalSection > .emby-scrollbuttons .emby-scrollbuttons-button { transit
 }
 
 
-/* Posters: cinejoy's corners (12 px) and shadow (Tailwind shadow-xl, black at 40%) */
-html .card:not(.personCard):not([data-type="Person"]):not(.tb-logo-card) .cardScalable { box-shadow: 0 20px 25px -5px rgba(0,0,0,.4), 0 8px 10px -6px rgba(0,0,0,.4) !important; }

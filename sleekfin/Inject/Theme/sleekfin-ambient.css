@@ -1,0 +1,69 @@
+/* Ambient background (the theme's): a soft, blurred copy of the picture on screen behind every page.
+   Part of the stylesheet from the first frame: the plugin's head script marks the page (html.tb-ambient) before
+   anything draws, and SleekFin's own pieces take their see-through values from the variables here. The script
+   (10-ambient-background.js) only picks the picture. __TB_AMB_*__ are the plugin settings. */
+
+html.tb-ambient.sleekfin-main-ui:root,
+html.tb-ambient:root {
+    --sleekfin-page-background: transparent;
+    /* the hero melts into the background instead of fading to black */
+    --sleekfin-hero-backdrop-mask: linear-gradient(180deg, #000 0%, #000 45%, rgba(0, 0, 0, 0.75) 62%, rgba(0, 0, 0, 0.35) 80%, transparent 100%);
+    --sleekfin-hero-seam-shade: none;
+    --sleekfin-hero-vignette-shade: none;
+    --sleekfin-hero-vignette-mask: linear-gradient(180deg, #000 0%, #000 50%, rgba(0, 0, 0, 0.4) 78%, transparent 100%);
+    /* a title's picture fades into the background too */
+    --sleekfin-details-backdrop-mask: linear-gradient(180deg, #000 0%, #000 50%, rgba(0, 0, 0, 0.7) 68%, rgba(0, 0, 0, 0.3) 85%, transparent 100%);
+    --sleekfin-details-bottom-shade: none;
+    background: #000;
+}
+
+#tb-ambient {
+    background: #000;
+    display: none;
+    inset: 0;
+    pointer-events: none;
+    position: fixed;
+    z-index: -1;
+}
+
+html.tb-ambient #tb-ambient {
+    display: block;
+}
+
+.tb-amb-layer {
+    background-position: 50% 30%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    inset: -4%;
+    opacity: 0;
+    position: absolute;
+    transition: opacity __TB_AMB_FADE__ms ease;
+    will-change: opacity;
+}
+
+.tb-amb-layer.on {
+    opacity: 1;
+}
+
+.tb-amb-tint {
+    background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.12) 40%, rgba(0, 0, 0, 0) 65%),
+        linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 55%, rgba(0, 0, 0, 0.3) 100%),
+        rgba(0, 0, 0, __TB_AMB_DIM__);
+    inset: 0;
+    position: absolute;
+}
+
+/* Jellyfin's own page layers: see-through so the background shows */
+html.tb-ambient :is(.backgroundContainer, .mainAnimatedPages, .skinBody, .mainAnimatedPage, .homeSectionsContainer, #homeTab, .detailPageWrapperContainer) {
+    background: transparent !important;
+}
+
+html.tb-ambient-page :is(.page:not(.hide), .mainAnimatedPage:not(.hide) .pageTabContent, .mainAnimatedPage:not(.hide) .itemsContainer) {
+    background: transparent !important;
+}
+
+/* Jellyfin's full-screen backdrop ("Backdrops" display setting): the ambient background replaces it */
+html.tb-ambient :is(.backdropContainer, .backgroundContainer.withBackdrop) {
+    display: none !important;
+}

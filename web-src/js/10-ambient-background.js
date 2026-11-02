@@ -3,8 +3,6 @@
   // While a video is playing full screen (or the tab is hidden) it only checks every 1.5s.
   var tbWatch = window.tbWatch;   // shared page watcher (in every theme file)
   // ── Settings ──
-  var DIM = tbCfg("AmbientDim", 0.48);          // 0 = full colour, 1 = black. How dark the page tint is.
-  var FADE_MS = tbCfg("AmbientFade", true) ? 1200 : 0;   // cross-fade (plugin setting "Ambient fade")
   var SOURCE_WIDTH = 48;   // size of the image fetched from Jellyfin (tiny = soft + fast)
 
   var ROOT_CLASS = "tb-ambient";
@@ -239,6 +237,8 @@
       }
     }
     var on = !!mode;
+    // nothing on screen yet (starting up): keep what the page started with
+    if (!on && !onVideo() && !visiblePage() && !homeHero()) return;
     root.classList.toggle(ROOT_CLASS, on);
     root.classList.toggle(ROOT_CLASS + "-details", mode === "details");
     root.classList.toggle(ROOT_CLASS + "-page", mode === "page");
@@ -280,71 +280,7 @@
     setTimeout(function () { requestAnimationFrame(function () { queued = false; update(); }); }, 150);
   }
 
-  // ── Styles ──
-  var css = [
-    "#tb-ambient { position: fixed; inset: 0; z-index: -1; pointer-events: none; display: none; background: #000; }",
-    "html." + ROOT_CLASS + " #tb-ambient { display: block; }",
-    ".tb-amb-layer {",
-    "  position: absolute; inset: -4%;",
-    "  background-size: cover; background-position: 50% 30%; background-repeat: no-repeat;",
-    "  opacity: 0; transition: opacity " + FADE_MS + "ms ease;",
-    "  will-change: opacity;",
-    "}",
-    ".tb-amb-layer.on { opacity: 1; }",
-    ".tb-amb-tint {",
-    "  position: absolute; inset: 0;",
-    "  background:",
-    "    linear-gradient(90deg, rgba(0,0,0,0.38) 0%, rgba(0,0,0,0.12) 40%, rgba(0,0,0,0) 65%),",
-    "    linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.10) 55%, rgba(0,0,0,0.30) 100%),",
-    "    rgba(0,0,0," + DIM + ");",
-    "}",
-
-    /* Home page only: remove the black so the ambient layer shows through */
-    "html." + ROOT_CLASS + ".sleekfin-main-ui:not(.transparentDocument) body,",
-    "html." + ROOT_CLASS + " body { background: transparent !important; background-color: transparent !important; }",
-    "html." + ROOT_CLASS + " :is(.backgroundContainer, .mainAnimatedPages, .skinBody, .mainAnimatedPage) { background: transparent !important; }",
-    /* Jellyfin's own full-screen backdrop ("Backdrops" display setting) sits fixed behind the page.
-       SleekFin's black page used to hide it; with the page see-through it showed up sharp as a
-       second copy. The ambient layer replaces it, so hide it while ambient is on. */
-    "html." + ROOT_CLASS + " .backdropContainer, html." + ROOT_CLASS + " .backgroundContainer.withBackdrop { display: none !important; }",
-    "html." + ROOT_CLASS + ".sleekfin-media-mounted #indexPage#indexPage, html." + ROOT_CLASS + " #indexPage#indexPage { background: transparent !important; }",
-    "html." + ROOT_CLASS + " .sleekfin-hero.sleekfin-hero { background: transparent !important; }",
-    "html." + ROOT_CLASS + " .homeSectionsContainer, html." + ROOT_CLASS + " #homeTab { background: transparent !important; }",
-    /* Library and other pages: see-through so the ambient layer shows */
-    "html." + ROOT_CLASS + "-page .mainAnimatedPage:not(.hide):not(#tb-x),",
-    "html." + ROOT_CLASS + "-page .page:not(.hide):not(#tb-x),",
-    /* SleekFin paints these library pages black by ID */
-    "html." + ROOT_CLASS + "-page :is(#moviesPage, #tvshowsPage, #tvRecommendedPage, #indexPage):not(#tb-x),",
-    "html." + ROOT_CLASS + "-page .mainAnimatedPage:not(.hide) .pageTabContent:not(#tb-x),",
-    "html." + ROOT_CLASS + "-page .mainAnimatedPage:not(.hide) .itemsContainer:not(#tb-x) { background: transparent !important; }",
-
-    /* Details page: no black page; backdrop fades into the ambient layer */
-    "html." + ROOT_CLASS + "-details #itemDetailPage#itemDetailPage, html." + ROOT_CLASS + "-details #itemDetailPage[data-sleekfin-details]#itemDetailPage { background: transparent !important; }",
-    "html." + ROOT_CLASS + "-details.sleekfin-details-mounted, html." + ROOT_CLASS + "-details .detailPageWrapperContainer { background: transparent !important; }",
-    "html." + ROOT_CLASS + "-details #itemDetailPage > #itemBackdrop {",
-    "  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 50%, rgba(0,0,0,0.7) 68%, rgba(0,0,0,0.3) 85%, transparent 100%) !important;",
-    "  mask-image: linear-gradient(180deg, #000 0%, #000 50%, rgba(0,0,0,0.7) 68%, rgba(0,0,0,0.3) 85%, transparent 100%) !important;",
-    "}",
-    "html." + ROOT_CLASS + "-details #itemDetailPage > #itemBackdrop::after { background: none !important; }",
-
-    /* Hero melts into the background instead of fading to black */
-    "html." + ROOT_CLASS + " .sleekfin-hero-seam { background: none !important; }",
-    "html." + ROOT_CLASS + " .sleekfin-hero-vignette {",
-    "  background: none !important;",
-    /* fade SleekFin's dark left-side gradient out before the hero ends -> no hard line */
-    "  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 50%, rgba(0,0,0,0.4) 78%, transparent 100%);",
-    "  mask-image: linear-gradient(180deg, #000 0%, #000 50%, rgba(0,0,0,0.4) 78%, transparent 100%);",
-    "}",
-    /* the hero image itself fades out a little earlier so it melts into the ambient layer */
-    "html." + ROOT_CLASS + " .sleekfin-hero-backdrop {",
-    "  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 45%, rgba(0,0,0,0.75) 62%, rgba(0,0,0,0.35) 80%, transparent 100%) !important;",
-    "  mask-image: linear-gradient(180deg, #000 0%, #000 45%, rgba(0,0,0,0.75) 62%, rgba(0,0,0,0.35) 80%, transparent 100%) !important;",
-    "}"
-  ].join("\n");
-  var style = document.createElement("style");
-  style.id = "tb-ambient-style";
-  style.textContent = css;
-  tbCss(style);
+  // (its styles are part of the main stylesheet, from the first frame: sleekfin/Inject/Theme/sleekfin-ambient.css)
 
   // ── Watch for the hero mounting and for slide changes ──
   // New / removed elements come from the shared watcher; attribute changes are filtered here so

@@ -1,8 +1,8 @@
 .sleekfin-hero-backdrop {
-    -webkit-mask-image: linear-gradient(#000 0% 58%, #000000d6 72%, #0009 82%, #0000005c 90%, #00000029 96%, #0000 100%);
+    -webkit-mask-image: var(--sleekfin-hero-backdrop-mask, linear-gradient(#000 0% 58%, #000000d6 72%, #0009 82%, #0000005c 90%, #00000029 96%, #0000 100%));
     height: 100%;
     inset: 0;
-    mask-image: linear-gradient(#000 0% 58%, #000000d6 72%, #0009 82%, #0000005c 90%, #00000029 96%, #0000 100%);
+    mask-image: var(--sleekfin-hero-backdrop-mask, linear-gradient(#000 0% 58%, #000000d6 72%, #0009 82%, #0000005c 90%, #00000029 96%, #0000 100%));
     object-fit: var(--sleekfin-hero-backdrop-fit, cover);
     object-position: var(--sleekfin-hero-backdrop-focus, 50% 28%);
     opacity: 0;
@@ -16,7 +16,9 @@
 }
 
 .sleekfin-hero-vignette {
-    background: linear-gradient(#0000 50%, #0000001f 64%, #00000047 76%, #00000075 86%, #000000a3 94%, #000000c7 100%);
+    -webkit-mask-image: var(--sleekfin-hero-vignette-mask, none);
+    background: var(--sleekfin-hero-vignette-shade, linear-gradient(#0000 50%, #0000001f 64%, #00000047 76%, #00000075 86%, #000000a3 94%, #000000c7 100%));
+    mask-image: var(--sleekfin-hero-vignette-mask, none);
     inset: 0;
     pointer-events: none;
     position: absolute;
@@ -35,7 +37,7 @@
 }
 
 .sleekfin-hero-seam {
-    background: linear-gradient(180deg, #0000 0%, #0000001f 20%, #0000004d 42%, #0000008c 65%, #000000cc 84%, #000 100%);
+    background: var(--sleekfin-hero-seam-shade, linear-gradient(180deg, #0000 0%, #0000001f 20%, #0000004d 42%, #0000008c 65%, #000000cc 84%, #000 100%));
     bottom: 0;
     height: 140px;
     left: 0;

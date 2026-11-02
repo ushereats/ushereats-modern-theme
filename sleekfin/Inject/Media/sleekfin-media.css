@@ -1,5 +1,5 @@
 html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage) {
-    background: var(--sleekfin-background) !important;
+    background: var(--sleekfin-page-background) !important;
     color: var(--sleekfin-text);
     font-family: var(--app-font);
 }
@@ -336,7 +336,40 @@ html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecomm
     }
 }
 
+/* ════════ Home rows: cinejoy.pk's sizes ════════ */
+/* cinejoy's fixed sizes on a computer (200 px posters, 16 px apart: more of them on a wider screen),
+   4.5 across on a tablet, 2.5 on a phone */
+html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) { width: 38.4vw !important; max-width: none !important; }
+html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) > .cardBox { margin-inline-end: 2.4vw !important; }
+@media (min-width: 640px) {
+  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) { width: 21.3vw !important; }
+  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) > .cardBox { margin-inline-end: 1.5vw !important; }
+}
+@media (min-width: 1024px) {
+  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) { width: 216px !important; }
+  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) > .cardBox { margin-inline-end: 16px !important; }
+}
+/* Continue Watching and other wide cards: cinejoy's sizes (70% of a phone, at most 280 px; 264 px; 316 px) */
+html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not([data-type="CollectionFolder"]):not([data-type="UserView"]):not(.tb-logo-card) { width: calc(min(70vw, 280px) + 2.4vw) !important; max-width: none !important; }
+html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not(.tb-logo-card) > .cardBox { margin-inline-end: 2.4vw !important; }
+@media (min-width: 640px) {
+  html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not([data-type="CollectionFolder"]):not([data-type="UserView"]):not(.tb-logo-card) { width: calc(264px + 1.5vw) !important; }
+  html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not(.tb-logo-card) > .cardBox { margin-inline-end: 1.5vw !important; }
+}
+@media (min-width: 1024px) {
+  html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not([data-type="CollectionFolder"]):not([data-type="UserView"]):not(.tb-logo-card) { width: 332px !important; }
+  html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not(.tb-logo-card) > .cardBox { margin-inline-end: 16px !important; }
+}
+
 /* ════════ Home layout (not on TV: remote focus zoom needs the room) ════════ */
+/* room above and below a row so a grown poster isn't cut off */
+@media (hover: hover) and (pointer: fine) {
+    html:not(.layout-tv) #indexPage .homeSectionsContainer .emby-scroller {
+        padding-bottom: max(18px, 1.4vw) !important;
+        padding-top: max(14px, 1.2vw) !important;
+    }
+}
+
 html:not(.layout-tv) {
     --tb-lift: clamp(40px, 9vh, 100px); /* how far the first row rises into the banner */
 }

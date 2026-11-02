@@ -861,12 +861,6 @@ html body { overflow-x: clip; }
 
 
 @media (max-width: 899px) {
-  /* room at the end of every page for the floating button bar */
-  html.sleekfin-header-mounted:not(.layout-tv) .page:not(.hide):not(#videoOsdPage) {
-    padding-bottom: calc(80px + env(safe-area-inset-bottom)) !important;
-  }
-  /* your picture (top right) already opens the user menu: no second user button in the floating bar */
-  html:has(#tb-header-avatar) [data-sleekfin-header-proxy] [data-sleekfin-header-proxy-item="jellyfin:user-menu"] { display: none !important; }
   /* library pages: the A-Z strip on the right doesn't cover the last column */
   html:not(.layout-tv) body .page:not(.hide):not(#tb-x):not(#tb-y):has(.alphaPicker-fixed-right) .itemsContainer.vertical-wrap {
     padding-right: 48px !important;
@@ -874,14 +868,6 @@ html body { overflow-x: clip; }
   }
 }
 
-/* phones on their side: the button bar moves up next to your picture (at the bottom it covered Play),
-   and the home banner fits the short screen under the top bar */
-@media (max-width: 899px) and (max-height: 540px) and (orientation: landscape) {
-  #tb-header-avatar { right: calc(16px + env(safe-area-inset-right)) !important; }
-  html.sleekfin-header-mounted:not(.layout-tv) .page:not(.hide):not(#videoOsdPage) {
-    padding-bottom: calc(16px + env(safe-area-inset-bottom)) !important;
-  }
-}
 
 /* TV / Xbox (remote or controller): you can always see what's selected */
 html.layout-tv .card:focus-within .cardScalable,
@@ -894,22 +880,18 @@ html.layout-tv .card:focus .cardScalable {
 }
 html.layout-tv .tb-studios .card:focus-within .cardScalable { outline-offset: 0; }
 html.layout-tv .tb-studios .tb-logo-link:focus .tb-logo-img { opacity: 1; }
+html.layout-tv .detailButton:focus {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.18) !important;
+}
 html.layout-tv :is(button, a, input, select, textarea, [tabindex]):not(.card):not(.cardImageContainer):not(.cardContent):focus {
   outline: 3px solid #fff !important;
   outline-offset: 3px !important;
 }
-html.layout-tv :is(.sleekfin-button, .detailButton, .sleekfin-icon-button):focus {
-  transform: scale(1.08);
-  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.18) !important;
-}
-/* row of episodes on a show page */
-html.layout-tv .sleekfin-details-episode-action:focus { outline-offset: -3px !important; }
 /* TV / Xbox: Jellyfin's clock sat underneath the top bar's buttons */
 html.layout-tv .skinHeader .currentTimeText,
 body.layout-tv .skinHeader .currentTimeText { display: none !important; }
 
-/* TV / Xbox: Jellyfin switches the title-page backdrop off in its TV look; the banner needs it */
-html.layout-tv.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] > #itemBackdrop { display: block !important; }
 
 /* the studio logos row scrolls inside itself on every screen (on narrow PC windows it pushed the page sideways) */
 html body .tb-studios .emby-scroller { overflow-x: auto !important; overflow-y: hidden !important; scrollbar-width: none; }
@@ -1050,15 +1032,6 @@ html body .tb-studios .emby-scroller::-webkit-scrollbar { display: none; }
 .nowPlayingBar :is(.nowPlayingBarText, .nowPlayingBarCurrentTime) { font-family: var(--app-font) !important; }
 .nowPlayingBar .nowPlayingImage { border-radius: 6px; overflow: hidden; }
 /* ═══════════ end ═══════════ */
-
-/* ═══════════ the page starts where it ends up (no 80 px jump when the top bar takes over) ═══════════ */
-/* Jellyfin keeps an 80 px gap under its own top bar; pages with a banner / backdrop take it away once they're
-   built, which moved the whole page up a moment after it appeared. Taken away from the start instead:
-   home while its banner is on the way, title pages while they're being put together. */
-html.tb-hero-boot:is(.sleekfin-header-boot-loading, .sleekfin-header-loading, .sleekfin-header-mounted) header.MuiAppBar-root + div[aria-hidden="true"],
-html.sleekfin-details-concealed:is(.sleekfin-header-boot-loading, .sleekfin-header-loading, .sleekfin-header-mounted) :is(header.MuiAppBar-root, [data-sleekfin-header="modern"]) + div[aria-hidden="true"] {
-  height: 0 !important;
-}
 
 /* ══ cinejoy.pk look (measured from cinejoy's own stylesheet and a recording of it running) ══ */
 

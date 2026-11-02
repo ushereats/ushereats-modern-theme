@@ -79,6 +79,7 @@ export function createHero(page, { preview = false } = {}) {
   const genresRoot = stack.querySelector('.sleekfin-details-genres');
   const trailerPreview = createTrailerPreview(page, nativeBackdrop, actions);
   const logo = page.querySelector('.detailLogo');
+  let logoFromData = false;
   const name = page.querySelector('.nameContainer');
   const overview = page.querySelector('.overview');
 
@@ -111,6 +112,9 @@ export function createHero(page, { preview = false } = {}) {
     }
     const backdropUrl = sharedBackdropUrl(mediaItem);
     const isChild = mediaItem.Type === 'Season' || mediaItem.Type === 'Episode';
+    // Whether the title is a logo comes from the title's data, so the logo's space is there from the first frame
+    // (deciding it once the picture had arrived swapped the text title for the logo and moved everything below it)
+    logoFromData = Boolean(mediaItem.ImageTags?.Logo || (mediaItem.ParentLogoItemId && mediaItem.ParentLogoImageTag));
     actions.dataset.sleekfinCanDownload = String(['Movie', 'Episode'].includes(mediaItem.Type) && mediaItem.CanDownload === true && (!window.NativeShell || window.NativeShell.AppHost.supports('filedownload')));
     childTitleRoot.hidden = !isChild;
     hero.classList.toggle('sleekfin-details-has-child-title', isChild);
@@ -139,7 +143,7 @@ export function createHero(page, { preview = false } = {}) {
     }
     const image = nativeBackdrop.style.backgroundImage;
     if (artwork.style.backgroundImage !== image) artwork.style.backgroundImage = image;
-    hero.classList.toggle('sleekfin-details-has-logo', Boolean(settings.titleTreatment !== 'Text' && logo && !logo.classList.contains('hide') && window.getComputedStyle(logo).backgroundImage !== 'none'));
+    hero.classList.toggle('sleekfin-details-has-logo', Boolean(settings.titleTreatment !== 'Text' && logo && (logoFromData || (!logo.classList.contains('hide') && window.getComputedStyle(logo).backgroundImage !== 'none'))));
   }
 
   function onHeroClick(event) {

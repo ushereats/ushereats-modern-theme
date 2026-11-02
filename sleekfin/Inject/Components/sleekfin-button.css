@@ -137,3 +137,9 @@
 :is(.sleekfin-hero-actions, .sleekfin-details-actions) :is(.sleekfin-button-primary, .sleekfin-details-play):active {
     transform: scale(0.95);
 }
+
+/* TV / Xbox (remote or controller): the selected button grows and gets a soft ring */
+html.layout-tv :is(.sleekfin-button, .sleekfin-icon-button):focus {
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.18) !important;
+    transform: scale(1.08);
+}

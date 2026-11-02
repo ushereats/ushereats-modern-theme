@@ -492,3 +492,25 @@ html.layout-tv .innerCardFooter {
     transform: none;
   }
 }
+
+/* room at the end of every page for the floating button bar (phones); on its side the bar is at the top */
+@media (max-width: 899px) {
+    html.sleekfin-header-mounted:not(.layout-tv) .page:not(.hide):not(#videoOsdPage) {
+        padding-bottom: calc(80px + env(safe-area-inset-bottom)) !important;
+    }
+}
+
+@media (max-width: 899px) and (max-height: 540px) and (orientation: landscape) {
+    html.sleekfin-header-mounted:not(.layout-tv) .page:not(.hide):not(#videoOsdPage) {
+        padding-bottom: calc(16px + env(safe-area-inset-bottom)) !important;
+    }
+}
+
+/* The page starts where it ends up (no 80 px jump when the top bar takes over) */
+/* Jellyfin keeps an 80 px gap under its own top bar; pages with a banner / backdrop take it away once they're
+   built, which moved the whole page up a moment after it appeared. Taken away from the start instead:
+   home while its banner is on the way, title pages while they're being put together. */
+html.tb-hero-boot:is(.sleekfin-header-boot-loading, .sleekfin-header-loading, .sleekfin-header-mounted) header.MuiAppBar-root + div[aria-hidden="true"],
+html.sleekfin-details-concealed:is(.sleekfin-header-boot-loading, .sleekfin-header-loading, .sleekfin-header-mounted) :is(header.MuiAppBar-root, [data-sleekfin-header="modern"]) + div[aria-hidden="true"] {
+  height: 0 !important;
+}

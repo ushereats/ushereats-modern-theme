@@ -257,3 +257,17 @@ body:has(#videoOsdPage:not(.hide)) #tb-header-avatar {
 #app-user-menu .MuiMenuItem-root:has(svg[data-testid="LogoutIcon"])::before {
     background: #ff7a7a;
 }
+
+@media (max-width: 899px) {
+    /* your picture (top right) opens the user menu: no second user button in the floating bar */
+    html:has(#tb-header-avatar) [data-sleekfin-header-proxy] [data-sleekfin-header-proxy-item="jellyfin:user-menu"] {
+        display: none !important;
+    }
+}
+
+/* phones on their side: the picture sits at the right edge, the button bar next to it */
+@media (max-width: 899px) and (max-height: 540px) and (orientation: landscape) {
+    #tb-header-avatar {
+        right: calc(16px + env(safe-area-inset-right)) !important;
+    }
+}

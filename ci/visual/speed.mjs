@@ -110,6 +110,22 @@ report.logos = logos;
     await page.screenshot({ path: `${out}/nav-${name.replace(/\W+/g, "-")}.jpg`, quality: 55, type: "jpeg" });
   }
   report.nav = nav;
+  // the gap Jellyfin keeps under its top bar, at a few screen sizes (library page and home)
+  const bars = [];
+  for (const [w, h] of [[390, 844], [844, 390], [820, 1180], [1280, 720], [1920, 1080]]) {
+    await page.setViewportSize({ width: w, height: h });
+    for (const hash of ["#/home", targets.find((t) => t[0] === "movies library")?.[1], targets.find((t) => t[0] === "collection")?.[1]].filter(Boolean)) {
+      await page.evaluate((x) => { location.hash = x; }, hash);
+      await page.waitForTimeout(2500);
+      bars.push(await page.evaluate(([w, h, hash]) => {
+        const sp = document.querySelector("header.MuiAppBar-root + div[aria-hidden='true']"), m = document.querySelector("main"), pg = [...document.querySelectorAll(".page:not(.hide)")].pop();
+        const cs = sp && getComputedStyle(sp);
+        return { w, h, hash: hash.slice(0, 14), spacer: sp && sp.getBoundingClientRect().height, spacerCss: cs && [cs.height, cs.minHeight, sp.className].join(" "), mainTop: m && m.getBoundingClientRect().top,
+          page: pg && pg.id, pageTop: pg && pg.getBoundingClientRect().top, pagePad: pg && getComputedStyle(pg).paddingTop, headerH: getComputedStyle(document.documentElement).getPropertyValue("--sleekfin-header-height"), cls: document.documentElement.className.slice(0, 200) };
+      }, [w, h, hash]));
+    }
+  }
+  report.bars = bars;
 }
 // home reloads on video: does anything visibly move while it loads?
 {

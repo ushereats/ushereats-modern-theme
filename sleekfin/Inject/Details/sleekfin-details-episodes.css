@@ -542,3 +542,8 @@
 
 
 }
+
+/* TV / Xbox: the selected episode's outline sits inside its row */
+html.layout-tv .sleekfin-details-episode-action:focus {
+    outline-offset: -3px !important;
+}

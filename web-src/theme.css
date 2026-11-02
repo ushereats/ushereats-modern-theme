@@ -1117,22 +1117,12 @@ html.sleekfin-details-concealed:is(.sleekfin-header-boot-loading, .sleekfin-head
 
 /* ══ cinejoy.pk look (measured from cinejoy's own stylesheet and a recording of it running) ══ */
 
-/* Back arrow: plain arrow, the whole button grows to 110% (0.2 s) and dips to 90% while pressed */
-html .sleekfin-details-back.sleekfin-details-back, html .sleekfin-details-back.sleekfin-details-back:hover { background: transparent !important; border-color: transparent !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; color: #fff !important; }
-html .sleekfin-details-back.sleekfin-details-back > * { filter: drop-shadow(0 10px 8px rgba(0,0,0,.04)) drop-shadow(0 4px 3px rgba(0,0,0,.1)); }
-html .sleekfin-details-back.sleekfin-details-back, html .headerBackButton.headerBackButton { transition: transform .2s cubic-bezier(.4,0,.2,1) !important; }
-@media (hover: hover) and (pointer: fine) {
-  html .sleekfin-details-back.sleekfin-details-back:hover, html .headerBackButton.headerBackButton:hover { transform: scale(1.1); }
-}
-html .sleekfin-details-back.sleekfin-details-back:active, html .headerBackButton.headerBackButton:active { transform: scale(.9); }
 
-/* Page edges as on cinejoy (logo, top bar, rows, title pages all line up on it): 60 px on a computer */
-@media (min-width: 640px) {
-  html.sleekfin-main-ui:root:root, html.sleekfin-header-mounted:root:root, html.sleekfin-media-mounted #indexPage { --sleekfin-page-gutter: 4vw; }
-}
-@media (min-width: 1024px) {
-  html.sleekfin-main-ui:root:root, html.sleekfin-header-mounted:root:root, html.sleekfin-media-mounted #indexPage { --sleekfin-page-gutter: 60px; }
-}
+/* Jellyfin's own back button: grows to 110% (0.2 s), 90% while pressed, like the title page's arrow */
+html .headerBackButton.headerBackButton { transition: transform .2s cubic-bezier(.4,0,.2,1) !important; }
+@media (hover: hover) and (pointer: fine) { html .headerBackButton.headerBackButton:hover { transform: scale(1.1); } }
+html .headerBackButton.headerBackButton:active { transform: scale(.9); }
+
 /* Rows: cinejoy's fixed sizes on a computer (200 px posters, 16 px apart: more of them on a wider screen),
    4.5 across on a tablet, 2.5 on a phone */
 html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) { width: 38.4vw !important; max-width: none !important; }
@@ -1172,16 +1162,6 @@ html .verticalSection > .emby-scrollbuttons .emby-scrollbuttons-button { transit
   html .verticalSection > .emby-scrollbuttons .emby-scrollbuttons-button:hover { transform: scale(1.1); }
 }
 
-/* Play buttons (banner and title page): grow to 105% on hover, 95% while pressed (0.2 s);
-   the icons on the other buttons grow to 110% when their button is hovered (0.3 s) */
-html :is(.sleekfin-hero-actions, .sleekfin-details-actions) :is(.sleekfin-button-primary, .sleekfin-details-play) { transition: transform .2s cubic-bezier(.4,0,.2,1), background-color .2s, opacity .2s !important; }
-@media (hover: hover) and (pointer: fine) {
-  html :is(.sleekfin-hero-actions, .sleekfin-details-actions) :is(.sleekfin-button-primary, .sleekfin-details-play):hover { transform: scale(1.05); }
-  html :is(.sleekfin-hero-actions, .sleekfin-details-actions) button:not(.sleekfin-button-primary) :is(svg, .material-icons) { transition: transform .3s cubic-bezier(.4,0,.2,1); }
-  html :is(.sleekfin-hero-actions, .sleekfin-details-actions) button:not(.sleekfin-button-primary):hover :is(svg, .material-icons) { transform: scale(1.1); }
-}
-html :is(.sleekfin-hero-actions, .sleekfin-details-actions) :is(.sleekfin-button-primary, .sleekfin-details-play):active { transform: scale(.95); }
 
 /* Posters: cinejoy's corners (12 px) and shadow (Tailwind shadow-xl, black at 40%) */
-html.sleekfin-main-ui:root:root { --sleekfin-card-radius: 12px; --sleekfin-card-inner-radius: 12px; }
 html .card:not(.personCard):not([data-type="Person"]):not(.tb-logo-card) .cardScalable { box-shadow: 0 20px 25px -5px rgba(0,0,0,.4), 0 8px 10px -6px rgba(0,0,0,.4) !important; }

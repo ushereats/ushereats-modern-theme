@@ -94,7 +94,9 @@ if (ids[1]) {
   await page.waitForTimeout(700);
   const bx = await card.boundingBox().catch(() => null);
   if (bx) await page.screenshot({ path: out + "/hover.png", clip: { x: Math.max(0, bx.x - 20), y: Math.max(0, bx.y - 20), width: Math.min(400, bx.width + 40), height: Math.min(600, bx.height + 40) } });
-  mark("click arrow-test");
+  await page.evaluate(() => window.scrollBy(0, 300)); await page.waitForTimeout(500);
+  const yBefore = await page.evaluate(() => Math.round(window.scrollY));
+  mark("click arrow-test y=" + yBefore);
   await card.evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
   await page.waitForTimeout(3000);
   const back = page.locator(".sleekfin-details-back").first();
@@ -106,6 +108,7 @@ if (ids[1]) {
     mark("back-arrow click");
     await back.click().catch(() => {});
     await page.waitForTimeout(2500);
+    mark("after back arrow y=" + await page.evaluate(() => Math.round(window.scrollY)) + " (was " + yBefore + ")");
   }
 }
 // a library page: the image links it asks for (sharpness, WebP) and how fast it shows the second time

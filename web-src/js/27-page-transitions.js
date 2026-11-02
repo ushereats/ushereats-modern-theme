@@ -54,9 +54,7 @@
   // Only: the rows' own entrance fade would be frozen at "invisible" while the old page is held and play after
   // the cross-fade (old page -> empty -> rows); rows that were there for a cross-fade don't play it.
   var st = document.createElement("style");
-  st.textContent = "html.tb-vt :is(#indexPage,#searchPage) .verticalSection,html.tb-vt :is(#moviesPage,#tvshowsPage,#tvRecommendedPage) .itemsContainer,.verticalSection.tb-noenter,.itemsContainer.tb-noenter{animation:none!important}" +
-    // SleekFin's own fade-in of a title page would play again after the cross-fade (seen as a second fade)
-    "#itemDetailPage.sleekfin-details-entering{animation:none!important}";
+  st.textContent = "html.tb-vt :is(#indexPage,#searchPage) .verticalSection,html.tb-vt :is(#moviesPage,#tvshowsPage,#tvRecommendedPage) .itemsContainer,.verticalSection.tb-noenter,.itemsContainer.tb-noenter{animation:none!important}";
   document.head.appendChild(st);
 
   var started = false, captured = false, held = [], replaying = false;
@@ -182,7 +180,8 @@
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     var t = e.target && e.target.closest ? e.target : null;
     if (!t) return;
-    if (t.closest(".sleekfin-details-back, .headerBackButton")) { crossfade(300); return; }
+    // back arrows go back: the cross-fade starts from the history change they make (where you were is kept)
+    if (t.closest(".sleekfin-details-back, .headerBackButton")) return;
     var b = t.closest("button");
     if (b && !b.matches("[data-action='link'], .cardImageContainer, .itemAction[data-action='link']")) return;   // play, menus, favourites...
     var a = t.closest("a[href]");

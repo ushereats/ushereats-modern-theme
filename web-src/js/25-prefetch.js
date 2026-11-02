@@ -197,28 +197,24 @@
     var n = 0, t = setInterval(function () { sizeLogos(window.ApiClient); if (++n > 40) clearInterval(t); }, 250);
   })();
 
-  // ── the logo (top left) goes straight to home ──
-  // Its link is "/", which Jellyfin first opens as an empty page and only then sends on to home: in between
-  // the page you were on lost its styling for a moment (a details page flashed in Jellyfin's own look).
-  // Going to home directly is the same smooth change as the Back button.
-  document.addEventListener("click", function (e) {
-    if (window.__tbNoHomeFix || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    var t = e.target && e.target.closest ? e.target : null;
-    if (!t) return;
-    // SleekFin's header Home button, the logo, any link to "/"
-    if (!t.closest("[data-sleekfin-header-proxy-item='jellyfin:home'], .headerHomeButton")) {
-      var a = t.closest("a[href]");
-      if (!a || a.target === "_blank") return;
-      var href = a.getAttribute("href") || "";
-      if (!/^(#!?\/|\/?(web\/)?(index\.html)?#!?\/|\/)$/.test(href)) return;
-    }
-    e.preventDefault();
-    e.stopPropagation();
+  // ── Home: the logo (top left) and the Home button ──
+  // Straight to the very top of home with the same cross-fade as every page change (like cinejoy). The logo's link is
+  // "/", which Jellyfin first opens as an empty page and only then sends on to home; the Home button calls this itself.
+  function goHome() {
     if (/^#\/home(\.html)?(\?|$)/.test(location.hash) && !/[?&]tab=/.test(location.hash)) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
-    // like cinejoy: home always opens at the very top, cross-faded
     if (window.tbCrossfade) window.tbCrossfade(300);
     location.hash = "#/home";
     if (window.tbScroll && !document.documentElement.classList.contains("tb-vt")) window.tbScroll.top();
+  }
+  window.tbGoHome = goHome;
+  document.addEventListener("click", function (e) {
+    if (window.__tbNoHomeFix || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var a = e.target && e.target.closest && e.target.closest("a[href]");
+    if (!a || a.target === "_blank") return;
+    if (!/^(#!?\/|\/?(web\/)?(index\.html)?#!?\/|\/)$/.test(a.getAttribute("href") || "")) return;
+    e.preventDefault();
+    e.stopPropagation();
+    goHome();
   }, true);
 
   // the backdrop link a title page uses (exactly SleekFin's / Jellyfin's, so the browser downloads it once)

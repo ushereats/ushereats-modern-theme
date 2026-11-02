@@ -432,34 +432,72 @@
     overflow: visible;
 }
 
-.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode {
-    aspect-ratio: auto;
-    height: 150px;
-    width: 100%;
-}
-
-.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-action > img {
-    width: 268px;
-}
-
-.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-shade {
-    background: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, 0.78) 268px, rgba(0, 0, 0, 0.96) 55%);
-}
-
-.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-copy {
-    left: 268px;
-    padding-top: 44px;
-    justify-content: center;
-}
-
-.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-title {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-overview {
-    -webkit-line-clamp: 1;
+/* List view: big episode number, wide still with the progress bar on it, title, two-line synopsis, runtime
+   (the theme's look; SleekFin's own list rules are gone so there is one set). */
+.sleekfin-details-episode-list[data-view="list"] { gap: 0 !important; margin-top: 14px !important; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode.card { height: auto !important; aspect-ratio: auto !important; border: 0 !important; border-radius: 12px !important;
+  overflow: visible !important; background: transparent; transition: background-color 160ms ease; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode.card + .sleekfin-details-episode.card::before { content: ''; position: absolute; left: 12px; right: 12px; top: 0;
+  height: 1px; background: rgba(255,255,255,0.07); }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode.card:hover, .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode.card:focus-within { background: rgba(255,255,255,0.05); }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode > .cardBox { height: auto !important; transform: none !important; filter: none !important; box-shadow: none !important;
+  clip-path: none !important; background: transparent !important; overflow: visible !important; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode .cardScalable::after, .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode .tb-hover-info { display: none !important; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-action { display: grid !important; height: auto !important; background: transparent !important;
+  grid-template-columns: 64px 240px minmax(0, 1fr);
+  grid-template-areas: 'num img title' 'num img overview' 'num img footer';
+  grid-template-rows: auto auto auto; align-content: center;
+  column-gap: 22px; row-gap: 6px; padding: 16px 128px 16px 6px !important;
+  contain: none !important; overflow: visible !important; border-radius: 0 !important; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-copy, .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-heading { display: contents !important; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-action > img { position: relative !important; inset: auto !important; grid-area: img; grid-row: 1 / span 3;
+  width: 240px !important; height: 135px !important; aspect-ratio: 16 / 9; object-fit: cover; align-self: center;
+  border-radius: 8px; transform: none !important; box-shadow: 0 6px 18px -8px rgba(0,0,0,0.7); }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-shade { position: relative !important; inset: auto !important; grid-area: img; grid-row: 1 / span 3; align-self: stretch;
+  display: flex !important; align-items: center; justify-content: center; z-index: 1;
+  border-radius: 8px; background: rgba(0,0,0,0.35) !important; opacity: 0; transition: opacity 160ms ease; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-shade::after { content: ''; width: 44px; height: 44px; border-radius: 50%;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b0b0b' d='M8 5.5v13l11-6.5z'/%3E%3C/svg%3E") 55% 50% / 20px 20px no-repeat; box-shadow: 0 4px 14px rgba(0,0,0,0.5); }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode.card:hover .sleekfin-details-episode-shade, .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode.card:focus-within .sleekfin-details-episode-shade { opacity: 1; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode .innerCardFooter { position: relative !important; grid-area: img; grid-row: 3; align-self: end; z-index: 2;
+  left: auto !important; right: auto !important; bottom: auto !important; margin: 0 8px 8px; background: none !important; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode .itemProgressBar { height: 4px !important; border-radius: 2px; background: rgba(255,255,255,0.25) !important; overflow: hidden; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode .itemProgressBar { display: block !important; position: relative; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode .itemProgressBarForeground { display: block; height: 100%; background: var(--sleekfin-accent, rgb(233, 196, 106)) !important; border-radius: 2px; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-number { grid-area: num; grid-row: 1 / span 3; justify-self: center; align-self: center; position: static !important;
+  padding: 0 !important; background: none !important; border: 0 !important; box-shadow: none !important;
+  -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  font-family: var(--title-font, 'Bebas Neue', sans-serif) !important; font-size: 46px !important; line-height: 1 !important;
+  letter-spacing: 0.02em; color: rgba(255,255,255,0.38) !important; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode.card:has(.itemProgressBar) .sleekfin-details-episode-number { color: var(--sleekfin-accent, rgb(233, 196, 106)) !important; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-title.cardText { grid-area: title; align-self: end; font: 600 17px/1.3 var(--app-font, Inter, sans-serif) !important;
+  color: #fff; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-overview { grid-area: overview; margin: 0 !important; -webkit-line-clamp: 2 !important;
+  font: 400 14px/1.5 var(--app-font, Inter, sans-serif) !important; color: rgba(255,255,255,0.62) !important; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-footer { grid-area: footer; align-self: start; justify-content: flex-start !important; gap: 16px; margin: 2px 0 0 !important;
+  font: 600 12px/16px var(--app-font, Inter, sans-serif) !important; color: rgba(255,255,255,0.55) !important; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode.card:has(button[data-played='true']) .sleekfin-details-episode-action > img { opacity: 0.55; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode.card:has(button[data-played='true']) .sleekfin-details-episode-number { color: rgba(255,255,255,0.2) !important; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-actions { top: 50% !important; right: 14px !important; transform: translateY(-50%);
+  opacity: 0; transition: opacity 160ms ease; }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode.card:hover .sleekfin-details-episode-actions, .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode.card:focus-within .sleekfin-details-episode-actions { opacity: 1; }
+@media (hover: none) { .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-actions { opacity: 1; } }
+.sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode .tb-new-tag { left: 112px !important; top: 22px !important; bottom: auto !important; transform: none !important;
+  border-radius: 4px !important; z-index: 3; }
+@media (max-width: 767px) {
+  .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-action { grid-template-columns: 30px 40% minmax(0, 1fr);
+    grid-template-areas: 'num img title' 'num img footer' 'ov ov ov'; grid-template-rows: auto auto auto;
+    column-gap: 12px; padding: 12px 44px 12px 4px !important; }
+  .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-action > img, .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-shade { grid-row: 1 / span 2; width: 100% !important; }
+  .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-action > img { height: auto !important; }
+  .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode .innerCardFooter { grid-row: 2; }
+  .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-number { grid-row: 1 / span 2; font-size: 28px !important; }
+  .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-title.cardText { font-size: 15px !important; white-space: normal !important; display: -webkit-box !important;
+    -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-overview { display: -webkit-box !important; grid-area: ov; margin-top: 8px !important; font-size: 13px !important; }
+  .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-actions { top: 12px !important; transform: none; }
+  .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-actions .sleekfin-details-episode-user-actions, .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-actions .sleekfin-details-episode-download { display: none !important; }
+  .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode .tb-new-tag { left: 46px !important; top: 16px !important; }
 }
 
 @media (max-width: 767px) {
@@ -484,24 +522,8 @@
         grid-auto-columns: min(84vw, 380px);
     }
 
-    .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode {
-        height: 126px;
-    }
 
-    .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-action > img {
-        width: 42%;
-    }
 
-    .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-shade {
-        background: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, 0.78) 42%, rgba(0, 0, 0, 0.96) 55%);
-    }
 
-    .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-copy {
-        left: 42%;
-        padding: 44px 12px 12px;
-    }
 
-    .sleekfin-details-episode-list[data-view="list"] .sleekfin-details-episode-overview {
-        display: none;
-    }
 }

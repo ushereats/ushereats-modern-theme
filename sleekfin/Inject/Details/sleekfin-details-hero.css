@@ -83,6 +83,36 @@ html.sleekfin-details-mounted #itemDetailPage[data-sleekfin-details] > #itemBack
     position: absolute;
 }
 
+/* cinejoy's back arrow: a plain arrow (no button behind it), the whole button grows to 110% (0.2 s) and dips to 90%
+   while pressed */
+.sleekfin-details-back.sleekfin-details-back,
+.sleekfin-details-back.sleekfin-details-back:hover {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    color: #fff !important;
+}
+
+.sleekfin-details-back > * {
+    filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.04)) drop-shadow(0 4px 3px rgba(0, 0, 0, 0.1));
+}
+
+.sleekfin-details-back.sleekfin-details-back {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .sleekfin-details-back:hover {
+        transform: scale(1.1);
+    }
+}
+
+.sleekfin-details-back:active {
+    transform: scale(0.9);
+}
+
 .sleekfin-details-back {
     border-radius: 999px;
     color: var(--sleekfin-text);

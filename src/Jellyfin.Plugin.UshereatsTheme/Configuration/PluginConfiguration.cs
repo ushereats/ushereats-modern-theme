@@ -25,7 +25,6 @@ public class PluginConfiguration : BasePluginConfiguration
     public bool PlayerSkin { get; set; } = true;
     public bool LoginExtras { get; set; } = true;
     public bool PauseScreen { get; set; } = true;
-    public bool EpisodeList { get; set; } = true;
     public bool DashboardSkin { get; set; } = true;
 
     /// <summary>"Now Playing" panel on the dashboard home (replaces the PlayInfo plugin).</summary>

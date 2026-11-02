@@ -61,9 +61,7 @@ html.sleekfin-details-concealed::before {
     }
 }
 
-#itemDetailPage.sleekfin-details-entering {
-    animation: sleekfin-details-enter 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
+/* (no fade-in of its own: page changes are one cross-fade, 27-page-transitions.js) */
 
 html.sleekfin-details-mounted {
     --sleekfin-details-hero-height: 85vh;

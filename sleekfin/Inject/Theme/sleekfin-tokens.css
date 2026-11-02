@@ -10,8 +10,8 @@ html.sleekfin-main-ui:root {
     --sleekfin-border-hover: rgba(241, 242, 244, 0.22);
     --sleekfin-card-button-radius: __TB_CARD_BUTTON_RADIUS__;
     --sleekfin-card-play-radius: __TB_PLAY_RADIUS__;
-    --sleekfin-card-radius: 6px;
-    --sleekfin-card-inner-radius: 5px;
+    --sleekfin-card-radius: 12px;          /* cinejoy's corners */
+    --sleekfin-card-inner-radius: 12px;
     --sleekfin-compact-card-radius: __TB_COMPACT_RADIUS__;
     --sleekfin-glass-border: 1px solid rgba(255, 255, 255, 0.07);
     --sleekfin-glass-filter: blur(18px) saturate(140%);
@@ -104,20 +104,15 @@ html.sleekfin-main-ui:root {
     --jf-palette-starIcon-mainChannel: 220 38 38;
 }
 
-@media (min-width: 768px) {
+/* page edges as on cinejoy.pk: 4% of the width on a tablet, 60 px on a computer */
+@media (min-width: 640px) {
     html.sleekfin-main-ui:root {
-        --sleekfin-page-gutter: 48px;
+        --sleekfin-page-gutter: 4vw;
     }
 }
 
 @media (min-width: 1024px) {
     html.sleekfin-main-ui:root {
-        --sleekfin-page-gutter: 80px;
-    }
-}
-
-@media (min-width: 1280px) {
-    html.sleekfin-main-ui:root {
-        --sleekfin-page-gutter: 96px;
+        --sleekfin-page-gutter: 60px;
     }
 }

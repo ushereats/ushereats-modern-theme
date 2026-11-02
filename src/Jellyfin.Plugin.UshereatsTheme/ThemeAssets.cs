@@ -124,7 +124,6 @@ public static class ThemeAssets
         ("js_13_login_extras.js", c => c.LoginExtras),
         ("js_14_pause_screen.js", c => c.PauseScreen),
         // with SleekFin built in, the accent is set from the page head instead (no script needed)
-        ("js_17_episode_list.js", c => c.EpisodeList),
         ("js_21_hero.js", c => c.Hero),
         ("js_20_cards.js", c => c.HomeRows || c.Search),
         ("js_22_home_rows.js", c => c.HomeRows),
@@ -132,7 +131,6 @@ public static class ThemeAssets
         ("js_25_prefetch.js", c => true),
         ("js_26_tv_remote.js", c => true),
         ("js_27_page_transitions.js", c => c.PageTransitions),
-        ("js_28_instant_details.js", c => SleekOf(c).DetailsEnabled),
     };
 
     private static readonly Dictionary<string, Payload?> StudioCache = new Dictionary<string, Payload?>(StringComparer.OrdinalIgnoreCase);
@@ -372,7 +370,6 @@ public static class ThemeAssets
             string? part = file switch
             {
                 "js_12_player_skin.js" or "js_14_pause_screen.js" => "player",
-                "js_17_episode_list.js" => "details",
                 "js_09_search_restyle.js" or "js_23_search.js" => "search",
                 "js_11_hover_cards.js" => "hover",
                 _ => null,
@@ -425,7 +422,7 @@ public static class ThemeAssets
 
         foreach ((string file, Func<PluginConfiguration, bool> on) in Features)
         {
-            if (on(config) && file is not ("js_12_player_skin.js" or "js_14_pause_screen.js" or "js_17_episode_list.js" or "js_09_search_restyle.js" or "js_23_search.js" or "js_11_hover_cards.js"))
+            if (on(config) && file is not ("js_12_player_skin.js" or "js_14_pause_screen.js" or "js_09_search_restyle.js" or "js_23_search.js" or "js_11_hover_cards.js"))
             {
                 AppendFeature(js, file, mp3Version);
             }

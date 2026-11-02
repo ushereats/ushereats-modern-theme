@@ -80,7 +80,9 @@ function renderProxyVisual(record) {
 
 function activateSource(mount, record) {
   if (record.key === 'jellyfin:home') {
-    window.location.hash = '#/';
+    // the theme's Home: cross-faded, straight to the very top of home
+    if (typeof window.tbGoHome === 'function') window.tbGoHome();
+    else window.location.hash = '#/home';
     return;
   }
   const route = (window.location.hash || '').toLowerCase();

@@ -1,0 +1,20 @@
+home first visit {"cls":0.0003,"shifts":[{"at":2354,"hash":"#/home","v":0.0001,"visible":[],"src":["null 1750,20,108,40 -> 1708,20,108,40"]},{"at":2376,"hash":"#/home","v":0.0002,"visible":[],"src":["::after 1719,1,170,102 -> 1677,1,170,102"]},{"at":2452,"hash":"#/home","v":0,"visible":[],"src":["div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"]}],"muts":["196x childList head (0-2500ms)","101x attributes[
+home reload (rows from last visit) {"cls":0.4325,"shifts":[{"at":1691,"hash":"#/home","v":0.4275,"visible":["div.verticalSection.tb-row.tb-studios 0,821,1920,112","a.cardImageContainer.cardContent.tb-logo-link 60,835,142,80","a.cardImageContainer.cardContent.tb-logo-link 214,835,142,80"],"src":["div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40","div#homeTab.tabContent.pageTabContent.is-active 0,0,1920,1080 -> 0,821,1920,259
+movie (reload) {"cls":0.0016,"shifts":[{"at":607,"hash":"#/details?id=1d858c5bfd41686f4","v":0,"visible":[],"src":["div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"]},{"at":1009,"hash":"#/details?id=1d858c5bfd41686f4","v":0,"visible":["img 52,20,40,40"],"src":["a.MuiButtonBase-root.MuiButton-root.MuiButton-text 60,20,40,40 -> 110,20,40,40"]},{"at":1172,"hash":"#/details?id=1d858c5bfd41686f4","v":0.0016,
+series (reload) {"cls":0.0281,"shifts":[{"at":643,"hash":"#/details?id=5171c7a6950f550b9","v":0,"visible":[],"src":["div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"]},{"at":958,"hash":"#/details?id=5171c7a6950f550b9","v":0,"visible":["img 52,20,40,40"],"src":["a.MuiButtonBase-root.MuiButton-root.MuiButton-text 60,20,40,40 -> 110,20,40,40"]},{"at":989,"hash":"#/details?id=5171c7a6950f550b9","v":0.0054,"v
+episode (reload) {"cls":0.0181,"shifts":[{"at":562,"hash":"#/details?id=f6dde552f47cce5c5","v":0,"visible":[],"src":["div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"]},{"at":791,"hash":"#/details?id=f6dde552f47cce5c5","v":0,"visible":["img 52,20,40,40"],"src":["a.MuiButtonBase-root.MuiButton-root.MuiButton-text 60,20,40,40 -> 110,20,40,40"]},{"at":847,"hash":"#/details?id=f6dde552f47cce5c5","v":0.0181,"v
+nav favourites -1 0.0533
+nav movies library -1 0.0648
+nav shows library -1 0.0648
+nav music library -1 0.0648
+nav collections -1 0.0417
+nav movie 812 0
+nav series 902 0
+nav collection 697 0.0417
+nav album 786 0.0424
+nav artist 833 0.0424
+nav playlist 699 0.0417
+nav person 1001 0.0417
+nav search 1219 0.0464
+nav favourites again -1 0.0417
+speed done

@@ -1,0 +1,20 @@
+home first visit {"cls":0.0053,"shifts":[{"at":1838,"hash":"#/home","v":0.0001,"visible":[],"src":["null 1750,20,108,40 -> 1708,20,108,40"]},{"at":1868,"hash":"#/home","v":0.0002,"visible":[],"src":["::after 1719,1,170,102 -> 1677,1,170,102"]},{"at":1917,"hash":"#/home","v":0,"visible":[],"src":["div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"]},{"at":3642,"hash":"#/home","v":0.005,"visible":[],"src":["d
+home reload (rows from last visit) {"cls":0.0008,"shifts":[{"at":1084,"hash":"#/home","v":0.0001,"visible":[],"src":["null 1750,20,108,40 -> 1708,20,108,40"]},{"at":1219,"hash":"#/home","v":0,"visible":[],"src":["div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"]},{"at":1423,"hash":"#/home","v":0.0007,"visible":[],"src":["div.emby-scrollbuttons.padded-right 0,1006,1920,74 -> 0,1027,1920,53"]}],"muts":["198x childList head (
+movie (reload) {"cls":0,"shifts":[{"at":553,"hash":"#/details?id=1d858c5bfd41686f4","v":0,"visible":[],"src":["div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"]},{"at":864,"hash":"#/details?id=1d858c5bfd41686f4","v":0,"visible":["img 52,20,40,40"],"src":["a.MuiButtonBase-root.MuiButton-root.MuiButton-text 60,20,40,40 -> 110,20,40,40"]}],"muts":["204x childList head (0-750ms)","89x attributes[style] div#
+series (reload) {"cls":0.036,"shifts":[{"at":501,"hash":"#/details?id=5171c7a6950f550b9","v":0,"visible":[],"src":["div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"]},{"at":693,"hash":"#/details?id=5171c7a6950f550b9","v":0,"visible":["img 52,20,40,40"],"src":["a.MuiButtonBase-root.MuiButton-root.MuiButton-text 60,20,40,40 -> 110,20,40,40"]},{"at":727,"hash":"#/details?id=5171c7a6950f550b9","v":0.0027,"vi
+episode (reload) {"cls":0,"shifts":[{"at":456,"hash":"#/details?id=f6dde552f47cce5c5","v":0,"visible":[],"src":["div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"]},{"at":775,"hash":"#/details?id=f6dde552f47cce5c5","v":0,"visible":["img 52,20,40,40"],"src":["a.MuiButtonBase-root.MuiButton-root.MuiButton-text 60,20,40,40 -> 110,20,40,40"]}],"muts":["204x childList head (0-500ms)","89x attributes[style] div#
+nav favourites -1 0.0417
+nav movies library -1 0.0648
+nav shows library -1 0.0648
+nav music library -1 0.0648
+nav collections -1 0.0417
+nav movie 734 0
+nav series 778 0
+nav collection 639 0.0417
+nav album 765 0.0424
+nav artist 739 0.0424
+nav playlist 645 0.0417
+nav person 800 0.0417
+nav search 728 0.0464
+nav favourites again -1 0.0417
+speed done

@@ -371,6 +371,9 @@
     try { applyLook(holder, window.__tbSleekHero || (window.__tbSleek && window.__tbSleek.hero) || {}); } catch (e) {}
     host.parentNode.insertBefore(holder, host);
   }
+  // the home rows call this as they go in, so the banner's space is there in the same frame as the rows
+  // (when the rows came first, they showed at the top for a moment and were then pushed down by the banner)
+  window.tbHeroHold = function () { if (!root && isHomeRoute()) hold(findHost()); };
   function unhold() {
     if (holder && holder.parentNode) holder.parentNode.removeChild(holder);
     holder = null;

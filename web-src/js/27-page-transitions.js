@@ -29,6 +29,14 @@
     // rows growing don't send a scroll event: checked a few times too
     [0, 50, 120, 250, 500, 900, 1400, 1950].forEach(function (d) { setTimeout(function () { if (want === y && Date.now() < until && !userMoved && Math.abs(scrolled() - y) > 1) scrollNow(y); }, d); });
   }
+  // Library pages with a tab row in the top bar (Movies, Shows, Music, Live TV): the room for that row is kept from
+  // the moment the address changes (sleekfin-header-shared.css), instead of the page moving down when Jellyfin
+  // adds the row a moment later
+  function libRoute() { document.documentElement.classList.toggle("tb-libtabs", /^#!?\/(movies|tv|music|livetv)(\.html)?([?#]|$)/i.test(location.hash)); }
+  libRoute();
+  window.addEventListener("hashchange", libRoute, true);
+  window.addEventListener("popstate", libRoute, true);
+
   var fx = tbCfg("PageTransitions", true) && typeof document.startViewTransition === "function";
   window.tbScroll = { top: function () { pos[location.hash] = 0; keep(0); } };
   if (!fx) {
@@ -95,10 +103,6 @@
       if (hero && t < 300 && !hero.getClientRects().length) return false;
       return seen(p) || t > 300;
     }
-    // library pages (Movies, Shows, Music...): Jellyfin adds their tab row to the top bar a moment after the page
-    // shows, which pushed the page down after the fade
-    if (/^#!?\/(movies|tv|music|homevideos|musicvideos|books|livetv)(\.html)?([?#]|$)/i.test(location.hash) && t < 800 &&
-        !document.querySelector("header.MuiAppBar-root .MuiToolbar-root + .MuiToolbar-root")) return false;
     // search: the theme's search box is put in a moment after Jellyfin's page shows
     if (p.id === "searchPage" && t < 800 && !p.querySelector("#smart-search-wrapper")) return false;
     return seen(p) || t > 300;

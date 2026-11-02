@@ -514,3 +514,15 @@ html.tb-hero-boot:is(.sleekfin-header-boot-loading, .sleekfin-header-loading, .s
 html.sleekfin-details-concealed:is(.sleekfin-header-boot-loading, .sleekfin-header-loading, .sleekfin-header-mounted) :is(header.MuiAppBar-root, [data-sleekfin-header="modern"]) + div[aria-hidden="true"] {
   height: 0 !important;
 }
+
+/* Library pages with a tab row in the top bar (Movies, Shows, Music, Live TV): the room for the row is there from
+   the start (the theme marks these addresses), so the page doesn't move down when Jellyfin adds the row */
+html.tb-libtabs:is(.sleekfin-header-boot-loading, .sleekfin-header-loading, .sleekfin-header-mounted) header.MuiAppBar-root + div[aria-hidden="true"] {
+    min-height: 128px;
+}
+
+@media (max-width: 599px) {
+    html.tb-libtabs:is(.sleekfin-header-boot-loading, .sleekfin-header-loading, .sleekfin-header-mounted) header.MuiAppBar-root + div[aria-hidden="true"] {
+        min-height: 176px;
+    }
+}

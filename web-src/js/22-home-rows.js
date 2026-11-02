@@ -207,6 +207,7 @@
       for (var i = 0; i < old.length; i++) old[i].parentNode.removeChild(old[i]);
     }
     s.tab.insertBefore(root, s.native.nextSibling);
+    if (window.tbHeroHold) window.tbHeroHold();
     everPlaced = true;
     C.upgrade(root);
     C.decorate();

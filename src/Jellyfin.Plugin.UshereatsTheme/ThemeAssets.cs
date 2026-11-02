@@ -290,9 +290,11 @@ public static class ThemeAssets
             + "return function(ids,fields){return new Promise(function(res,rej){if(!q){q={ids:{},f:{},w:[],n:0};setTimeout(flush,30)}for(var i=0;i<ids.length;i++){if(!q.ids[ids[i]]){q.ids[ids[i]]=1;q.n++}}String(fields||\"\").split(\",\").forEach(function(x){if(x)q.f[x]=1});"
             + "q.w.push(function(p){p.then(function(r){var want={};for(var i=0;i<ids.length;i++)want[ids[i]]=1;res({Items:((r&&r.Items)||[]).filter(function(it){return want[it.Id]})})},rej)});if(q.n>=120){var b=q;q=null;b.w.length&&(function(){q=b;flush()})()}})}})();\n"
             // one shared page watcher for the scripts that look at the whole page: runs once per frame (before it's
-            // drawn), and only every 1.5 s while a video plays or the tab is hidden
+            // drawn), and only every 1.5 s while a video plays or the tab is hidden. While a page change holds the old
+            // page, frames aren't drawn: it runs straight away then, so badges, the banner and the theme's pieces are
+            // in the new page before it fades in (not added just after)
             + "window.tbWatch=window.tbWatch||(function(){var subs=[],mo=null,last=0,queued=false;function busy(){if(document.hidden)return true;var o=document.getElementById(\"videoOsdPage\");return!!(o&&!o.classList.contains(\"hide\")&&document.querySelector(\".videoPlayerContainer\"))}window.tbBusy=busy;"
-            + "function run(){queued=false;if(busy()){var n=Date.now();if(n-last<1500)return;last=n}for(var i=0;i<subs.length;i++){try{subs[i]()}catch(e){}}}function fire(){if(queued)return;queued=true;if(document.hidden)setTimeout(run,0);else requestAnimationFrame(run)}"
+            + "function run(){queued=false;if(busy()){var n=Date.now();if(n-last<1500)return;last=n}for(var i=0;i<subs.length;i++){try{subs[i]()}catch(e){}}}function fire(){if(queued)return;queued=true;if(document.hidden||document.documentElement.classList.contains(\"tb-vt\"))setTimeout(run,0);else requestAnimationFrame(run)}"
             + "document.addEventListener(\"visibilitychange\",function(){if(!document.hidden)fire()});return function(fn){subs.push(fn);if(!mo){mo=new MutationObserver(fire);mo.observe(document.documentElement,{childList:true,subtree:true})}}})();\n"
             // one shared answer for requests several scripts make at the same time (your user, sessions)
             + "window.tbShared=window.tbShared||(function(){var m={};function c(k,t,f){var e=m[k],n=Date.now();if(e&&n-e.t<t)return e.p;var p=Promise.resolve().then(f);m[k]={t:n,p:p};p.catch(function(){if(m[k]&&m[k].p===p)delete m[k]});return p}"

@@ -113,6 +113,20 @@ await page.waitForTimeout(4000);
 await page.screenshot({ path: out + "/settings.png" });
 const q = page.locator(".tb-cfg-search input").first();
 if (await q.count()) { await q.fill("fade"); await page.waitForTimeout(500); await page.screenshot({ path: out + "/settings-search.png" }); }
+// the device cache: open home again (twice: the first visit installs it) and count what came from the device
+const swRuns = [];
+for (let i = 0; i < 2; i++) {
+  let dev = 0, net = 0, devKb = 0; const netList = [];
+  const on = (r) => { if (r.fromServiceWorker()) dev++; else { net++; netList.push(r.url().replace(/^https?:\/\/[^/]+/, "").slice(0, 90)); } };
+  page.on("response", on);
+  const t = Date.now();
+  await page.goto(s.server + "/web/index.html#/home", { waitUntil: "load" });
+  const loadMs = Date.now() - t;
+  await page.waitForTimeout(5000);
+  page.off("response", on);
+  swRuns.push({ run: i, loadMs, fromDevice: dev, fromNetwork: net, controlled: await page.evaluate(() => !!(navigator.serviceWorker && navigator.serviceWorker.controller)), caches: await page.evaluate(async () => { const out = {}; for (const k of await caches.keys()) out[k] = (await (await caches.open(k)).keys()).length; return out; }), network: netList.slice(0, 60) });
+}
+fs.writeFileSync(out + "/device-cache.json", JSON.stringify(swRuns, null, 1));
 const look = await page.evaluate(() => localStorage.getItem("tb-bd-look"));
 await ctx.close();
 await browser.close();

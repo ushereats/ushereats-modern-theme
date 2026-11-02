@@ -26,7 +26,7 @@ for (const f of fs.readdirSync(jsDir).filter((f) => f.endsWith(".js")).sort()) {
 }
 
 // Head scripts (hero + home rows): inlined in the page head, so ES5 (TVs) and as small as possible
-for (const name of ["hero-boot", "rows-boot"]) {
+for (const name of ["hero-boot", "rows-boot", "sw-cache"]) {
   const code = fs.readFileSync(path.join(SRC, name + ".js"), "utf8");
   const out = await minify(code, { ecma: 5, compress: { passes: 2 }, mangle: true, format: { ascii_only: true, comments: false } });
   if (!out.code || out.code.includes("</")) throw new Error(name + " minify failed");

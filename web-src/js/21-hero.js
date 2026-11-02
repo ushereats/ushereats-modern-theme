@@ -359,8 +359,25 @@
   }
 
   // Runs inside the page watcher, i.e. before the browser paints: keeps the hero in place with no gap.
+  // The banner's space, kept from the moment home appears until the banner itself is there: an empty block of the
+  // banner's exact size (same classes, same settings) in its place, swapped for the banner in one go. Without it
+  // home's rows are first laid out at the top and then pushed down by the banner (a page jump).
+  var holder = null;
+  function hold(host) {
+    if (holder || !html.classList.contains("tb-hero-on") || !host || !host.parentNode) return;
+    holder = document.createElement("div");
+    holder.className = "sleekfin-hero tb-hero-hold";
+    holder.setAttribute("aria-hidden", "true");
+    try { applyLook(holder, window.__tbSleekHero || (window.__tbSleek && window.__tbSleek.hero) || {}); } catch (e) {}
+    host.parentNode.insertBefore(holder, host);
+  }
+  function unhold() {
+    if (holder && holder.parentNode) holder.parentNode.removeChild(holder);
+    holder = null;
+  }
   function place(host) {
     if (!root || !host) return;
+    if (holder) unhold();
     if (root.parentNode !== host.parentNode || root.nextElementSibling !== host) {
       host.parentNode.insertBefore(root, host);
       if (window.CustomElements && typeof window.CustomElements.upgradeSubtree === "function") window.CustomElements.upgradeSubtree(root);
@@ -384,8 +401,9 @@
     var host = findHost();
     if (!host) return;
     if (!root) {
+      hold(host);
       loadData().then(function (data) {
-        if (!data || !data.list.length) html.classList.remove("tb-hero-boot");   // no banner after all
+        if (!data || !data.list.length) { html.classList.remove("tb-hero-boot"); unhold(); }   // no banner after all
         if (!data || !data.list.length || root) return;
         build(data);
         schedule();

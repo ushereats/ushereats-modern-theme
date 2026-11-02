@@ -41,26 +41,37 @@ public class StartupTask : IScheduledTask
                 return Task.CompletedTask;
             }
 
-            string json = JsonSerializer.Serialize(new Dictionary<string, string?>
-            {
-                ["id"] = "fc34dcce-8a8a-4ac4-a7ae-fdbdc6589563",
-                ["fileNamePattern"] = "index.html",
-                ["callbackAssembly"] = typeof(IndexPatch).Assembly.FullName,
-                ["callbackClass"] = typeof(IndexPatch).FullName,
-                ["callbackMethod"] = nameof(IndexPatch.Apply),
-            });
-
             // Build the payload with File Transformation's own JSON type (avoids version clashes between plugins)
             Type payloadType = register.GetParameters()[0].ParameterType;
             MethodInfo? parse = payloadType.GetMethod("Parse", new[] { typeof(string) });
-            object? payload = parse?.Invoke(null, new object[] { json });
-            if (payload == null)
+            bool Register(string id, string pattern, Type callback, string method)
+            {
+                string json = JsonSerializer.Serialize(new Dictionary<string, string?>
+                {
+                    ["id"] = id,
+                    ["fileNamePattern"] = pattern,
+                    ["callbackAssembly"] = callback.Assembly.FullName,
+                    ["callbackClass"] = callback.FullName,
+                    ["callbackMethod"] = method,
+                });
+                object? payload = parse?.Invoke(null, new object[] { json });
+                if (payload == null)
+                {
+                    return false;
+                }
+
+                register.Invoke(null, new[] { payload });
+                return true;
+            }
+
+            if (!Register("fc34dcce-8a8a-4ac4-a7ae-fdbdc6589563", "index.html", typeof(IndexPatch), nameof(IndexPatch.Apply)))
             {
                 _logger.LogError("[Ushereats Theme] Could not build the File Transformation payload.");
                 return Task.CompletedTask;
             }
 
-            register.Invoke(null, new[] { payload });
+            // Jellyfin's service worker: keeps the files that never change on each device (see sw-cache.js)
+            Register("6b1d3e0a-4f2c-4c8e-9d61-2a7f0b5e9c13", "serviceworker.js", typeof(ServiceWorkerPatch), nameof(ServiceWorkerPatch.Apply));
             ThemeAssets.Get(); // warm up so the first page load is instant
             _logger.LogInformation("[Ushereats Theme] Registered with File Transformation.");
         }

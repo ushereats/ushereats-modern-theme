@@ -52,6 +52,9 @@ public class PluginConfiguration : BasePluginConfiguration
     /// <summary>Gets or sets a value indicating whether page changes cross-fade (as on cinejoy.pk).</summary>
     public bool PageTransitions { get; set; } = true;
 
+    /// <summary>Gets or sets a value indicating whether files that never change (app, theme, fonts, pictures) are kept on each device.</summary>
+    public bool DeviceCache { get; set; } = true;
+
     // ── Settings ──
     public string TmdbKey { get; set; } = string.Empty;
 

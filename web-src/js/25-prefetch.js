@@ -22,6 +22,7 @@
   var LIST = /\/(Users\/[0-9a-f]{32}\/)?Items\?(?=.*[?&]ParentId=)/i;
   var LIST_KEEP = 600000, LIST_FRESH = 20000, LIST_MAX = 40;
   var lists = {};
+  var cfgJson = null;
   function grab(self, args) {
     return realFetch.apply(self, args).then(function (r) {
       return r.text().then(function (body) {
@@ -59,6 +60,11 @@
       clear();
       if (/\/Sessions\/Playing\/Stopped/i.test(url)) { try { window.dispatchEvent(new Event("tb-playback-stopped")); } catch (e) {} }
       return realFetch.apply(this, arguments);
+    }
+    // Jellyfin's web settings file (config.json) is asked for several times on every page change: once per page load
+    if (/(^|\/)config\.json(\?|$)/.test(url)) {
+      if (!cfgJson) { cfgJson = grab(this, arguments); cfgJson.then(function (x) { if (x.status !== 200) cfgJson = null; }, function () { cfgJson = null; }); }
+      return cfgJson.then(respond);
     }
     if (LIST.test(url) && !(init && init.cache === "no-store") && !/[?&](SearchTerm|searchTerm)=/.test(url) && !/^#\/?home/i.test(location.hash)) return listFetch(this, arguments, url);
     if (!ITEM.test(url) || /[?&](fields|Fields)=/.test(url) || (init && init.cache === "no-store")) return realFetch.apply(this, arguments);

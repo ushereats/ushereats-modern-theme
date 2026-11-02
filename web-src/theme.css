@@ -1115,11 +1115,64 @@ html.sleekfin-details-concealed:is(.sleekfin-header-boot-loading, .sleekfin-head
   height: 0 !important;
 }
 
-/* Back arrow (top left): grows a little under the pointer, as on cinejoy.pk */
+/* ══ cinejoy.pk look (measured from cinejoy's own stylesheet and a recording of it running) ══ */
+
+/* Back arrow: plain arrow, the whole button grows to 110% (0.2 s) and dips to 90% while pressed */
 html .sleekfin-details-back.sleekfin-details-back, html .sleekfin-details-back.sleekfin-details-back:hover { background: transparent !important; border-color: transparent !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; color: #fff !important; }
-html .sleekfin-details-back.sleekfin-details-back > * { filter: drop-shadow(0 1px 6px rgba(0,0,0,.55)); }
-.sleekfin-details-back > *, .headerBackButton > * { transition: transform .18s cubic-bezier(.2,.8,.2,1); }
+html .sleekfin-details-back.sleekfin-details-back > * { filter: drop-shadow(0 10px 8px rgba(0,0,0,.04)) drop-shadow(0 4px 3px rgba(0,0,0,.1)); }
+html .sleekfin-details-back.sleekfin-details-back, html .headerBackButton.headerBackButton { transition: transform .2s cubic-bezier(.4,0,.2,1) !important; }
 @media (hover: hover) and (pointer: fine) {
-  .sleekfin-details-back:hover > *, .headerBackButton:hover > * { transform: scale(1.14); }
+  html .sleekfin-details-back.sleekfin-details-back:hover, html .headerBackButton.headerBackButton:hover { transform: scale(1.1); }
 }
-.sleekfin-details-back:active > *, .headerBackButton:active > * { transform: scale(.94); }
+html .sleekfin-details-back.sleekfin-details-back:active, html .headerBackButton.headerBackButton:active { transform: scale(.9); }
+
+/* Rows: about 6.7 posters across on a computer, 4.5 on a tablet, 2.5 on a phone; the row starts 4% in */
+@media (min-width: 640px) {
+  html.sleekfin-media-mounted #indexPage { --sleekfin-page-gutter: 4vw; }
+}
+html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowPortraitCard, .portraitCard) { width: 38.4vw !important; max-width: none !important; }
+html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowPortraitCard, .portraitCard) > .cardBox { margin-inline-end: 2.4vw !important; }
+@media (min-width: 640px) {
+  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowPortraitCard, .portraitCard) { width: 21.3vw !important; }
+  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowPortraitCard, .portraitCard) > .cardBox { margin-inline-end: 1.5vw !important; }
+}
+@media (min-width: 1024px) {
+  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowPortraitCard, .portraitCard) { width: 14.3vw !important; }
+  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowPortraitCard, .portraitCard) > .cardBox { margin-inline-end: 1.05vw !important; }
+}
+/* Continue Watching and other wide cards: cinejoy's sizes (70% of a phone, at most 280 px; 264 px; 316 px) */
+html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not([data-type="CollectionFolder"]):not([data-type="UserView"]):not(.tb-logo-card) { width: calc(min(70vw, 280px) + 2.4vw) !important; max-width: none !important; }
+html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not(.tb-logo-card) > .cardBox { margin-inline-end: 2.4vw !important; }
+@media (min-width: 640px) {
+  html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not([data-type="CollectionFolder"]):not([data-type="UserView"]):not(.tb-logo-card) { width: calc(264px + 1.5vw) !important; }
+  html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not(.tb-logo-card) > .cardBox { margin-inline-end: 1.5vw !important; }
+}
+@media (min-width: 1024px) {
+  html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not([data-type="CollectionFolder"]):not([data-type="UserView"]):not(.tb-logo-card) { width: calc(316px + 1.05vw) !important; }
+  html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not(.tb-logo-card) > .cardBox { margin-inline-end: 1.05vw !important; }
+}
+
+/* Hover: the poster grows to 105% over 0.5 s (easing out) and lifts above its neighbours, in every home row */
+@media (hover: hover) and (pointer: fine) {
+  html .card .cardBox { transition: transform .5s cubic-bezier(0,0,.2,1), filter .5s cubic-bezier(0,0,.2,1) !important; }
+  html #indexPage .verticalSection:not(.tb-studios) .card:hover { position: relative; z-index: 50 !important; }
+  html #indexPage .verticalSection:not(.tb-studios) .card:hover .cardBox { transform: scale(1.05) !important; filter: drop-shadow(0 0 14px rgba(0,0,0,.32)); }
+  /* room above and below a row so a grown poster isn't cut off */
+  html:not(.layout-tv) #indexPage .homeSectionsContainer .emby-scroller { padding-top: max(14px, 1.2vw) !important; padding-bottom: max(18px, 1.4vw) !important; }
+}
+
+/* Row arrows: no background, grow to 110% on hover (0.3 s) */
+html .verticalSection > .emby-scrollbuttons .emby-scrollbuttons-button { transition: transform .3s cubic-bezier(.4,0,.2,1), opacity .3s cubic-bezier(.4,0,.2,1) !important; }
+@media (hover: hover) and (pointer: fine) {
+  html .verticalSection > .emby-scrollbuttons .emby-scrollbuttons-button:hover { transform: scale(1.1); }
+}
+
+/* Play buttons (banner and title page): grow to 105% on hover, 95% while pressed (0.2 s);
+   the icons on the other buttons grow to 110% when their button is hovered (0.3 s) */
+html :is(.sleekfin-hero-actions, .sleekfin-details-actions) :is(.sleekfin-button-primary, .sleekfin-details-play) { transition: transform .2s cubic-bezier(.4,0,.2,1), background-color .2s, opacity .2s !important; }
+@media (hover: hover) and (pointer: fine) {
+  html :is(.sleekfin-hero-actions, .sleekfin-details-actions) :is(.sleekfin-button-primary, .sleekfin-details-play):hover { transform: scale(1.05); }
+  html :is(.sleekfin-hero-actions, .sleekfin-details-actions) button:not(.sleekfin-button-primary) :is(svg, .material-icons) { transition: transform .3s cubic-bezier(.4,0,.2,1); }
+  html :is(.sleekfin-hero-actions, .sleekfin-details-actions) button:not(.sleekfin-button-primary):hover :is(svg, .material-icons) { transform: scale(1.1); }
+}
+html :is(.sleekfin-hero-actions, .sleekfin-details-actions) :is(.sleekfin-button-primary, .sleekfin-details-play):active { transform: scale(.95); }

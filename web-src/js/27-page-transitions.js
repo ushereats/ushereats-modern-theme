@@ -1,19 +1,16 @@
 (function pageTransitions() {
-  // Smoother page changes, as on cinejoy.pk: opening a title (or anything else) and going back cross-fade the
-  // whole screen, top bar included: the old screen fades out while the new one fades in on top of it.
-  // Done with the browser's View Transitions (Chrome/Edge 111+, Safari 18+, Firefox 144+): the screen you were on
-  // is held as a picture for the moment the new page takes to appear (never longer than ~0.9 s), then the two
-  // blend. Browsers without it: the new page fades in (optionally rising a few pixels), as before.
+  // Page changes exactly as on cinejoy.pk (measured from cinejoy running): the page you were on stays on screen
+  // until the next one is ready, then the whole screen cross-fades with the browser's own View Transition, left
+  // exactly as the browser draws it: 250 ms, "ease", the two pages blended "plus-lighter" (no dip in brightness).
+  // Opening a title, going back (back arrow, browser / mouse back), changing page.
+  // Browsers without View Transitions (Firefox before 144, Safari before 18) just change page.
   // Off on TVs, while a video plays, on the very first page, and when the device asks for less motion.
   if (window.__tbPageFx || !tbCfg("PageTransitions", true)) return;
   window.__tbPageFx = true;
+  if (typeof document.startViewTransition !== "function") return;
 
-  var STYLE = String(tbCfg("PageTransitionStyle", "Rise"));
-  var MS = Math.max(80, Math.min(600, +tbCfg("PageTransitionMs", 200) || 200));
   var html = document.documentElement;
   var reduce = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : { matches: false };
-  var EASE = "cubic-bezier(0.2, 0.8, 0.2, 1)";
-  var VT = typeof document.startViewTransition === "function";
 
   function off() {
     return reduce.matches || html.classList.contains("layout-tv") || (document.body && document.body.classList.contains("layout-tv")) ||
@@ -26,26 +23,18 @@
     return null;
   }
 
-  if (VT) {
-    var st = document.createElement("style");
-    st.textContent =
-      "::view-transition-old(root),::view-transition-new(root){animation-duration:" + MS + "ms;animation-timing-function:ease}" +
-      "::view-transition-old(root){animation-name:tb-vt-out}::view-transition-new(root){animation-name:tb-vt-in}" +
-      "@keyframes tb-vt-out{to{opacity:0}}@keyframes tb-vt-in{from{opacity:0}}" +
-      // nothing else on the page takes part (one blend of the whole screen)
-      "html.tb-vt *{view-transition-name:none!important}" +
-      // the rows' own entrance fade would be frozen at "invisible" while the old screen is held and then play
-      // after the cross-fade (old page -> empty -> rows): during a cross-fade the rows are simply there
-      "html.tb-vt :is(#indexPage,#searchPage) .verticalSection,html.tb-vt :is(#moviesPage,#tvshowsPage,#tvRecommendedPage) .itemsContainer,.verticalSection.tb-noenter,.itemsContainer.tb-noenter{animation:none!important}";
-    document.head.appendChild(st);
-  }
+  // No styling of the fade itself (that's the point: the browser's default is what cinejoy shows).
+  // Only: the rows' own entrance fade would be frozen at "invisible" while the old page is held and play after
+  // the cross-fade (old page -> empty -> rows); rows that were there for a cross-fade don't play it.
+  var st = document.createElement("style");
+  st.textContent = "html.tb-vt :is(#indexPage,#searchPage) .verticalSection,html.tb-vt :is(#moviesPage,#tvshowsPage,#tvRecommendedPage) .itemsContainer,.verticalSection.tb-noenter,.itemsContainer.tb-noenter{animation:none!important}";
+  document.head.appendChild(st);
 
-  // ── cross-fade (View Transitions) ──
   var running = false, started = false, captured = false, held = [], replaying = false;
   var log = window.__tbVt = [];
-  function note(x) { if (log.length < 60) log.push([Math.round(performance.now()), x]); }
-  // a title page counts as ready once its title is there (the backdrop fades in on its own, as on cinejoy)
-  // (no half-built page in between: no loading placeholders, no empty banner, no rows popping in after)
+  function note(x) { if (log.length > 80) log.shift(); log.push([Math.round(performance.now()), x]); }
+
+  // ready = what cinejoy fades into: the finished page (no loading placeholders, no empty banner)
   function ready(p, t, before) {
     if (!p) return false;
     if (p.id === "itemDetailPage") {
@@ -57,8 +46,7 @@
         // Jellyfin's own title still showing next to SleekFin's (for a moment the name is there twice)
         var nat = p.querySelectorAll(".nameContainer, .itemName, .parentName");
         for (var i = 0; i < nat.length; i++) if (!nat[i].closest(".sleekfin-details-hero") && nat[i].getClientRects().length && nat[i].textContent.trim()) return false;
-        st = st[0];
-        return st.innerHTML !== before;   // a new title, not the one we came from
+        return st[0].innerHTML !== before;   // a new title, not the one we came from
       }
       var n = p.querySelector(".itemName");
       return !!(n && n.textContent.trim()) && n.textContent !== before;
@@ -74,7 +62,6 @@
     return seen(p) || t > 300;
   }
   // a poster that's really on screen: laid out, inside the window, and not inside something hidden
-  // (fades don't count: they don't move while the old screen is held, and play once it lets go)
   function seen(p) {
     var cards = p.querySelectorAll(".card[data-id], .listItem[data-id]"), h = window.innerHeight || 800;
     for (var i = 0; i < cards.length && i < 30; i++) {
@@ -93,8 +80,9 @@
     var st = p.querySelector(".sleekfin-details-title") || p.querySelector(".itemName");
     return st ? (st.classList.contains("itemName") ? st.textContent : st.innerHTML) : "";
   }
+
   function crossfade(wait, already) {
-    if (!VT || running || !started || off()) return false;
+    if (running || !started || off()) return false;
     running = true;
     captured = false;
     note("start " + location.hash);
@@ -104,7 +92,7 @@
     try {
       html.classList.add("tb-vt");
       tr = document.startViewTransition(function () {
-        // the old screen is held as a picture from here: back/forward events kept until now go to Jellyfin
+        // the old page is held from here: back/forward events kept until now go to Jellyfin
         captured = true;
         t0 = Date.now();
         if (moved) moved = t0;
@@ -113,24 +101,31 @@
         replaying = true;
         try { q.forEach(function (ev) { window.dispatchEvent(ev); note("replayed " + ev.type); }); } catch (e) {}
         replaying = false;
-        // the page counts as finished once it has also stopped changing for a moment (Jellyfin and the theme
-        // put pages together in steps: rows shown after the banner, titles swapped, placeholders removed)
-        var last = Date.now(), mo = new MutationObserver(function () { last = Date.now(); });
-        try { mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["class", "style", "hidden", "src", "data-loaded"] }); } catch (e) {}
+        // finished = also stopped being rebuilt for a moment (titles swapped, placeholders removed, rows shown).
+        // Only the page itself is watched, and only what changes its layout: pictures arriving and the background
+        // colour changing don't count (they never stop on a busy page and would hold the old page to the limit).
+        var last = Date.now(), watched = null, mo = new MutationObserver(function () { last = Date.now(); });
+        function watchPage(p) {
+          if (p === watched) return;
+          watched = p;
+          mo.disconnect();
+          if (p) try { mo.observe(p, { childList: true, subtree: true, attributes: true, attributeFilter: ["class", "hidden"] }); } catch (e) {}
+          last = Date.now();
+        }
         return new Promise(function (res) {
           var resolve = function () {
             mo.disconnect();
-            // rows already shown don't play their entrance fade again once the cross-fade is over
             try { Array.prototype.forEach.call(document.querySelectorAll(".verticalSection, .itemsContainer"), function (e) { e.classList.add("tb-noenter"); }); } catch (e) {}
             res();
           };
-          // timers, not animation frames: the page isn't drawn while the old screen is held
+          // timers, not animation frames: the page isn't drawn while the old one is held
           (function tick() {
             var now = Date.now(), p = current();
             if (!moved && (location.hash !== from || p !== page0)) moved = now;
+            if (moved) watchPage(p);
             if (!moved && now - t0 > wait) { note("no page change"); return resolve(); }
-            if (moved && (p !== page0 || location.hash !== from) && now - last >= 100 && (from === null || scrolled() < 2) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); return resolve(); }
-            if (now - t0 > 900) { note("timeout " + (p && p.id)); return resolve(); }   // never hold the screen longer
+            if (moved && (p !== page0 || location.hash !== from) && now - last >= 50 && (from === null || scrolled() < 2) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); return resolve(); }
+            if (now - t0 > 900) { note("timeout " + (p && p.id)); return resolve(); }   // never hold the old page longer
             setTimeout(tick, 16);
           })();
         });
@@ -142,78 +137,34 @@
   }
   window.tbCrossfade = crossfade;
 
-  if (VT) {
-    // clicks that open a page: posters, links, the back arrows (before Jellyfin handles them)
-    document.addEventListener("click", function (e) {
-      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      var t = e.target && e.target.closest ? e.target : null;
-      if (!t) return;
-      if (t.closest(".sleekfin-details-back, .headerBackButton")) { crossfade(300); return; }
-      var b = t.closest("button");
-      if (b && !b.matches("[data-action='link'], .cardImageContainer, .itemAction[data-action='link']")) return;   // play, menus, favourites...
-      var a = t.closest("a[href]");
-      if (a && (a.target === "_blank" || !/#!?\//.test(a.getAttribute("href") || ""))) return;
-      if (a || t.closest(".card[data-id], [data-action='link']")) crossfade(400);
-    }, true);
-    // browser / mouse back and forward, and the back arrows (they call history.back()). Jellyfin swaps the page
-    // straight away on these, before the old screen could be held: the event is kept from Jellyfin (capturing
-    // at the window runs first) until the old screen is held, then handed on unchanged.
-    function hold(e) {
-      if (replaying || !VT || !started || off()) return;
-      if (running && captured) return;
-      if (!running && !crossfade(300, true)) return;
-      e.stopImmediatePropagation();
-      held.push(e.type === "popstate" ? new PopStateEvent("popstate", { state: e.state }) : new HashChangeEvent("hashchange", { oldURL: e.oldURL, newURL: e.newURL }));
-      note("kept " + e.type);
-    }
-    // listened to from the page's first line (the plugin puts a hook there), so before Jellyfin's own listeners
-    if (window.__tbEarlyHold) window.__tbHold = hold;
-    else { window.addEventListener("popstate", hold, true); window.addEventListener("hashchange", hold, true); }
-  }
+  // clicks that open a page: posters, links, the back arrows (before Jellyfin handles them)
+  document.addEventListener("click", function (e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var t = e.target && e.target.closest ? e.target : null;
+    if (!t) return;
+    if (t.closest(".sleekfin-details-back, .headerBackButton")) { crossfade(300); return; }
+    var b = t.closest("button");
+    if (b && !b.matches("[data-action='link'], .cardImageContainer, .itemAction[data-action='link']")) return;   // play, menus, favourites...
+    var a = t.closest("a[href]");
+    if (a && (a.target === "_blank" || !/#!?\//.test(a.getAttribute("href") || ""))) return;
+    if (a || t.closest(".card[data-id], [data-action='link']")) crossfade(400);
+  }, true);
 
-  // ── fallback: the new page fades in (browsers without View Transitions) ──
-  function fx(page) {
-    if (off() || !page || !Element.prototype.animate) return;
-    // title pages have their own entrance (SleekFin's)
-    if (page.id === "itemDetailPage" && (html.classList.contains("sleekfin-details-mounted") || html.classList.contains("sleekfin-details-concealed") || page.hasAttribute("data-sleekfin-details"))) return;
-    var o = { duration: MS, easing: EASE };
-    try {
-      page.animate([{ opacity: 0 }, { opacity: 1 }], o);
-      if (STYLE === "Rise") {
-        // the page's own blocks rise (not the page: anything fixed inside it must not move)
-        var kids = page.children, n = 0;
-        for (var i = 0; i < kids.length && n < 12; i++) {
-          var k = kids[i];
-          if (k.classList.contains("hide")) continue;
-          var pos = getComputedStyle(k).position;
-          if (pos === "fixed" || pos === "sticky") continue;
-          k.animate([{ transform: "translateY(10px)" }, { transform: "none" }], o);
-          n++;
-        }
-      }
-    } catch (e) {}
+  // browser / mouse back and forward, and the back arrows (they call history.back()). Jellyfin swaps the page
+  // straight away on these: the event is kept from Jellyfin until the old page is held, then handed on unchanged.
+  function hold(e) {
+    if (replaying || !started || off()) return;
+    if (running && captured) return;
+    if (!running && !crossfade(300, true)) return;
+    e.stopImmediatePropagation();
+    held.push(e.type === "popstate" ? new PopStateEvent("popstate", { state: e.state }) : new HashChangeEvent("hashchange", { oldURL: e.oldURL, newURL: e.newURL }));
+    note("kept " + e.type);
   }
+  // listened to from the page's first line (the plugin puts a hook there), so before Jellyfin's own listeners
+  if (window.__tbEarlyHold) window.__tbHold = hold;
+  else { window.addEventListener("popstate", hold, true); window.addEventListener("hashchange", hold, true); }
 
-  var last = null, watching = 0;
-  function watch() {
-    if (!started) return;
-    var my = ++watching, t0 = performance.now();
-    (function tick() {
-      if (my !== watching) return;
-      var p = current();
-      if (p && p !== last) { last = p; if (!running) fx(p); return; }
-      if (performance.now() - t0 < 900) requestAnimationFrame(tick);
-    })();
-  }
-  if (!VT) {
-    window.addEventListener("hashchange", watch);
-    window.addEventListener("popstate", watch);
-    ["pushState", "replaceState"].forEach(function (m) {
-      var orig = history[m];
-      history[m] = function () { var r = orig.apply(this, arguments); setTimeout(watch, 0); return r; };
-    });
-  }
-  // the first page shows as it is; from then on, page changes fade
-  function begin() { last = current(); started = true; }
+  // the first page shows as it is; from then on, page changes cross-fade
+  function begin() { started = true; }
   if (document.readyState === "complete") setTimeout(begin, 1200); else window.addEventListener("load", function () { setTimeout(begin, 1200); });
 })();

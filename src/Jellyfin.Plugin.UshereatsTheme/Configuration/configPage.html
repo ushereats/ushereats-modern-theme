@@ -1768,33 +1768,13 @@
                             <div class="sleekfin-toggle-row">
                                 <div class="sleekfin-toggle-copy">
                                     <label class="sleekfin-toggle-label" for="tb-PageTransitions">Smooth page changes</label>
-                                    <div class="sleekfin-field-description">Opening a title, going back and changing page cross-fade the whole screen (as on cinejoy.pk). Older browsers: the new page fades in, styled below. Off on TVs, during video, and when the device asks for less motion.</div>
+                                    <div class="sleekfin-field-description">Exactly as on cinejoy.pk: the page you were on stays on screen until the next one is ready, then the whole screen cross-fades (the browser's own 0.25 s fade). Opening a title, going back, changing page. Browsers without it (Firefox before 144, Safari before 18) just change page. Off on TVs, during video, and when the device asks for less motion.</div>
                                 </div>
                                 <div class="sleekfin-toggle-actions">
                                     <label class="sleekfin-toggle">
                                         <input id="tb-PageTransitions" type="checkbox" data-key="PageTransitions" />
                                         <span class="sleekfin-toggle-slider"></span>
                                     </label>
-                                </div>
-                            </div>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-PageTransitionStyle">Older browsers</label>
-                                    <div class="sleekfin-input-stack">
-                                        <select id="tb-PageTransitionStyle" class="sleekfin-input" data-key="PageTransitionStyle">
-                                            <option value="Fade">Fade</option>
-                                            <option value="Rise">Fade + rise (the page lifts a few pixels into place)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-PageTransitionMs">Speed (ms)</label>
-                                    <div class="sleekfin-input-stack">
-                                        <input id="tb-PageTransitionMs" class="sleekfin-input" type="number" data-key="PageTransitionMs" data-int="1" step="10" min="80" max="600" />
-                                        <div class="sleekfin-field-description">150 = quick, 200 = normal, 300 = relaxed.</div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

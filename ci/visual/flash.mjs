@@ -44,6 +44,8 @@ async function open(id, label) {
   mark("click " + label);
   // a click on the poster, as the browser sends it (a covering layer can stop Playwright's own click)
   await card.evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
+  // requests the server really got for this click (to spot the same thing asked for twice)
+  if (label === "another") { const seen = []; const on = (r) => seen.push(r.url().replace(/^https?:\/\/[^/]+/, "").slice(0, 120)); page.on("request", on); await page.waitForTimeout(2500); page.off("request", on); fs.writeFileSync(out + "/requests-open.txt", seen.join("\n")); }
   // what's really on screen during the change (screenshots, not the video)
   if (label === "same again") for (let i = 0; i < 14; i++) { await page.screenshot({ path: `${out}/seq-open-${String(i).padStart(2, "0")}.jpg`, quality: 60, type: "jpeg" }); }
   await page.waitForTimeout(3000);

@@ -1,5 +1,5 @@
 (function hoverCard() {
-  // Hover look (as cinejoy.pk): the poster dims evenly, a small white round play button fades in, the title and "2026 ★ 7.1" under it
+  // Hover look (as cinejoy.pk): the poster dims evenly, a white round play button with a soft glow fades in and grows to 110%, the title and "2026 ★ 7.1" under it
   var INFO_CLASS = "tb-hover-info";
   var STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.94 6.2 6.81.8-5.04 4.66 1.36 6.72L12 17.52l-6.07 3.36 1.36-6.72L2.25 9.5l6.81-.8z"/></svg>';
 
@@ -138,21 +138,22 @@
     "  " + X + " .card .cardOverlayContainer > button.cardOverlayFab-primary,",
     "  " + X + " .card button.cardOverlayButton-centered {",
     "    position: absolute !important; left: 50% !important; top: 50% !important;",
-    "    width: 42px !important; height: 42px !important;",
-    "    margin: -38px 0 0 -21px !important; padding: 0 !important;",
+    "    width: 48px !important; height: 48px !important;",
+    "    margin: -44px 0 0 -24px !important; padding: 0 !important;",
     "    border-radius: 50% !important;",
     "    background: #fff !important; color: #0b0b0b !important;",
     "    border: 0 !important; outline: none !important;",
     "    background-image: none !important;",
     "    -webkit-backdrop-filter: none !important; backdrop-filter: none !important;",
     "    opacity: 1 !important;",
-    "    box-shadow: 0 4px 14px -4px rgba(0,0,0,0.5) !important;",
+    "    box-shadow: 0 10px 15px -3px rgba(255,255,255,0.2), 0 4px 6px -4px rgba(255,255,255,0.2) !important;",
     "    display: flex !important; align-items: center; justify-content: center;",
-    "    transition: transform 160ms ease, opacity 160ms ease !important;",
+    "    transition: transform 150ms cubic-bezier(0.4,0,0.2,1), opacity 160ms ease !important;",
     "  }",
     /* the button fades in with the dim */
-    "  " + X + " .card:not(:hover) :is(.cardOverlayContainer > button.cardOverlayFab-primary, button.cardOverlayButton-centered) { opacity: 0 !important; transform: scale(0.92) !important; }",
-    "  " + X + " .card .cardOverlayContainer > button.cardOverlayFab-primary:hover { transform: scale(1.07) !important; background: #fff !important; }",
+    "  " + X + " .card:not(:hover) :is(.cardOverlayContainer > button.cardOverlayFab-primary, button.cardOverlayButton-centered) { opacity: 0 !important; transform: none !important; }",
+    /* as on cinejoy: grows to 110% while the poster is hovered */
+    "  " + X + " .card:hover :is(.cardOverlayContainer > button.cardOverlayFab-primary, button.cardOverlayButton-centered) { transform: scale(1.1) !important; background: #fff !important; }",
     "  " + X + " .card :is(.cardOverlayContainer > button.cardOverlayFab-primary, button.cardOverlayButton-centered) > :is(.cardOverlayButtonIcon, .material-icons, .MuiSvgIcon-root, svg) {",
     "    font-size: 24px !important; width: 24px !important; height: 24px !important;",
     "    color: #0b0b0b !important; fill: #0b0b0b !important; margin: 0 0 0 2px !important;",
@@ -161,7 +162,7 @@
 
     /* title + meta */
     "  .card ." + INFO_CLASS + " {",
-    "    position: absolute; left: 8px; right: 8px; top: calc(50% + 12px); z-index: 5;",
+    "    position: absolute; left: 8px; right: 8px; top: calc(50% + 16px); z-index: 5;",
     "    display: flex; flex-direction: column; align-items: center; gap: 3px;",
     "    text-align: center; color: #fff; pointer-events: none;",
     "    font-family: var(--app-font, Inter, sans-serif);",

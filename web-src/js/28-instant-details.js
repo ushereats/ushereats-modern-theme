@@ -6,6 +6,9 @@
   // Only when it can be exact: the picture is known (from the poster you clicked or one already looked up),
   // and a title page has been shown on this screen size before (its look is copied from that one).
   if (window.__tbInstant) return;
+  // With the page cross-fade (browsers that have it), the page you were on stays until the title page is
+  // ready, so there's nothing to cover: this is only for browsers without it.
+  if (typeof document.startViewTransition === "function" && tbCfg("PageTransitions", true)) return;
   window.__tbInstant = true;
   var html = document.documentElement;
   var KEY = "tb-bd-look";
@@ -63,7 +66,7 @@
     if (amb && amb.parentNode === document.body) document.body.insertBefore(l, amb.nextSibling); else document.body.insertBefore(l, document.body.firstChild);
     layer = l;
     // fade in at the page-change speed (a hard cut from the home page to a full-screen picture is a flash)
-    var ms = Math.max(80, Math.min(600, +tbCfg("PageTransitionMs", 200) || 200));
+    var ms = 250;
     if (tbCfg("PageTransitions", true) && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) {
       s.opacity = "0";
       s.transition = "opacity " + ms + "ms ease";

@@ -1,0 +1,61 @@
+{
+ "marks": [
+  {
+   "t": 9.194,
+   "what": "home {\"cards\":36,\"types\":[\"Movie\",\"Movie\",\"Episode\",\"Episode\",\"Movie\",\"Movie\",\"Movie\",\"Movie\"]}"
+  },
+  {
+   "t": 9.195,
+   "what": "cards 1d858c5bfd41686f432c5272367f8b67,d20d52dd0dfb390eccf3bc6d42c66edc,6f225e4936f38baaa7f572cadb22260f"
+  },
+  {
+   "t": 9.85,
+   "what": "click first-ever (no stand-in yet)"
+  },
+  {
+   "t": 12.897,
+   "what": "back first-ever (no stand-in yet)"
+  },
+  {
+   "t": 16.034,
+   "what": "click same again"
+  },
+  {
+   "t": 20.864,
+   "what": "back same again"
+  },
+  {
+   "t": 55.625,
+   "what": "click another"
+  },
+  {
+   "t": 61.136,
+   "what": "back another"
+  },
+  {
+   "t": 94.243,
+   "what": "click third"
+  },
+  {
+   "t": 97.254,
+   "what": "back third"
+  },
+  {
+   "t": 172.653,
+   "what": "click arrow-test"
+  },
+  {
+   "t": 176.236,
+   "what": "back-arrow click"
+  },
+  {
+   "t": 178.836,
+   "what": "library 0"
+  },
+  {
+   "t": 182.69,
+   "what": "library 1"
+  }
+ ],
+ "look": null
+}

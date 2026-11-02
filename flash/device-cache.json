@@ -1,0 +1,35 @@
+[
+ {
+  "label": "with device cache (1st reload)",
+  "firstPosterMs": 2320,
+  "fromDevice": 159,
+  "fromNetwork": 24
+ },
+ {
+  "label": "with device cache (2nd reload)",
+  "firstPosterMs": 1603,
+  "fromDevice": 160,
+  "fromNetwork": 23
+ },
+ {
+  "controlled": true,
+  "caches": {
+   "embydata": 1,
+   "tb-1-static": 145,
+   "tb-1-img": 85,
+   "tb-1-misc": 2
+  }
+ },
+ {
+  "label": "without device cache (browser cache only)",
+  "firstPosterMs": 2047,
+  "fromDevice": 0,
+  "fromNetwork": 182
+ },
+ {
+  "label": "without device cache (2nd)",
+  "firstPosterMs": 1400,
+  "fromDevice": 0,
+  "fromNetwork": 182
+ }
+]

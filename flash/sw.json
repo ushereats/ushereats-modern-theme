@@ -1,0 +1,8 @@
+{
+ "regs": [
+  "http://localhost:8096/web/ http://localhost:8096/web/serviceworker.js"
+ ],
+ "ctrl": true,
+ "file": "200 text/javascript\nno-cache",
+ "body": "3682 chars: (self.webpackChunk=self.webpackChunk||[]).push([[82798],{16764:function(n,e,t){t(78557),t(90076),self.addEventListener(\"notificationclick\",(function(n){var e=n.notification;e.close();var t=e.data,i=t.serverId,r=n.action;if(!r)return clients.openWindow(\"/\"),void n.waitUntil(Promise.resolve());n.waitUntil(function(n,e,t){return function(n){return Promise.resolve(window.connectionManager.getApiClient(n))}(t).then((function(t){switch(n){case\"cancel-install\":return t.cancelPackageInstallation(e.id);case\"restart\":return t.restartServer();default:return clients.openWindow(\"/\"),Promise.resolve()}}))}(r,t,i))}),!1),self.addEventListener(\"activate\",(function(){return self.clients.claim()}))}},function(n){n.O(0,[59928],(function(){return n(n.s=16764)})),n.O()}]);\n/* ushereats-theme */\n!function(){var t=\"tb-1\",e=t+\"-static\",n=t+\"-img\",i=t+\"-misc\";self.addEventListener(\"install\",(function(){self.skipWaiting()})),self.addEventListener(\"activate\",(function(e){e.waitUntil(caches.keys().then((function(e){return Promise.all(e.filter((function(e){return 0===e.indexOf(\"tb-\")&&0!==e.indexOf(t+\"-\")})).map((function(t){return caches.delete(t)})))})).then((function(){return self.clients.claim()})))}));var c={};function r(t,e,n){var i=t.request,r=new Request(i.url,{credentials:\"same-origin\"});return caches.open(e).then((function(s){return s.match(r,{ignoreVary:!0}).then((function(a){return a||fetch(i).then((function(i){if(i&&i.ok&&200===i.status&&\"basic\"===i.type){var a=i.clone();t.waitUntil(s.put(r,"
+}

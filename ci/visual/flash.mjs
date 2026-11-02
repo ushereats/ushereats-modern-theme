@@ -34,6 +34,8 @@ const ids = await page.evaluate(() => {
   return Array.from(document.querySelectorAll(".card[data-id]")).filter((c) => c.getClientRects().length && /^(Movie|Series)$/.test(typeOf(c)))
     .map((c) => c.getAttribute("data-id")).filter((id, i, a) => a.indexOf(id) === i).slice(0, 3);
 });
+const radius = await page.evaluate(() => [...document.querySelectorAll("#indexPage .card[data-id]")].slice(0, 12).map((c) => { const sc = c.querySelector(".cardScalable"), im = c.querySelector(".cardImageContainer"); return c.className.split(" ").slice(0, 3).join(".") + " scalable=" + (sc && getComputedStyle(sc).borderRadius) + " image=" + (im && getComputedStyle(im).borderRadius) + " w=" + Math.round(c.getBoundingClientRect().width); }));
+fs.writeFileSync(out + "/radius.txt", radius.join("\n"));
 const counts = await page.evaluate(() => ({ cards: document.querySelectorAll(".card[data-id]").length, types: Array.from(document.querySelectorAll(".card[data-id]")).slice(0, 8).map((c) => c.getAttribute("data-type")) }));
 mark("home " + JSON.stringify(counts));
 mark("cards " + ids.join(","));

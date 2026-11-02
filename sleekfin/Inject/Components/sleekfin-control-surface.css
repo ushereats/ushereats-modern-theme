@@ -48,3 +48,25 @@ html.sleekfin-main-ui .MuiCheckbox-root:is(.Mui-checked, .MuiCheckbox-indetermin
 html.sleekfin-main-ui .MuiCheckbox-root:is(.Mui-checked, .MuiCheckbox-indeterminate):not(.Mui-disabled) > .MuiSvgIcon-root {
     background: linear-gradient(var(--sleekfin-surface), var(--sleekfin-surface)) center / 66.6667% 66.6667% no-repeat;
 }
+
+/* Buttons: clear glass like cinejoy.pk (a see-through pill with a fine light edge, the picture behind it
+   blurred), not the dark solid surface. Menus and panels keep the darker surface above so text stays easy to read. */
+.sleekfin-control-3d:is(button, a),
+html.sleekfin-main-ui .card[data-type] :is(button.cardOverlayButton) {
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    backdrop-filter: blur(16px) saturate(160%);
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.1);
+    color: #fff !important;
+}
+
+@media (hover: hover) {
+    .sleekfin-control-3d:is(button, a):hover,
+    html.sleekfin-main-ui .card[data-type] :is(button.cardOverlayButton):hover {
+        background: rgba(255, 255, 255, 0.18) !important;
+        border-color: rgba(255, 255, 255, 0.22) !important;
+        box-shadow: inset 0 1px rgba(255, 255, 255, 0.14);
+    }
+}
+

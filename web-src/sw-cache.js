@@ -108,7 +108,7 @@
 
   self.addEventListener("fetch", function (e) {
     var k = kind(e.request);
-    if (!k) return;
+    if (!k || k === "img" || k === "static") return;   // TEST: the browser's own cache for files
     var answer = k === "img" ? cacheFirst(e, IMG, MAX_IMG) : k === "static" ? cacheFirst(e, STATIC, MAX_STATIC) : k === "page" ? page(e) : config(e);
     // never let the cache stand between you and the page: any error goes to the network
     e.respondWith(answer["catch"](function () { return fetch(e.request); }));

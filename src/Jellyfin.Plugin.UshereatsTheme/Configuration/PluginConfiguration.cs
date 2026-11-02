@@ -52,7 +52,7 @@ public class PluginConfiguration : BasePluginConfiguration
     /// <summary>Gets or sets a value indicating whether page changes cross-fade (as on cinejoy.pk).</summary>
     public bool PageTransitions { get; set; } = true;
 
-    /// <summary>Gets or sets a value indicating whether files that never change (app, theme, fonts, pictures) are kept on each device.</summary>
+    /// <summary>Gets or sets a value indicating whether each device opens with the answers to Jellyfin's start-up requests from last time ("Quick start").</summary>
     public bool DeviceCache { get; set; } = true;
 
     // ── Settings ──

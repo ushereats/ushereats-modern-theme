@@ -1,9 +1,9 @@
 namespace Jellyfin.Plugin.UshereatsTheme;
 
 /// <summary>
-/// Adds the theme's device cache to the end of Jellyfin's own service worker (serviceworker.js): Jellyfin's app
-/// files, the theme's files, fonts and pictures are kept on each device, so opening the site doesn't wait for the
-/// network for them. Setting "Keep files on the device" off: the cache is emptied instead.
+/// Adds the theme's quick start to the end of Jellyfin's own service worker (serviceworker.js): the requests Jellyfin
+/// makes one after another before it draws anything are answered from the copy from last time (see sw-cache.js).
+/// Setting "Quick start" off: the kept copies are emptied instead.
 /// </summary>
 public static class ServiceWorkerPatch
 {

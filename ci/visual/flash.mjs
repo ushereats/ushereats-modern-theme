@@ -119,7 +119,8 @@ async function timed(pg, label) {
   const cdp = await pg.context().newCDPSession(pg);
   await cdp.send("Network.enable");
   await cdp.send("Network.emulateNetworkConditions", { offline: false, latency: 150, downloadThroughput: 2.5e6, uploadThroughput: 1e6 });
-  let dev = 0, net = 0; const on = (r) => { if (r.fromServiceWorker()) dev++; else net++; };
+  let dev = 0, net = 0; const tl = [], t00 = Date.now();
+  const on = (r) => { if (r.fromServiceWorker()) dev++; else net++; const u = r.url().replace(/^https?:\/\/[^/]+/, ""); if (!/\.(js|css|woff2?|png|svg|ico)(\?|$)/.test(u) && !/\/Images\//.test(u)) tl.push((Date.now() - t00) + "ms " + r.request().method() + " " + u.slice(0, 100) + (r.fromServiceWorker() ? " [device]" : "")); };
   pg.on("response", on);
   const t = Date.now();
   await pg.reload({ waitUntil: "commit" });
@@ -127,7 +128,7 @@ async function timed(pg, label) {
   await pg.waitForTimeout(3000);
   pg.off("response", on);
   await cdp.send("Network.emulateNetworkConditions", { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
-  return { label, firstPosterMs: firstPaint, fromDevice: dev, fromNetwork: net };
+  return { label, firstPosterMs: firstPaint, fromDevice: dev, fromNetwork: net, timeline: tl.slice(0, 50) };
 }
 await page.goto(s.server + "/web/index.html#/home", { waitUntil: "load" });
 await page.waitForTimeout(3000);

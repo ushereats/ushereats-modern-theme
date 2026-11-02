@@ -1,0 +1,400 @@
+Nov 02 03:26:42 runnervm48cm3 jellyfin[4936]: [03:26:42] [INF] Running post-scan task 6/9: MusicGenresPostScanTask
+Nov 02 03:26:42 runnervm48cm3 jellyfin[4936]: [03:26:42] [INF] Refreshed metadata for 2 new music genres out of 2 total
+Nov 02 03:26:42 runnervm48cm3 jellyfin[4936]: [03:26:42] [INF] Post-scan task MusicGenresPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 02 03:26:42 runnervm48cm3 jellyfin[4936]: [03:26:42] [INF] Running post-scan task 7/9: StudiosPostScanTask
+Nov 02 03:26:42 runnervm48cm3 jellyfin[4936]: [03:26:42] [INF] Refreshed metadata for 3 new studios out of 3 total
+Nov 02 03:26:42 runnervm48cm3 jellyfin[4936]: [03:26:42] [INF] Post-scan task StudiosPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 02 03:26:42 runnervm48cm3 jellyfin[4936]: [03:26:42] [INF] Running post-scan task 8/9: CleanDatabaseScheduledTask
+Nov 02 03:26:42 runnervm48cm3 jellyfin[4936]: [03:26:42] [INF] Post-scan task CleanDatabaseScheduledTask completed after 0 minute(s) and 0 seconds
+Nov 02 03:26:42 runnervm48cm3 jellyfin[4936]: [03:26:42] [INF] Running post-scan task 9/9: RefreshDatabaseStatisticsPostScanTask
+Nov 02 03:26:42 runnervm48cm3 jellyfin[4936]: [03:26:42] [INF] Analyzing jellyfin.db
+Nov 02 03:26:42 runnervm48cm3 jellyfin[4936]: [03:26:42] [INF] Post-scan task RefreshDatabaseStatisticsPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 02 03:26:42 runnervm48cm3 jellyfin[4936]: [03:26:42] [INF] All post-scan tasks completed after 0 minute(s) and 5 seconds
+Nov 02 03:26:42 runnervm48cm3 jellyfin[4936]: [03:26:42] [INF] Scan Media Library Completed after 0 minute(s) and 18 seconds
+Nov 02 03:26:44 runnervm48cm3 jellyfin[4936]: [03:26:44] [WRN] Library folder /var/lib/jellyfin/data/playlists is inaccessible or empty, skipping
+Nov 02 03:26:45 runnervm48cm3 jellyfin[4936]: [03:26:45] [INF] Validating media library
+Nov 02 03:26:45 runnervm48cm3 jellyfin[4936]: [03:26:45] [WRN] Library folder /var/lib/jellyfin/data/playlists is inaccessible or empty, skipping
+Nov 02 03:26:45 runnervm48cm3 jellyfin[4936]: [03:26:45] [WRN] Library folder /var/lib/jellyfin/data/playlists is inaccessible or empty, skipping
+Nov 02 03:26:45 runnervm48cm3 jellyfin[4936]: [03:26:45] [INF] Running 9 post-scan task(s)
+Nov 02 03:26:45 runnervm48cm3 jellyfin[4936]: [03:26:45] [INF] Running post-scan task 1/9: SplashscreenPostScanTask
+Nov 02 03:26:45 runnervm48cm3 systemd[1]: Stopping jellyfin.service - Jellyfin Media Server...
+Nov 02 03:26:45 runnervm48cm3 jellyfin[4936]: [03:26:45] [INF] Sending shutdown notifications
+Nov 02 03:26:45 runnervm48cm3 jellyfin[4936]: [03:26:45] [INF] Preparing the database for shutdown...
+Nov 02 03:26:45 runnervm48cm3 jellyfin[4936]: [03:26:45] [INF] Scan Media Library: Cancelling
+Nov 02 03:26:45 runnervm48cm3 jellyfin[4936]: [03:26:45] [INF] Scan Media Library: Waiting on Task
+Nov 02 03:26:47 runnervm48cm3 jellyfin[4936]: [03:26:47] [INF] Post-scan task SplashscreenPostScanTask completed after 0 minute(s) and 1 seconds
+Nov 02 03:26:47 runnervm48cm3 jellyfin[4936]: [03:26:47] [INF] Running post-scan task 2/9: ArtistsPostScanTask
+Nov 02 03:26:47 runnervm48cm3 jellyfin[4936]: [03:26:47] [INF] Refreshed metadata for 0 new artists out of 3 total
+Nov 02 03:26:47 runnervm48cm3 jellyfin[4936]: [03:26:47] [INF] Post-scan task ArtistsPostScanTask completed after 0 minute(s) and 0 seconds
+Nov 02 03:26:47 runnervm48cm3 jellyfin[4936]: [03:26:47] [INF] Running post-scan task 3/9: CollectionPosterVerifyPostScanTask
+Nov 02 03:26:47 runnervm48cm3 jellyfin[4936]: [03:26:47] [INF] Post-scan task CollectionPosterVerifyPostScanTask cancelled after 0 minute(s) and 0 seconds
+Nov 02 03:26:47 runnervm48cm3 jellyfin[4936]: [03:26:47] [INF] Scan Media Library Cancelled after 0 minute(s) and 2 seconds
+Nov 02 03:26:47 runnervm48cm3 jellyfin[4936]: [03:26:47] [INF] Scan Media Library: Task exited
+Nov 02 03:26:47 runnervm48cm3 jellyfin[4936]: [03:26:47] [INF] Scan Media Library Aborted after 0 minute(s) and 2 seconds
+Nov 02 03:26:47 runnervm48cm3 jellyfin[4936]: [03:26:47] [INF] Disposing CoreAppHost
+Nov 02 03:26:47 runnervm48cm3 jellyfin[4936]: [03:26:47] [INF] Disposing Plugin
+Nov 02 03:26:47 runnervm48cm3 systemd[1]: jellyfin.service: Deactivated successfully.
+Nov 02 03:26:47 runnervm48cm3 systemd[1]: Stopped jellyfin.service - Jellyfin Media Server.
+Nov 02 03:26:47 runnervm48cm3 systemd[1]: jellyfin.service: Consumed 34.503s CPU time.
+Nov 02 03:26:47 runnervm48cm3 systemd[1]: Started jellyfin.service - Jellyfin Media Server.
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Setting cache path: /var/cache/jellyfin
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Kestrel is listening on 0.0.0.0
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Jellyfin version: 12.4.0
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Environment Variables: ["[JELLYFIN_ADDITIONAL_OPTS, ]", "[JELLYFIN_NOWEBAPP_OPT, ]", "[JELLYFIN_FFMPEG_OPT, --ffmpeg=/usr/lib/jellyfin-ffmpeg/ffmpeg]", "[JELLYFIN_LOG_DIR, /var/log/jellyfin]", "[JELLYFIN_USER, jellyfin]", "[JELLYFIN_CACHE_DIR, /var/cache/jellyfin]", "[JELLYFIN_ARGS, $JELLYFIN_WEB_OPT $JELLYFIN_FFMPEG_OPT $JELLYFIN_SERVICE_OPT $JELLYFIN_NOWEBAPP_OPT $JELLYFIN_ADDITIONAL_OPTS --datadir $JELLYFIN_DATA_DIR --configdir $JELLYFIN_CONFIG_DIR --logdir $JELLYFIN_LOG_DIR --cachedir $JELLYFIN_CACHE_DIR]", "[JELLYFIN_DATA_DIR, /var/lib/jellyfin]", "[JELLYFIN_SERVICE_OPT, ]", "[JELLYFIN_WEB_OPT, --webdir=/usr/share/jellyfin/web]", "[JELLYFIN_CONFIG_DIR, /etc/jellyfin]"]
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Arguments: ["/usr/lib/jellyfin/bin/jellyfin.dll", "--webdir=/usr/share/jellyfin/web", "--ffmpeg=/usr/lib/jellyfin-ffmpeg/ffmpeg"]
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Operating system: Ubuntu 24.04.5 LTS
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Architecture: X64
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] 64-Bit Process: True
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] User Interactive: True
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Processor count: 4
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Program data path: /var/lib/jellyfin
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Log directory path: /var/log/jellyfin
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Config directory path: /etc/jellyfin
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Cache path: /var/cache/jellyfin
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Temp directory path: /tmp/jellyfin
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Web resources path: /usr/share/jellyfin/web
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Application directory: /usr/lib/jellyfin/bin/
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Storage path `/var/lib/jellyfin/data` (Fixed) successfully checked with 84.5GiB free which is over the minimum of 2GiB.
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Storage path `/var/cache/jellyfin` (Fixed) successfully checked with 84.5GiB free which is over the minimum of 2GiB.
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Storage path `/var/lib/jellyfin` (Fixed) successfully checked with 84.5GiB free which is over the minimum of 2GiB.
+Nov 02 03:26:47 runnervm48cm3 jellyfin[5593]: [03:26:47] [INF] Setting cache path: /var/cache/jellyfin
+Nov 02 03:26:48 runnervm48cm3 jellyfin[5593]: [03:26:48] [INF] SQLite connection string: Data Source=/var/lib/jellyfin/data/jellyfin.db;Cache=Private;Default Timeout=60;Pooling=True
+Nov 02 03:26:48 runnervm48cm3 jellyfin[5593]: [03:26:48] [INF] SQLITE connection pragma command set to:
+Nov 02 03:26:48 runnervm48cm3 jellyfin[5593]: PRAGMA locking_mode=NORMAL;
+Nov 02 03:26:48 runnervm48cm3 jellyfin[5593]: PRAGMA journal_size_limit=134217728;
+Nov 02 03:26:48 runnervm48cm3 jellyfin[5593]: PRAGMA synchronous=1;
+Nov 02 03:26:48 runnervm48cm3 jellyfin[5593]: PRAGMA temp_store=2;
+Nov 02 03:26:48 runnervm48cm3 jellyfin[5593]: [03:26:48] [INF] The database locking mode has been set to: NoLock.
+Nov 02 03:26:48 runnervm48cm3 jellyfin[5593]: [03:26:48] [INF] Initialise Migration service.
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Setting cache path: /var/cache/jellyfin
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Registering whitelisted assemblies for plugin "Ushereats Theme"...
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Loading assemblies
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Loaded assembly Jellyfin.Plugin.FileTransformation, Version=3.0.3.0, Culture=neutral, PublicKeyToken=null from /var/lib/jellyfin/plugins/FileTransformation_ci/Jellyfin.Plugin.FileTransformation.dll
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Loaded assembly Jellyfin.Plugin.UshereatsTheme, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null from /var/lib/jellyfin/plugins/UshereatsTheme_ci/Jellyfin.Plugin.UshereatsTheme.dll
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Defined LAN subnets: ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Defined LAN exclusions: []
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Used LAN subnets: ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Filtered interface addresses: ["127.0.0.1", "10.1.0.160"]
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Bind Addresses ["0.0.0.0"]
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Remote IP filter is Allowlist
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Filtered subnets: []
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] SQLite connection string: Data Source=/var/lib/jellyfin/data/jellyfin.db;Cache=Private;Default Timeout=60;Pooling=True
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] SQLITE connection pragma command set to:
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: PRAGMA locking_mode=NORMAL;
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: PRAGMA journal_size_limit=134217728;
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: PRAGMA synchronous=1;
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: PRAGMA temp_store=2;
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] The database locking mode has been set to: NoLock.
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Prepare system for possible migrations
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Loaded plugin: File Transformation 3.0.3.0
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Loaded plugin: Ushereats Theme 1.0.0.0
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Loaded plugin: TMDb 12.4.0.0
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Loaded plugin: Studio Images 12.4.0.0
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Loaded plugin: OMDb 12.4.0.0
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Loaded plugin: MusicBrainz 12.4.0.0
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Loaded plugin: ListenBrainz Similarity Provider 12.4.0.0
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Loaded plugin: AudioDB 12.4.0.0
+Nov 02 03:26:49 runnervm48cm3 jellyfin[5593]: [03:26:49] [INF] Registered 0 external search providers: . Fallback providers: Database (priority 100)
+Nov 02 03:26:50 runnervm48cm3 jellyfin[5593]: [03:26:50] [INF] Kestrel is listening on 0.0.0.0
+Nov 02 03:26:50 runnervm48cm3 jellyfin[5593]: [03:26:50] [INF] [FileTransformation] Installing response transformation middleware
+Nov 02 03:26:51 runnervm48cm3 jellyfin[5593]: [03:26:51] [INF] Running startup tasks
+Nov 02 03:26:51 runnervm48cm3 jellyfin[5593]: [03:26:51] [INF] Daily trigger for Generate Trickplay Images set to fire at 2026-11-03 03:00:00.000 +00:00, which is 23:33:08.6474119 from now.
+Nov 02 03:26:51 runnervm48cm3 jellyfin[5593]: [03:26:51] [INF] Daily trigger for Extract Chapter Images set to fire at 2026-11-03 02:00:00.000 +00:00, which is 22:33:08.6443252 from now.
+Nov 02 03:26:51 runnervm48cm3 jellyfin[5593]: [03:26:51] [INF] Found ffmpeg version 8.1.3
+Nov 02 03:26:51 runnervm48cm3 jellyfin[5593]: [03:26:51] [INF] Available decoders: ["libdav1d", "av1", "av1_cuvid", "av1_qsv", "h264", "h264_qsv", "h264_cuvid", "hevc", "hevc_qsv", "hevc_cuvid", "mpeg2video", "mpeg2_qsv", "mpeg2_cuvid", "mpeg4", "mpeg4_cuvid", "msmpeg4", "vc1_qsv", "vc1_cuvid", "vp8", "libvpx", "vp8_cuvid", "vp8_qsv", "vp9", "libvpx-vp9", "vp9_cuvid", "vp9_qsv", "aac", "ac3", "ac4", "dca", "flac", "mp3", "truehd"]
+Nov 02 03:26:51 runnervm48cm3 jellyfin[5593]: [03:26:51] [INF] Available encoders: ["libsvtav1", "av1_nvenc", "av1_qsv", "av1_amf", "av1_vaapi", "libx264", "h264_amf", "h264_nvenc", "h264_qsv", "h264_v4l2m2m", "h264_vaapi", "libx265", "hevc_amf", "hevc_nvenc", "hevc_qsv", "hevc_vaapi", "mjpeg_qsv", "mjpeg_vaapi", "aac", "libfdk_aac", "ac3", "alac", "dca", "flac", "libmp3lame", "libopus", "truehd", "libvorbis", "srt"]
+Nov 02 03:26:51 runnervm48cm3 jellyfin[5593]: [03:26:51] [INF] Available filters: ["bwdif_cuda", "bwdif_opencl", "deinterlace_qsv", "deinterlace_vaapi", "flip_vulkan", "hwupload_cuda", "hwupload_vaapi", "libplacebo", "overlay_opencl", "overlay_qsv", "overlay_vaapi", "overlay_vulkan", "overlay_cuda", "procamp_vaapi", "scale_cuda", "scale_opencl", "scale_qsv", "scale_vaapi", "scale_vulkan", "tonemapx", "tonemap_cuda", "tonemap_opencl", "tonemap_vaapi", "transpose_cuda", "transpose_opencl", "transpose_vaapi", "transpose_vulkan", "vpp_qsv", "yadif_cuda", "yadif_opencl", "zscale", "alphasrc"]
+Nov 02 03:26:51 runnervm48cm3 jellyfin[5593]: [03:26:51] [INF] Available hwaccel types: ["cuda", "vaapi", "qsv", "drm", "opencl", "vulkan", "amf"]
+Nov 02 03:26:53 runnervm48cm3 jellyfin[5593]: [03:26:53] [INF] FFmpeg: /usr/lib/jellyfin-ffmpeg/ffmpeg
+Nov 02 03:26:53 runnervm48cm3 jellyfin[5593]: [03:26:53] [INF] ServerId: c6fcdf5fca22467abe8beec8b79f1463
+Nov 02 03:26:53 runnervm48cm3 jellyfin[5593]: [03:26:53] [INF] Core startup complete
+Nov 02 03:26:53 runnervm48cm3 jellyfin[5593]: [03:26:53] [INF] Startup complete 0:00:05.6740116
+Nov 02 03:26:54 runnervm48cm3 jellyfin[5593]: [03:26:54] [INF] Clean Transcode Directory Completed after 0 minute(s) and 0 seconds
+Nov 02 03:26:54 runnervm48cm3 jellyfin[5593]: [03:26:54] [INF] [FileTransformation] Registering transformation for 'index.html' (ID: fc34dcce-8a8a-4ac4-a7ae-fdbdc6589563)
+Nov 02 03:26:54 runnervm48cm3 jellyfin[5593]: [03:26:54] [INF] [FileTransformation] Registering transformation for 'serviceworker.js' (ID: 6b1d3e0a-4f2c-4c8e-9d61-2a7f0b5e9c13)
+Nov 02 03:26:54 runnervm48cm3 jellyfin[5593]: [03:26:54] [INF] Update Plugins Completed after 0 minute(s) and 0 seconds
+Nov 02 03:26:55 runnervm48cm3 jellyfin[5593]: [03:26:55] [INF] [Ushereats Theme] Registered with File Transformation.
+Nov 02 03:26:55 runnervm48cm3 jellyfin[5593]: [03:26:55] [INF] Ushereats Theme Startup Completed after 0 minute(s) and 1 seconds
+Nov 02 03:27:06 runnervm48cm3 jellyfin[5593]: [03:27:06] [INF] WS 127.0.0.1 request
+Nov 02 03:27:07 runnervm48cm3 jellyfin[5593]: [03:27:07] [INF] WS 127.0.0.1 closed
+Nov 02 03:27:08 runnervm48cm3 jellyfin[5593]: [03:27:08] [INF] WS 127.0.0.1 request
+Nov 02 03:27:41 runnervm48cm3 jellyfin[5593]: [03:27:41] [INF] WS 127.0.0.1 closed
+Nov 02 03:27:41 runnervm48cm3 jellyfin[5593]: [03:27:41] [INF] WS 127.0.0.1 request
+Nov 02 03:27:45 runnervm48cm3 jellyfin[5593]: [03:27:45] [INF] WS 127.0.0.1 closed
+Nov 02 03:27:45 runnervm48cm3 jellyfin[5593]: [03:27:45] [INF] WS 127.0.0.1 request
+Nov 02 03:27:51 runnervm48cm3 jellyfin[5593]: [03:27:51] [INF] WS 127.0.0.1 closed
+Nov 02 03:27:52 runnervm48cm3 jellyfin[5593]: [03:27:52] [INF] WS 127.0.0.1 request
+Nov 02 03:27:58 runnervm48cm3 jellyfin[5593]: [03:27:58] [INF] WS 127.0.0.1 closed
+Nov 02 03:27:58 runnervm48cm3 jellyfin[5593]: [03:27:58] [INF] WS 127.0.0.1 request
+Nov 02 03:28:04 runnervm48cm3 jellyfin[5593]: [03:28:04] [INF] WS 127.0.0.1 closed
+Nov 02 03:28:04 runnervm48cm3 jellyfin[5593]: [03:28:04] [INF] WS 127.0.0.1 request
+Nov 02 03:28:08 runnervm48cm3 jellyfin[5593]: [03:28:08] [INF] WS 127.0.0.1 closed
+Nov 02 03:28:08 runnervm48cm3 jellyfin[5593]: [03:28:08] [INF] WS 127.0.0.1 request
+Nov 02 03:28:14 runnervm48cm3 jellyfin[5593]: [03:28:14] [INF] WS 127.0.0.1 closed
+Nov 02 03:28:14 runnervm48cm3 jellyfin[5593]: [03:28:14] [INF] WS 127.0.0.1 request
+Nov 02 03:28:20 runnervm48cm3 jellyfin[5593]: [03:28:20] [INF] WS 127.0.0.1 closed
+Nov 02 03:28:20 runnervm48cm3 jellyfin[5593]: [03:28:20] [INF] WS 127.0.0.1 request
+Nov 02 03:28:25 runnervm48cm3 jellyfin[5593]: [03:28:25] [INF] WS 127.0.0.1 closed
+Nov 02 03:28:26 runnervm48cm3 jellyfin[5593]: [03:28:26] [INF] WS 127.0.0.1 request
+Nov 02 03:28:31 runnervm48cm3 jellyfin[5593]: [03:28:31] [INF] WS 127.0.0.1 closed
+Nov 02 03:28:31 runnervm48cm3 jellyfin[5593]: [03:28:31] [INF] WS 127.0.0.1 request
+Nov 02 03:28:44 runnervm48cm3 jellyfin[5593]: [03:28:44] [INF] WS 127.0.0.1 request
+Nov 02 03:30:10 runnervm48cm3 jellyfin[5593]: [03:30:10] [INF] WS 127.0.0.1 closed
+Nov 02 03:30:11 runnervm48cm3 jellyfin[5593]: [03:30:11] [INF] User ci started playback of 'Glass Harbour' (CI Player 1.0)
+Nov 02 03:30:12 runnervm48cm3 jellyfin[5593]: [03:30:12] [INF] WS 127.0.0.1 closed
+Nov 02 03:30:12 runnervm48cm3 jellyfin[5593]: [03:30:12] [INF] WS 127.0.0.1 request
+Nov 02 03:30:18 runnervm48cm3 jellyfin[5593]: [03:30:18] [INF] WS 127.0.0.1 closed
+Nov 02 03:30:19 runnervm48cm3 jellyfin[5593]: [03:30:19] [INF] WS 127.0.0.1 request
+Nov 02 03:30:20 runnervm48cm3 jellyfin[5593]: [03:30:20] [INF] WS 127.0.0.1 closed
+Nov 02 03:30:20 runnervm48cm3 jellyfin[5593]: [03:30:20] [INF] WS 127.0.0.1 request
+Nov 02 03:30:27 runnervm48cm3 jellyfin[5593]: [03:30:27] [INF] WS 127.0.0.1 closed
+Nov 02 03:30:27 runnervm48cm3 jellyfin[5593]: [03:30:27] [INF] WS 127.0.0.1 request
+Nov 02 03:30:30 runnervm48cm3 jellyfin[5593]: [03:30:30] [INF] WS 127.0.0.1 closed
+Nov 02 03:30:30 runnervm48cm3 jellyfin[5593]: [03:30:30] [INF] WS 127.0.0.1 request
+Nov 02 03:30:36 runnervm48cm3 jellyfin[5593]: [03:30:36] [INF] WS 127.0.0.1 closed
+Nov 02 03:30:36 runnervm48cm3 jellyfin[5593]: [03:30:36] [INF] WS 127.0.0.1 request
+Nov 02 03:30:41 runnervm48cm3 jellyfin[5593]: [03:30:41] [INF] WS 127.0.0.1 closed
+Nov 02 03:30:42 runnervm48cm3 jellyfin[5593]: [03:30:42] [INF] WS 127.0.0.1 request
+Nov 02 03:30:47 runnervm48cm3 jellyfin[5593]: [03:30:47] [INF] WS 127.0.0.1 closed
+Nov 02 03:30:47 runnervm48cm3 jellyfin[5593]: [03:30:47] [INF] WS 127.0.0.1 request
+Nov 02 03:30:49 runnervm48cm3 jellyfin[5593]: [03:30:49] [INF] WS 127.0.0.1 closed
+Nov 02 03:30:50 runnervm48cm3 jellyfin[5593]: [03:30:50] [INF] WS 127.0.0.1 request
+Nov 02 03:30:55 runnervm48cm3 jellyfin[5593]: [03:30:55] [INF] WS 127.0.0.1 closed
+Nov 02 03:30:55 runnervm48cm3 jellyfin[5593]: [03:30:55] [INF] WS 127.0.0.1 request
+Nov 02 03:31:00 runnervm48cm3 jellyfin[5593]: [03:31:00] [INF] WS 127.0.0.1 closed
+Nov 02 03:31:01 runnervm48cm3 jellyfin[5593]: [03:31:01] [INF] WS 127.0.0.1 request
+Nov 02 03:31:06 runnervm48cm3 jellyfin[5593]: [03:31:06] [INF] WS 127.0.0.1 closed
+Nov 02 03:31:06 runnervm48cm3 jellyfin[5593]: [03:31:06] [INF] WS 127.0.0.1 request
+Nov 02 03:31:11 runnervm48cm3 jellyfin[5593]: [03:31:11] [INF] WS 127.0.0.1 closed
+Nov 02 03:31:11 runnervm48cm3 jellyfin[5593]: [03:31:11] [INF] WS 127.0.0.1 request
+Nov 02 03:31:16 runnervm48cm3 jellyfin[5593]: [03:31:16] [INF] User ci started playback of 'Glass Harbour' (CI Player 1.0)
+Nov 02 03:31:17 runnervm48cm3 jellyfin[5593]: [03:31:17] [INF] WS 127.0.0.1 closed
+Nov 02 03:31:17 runnervm48cm3 jellyfin[5593]: [03:31:17] [INF] WS 127.0.0.1 request
+Nov 02 03:31:22 runnervm48cm3 jellyfin[5593]: [03:31:22] [INF] WS 127.0.0.1 closed
+Nov 02 03:31:23 runnervm48cm3 jellyfin[5593]: [03:31:23] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:31:23 runnervm48cm3 jellyfin[5593]: [03:31:23] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:31:28 runnervm48cm3 jellyfin[5593]: [03:31:28] [INF] WS 127.0.0.1 request
+Nov 02 03:31:59 runnervm48cm3 jellyfin[5593]: [03:31:59] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:31:59 runnervm48cm3 jellyfin[5593]: [03:31:59] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:31:59 runnervm48cm3 jellyfin[5593]: [03:31:59] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:31:59 runnervm48cm3 jellyfin[5593]: [03:31:59] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:31:59 runnervm48cm3 jellyfin[5593]: [03:31:59] [INF] User ci stopped playback of 'Chapter 3' at 0ms (Jellyfin Web 12.4.0)
+Nov 02 03:32:13 runnervm48cm3 jellyfin[5593]: [03:32:13] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:32:13 runnervm48cm3 jellyfin[5593]: [03:32:13] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:32:17 runnervm48cm3 jellyfin[5593]: [03:32:17] [INF] WS 127.0.0.1 closed
+Nov 02 03:32:18 runnervm48cm3 jellyfin[5593]: [03:32:18] [INF] WS 127.0.0.1 request
+Nov 02 03:32:49 runnervm48cm3 jellyfin[5593]: [03:32:49] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:32:49 runnervm48cm3 jellyfin[5593]: [03:32:49] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:32:49 runnervm48cm3 jellyfin[5593]: [03:32:49] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:32:49 runnervm48cm3 jellyfin[5593]: [03:32:49] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:32:49 runnervm48cm3 jellyfin[5593]: [03:32:49] [INF] User ci stopped playback of 'Chapter 3' at 0ms (Jellyfin Web 12.4.0)
+Nov 02 03:33:03 runnervm48cm3 jellyfin[5593]: [03:33:03] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:33:03 runnervm48cm3 jellyfin[5593]: [03:33:03] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:33:08 runnervm48cm3 jellyfin[5593]: [03:33:08] [INF] WS 127.0.0.1 closed
+Nov 02 03:33:08 runnervm48cm3 jellyfin[5593]: [03:33:08] [INF] WS 127.0.0.1 request
+Nov 02 03:33:39 runnervm48cm3 jellyfin[5593]: [03:33:39] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:33:39 runnervm48cm3 jellyfin[5593]: [03:33:39] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "2e6b28c2536e808f017cfbe26980e6a7-1.mp4" -start_number 0 -hls_segment_filename "/var/cache/jellyfin/transcodes/2e6b28c2536e808f017cfbe26980e6a7%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/2e6b28c2536e808f017cfbe26980e6a7.m3u8"
+Nov 02 03:33:39 runnervm48cm3 jellyfin[5593]: [03:33:39] [INF] FFmpeg exited with code 0
+Nov 02 03:33:39 runnervm48cm3 jellyfin[5593]: [03:33:39] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G -ss 00:00:00.000  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "2e6b28c2536e808f017cfbe26980e6a7-1.mp4" -start_number 1 -hls_segment_filename "/var/cache/jellyfin/transcodes/2e6b28c2536e808f017cfbe26980e6a7%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/2e6b28c2536e808f017cfbe26980e6a7.m3u8"
+Nov 02 03:33:39 runnervm48cm3 jellyfin[5593]: [03:33:39] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:33:40 runnervm48cm3 jellyfin[5593]: [03:33:40] [INF] FFmpeg exited with code 0
+Nov 02 03:33:42 runnervm48cm3 jellyfin[5593]: [03:33:42] [INF] Deleting partial stream file(s) /var/cache/jellyfin/transcodes/2e6b28c2536e808f017cfbe26980e6a7.m3u8
+Nov 02 03:33:44 runnervm48cm3 jellyfin[5593]: [03:33:44] [INF] User ci stopped playback of 'Chapter 3' at 1700ms (Jellyfin Web 12.4.0)
+Nov 02 03:33:53 runnervm48cm3 jellyfin[5593]: [03:33:53] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:33:53 runnervm48cm3 jellyfin[5593]: [03:33:53] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:33:57 runnervm48cm3 jellyfin[5593]: [03:33:57] [INF] WS 127.0.0.1 closed
+Nov 02 03:33:58 runnervm48cm3 jellyfin[5593]: [03:33:58] [INF] WS 127.0.0.1 request
+Nov 02 03:34:28 runnervm48cm3 jellyfin[5593]: [03:34:28] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:34:28 runnervm48cm3 jellyfin[5593]: [03:34:28] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "99d0aaa9a3500c2fe124f980ac36113b-1.mp4" -start_number 0 -hls_segment_filename "/var/cache/jellyfin/transcodes/99d0aaa9a3500c2fe124f980ac36113b%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/99d0aaa9a3500c2fe124f980ac36113b.m3u8"
+Nov 02 03:34:29 runnervm48cm3 jellyfin[5593]: [03:34:29] [INF] FFmpeg exited with code 0
+Nov 02 03:34:29 runnervm48cm3 jellyfin[5593]: [03:34:29] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G -ss 00:00:00.000  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "99d0aaa9a3500c2fe124f980ac36113b-1.mp4" -start_number 1 -hls_segment_filename "/var/cache/jellyfin/transcodes/99d0aaa9a3500c2fe124f980ac36113b%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/99d0aaa9a3500c2fe124f980ac36113b.m3u8"
+Nov 02 03:34:29 runnervm48cm3 jellyfin[5593]: [03:34:29] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:34:29 runnervm48cm3 jellyfin[5593]: [03:34:29] [INF] FFmpeg exited with code 0
+Nov 02 03:34:31 runnervm48cm3 jellyfin[5593]: [03:34:31] [INF] Deleting partial stream file(s) /var/cache/jellyfin/transcodes/99d0aaa9a3500c2fe124f980ac36113b.m3u8
+Nov 02 03:34:33 runnervm48cm3 jellyfin[5593]: [03:34:33] [INF] User ci stopped playback of 'Chapter 3' at 1700ms (Jellyfin Web 12.4.0)
+Nov 02 03:34:42 runnervm48cm3 jellyfin[5593]: [03:34:42] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:34:42 runnervm48cm3 jellyfin[5593]: [03:34:42] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:34:46 runnervm48cm3 jellyfin[5593]: [03:34:46] [INF] WS 127.0.0.1 closed
+Nov 02 03:34:47 runnervm48cm3 jellyfin[5593]: [03:34:47] [INF] WS 127.0.0.1 request
+Nov 02 03:35:19 runnervm48cm3 jellyfin[5593]: [03:35:19] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:35:19 runnervm48cm3 jellyfin[5593]: [03:35:19] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:35:19 runnervm48cm3 jellyfin[5593]: [03:35:19] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:35:19 runnervm48cm3 jellyfin[5593]: [03:35:19] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:35:19 runnervm48cm3 jellyfin[5593]: [03:35:19] [INF] User ci stopped playback of 'Chapter 3' at 0ms (Jellyfin Web 12.4.0)
+Nov 02 03:35:34 runnervm48cm3 jellyfin[5593]: [03:35:34] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:35:34 runnervm48cm3 jellyfin[5593]: [03:35:34] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:35:39 runnervm48cm3 jellyfin[5593]: [03:35:39] [INF] WS 127.0.0.1 closed
+Nov 02 03:35:39 runnervm48cm3 jellyfin[5593]: [03:35:39] [INF] WS 127.0.0.1 request
+Nov 02 03:36:11 runnervm48cm3 jellyfin[5593]: [03:36:11] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:36:11 runnervm48cm3 jellyfin[5593]: [03:36:11] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:36:11 runnervm48cm3 jellyfin[5593]: [03:36:11] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:36:12 runnervm48cm3 jellyfin[5593]: [03:36:12] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:36:12 runnervm48cm3 jellyfin[5593]: [03:36:12] [INF] User ci stopped playback of 'Chapter 3' at 0ms (Jellyfin Web 12.4.0)
+Nov 02 03:36:26 runnervm48cm3 jellyfin[5593]: [03:36:26] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:36:26 runnervm48cm3 jellyfin[5593]: [03:36:26] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:36:30 runnervm48cm3 jellyfin[5593]: [03:36:30] [INF] WS 127.0.0.1 closed
+Nov 02 03:36:31 runnervm48cm3 jellyfin[5593]: [03:36:31] [INF] WS 127.0.0.1 request
+Nov 02 03:36:59 runnervm48cm3 jellyfin[5593]: [03:36:59] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:36:59 runnervm48cm3 jellyfin[5593]: [03:36:59] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "7391da793f554813a14c2bda6bdce3ef-1.mp4" -start_number 0 -hls_segment_filename "/var/cache/jellyfin/transcodes/7391da793f554813a14c2bda6bdce3ef%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/7391da793f554813a14c2bda6bdce3ef.m3u8"
+Nov 02 03:36:59 runnervm48cm3 jellyfin[5593]: [03:36:59] [INF] FFmpeg exited with code 0
+Nov 02 03:36:59 runnervm48cm3 jellyfin[5593]: [03:36:59] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G -ss 00:00:00.000  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "7391da793f554813a14c2bda6bdce3ef-1.mp4" -start_number 1 -hls_segment_filename "/var/cache/jellyfin/transcodes/7391da793f554813a14c2bda6bdce3ef%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/7391da793f554813a14c2bda6bdce3ef.m3u8"
+Nov 02 03:36:59 runnervm48cm3 jellyfin[5593]: [03:36:59] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:37:00 runnervm48cm3 jellyfin[5593]: [03:37:00] [INF] FFmpeg exited with code 0
+Nov 02 03:37:02 runnervm48cm3 jellyfin[5593]: [03:37:02] [INF] Deleting partial stream file(s) /var/cache/jellyfin/transcodes/7391da793f554813a14c2bda6bdce3ef.m3u8
+Nov 02 03:37:03 runnervm48cm3 jellyfin[5593]: [03:37:03] [INF] User ci stopped playback of 'Chapter 3' at 1917ms (Jellyfin Web 12.4.0)
+Nov 02 03:37:12 runnervm48cm3 jellyfin[5593]: [03:37:12] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:37:13 runnervm48cm3 jellyfin[5593]: [03:37:13] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:37:17 runnervm48cm3 jellyfin[5593]: [03:37:17] [INF] WS 127.0.0.1 closed
+Nov 02 03:37:17 runnervm48cm3 jellyfin[5593]: [03:37:17] [INF] WS 127.0.0.1 request
+Nov 02 03:38:03 runnervm48cm3 jellyfin[5593]: [03:38:03] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:38:03 runnervm48cm3 jellyfin[5593]: [03:38:03] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:38:03 runnervm48cm3 jellyfin[5593]: [03:38:03] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:38:03 runnervm48cm3 jellyfin[5593]: [03:38:03] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:38:03 runnervm48cm3 jellyfin[5593]: [03:38:03] [INF] User ci stopped playback of 'Chapter 3' at 0ms (Jellyfin Web 12.4.0)
+Nov 02 03:38:17 runnervm48cm3 jellyfin[5593]: [03:38:17] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:38:17 runnervm48cm3 jellyfin[5593]: [03:38:17] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:38:21 runnervm48cm3 jellyfin[5593]: [03:38:21] [INF] WS 127.0.0.1 closed
+Nov 02 03:38:22 runnervm48cm3 jellyfin[5593]: [03:38:22] [INF] WS 127.0.0.1 request
+Nov 02 03:39:06 runnervm48cm3 jellyfin[5593]: [03:39:06] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:39:06 runnervm48cm3 jellyfin[5593]: [03:39:06] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:39:06 runnervm48cm3 jellyfin[5593]: [03:39:06] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:39:06 runnervm48cm3 jellyfin[5593]: [03:39:06] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:39:06 runnervm48cm3 jellyfin[5593]: [03:39:06] [INF] User ci stopped playback of 'Chapter 3' at 0ms (Jellyfin Web 12.4.0)
+Nov 02 03:39:19 runnervm48cm3 jellyfin[5593]: [03:39:19] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:39:19 runnervm48cm3 jellyfin[5593]: [03:39:19] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:39:23 runnervm48cm3 jellyfin[5593]: [03:39:23] [INF] WS 127.0.0.1 closed
+Nov 02 03:39:23 runnervm48cm3 jellyfin[5593]: [03:39:23] [INF] WS 127.0.0.1 request
+Nov 02 03:40:09 runnervm48cm3 jellyfin[5593]: [03:40:09] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:40:09 runnervm48cm3 jellyfin[5593]: [03:40:09] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:40:09 runnervm48cm3 jellyfin[5593]: [03:40:09] [INF] User ci stopped playback of 'Chapter 3' at 0ms (Jellyfin Web 12.4.0)
+Nov 02 03:40:11 runnervm48cm3 jellyfin[5593]: [03:40:11] [INF] User ci stopped playback of 'Glass Harbour' at 1200000ms (CI Player 1.0)
+Nov 02 03:40:23 runnervm48cm3 jellyfin[5593]: [03:40:23] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:40:23 runnervm48cm3 jellyfin[5593]: [03:40:23] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:40:27 runnervm48cm3 jellyfin[5593]: [03:40:27] [INF] WS 127.0.0.1 closed
+Nov 02 03:40:28 runnervm48cm3 jellyfin[5593]: [03:40:28] [INF] WS 127.0.0.1 request
+Nov 02 03:41:13 runnervm48cm3 jellyfin[5593]: [03:41:13] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:41:14 runnervm48cm3 jellyfin[5593]: [03:41:14] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:41:14 runnervm48cm3 jellyfin[5593]: [03:41:14] [INF] User ci stopped playback of 'Chapter 3' at 0ms (Jellyfin Web 12.4.0)
+Nov 02 03:41:27 runnervm48cm3 jellyfin[5593]: [03:41:27] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:41:27 runnervm48cm3 jellyfin[5593]: [03:41:27] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:41:31 runnervm48cm3 jellyfin[5593]: [03:41:31] [INF] WS 127.0.0.1 closed
+Nov 02 03:41:32 runnervm48cm3 jellyfin[5593]: [03:41:32] [INF] WS 127.0.0.1 request
+Nov 02 03:42:05 runnervm48cm3 jellyfin[5593]: [03:42:05] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:42:06 runnervm48cm3 jellyfin[5593]: [03:42:06] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "5cfa0916939c86f4000baeb854fa4005-1.mp4" -start_number 0 -hls_segment_filename "/var/cache/jellyfin/transcodes/5cfa0916939c86f4000baeb854fa4005%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/5cfa0916939c86f4000baeb854fa4005.m3u8"
+Nov 02 03:42:06 runnervm48cm3 jellyfin[5593]: [03:42:06] [INF] FFmpeg exited with code 0
+Nov 02 03:42:06 runnervm48cm3 jellyfin[5593]: [03:42:06] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G -ss 00:00:00.000  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "5cfa0916939c86f4000baeb854fa4005-1.mp4" -start_number 1 -hls_segment_filename "/var/cache/jellyfin/transcodes/5cfa0916939c86f4000baeb854fa4005%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/5cfa0916939c86f4000baeb854fa4005.m3u8"
+Nov 02 03:42:06 runnervm48cm3 jellyfin[5593]: [03:42:06] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:42:07 runnervm48cm3 jellyfin[5593]: [03:42:07] [INF] FFmpeg exited with code 0
+Nov 02 03:42:09 runnervm48cm3 jellyfin[5593]: [03:42:09] [INF] Deleting partial stream file(s) /var/cache/jellyfin/transcodes/5cfa0916939c86f4000baeb854fa4005.m3u8
+Nov 02 03:42:10 runnervm48cm3 jellyfin[5593]: [03:42:10] [INF] User ci stopped playback of 'Chapter 3' at 1923ms (Jellyfin Web 12.4.0)
+Nov 02 03:42:19 runnervm48cm3 jellyfin[5593]: [03:42:19] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:42:19 runnervm48cm3 jellyfin[5593]: [03:42:19] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:42:23 runnervm48cm3 jellyfin[5593]: [03:42:23] [INF] WS 127.0.0.1 closed
+Nov 02 03:42:24 runnervm48cm3 jellyfin[5593]: [03:42:24] [INF] WS 127.0.0.1 request
+Nov 02 03:43:00 runnervm48cm3 jellyfin[5593]: [03:43:00] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:43:00 runnervm48cm3 jellyfin[5593]: [03:43:00] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "9c6a583d994a0e153bf0f48c958337d8-1.mp4" -start_number 0 -hls_segment_filename "/var/cache/jellyfin/transcodes/9c6a583d994a0e153bf0f48c958337d8%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/9c6a583d994a0e153bf0f48c958337d8.m3u8"
+Nov 02 03:43:01 runnervm48cm3 jellyfin[5593]: [03:43:01] [INF] FFmpeg exited with code 0
+Nov 02 03:43:01 runnervm48cm3 jellyfin[5593]: [03:43:01] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G -ss 00:00:00.000  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "9c6a583d994a0e153bf0f48c958337d8-1.mp4" -start_number 1 -hls_segment_filename "/var/cache/jellyfin/transcodes/9c6a583d994a0e153bf0f48c958337d8%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/9c6a583d994a0e153bf0f48c958337d8.m3u8"
+Nov 02 03:43:01 runnervm48cm3 jellyfin[5593]: [03:43:01] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:43:01 runnervm48cm3 jellyfin[5593]: [03:43:01] [INF] FFmpeg exited with code 0
+Nov 02 03:43:03 runnervm48cm3 jellyfin[5593]: [03:43:03] [INF] Deleting partial stream file(s) /var/cache/jellyfin/transcodes/9c6a583d994a0e153bf0f48c958337d8.m3u8
+Nov 02 03:43:05 runnervm48cm3 jellyfin[5593]: [03:43:05] [INF] User ci stopped playback of 'Chapter 3' at 1938ms (Jellyfin Web 12.4.0)
+Nov 02 03:43:14 runnervm48cm3 jellyfin[5593]: [03:43:14] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:43:15 runnervm48cm3 jellyfin[5593]: [03:43:15] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:43:19 runnervm48cm3 jellyfin[5593]: [03:43:19] [INF] WS 127.0.0.1 closed
+Nov 02 03:43:20 runnervm48cm3 jellyfin[5593]: [03:43:20] [INF] WS 127.0.0.1 request
+Nov 02 03:43:54 runnervm48cm3 jellyfin[5593]: [03:43:54] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:43:55 runnervm48cm3 jellyfin[5593]: [03:43:55] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "c04ee251ef6afc3d066af5e29abadbaa-1.mp4" -start_number 0 -hls_segment_filename "/var/cache/jellyfin/transcodes/c04ee251ef6afc3d066af5e29abadbaa%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/c04ee251ef6afc3d066af5e29abadbaa.m3u8"
+Nov 02 03:43:55 runnervm48cm3 jellyfin[5593]: [03:43:55] [INF] FFmpeg exited with code 0
+Nov 02 03:43:55 runnervm48cm3 jellyfin[5593]: [03:43:55] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G -ss 00:00:00.000  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "c04ee251ef6afc3d066af5e29abadbaa-1.mp4" -start_number 1 -hls_segment_filename "/var/cache/jellyfin/transcodes/c04ee251ef6afc3d066af5e29abadbaa%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/c04ee251ef6afc3d066af5e29abadbaa.m3u8"
+Nov 02 03:43:55 runnervm48cm3 jellyfin[5593]: [03:43:55] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:43:56 runnervm48cm3 jellyfin[5593]: [03:43:56] [INF] FFmpeg exited with code 0
+Nov 02 03:43:57 runnervm48cm3 jellyfin[5593]: [03:43:57] [INF] Deleting partial stream file(s) /var/cache/jellyfin/transcodes/c04ee251ef6afc3d066af5e29abadbaa.m3u8
+Nov 02 03:43:59 runnervm48cm3 jellyfin[5593]: [03:43:59] [INF] User ci stopped playback of 'Chapter 3' at 1963ms (Jellyfin Web 12.4.0)
+Nov 02 03:44:08 runnervm48cm3 jellyfin[5593]: [03:44:08] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:44:08 runnervm48cm3 jellyfin[5593]: [03:44:08] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:44:12 runnervm48cm3 jellyfin[5593]: [03:44:12] [INF] WS 127.0.0.1 closed
+Nov 02 03:44:13 runnervm48cm3 jellyfin[5593]: [03:44:13] [INF] WS 127.0.0.1 request
+Nov 02 03:44:46 runnervm48cm3 jellyfin[5593]: [03:44:46] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:44:47 runnervm48cm3 jellyfin[5593]: [03:44:47] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "31b9d1884845582615fcb189dd481db2-1.mp4" -start_number 0 -hls_segment_filename "/var/cache/jellyfin/transcodes/31b9d1884845582615fcb189dd481db2%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/31b9d1884845582615fcb189dd481db2.m3u8"
+Nov 02 03:44:47 runnervm48cm3 jellyfin[5593]: [03:44:47] [INF] FFmpeg exited with code 0
+Nov 02 03:44:47 runnervm48cm3 jellyfin[5593]: [03:44:47] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G -ss 00:00:00.000  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "31b9d1884845582615fcb189dd481db2-1.mp4" -start_number 1 -hls_segment_filename "/var/cache/jellyfin/transcodes/31b9d1884845582615fcb189dd481db2%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/31b9d1884845582615fcb189dd481db2.m3u8"
+Nov 02 03:44:47 runnervm48cm3 jellyfin[5593]: [03:44:47] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:44:48 runnervm48cm3 jellyfin[5593]: [03:44:48] [INF] FFmpeg exited with code 0
+Nov 02 03:44:50 runnervm48cm3 jellyfin[5593]: [03:44:50] [INF] Deleting partial stream file(s) /var/cache/jellyfin/transcodes/31b9d1884845582615fcb189dd481db2.m3u8
+Nov 02 03:44:51 runnervm48cm3 jellyfin[5593]: [03:44:51] [INF] User ci stopped playback of 'Chapter 3' at 1926ms (Jellyfin Web 12.4.0)
+Nov 02 03:45:00 runnervm48cm3 jellyfin[5593]: [03:45:00] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:45:00 runnervm48cm3 jellyfin[5593]: [03:45:00] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:45:03 runnervm48cm3 jellyfin[5593]: [03:45:03] [INF] WS 127.0.0.1 closed
+Nov 02 03:45:04 runnervm48cm3 jellyfin[5593]: [03:45:04] [INF] WS 127.0.0.1 request
+Nov 02 03:45:38 runnervm48cm3 jellyfin[5593]: [03:45:38] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:45:38 runnervm48cm3 jellyfin[5593]: [03:45:38] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "1294aa54f1b8087635b0f0bd14c0f567-1.mp4" -start_number 0 -hls_segment_filename "/var/cache/jellyfin/transcodes/1294aa54f1b8087635b0f0bd14c0f567%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/1294aa54f1b8087635b0f0bd14c0f567.m3u8"
+Nov 02 03:45:38 runnervm48cm3 jellyfin[5593]: [03:45:38] [INF] FFmpeg exited with code 0
+Nov 02 03:45:38 runnervm48cm3 jellyfin[5593]: [03:45:38] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G -ss 00:00:00.000  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "1294aa54f1b8087635b0f0bd14c0f567-1.mp4" -start_number 1 -hls_segment_filename "/var/cache/jellyfin/transcodes/1294aa54f1b8087635b0f0bd14c0f567%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/1294aa54f1b8087635b0f0bd14c0f567.m3u8"
+Nov 02 03:45:38 runnervm48cm3 jellyfin[5593]: [03:45:38] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:45:39 runnervm48cm3 jellyfin[5593]: [03:45:39] [INF] FFmpeg exited with code 0
+Nov 02 03:45:41 runnervm48cm3 jellyfin[5593]: [03:45:41] [INF] Deleting partial stream file(s) /var/cache/jellyfin/transcodes/1294aa54f1b8087635b0f0bd14c0f567.m3u8
+Nov 02 03:45:42 runnervm48cm3 jellyfin[5593]: [03:45:42] [INF] User ci stopped playback of 'Chapter 3' at 1961ms (Jellyfin Web 12.4.0)
+Nov 02 03:45:51 runnervm48cm3 jellyfin[5593]: [03:45:51] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:45:51 runnervm48cm3 jellyfin[5593]: [03:45:51] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:45:55 runnervm48cm3 jellyfin[5593]: [03:45:55] [INF] WS 127.0.0.1 closed
+Nov 02 03:45:56 runnervm48cm3 jellyfin[5593]: [03:45:56] [INF] WS 127.0.0.1 request
+Nov 02 03:46:29 runnervm48cm3 jellyfin[5593]: [03:46:29] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:46:30 runnervm48cm3 jellyfin[5593]: [03:46:30] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "43e2d64346543ed3759356649577914c-1.mp4" -start_number 0 -hls_segment_filename "/var/cache/jellyfin/transcodes/43e2d64346543ed3759356649577914c%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/43e2d64346543ed3759356649577914c.m3u8"
+Nov 02 03:46:30 runnervm48cm3 jellyfin[5593]: [03:46:30] [INF] FFmpeg exited with code 0
+Nov 02 03:46:30 runnervm48cm3 jellyfin[5593]: [03:46:30] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G -ss 00:00:00.000  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "43e2d64346543ed3759356649577914c-1.mp4" -start_number 1 -hls_segment_filename "/var/cache/jellyfin/transcodes/43e2d64346543ed3759356649577914c%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/43e2d64346543ed3759356649577914c.m3u8"
+Nov 02 03:46:30 runnervm48cm3 jellyfin[5593]: [03:46:30] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:46:30 runnervm48cm3 jellyfin[5593]: [03:46:30] [INF] FFmpeg exited with code 0
+Nov 02 03:46:32 runnervm48cm3 jellyfin[5593]: [03:46:32] [INF] Deleting partial stream file(s) /var/cache/jellyfin/transcodes/43e2d64346543ed3759356649577914c.m3u8
+Nov 02 03:46:34 runnervm48cm3 jellyfin[5593]: [03:46:34] [INF] User ci stopped playback of 'Chapter 3' at 1953ms (Jellyfin Web 12.4.0)
+Nov 02 03:46:43 runnervm48cm3 jellyfin[5593]: [03:46:43] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:46:43 runnervm48cm3 jellyfin[5593]: [03:46:43] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:46:46 runnervm48cm3 jellyfin[5593]: [03:46:46] [INF] WS 127.0.0.1 closed
+Nov 02 03:46:47 runnervm48cm3 jellyfin[5593]: [03:46:47] [INF] WS 127.0.0.1 request
+Nov 02 03:47:21 runnervm48cm3 jellyfin[5593]: [03:47:21] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:47:22 runnervm48cm3 jellyfin[5593]: [03:47:22] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "086c341fd6af0a35e64d4b1626086476-1.mp4" -start_number 0 -hls_segment_filename "/var/cache/jellyfin/transcodes/086c341fd6af0a35e64d4b1626086476%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/086c341fd6af0a35e64d4b1626086476.m3u8"
+Nov 02 03:47:22 runnervm48cm3 jellyfin[5593]: [03:47:22] [INF] FFmpeg exited with code 0
+Nov 02 03:47:22 runnervm48cm3 jellyfin[5593]: [03:47:22] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G -ss 00:00:00.000  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "086c341fd6af0a35e64d4b1626086476-1.mp4" -start_number 1 -hls_segment_filename "/var/cache/jellyfin/transcodes/086c341fd6af0a35e64d4b1626086476%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/086c341fd6af0a35e64d4b1626086476.m3u8"
+Nov 02 03:47:22 runnervm48cm3 jellyfin[5593]: [03:47:22] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:47:22 runnervm48cm3 jellyfin[5593]: [03:47:22] [INF] FFmpeg exited with code 0
+Nov 02 03:47:24 runnervm48cm3 jellyfin[5593]: [03:47:24] [INF] Deleting partial stream file(s) /var/cache/jellyfin/transcodes/086c341fd6af0a35e64d4b1626086476.m3u8
+Nov 02 03:47:26 runnervm48cm3 jellyfin[5593]: [03:47:26] [INF] User ci stopped playback of 'Chapter 3' at 1918ms (Jellyfin Web 12.4.0)
+Nov 02 03:47:35 runnervm48cm3 jellyfin[5593]: [03:47:35] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:47:35 runnervm48cm3 jellyfin[5593]: [03:47:35] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:47:39 runnervm48cm3 jellyfin[5593]: [03:47:39] [INF] WS 127.0.0.1 closed
+Nov 02 03:47:40 runnervm48cm3 jellyfin[5593]: [03:47:40] [INF] WS 127.0.0.1 request
+Nov 02 03:48:16 runnervm48cm3 jellyfin[5593]: [03:48:16] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:48:17 runnervm48cm3 jellyfin[5593]: [03:48:17] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "07a0a8fee20557c271da2588848b9837-1.mp4" -start_number 0 -hls_segment_filename "/var/cache/jellyfin/transcodes/07a0a8fee20557c271da2588848b9837%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/07a0a8fee20557c271da2588848b9837.m3u8"
+Nov 02 03:48:17 runnervm48cm3 jellyfin[5593]: [03:48:17] [INF] FFmpeg exited with code 0
+Nov 02 03:48:17 runnervm48cm3 jellyfin[5593]: [03:48:17] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G -ss 00:00:00.000  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "07a0a8fee20557c271da2588848b9837-1.mp4" -start_number 1 -hls_segment_filename "/var/cache/jellyfin/transcodes/07a0a8fee20557c271da2588848b9837%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/07a0a8fee20557c271da2588848b9837.m3u8"
+Nov 02 03:48:17 runnervm48cm3 jellyfin[5593]: [03:48:17] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:48:17 runnervm48cm3 jellyfin[5593]: [03:48:17] [INF] FFmpeg exited with code 0
+Nov 02 03:48:19 runnervm48cm3 jellyfin[5593]: [03:48:19] [INF] Deleting partial stream file(s) /var/cache/jellyfin/transcodes/07a0a8fee20557c271da2588848b9837.m3u8
+Nov 02 03:48:21 runnervm48cm3 jellyfin[5593]: [03:48:21] [INF] User ci stopped playback of 'Chapter 3' at 1885ms (Jellyfin Web 12.4.0)
+Nov 02 03:48:31 runnervm48cm3 jellyfin[5593]: [03:48:31] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:48:31 runnervm48cm3 jellyfin[5593]: [03:48:31] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:48:36 runnervm48cm3 jellyfin[5593]: [03:48:36] [INF] WS 127.0.0.1 closed
+Nov 02 03:48:36 runnervm48cm3 jellyfin[5593]: [03:48:36] [INF] WS 127.0.0.1 request
+Nov 02 03:49:14 runnervm48cm3 jellyfin[5593]: [03:49:14] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:49:15 runnervm48cm3 jellyfin[5593]: [03:49:15] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "a77dae61a235b3be865868f687629fc3-1.mp4" -start_number 0 -hls_segment_filename "/var/cache/jellyfin/transcodes/a77dae61a235b3be865868f687629fc3%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/a77dae61a235b3be865868f687629fc3.m3u8"
+Nov 02 03:49:15 runnervm48cm3 jellyfin[5593]: [03:49:15] [INF] FFmpeg exited with code 0
+Nov 02 03:49:15 runnervm48cm3 jellyfin[5593]: [03:49:15] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G -ss 00:00:00.000  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "a77dae61a235b3be865868f687629fc3-1.mp4" -start_number 1 -hls_segment_filename "/var/cache/jellyfin/transcodes/a77dae61a235b3be865868f687629fc3%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/a77dae61a235b3be865868f687629fc3.m3u8"
+Nov 02 03:49:15 runnervm48cm3 jellyfin[5593]: [03:49:15] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:49:16 runnervm48cm3 jellyfin[5593]: [03:49:16] [INF] FFmpeg exited with code 0
+Nov 02 03:49:18 runnervm48cm3 jellyfin[5593]: [03:49:18] [INF] Deleting partial stream file(s) /var/cache/jellyfin/transcodes/a77dae61a235b3be865868f687629fc3.m3u8
+Nov 02 03:49:19 runnervm48cm3 jellyfin[5593]: [03:49:19] [INF] User ci stopped playback of 'Chapter 3' at 1920ms (Jellyfin Web 12.4.0)
+Nov 02 03:49:29 runnervm48cm3 jellyfin[5593]: [03:49:29] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:49:29 runnervm48cm3 jellyfin[5593]: [03:49:29] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:49:35 runnervm48cm3 jellyfin[5593]: [03:49:35] [INF] WS 127.0.0.1 closed
+Nov 02 03:49:36 runnervm48cm3 jellyfin[5593]: [03:49:36] [INF] WS 127.0.0.1 request
+Nov 02 03:50:08 runnervm48cm3 jellyfin[5593]: [03:50:08] [INF] User policy for ci. EnablePlaybackRemuxing: True EnableVideoPlaybackTranscoding: True EnableAudioPlaybackTranscoding: True
+Nov 02 03:50:09 runnervm48cm3 jellyfin[5593]: [03:50:09] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "4fe04fdd8781fe3753179f0440eda78e-1.mp4" -start_number 0 -hls_segment_filename "/var/cache/jellyfin/transcodes/4fe04fdd8781fe3753179f0440eda78e%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/4fe04fdd8781fe3753179f0440eda78e.m3u8"
+Nov 02 03:50:09 runnervm48cm3 jellyfin[5593]: [03:50:09] [INF] FFmpeg exited with code 0
+Nov 02 03:50:09 runnervm48cm3 jellyfin[5593]: [03:50:09] [INF] /usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 200M -probesize 1G -ss 00:00:00.000  -i file:"/srv/media/shows/The Atlas Club (2020)/Season 01/The Atlas Club S01E03.mkv" -map_metadata -1 -map_chapters -1 -threads 0 -map 0:0 -map 0:1 -map -0:s -codec:v:0 vp9 -b:v 400000000 -maxrate 400000000 -bufsize 800000000 -force_key_frames:0 "expr:gte(t,n_forced*3)" -g:v:0 75 -keyint_min:v:0 75 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,format=yuv420p" -codec:a:0 libopus -strict -2 -ac 2 -ab 192000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type fmp4 -hls_fmp4_init_filename "4fe04fdd8781fe3753179f0440eda78e-1.mp4" -start_number 1 -hls_segment_filename "/var/cache/jellyfin/transcodes/4fe04fdd8781fe3753179f0440eda78e%d.mp4" -hls_playlist_type vod -hls_list_size 0 -hls_segment_options movflags=+frag_discont+skip_sidx -y "/var/cache/jellyfin/transcodes/4fe04fdd8781fe3753179f0440eda78e.m3u8"
+Nov 02 03:50:09 runnervm48cm3 jellyfin[5593]: [03:50:09] [INF] User ci started playback of 'Chapter 3' (Jellyfin Web 12.4.0)
+Nov 02 03:50:10 runnervm48cm3 jellyfin[5593]: [03:50:10] [INF] FFmpeg exited with code 0
+Nov 02 03:50:11 runnervm48cm3 jellyfin[5593]: [03:50:11] [INF] Deleting partial stream file(s) /var/cache/jellyfin/transcodes/4fe04fdd8781fe3753179f0440eda78e.m3u8
+Nov 02 03:50:13 runnervm48cm3 jellyfin[5593]: [03:50:13] [INF] User ci stopped playback of 'Chapter 3' at 1964ms (Jellyfin Web 12.4.0)
+Nov 02 03:50:22 runnervm48cm3 jellyfin[5593]: [03:50:22] [INF] CustomAuthentication was not authenticated. Failure message: Invalid token.
+Nov 02 03:50:22 runnervm48cm3 jellyfin[5593]: [03:50:22] [INF] AuthenticationScheme: CustomAuthentication was challenged.
+Nov 02 03:50:25 runnervm48cm3 jellyfin[5593]: [03:50:25] [INF] WS 127.0.0.1 closed

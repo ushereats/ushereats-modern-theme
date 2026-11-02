@@ -4,7 +4,8 @@
   // exactly as the browser draws it: 250 ms, "ease", the two pages blended "plus-lighter" (no dip in brightness).
   // Opening a title, going back (back arrow, browser / mouse back), changing page.
   // Browsers without View Transitions (Firefox before 144, Safari before 18) just change page.
-  // Off on TVs, while a video plays, on the very first page, and when the device asks for less motion.
+  // Off on TVs, while a video plays and on the very first page. Like cinejoy it also runs when the computer has
+  // "animation effects" turned off (Windows / macOS): a 250 ms fade, not movement.
   if (window.__tbPageFx) return;
   window.__tbPageFx = true;
 
@@ -37,10 +38,9 @@
   }
 
   var html = document.documentElement;
-  var reduce = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : { matches: false };
 
   function off() {
-    return reduce.matches || html.classList.contains("layout-tv") || (document.body && document.body.classList.contains("layout-tv")) ||
+    return html.classList.contains("layout-tv") || (document.body && document.body.classList.contains("layout-tv")) ||
       /^#\/?(video|queue)/i.test(location.hash) || !!document.getElementById("videoOsdPage") && !document.getElementById("videoOsdPage").classList.contains("hide") ||
       (document.body && document.body.classList.contains("dashboardDocument"));
   }

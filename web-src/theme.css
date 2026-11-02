@@ -1181,3 +1181,7 @@ html :is(.sleekfin-hero-actions, .sleekfin-details-actions) :is(.sleekfin-button
   html :is(.sleekfin-hero-actions, .sleekfin-details-actions) button:not(.sleekfin-button-primary):hover :is(svg, .material-icons) { transform: scale(1.1); }
 }
 html :is(.sleekfin-hero-actions, .sleekfin-details-actions) :is(.sleekfin-button-primary, .sleekfin-details-play):active { transform: scale(.95); }
+
+/* Posters: cinejoy's corners (12 px) and shadow (Tailwind shadow-xl, black at 40%) */
+html.sleekfin-main-ui:root:root { --sleekfin-card-radius: 12px; --sleekfin-card-inner-radius: 12px; }
+html .card:not(.personCard):not([data-type="Person"]):not(.tb-logo-card) .cardScalable { box-shadow: 0 20px 25px -5px rgba(0,0,0,.4), 0 8px 10px -6px rgba(0,0,0,.4) !important; }

@@ -65,6 +65,52 @@ await measure("movie (reload)", () => page.goto(s.server + `/web/index.html#/det
 await measure("series (reload)", () => page.goto(s.server + `/web/index.html#/details?id=${series.Id}&serverId=${s.serverId}`, { waitUntil: "load" }).then(() => page.reload({ waitUntil: "load" })));
 await measure("episode (reload)", () => page.goto(s.server + `/web/index.html#/details?id=${episode.Id}&serverId=${s.serverId}`, { waitUntil: "load" }).then(() => page.reload({ waitUntil: "load" })));
 report.logos = logos;
+// moving around inside the app (like the in-app speed test): what moves after each page appears, and how long
+// until something is on screen. Each one starts from home, as clicking in the header would.
+{
+  const items = (p) => q(p).then((r) => r[0]);
+  const [boxset, album, artist, playlist, person] = await Promise.all([
+    items("IncludeItemTypes=BoxSet&Limit=1"), items("IncludeItemTypes=MusicAlbum&Limit=1"), items("IncludeItemTypes=MusicArtist&Limit=1"),
+    items("IncludeItemTypes=Playlist&Limit=1"), api(`/Persons?userId=${s.userId}&Limit=1`).then((r) => (r.Items || [])[0])]);
+  const views = await api(`/Users/${s.userId}/Views`).then((r) => r.Items || []);
+  const lib = (t) => views.find((v) => v.CollectionType === t);
+  const d = (it) => it && `#/details?id=${it.Id}&serverId=${s.serverId}`;
+  const targets = [
+    ["favourites", "#/home?tab=1"],
+    ["movies library", lib("movies") && `#/movies?topParentId=${lib("movies").Id}&collectionType=movies`],
+    ["shows library", lib("tvshows") && `#/tv?topParentId=${lib("tvshows").Id}&collectionType=tvshows`],
+    ["music library", lib("music") && `#/music?topParentId=${lib("music").Id}&collectionType=music`],
+    ["collections", "#/list?type=BoxSet"],
+    ["movie", d(movie)], ["series", d(series)], ["collection", d(boxset)], ["album", d(album)], ["artist", d(artist)],
+    ["playlist", d(playlist)], ["person", d(person)], ["search", "#/search"],
+  ].filter((t) => t[1]);
+  const nav = {};
+  await page.goto(s.server + "/web/index.html#/home", { waitUntil: "load" });
+  await page.waitForTimeout(5000);
+  for (const [name, hash] of targets) {
+    await page.evaluate(() => { location.hash = "#/home"; });
+    await page.waitForTimeout(2500);
+    const reqs = [];
+    const onReq = (r) => { const t0 = Date.now(); r.response().then(() => reqs.push({ ms: Date.now() - t0, url: r.url().replace(s.server, "").slice(0, 140) })).catch(() => {}); };
+    page.on("request", onReq);
+    const t0 = Date.now();
+    await page.evaluate((h) => { const R = window.__tbSpeed; R.shifts = []; R.muts = {}; R.t0 = performance.now(); location.hash = h; }, hash);
+    const readyMs = await page.waitForFunction(() => {
+      const p = [...document.querySelectorAll(".page:not(.hide)")].pop();
+      if (!p) return false;
+      const el = p.querySelector(".sleekfin-details-title, .itemName, .card[data-id] .cardImageContainer, .listItem, .card[data-id]");
+      if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < innerHeight;
+    }, null, { timeout: 6000, polling: 16 }).then(() => Date.now() - t0).catch(() => -1);
+    await page.waitForTimeout(2000);
+    page.off("request", onReq);
+    nav[name] = await page.evaluate(() => { const R = window.__tbSpeed; return { cls: +R.shifts.reduce((a, b) => a + b.v, 0).toFixed(4), shifts: R.shifts, muts: Object.entries(R.muts).sort((a, b) => b[1].n - a[1].n).slice(0, 12).map(([k, v]) => `${v.n}x ${k} (${v.first}-${v.last}ms)`) }; });
+    nav[name].readyMs = readyMs;
+    nav[name].requests = reqs.sort((a, b) => b.ms - a.ms).slice(0, 12);
+    console.log("nav", name, readyMs, nav[name].cls);
+    await page.screenshot({ path: `${out}/nav-${name.replace(/\W+/g, "-")}.jpg`, quality: 55, type: "jpeg" });
+  }
+  report.nav = nav;
+}
 // home reloads on video: does anything visibly move while it loads?
 {
   const vctx = await browser.newContext({ viewport: { width: 1280, height: 720 }, recordVideo: { dir: out + "/vid", size: { width: 1280, height: 720 } } });

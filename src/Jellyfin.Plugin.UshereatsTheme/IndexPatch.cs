@@ -84,11 +84,6 @@ public static class IndexPatch
               .Append("\";document.head.appendChild(s)}}catch(e){}</script>");
         }
 
-        // Jellyfin's web settings file (config.json) is fetched several times on every page change: fetched once per
-        // page load instead. Hooked here, on the page's first line, because Jellyfin keeps its own copy of the
-        // fetch function from when it starts (later hooks never see these requests).
-        sb.Append("<script>(function(){var f=window.fetch,c=null;if(!f)return;window.fetch=function(i,o){var u=typeof i===\"string\"?i:(i&&i.url)||\"\",m=String((o&&o.method)||(i&&i.method)||\"GET\").toUpperCase();if(m!==\"GET\"||!/(^|\\/)config\\.json(\\?|$)/.test(u))return f.apply(this,arguments);var a=arguments,t=this;if(!c){c=f.apply(t,a).then(function(r){if(!r.ok)throw r;return r.text().then(function(x){return{x:x,s:r.status,h:r.headers.get(\"content-type\")||\"application/json\"}})});c.catch(function(){c=null})}return c.then(function(v){return new Response(v.x,{status:v.s,headers:{\"content-type\":v.h}})},function(){return f.apply(t,a)})}})();</script>");
-
         // Page cross-fade: back / forward are listened to before Jellyfin's own listeners exist, so going back can
         // hold the old screen before Jellyfin swaps the page (the theme script fills in __tbHold)
         if (build.Config.PageTransitions)

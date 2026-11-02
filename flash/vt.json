@@ -1,0 +1,326 @@
+[
+ [
+  13868,
+  "done"
+ ],
+ [
+  16359,
+  "start #/home"
+ ],
+ [
+  16480,
+  "held"
+ ],
+ [
+  16865,
+  "ready 385ms itemDetailPage"
+ ],
+ [
+  17321,
+  "done"
+ ],
+ [
+  21636,
+  "start #/home"
+ ],
+ [
+  21636,
+  "kept popstate"
+ ],
+ [
+  21640,
+  "kept hashchange"
+ ],
+ [
+  21675,
+  "held"
+ ],
+ [
+  21685,
+  "replayed popstate"
+ ],
+ [
+  21710,
+  "replayed hashchange"
+ ],
+ [
+  21863,
+  "ready 188ms indexPage"
+ ],
+ [
+  22287,
+  "done"
+ ],
+ [
+  56847,
+  "start #/home"
+ ],
+ [
+  56934,
+  "held"
+ ],
+ [
+  57479,
+  "ready 545ms itemDetailPage"
+ ],
+ [
+  58077,
+  "done"
+ ],
+ [
+  62353,
+  "start #/home"
+ ],
+ [
+  62353,
+  "kept popstate"
+ ],
+ [
+  62354,
+  "kept hashchange"
+ ],
+ [
+  62390,
+  "held"
+ ],
+ [
+  62399,
+  "replayed popstate"
+ ],
+ [
+  62422,
+  "replayed hashchange"
+ ],
+ [
+  62625,
+  "ready 235ms indexPage"
+ ],
+ [
+  63124,
+  "done"
+ ],
+ [
+  95467,
+  "start #/home"
+ ],
+ [
+  95636,
+  "held"
+ ],
+ [
+  95912,
+  "ready 276ms itemDetailPage"
+ ],
+ [
+  96411,
+  "done"
+ ],
+ [
+  98472,
+  "start #/home"
+ ],
+ [
+  98472,
+  "kept popstate"
+ ],
+ [
+  98476,
+  "kept hashchange"
+ ],
+ [
+  98510,
+  "held"
+ ],
+ [
+  98520,
+  "replayed popstate"
+ ],
+ [
+  98545,
+  "replayed hashchange"
+ ],
+ [
+  98726,
+  "ready 216ms indexPage"
+ ],
+ [
+  99198,
+  "done"
+ ],
+ [
+  161693,
+  "start #/home"
+ ],
+ [
+  161773,
+  "held"
+ ],
+ [
+  162196,
+  "ready 423ms itemDetailPage"
+ ],
+ [
+  162661,
+  "done"
+ ],
+ [
+  165266,
+  "start #/details?id=d20d52dd0dfb390eccf3bc6d42c66edc&serverId=5936d9c2887f4e3e8bfdb7a92ee7d69a"
+ ],
+ [
+  165269,
+  "kept popstate"
+ ],
+ [
+  165270,
+  "kept hashchange"
+ ],
+ [
+  165317,
+  "held"
+ ],
+ [
+  165349,
+  "replayed popstate"
+ ],
+ [
+  165403,
+  "replayed hashchange"
+ ],
+ [
+  165543,
+  "ready 226ms indexPage"
+ ],
+ [
+  165941,
+  "done"
+ ],
+ [
+  167823,
+  "start #/movies?topParentId=f137a2dd21bbc1b99aa5c0f6bf02a805&collectionType=movies"
+ ],
+ [
+  167824,
+  "kept popstate"
+ ],
+ [
+  167824,
+  "kept hashchange"
+ ],
+ [
+  167883,
+  "held"
+ ],
+ [
+  167912,
+  "replayed popstate"
+ ],
+ [
+  167914,
+  "replayed hashchange"
+ ],
+ [
+  168194,
+  "ready 311ms moviesPage"
+ ],
+ [
+  168676,
+  "done"
+ ],
+ [
+  169629,
+  "start #/home"
+ ],
+ [
+  169630,
+  "kept popstate"
+ ],
+ [
+  169630,
+  "kept hashchange"
+ ],
+ [
+  169757,
+  "held"
+ ],
+ [
+  169761,
+  "replayed popstate"
+ ],
+ [
+  169763,
+  "replayed hashchange"
+ ],
+ [
+  169893,
+  "ready 136ms indexPage"
+ ],
+ [
+  170312,
+  "done"
+ ],
+ [
+  171636,
+  "start #/movies?topParentId=f137a2dd21bbc1b99aa5c0f6bf02a805&collectionType=movies"
+ ],
+ [
+  171636,
+  "kept popstate"
+ ],
+ [
+  171637,
+  "kept hashchange"
+ ],
+ [
+  171689,
+  "held"
+ ],
+ [
+  171694,
+  "replayed popstate"
+ ],
+ [
+  171696,
+  "replayed hashchange"
+ ],
+ [
+  171831,
+  "ready 140ms moviesPage"
+ ],
+ [
+  172143,
+  "done"
+ ],
+ [
+  173161,
+  "start #/home"
+ ],
+ [
+  173161,
+  "kept popstate"
+ ],
+ [
+  173161,
+  "kept hashchange"
+ ],
+ [
+  173235,
+  "held"
+ ],
+ [
+  173239,
+  "replayed popstate"
+ ],
+ [
+  173240,
+  "replayed hashchange"
+ ],
+ [
+  173346,
+  "ready 111ms indexPage"
+ ],
+ [
+  173729,
+  "done"
+ ]
+]

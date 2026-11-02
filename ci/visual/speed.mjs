@@ -32,7 +32,8 @@ const probe = `(function(){
         if (cs.visibility==='hidden'||cs.display==='none'||+cs.opacity===0||!r.width||!r.height||r.bottom<0||r.top>innerHeight) return false;
         for (var p=c; p&&p!==document.body; p=p.parentElement){ var ps=getComputedStyle(p); if(+ps.opacity===0||ps.visibility==='hidden') return false; }
         seen.push(desc(c)+' '+rect(r)); return seen.length>=3; }); });
-    R.shifts.push({ at: Math.round(e.startTime), hash: location.hash.slice(0,30), v: +e.value.toFixed(4), visible: seen, src: (e.sources||[]).map(function(x){ return desc(x.node)+' '+rect(x.previousRect)+' -> '+rect(x.currentRect); }) }); }); })
+    R.shifts.push({ at: Math.round(e.startTime), hash: location.hash.slice(0,30), v: +e.value.toFixed(4), visible: seen, src: (e.sources||[]).map(function(x){ return desc(x.node)+' '+rect(x.previousRect)+' -> '+rect(x.currentRect); }),
+      path: /dashboard/.test(location.hash) ? (e.sources||[]).slice(0,3).map(function(x){ var n=x.node, a=[]; for (var i=0;n&&n.tagName&&i<6;i++,n=n.parentElement) a.push(desc(n)); return a.join(' < ') + ' :: ' + (x.node&&x.node.textContent||'').trim().slice(0,80); }) : undefined }); }); })
     .observe({ type: 'layout-shift', buffered: true }); } catch(e) {}
   new MutationObserver(function(rs){ if(!R.on) return; var t=Math.round((performance.now()-R.t0)/250)*250; rs.forEach(function(r){
     var k = r.type+(r.attributeName?'['+r.attributeName+']':'')+' '+desc(r.target); var m=R.muts[k]||(R.muts[k]={n:0,first:t,last:t}); m.n++; m.last=t; }); })
@@ -82,7 +83,7 @@ report.logos = logos;
     ["music library", lib("music") && `#/music?topParentId=${lib("music").Id}&collectionType=music`],
     ["collections", "#/list?type=BoxSet"],
     ["movie", d(movie)], ["series", d(series)], ["collection", d(boxset)], ["album", d(album)], ["artist", d(artist)],
-    ["playlist", d(playlist)], ["person", d(person)], ["search", "#/search"], ["favourites again", "#/home?tab=1"],
+    ["playlist", d(playlist)], ["person", d(person)], ["search", "#/search"], ["favourites again", "#/home?tab=1"], ["dashboard", "#/dashboard"],
   ].filter((t) => t[1]);
   const nav = {};
   await page.goto(s.server + "/web/index.html#/home", { waitUntil: "load" });

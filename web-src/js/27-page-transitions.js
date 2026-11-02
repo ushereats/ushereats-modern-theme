@@ -68,6 +68,12 @@
     // the background colour follows the page in the same cross-fade (not a slow change after it)
     if (t < 700 && window.tbAmbientPending && window.tbAmbientPending()) return false;
     if (p.id === "itemDetailPage") {
+      // collections, albums, artists, playlists, people: Jellyfin's own layout (SleekFin leaves them alone)
+      if (p.classList.contains("sleekfin-details-native")) {
+        if (html.classList.contains("sleekfin-details-concealed")) return false;
+        var nn = p.querySelector(".itemName");
+        return !!(nn && nn.textContent.trim()) && nn.textContent !== before;
+      }
       var sleek = !!document.querySelector("[data-sleekfin-details]") || html.classList.contains("sleekfin-details-mounted") || html.classList.contains("sleekfin-details-concealed");
       if (sleek) {
         if (!html.classList.contains("sleekfin-details-mounted") || html.classList.contains("sleekfin-details-concealed") || p.getAttribute("data-sleekfin-details") !== "true") return false;
@@ -81,7 +87,7 @@
       var n = p.querySelector(".itemName");
       return !!(n && n.textContent.trim()) && n.textContent !== before;
     }
-    if (p.id === "indexPage" || p.querySelector("#homeTab")) {
+    if ((p.id === "indexPage" || p.querySelector("#homeTab")) && !/[?&]tab=[1-9]/.test(location.hash)) {
       // the banner's picture is in and the rows are really showing (Jellyfin re-draws home on the way back)
       var hero = p.querySelector(".sleekfin-hero");
       if (html.classList.contains("tb-hero-on") && !hero && t < 400) return false;
@@ -153,6 +159,15 @@
             try { Array.prototype.forEach.call(document.querySelectorAll(".verticalSection, .itemsContainer"), function (e) { e.classList.add("tb-noenter"); }); } catch (e) {}
             res();
           };
+          // the page's position on screen (the gap under the top bar grows a moment later on some pages, e.g. a
+          // library's tab row): the old page is held until that has settled too, so nothing moves after the fade
+          var sig = "", sigAt = Date.now();
+          function layout(p) {
+            var sp = document.querySelector("header.MuiAppBar-root + div[aria-hidden='true']");
+            var x = (sp ? sp.offsetHeight : -1) + "|" + (p ? Math.round(p.getBoundingClientRect().top) : -1);
+            if (x !== sig) { sig = x; sigAt = Date.now(); }
+            return Date.now() - sigAt;
+          }
           // timers, not animation frames: the page isn't drawn while the old one is held
           (function tick() {
             var now = Date.now(), p = current();
@@ -161,7 +176,8 @@
             if (!moved && now - t0 > wait) { note("no page change"); return resolve(); }
             var changed = moved && (from === null ? (p !== page0 || (p && p.id === "itemDetailPage")) : (p !== page0 || location.hash !== from));
             if (changed && target !== null && Math.abs(scrolled() - target) > 1) scrollNow(target);
-            if (changed && (!p || p.id !== "itemDetailPage" || now - last >= 50) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); if (target !== null) keep(target); return resolve(); }
+            var still = changed ? layout(p) : 0;
+            if (changed && still >= 60 && (!p || p.id !== "itemDetailPage" || now - last >= 50) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); if (target !== null) keep(target); return resolve(); }
             // a title page waits for its content (cinejoy fades straight into the finished page, never a placeholder)
             if (now - t0 > (p && p.id === "itemDetailPage" ? 2500 : 1200)) { note("timeout " + (p && p.id)); if (changed && target !== null) keep(target); return resolve(); }
             setTimeout(tick, 16);

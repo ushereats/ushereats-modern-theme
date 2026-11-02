@@ -82,7 +82,7 @@ report.logos = logos;
     ["music library", lib("music") && `#/music?topParentId=${lib("music").Id}&collectionType=music`],
     ["collections", "#/list?type=BoxSet"],
     ["movie", d(movie)], ["series", d(series)], ["collection", d(boxset)], ["album", d(album)], ["artist", d(artist)],
-    ["playlist", d(playlist)], ["person", d(person)], ["search", "#/search"],
+    ["playlist", d(playlist)], ["person", d(person)], ["search", "#/search"], ["favourites again", "#/home?tab=1"],
   ].filter((t) => t[1]);
   const nav = {};
   await page.goto(s.server + "/web/index.html#/home", { waitUntil: "load" });
@@ -94,17 +94,22 @@ report.logos = logos;
     const onReq = (r) => { const t0 = Date.now(); r.response().then(() => reqs.push({ ms: Date.now() - t0, url: r.url().replace(s.server, "").slice(0, 140) })).catch(() => {}); };
     page.on("request", onReq);
     const t0 = Date.now();
-    await page.evaluate((h) => { const R = window.__tbSpeed; R.shifts = []; R.muts = {}; R.t0 = performance.now(); location.hash = h; }, hash);
-    const readyMs = await page.waitForFunction(() => {
-      const p = [...document.querySelectorAll(".page:not(.hide)")].pop();
+    await page.evaluate((h) => { const R = window.__tbSpeed; R.shifts = []; R.muts = {}; R.t0 = performance.now(); (window.__tbVt || []).length = 0; location.hash = h; }, hash);
+    // shown = the page change finished (the cross-fade let go of the old page) and the new page has its content
+    const readyMs = await page.waitForFunction((h) => {
+      if (document.documentElement.classList.contains("tb-vt")) return false;
+      const p = [...document.querySelectorAll(".page:not(.hide)")].filter((x) => !x.closest(".hide")).pop();
       if (!p) return false;
-      const el = p.querySelector(".sleekfin-details-title, .itemName, .card[data-id] .cardImageContainer, .listItem, .card[data-id]");
-      if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < innerHeight;
-    }, null, { timeout: 6000, polling: 16 }).then(() => Date.now() - t0).catch(() => -1);
+      const scope = /tab=1/.test(h) ? p.querySelector(".pageTabContent.is-active") || p : p;
+      if (/tab=1/.test(h) ? !scope || scope.id === "homeTab" : p.id === "indexPage") return false;
+      const el = [...scope.querySelectorAll(".sleekfin-details-title, .itemName, .card[data-id], .listItem, input")].find((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < innerHeight; });
+      return !!el;
+    }, hash, { timeout: 8000, polling: 16 }).then(() => Date.now() - t0).catch(() => -1);
     await page.waitForTimeout(2000);
     page.off("request", onReq);
     nav[name] = await page.evaluate(() => { const R = window.__tbSpeed; return { cls: +R.shifts.reduce((a, b) => a + b.v, 0).toFixed(4), shifts: R.shifts, muts: Object.entries(R.muts).sort((a, b) => b[1].n - a[1].n).slice(0, 12).map(([k, v]) => `${v.n}x ${k} (${v.first}-${v.last}ms)`) }; });
     nav[name].readyMs = readyMs;
+    nav[name].vt = await page.evaluate(() => (window.__tbVt || []).map((x) => x[1]).filter((x) => !/^(kept|replayed|held)/.test(x)));
     nav[name].requests = reqs.sort((a, b) => b.ms - a.ms).slice(0, 12);
     console.log("nav", name, readyMs, nav[name].cls);
     await page.screenshot({ path: `${out}/nav-${name.replace(/\W+/g, "-")}.jpg`, quality: 55, type: "jpeg" });

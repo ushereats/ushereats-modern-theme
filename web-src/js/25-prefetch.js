@@ -51,6 +51,37 @@
     });
   }
 
+  // ── Favourites (the home page's second tab) ──
+  // Jellyfin asks for each kind of favourite separately (movies, shows, episodes, people, artists, studios...) and
+  // shows the tab once they're back. Kept like the library pages, and the requests it made last time are made again
+  // in idle time after the site opens, so even the first visit of a session shows at once.
+  var FAV = /[?&](Filters=[^&]*IsFavorite|isFavorite=true)/i;
+  var FAV_KEY = "tb-fav-urls";
+  function rememberFav(url) {
+    try {
+      var k = String(new URL(url, location.href)), l = JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
+      if (l.indexOf(k) >= 0) return;
+      l.push(k); if (l.length > 24) l.shift();
+      localStorage.setItem(FAV_KEY, JSON.stringify(l));
+    } catch (e) {}
+  }
+  function warmFavs() {
+    var api = window.ApiClient, uid = api && api.getCurrentUserId && api.getCurrentUserId();
+    if (!uid || !api.accessToken || !api.accessToken()) return;
+    var l = [];
+    try { l = JSON.parse(localStorage.getItem(FAV_KEY) || "[]"); } catch (e) {}
+    l.forEach(function (k, i) {
+      if (k.indexOf(uid) < 0 || lists[key(k)]) return;   // another user's, or already here
+      setTimeout(function () {
+        window.fetch(k, { headers: { Authorization: 'MediaBrowser Token="' + api.accessToken() + '"' } })["catch"](function () {});
+      }, i * 60);
+    });
+  }
+  window.addEventListener("load", function () {
+    var idle = window.requestIdleCallback || function (f) { return setTimeout(f, 2500); };
+    setTimeout(function () { idle(warmFavs, { timeout: 4000 }); }, 2500);
+  });
+
   var realFetch = window.fetch;
   window.fetch = function (input, init) {
     var url = typeof input === "string" ? input : (input && input.url) || "";
@@ -61,6 +92,8 @@
       return realFetch.apply(this, arguments);
     }
     if (LIST.test(url) && !(init && init.cache === "no-store") && !/[?&](SearchTerm|searchTerm)=/.test(url) && !/^#\/?home/i.test(location.hash)) return listFetch(this, arguments, url);
+    // Favourites: shown at once from the copy kept from last time (and fetched ahead in idle time, see below)
+    if (FAV.test(url) && !(init && init.cache === "no-store")) { rememberFav(url); return listFetch(this, arguments, url); }
     if (!ITEM.test(url) || /[?&](fields|Fields)=/.test(url) || (init && init.cache === "no-store")) return realFetch.apply(this, arguments);
     var k = key(url), hit = cache[k];
     if (!hit || Date.now() - hit.at > TTL) {

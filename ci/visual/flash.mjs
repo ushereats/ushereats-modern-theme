@@ -113,18 +113,37 @@ await page.waitForTimeout(4000);
 await page.screenshot({ path: out + "/settings.png" });
 const q = page.locator(".tb-cfg-search input").first();
 if (await q.count()) { await q.fill("fade"); await page.waitForTimeout(500); await page.screenshot({ path: out + "/settings-search.png" }); }
-// the device cache: open home again (twice: the first visit installs it) and count what came from the device
-const swRuns = [];
-for (let i = 0; i < 2; i++) {
-  let dev = 0, net = 0, devKb = 0; const netList = [];
-  const on = (r) => { if (r.fromServiceWorker()) dev++; else { net++; netList.push(r.url().replace(/^https?:\/\/[^/]+/, "").slice(0, 90)); } };
-  page.on("response", on);
+// the device cache: reload home over a slow-ish connection (like a phone through Cloudflare: 150 ms each way,
+// 20 Mbit/s), with the device cache and without it, and time until the first poster is on screen
+async function timed(pg, label) {
+  const cdp = await pg.context().newCDPSession(pg);
+  await cdp.send("Network.enable");
+  await cdp.send("Network.emulateNetworkConditions", { offline: false, latency: 150, downloadThroughput: 2.5e6, uploadThroughput: 1e6 });
+  let dev = 0, net = 0; const on = (r) => { if (r.fromServiceWorker()) dev++; else net++; };
+  pg.on("response", on);
   const t = Date.now();
-  await page.goto(s.server + "/web/index.html#/home", { waitUntil: "load" });
-  const loadMs = Date.now() - t;
-  await page.waitForTimeout(5000);
-  page.off("response", on);
-  swRuns.push({ run: i, loadMs, fromDevice: dev, fromNetwork: net, controlled: await page.evaluate(() => !!(navigator.serviceWorker && navigator.serviceWorker.controller)), caches: await page.evaluate(async () => { const out = {}; for (const k of await caches.keys()) out[k] = (await (await caches.open(k)).keys()).length; return out; }), network: netList.slice(0, 60) });
+  await pg.reload({ waitUntil: "commit" });
+  const firstPaint = await pg.waitForFunction(() => document.querySelector("#homeTab .card[data-id]") && [...document.querySelectorAll("#homeTab .card[data-id]")].some((c) => c.getBoundingClientRect().height > 0 && getComputedStyle(c.closest(".tb-rows-c") || c).visibility !== "hidden"), null, { timeout: 30000 }).then(() => Date.now() - t).catch(() => -1);
+  await pg.waitForTimeout(3000);
+  pg.off("response", on);
+  await cdp.send("Network.emulateNetworkConditions", { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
+  return { label, firstPosterMs: firstPaint, fromDevice: dev, fromNetwork: net };
+}
+await page.goto(s.server + "/web/index.html#/home", { waitUntil: "load" });
+await page.waitForTimeout(3000);
+const swRuns = [];
+swRuns.push(await timed(page, "with device cache (1st reload)"));
+swRuns.push(await timed(page, "with device cache (2nd reload)"));
+swRuns.push({ controlled: await page.evaluate(() => !!(navigator.serviceWorker && navigator.serviceWorker.controller)), caches: await page.evaluate(async () => { const o = {}; for (const k of await caches.keys()) o[k] = (await (await caches.open(k)).keys()).length; return o; }) });
+{
+  const ctx2 = await browser.newContext({ locale: "en-US", viewport: { width: 1280, height: 720 }, serviceWorkers: "block" });
+  await ctx2.addInitScript(init);
+  const p2 = await ctx2.newPage();
+  await p2.goto(s.server + "/web/index.html#/home", { waitUntil: "load" });
+  await p2.waitForTimeout(6000);
+  swRuns.push(await timed(p2, "without device cache (browser cache only)"));
+  swRuns.push(await timed(p2, "without device cache (2nd)"));
+  await ctx2.close();
 }
 fs.writeFileSync(out + "/device-cache.json", JSON.stringify(swRuns, null, 1));
 const look = await page.evaluate(() => localStorage.getItem("tb-bd-look"));

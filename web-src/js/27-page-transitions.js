@@ -55,9 +55,9 @@
       // the banner's picture is in and the rows are really showing (Jellyfin re-draws home on the way back)
       var hero = p.querySelector(".sleekfin-hero");
       if (html.classList.contains("tb-hero-on") && !hero && t < 400) return false;
-      if (hero && !hero.querySelector(".sleekfin-hero-slide[data-active='true'] .sleekfin-hero-backdrop[data-loaded='true']")) return false;
-      if (hero && !hero.getClientRects().length) return false;
-      return seen(p) || t > 500;
+      if (hero && t < 300 && !hero.querySelector(".sleekfin-hero-slide[data-active='true'] .sleekfin-hero-backdrop[data-loaded='true']")) return false;
+      if (hero && t < 300 && !hero.getClientRects().length) return false;
+      return seen(p) || t > 300;
     }
     return seen(p) || t > 300;
   }
@@ -101,7 +101,9 @@
         replaying = true;
         try { q.forEach(function (ev) { window.dispatchEvent(ev); note("replayed " + ev.type); }); } catch (e) {}
         replaying = false;
-        // finished = also stopped being rebuilt for a moment (titles swapped, placeholders removed, rows shown).
+        // a title page counts as finished once it has also stopped being rebuilt for a moment (titles swapped,
+        // placeholders removed). Not other pages: going back to home, posters keep loading in for a while and
+        // that would hold the old page to the limit.
         // Only the page itself is watched, and only what changes its layout: pictures arriving and the background
         // colour changing don't count (they never stop on a busy page and would hold the old page to the limit).
         var last = Date.now(), watched = null, mo = new MutationObserver(function () { last = Date.now(); });
@@ -124,7 +126,7 @@
             if (!moved && (location.hash !== from || p !== page0)) moved = now;
             if (moved) watchPage(p);
             if (!moved && now - t0 > wait) { note("no page change"); return resolve(); }
-            if (moved && (p !== page0 || location.hash !== from) && now - last >= 50 && (from === null || scrolled() < 2) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); return resolve(); }
+            if (moved && (p !== page0 || location.hash !== from) && (!p || p.id !== "itemDetailPage" || now - last >= 50) && (from === null || scrolled() < 2) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); return resolve(); }
             if (now - t0 > 900) { note("timeout " + (p && p.id)); return resolve(); }   // never hold the old page longer
             setTimeout(tick, 16);
           })();

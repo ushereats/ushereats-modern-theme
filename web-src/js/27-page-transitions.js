@@ -73,7 +73,8 @@
     }
     return false;
   }
-  // a page you open starts at the top: Jellyfin scrolls there a moment after showing it (seen as a jump)
+  // a title page you open starts at the top: Jellyfin scrolls there a moment after showing it (seen as a jump);
+  // pages you go back to keep where you were, so this only applies to opening a title
   function scrolled() { var e = document.scrollingElement || document.documentElement; return Math.max(window.pageYOffset || 0, e ? e.scrollTop : 0); }
   function stamp(p) {
     if (!p) return "";
@@ -126,7 +127,7 @@
             if (!moved && (location.hash !== from || p !== page0)) moved = now;
             if (moved) watchPage(p);
             if (!moved && now - t0 > wait) { note("no page change"); return resolve(); }
-            if (moved && (p !== page0 || location.hash !== from) && (!p || p.id !== "itemDetailPage" || now - last >= 50) && (from === null || scrolled() < 2) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); return resolve(); }
+            if (moved && (from === null ? (p !== page0 || (p && p.id === "itemDetailPage")) : (p !== page0 || location.hash !== from)) && (!p || p.id !== "itemDetailPage" || now - last >= 50) && (from === null || !p || p.id !== "itemDetailPage" || scrolled() < 2) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); return resolve(); }
             if (now - t0 > 900) { note("timeout " + (p && p.id)); return resolve(); }   // never hold the old page longer
             setTimeout(tick, 16);
           })();

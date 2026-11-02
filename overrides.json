@@ -1,0 +1,16 @@
+{
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs .sleekfin-details-season-title.sleekfin-details-season-title": {
+  "props": "font-family",
+  "pages": [
+   "desktop-episode",
+   "phone-episode"
+  ]
+ },
+ "html body, body button:not(.material-icons):not([class*=\"icon\" i]), body input:not(.material-icons):not([class*=\"icon\" i]), body select:not(.material-icons):not([class*=\"icon\" i]), body textarea:not(.material-icons):not(\n   vs .sleekfin-details-season-title": {
+  "props": "font-family",
+  "pages": [
+   "desktop-episode",
+   "phone-episode"
+  ]
+ }
+}

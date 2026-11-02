@@ -1,0 +1,38 @@
+== install Jellyfin
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+jellyfin 12.4+ubu2404
+jellyfin-ffmpeg8 8.1.3-1-noble
+jellyfin-server 12.4+ubu2404
+jellyfin-web 12.4+ubu2404
+== plugins
+FT: https://github.com/IAmParadox27/jellyfin-plugin-file-transformation/releases/download/3.0.3.0/Release-10.11.11.zip
+== library
+library ready
+== wizard
+== libraries
+items=0 running=1
+items=1 running=1
+items=1 running=1
+items=1 running=1
+items=1 running=1
+items=6 running=1
+items=32 running=1
+items=36 running=1
+items=36 running=1
+items=36 running=1
+items=36 running=0
+songs=8
+== watch progress
+== people pictures, a collection, a playlist, favourites
+== plugin settings
+== ready
+{"server":"http://localhost:8096","token":"c51288cdc1bc40dba351c02f3e610f4e","userId":"c2d1829398c0424ab310c758a1759c67","serverId":"72e99ad16f4245378c6ab69da95fffbd","movieLib":"f137a2dd21bbc1b99aa5c0f6bf02a805","showLib":"a656b907eb3a73532e40e44b968d0225"}

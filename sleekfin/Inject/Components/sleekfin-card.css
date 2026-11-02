@@ -299,9 +299,10 @@ html.sleekfin-main-ui[data-sleekfin-media-card-shape="Circle"] .sleekfin-details
     top: 15%;
 }
 
-/* ── Posters: rounded, cinejoy's shadow (Tailwind shadow-xl, black at 40%), the whole card pops on hover ── */
+/* ── Posters: rounded, no shadow under them (the large cinejoy shadow showed as a dark band under every row,
+   cut off in a hard line where the row ends), the whole card pops on hover ── */
 .card .cardScalable {
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4) !important;
+    box-shadow: none !important;
     transform: none !important;
 }
 

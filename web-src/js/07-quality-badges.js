@@ -1,24 +1,7 @@
 (function qualityBadge() {
   // Shared page watcher: ONE observer for all custom scripts instead of one each.
   // While a video is playing full screen (or the tab is hidden) it only checks every 1.5s.
-  var tbWatch = window.tbWatch || (window.tbWatch = (function () {
-    var subs = [], mo = null, last = 0;
-    function busy() {
-      if (document.hidden) return true;
-      var osd = document.getElementById("videoOsdPage");
-      return !!(osd && !osd.classList.contains("hide") && document.querySelector(".videoPlayerContainer"));
-    }
-    window.tbBusy = busy;
-    function fire() {
-      if (busy()) { var now = Date.now(); if (now - last < 1500) return; last = now; }
-      for (var i = 0; i < subs.length; i++) { try { subs[i](); } catch (e) {} }
-    }
-    document.addEventListener("visibilitychange", function () { if (!document.hidden) fire(); });
-    return function (fn) {
-      subs.push(fn);
-      if (!mo) { mo = new MutationObserver(fire); mo.observe(document.documentElement, { childList: true, subtree: true }); }
-    };
-  })());
+  var tbWatch = window.tbWatch;   // shared page watcher (in every theme file)
   // ── Settings ──
   var TYPES = ["Movie", "Episode", "Video", "MusicVideo"];   // have their own file
   var CONTAINERS = ["Series", "Season"];                    // use their newest episode
@@ -211,12 +194,7 @@
 
   function fetchBatch(ids, cards) {
     ids.forEach(function (id) { pending.add(id); });
-    Promise.resolve(ApiClient.getItems(ApiClient.getCurrentUserId(), {
-      Ids: ids.join(","),
-      Fields: "MediaStreams",
-      EnableImages: false,
-      EnableUserData: false
-    })).then(function (res) {
+    window.tbItems(ids, "MediaStreams").then(function (res) {
       var seen = new Set();
       ((res && res.Items) || []).forEach(function (item) {
         seen.add(item.Id);

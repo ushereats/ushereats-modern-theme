@@ -1,24 +1,7 @@
 (function () {
   // Shared page watcher: ONE observer for all custom scripts instead of one each.
   // While a video is playing full screen (or the tab is hidden) it only checks every 1.5s.
-  var tbWatch = window.tbWatch || (window.tbWatch = (function () {
-    var subs = [], mo = null, last = 0;
-    function busy() {
-      if (document.hidden) return true;
-      var osd = document.getElementById("videoOsdPage");
-      return !!(osd && !osd.classList.contains("hide") && document.querySelector(".videoPlayerContainer"));
-    }
-    window.tbBusy = busy;
-    function fire() {
-      if (busy()) { var now = Date.now(); if (now - last < 1500) return; last = now; }
-      for (var i = 0; i < subs.length; i++) { try { subs[i](); } catch (e) {} }
-    }
-    document.addEventListener("visibilitychange", function () { if (!document.hidden) fire(); });
-    return function (fn) {
-      subs.push(fn);
-      if (!mo) { mo = new MutationObserver(fire); mo.observe(document.documentElement, { childList: true, subtree: true }); }
-    };
-  })());
+  var tbWatch = window.tbWatch;   // shared page watcher (in every theme file)
   var BADGE_CLASS = "time-remaining-badge";
 
   function formatTime(ticks) {
@@ -179,11 +162,7 @@
 
   function fetchBatch(ids, cards) {
     ids.forEach(function (id) { pending.add(id); });
-    Promise.resolve(ApiClient.getItems(ApiClient.getCurrentUserId(), {
-      Ids: ids.join(","),
-      Fields: "UserData",
-      EnableImages: false
-    })).then(function (res) {
+    window.tbItems(ids, "UserData").then(function (res) {
       var items = (res && res.Items) || [];
       var seen = new Set();
       items.forEach(function (item) {

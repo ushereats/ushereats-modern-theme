@@ -1,24 +1,7 @@
 (function releaseDateBadge() {
   // Shared page watcher: ONE observer for all custom scripts instead of one each.
   // While a video is playing full screen (or the tab is hidden) it only checks every 1.5s.
-  var tbWatch = window.tbWatch || (window.tbWatch = (function () {
-    var subs = [], mo = null, last = 0;
-    function busy() {
-      if (document.hidden) return true;
-      var osd = document.getElementById("videoOsdPage");
-      return !!(osd && !osd.classList.contains("hide") && document.querySelector(".videoPlayerContainer"));
-    }
-    window.tbBusy = busy;
-    function fire() {
-      if (busy()) { var now = Date.now(); if (now - last < 1500) return; last = now; }
-      for (var i = 0; i < subs.length; i++) { try { subs[i](); } catch (e) {} }
-    }
-    document.addEventListener("visibilitychange", function () { if (!document.hidden) fire(); });
-    return function (fn) {
-      subs.push(fn);
-      if (!mo) { mo = new MutationObserver(fire); mo.observe(document.documentElement, { childList: true, subtree: true }); }
-    };
-  })());
+  var tbWatch = window.tbWatch;   // shared page watcher (in every theme file)
   // "Latest Releases" row: shows each film's DIGITAL release date (from TMDB) on the carved badge
   // and sorts the row newest digital release first.
   // Films with no digital date on TMDB (and shows) fall back to Jellyfin's premiere date.
@@ -229,12 +212,7 @@
 
   function fetchBatch(ids, section) {
     ids.forEach(function (id) { pending.add(id); });
-    Promise.resolve(ApiClient.getItems(ApiClient.getCurrentUserId(), {
-      Ids: ids.join(","),
-      Fields: "PremiereDate,ProviderIds",
-      EnableImages: false,
-      EnableUserData: false
-    })).then(function (res) {
+    window.tbItems(ids, "PremiereDate,ProviderIds").then(function (res) {
       var items = (res && res.Items) || [];
       var seen = new Set();
       var waits = items.map(function (item) {

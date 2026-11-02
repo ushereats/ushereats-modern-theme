@@ -1135,15 +1135,15 @@ html .sleekfin-details-back.sleekfin-details-back:active, html .headerBackButton
 }
 /* Rows: cinejoy's fixed sizes on a computer (200 px posters, 16 px apart: more of them on a wider screen),
    4.5 across on a tablet, 2.5 on a phone */
-html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowPortraitCard, .portraitCard) { width: 38.4vw !important; max-width: none !important; }
-html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowPortraitCard, .portraitCard) > .cardBox { margin-inline-end: 2.4vw !important; }
+html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) { width: 38.4vw !important; max-width: none !important; }
+html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) > .cardBox { margin-inline-end: 2.4vw !important; }
 @media (min-width: 640px) {
-  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowPortraitCard, .portraitCard) { width: 21.3vw !important; }
-  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowPortraitCard, .portraitCard) > .cardBox { margin-inline-end: 1.5vw !important; }
+  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) { width: 21.3vw !important; }
+  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) > .cardBox { margin-inline-end: 1.5vw !important; }
 }
 @media (min-width: 1024px) {
-  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowPortraitCard, .portraitCard) { width: 216px !important; }
-  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowPortraitCard, .portraitCard) > .cardBox { margin-inline-end: 16px !important; }
+  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) { width: 216px !important; }
+  html.sleekfin-media-mounted #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios):not(.ranked-list) .card:is(.overflowPortraitCard, .portraitCard) > .cardBox { margin-inline-end: 16px !important; }
 }
 /* Continue Watching and other wide cards: cinejoy's sizes (70% of a phone, at most 280 px; 264 px; 316 px) */
 html.sleekfin-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studios) .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not([data-type="CollectionFolder"]):not([data-type="UserView"]):not(.tb-logo-card) { width: calc(min(70vw, 280px) + 2.4vw) !important; max-width: none !important; }

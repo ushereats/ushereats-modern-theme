@@ -102,39 +102,46 @@
     }
     kids(paper).forEach(function (c) { if (c !== hero) setAttr(c, "data-tb-hide", ""); });
 
+    // Drawn at once from last visit's numbers (the card has its final size from the first frame), then each part
+    // updated as it arrives: the users list alone takes seconds on a big server and used to hold the whole card back
+    var d = hero.__d;
+    if (!d) {
+      d = hero.__d = {};
+      try { var c = JSON.parse(localStorage.getItem("tb-dash-hero") || "null"); if (c) d = hero.__d = c; } catch (e) {}
+      draw(hero, d);
+    }
     var a = api();
-    Promise.all([
-      cached("sysinfo", 60000, function () { return Promise.resolve(a.getSystemInfo()); }),
-      cached("sessions", 10000, function () { return Promise.resolve(a.getSessions({ ActiveWithinSeconds: 960 })); }).catch(function () { return null; }),
-      cached("users", 300000, function () { return Promise.resolve(a.getUsers()); }).catch(function () { return null; })
-    ]).then(function (r) {
-      var info = r[0] || {}, sessions = r[1], users = r[2];
-      var streams = sessions ? sessions.filter(function (s) { return s.NowPlayingItem; }).length : null;
-      var key = [info.ServerName, info.Version, info.HasUpdateAvailable, info.HasPendingRestart,
-        streams, sessions ? sessions.length : "", users ? users.length : ""].join("|");
-      if (hero.__key === key) return;
-      hero.__key = key;
-      hero.__name.textContent = info.ServerName || "Jellyfin";
-      hero.__chips.textContent = "";
-      var on = el("span", "tb-chip on");
-      on.appendChild(el("i", "tb-dot"));
-      on.appendChild(document.createTextNode("Online"));
-      hero.__chips.appendChild(on);
-      if (info.Version) hero.__chips.appendChild(el("span", "tb-chip", "v" + info.Version));
-      if (info.HasUpdateAvailable) hero.__chips.appendChild(el("span", "tb-chip acc", "Update available"));
-      if (info.HasPendingRestart) hero.__chips.appendChild(el("span", "tb-chip warn", "Restart pending"));
-      hero.__stats.textContent = "";
-      function stat(n, label, live) {
-        if (n == null) return;
-        var s = el("div", "tb-hs" + (live && n > 0 ? " live" : ""));
-        s.appendChild(el("b", "", String(n)));
-        s.appendChild(el("span", "", label));
-        hero.__stats.appendChild(s);
-      }
-      stat(streams, "Streaming", true);
-      stat(sessions ? sessions.length : null, "Devices");
-      stat(users ? users.length : null, "Users");
-    }).catch(noop);
+    function upd(k) { return function (v) { if (v != null) { for (var x in v) d[x] = v[x]; draw(hero, d); try { localStorage.setItem("tb-dash-hero", JSON.stringify(d)); } catch (e) {} } }; }
+    cached("sysinfo", 60000, function () { return Promise.resolve(a.getSystemInfo()); })
+      .then(function (info) { info = info || {}; return { name: info.ServerName, version: info.Version, update: !!info.HasUpdateAvailable, restart: !!info.HasPendingRestart }; }).then(upd()).catch(noop);
+    cached("sessions", 10000, function () { return Promise.resolve(a.getSessions({ ActiveWithinSeconds: 960 })); })
+      .then(function (sessions) { return sessions ? { streams: sessions.filter(function (s) { return s.NowPlayingItem; }).length, devices: sessions.length } : null; }).then(upd()).catch(noop);
+    cached("users", 300000, function () { return Promise.resolve(a.getUsers()); })
+      .then(function (users) { return users ? { users: users.length } : null; }).then(upd()).catch(noop);
+  }
+  function draw(hero, d) {
+    var key = [d.name, d.version, d.update, d.restart, d.streams, d.devices, d.users].join("|");
+    if (hero.__key === key) return;
+    hero.__key = key;
+    hero.__name.textContent = d.name || "Jellyfin";
+    hero.__chips.textContent = "";
+    var on = el("span", "tb-chip on");
+    on.appendChild(el("i", "tb-dot"));
+    on.appendChild(document.createTextNode("Online"));
+    hero.__chips.appendChild(on);
+    if (d.version) hero.__chips.appendChild(el("span", "tb-chip", "v" + d.version));
+    if (d.update) hero.__chips.appendChild(el("span", "tb-chip acc", "Update available"));
+    if (d.restart) hero.__chips.appendChild(el("span", "tb-chip warn", "Restart pending"));
+    hero.__stats.textContent = "";
+    function stat(n, label, live) {
+      var s = el("div", "tb-hs" + (live && n > 0 ? " live" : ""));
+      s.appendChild(el("b", "", n == null ? "\u2013" : String(n)));   // a dash until the number is in (same size)
+      s.appendChild(el("span", "", label));
+      hero.__stats.appendChild(s);
+    }
+    stat(d.streams, "Streaming", true);
+    stat(d.devices, "Devices");
+    stat(d.users, "Users");
   }
 
   // \u2550\u2550\u2550\u2550\u2550 Scan progress on the Scan All Libraries button \u2550\u2550\u2550\u2550\u2550
@@ -229,11 +236,12 @@
         var v = parseInt(raw, 10);
         if (num.__v !== v) { countUp(num, num.__v || 0, v); num.__v = v; }
         var t = types[i];
+        // the "+X this week" line's space is there before its number arrives (the tiles grew when it came in)
+        if (t && (!box.__tbWeek || box.__tbWeek.parentNode !== box)) { box.__tbWeek = el("div", "tb-week", "\u00a0"); box.appendChild(box.__tbWeek); }
         if (t && uid()) weekly(t).then(function (n) {
           var w = box.__tbWeek;
-          if (!n) { if (w && w.parentNode) w.parentNode.removeChild(w); box.__tbWeek = null; return; }
           if (!w || w.parentNode !== box) { w = el("div", "tb-week"); box.appendChild(w); box.__tbWeek = w; }
-          var txt = "+" + n + " this week";
+          var txt = n ? "+" + n + " this week" : "\u00a0";   // nothing new: the line stays (empty), so the tile keeps its size
           if (w.textContent !== txt) w.textContent = txt;
         }).catch(noop);
       });
@@ -614,7 +622,8 @@
   function schedule() {
     if (queued) return;
     queued = true;
-    setTimeout(function () { requestAnimationFrame(function () { queued = false; run(); }); }, 200);
+    // before the next frame is drawn (it waited 200 ms, so Jellyfin's plain cards showed first and then moved)
+    requestAnimationFrame(function () { queued = false; run(); });
   }
   var mo = new MutationObserver(schedule), heroTimer = null;
   function enter() {

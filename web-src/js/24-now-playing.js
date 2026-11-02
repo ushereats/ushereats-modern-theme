@@ -170,7 +170,9 @@
     var title = it.Type === "Episode" ? (it.SeriesName || it.Name) : it.Name;
     var subTitle = it.Type === "Episode" ? "S" + (it.ParentIndexNumber || 0) + ":E" + (it.IndexNumber || 0) + " • " + it.Name : (it.ProductionYear || "");
     if (it.Type === "Audio") { title = it.Name; subTitle = (it.Artists || []).join(", ") + (it.Album ? " • " + it.Album : ""); }
-    var av = s.UserPrimaryImageTag ? img(s.UserId, "Primary", s.UserPrimaryImageTag, { maxHeight: 64 }) : "";
+    // a person's picture lives under Users/, not Items/ (asking Items/ for it was a 404 every refresh)
+    var av = "";
+    if (s.UserPrimaryImageTag) try { av = api().getUrl("Users/" + s.UserId + "/Images/Primary", { tag: s.UserPrimaryImageTag, maxHeight: 128, quality: 90 }); } catch (e) {}
 
     var chips = [];
     if (v.Width) chips.push('<span class="np-chip np-blue">' + res(v.Width, v.Height) + "</span>");

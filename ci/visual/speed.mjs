@@ -98,10 +98,12 @@ report.logos = logos;
     // shown = the page change finished (the cross-fade let go of the old page) and the new page has its content
     const readyMs = await page.waitForFunction((h) => {
       if (document.documentElement.classList.contains("tb-vt")) return false;
-      const p = [...document.querySelectorAll(".page:not(.hide)")].filter((x) => !x.closest(".hide")).pop();
+      const vis = [...document.querySelectorAll(".page:not(.hide)")].filter((x) => !x.closest(".hide") && x.getClientRects().length);
+      const fav = /tab=1/.test(h);
+      const p = fav ? vis.find((x) => x.id === "indexPage") : vis.find((x) => x.id !== "indexPage");
       if (!p) return false;
-      const scope = /tab=1/.test(h) ? p.querySelector(".pageTabContent.is-active") || p : p;
-      if (/tab=1/.test(h) ? !scope || scope.id === "homeTab" : p.id === "indexPage") return false;
+      const scope = fav ? [...p.querySelectorAll(".pageTabContent")].find((t) => t.id !== "homeTab" && t.getClientRects().length) : p;
+      if (!scope) return false;
       const el = [...scope.querySelectorAll(".sleekfin-details-title, .itemName, .card[data-id], .listItem, input")].find((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < innerHeight; });
       return !!el;
     }, hash, { timeout: 8000, polling: 16 }).then(() => Date.now() - t0).catch(() => -1);

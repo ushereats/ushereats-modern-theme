@@ -179,7 +179,7 @@
             var still = changed ? layout(p) : 0;
             if (changed && still >= 60 && (!p || p.id !== "itemDetailPage" || now - last >= 50) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); if (target !== null) keep(target); return resolve(); }
             // a title page waits for its content (cinejoy fades straight into the finished page, never a placeholder)
-            if (now - t0 > (p && p.id === "itemDetailPage" ? 2500 : 1200)) { note("timeout " + (p && p.id)); if (changed && target !== null) keep(target); return resolve(); }
+            if (now - t0 > (p && p.id === "itemDetailPage" ? 2500 : 1200)) { note("timeout " + (p && p.id) + " changed=" + !!changed + " still=" + still + " sig=" + sig + " ready=" + ready(p, now - moved, before)); if (changed && target !== null) keep(target); return resolve(); }
             setTimeout(tick, 16);
           })();
         });

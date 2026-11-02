@@ -1,0 +1,65 @@
+{
+ "marks": [
+  {
+   "t": 8.556,
+   "what": "home {\"cards\":36,\"types\":[\"Movie\",\"Movie\",\"Episode\",\"Episode\",\"Movie\",\"Movie\",\"Movie\",\"Movie\"]}"
+  },
+  {
+   "t": 8.556,
+   "what": "cards 1d858c5bfd41686f432c5272367f8b67,d20d52dd0dfb390eccf3bc6d42c66edc,6f225e4936f38baaa7f572cadb22260f"
+  },
+  {
+   "t": 9.211,
+   "what": "click first-ever (no stand-in yet)"
+  },
+  {
+   "t": 12.233,
+   "what": "back first-ever (no stand-in yet)"
+  },
+  {
+   "t": 15.377,
+   "what": "click same again"
+  },
+  {
+   "t": 19.853,
+   "what": "back same again"
+  },
+  {
+   "t": 54.168,
+   "what": "click another"
+  },
+  {
+   "t": 59.681,
+   "what": "back another"
+  },
+  {
+   "t": 92.788,
+   "what": "click third"
+  },
+  {
+   "t": 95.798,
+   "what": "back third"
+  },
+  {
+   "t": 171.655,
+   "what": "click arrow-test y=300"
+  },
+  {
+   "t": 175.16,
+   "what": "back-arrow click"
+  },
+  {
+   "t": 177.696,
+   "what": "after back arrow y=300 (was 300)"
+  },
+  {
+   "t": 177.732,
+   "what": "library 0"
+  },
+  {
+   "t": 181.358,
+   "what": "library 1"
+  }
+ ],
+ "look": null
+}

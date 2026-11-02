@@ -1,0 +1,43 @@
+[
+ {
+  "run": 0,
+  "loadMs": 5,
+  "fromDevice": 0,
+  "fromNetwork": 12,
+  "controlled": true,
+  "caches": {
+   "embydata": 1,
+   "tb-1-static": 55,
+   "tb-1-img": 85,
+   "tb-1-misc": 1
+  },
+  "network": [
+   "/Shows/NextUp?userId=3ccb0db5feb5452586a17facbab7c471&Limit=24&EnableResumable=true&Enable",
+   "/Users/3ccb0db5feb5452586a17facbab7c471",
+   "/UshereatsTheme/trending",
+   "/Branding/Configuration",
+   "/UserItems/Resume?userId=3ccb0db5feb5452586a17facbab7c471&MediaTypes=Video&IncludeItemType",
+   "/Items?userId=3ccb0db5feb5452586a17facbab7c471&Recursive=true&Limit=16&IncludeItemTypes=Mo",
+   "/Items/Latest?userId=3ccb0db5feb5452586a17facbab7c471&Limit=16&ParentId=f137a2dd21bbc1b99a",
+   "/Items/Latest?userId=3ccb0db5feb5452586a17facbab7c471&Limit=16&ParentId=a656b907eb3a73532e",
+   "/Items/Counts?userId=3ccb0db5feb5452586a17facbab7c471",
+   "/Users/3ccb0db5feb5452586a17facbab7c471/Items?EnableTotalRecordCount=false&Ids=1d858c5bfd4",
+   "/Sessions?ActiveWithinSeconds=960",
+   "/Items/Counts?userId=3ccb0db5feb5452586a17facbab7c471"
+  ]
+ },
+ {
+  "run": 1,
+  "loadMs": 1,
+  "fromDevice": 0,
+  "fromNetwork": 0,
+  "controlled": true,
+  "caches": {
+   "embydata": 1,
+   "tb-1-static": 55,
+   "tb-1-img": 85,
+   "tb-1-misc": 1
+  },
+  "network": []
+ }
+]

@@ -74,8 +74,10 @@
   function ready(p, t, before) {
     if (!p) return false;
     // the background colour follows the page in the same cross-fade (not a slow change after it)
-    if (t < 700 && window.tbAmbientPending && window.tbAmbientPending()) return false;
-    if (p.id === "itemDetailPage") {
+    var isTitle = p.id === "itemDetailPage";
+    // title pages: skip the ambient wait (the colour arrives during the fade)
+    if (!isTitle && t < 700 && window.tbAmbientPending && window.tbAmbientPending()) return false;
+    if (isTitle) {
       // collections, albums, artists, playlists, people: Jellyfin's own layout (SleekFin leaves them alone)
       if (p.classList.contains("sleekfin-details-native")) {
         if (html.classList.contains("sleekfin-details-concealed")) return false;
@@ -84,7 +86,9 @@
       }
       var sleek = !!document.querySelector("[data-sleekfin-details]") || html.classList.contains("sleekfin-details-mounted") || html.classList.contains("sleekfin-details-concealed");
       if (sleek) {
-        if (!html.classList.contains("sleekfin-details-mounted") || html.classList.contains("sleekfin-details-concealed") || p.getAttribute("data-sleekfin-details") !== "true") return false;
+        // banner-ready: mounted + hero has title/logo content (don't wait for concealment to clear
+        // during a view transition — startViewTransition already holds the old page)
+        if (!html.classList.contains("sleekfin-details-mounted") || p.getAttribute("data-sleekfin-details") !== "true") return false;
         var st = p.querySelectorAll(".sleekfin-details-title");
         if (st.length !== 1 || !st[0].childNodes.length) return false;
         // Jellyfin's own title still showing next to SleekFin's (for a moment the name is there twice)
@@ -195,7 +199,9 @@
             var changed = moved && (from === null ? (p !== page0 || (p && p.id === "itemDetailPage") || (tab0 && shownTab(p) !== tab0)) : (p !== page0 || location.hash !== from));
             if (changed && target !== null && Math.abs(scrolled() - target) > 1) scrollNow(target);
             var still = changed ? layout(p) : 0;
-            if (changed && still >= 60 && (!p || p.id !== "itemDetailPage" || now - last >= 50) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); if (target !== null) keep(target); return resolve(); }
+            var isDetail = p && p.id === "itemDetailPage";
+            var settled = isDetail ? (still >= 0) : (still >= 60 && (now - last >= 50 || !isDetail));
+            if (changed && settled && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); if (target !== null) keep(target); return resolve(); }
             // a title page waits for its content (cinejoy fades straight into the finished page, never a placeholder)
             if (now - t0 > (p && p.id === "itemDetailPage" ? 2500 : 1200)) { note("timeout " + (p && p.id) + " changed=" + !!changed + " still=" + still + " sig=" + sig + " ready=" + ready(p, now - moved, before)); if (changed && target !== null) keep(target); return resolve(); }
             setTimeout(tick, 16);
@@ -209,15 +215,14 @@
   }
   window.tbCrossfade = crossfade;
 
-  // clicks that open a page: posters, links, the back arrows (before Jellyfin handles them)
-  document.addEventListener("click", function (e) {
-    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  // pointerdown on posters/links: capture the old page before the click fires and Jellyfin navigates
+  document.addEventListener("pointerdown", function (e) {
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     var t = e.target && e.target.closest ? e.target : null;
     if (!t) return;
-    // back arrows go back: the cross-fade starts from the history change they make (where you were is kept)
     if (t.closest(".sleekfin-details-back, .headerBackButton")) return;
     var b = t.closest("button");
-    if (b && !b.matches("[data-action='link'], .cardImageContainer, .itemAction[data-action='link']")) return;   // play, menus, favourites...
+    if (b && !b.matches("[data-action='link'], .cardImageContainer, .itemAction[data-action='link']")) return;
     var a = t.closest("a[href]");
     if (a && (a.target === "_blank" || !/#!?\//.test(a.getAttribute("href") || ""))) return;
     if (a || t.closest(".card[data-id], [data-action='link']")) crossfade(400);

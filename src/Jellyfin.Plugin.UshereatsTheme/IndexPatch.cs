@@ -130,11 +130,16 @@ public static class IndexPatch
         }
 
         // Your icon in the tab / home screen from the first frame
-        if (ThemeAssets.IsHttpUrl(build.Config.IconUrl))
         {
-            string icon = WebUtility.HtmlEncode(build.Config.IconUrl);
-            sb.Append("<link rel=\"icon\" href=\"").Append(icon).Append("\" data-tb-icon>");
-            sb.Append("<link rel=\"apple-touch-icon\" href=\"").Append(icon).Append("\" data-tb-icon>");
+            string? iconHref = build.Config.LogoVersion > 0
+                ? "../UshereatsTheme/logo.png?v=" + build.Config.LogoVersion.ToString(CultureInfo.InvariantCulture)
+                : (ThemeAssets.IsHttpUrl(build.Config.IconUrl) ? build.Config.IconUrl : null);
+            if (iconHref != null)
+            {
+                string icon = WebUtility.HtmlEncode(iconHref);
+                sb.Append("<link rel=\"icon\" href=\"").Append(icon).Append("\" data-tb-icon>");
+                sb.Append("<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"").Append(icon).Append("\" data-tb-icon>");
+            }
         }
 
         // The theme itself: stylesheet (applied before first paint) + scripts (run once the page is parsed)

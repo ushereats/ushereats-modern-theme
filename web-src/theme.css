@@ -249,6 +249,17 @@ a, button, .card, [role="button"] {
   touch-action: manipulation;
 }
 
+/* Press feedback: poster scales down on pointerdown / :active */
+.card .cardScalable {
+  transition: transform 120ms cubic-bezier(.2,1,.3,1);
+  will-change: transform;
+}
+.card:active .cardScalable,
+.card.tb-pressing .cardScalable {
+  transform: scale(0.95);
+  transition-duration: 60ms;
+}
+
 
 
 /* Library stats fade out when the header shrinks on scroll (PC) */

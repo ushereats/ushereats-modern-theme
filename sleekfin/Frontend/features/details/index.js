@@ -506,7 +506,12 @@ function reconcile() {
 
 function scheduleReconcile() {
   window.clearTimeout(state.reconcileTimer);
-  state.reconcileTimer = window.setTimeout(reconcile, 80);
+  // microtask for the first reconcile (mount), short delay for follow-ups to batch DOM changes
+  if (!state.mount) {
+    Promise.resolve().then(reconcile);
+  } else {
+    state.reconcileTimer = window.setTimeout(reconcile, 12);
+  }
 }
 
 function enter() {

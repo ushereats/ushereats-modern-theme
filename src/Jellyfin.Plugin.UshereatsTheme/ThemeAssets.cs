@@ -242,13 +242,19 @@ public static class ThemeAssets
 
         css.Append(".tb-sleek-end{--tb-sleek-end:1}\n");   // marks where the built-in SleekFin's styles end (used by the visual test)
         css.Append(ReadText("theme.css")).Append('\n');
-        if (IsHttpUrl(config.IconUrl))
         {
-            string url = CssString(config.IconUrl);
-            css.Append(".splashLogo,.pageTitleWithDefaultLogo,.pageTitleWithLogo{background-image:url(\"").Append(url)
-               .Append("\")!important;background-size:contain!important;background-repeat:no-repeat!important}")
-               .Append(".splashLogo{background-position:center!important}")
-               .Append(".pageTitleWithDefaultLogo,.pageTitleWithLogo{background-position:left center!important}\n");
+            // uploaded logo → relative to the CSS file; external URL → absolute
+            string? cssIcon = config.LogoVersion > 0
+                ? "logo.png?v=" + config.LogoVersion.ToString(CultureInfo.InvariantCulture)
+                : (IsHttpUrl(config.IconUrl) ? config.IconUrl : null);
+            if (cssIcon != null)
+            {
+                string url = CssString(cssIcon);
+                css.Append(".splashLogo,.pageTitleWithDefaultLogo,.pageTitleWithLogo{background-image:url(\"").Append(url)
+                   .Append("\")!important;background-size:contain!important;background-repeat:no-repeat!important}")
+                   .Append(".splashLogo{background-position:center!important}")
+                   .Append(".pageTitleWithDefaultLogo,.pageTitleWithLogo{background-position:left center!important}\n");
+            }
         }
 
         // Posters appear the moment they're ready (Jellyfin fades each one in over 0.5 s).
@@ -469,7 +475,9 @@ public static class ThemeAssets
     /// <summary>SleekFin's settings in the shape its scripts expect (header, details, hero look).</summary>
     internal static string SleekJson(PluginConfiguration config, SleekConfiguration s) => JsonSerializer.Serialize(new
     {
-        icon = IsHttpUrl(config.IconUrl) ? config.IconUrl : string.Empty,
+        icon = config.LogoVersion > 0
+            ? "../UshereatsTheme/logo.png?v=" + config.LogoVersion.ToString(CultureInfo.InvariantCulture)
+            : (IsHttpUrl(config.IconUrl) ? config.IconUrl : string.Empty),
         header = SleekSettings.Header(s),
         details = SleekSettings.Details(s),
         hero = SleekSettings.Hero(s),

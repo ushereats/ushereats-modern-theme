@@ -61,6 +61,9 @@ public class PluginConfiguration : BasePluginConfiguration
     public int TrendingRefreshHours { get; set; } = 6;
     public string TmdbCountries { get; set; } = "AU,US";
     public string IconUrl { get; set; } = "https://i.imgur.com/ckrwhZ1.png";
+
+    /// <summary>Bumped each time a logo is uploaded; 0 = no upload, use IconUrl.</summary>
+    public int LogoVersion { get; set; }
     public string DiscordUrl { get; set; } = "https://discord.gg/fgKX5u4Zn9";
     public string DiscordText1 { get; set; } = "Forgot password or need help? Join our Discord";
     public string DiscordText2 { get; set; } = "discord.gg/fgKX5u4Zn9";

@@ -8,9 +8,8 @@
   if (window.__tbPrefetch || !window.fetch) return;
   window.__tbPrefetch = true;
 
-  var ITEM = /(?:\/Users\/[0-9a-f]{32})?\/Items\/[0-9a-f]{32}(\?|$)/i;
-  var ITEM_KEEP = 120000, ITEM_FRESH = 15000;
-  var TTL = ITEM_FRESH;
+  var ITEM = /\/Users\/[0-9a-f]{32}\/Items\/[0-9a-f]{32}(\?|$)/i;
+  var TTL = 15000;
   var cache = {};   // url -> { at, p: Promise<{ status, statusText, headers, body }> }
 
   function key(url) { return String(url).replace(/^https?:\/\/[^/]+/i, "").replace(/[?&]tbBench=\d+/, ""); }
@@ -96,19 +95,19 @@
     // Favourites: shown at once from the copy kept from last time (and fetched ahead in idle time, see below)
     if (FAV.test(url) && !(init && init.cache === "no-store")) { rememberFav(url); return listFetch(this, arguments, url); }
     if (!ITEM.test(url) || /[?&](fields|Fields)=/.test(url) || (init && init.cache === "no-store")) return realFetch.apply(this, arguments);
-    var k = key(url), hit = cache[k], now = Date.now();
-    if (hit && hit.x && now - hit.at < ITEM_KEEP) {
-      // stale-while-revalidate: serve from cache, refresh in background if stale
-      if (now - hit.at > ITEM_FRESH && !hit.busy) {
-        hit.busy = true;
-        grab(this, arguments).then(function (x) { if (x.status === 200 && cache[k] === hit) cache[k] = { at: Date.now(), x: x }; else hit.busy = false; }, function () { hit.busy = false; });
-      }
-      return Promise.resolve(respond(hit.x));
+    var k = key(url), hit = cache[k];
+    if (!hit || Date.now() - hit.at > TTL) {
+      var p = realFetch.apply(this, arguments).then(function (r) {
+        return r.text().then(function (body) {
+          var h = {};
+          r.headers.forEach(function (v, n) { h[n] = v; });
+          return { status: r.status, statusText: r.statusText, headers: h, body: body };
+        });
+      });
+      hit = cache[k] = { at: Date.now(), p: p };
+      p.then(function (x) { if (x.status !== 200 && cache[k] === hit) delete cache[k]; }, function () { if (cache[k] === hit) delete cache[k]; });
     }
-    return grab(this, arguments).then(function (x) {
-      if (x.status === 200) cache[k] = { at: Date.now(), x: x };
-      return respond(x);
-    });
+    return hit.p.then(function (x) { return new Response(x.body, { status: x.status, statusText: x.statusText, headers: x.headers }); });
   };
   // changes made through Jellyfin's newer code (XMLHttpRequest) also clear it
   var open = XMLHttpRequest.prototype.open;
@@ -276,8 +275,7 @@
     var uid = api.getCurrentUserId();
     if (!uid) return;
     // same link and sign-in as Jellyfin's own request, so the page reuses it
-    var auth = { headers: { Authorization: 'MediaBrowser Token="' + api.accessToken() + '"' } };
-    window.fetch(api.getUrl("Users/" + uid + "/Items/" + id), auth)
+    window.fetch(api.getUrl("Users/" + uid + "/Items/" + id), { headers: { Authorization: 'MediaBrowser Token="' + api.accessToken() + '"' } })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (item) {
         if (!item) return;
@@ -289,19 +287,6 @@
         if (item.ImageTags && item.ImageTags.Logo) urls.push(api.getScaledImageUrl(item.Id, { type: "Logo", tag: item.ImageTags.Logo }));
         else if (item.ParentLogoItemId && item.ParentLogoImageTag) urls.push(api.getScaledImageUrl(item.ParentLogoItemId, { type: "Logo", tag: item.ParentLogoImageTag }));
         urls.forEach(function (u) { var im = new Image(); im.decoding = "async"; im.src = u; });
-        // prefetch the API calls the details page will make (one concurrent batch, low priority)
-        var pre = [];
-        pre.push(api.getUrl("Items/" + id + "/Ancestors", { userId: uid }));
-        pre.push(api.getUrl("Items/" + id + "/Similar", { userId: uid, Limit: 12, Fields: "PrimaryImageAspectRatio" }));
-        pre.push(api.getUrl("Items", { userId: uid, Ids: id, Filters: "IsNotFolder", Recursive: true, CollapseBoxSetItems: false }));
-        pre.push(api.getUrl("Items/" + id + "/ThemeMedia", { userId: uid, InheritFromParent: true }));
-        if (item.Type === "Series") {
-          pre.push(api.getUrl("Shows/" + id + "/Seasons", { userId: uid, Fields: "BasicSyncInfo" }));
-          pre.push(api.getUrl("Shows/NextUp", { userId: uid, SeriesId: id, Fields: "BasicSyncInfo" }));
-        } else if (item.Type === "Season" && item.SeriesId) {
-          pre.push(api.getUrl("Shows/" + item.SeriesId + "/Episodes", { userId: uid, SeasonId: id, Fields: "BasicSyncInfo" }));
-        }
-        pre.forEach(function (u) { window.fetch(u, auth)["catch"](function () {}); });
       })
       .catch(function () {});
   }
@@ -321,18 +306,4 @@
   document.addEventListener("pointerdown", function (e) { if (e.pointerType === "mouse" && e.button === 0) { var id = idOf(e.target); if (id) warm(id); } }, true);
   // phones: the moment a finger lands on a poster
   document.addEventListener("touchstart", function (e) { var id = idOf(e.target); if (id) warm(id); }, { capture: true, passive: true });
-
-  // ── poster press feedback (scale-down on pointerdown) ──
-  var pressing = null;
-  function unpress() { if (pressing) { pressing.classList.remove("tb-pressing"); pressing = null; } }
-  document.addEventListener("pointerdown", function (e) {
-    if (e.button !== 0) return;
-    var card = e.target && e.target.closest && e.target.closest(".card[data-id]");
-    if (!card) return;
-    unpress();
-    pressing = card;
-    card.classList.add("tb-pressing");
-  }, true);
-  document.addEventListener("pointerup", unpress, true);
-  document.addEventListener("pointercancel", unpress, true);
 })();

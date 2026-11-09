@@ -1713,22 +1713,10 @@
                             </div>
                             <div class="sleekfin-input-group">
                                 <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side">Logo</label>
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-IconUrl">Icon URL</label>
                                     <div class="sleekfin-input-stack">
-                                        <div id="tb-logo-box" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-                                            <img id="tb-logo-preview" style="width:48px;height:48px;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.06);display:none" />
-                                            <label style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:6px;background:rgba(255,255,255,.08);cursor:pointer;font-size:.85em">
-                                                Upload
-                                                <input id="tb-logo-file" type="file" accept="image/png,image/jpeg,image/webp" style="display:none" />
-                                            </label>
-                                            <button id="tb-logo-remove" type="button" style="display:none;padding:6px 12px;border:0;border-radius:6px;background:rgba(255,80,80,.15);color:#f77;cursor:pointer;font-size:.85em">Remove</button>
-                                            <span id="tb-logo-status" style="font-size:.8em;opacity:.6"></span>
-                                        </div>
-                                        <div style="margin-top:6px">
-                                            <label class="sleekfin-label sleekfin-label--side" for="tb-IconUrl" style="font-size:.8em;opacity:.7">or paste a URL</label>
-                                            <input id="tb-IconUrl" class="sleekfin-input" type="text" data-key="IconUrl" style="margin-top:2px" />
-                                        </div>
-                                        <div class="sleekfin-field-description">Your icon: browser tab, home screen, header logo, loading screen. Upload a 512×512 PNG for best results. The URL is used only when no logo is uploaded.</div>
+                                        <input id="tb-IconUrl" class="sleekfin-input" type="text" data-key="IconUrl" />
+                                        <div class="sleekfin-field-description">Your icon: browser tab, home screen, header logo, loading screen. Direct image link (512x512 PNG). Empty = Jellyfin's.</div>
                                     </div>
                                 </div>
                             </div>
@@ -5226,52 +5214,9 @@
           else el.value = v == null ? "" : v;
         });
       }
-      // ── Logo upload ──
-      var logoPreview = page.querySelector("#tb-logo-preview");
-      var logoFile = page.querySelector("#tb-logo-file");
-      var logoRemove = page.querySelector("#tb-logo-remove");
-      var logoStatus = page.querySelector("#tb-logo-status");
-      function showLogo(version) {
-        if (version > 0) {
-          logoPreview.src = ApiClient.getUrl("UshereatsTheme/logo.png") + "?v=" + version + "&t=" + Date.now();
-          logoPreview.style.display = "";
-          logoRemove.style.display = "";
-        } else {
-          logoPreview.style.display = "none";
-          logoRemove.style.display = "none";
-        }
-      }
-      logoFile.addEventListener("change", function () {
-        var f = logoFile.files[0];
-        if (!f) return;
-        if (f.size > 2 * 1024 * 1024) { logoStatus.textContent = "Too large (max 2 MB)"; return; }
-        logoStatus.textContent = "Uploading…";
-        var fd = new FormData();
-        fd.append("file", f);
-        fetch(ApiClient.getUrl("UshereatsTheme/logo"), {
-          method: "POST",
-          headers: { "Authorization": 'MediaBrowser Token="' + ApiClient.accessToken() + '"' },
-          body: fd
-        }).then(function (r) { return r.json(); }).then(function (d) {
-          logoStatus.textContent = "Uploaded — save to apply everywhere.";
-          showLogo(d.version);
-        })["catch"](function () { logoStatus.textContent = "Upload failed."; });
-        logoFile.value = "";
-      });
-      logoRemove.addEventListener("click", function () {
-        logoStatus.textContent = "Removing…";
-        fetch(ApiClient.getUrl("UshereatsTheme/logo"), {
-          method: "DELETE",
-          headers: { "Authorization": 'MediaBrowser Token="' + ApiClient.accessToken() + '"' }
-        }).then(function () {
-          logoStatus.textContent = "Removed — save to apply.";
-          showLogo(0);
-        })["catch"](function () { logoStatus.textContent = "Remove failed."; });
-      });
       page.addEventListener("viewshow", function () {
         ApiClient.getPluginConfiguration(PLUGIN_ID).then(function (cfg) {
           readInto(cfg);
-          showLogo(cfg.LogoVersion || 0);
           try { rows = JSON.parse(cfg.HomeRowsJson || "[]"); } catch (x) { rows = []; }
           if (!Array.isArray(rows)) rows = [];
           rows.forEach(function (r) { if (!r.id) r.id = newId(); });

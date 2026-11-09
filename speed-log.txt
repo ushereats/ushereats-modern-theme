@@ -1,0 +1,21 @@
+home first visit {"cls":0.005,"shifts":[{"at":1434,"hash":"#/home","v":0,"visible":[],"src":["div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"]},{"at":2616,"hash":"#/home","v":0.005,"visible":[],"src":["div.emby-scrollbuttons.padded-right 0,877,1920,55 -> 0,821,1920,112","div.emby-scrollbuttons.padded-right 0,1006,1920,74 -> 0,1027,1920,53"]}],"muts":["196x childList head (0-1750ms)","101x attributes[styl
+home reload (rows from last visit) {"cls":0,"shifts":[{"at":809,"hash":"#/home","v":0,"visible":[],"src":["div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"]}],"muts":["198x childList head (0-750ms)","72x attributes[style] html.tb-ambient.tb-hover.tb-hero-on (500-750ms)","68x attributes[data-sleekfin-header-overflowed] button (500-1000ms)","52x attributes[data-sleekfin-current] button (500-1000ms)","49x attributes[class] ht
+movie (reload) {"cls":0.0096,"shifts":[{"at":368,"hash":"#/details?id=1d858c5bfd41686f4","v":0.0001,"visible":[],"src":["div 1750,20,108,40 -> 1708,20,108,40"]},{"at":373,"hash":"#/details?id=1d858c5bfd41686f4","v":0.0002,"visible":[],"src":["::after 1719,1,170,102 -> 1677,1,170,102"]},{"at":445,"hash":"#/details?id=1d858c5bfd41686f4","v":0,"visible":[],"src":["div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20
+series (reload) {"cls":0.0378,"shifts":[{"at":388,"hash":"#/details?id=5171c7a6950f550b9","v":0.0001,"visible":["img 53,20,40,40"],"src":["a.MuiButtonBase-root.MuiButton-root.MuiButton-text 60,20,40,40 -> 110,20,40,40","div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"]},{"at":430,"hash":"#/details?id=5171c7a6950f550b9","v":0.0027,"visible":[],"src":["div.sleekfin-section-heading 60,959,1720,42 -> 60,954,
+episode (reload) {"cls":0.0182,"shifts":[{"at":400,"hash":"#/details?id=f6dde552f47cce5c5","v":0.0001,"visible":["img 53,20,40,40"],"src":["a.MuiButtonBase-root.MuiButton-root.MuiButton-text 60,20,40,40 -> 110,20,40,40","div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"]},{"at":562,"hash":"#/details?id=f6dde552f47cce5c5","v":0.0181,"visible":["bdi 60,619,94,14","bdi 86,636,256,33","bdi 60,729,520,41"],"src
+nav favourites -1 0.0417
+nav movies library -1 0.0667
+nav shows library -1 0.0667
+nav music library -1 0.0667
+nav collections -1 0.0417
+nav movie 549 0.0109
+nav series 506 0.0433
+nav collection 455 0.0421
+nav album 473 0.0424
+nav artist 537 0.0424
+nav playlist 457 0.0417
+nav person 746 0.0417
+nav search 677 0.0417
+nav favourites again -1 0.0417
+nav dashboard -1 0.0117
+speed done

@@ -1,0 +1,2044 @@
+{
+ "home first visit": {
+  "cls": 0.005,
+  "shifts": [
+   {
+    "at": 1434,
+    "hash": "#/home",
+    "v": 0,
+    "visible": [],
+    "src": [
+     "div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"
+    ]
+   },
+   {
+    "at": 2616,
+    "hash": "#/home",
+    "v": 0.005,
+    "visible": [],
+    "src": [
+     "div.emby-scrollbuttons.padded-right 0,877,1920,55 -> 0,821,1920,112",
+     "div.emby-scrollbuttons.padded-right 0,1006,1920,74 -> 0,1027,1920,53"
+    ]
+   }
+  ],
+  "muts": [
+   "196x childList head (0-1750ms)",
+   "101x attributes[style] html.tb-ambient.tb-hover.tb-hero-on (500-1250ms)",
+   "100x attributes[data-sleekfin-header-overflowed] button (500-2000ms)",
+   "80x attributes[data-sleekfin-current] button (500-2000ms)",
+   "72x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (250-4000ms)",
+   "70x attributes[style] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (500-1250ms)",
+   "48x childList div.cardScalable (1500-1500ms)",
+   "35x attributes[style] div.emby-scrollbuttons.padded-right (2000-2000ms)",
+   "32x attributes[style] a.cardImageContainer.coveredImage.cardContent (1250-1250ms)",
+   "32x attributes[data-tb-src] a.cardImageContainer.coveredImage.cardContent (1250-1250ms)",
+   "32x childList div.tb-quality (1500-1500ms)",
+   "32x attributes[data-html] div.tb-quality (1500-1500ms)",
+   "32x attributes[data-rdb-size] div.cardScalable (1500-1500ms)",
+   "30x attributes[style] div.itemsContainer.scrollSlider.focuscontainer-x (1250-1500ms)",
+   "24x attributes[class] div.cardText.cardTextCentered.cardText-secondary (1500-2000ms)",
+   "20x attributes[class] div.cardText.cardText-secondary.sleekfin-meta (1500-2000ms)",
+   "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (1750-1750ms)",
+   "17x attributes[data-sleekfin-header-source-anchor] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (500-1250ms)",
+   "17x attributes[tabindex] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (500-1250ms)",
+   "16x attributes[data-sleekfin-header-overflow-hidden] button (500-2000ms)",
+   "16x attributes[data-sleekfin-header-overflow-active] div (500-2000ms)",
+   "16x attributes[style] div.cardBox (1500-1500ms)",
+   "16x childList div.cardBox (1500-1500ms)",
+   "16x attributes[data-key] div.release-date-badge (1500-1500ms)",
+   "16x attributes[title] div.release-date-badge (1500-1500ms)"
+  ]
+ },
+ "home reload (rows from last visit)": {
+  "cls": 0,
+  "shifts": [
+   {
+    "at": 809,
+    "hash": "#/home",
+    "v": 0,
+    "visible": [],
+    "src": [
+     "div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"
+    ]
+   }
+  ],
+  "muts": [
+   "198x childList head (0-750ms)",
+   "72x attributes[style] html.tb-ambient.tb-hover.tb-hero-on (500-750ms)",
+   "68x attributes[data-sleekfin-header-overflowed] button (500-1000ms)",
+   "52x attributes[data-sleekfin-current] button (500-1000ms)",
+   "49x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (250-4000ms)",
+   "46x attributes[style] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (500-750ms)",
+   "36x attributes[style] div.emby-scrollbuttons.padded-right (750-1000ms)",
+   "32x childList div.cardScalable (750-750ms)",
+   "32x childList div.tb-quality (750-750ms)",
+   "32x attributes[data-html] div.tb-quality (750-750ms)",
+   "32x attributes[style] a.cardImageContainer.coveredImage.cardContent (750-750ms)",
+   "32x attributes[data-tb-src] a.cardImageContainer.coveredImage.cardContent (750-750ms)",
+   "32x attributes[data-rdb-size] div.cardScalable (1000-1000ms)",
+   "24x attributes[style] div.itemsContainer.scrollSlider.focuscontainer-x (750-750ms)",
+   "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (750-750ms)",
+   "16x attributes[style] div.cardBox (1000-1000ms)",
+   "16x childList div.cardBox (1000-1000ms)",
+   "16x attributes[data-key] div.release-date-badge (1000-1000ms)",
+   "16x attributes[title] div.release-date-badge (1000-1000ms)",
+   "16x childList div.release-date-badge (1000-1000ms)",
+   "16x attributes[style] div.cardScalable (1000-1000ms)",
+   "15x attributes[style] span.tb-logo-img (750-750ms)",
+   "15x attributes[data-tb-src] span.tb-logo-img (750-750ms)",
+   "14x childList body (0-500ms)",
+   "12x attributes[class] div.itemsContainer.scrollSlider.focuscontainer-x (750-750ms)"
+  ]
+ },
+ "movie (reload)": {
+  "cls": 0.0096,
+  "shifts": [
+   {
+    "at": 368,
+    "hash": "#/details?id=1d858c5bfd41686f4",
+    "v": 0.0001,
+    "visible": [],
+    "src": [
+     "div 1750,20,108,40 -> 1708,20,108,40"
+    ]
+   },
+   {
+    "at": 373,
+    "hash": "#/details?id=1d858c5bfd41686f4",
+    "v": 0.0002,
+    "visible": [],
+    "src": [
+     "::after 1719,1,170,102 -> 1677,1,170,102"
+    ]
+   },
+   {
+    "at": 445,
+    "hash": "#/details?id=1d858c5bfd41686f4",
+    "v": 0,
+    "visible": [],
+    "src": [
+     "div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"
+    ]
+   },
+   {
+    "at": 487,
+    "hash": "#/details?id=1d858c5bfd41686f4",
+    "v": 0,
+    "visible": [
+     "img 53,20,40,40"
+    ],
+    "src": [
+     "a.MuiButtonBase-root.MuiButton-root.MuiButton-text 60,20,40,40 -> 110,20,40,40"
+    ]
+   },
+   {
+    "at": 642,
+    "hash": "#/details?id=1d858c5bfd41686f4",
+    "v": 0.0093,
+    "visible": [
+     "bdi 60,729,520,41"
+    ],
+    "src": [
+     "div.sleekfin-details-stack 60,615,1800,231 -> 60,546,1800,300"
+    ]
+   }
+  ],
+  "muts": [
+   "204x childList head (0-500ms)",
+   "89x attributes[style] div#itemDetailPage.page.libraryPage.itemDetailPage (500-500ms)",
+   "72x attributes[style] html.sleekfin-details-concealed.tb-ambient.tb-hover (250-500ms)",
+   "55x attributes[data-sleekfin-header-overflowed] button (250-750ms)",
+   "44x attributes[style] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (250-500ms)",
+   "39x attributes[data-sleekfin-current] button (250-750ms)",
+   "35x attributes[class] html.sleekfin-details-concealed.tb-ambient.tb-hover (0-500ms)",
+   "22x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light.hide (500-750ms)",
+   "21x attributes[style] div.mainDetailButtons.focuscontainer-x.sleekfin-details-actions (500-500ms)",
+   "20x attributes[is] button.emby-scrollbuttons-button.paper-icon-button-light (500-500ms)",
+   "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (500-500ms)",
+   "18x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (500-4000ms)",
+   "17x childList body (0-500ms)",
+   "12x attributes[style] div.scrollSlider.focuscontainer-x.itemsContainer (500-500ms)",
+   "12x attributes[disabled] button.emby-scrollbuttons-button.paper-icon-button-light.hide (500-750ms)",
+   "11x childList style#tb-js-css (0-250ms)",
+   "11x attributes[data-sleekfin-header-source-anchor] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (250-500ms)",
+   "11x attributes[tabindex] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (250-500ms)",
+   "11x attributes[style] div.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense (250-500ms)",
+   "10x childList script (0-0ms)",
+   "10x attributes[is] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (500-500ms)",
+   "10x attributes[class] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (500-500ms)",
+   "10x attributes[data-scroll-mode-x] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (500-500ms)",
+   "10x childList div.mainDetailButtons.focuscontainer-x.sleekfin-details-actions (500-500ms)",
+   "10x attributes[is] div.emby-scrollbuttons.padded-right (500-500ms)"
+  ]
+ },
+ "series (reload)": {
+  "cls": 0.0378,
+  "shifts": [
+   {
+    "at": 388,
+    "hash": "#/details?id=5171c7a6950f550b9",
+    "v": 0.0001,
+    "visible": [
+     "img 53,20,40,40"
+    ],
+    "src": [
+     "a.MuiButtonBase-root.MuiButton-root.MuiButton-text 60,20,40,40 -> 110,20,40,40",
+     "div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"
+    ]
+   },
+   {
+    "at": 430,
+    "hash": "#/details?id=5171c7a6950f550b9",
+    "v": 0.0027,
+    "visible": [],
+    "src": [
+     "div.sleekfin-section-heading 60,959,1720,42 -> 60,954,1720,60",
+     "::after 0,0,0,0 -> 187,961,13,13",
+     "div.sleekfin-details-episode-controls 1780,962,80,36 -> 1780,966,80,36"
+    ]
+   },
+   {
+    "at": 534,
+    "hash": "#/details?id=5171c7a6950f550b9",
+    "v": 0.0051,
+    "visible": [
+     "bdi 60,794,308,20"
+    ],
+    "src": [
+     "div.sleekfin-details-stack 60,661,1800,185 -> 60,613,1800,233"
+    ]
+   },
+   {
+    "at": 565,
+    "hash": "#/details?id=5171c7a6950f550b9",
+    "v": 0.0055,
+    "visible": [
+     "bdi 60,750,308,20"
+    ],
+    "src": [
+     "div.sleekfin-details-stack 60,613,1800,233 -> 60,569,1800,277"
+    ]
+   },
+   {
+    "at": 575,
+    "hash": "#/details?id=5171c7a6950f550b9",
+    "v": 0.0017,
+    "visible": [],
+    "src": [
+     "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-track-settings 60,802,44,44 -> 1816,802,44,44"
+    ]
+   },
+   {
+    "at": 606,
+    "hash": "#/details?id=5171c7a6950f550b9",
+    "v": 0.0227,
+    "visible": [],
+    "src": [
+     "div.detailPageSecondaryContainer.padded-left.padded-bottom-page 0,1033,1920,47 -> 0,0,0,0"
+    ]
+   }
+  ],
+  "muts": [
+   "204x childList head (0-500ms)",
+   "89x attributes[style] div#itemDetailPage.page.libraryPage.itemDetailPage (250-250ms)",
+   "72x attributes[style] html.sleekfin-details-concealed.tb-ambient.tb-hover (250-250ms)",
+   "65x attributes[data-sleekfin-header-overflowed] button (250-500ms)",
+   "49x attributes[data-sleekfin-current] button (250-500ms)",
+   "46x attributes[style] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (250-250ms)",
+   "33x attributes[class] html.sleekfin-details-concealed.tb-ambient.tb-hover (0-250ms)",
+   "24x attributes[class] button.sleekfin-icon-button.sleekfin-control-3d.emby-button (500-500ms)",
+   "22x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light.hide (500-500ms)",
+   "21x attributes[style] div.mainDetailButtons.focuscontainer-x.sleekfin-details-actions (250-250ms)",
+   "20x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (250-4000ms)",
+   "20x attributes[is] button.emby-scrollbuttons-button.paper-icon-button-light (500-500ms)",
+   "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (500-500ms)",
+   "17x childList body (0-250ms)",
+   "12x attributes[style] div.scrollSlider.focuscontainer-x.itemsContainer (250-250ms)",
+   "12x attributes[disabled] button.emby-scrollbuttons-button.paper-icon-button-light.hide (500-500ms)",
+   "12x attributes[is] button.sleekfin-icon-button.sleekfin-control-3d.emby-button (500-500ms)",
+   "12x attributes[title] button.sleekfin-icon-button.sleekfin-control-3d.emby-button (500-500ms)",
+   "12x attributes[class] span.material-icons.favorite (500-500ms)",
+   "11x childList style#tb-js-css (0-250ms)",
+   "11x attributes[data-sleekfin-header-source-anchor] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (250-250ms)",
+   "11x attributes[tabindex] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (250-250ms)",
+   "10x childList script (0-0ms)",
+   "10x attributes[data-sleekfin-header-overflow-hidden] button (250-500ms)",
+   "10x attributes[data-sleekfin-header-overflow-active] div (250-500ms)"
+  ]
+ },
+ "episode (reload)": {
+  "cls": 0.0182,
+  "shifts": [
+   {
+    "at": 400,
+    "hash": "#/details?id=f6dde552f47cce5c5",
+    "v": 0.0001,
+    "visible": [
+     "img 53,20,40,40"
+    ],
+    "src": [
+     "a.MuiButtonBase-root.MuiButton-root.MuiButton-text 60,20,40,40 -> 110,20,40,40",
+     "div.MuiBox-root.css-2uchni 1820,20,40,40 -> 1856,20,4,40"
+    ]
+   },
+   {
+    "at": 562,
+    "hash": "#/details?id=f6dde552f47cce5c5",
+    "v": 0.0181,
+    "visible": [
+     "bdi 60,619,94,14",
+     "bdi 86,636,256,33",
+     "bdi 60,729,520,41"
+    ],
+    "src": [
+     "div.sleekfin-details-stack 60,628,1800,218 -> 60,509,1800,337"
+    ]
+   }
+  ],
+  "muts": [
+   "204x childList head (0-500ms)",
+   "89x attributes[style] div#itemDetailPage.page.libraryPage.itemDetailPage (500-500ms)",
+   "72x attributes[style] html.sleekfin-details-concealed.tb-ambient.tb-hover (250-250ms)",
+   "65x attributes[data-sleekfin-header-overflowed] button (250-750ms)",
+   "49x attributes[data-sleekfin-current] button (250-750ms)",
+   "46x attributes[style] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (250-250ms)",
+   "36x attributes[class] button.cardOverlayButton.cardOverlayButton-hover.itemAction (500-500ms)",
+   "32x attributes[class] html.sleekfin-details-concealed.tb-ambient.tb-hover (0-250ms)",
+   "29x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (500-4000ms)",
+   "24x attributes[class] button.sleekfin-icon-button.sleekfin-control-3d.emby-button (500-500ms)",
+   "24x attributes[is] button.cardOverlayButton.cardOverlayButton-hover.itemAction (500-500ms)",
+   "24x attributes[class] span.material-icons.cardOverlayButtonIcon.cardOverlayButtonIcon-hover (500-500ms)",
+   "22x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light.hide (500-750ms)",
+   "21x attributes[style] div.mainDetailButtons.focuscontainer-x.sleekfin-details-actions (500-500ms)",
+   "20x attributes[is] button.emby-scrollbuttons-button.paper-icon-button-light (500-500ms)",
+   "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (500-500ms)",
+   "17x childList body (0-250ms)",
+   "13x attributes[style] div.scrollSlider.focuscontainer-x.itemsContainer (250-750ms)",
+   "12x attributes[is] button.sleekfin-icon-button.sleekfin-control-3d.emby-button (500-500ms)",
+   "12x attributes[title] button.sleekfin-icon-button.sleekfin-control-3d.emby-button (500-500ms)",
+   "12x attributes[class] span.material-icons.favorite (500-500ms)",
+   "12x attributes[title] button.cardOverlayButton.cardOverlayButton-hover.itemAction (500-500ms)",
+   "11x childList style#tb-js-css (0-250ms)",
+   "11x attributes[data-sleekfin-header-source-anchor] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (250-250ms)",
+   "11x attributes[tabindex] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (250-250ms)"
+  ]
+ },
+ "logos": [
+  {
+   "url": "/Items/ee7a019545f8a756d52e0a981aa54bc2/Images/Logo?tag=9da3b9c436bc32846619cd68cefbb52b&maxHeight=140&quality=90&format=webp",
+   "kb": 4,
+   "status": 200
+  },
+  {
+   "url": "/Items/6f225e4936f38baaa7f572cadb22260f/Images/Logo?tag=1b70c45499383feb690f6dcd56e4fab4&maxHeight=140&quality=90&format=webp",
+   "kb": 6,
+   "status": 200
+  },
+  {
+   "url": "/Items/51eb6dedcf4267d3b03e4d797ae97954/Images/Logo?tag=d6c6b4146b2ef746635821c5df0c714d&maxHeight=140&quality=90&format=webp",
+   "kb": 4,
+   "status": 200
+  },
+  {
+   "url": "/Items/78f6eef4587e3881330fa2f083085523/Images/Logo?tag=6b65d3f815e3a26c66bd937240f81b54&maxHeight=140&quality=90&format=webp",
+   "kb": 5,
+   "status": 200
+  },
+  {
+   "url": "/Items/ad42af0b48fec94e92fd483535db6ea8/Images/Logo?tag=25d51f96854768acbf539908115a5d21&maxHeight=140&quality=90&format=webp",
+   "kb": 4,
+   "status": 200
+  },
+  {
+   "url": "/Items/d7370aca459f559d6c055fd3f4537ec5/Images/Logo?tag=3a66a1baf0739312a554aea1da1c41a0&maxHeight=140&quality=90&format=webp",
+   "kb": 5,
+   "status": 200
+  },
+  {
+   "url": "/Items/fe509545192160afefdb312796033d71/Images/Logo?tag=6ca5eab167748fd0462d13f30c07339a&maxHeight=140&quality=90&format=webp",
+   "kb": 6,
+   "status": 200
+  },
+  {
+   "url": "/Items/5171c7a6950f550b9b0de561fea6d6b7/Images/Logo?tag=f25bc479ce21532189f39e89a9b041ef&maxHeight=140&quality=90&format=webp",
+   "kb": 4,
+   "status": 200
+  },
+  {
+   "url": "/Items/75d32c2d360d4f28ba04d79015b1ecc4/Images/Logo?tag=506e49aa3374e098e16c6fa1d42b6ffa&maxHeight=140&quality=90&format=webp",
+   "kb": 3,
+   "status": 200
+  },
+  {
+   "url": "/Items/532432f63066dc00899d003ab1e6e90c/Images/Logo?tag=de395b7c82f86383535c42bb149c19bb&maxHeight=140&quality=90&format=webp",
+   "kb": 4,
+   "status": 200
+  },
+  {
+   "url": "/Items/78f6eef4587e3881330fa2f083085523/Images/Logo?tag=6b65d3f815e3a26c66bd937240f81b54&maxHeight=140&quality=90&format=webp",
+   "kb": 5,
+   "status": 200
+  },
+  {
+   "url": "/Items/ee7a019545f8a756d52e0a981aa54bc2/Images/Logo?tag=9da3b9c436bc32846619cd68cefbb52b&maxHeight=140&quality=90&format=webp",
+   "kb": 4,
+   "status": 200
+  },
+  {
+   "url": "/Items/75d32c2d360d4f28ba04d79015b1ecc4/Images/Logo?tag=506e49aa3374e098e16c6fa1d42b6ffa&maxHeight=140&quality=90&format=webp",
+   "kb": 3,
+   "status": 200
+  },
+  {
+   "url": "/Items/ad42af0b48fec94e92fd483535db6ea8/Images/Logo?tag=25d51f96854768acbf539908115a5d21&maxHeight=140&quality=90&format=webp",
+   "kb": 4,
+   "status": 200
+  },
+  {
+   "url": "/Items/6f225e4936f38baaa7f572cadb22260f/Images/Logo?tag=1b70c45499383feb690f6dcd56e4fab4&maxHeight=140&quality=90&format=webp",
+   "kb": 6,
+   "status": 200
+  },
+  {
+   "url": "/Items/d7370aca459f559d6c055fd3f4537ec5/Images/Logo?tag=3a66a1baf0739312a554aea1da1c41a0&maxHeight=140&quality=90&format=webp",
+   "kb": 5,
+   "status": 200
+  },
+  {
+   "url": "/Items/51eb6dedcf4267d3b03e4d797ae97954/Images/Logo?tag=d6c6b4146b2ef746635821c5df0c714d&maxHeight=140&quality=90&format=webp",
+   "kb": 4,
+   "status": 200
+  },
+  {
+   "url": "/Items/5171c7a6950f550b9b0de561fea6d6b7/Images/Logo?tag=f25bc479ce21532189f39e89a9b041ef&maxHeight=140&quality=90&format=webp",
+   "kb": 4,
+   "status": 200
+  },
+  {
+   "url": "/Items/fe509545192160afefdb312796033d71/Images/Logo?tag=6ca5eab167748fd0462d13f30c07339a&maxHeight=140&quality=90&format=webp",
+   "kb": 6,
+   "status": 200
+  },
+  {
+   "url": "/Items/532432f63066dc00899d003ab1e6e90c/Images/Logo?tag=de395b7c82f86383535c42bb149c19bb&maxHeight=140&quality=90&format=webp",
+   "kb": 4,
+   "status": 200
+  },
+  {
+   "url": "/Items/1d858c5bfd41686f432c5272367f8b67/Images/Logo?tag=f5c9b012d05d6bbc00f95a539d33302f&maxWidth=600&maxHeight=200&quality=90",
+   "kb": 3,
+   "status": 200
+  },
+  {
+   "url": "/Items/5171c7a6950f550b9b0de561fea6d6b7/Images/Logo?tag=f25bc479ce21532189f39e89a9b041ef&maxWidth=600&maxHeight=200&quality=90",
+   "kb": 3,
+   "status": 200
+  },
+  {
+   "url": "/Items/5171c7a6950f550b9b0de561fea6d6b7/Images/Logo?tag=f25bc479ce21532189f39e89a9b041ef&maxWidth=600&maxHeight=200&quality=90",
+   "kb": 3,
+   "status": 200
+  },
+  {
+   "url": "/Items/78f6eef4587e3881330fa2f083085523/Images/Logo?tag=6b65d3f815e3a26c66bd937240f81b54&maxHeight=140&quality=90&format=webp",
+   "kb": 5,
+   "status": 200
+  },
+  {
+   "url": "/Items/5171c7a6950f550b9b0de561fea6d6b7/Images/Logo?tag=f25bc479ce21532189f39e89a9b041ef&maxHeight=140&quality=90&format=webp",
+   "kb": 4,
+   "status": 200
+  },
+  {
+   "url": "/Items/532432f63066dc00899d003ab1e6e90c/Images/Logo?tag=de395b7c82f86383535c42bb149c19bb&maxHeight=140&quality=90&format=webp",
+   "kb": 4,
+   "status": 200
+  },
+  {
+   "url": "/Items/d7370aca459f559d6c055fd3f4537ec5/Images/Logo?tag=3a66a1baf0739312a554aea1da1c41a0&maxHeight=140&quality=90&format=webp",
+   "kb": 5,
+   "status": 200
+  },
+  {
+   "url": "/Items/51eb6dedcf4267d3b03e4d797ae97954/Images/Logo?tag=d6c6b4146b2ef746635821c5df0c714d&maxHeight=140&quality=90&format=webp",
+   "kb": 4,
+   "status": 200
+  },
+  {
+   "url": "/Items/6f225e4936f38baaa7f572cadb22260f/Images/Logo?tag=1b70c45499383feb690f6dcd56e4fab4&maxHeight=140&quality=90&format=webp",
+   "kb": 6,
+   "status": 200
+  },
+  {
+   "url": "/Items/ad42af0b48fec94e92fd483535db6ea8/Images/Logo?tag=25d51f96854768acbf539908115a5d21&maxHeight=140&quality=90&format=webp",
+   "kb": 4,
+   "status": 200
+  },
+  {
+   "url": "/Items/75d32c2d360d4f28ba04d79015b1ecc4/Images/Logo?tag=506e49aa3374e098e16c6fa1d42b6ffa&maxHeight=140&quality=90&format=webp",
+   "kb": 3,
+   "status": 200
+  },
+  {
+   "url": "/Items/ee7a019545f8a756d52e0a981aa54bc2/Images/Logo?tag=9da3b9c436bc32846619cd68cefbb52b&maxHeight=140&quality=90&format=webp",
+   "kb": 4,
+   "status": 200
+  },
+  {
+   "url": "/Items/fe509545192160afefdb312796033d71/Images/Logo?tag=6ca5eab167748fd0462d13f30c07339a&maxHeight=140&quality=90&format=webp",
+   "kb": 6,
+   "status": 200
+  },
+  {
+   "url": "/Items/1d858c5bfd41686f432c5272367f8b67/Images/Logo?tag=f5c9b012d05d6bbc00f95a539d33302f&maxWidth=600&maxHeight=200&quality=90",
+   "kb": 3,
+   "status": 200
+  }
+ ],
+ "nav": {
+  "favourites": {
+   "cls": 0.0417,
+   "shifts": [
+    {
+     "at": 12069,
+     "hash": "#/home?tab=1",
+     "v": 0.0417,
+     "visible": [
+      "h2.sectionTitle.sectionTitle-cards 60,108,88,43",
+      "h2.sectionTitle.sectionTitle-cards 60,242,84,43"
+     ],
+     "src": [
+      "div#indexPage.page.mainAnimatedPage.homePage 0,0,1920,1080 -> 0,80,1920,1000"
+     ],
+     "hidden": true
+    }
+   ],
+   "muts": [
+    "68x attributes[style] div.itemsContainer.scrollSlider.focuscontainer-x (250-250ms)",
+    "64x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (250-500ms)",
+    "57x attributes[class] div.itemsContainer.scrollSlider.focuscontainer-x (250-500ms)",
+    "47x attributes[class] div.verticalSection.hide.emby-scroller-container (250-500ms)",
+    "34x attributes[is] button.emby-scrollbuttons-button.paper-icon-button-light (250-250ms)",
+    "30x attributes[data-sleekfin-current] button (250-500ms)",
+    "20x attributes[data-sleekfin-header-overflowed] button (500-500ms)",
+    "17x attributes[is] a.more.button-flat.button-flat-mini (250-250ms)",
+    "17x attributes[class] a.more.button-flat.button-flat-mini (250-250ms)",
+    "17x attributes[is] div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller (250-250ms)",
+    "17x attributes[class] div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller (250-250ms)",
+    "17x attributes[is] div.itemsContainer.scrollSlider.focuscontainer-x (250-250ms)"
+   ],
+   "readyMs": -1,
+   "vt": [
+    "start #/home?tab=1",
+    "ready 302ms indexPage",
+    "done"
+   ],
+   "seenCls": 0,
+   "requests": [
+    {
+     "ms": 172,
+     "url": "/Studios?limit=20&fields=PrimaryImageAspectRatio&isFavorite=true&enableImageTypes=Thumb&userId=fb7bff979dd2451aaaf1fd95a175916c&enableTotalR"
+    },
+    {
+     "ms": 157,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    },
+    {
+     "ms": 157,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    },
+    {
+     "ms": 144,
+     "url": "/Artists?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields=PrimaryImageAspectRatio&CollapseBoxSe"
+    },
+    {
+     "ms": 144,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    },
+    {
+     "ms": 122,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    },
+    {
+     "ms": 122,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    },
+    {
+     "ms": 121,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    },
+    {
+     "ms": 121,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    },
+    {
+     "ms": 120,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    },
+    {
+     "ms": 82,
+     "url": "/Persons?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields=PrimaryImageAspectRatio&CollapseBoxSe"
+    },
+    {
+     "ms": 72,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    }
+   ]
+  },
+  "movies library": {
+   "cls": 0.0667,
+   "shifts": [
+    {
+     "at": 24672,
+     "hash": "#/movies?topParentId=f137a2dd2",
+     "v": 0.0667,
+     "visible": [],
+     "src": [
+      "main.MuiBox-root.css-1iogify 0,0,1920,1080 -> 0,128,1920,952"
+     ],
+     "hidden": true
+    }
+   ],
+   "muts": [
+    "20x attributes[data-sleekfin-current] button (250-500ms)",
+    "15x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (0-750ms)",
+    "11x childList head (0-0ms)",
+    "10x attributes[class] a.lnkMediaFolder.navMenuOption.emby-button (250-250ms)",
+    "10x attributes[data-sleekfin-header-overflowed] button (500-500ms)",
+    "4x childList div.skinBody (250-250ms)",
+    "3x attributes[style] div.tb-amb-layer.on (500-500ms)",
+    "3x attributes[class] div.scrollSlider.focuscontainer-x.itemsContainer (500-500ms)",
+    "2x attributes[class] button.headerButton.mainDrawerButton.barsMenuButton (250-250ms)",
+    "2x attributes[class] h3.pageTitle (250-250ms)",
+    "2x attributes[class] button.headerButton.headerButtonLeft.headerBackButton (250-250ms)",
+    "2x attributes[class] a.navMenuOption.lnkMediaFolder.emby-button (250-250ms)"
+   ],
+   "readyMs": -1,
+   "vt": [
+    "start #/movies?topParentId=f137a2dd21bbc1b99aa5c0f6bf02a805&collectionType=movies",
+    "ready 355ms errorBoundary",
+    "done"
+   ],
+   "seenCls": 0,
+   "requests": [
+    {
+     "ms": 217,
+     "url": "/Studios?parentId=f137a2dd21bbc1b99aa5c0f6bf02a805&fields=DateCreated&fields=PrimaryImageAspectRatio&includeItemTypes=Movie&enableImageTypes"
+    },
+    {
+     "ms": 122,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?ParentId=f137a2dd21bbc1b99aa5c0f6bf02a805&Recursive=true&SortBy=Random&Limit=1&IncludeItemType"
+    },
+    {
+     "ms": 98,
+     "url": "/Items?userId=fb7bff979dd2451aaaf1fd95a175916c&startIndex=0&limit=100&recursive=true&sortOrder=Ascending&parentId=f137a2dd21bbc1b99aa5c0f6bf"
+    },
+    {
+     "ms": 86,
+     "url": "/Items/Filters2?userId=fb7bff979dd2451aaaf1fd95a175916c&parentId=f137a2dd21bbc1b99aa5c0f6bf02a805&includeItemTypes=Movie"
+    },
+    {
+     "ms": 75,
+     "url": "/Items/Filters?userId=fb7bff979dd2451aaaf1fd95a175916c&parentId=f137a2dd21bbc1b99aa5c0f6bf02a805&includeItemTypes=Movie"
+    },
+    {
+     "ms": 37,
+     "url": "/Items/f137a2dd21bbc1b99aa5c0f6bf02a805?userId=fb7bff979dd2451aaaf1fd95a175916c"
+    },
+    {
+     "ms": 20,
+     "url": "/Items/532432f63066dc00899d003ab1e6e90c/Images/Backdrop/0?tag=03d02dcb91c7673c369ec80ad65de57c&maxWidth=48&quality=60"
+    },
+    {
+     "ms": 3,
+     "url": "/web/node_modules.react-lazy-load-image-component.4c0850deb4bb234feecf.chunk.js"
+    },
+    {
+     "ms": 2,
+     "url": "/web/movies.6b7ab6a1096d9e9f9f51.css"
+    },
+    {
+     "ms": 2,
+     "url": "/web/14553.6ddb0da23f2698557d33.chunk.js"
+    },
+    {
+     "ms": 2,
+     "url": "/web/85401.7a16f94bd4b18fe0ff55.chunk.js"
+    },
+    {
+     "ms": 2,
+     "url": "/web/movies.32e97d454918a7540467.chunk.js"
+    }
+   ]
+  },
+  "shows library": {
+   "cls": 0.0667,
+   "shifts": [
+    {
+     "at": 37194,
+     "hash": "#/tv?topParentId=a656b907eb3a7",
+     "v": 0.0667,
+     "visible": [],
+     "src": [
+      "main.MuiBox-root.css-1iogify 0,0,1920,1080 -> 0,128,1920,952"
+     ],
+     "hidden": true
+    }
+   ],
+   "muts": [
+    "20x attributes[data-sleekfin-current] button (250-250ms)",
+    "14x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (0-750ms)",
+    "10x attributes[class] a.lnkMediaFolder.navMenuOption.emby-button (0-250ms)",
+    "10x attributes[data-sleekfin-header-overflowed] button (500-500ms)",
+    "4x childList div.skinBody (0-250ms)",
+    "3x childList head (0-0ms)",
+    "3x attributes[style] div.tb-amb-layer.on (250-250ms)",
+    "3x attributes[class] div.scrollSlider.focuscontainer-x.itemsContainer (500-500ms)",
+    "2x attributes[class] button.headerButton.mainDrawerButton.barsMenuButton (0-250ms)",
+    "2x attributes[class] h3.pageTitle (0-0ms)",
+    "2x attributes[class] button.headerButton.headerButtonLeft.headerBackButton (0-250ms)",
+    "2x attributes[class] a.navMenuOption.lnkMediaFolder.emby-button (0-250ms)"
+   ],
+   "readyMs": -1,
+   "vt": [
+    "start #/tv?topParentId=a656b907eb3a73532e40e44b968d0225&collectionType=tvshows",
+    "ready 313ms errorBoundary",
+    "done"
+   ],
+   "seenCls": 0,
+   "requests": [
+    {
+     "ms": 72,
+     "url": "/Items?userId=fb7bff979dd2451aaaf1fd95a175916c&startIndex=0&limit=100&recursive=true&sortOrder=Ascending&parentId=a656b907eb3a73532e40e44b96"
+    },
+    {
+     "ms": 72,
+     "url": "/Studios?parentId=a656b907eb3a73532e40e44b968d0225&fields=DateCreated&fields=PrimaryImageAspectRatio&includeItemTypes=Series&enableImageType"
+    },
+    {
+     "ms": 62,
+     "url": "/Items/Filters2?userId=fb7bff979dd2451aaaf1fd95a175916c&parentId=a656b907eb3a73532e40e44b968d0225&includeItemTypes=Series"
+    },
+    {
+     "ms": 29,
+     "url": "/Items/a656b907eb3a73532e40e44b968d0225?userId=fb7bff979dd2451aaaf1fd95a175916c"
+    },
+    {
+     "ms": 27,
+     "url": "/Items/Filters?userId=fb7bff979dd2451aaaf1fd95a175916c&parentId=a656b907eb3a73532e40e44b968d0225&includeItemTypes=Series"
+    },
+    {
+     "ms": 11,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?ParentId=a656b907eb3a73532e40e44b968d0225&Recursive=true&SortBy=Random&Limit=1&IncludeItemType"
+    },
+    {
+     "ms": 1,
+     "url": "/web/shows.6b7ab6a1096d9e9f9f51.css"
+    },
+    {
+     "ms": 1,
+     "url": "/web/shows.a07817625692bedad671.chunk.js"
+    }
+   ]
+  },
+  "music library": {
+   "cls": 0.0667,
+   "shifts": [
+    {
+     "at": 49742,
+     "hash": "#/music?topParentId=7e64e31965",
+     "v": 0.0667,
+     "visible": [],
+     "src": [
+      "main.MuiBox-root.css-1iogify 0,0,1920,1080 -> 0,128,1920,952"
+     ],
+     "hidden": true
+    }
+   ],
+   "muts": [
+    "20x attributes[data-sleekfin-current] button (250-250ms)",
+    "14x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (0-750ms)",
+    "10x attributes[class] a.lnkMediaFolder.navMenuOption.emby-button (0-250ms)",
+    "10x attributes[data-sleekfin-header-overflowed] button (500-500ms)",
+    "4x childList div.skinBody (0-250ms)",
+    "3x childList head (0-0ms)",
+    "3x attributes[class] div.scrollSlider.focuscontainer-x.itemsContainer (250-250ms)",
+    "2x attributes[class] button.headerButton.mainDrawerButton.barsMenuButton (0-250ms)",
+    "2x attributes[class] h3.pageTitle (0-0ms)",
+    "2x attributes[class] button.headerButton.headerButtonLeft.headerBackButton (0-250ms)",
+    "2x attributes[class] a.navMenuOption.lnkMediaFolder.emby-button (0-250ms)",
+    "2x attributes[class] a.navMenuOption.lnkMediaFolder.lnkManageServer (0-250ms)"
+   ],
+   "readyMs": -1,
+   "vt": [
+    "start #/music?topParentId=7e64e319657a9516ec78490da03edccb&collectionType=music",
+    "ready 315ms errorBoundary",
+    "done"
+   ],
+   "seenCls": 0,
+   "requests": [
+    {
+     "ms": 65,
+     "url": "/Studios?parentId=7e64e319657a9516ec78490da03edccb&fields=DateCreated&fields=PrimaryImageAspectRatio&includeItemTypes=MusicAlbum&enableImage"
+    },
+    {
+     "ms": 65,
+     "url": "/Items?userId=fb7bff979dd2451aaaf1fd95a175916c&startIndex=0&limit=100&recursive=true&sortOrder=Ascending&parentId=7e64e319657a9516ec78490da0"
+    },
+    {
+     "ms": 50,
+     "url": "/Items/Filters?userId=fb7bff979dd2451aaaf1fd95a175916c&parentId=7e64e319657a9516ec78490da03edccb&includeItemTypes=MusicAlbum"
+    },
+    {
+     "ms": 42,
+     "url": "/Items/Filters2?userId=fb7bff979dd2451aaaf1fd95a175916c&parentId=7e64e319657a9516ec78490da03edccb&includeItemTypes=MusicAlbum"
+    },
+    {
+     "ms": 40,
+     "url": "/Items/7e64e319657a9516ec78490da03edccb?userId=fb7bff979dd2451aaaf1fd95a175916c"
+    },
+    {
+     "ms": 10,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?ParentId=7e64e319657a9516ec78490da03edccb&Recursive=true&SortBy=Random&Limit=1&IncludeItemType"
+    },
+    {
+     "ms": 2,
+     "url": "/web/music.6b7ab6a1096d9e9f9f51.css"
+    },
+    {
+     "ms": 2,
+     "url": "/web/music.3bf93d0f443eed5b4dbd.chunk.js"
+    }
+   ]
+  },
+  "collections": {
+   "cls": 0.0417,
+   "shifts": [
+    {
+     "at": 62272,
+     "hash": "#/list?type=BoxSet",
+     "v": 0.0417,
+     "visible": [],
+     "src": [
+      "main.MuiBox-root.css-1iogify 0,0,1920,1080 -> 0,80,1920,1000"
+     ],
+     "hidden": true
+    }
+   ],
+   "muts": [
+    "14x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (0-750ms)",
+    "10x attributes[data-sleekfin-current] button (0-0ms)",
+    "10x attributes[data-sleekfin-header-overflowed] button (250-250ms)",
+    "5x childList head (0-0ms)",
+    "5x attributes[class] a.lnkMediaFolder.navMenuOption.emby-button (0-0ms)",
+    "3x attributes[class] div.vertical-wrap.itemsContainer (0-0ms)",
+    "3x attributes[class] span.material-icons.btnSortIcon.arrow_upward (0-0ms)",
+    "3x attributes[class] div.scrollSlider.focuscontainer-x.itemsContainer (250-250ms)",
+    "2x attributes[class] button.btnNewItem.hide.button-flat (0-0ms)",
+    "2x attributes[class] button.btnNewItem.hide.listIconButton-autohide (0-0ms)",
+    "2x attributes[class] button.btnFilter.button-flat.listTextButton-autohide (0-0ms)",
+    "2x attributes[class] button.btnFilter.listIconButton-autohide.paper-icon-button-light (0-0ms)"
+   ],
+   "readyMs": -1,
+   "vt": [
+    "start #/list?type=BoxSet",
+    "ready 302ms ",
+    "done"
+   ],
+   "seenCls": 0,
+   "requests": [
+    {
+     "ms": 5,
+     "url": "/web/list.6a395a43c6b0d173eb90.chunk.js"
+    },
+    {
+     "ms": 3,
+     "url": "/web/list.9cd883962d5a44178f52.css"
+    },
+    {
+     "ms": 3,
+     "url": "/web/list-html.6d61ffea35fd3b16c943.chunk.js"
+    }
+   ]
+  },
+  "movie": {
+   "cls": 0.0109,
+   "shifts": [
+    {
+     "at": 74652,
+     "hash": "#/details?id=1d858c5bfd41686f4",
+     "v": 0,
+     "visible": [
+      "img 53,20,40,40"
+     ],
+     "src": [
+      "a.MuiButtonBase-root.MuiButton-root.MuiButton-text 60,20,40,40 -> 110,20,40,40"
+     ],
+     "hidden": true
+    },
+    {
+     "at": 74682,
+     "hash": "#/details?id=1d858c5bfd41686f4",
+     "v": 0.0093,
+     "visible": [
+      "bdi 60,729,520,41"
+     ],
+     "src": [
+      "div.sleekfin-details-stack 60,615,1800,231 -> 60,546,1800,300"
+     ],
+     "hidden": false
+    },
+    {
+     "at": 74805,
+     "hash": "#/details?id=1d858c5bfd41686f4",
+     "v": 0.0016,
+     "visible": [],
+     "src": [
+      "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-track-settings 204,802,44,44 -> 1816,802,44,44"
+     ],
+     "hidden": false
+    }
+   ],
+   "muts": [
+    "267x attributes[style] div#itemDetailPage.page.libraryPage.itemDetailPage (250-250ms)",
+    "22x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (0-500ms)",
+    "22x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light.hide (250-250ms)",
+    "21x attributes[style] div.mainDetailButtons.focuscontainer-x.sleekfin-details-actions (250-250ms)",
+    "20x attributes[is] button.emby-scrollbuttons-button.paper-icon-button-light (0-0ms)",
+    "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (0-0ms)",
+    "20x attributes[data-sleekfin-current] button (250-250ms)",
+    "20x attributes[data-sleekfin-header-overflowed] button (250-250ms)",
+    "12x attributes[style] div.scrollSlider.focuscontainer-x.itemsContainer (0-0ms)",
+    "12x attributes[class] div.scrollSlider.focuscontainer-x.itemsContainer (0-250ms)",
+    "12x attributes[disabled] button.emby-scrollbuttons-button.paper-icon-button-light.hide (250-250ms)",
+    "10x attributes[is] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (0-0ms)"
+   ],
+   "readyMs": 549,
+   "vt": [
+    "start #/details?id=1d858c5bfd41686f432c5272367f8b67&serverId=af87ac5e44fe47aba0a95d45022b0749",
+    "ready 106ms itemDetailPage",
+    "done"
+   ],
+   "seenCls": 0.0109,
+   "requests": [
+    {
+     "ms": 72,
+     "url": "/Items/1d858c5bfd41686f432c5272367f8b67/ThemeMedia?userId=fb7bff979dd2451aaaf1fd95a175916c&inheritFromParent=true&sortBy=Random"
+    },
+    {
+     "ms": 53,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items/1d858c5bfd41686f432c5272367f8b67"
+    },
+    {
+     "ms": 53,
+     "url": "/Items/1d858c5bfd41686f432c5272367f8b67?userId=fb7bff979dd2451aaaf1fd95a175916c"
+    },
+    {
+     "ms": 53,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 53,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 53,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 53,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 50,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 50,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 43,
+     "url": "/Items/1d858c5bfd41686f432c5272367f8b67/Similar?userId=fb7bff979dd2451aaaf1fd95a175916c&limit=12&fields=PrimaryImageAspectRatio%2CCanDelete"
+    },
+    {
+     "ms": 40,
+     "url": "/Items/1d858c5bfd41686f432c5272367f8b67/Collections?userId=fb7bff979dd2451aaaf1fd95a175916c&fields=PrimaryImageAspectRatio"
+    },
+    {
+     "ms": 28,
+     "url": "/Items/1d858c5bfd41686f432c5272367f8b67/Images/Logo?tag=f5c9b012d05d6bbc00f95a539d33302f&maxWidth=600&maxHeight=200&quality=90"
+    }
+   ]
+  },
+  "series": {
+   "cls": 0.0433,
+   "shifts": [
+    {
+     "at": 79781,
+     "hash": "#/details?id=5171c7a6950f550b9",
+     "v": 0,
+     "visible": [
+      "img 53,20,40,40"
+     ],
+     "src": [
+      "a.MuiButtonBase-root.MuiButton-root.MuiButton-text 60,20,40,40 -> 110,20,40,40"
+     ],
+     "hidden": true
+    },
+    {
+     "at": 79848,
+     "hash": "#/details?id=5171c7a6950f550b9",
+     "v": 0.0134,
+     "visible": [
+      "bdi 60,794,308,20"
+     ],
+     "src": [
+      "div.sleekfin-details-stack 60,661,1800,185 -> 60,613,1800,233",
+      "div.sleekfin-section-heading 60,959,1720,42 -> 60,954,1720,60",
+      "::after 0,0,0,0 -> 187,961,13,13",
+      "div.sleekfin-details-episode-controls 1780,962,80,36 -> 1780,966,80,36"
+     ],
+     "hidden": false
+    },
+    {
+     "at": 79927,
+     "hash": "#/details?id=5171c7a6950f550b9",
+     "v": 0.0055,
+     "visible": [
+      "bdi 60,750,308,20"
+     ],
+     "src": [
+      "div.sleekfin-details-stack 60,613,1800,233 -> 60,569,1800,277"
+     ],
+     "hidden": false
+    },
+    {
+     "at": 79932,
+     "hash": "#/details?id=5171c7a6950f550b9",
+     "v": 0.0017,
+     "visible": [],
+     "src": [
+      "button.sleekfin-icon-button.sleekfin-control-3d.sleekfin-details-track-settings 60,802,44,44 -> 1816,802,44,44"
+     ],
+     "hidden": false
+    },
+    {
+     "at": 79988,
+     "hash": "#/details?id=5171c7a6950f550b9",
+     "v": 0.0227,
+     "visible": [],
+     "src": [
+      "div.detailPageSecondaryContainer.padded-left.padded-bottom-page 0,1033,1920,47 -> 0,0,0,0"
+     ],
+     "hidden": false
+    }
+   ],
+   "muts": [
+    "267x attributes[style] div#itemDetailPage.page.libraryPage.itemDetailPage (250-250ms)",
+    "40x attributes[data-sleekfin-current] button (0-250ms)",
+    "40x attributes[data-sleekfin-header-overflowed] button (250-500ms)",
+    "27x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (0-500ms)",
+    "24x attributes[class] button.sleekfin-icon-button.sleekfin-control-3d.emby-button (250-250ms)",
+    "22x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light.hide (250-250ms)",
+    "21x attributes[style] div.mainDetailButtons.focuscontainer-x.sleekfin-details-actions (250-250ms)",
+    "20x attributes[is] button.emby-scrollbuttons-button.paper-icon-button-light (0-0ms)",
+    "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (0-0ms)",
+    "12x attributes[style] div.scrollSlider.focuscontainer-x.itemsContainer (0-0ms)",
+    "12x attributes[class] div.scrollSlider.focuscontainer-x.itemsContainer (0-250ms)",
+    "12x attributes[disabled] button.emby-scrollbuttons-button.paper-icon-button-light.hide (250-250ms)"
+   ],
+   "readyMs": 506,
+   "vt": [
+    "start #/details?id=5171c7a6950f550b9b0de561fea6d6b7&serverId=af87ac5e44fe47aba0a95d45022b0749",
+    "ready 85ms itemDetailPage",
+    "done"
+   ],
+   "seenCls": 0.0433,
+   "requests": [
+    {
+     "ms": 64,
+     "url": "/Items/5171c7a6950f550b9b0de561fea6d6b7/Similar?userId=fb7bff979dd2451aaaf1fd95a175916c&limit=12&fields=PrimaryImageAspectRatio%2CCanDelete"
+    },
+    {
+     "ms": 61,
+     "url": "/Items/5171c7a6950f550b9b0de561fea6d6b7/ThemeMedia?userId=fb7bff979dd2451aaaf1fd95a175916c&inheritFromParent=true&sortBy=Random"
+    },
+    {
+     "ms": 61,
+     "url": "/Items/5171c7a6950f550b9b0de561fea6d6b7/Collections?userId=fb7bff979dd2451aaaf1fd95a175916c&fields=PrimaryImageAspectRatio"
+    },
+    {
+     "ms": 49,
+     "url": "/Shows/5171c7a6950f550b9b0de561fea6d6b7/Episodes?seasonId=ed85bdb606d27697ca4a4fe9e9975377&userId=fb7bff979dd2451aaaf1fd95a175916c&Fields=Ov"
+    },
+    {
+     "ms": 45,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 38,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 38,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 37,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 37,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 37,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 36,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items/5171c7a6950f550b9b0de561fea6d6b7"
+    },
+    {
+     "ms": 36,
+     "url": "/Items/5171c7a6950f550b9b0de561fea6d6b7?userId=fb7bff979dd2451aaaf1fd95a175916c"
+    }
+   ]
+  },
+  "collection": {
+   "cls": 0.0421,
+   "shifts": [
+    {
+     "at": 84871,
+     "hash": "#/details?id=0327e4f53c9f431ac",
+     "v": 0.0417,
+     "visible": [
+      "div.cardImageContainer.coveredImage.cardContent 63,319,480,480",
+      "bdi 623,416,240,50"
+     ],
+     "src": [
+      "main.MuiBox-root.css-1iogify 0,0,1920,1080 -> 0,80,1920,1000"
+     ],
+     "hidden": true
+    },
+    {
+     "at": 84879,
+     "hash": "#/details?id=0327e4f53c9f431ac",
+     "v": 0.0004,
+     "visible": [],
+     "src": [
+      "div.mainDetailButtons.focuscontainer-x 1582,433,275,51 -> 1692,433,165,51"
+     ],
+     "hidden": false
+    }
+   ],
+   "muts": [
+    "20x attributes[is] button.emby-scrollbuttons-button.paper-icon-button-light (0-0ms)",
+    "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (0-0ms)",
+    "20x attributes[data-sleekfin-current] button (0-250ms)",
+    "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light.hide (250-250ms)",
+    "20x attributes[data-sleekfin-header-overflowed] button (250-250ms)",
+    "18x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (0-500ms)",
+    "15x attributes[class] div.scrollSlider.focuscontainer-x.itemsContainer (0-250ms)",
+    "12x attributes[style] div.scrollSlider.focuscontainer-x.itemsContainer (0-0ms)",
+    "11x attributes[class] div.itemsContainer.padded-right.tb-noenter (250-250ms)",
+    "10x attributes[is] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (0-0ms)",
+    "10x attributes[class] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (0-0ms)",
+    "10x attributes[data-scroll-mode-x] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (0-0ms)"
+   ],
+   "readyMs": 455,
+   "vt": [
+    "start #/details?id=0327e4f53c9f431acd379b4a99fb40e1&serverId=af87ac5e44fe47aba0a95d45022b0749",
+    "ready 82ms itemDetailPage",
+    "done"
+   ],
+   "seenCls": 0.0004,
+   "requests": [
+    {
+     "ms": 36,
+     "url": "/Items/0327e4f53c9f431acd379b4a99fb40e1?userId=fb7bff979dd2451aaaf1fd95a175916c"
+    },
+    {
+     "ms": 26,
+     "url": "/Items/0327e4f53c9f431acd379b4a99fb40e1/ThemeMedia?userId=fb7bff979dd2451aaaf1fd95a175916c&inheritFromParent=true&sortBy=Random"
+    },
+    {
+     "ms": 15,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 15,
+     "url": "/Items/0327e4f53c9f431acd379b4a99fb40e1/Collections?userId=fb7bff979dd2451aaaf1fd95a175916c&fields=PrimaryImageAspectRatio"
+    },
+    {
+     "ms": 14,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 14,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 14,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 13,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items/0327e4f53c9f431acd379b4a99fb40e1"
+    },
+    {
+     "ms": 13,
+     "url": "/Items/0327e4f53c9f431acd379b4a99fb40e1/Ancestors"
+    },
+    {
+     "ms": 13,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 13,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 11,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?ParentId=0327e4f53c9f431acd379b4a99fb40e1&Fields=ItemCounts%2CPrimaryImageAspectRatio%2CCanDel"
+    }
+   ]
+  },
+  "album": {
+   "cls": 0.0424,
+   "shifts": [
+    {
+     "at": 89884,
+     "hash": "#/details?id=cc5ed13fb470d82e0",
+     "v": 0.0417,
+     "visible": [
+      "div.cardImageContainer.coveredImage.cardContent 63,319,480,480",
+      "bdi 623,410,179,50",
+      "h2.sectionTitle.sectionTitle-cards.padded-right 63,818,1857,63"
+     ],
+     "src": [
+      "main.MuiBox-root.css-1iogify 0,0,1920,1080 -> 0,80,1920,1000"
+     ],
+     "hidden": true
+    },
+    {
+     "at": 90048,
+     "hash": "#/details?id=cc5ed13fb470d82e0",
+     "v": 0.0007,
+     "visible": [],
+     "src": [
+      "div.emby-scrollbuttons.padded-right 63,874,1857,206 -> 63,881,1857,199"
+     ],
+     "hidden": false
+    }
+   ],
+   "muts": [
+    "30x attributes[data-sleekfin-current] button (0-250ms)",
+    "30x attributes[data-sleekfin-header-overflowed] button (250-250ms)",
+    "23x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (0-500ms)",
+    "22x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light.hide (250-250ms)",
+    "20x attributes[is] button.emby-scrollbuttons-button.paper-icon-button-light (0-0ms)",
+    "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (0-0ms)",
+    "15x attributes[class] div.scrollSlider.focuscontainer-x.itemsContainer (0-250ms)",
+    "12x attributes[style] div.scrollSlider.focuscontainer-x.itemsContainer (0-0ms)",
+    "12x attributes[disabled] button.emby-scrollbuttons-button.paper-icon-button-light.hide (250-250ms)",
+    "10x attributes[is] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (0-0ms)",
+    "10x attributes[class] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (0-0ms)",
+    "10x attributes[data-scroll-mode-x] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (0-0ms)"
+   ],
+   "readyMs": 473,
+   "vt": [
+    "start #/details?id=cc5ed13fb470d82e0db2ae36f5836374&serverId=af87ac5e44fe47aba0a95d45022b0749",
+    "ready 103ms itemDetailPage",
+    "done"
+   ],
+   "seenCls": 0.0007,
+   "requests": [
+    {
+     "ms": 108,
+     "url": "/Items/cc5ed13fb470d82e0db2ae36f5836374?userId=fb7bff979dd2451aaaf1fd95a175916c"
+    },
+    {
+     "ms": 82,
+     "url": "/Items/cc5ed13fb470d82e0db2ae36f5836374/Similar?userId=fb7bff979dd2451aaaf1fd95a175916c&limit=12&fields=PrimaryImageAspectRatio%2CCanDelete&"
+    },
+    {
+     "ms": 68,
+     "url": "/Items/cc5ed13fb470d82e0db2ae36f5836374/Ancestors"
+    },
+    {
+     "ms": 64,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?IncludeItemTypes=MusicAlbum&Recursive=true&ExcludeItemIds=cc5ed13fb470d82e0db2ae36f5836374&Sor"
+    },
+    {
+     "ms": 62,
+     "url": "/Items/cc5ed13fb470d82e0db2ae36f5836374/Collections?userId=fb7bff979dd2451aaaf1fd95a175916c&fields=PrimaryImageAspectRatio"
+    },
+    {
+     "ms": 52,
+     "url": "/Items/276ab282bf95d93c92e859cc78eda078/Images/Primary?fillHeight=460&fillWidth=460&quality=96&tag=b2b467734aae546670a4b0eb54fe989d&format=w"
+    },
+    {
+     "ms": 39,
+     "url": "/Items/cc5ed13fb470d82e0db2ae36f5836374/Images/Primary?fillHeight=480&fillWidth=480&quality=96&tag=fe6be80728fc44688aacb5ead94d1afe"
+    },
+    {
+     "ms": 38,
+     "url": "/Items/cc5ed13fb470d82e0db2ae36f5836374/Images/Primary?fillHeight=960&fillWidth=960&quality=96&tag=fe6be80728fc44688aacb5ead94d1afe&format=w"
+    },
+    {
+     "ms": 31,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 31,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 30,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 30,
+     "url": "/web/config.json"
+    }
+   ]
+  },
+  "artist": {
+   "cls": 0.0424,
+   "shifts": [
+    {
+     "at": 94952,
+     "hash": "#/details?id=224d1f2074a36d1f6",
+     "v": 0.0417,
+     "visible": [
+      "div.cardImageContainer.coveredImage.cardContent 63,319,480,480",
+      "bdi 623,433,255,50",
+      "h2.sectionTitle.sectionTitle-cards 623,586,82,38"
+     ],
+     "src": [
+      "main.MuiBox-root.css-1iogify 0,0,1920,1080 -> 0,80,1920,1000"
+     ],
+     "hidden": true
+    },
+    {
+     "at": 95116,
+     "hash": "#/details?id=224d1f2074a36d1f6",
+     "v": 0.0007,
+     "visible": [],
+     "src": [
+      "div.emby-scrollbuttons.padded-right 63,874,1857,206 -> 63,881,1857,199"
+     ],
+     "hidden": false
+    }
+   ],
+   "muts": [
+    "30x attributes[data-sleekfin-current] button (250-250ms)",
+    "30x attributes[data-sleekfin-header-overflowed] button (250-250ms)",
+    "24x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (0-500ms)",
+    "22x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light.hide (250-250ms)",
+    "20x attributes[is] button.emby-scrollbuttons-button.paper-icon-button-light (0-0ms)",
+    "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (0-0ms)",
+    "15x attributes[class] div.scrollSlider.focuscontainer-x.itemsContainer (0-250ms)",
+    "12x attributes[style] div.scrollSlider.focuscontainer-x.itemsContainer (0-0ms)",
+    "12x attributes[disabled] button.emby-scrollbuttons-button.paper-icon-button-light.hide (250-250ms)",
+    "11x attributes[class] div#itemDetailPage.page.libraryPage.itemDetailPage (0-250ms)",
+    "10x attributes[is] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (0-0ms)",
+    "10x attributes[class] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (0-0ms)"
+   ],
+   "readyMs": 537,
+   "vt": [
+    "start #/details?id=224d1f2074a36d1f67c7df04ec66efc6&serverId=af87ac5e44fe47aba0a95d45022b0749",
+    "ready 112ms itemDetailPage",
+    "done"
+   ],
+   "seenCls": 0.0007,
+   "requests": [
+    {
+     "ms": 82,
+     "url": "/Items/224d1f2074a36d1f67c7df04ec66efc6/Similar?userId=fb7bff979dd2451aaaf1fd95a175916c&limit=12&fields=PrimaryImageAspectRatio%2CCanDelete"
+    },
+    {
+     "ms": 80,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortOrder=Descending%2CDescending%2CAscending&IncludeItemTypes=MusicAlbum&Recursive=true&Field"
+    },
+    {
+     "ms": 78,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortOrder=Descending%2CAscending&IncludeItemTypes=Audiobook&Recursive=true&Fields=ParentId%2CP"
+    },
+    {
+     "ms": 73,
+     "url": "/Items/224d1f2074a36d1f67c7df04ec66efc6/Collections?userId=fb7bff979dd2451aaaf1fd95a175916c&fields=PrimaryImageAspectRatio"
+    },
+    {
+     "ms": 73,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?IncludeItemTypes=MusicAlbum&Recursive=true&ExcludeItemIds=224d1f2074a36d1f67c7df04ec66efc6&Sor"
+    },
+    {
+     "ms": 69,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortOrder=Descending%2CAscending&IncludeItemTypes=Book&Recursive=true&Fields=ParentId%2CPrimar"
+    },
+    {
+     "ms": 64,
+     "url": "/Items/224d1f2074a36d1f67c7df04ec66efc6/ThemeMedia?userId=fb7bff979dd2451aaaf1fd95a175916c&inheritFromParent=true&sortBy=Random"
+    },
+    {
+     "ms": 47,
+     "url": "/Items/224d1f2074a36d1f67c7df04ec66efc6?userId=fb7bff979dd2451aaaf1fd95a175916c"
+    },
+    {
+     "ms": 46,
+     "url": "/Items/224d1f2074a36d1f67c7df04ec66efc6/Images/Primary?fillHeight=480&fillWidth=480&quality=96&tag=2a2955d36961712ad568887ed4d27f34"
+    },
+    {
+     "ms": 41,
+     "url": "/Items/c2efa8def274b6bebc4abb176b9e4fdd/Images/Primary?fillHeight=460&fillWidth=460&quality=96&tag=595793b7de30a5833f30e8e333e4df07&format=w"
+    },
+    {
+     "ms": 35,
+     "url": "/Items/224d1f2074a36d1f67c7df04ec66efc6/Ancestors"
+    },
+    {
+     "ms": 31,
+     "url": "/Items/224d1f2074a36d1f67c7df04ec66efc6/Images/Primary?fillHeight=960&fillWidth=960&quality=96&tag=2a2955d36961712ad568887ed4d27f34&format=w"
+    }
+   ]
+  },
+  "playlist": {
+   "cls": 0.0417,
+   "shifts": [
+    {
+     "at": 100002,
+     "hash": "#/details?id=e2467b0a6a3a6c7c3",
+     "v": 0.0417,
+     "visible": [
+      "div.cardImageContainer.coveredImage.cardContent 63,319,480,480",
+      "bdi 623,425,170,50",
+      "h2.sectionTitle.sectionTitle-cards.padded-right 63,818,1857,63"
+     ],
+     "src": [
+      "main.MuiBox-root.css-1iogify 0,0,1920,1080 -> 0,80,1920,1000"
+     ],
+     "hidden": true
+    }
+   ],
+   "muts": [
+    "20x attributes[is] button.emby-scrollbuttons-button.paper-icon-button-light (0-0ms)",
+    "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (0-0ms)",
+    "20x attributes[data-sleekfin-current] button (0-250ms)",
+    "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light.hide (250-250ms)",
+    "20x attributes[data-sleekfin-header-overflowed] button (250-250ms)",
+    "19x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (0-500ms)",
+    "15x attributes[class] div.scrollSlider.focuscontainer-x.itemsContainer (0-250ms)",
+    "12x attributes[style] div.scrollSlider.focuscontainer-x.itemsContainer (0-0ms)",
+    "10x attributes[is] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (0-0ms)",
+    "10x attributes[class] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (0-0ms)",
+    "10x attributes[data-scroll-mode-x] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (0-0ms)",
+    "10x attributes[is] div.emby-scrollbuttons.padded-right (0-0ms)"
+   ],
+   "readyMs": 457,
+   "vt": [
+    "start #/details?id=e2467b0a6a3a6c7c320b641a37564caf&serverId=af87ac5e44fe47aba0a95d45022b0749",
+    "ready 95ms itemDetailPage",
+    "done"
+   ],
+   "seenCls": 0,
+   "requests": [
+    {
+     "ms": 50,
+     "url": "/Items/e2467b0a6a3a6c7c320b641a37564caf/Images/Primary?fillHeight=480&fillWidth=480&quality=96&tag=fe20239441a6f8bea387e67964b583de"
+    },
+    {
+     "ms": 48,
+     "url": "/Items/e2467b0a6a3a6c7c320b641a37564caf?userId=fb7bff979dd2451aaaf1fd95a175916c"
+    },
+    {
+     "ms": 40,
+     "url": "/Items/e2467b0a6a3a6c7c320b641a37564caf/ThemeMedia?userId=fb7bff979dd2451aaaf1fd95a175916c&inheritFromParent=true&sortBy=Random"
+    },
+    {
+     "ms": 39,
+     "url": "/Items/e2467b0a6a3a6c7c320b641a37564caf/Images/Primary?fillHeight=960&fillWidth=960&quality=96&tag=fe20239441a6f8bea387e67964b583de&format=w"
+    },
+    {
+     "ms": 26,
+     "url": "/Items/e2467b0a6a3a6c7c320b641a37564caf/Ancestors"
+    },
+    {
+     "ms": 26,
+     "url": "/Items/e2467b0a6a3a6c7c320b641a37564caf/Similar?userId=fb7bff979dd2451aaaf1fd95a175916c&limit=12&fields=PrimaryImageAspectRatio%2CCanDelete"
+    },
+    {
+     "ms": 25,
+     "url": "/Items/e2467b0a6a3a6c7c320b641a37564caf/Collections?userId=fb7bff979dd2451aaaf1fd95a175916c&fields=PrimaryImageAspectRatio"
+    },
+    {
+     "ms": 16,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 15,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 15,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 15,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 15,
+     "url": "/web/config.json"
+    }
+   ]
+  },
+  "person": {
+   "cls": 0.0417,
+   "shifts": [
+    {
+     "at": 105342,
+     "hash": "#/details?id=3ddbbdfd108f3c413",
+     "v": 0.0417,
+     "visible": [
+      "div.cardImageContainer.coveredImage.cardContent 63,319,480,720",
+      "bdi 623,433,212,50",
+      "h2.sectionTitle.sectionTitle-cards 623,586,75,38"
+     ],
+     "src": [
+      "main.MuiBox-root.css-1iogify 0,0,1920,1080 -> 0,80,1920,1000"
+     ],
+     "hidden": true
+    }
+   ],
+   "muts": [
+    "20x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (0-750ms)",
+    "20x attributes[is] button.emby-scrollbuttons-button.paper-icon-button-light (0-0ms)",
+    "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (0-0ms)",
+    "20x attributes[data-sleekfin-current] button (250-500ms)",
+    "20x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light.hide (500-500ms)",
+    "20x attributes[data-sleekfin-header-overflowed] button (500-500ms)",
+    "15x attributes[class] div.scrollSlider.focuscontainer-x.itemsContainer (0-500ms)",
+    "12x attributes[style] div.scrollSlider.focuscontainer-x.itemsContainer (0-0ms)",
+    "10x attributes[is] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (0-0ms)",
+    "10x attributes[class] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (0-0ms)",
+    "10x attributes[data-scroll-mode-x] div.padded-top-focusscale.padded-bottom-focusscale.no-padding (0-0ms)",
+    "10x attributes[is] div.emby-scrollbuttons.padded-right (0-0ms)"
+   ],
+   "readyMs": 746,
+   "vt": [
+    "start #/details?id=3ddbbdfd108f3c413e62f4a0453f9d9f&serverId=af87ac5e44fe47aba0a95d45022b0749",
+    "ready 356ms itemDetailPage",
+    "done"
+   ],
+   "seenCls": 0,
+   "requests": [
+    {
+     "ms": 402,
+     "url": "/Items/3ddbbdfd108f3c413e62f4a0453f9d9f?userId=fb7bff979dd2451aaaf1fd95a175916c"
+    },
+    {
+     "ms": 293,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items/3ddbbdfd108f3c413e62f4a0453f9d9f"
+    },
+    {
+     "ms": 268,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items/3ddbbdfd108f3c413e62f4a0453f9d9f"
+    },
+    {
+     "ms": 74,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortOrder=Descending%2CDescending%2CAscending&IncludeItemTypes=Movie&Recursive=true&Fields=Par"
+    },
+    {
+     "ms": 59,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortOrder=Descending%2CAscending&IncludeItemTypes=Audiobook&Recursive=true&Fields=ParentId%2CP"
+    },
+    {
+     "ms": 47,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortOrder=Descending%2CAscending&IncludeItemTypes=Book&Recursive=true&Fields=ParentId%2CPrimar"
+    },
+    {
+     "ms": 39,
+     "url": "/Items/3ddbbdfd108f3c413e62f4a0453f9d9f/Collections?userId=fb7bff979dd2451aaaf1fd95a175916c&fields=PrimaryImageAspectRatio"
+    },
+    {
+     "ms": 27,
+     "url": "/Items/3ddbbdfd108f3c413e62f4a0453f9d9f/Images/Primary?fillHeight=1440&fillWidth=960&quality=96&tag=2e54e1f0372e1ab594560481c2a6fc03&format="
+    },
+    {
+     "ms": 24,
+     "url": "/Items/3ddbbdfd108f3c413e62f4a0453f9d9f/Ancestors"
+    },
+    {
+     "ms": 14,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c"
+    },
+    {
+     "ms": 13,
+     "url": "/web/config.json"
+    },
+    {
+     "ms": 13,
+     "url": "/web/config.json"
+    }
+   ]
+  },
+  "search": {
+   "cls": 0.0417,
+   "shifts": [
+    {
+     "at": 110578,
+     "hash": "#/search",
+     "v": 0.0417,
+     "visible": [
+      "h2.sectionTitle.padded-left.padded-right 596,483,728,16"
+     ],
+     "src": [
+      "main.MuiBox-root.css-1iogify 0,0,1920,1080 -> 0,80,1920,1000"
+     ],
+     "hidden": true
+    }
+   ],
+   "muts": [
+    "20x attributes[data-sleekfin-current] button (250-250ms)",
+    "12x attributes[class] html.tb-ambient.tb-hover.tb-hero-on (0-250ms)",
+    "10x attributes[class] div.itemsContainer.padded-right.tb-noenter (250-250ms)",
+    "10x attributes[data-sleekfin-header-overflowed] button (500-500ms)",
+    "9x attributes[class] div.scrollSlider.focuscontainer-x.itemsContainer (250-250ms)",
+    "5x attributes[class] a.lnkMediaFolder.navMenuOption.emby-button (0-0ms)",
+    "4x attributes[class] html.tb-hover.tb-hero-on.tb-rows (250-1500ms)",
+    "3x childList head (0-0ms)",
+    "3x attributes[class] button.smart-search-btn.emby-button.flat (0-250ms)",
+    "3x attributes[class] div#seriesTimerScheduleSection.verticalSection.detailVerticalSection.hide (250-250ms)",
+    "3x attributes[class] div#seriesTimerSchedule.itemsContainer.vertical-list.padded-right (250-250ms)",
+    "3x attributes[class] div.nextUpSection.verticalSection.detailVerticalSection (250-250ms)"
+   ],
+   "readyMs": 677,
+   "vt": [
+    "start #/search",
+    "ready 306ms searchPage",
+    "done"
+   ],
+   "seenCls": 0,
+   "requests": [
+    {
+     "ms": 42,
+     "url": "/Items?userId=fb7bff979dd2451aaaf1fd95a175916c&limit=20&recursive=true&includeItemTypes=Movie&includeItemTypes=Series&includeItemTypes=Music"
+    },
+    {
+     "ms": 27,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Views"
+    },
+    {
+     "ms": 1,
+     "url": "/web/search.d8744ed84b1a641aee12.css"
+    },
+    {
+     "ms": 1,
+     "url": "/web/search.fff94098d1f437e7b84d.chunk.js"
+    }
+   ]
+  },
+  "favourites again": {
+   "cls": 0.0417,
+   "shifts": [
+    {
+     "at": 115826,
+     "hash": "#/home?tab=1",
+     "v": 0.0417,
+     "visible": [
+      "h2.sectionTitle.sectionTitle-cards 60,108,88,43",
+      "h2.sectionTitle.sectionTitle-cards 60,242,84,43"
+     ],
+     "src": [
+      "div#indexPage.page.mainAnimatedPage.homePage 0,0,1920,1080 -> 0,80,1920,1000"
+     ],
+     "hidden": true
+    }
+   ],
+   "muts": [
+    "68x attributes[style] div.itemsContainer.scrollSlider.focuscontainer-x (250-250ms)",
+    "64x attributes[class] button.emby-scrollbuttons-button.paper-icon-button-light (250-500ms)",
+    "57x attributes[class] div.itemsContainer.scrollSlider.focuscontainer-x (250-250ms)",
+    "47x attributes[class] div.verticalSection.hide.emby-scroller-container (250-250ms)",
+    "34x attributes[is] button.emby-scrollbuttons-button.paper-icon-button-light (250-250ms)",
+    "20x attributes[data-sleekfin-current] button (0-250ms)",
+    "17x attributes[is] a.more.button-flat.button-flat-mini (250-250ms)",
+    "17x attributes[class] a.more.button-flat.button-flat-mini (250-250ms)",
+    "17x attributes[is] div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller (250-250ms)",
+    "17x attributes[class] div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller (250-250ms)",
+    "17x attributes[is] div.itemsContainer.scrollSlider.focuscontainer-x (250-250ms)",
+    "17x attributes[data-scroll-mode-x] div.padded-top-focusscale.padded-bottom-focusscale.emby-scroller (250-250ms)"
+   ],
+   "readyMs": -1,
+   "vt": [
+    "start #/home?tab=1",
+    "ready 303ms indexPage",
+    "done"
+   ],
+   "seenCls": 0,
+   "requests": [
+    {
+     "ms": 127,
+     "url": "/Studios?limit=20&fields=PrimaryImageAspectRatio&isFavorite=true&enableImageTypes=Thumb&userId=fb7bff979dd2451aaaf1fd95a175916c&enableTotalR"
+    },
+    {
+     "ms": 124,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    },
+    {
+     "ms": 122,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    },
+    {
+     "ms": 121,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    },
+    {
+     "ms": 121,
+     "url": "/Artists?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields=PrimaryImageAspectRatio&CollapseBoxSe"
+    },
+    {
+     "ms": 118,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    },
+    {
+     "ms": 115,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    },
+    {
+     "ms": 101,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    },
+    {
+     "ms": 83,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    },
+    {
+     "ms": 81,
+     "url": "/Persons?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields=PrimaryImageAspectRatio&CollapseBoxSe"
+    },
+    {
+     "ms": 73,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    },
+    {
+     "ms": 72,
+     "url": "/Users/fb7bff979dd2451aaaf1fd95a175916c/Items?SortBy=SeriesSortName%2CSortName&SortOrder=Ascending&Filters=IsFavorite&Recursive=true&Fields="
+    }
+   ]
+  },
+  "dashboard": {
+   "cls": 0.0117,
+   "shifts": [
+    {
+     "at": 128411,
+     "hash": "#/dashboard",
+     "v": 0.0105,
+     "visible": [],
+     "src": [
+      "ul.MuiList-root.MuiList-padding.MuiList-subheader 0,810,239,270 -> 0,954,239,126",
+      "ul.MuiList-root.MuiList-padding.MuiList-subheader 0,76,239,334 -> 0,80,239,358",
+      "ul.MuiList-root.MuiList-padding.MuiList-subheader 0,410,239,149 -> 0,438,239,157",
+      "ul.MuiList-root.MuiList-padding.MuiList-subheader 0,559,239,148 -> 0,595,239,156",
+      "ul.MuiList-root.MuiList-padding.MuiList-subheader 0,707,239,103 -> 0,751,239,203"
+     ],
+     "path": [
+      "ul.MuiList-root.MuiList-padding.MuiList-subheader < div.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0 < div.MuiDrawer-root.MuiDrawer-anchorLeft.MuiDrawer-docked < div.MuiBox-root.css-o44is < div#reactRoot < body.mouseIdle.dashboardDocument :: AdvancedNetworkingAPI KeysBackupsLogsScheduled Tasks",
+      "ul.MuiList-root.MuiList-padding.MuiList-subheader < div.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0 < div.MuiDrawer-root.MuiDrawer-anchorLeft.MuiDrawer-docked < div.MuiBox-root.css-o44is < div#reactRoot < body.mouseIdle.dashboardDocument :: ServerDashboardGeneralBrandingUsersLibrariesPlayback",
+      "ul.MuiList-root.MuiList-padding.MuiList-subheader < div.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0 < div.MuiDrawer-root.MuiDrawer-anchorLeft.MuiDrawer-docked < div.MuiBox-root.css-o44is < div#reactRoot < body.mouseIdle.dashboardDocument :: DevicesDevicesActivity"
+     ],
+     "hidden": true
+    },
+    {
+     "at": 128436,
+     "hash": "#/dashboard",
+     "v": 0.0012,
+     "visible": [],
+     "src": [
+      "ul.MuiList-root.MuiList-padding.MuiList-subheader 0,954,239,126 -> 0,860,239,220",
+      "li.MuiListItem-root.MuiListItem-gutters.css-1ohqk82 0,0,0,0 -> 0,1008,239,51",
+      "li.MuiListItem-root.MuiListItem-gutters.css-1ohqk82 0,0,0,0 -> 0,1059,239,21"
+     ],
+     "path": [
+      "ul.MuiList-root.MuiList-padding.MuiList-subheader < div.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0 < div.MuiDrawer-root.MuiDrawer-anchorLeft.MuiDrawer-docked < div.MuiBox-root.css-o44is < div#reactRoot < body.mouseIdle.dashboardDocument :: AdvancedNetworkingAPI KeysBackupsLogsScheduled Tasks",
+      "li.MuiListItem-root.MuiListItem-gutters.css-1ohqk82 < ul.MuiList-root.MuiList-padding.MuiList-subheader < div.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0 < div.MuiDrawer-root.MuiDrawer-anchorLeft.MuiDrawer-docked < div.MuiBox-root.css-o44is < div#reactRoot :: Backups",
+      "li.MuiListItem-root.MuiListItem-gutters.css-1ohqk82 < ul.MuiList-root.MuiList-padding.MuiList-subheader < div.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0 < div.MuiDrawer-root.MuiDrawer-anchorLeft.MuiDrawer-docked < div.MuiBox-root.css-o44is < div#reactRoot :: Logs"
+     ],
+     "hidden": false
+    }
+   ],
+   "muts": [
+    "81x attributes[class] html.tb-hover.tb-hero-on.tb-rows (0-750ms)",
+    "15x attributes[style] html.tb-hover.tb-hero-on.tb-rows (0-0ms)",
+    "12x attributes[style] button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit (0-0ms)",
+    "11x childList head (0-250ms)",
+    "10x attributes[class] a.lnkMediaFolder.navMenuOption.emby-button (250-250ms)",
+    "6x attributes[data-sleekfin-current] a.MuiButtonBase-root.MuiButton-root.MuiButton-text (0-0ms)",
+    "6x attributes[data-sleekfin-header-source-hidden] a.MuiButtonBase-root.MuiButton-root.MuiButton-text (0-0ms)",
+    "6x attributes[data-sleekfin-header-link] a.MuiButtonBase-root.MuiButton-root.MuiButton-text (0-0ms)",
+    "5x childList body.libraryDocument.mouseIdle.withSectionTabs (0-0ms)",
+    "4x childList div.cardText.cardText-secondary.sleekfin-meta (0-0ms)",
+    "4x childList div.cardBox.cardBox-bottompadded (0-0ms)",
+    "4x attributes[class] div.cardText.cardTextCentered.cardText-secondary (0-0ms)"
+   ],
+   "readyMs": -1,
+   "vt": [
+    "start #/dashboard",
+    "ready 323ms errorBoundary",
+    "done"
+   ],
+   "seenCls": 0.0012,
+   "requests": [
+    {
+     "ms": 97,
+     "url": "/System/ActivityLog/Entries?startIndex=0&limit=7&minDate=2026-11-08T06%3A55%3A21.989Z&hasUserId=true"
+    },
+    {
+     "ms": 96,
+     "url": "/System/ActivityLog/Entries?startIndex=0&limit=4&minDate=2026-11-02T06%3A55%3A21.990Z&hasUserId=false"
+    },
+    {
+     "ms": 86,
+     "url": "/web/ConfigurationPages?enableInMainMenu=true"
+    },
+    {
+     "ms": 85,
+     "url": "/Items/Counts"
+    },
+    {
+     "ms": 83,
+     "url": "/System/Info"
+    },
+    {
+     "ms": 83,
+     "url": "/System/Info/Storage"
+    },
+    {
+     "ms": 82,
+     "url": "/QuickConnect/Enabled"
+    },
+    {
+     "ms": 81,
+     "url": "/ScheduledTasks?isHidden=false"
+    },
+    {
+     "ms": 80,
+     "url": "/Sessions?activeWithinSeconds=960"
+    },
+    {
+     "ms": 65,
+     "url": "/UshereatsTheme/dashboard.js?v=f5042dd232c4"
+    },
+    {
+     "ms": 21,
+     "url": "/web/assets/img/devices/chrome.svg"
+    },
+    {
+     "ms": 21,
+     "url": "/web/assets/img/devices/other.svg"
+    }
+   ]
+  }
+ },
+ "bars": [
+  {
+   "w": 390,
+   "h": 844,
+   "hash": "#/home",
+   "spacer": 0,
+   "spacerCss": "0px auto ",
+   "mainTop": 0,
+   "page": "indexPage",
+   "pageTop": 0,
+   "pagePad": "0px",
+   "headerH": "80px",
+   "cls": "tb-hover tb-hero-on tb-rows layout-desktop tb-hdr-ok tb-rows-ok sleekfin-main-ui sleekfin-header-mounted sleekfin-media-mounted sleekfin-hero-mounted tb-ambient"
+  },
+  {
+   "w": 390,
+   "h": 844,
+   "hash": "#/movies?topPa",
+   "spacer": 176,
+   "spacerCss": "176px 176px ",
+   "mainTop": 176,
+   "page": "errorBoundary",
+   "pageTop": 176,
+   "pagePad": "0px",
+   "headerH": "80px",
+   "cls": "tb-hover tb-hero-on tb-rows layout-desktop tb-hdr-ok tb-rows-ok sleekfin-main-ui sleekfin-header-mounted sleekfin-media-mounted tb-ambient tb-libtabs tb-ambient-page"
+  },
+  {
+   "w": 390,
+   "h": 844,
+   "hash": "#/details?id=0",
+   "spacer": 80,
+   "spacerCss": "80px auto ",
+   "mainTop": 80,
+   "page": "itemDetailPage",
+   "pageTop": 80,
+   "pagePad": "0px",
+   "headerH": "80px",
+   "cls": "tb-hover tb-hero-on tb-rows layout-desktop tb-hdr-ok tb-rows-ok sleekfin-main-ui sleekfin-header-mounted sleekfin-media-mounted tb-ambient tb-ambient-page"
+  },
+  {
+   "w": 844,
+   "h": 390,
+   "hash": "#/home",
+   "spacer": 0,
+   "spacerCss": "0px auto ",
+   "mainTop": 0,
+   "page": "indexPage",
+   "pageTop": 0,
+   "pagePad": "0px",
+   "headerH": "80px",
+   "cls": "tb-hover tb-hero-on tb-rows layout-desktop tb-hdr-ok tb-rows-ok sleekfin-main-ui sleekfin-header-mounted sleekfin-media-mounted tb-ambient sleekfin-hero-mounted"
+  },
+  {
+   "w": 844,
+   "h": 390,
+   "hash": "#/movies?topPa",
+   "spacer": 128,
+   "spacerCss": "128px 128px ",
+   "mainTop": 128,
+   "page": "errorBoundary",
+   "pageTop": 128,
+   "pagePad": "0px",
+   "headerH": "80px",
+   "cls": "tb-hover tb-hero-on tb-rows layout-desktop tb-hdr-ok tb-rows-ok sleekfin-main-ui sleekfin-header-mounted sleekfin-media-mounted tb-ambient tb-libtabs tb-ambient-page"
+  },
+  {
+   "w": 844,
+   "h": 390,
+   "hash": "#/details?id=0",
+   "spacer": 80,
+   "spacerCss": "80px auto ",
+   "mainTop": 80,
+   "page": "itemDetailPage",
+   "pageTop": 80,
+   "pagePad": "0px",
+   "headerH": "80px",
+   "cls": "tb-hover tb-hero-on tb-rows layout-desktop tb-hdr-ok tb-rows-ok sleekfin-main-ui sleekfin-header-mounted sleekfin-media-mounted tb-ambient tb-ambient-page"
+  },
+  {
+   "w": 820,
+   "h": 1180,
+   "hash": "#/home",
+   "spacer": 0,
+   "spacerCss": "0px auto ",
+   "mainTop": 0,
+   "page": "indexPage",
+   "pageTop": 0,
+   "pagePad": "0px",
+   "headerH": "80px",
+   "cls": "tb-hover tb-hero-on tb-rows layout-desktop tb-hdr-ok tb-rows-ok sleekfin-main-ui sleekfin-header-mounted sleekfin-media-mounted tb-ambient sleekfin-hero-mounted"
+  },
+  {
+   "w": 820,
+   "h": 1180,
+   "hash": "#/movies?topPa",
+   "spacer": 128,
+   "spacerCss": "128px 128px ",
+   "mainTop": 128,
+   "page": "errorBoundary",
+   "pageTop": 128,
+   "pagePad": "0px",
+   "headerH": "80px",
+   "cls": "tb-hover tb-hero-on tb-rows layout-desktop tb-hdr-ok tb-rows-ok sleekfin-main-ui sleekfin-header-mounted sleekfin-media-mounted tb-ambient tb-libtabs tb-ambient-page"
+  },
+  {
+   "w": 820,
+   "h": 1180,
+   "hash": "#/details?id=0",
+   "spacer": 80,
+   "spacerCss": "80px auto ",
+   "mainTop": 80,
+   "page": "itemDetailPage",
+   "pageTop": 80,
+   "pagePad": "0px",
+   "headerH": "80px",
+   "cls": "tb-hover tb-hero-on tb-rows layout-desktop tb-hdr-ok tb-rows-ok sleekfin-main-ui sleekfin-header-mounted sleekfin-media-mounted tb-ambient tb-ambient-page"
+  },
+  {
+   "w": 1280,
+   "h": 720,
+   "hash": "#/home",
+   "spacer": 0,
+   "spacerCss": "0px auto ",
+   "mainTop": 0,
+   "page": "indexPage",
+   "pageTop": 0,
+   "pagePad": "0px",
+   "headerH": "80px",
+   "cls": "tb-hover tb-hero-on tb-rows layout-desktop tb-hdr-ok tb-rows-ok sleekfin-main-ui sleekfin-header-mounted sleekfin-media-mounted tb-ambient sleekfin-hero-mounted"
+  },
+  {
+   "w": 1280,
+   "h": 720,
+   "hash": "#/movies?topPa",
+   "spacer": 128,
+   "spacerCss": "128px 128px ",
+   "mainTop": 128,
+   "page": "errorBoundary",
+   "pageTop": 128,
+   "pagePad": "0px",
+   "headerH": "80px",
+   "cls": "tb-hover tb-hero-on tb-rows layout-desktop tb-hdr-ok tb-rows-ok sleekfin-main-ui sleekfin-header-mounted sleekfin-media-mounted tb-ambient tb-libtabs tb-ambient-page"
+  },
+  {
+   "w": 1280,
+   "h": 720,
+   "hash": "#/details?id=0",
+   "spacer": 80,
+   "spacerCss": "80px auto ",
+   "mainTop": 80,
+   "page": "itemDetailPage",
+   "pageTop": 80,
+   "pagePad": "0px",
+   "headerH": "80px",
+   "cls": "tb-hover tb-hero-on tb-rows layout-desktop tb-hdr-ok tb-rows-ok sleekfin-main-ui sleekfin-header-mounted sleekfin-media-mounted tb-ambient tb-ambient-page"
+  },
+  {
+   "w": 1920,
+   "h": 1080,
+   "hash": "#/home",
+   "spacer": 0,
+   "spacerCss": "0px auto ",
+   "mainTop": 0,
+   "page": "indexPage",
+   "pageTop": 0,
+   "pagePad": "0px",
+   "headerH": "80px",
+   "cls": "tb-hover tb-hero-on tb-rows layout-desktop tb-hdr-ok tb-rows-ok sleekfin-main-ui sleekfin-header-mounted sleekfin-media-mounted tb-ambient sleekfin-hero-mounted"
+  },
+  {
+   "w": 1920,
+   "h": 1080,
+   "hash": "#/movies?topPa",
+   "spacer": 128,
+   "spacerCss": "128px 128px ",
+   "mainTop": 128,
+   "page": "errorBoundary",
+   "pageTop": 128,
+   "pagePad": "0px",
+   "headerH": "80px",
+   "cls": "tb-hover tb-hero-on tb-rows layout-desktop tb-hdr-ok tb-rows-ok sleekfin-main-ui sleekfin-header-mounted sleekfin-media-mounted tb-ambient tb-libtabs tb-ambient-page"
+  },
+  {
+   "w": 1920,
+   "h": 1080,
+   "hash": "#/details?id=0",
+   "spacer": 80,
+   "spacerCss": "80px auto ",
+   "mainTop": 80,
+   "page": "itemDetailPage",
+   "pageTop": 80,
+   "pagePad": "0px",
+   "headerH": "80px",
+   "cls": "tb-hover tb-hero-on tb-rows layout-desktop tb-hdr-ok tb-rows-ok sleekfin-main-ui sleekfin-header-mounted sleekfin-media-mounted tb-ambient tb-ambient-page"
+  }
+ ]
+}

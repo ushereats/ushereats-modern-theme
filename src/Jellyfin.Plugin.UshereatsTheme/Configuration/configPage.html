@@ -1716,7 +1716,21 @@
                                     <label class="sleekfin-label sleekfin-label--side" for="tb-IconUrl">Icon URL</label>
                                     <div class="sleekfin-input-stack">
                                         <input id="tb-IconUrl" class="sleekfin-input" type="text" data-key="IconUrl" />
-                                        <div class="sleekfin-field-description">Your icon: browser tab, home screen, header logo, loading screen. Direct image link (512x512 PNG). Empty = Jellyfin's.</div>
+                                        <div class="sleekfin-field-description">A link to your logo. Not needed if you upload one below (the upload wins). Empty = Jellyfin's.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group" id="tbLogoBox">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tbLogoFile">Server logo</label>
+                                    <div class="sleekfin-input-stack">
+                                        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+                                            <img id="tbLogoPreview" alt="" style="width:64px;height:64px;object-fit:contain;border-radius:12px;background:rgba(255,255,255,.06);padding:6px" hidden />
+                                            <input id="tbLogoFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif" style="max-width:240px" />
+                                            <button type="button" id="tbLogoRemove" class="raised button-cancel emby-button" hidden>Remove</button>
+                                            <span id="tbLogoStatus" class="sleekfin-field-description"></span>
+                                        </div>
+                                        <div class="sleekfin-field-description">Upload your logo (square PNG, 512x512 is ideal, up to 3 MB). Used everywhere Jellyfin shows its own: browser tab, phone home screen, top bar, loading and sign-in screens, the welcome screen, the dashboard and link previews. Kept on your server, so it loads once and stays cached. Saved straight away (no need to press Save). Refresh the page to see it everywhere.</div>
                                     </div>
                                 </div>
                             </div>
@@ -5237,6 +5251,37 @@
         });
         cfg.HomeRowsJson = JSON.stringify(rows);
       };
+    })();
+    </script>
+    <script>
+    (function () {
+      // ── Server logo upload (sent to the plugin, which keeps it on the server) ──
+      var page = document.querySelector("#sleekFinConfigurationPage");
+      var file = page && page.querySelector("#tbLogoFile");
+      if (!file) return;
+      var img = page.querySelector("#tbLogoPreview"), rm = page.querySelector("#tbLogoRemove"), st = page.querySelector("#tbLogoStatus");
+      var PID = "01c723cc-57de-4e19-b13c-514b644491a5";
+      function show(v) {
+        if (v) { img.src = ApiClient.getUrl("UshereatsTheme/logo", { v: v }); img.hidden = false; rm.hidden = false; }
+        else { img.hidden = true; rm.hidden = true; img.removeAttribute("src"); }
+      }
+      function call(method, body) {
+        return fetch(ApiClient.getUrl("UshereatsTheme/logo"), { method: method, body: body, headers: { "Authorization": 'MediaBrowser Token="' + ApiClient.accessToken() + '"', "Content-Type": body && body.type || "application/octet-stream" } })
+          .then(function (r) { return r.ok ? r.json() : r.text().then(function (t) { throw new Error(t || ("Error " + r.status)); }); });
+      }
+      ApiClient.getPluginConfiguration(PID).then(function (c) { show(c.LogoVersion); }).catch(function () {});
+      file.addEventListener("change", function () {
+        var f = file.files && file.files[0];
+        if (!f) return;
+        if (f.size > 3 * 1024 * 1024) { st.textContent = "That file is over 3 MB."; return; }
+        st.textContent = "Uploading…";
+        call("POST", f).then(function (r) { show(r.version); st.textContent = "Saved. Refresh to see it everywhere."; file.value = ""; })
+          .catch(function (e) { st.textContent = "Couldn't upload: " + e.message; });
+      });
+      rm.addEventListener("click", function () {
+        st.textContent = "Removing…";
+        call("DELETE", null).then(function () { show(0); st.textContent = "Removed."; }).catch(function (e) { st.textContent = "Couldn't remove: " + e.message; });
+      });
     })();
     </script>
     <script>

@@ -1,3 +1,4 @@
+using Jellyfin.Plugin.UshereatsTheme.Configuration;
 using Jellyfin.Plugin.UshereatsTheme.Sleek;
 using MediaBrowser.Controller.Library;
 using Microsoft.AspNetCore.Authorization;
@@ -41,6 +42,77 @@ public class ThemeController : ControllerBase
         Response.Headers["Cache-Control"] = "no-cache";
         string json = System.Text.Json.JsonSerializer.Serialize(new { at = list.At, items = list.Items.Select(i => new { id = i.Id, @out = i.Out }) });
         return Content(json, "application/json; charset=utf-8");
+    }
+
+    // ── The server's logo (uploaded in the settings) ──
+
+    /// <summary>The uploaded logo. Public (the sign-in page and the browser tab need it); its link changes with each upload.</summary>
+    [HttpGet("logo")]
+    public IActionResult GetLogo()
+    {
+        Plugin? plugin = Plugin.Instance;
+        if (plugin == null || plugin.Configuration.LogoVersion == 0 || !System.IO.File.Exists(LogoPath(plugin)))
+        {
+            return NotFound();
+        }
+
+        Response.Headers["Cache-Control"] = CacheForever;
+        Response.Headers["X-Content-Type-Options"] = "nosniff";
+        return PhysicalFile(LogoPath(plugin), string.IsNullOrEmpty(plugin.Configuration.LogoType) ? "image/png" : plugin.Configuration.LogoType);
+    }
+
+    /// <summary>The web app's manifest (phone home-screen icon, name, colours) with the server's logo in place of Jellyfin's.</summary>
+    [HttpGet("manifest.json")]
+    public IActionResult GetManifest()
+    {
+        PluginConfiguration config = Plugin.Instance?.Configuration ?? new PluginConfiguration();
+        string? logo = ThemeAssets.LogoUrl(config, "../");
+        string type = config.LogoVersion > 0 && !string.IsNullOrEmpty(config.LogoType) ? config.LogoType : "image/png";
+        object[] icons = logo == null ? Array.Empty<object>() : new object[]
+        {
+            new { src = logo, sizes = "192x192", type, purpose = "any" },
+            new { src = logo, sizes = "512x512", type, purpose = "any" },
+        };
+        var manifest = new
+        {
+            name = "Jellyfin",
+            short_name = "Jellyfin",
+            start_url = "../web/index.html",
+            scope = "../web/",
+            display = "standalone",
+            background_color = "#000000",
+            theme_color = "#000000",
+            icons,
+        };
+        Response.Headers["Cache-Control"] = "public, max-age=3600";
+        return Content(System.Text.Json.JsonSerializer.Serialize(manifest), "application/manifest+json; charset=utf-8");
+    }
+
+    internal static string LogoPath(Plugin plugin) => Path.Combine(plugin.DataFolderPath, "logo.img");
+
+    internal static string? ImageType(byte[] b)
+    {
+        if (b.Length > 8 && b[0] == 0x89 && b[1] == 0x50 && b[2] == 0x4E && b[3] == 0x47)
+        {
+            return "image/png";
+        }
+
+        if (b.Length > 3 && b[0] == 0xFF && b[1] == 0xD8 && b[2] == 0xFF)
+        {
+            return "image/jpeg";
+        }
+
+        if (b.Length > 12 && b[0] == (byte)'R' && b[1] == (byte)'I' && b[2] == (byte)'F' && b[3] == (byte)'F' && b[8] == (byte)'W' && b[9] == (byte)'E' && b[10] == (byte)'B' && b[11] == (byte)'P')
+        {
+            return "image/webp";
+        }
+
+        if (b.Length > 6 && b[0] == (byte)'G' && b[1] == (byte)'I' && b[2] == (byte)'F')
+        {
+            return "image/gif";
+        }
+
+        return null;
     }
 
     [HttpGet("theme.css")]

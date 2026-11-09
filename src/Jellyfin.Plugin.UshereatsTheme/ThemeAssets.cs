@@ -242,13 +242,17 @@ public static class ThemeAssets
 
         css.Append(".tb-sleek-end{--tb-sleek-end:1}\n");   // marks where the built-in SleekFin's styles end (used by the visual test)
         css.Append(ReadText("theme.css")).Append('\n');
-        if (IsHttpUrl(config.IconUrl))
+        // the logo everywhere Jellyfin draws its own: the top bar, the loading screen, the sign-in page, and the
+        // dashboard's and side menu's Jellyfin pictures (the stylesheet is at /UshereatsTheme/theme.css)
+        string? logo = LogoUrl(config, "../");
+        if (logo != null)
         {
-            string url = CssString(config.IconUrl);
-            css.Append(".splashLogo,.pageTitleWithDefaultLogo,.pageTitleWithLogo{background-image:url(\"").Append(url)
+            string url = CssString(logo);
+            css.Append(".splashLogo,.pageTitleWithDefaultLogo,.pageTitleWithLogo,.adminDrawerLogo,.drawerLogo{background-image:url(\"").Append(url)
                .Append("\")!important;background-size:contain!important;background-repeat:no-repeat!important}")
                .Append(".splashLogo{background-position:center!important}")
-               .Append(".pageTitleWithDefaultLogo,.pageTitleWithLogo{background-position:left center!important}\n");
+               .Append(".pageTitleWithDefaultLogo,.pageTitleWithLogo{background-position:left center!important}")
+               .Append("img:is([src*=\"icon-transparent\"],[src*=\"banner-light\"],[src*=\"banner-dark\"],[src*=\"touchicon\"],[src*=\"/assets/img/icon\"],[src*=\"favicon\"]){content:url(\"").Append(url).Append("\")!important;object-fit:contain!important}\n");
         }
 
         // Posters appear the moment they're ready (Jellyfin fades each one in over 0.5 s).
@@ -469,7 +473,7 @@ public static class ThemeAssets
     /// <summary>SleekFin's settings in the shape its scripts expect (header, details, hero look).</summary>
     internal static string SleekJson(PluginConfiguration config, SleekConfiguration s) => JsonSerializer.Serialize(new
     {
-        icon = IsHttpUrl(config.IconUrl) ? config.IconUrl : string.Empty,
+        icon = LogoUrl(config, "../") ?? string.Empty,
         header = SleekSettings.Header(s),
         details = SleekSettings.Details(s),
         hero = SleekSettings.Hero(s),
@@ -513,6 +517,16 @@ public static class ThemeAssets
     }
 
     private static string Short(byte[] hash) => Convert.ToHexString(hash).Substring(0, 12).ToLowerInvariant();
+
+    /// <summary>
+    /// The server's logo: the uploaded one (served by the plugin, kept by browsers and Cloudflare for a year, its
+    /// link changes with each upload), else the Icon URL setting, else none (Jellyfin's own).
+    /// </summary>
+    /// <param name="config">The settings.</param>
+    /// <param name="prefix">What goes before "UshereatsTheme/" from where it's used ("../" from the web app's pages).</param>
+    internal static string? LogoUrl(PluginConfiguration config, string prefix) =>
+        config.LogoVersion > 0 ? prefix + "UshereatsTheme/logo?v=" + config.LogoVersion.ToString(System.Globalization.CultureInfo.InvariantCulture)
+        : IsHttpUrl(config.IconUrl) ? config.IconUrl : null;
 
     internal static bool IsHttpUrl(string? s) =>
         !string.IsNullOrWhiteSpace(s)

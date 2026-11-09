@@ -129,12 +129,19 @@ public static class IndexPatch
             sb.Append("<script>").Append(ThemeAssets.Text("rows_boot.js")).Append("</script>");
         }
 
-        // Your icon in the tab / home screen from the first frame
-        if (ThemeAssets.IsHttpUrl(build.Config.IconUrl))
+        // Your logo in the browser tab, on phone home screens (iPhone and Android) and in link previews, from the first
+        // frame. Jellyfin's own icon links and app manifest are taken out (below), so browsers can't pick Jellyfin's.
+        string? logoUrl = ThemeAssets.LogoUrl(build.Config, "../");
+        if (logoUrl != null)
         {
-            string icon = WebUtility.HtmlEncode(build.Config.IconUrl);
+            string icon = WebUtility.HtmlEncode(logoUrl);
             sb.Append("<link rel=\"icon\" href=\"").Append(icon).Append("\" data-tb-icon>");
-            sb.Append("<link rel=\"apple-touch-icon\" href=\"").Append(icon).Append("\" data-tb-icon>");
+            sb.Append("<link rel=\"shortcut icon\" href=\"").Append(icon).Append("\" data-tb-icon>");
+            sb.Append("<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"").Append(icon).Append("\" data-tb-icon>");
+            sb.Append("<link rel=\"manifest\" href=\"../UshereatsTheme/manifest.json?v=").Append(build.Version).Append("\" data-tb-icon>");
+            sb.Append("<meta property=\"og:image\" content=\"").Append(icon).Append("\">");
+            html = StripJellyfinIcons(html);
+            head = html.IndexOf("</head>", StringComparison.OrdinalIgnoreCase);
         }
 
         // The theme itself: stylesheet (applied before first paint) + scripts (run once the page is parsed)
@@ -143,6 +150,14 @@ public static class IndexPatch
 
         return html.Insert(head, sb.ToString());
     }
+
+    // Jellyfin's own <link rel="icon" / "apple-touch-icon" / "manifest"> tags (ours are added instead)
+    private static string StripJellyfinIcons(string html) =>
+        System.Text.RegularExpressions.Regex.Replace(
+            html,
+            "<link\\b(?![^>]*data-tb-icon)[^>]*\\brel=[\"']?(?:shortcut icon|icon|apple-touch-icon(?:-precomposed)?|manifest|mask-icon)[\"']?[^>]*>",
+            string.Empty,
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
     // SleekFin's boot flags (same as SleekFin's own): header/hero switches, card shapes, sizes, and the
     // "header loading" state that keeps Jellyfin's plain header invisible until the real one is built

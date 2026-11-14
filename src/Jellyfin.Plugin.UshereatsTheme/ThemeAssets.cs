@@ -369,7 +369,7 @@ public static class ThemeAssets
             // Admins who have opened it before get it downloaded (not run) while the browser is idle, so it opens
             // at once; the Now Playing panel's space is kept from the first frame (its last height), so the
             // dashboard's own boxes don't get pushed down when it appears.
-            js.Append("(function(){if(!document.body)return;var u=\"../UshereatsTheme/dashboard.js?v=")
+            js.Append("(function(){if(!document.body)return;var u=window.__tbDevMode?\"../UshereatsTheme/dev/dashboard.js\":\"../UshereatsTheme/dashboard.js?v=")
               .Append(dashboard.Hash)
               .Append("\",done=false,mo,seen=false;try{seen=!!localStorage.getItem(\"tb-dash\")}catch(e){}");
             if (config.NowPlaying)
@@ -436,7 +436,7 @@ public static class ThemeAssets
         }
 
         js.Append("(function(){var P={").Append(partList).Append("},done={};")
-          .Append("function load(n){if(!P[n]||done[n])return;done[n]=1;var s=document.createElement(\"script\");s.src=\"../UshereatsTheme/part/\"+n+\".js?v=\"+P[n];document.head.appendChild(s)}")
+          .Append("function load(n){if(!P[n]||done[n])return;done[n]=1;var s=document.createElement(\"script\");s.src=window.__tbDevMode?\"../UshereatsTheme/dev/part/\"+n+\".js\":\"../UshereatsTheme/part/\"+n+\".js?v=\"+P[n];document.head.appendChild(s)}")
           .Append("window.tbLoadPart=load;")
           .Append("function route(){var h=location.hash||\"\";if(/^#!?\\/(details|item)/i.test(h))load(\"details\");if(/^#!?\\/search/i.test(h))load(\"search\");if(/^#!?\\/video/i.test(h)||document.getElementById(\"videoOsdPage\"))load(\"player\")}")
           // search: also the moment the pointer or focus reaches the search button

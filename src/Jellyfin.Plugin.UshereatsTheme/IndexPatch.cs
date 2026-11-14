@@ -39,8 +39,15 @@ public static class IndexPatch
         }
 
         ThemeBuild build = ThemeAssets.Get();
+        bool devEnabled = !string.IsNullOrWhiteSpace(build.Config.DevAssetsUrl);
         StringBuilder sb = new StringBuilder();
         sb.Append(Marker);
+
+        // Set __tbDevMode early so every subsequent inline script can read it (splash, parts, dashboard).
+        if (devEnabled)
+        {
+            sb.Append("<script>try{window.__tbDevMode=localStorage.getItem('ue-dev')==='1'}catch(e){}</script>");
+        }
 
         // Fonts: self-hosted, preloaded, always on (also on admin pages)
         string fv = build.FontVersion;
@@ -92,9 +99,17 @@ public static class IndexPatch
         {
             sb.Append("<style>html.tb-cover::after{content:\"\";position:fixed;top:0;right:0;bottom:0;left:0;z-index:999998;background:#040405;pointer-events:none;transition:opacity 250ms ease}html.tb-cover.tb-cover-out::after{opacity:0}</style>");
             // ...and the splash code is only downloaded on a new session
-            sb.Append("<script>try{if(!sessionStorage.getItem(\"jf-welcomed\")){var d=document.documentElement;d.classList.add(\"tb-cover\");setTimeout(function(){d.classList.remove(\"tb-cover\",\"tb-cover-out\")},4500);var s=document.createElement(\"script\");s.src=\"../UshereatsTheme/splash.js?v=")
-              .Append(build.SplashVersion)
-              .Append("\";document.head.appendChild(s)}}catch(e){}</script>");
+            sb.Append("<script>try{if(!sessionStorage.getItem(\"jf-welcomed\")){var d=document.documentElement;d.classList.add(\"tb-cover\");setTimeout(function(){d.classList.remove(\"tb-cover\",\"tb-cover-out\")},4500);var s=document.createElement(\"script\");");
+            if (devEnabled)
+            {
+                sb.Append("s.src=window.__tbDevMode?\"../UshereatsTheme/dev/splash.js\":\"../UshereatsTheme/splash.js?v=").Append(build.SplashVersion).Append("\";");
+            }
+            else
+            {
+                sb.Append("s.src=\"../UshereatsTheme/splash.js?v=").Append(build.SplashVersion).Append("\";");
+            }
+
+            sb.Append("document.head.appendChild(s)}}catch(e){}</script>");
         }
 
         // Page cross-fade: back / forward are listened to before Jellyfin's own listeners exist, so going back can
@@ -145,16 +160,17 @@ public static class IndexPatch
         }
 
         // The theme itself: stylesheet (applied before first paint) + scripts (run once the page is parsed).
-        // If this browser has localStorage ue-dev=1, load from the no-cache dev routes instead (only this browser).
-        bool devEnabled = !string.IsNullOrWhiteSpace(build.Config.DevAssetsUrl);
+        // document.write is used in the dev branch so the browser sees parser-inserted tags — the stylesheet
+        // blocks rendering (no flash) and the script gets true defer semantics, exactly like the normal branch.
         if (devEnabled)
         {
-            sb.Append("<script>(function(){var d=0;try{d=localStorage.getItem('ue-dev')==='1'}catch(e){}");
+            sb.Append("<script>(function(){");
+            sb.Append("var d=window.__tbDevMode;");
             sb.Append("var b=d?'../UshereatsTheme/dev':'../UshereatsTheme';");
-            sb.Append("var l=document.createElement('link');l.id='tb-theme-css';l.rel='stylesheet';");
-            sb.Append("l.href=b+'/theme.css'+(d?'':'?v=").Append(build.Version).Append("');document.head.appendChild(l);");
-            sb.Append("var s=document.createElement('script');s.defer=true;");
-            sb.Append("s.src=b+'/theme.js'+(d?'':'?v=").Append(build.Version).Append("');document.head.appendChild(s);})();</script>");
+            sb.Append("var v=d?'':'?v=").Append(build.Version).Append("';");
+            sb.Append("document.write('<link id=\"tb-theme-css\" rel=\"stylesheet\" href=\"'+b+'/theme.css'+v+'\">');");
+            sb.Append("document.write('<scr'+'ipt src=\"'+b+'/theme.js'+v+'\" defer><\\/scr'+'ipt>');");
+            sb.Append("})();</script>");
         }
         else
         {

@@ -160,10 +160,37 @@ public static class ThemeAssets
                 return current;
             }
 
-            current = Build(config, key);
+            current = Build(config, key, ReadBytes);
             s_current = current;
             return current;
         }
+    }
+
+    /// <summary>
+    /// Dev build: same as the normal build but reads each asset file from <paramref name="devUrl"/> instead of
+    /// the embedded copy. Never cached. Falls back to embedded if a file is not found at the URL.
+    /// </summary>
+    public static ThemeBuild BuildDev(PluginConfiguration config, string devUrl)
+    {
+        string baseUrl = devUrl.TrimEnd('/');
+        using System.Net.Http.HttpClient http = new System.Net.Http.HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+
+        byte[] FetchOrFallback(string name)
+        {
+            try
+            {
+                using var resp = http.GetAsync($"{baseUrl}/{name}").GetAwaiter().GetResult();
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadAsByteArrayAsync().GetAwaiter().GetResult();
+                }
+            }
+            catch { }
+
+            return ReadBytes(name);
+        }
+
+        return Build(config, "dev", FetchOrFallback);
     }
 
     /// <summary>Embedded font bytes, or null for an unknown name.</summary>
@@ -207,9 +234,10 @@ public static class ThemeAssets
         }
     }
 
-    private static ThemeBuild Build(PluginConfiguration config, string key)
+    private static ThemeBuild Build(PluginConfiguration config, string key, Func<string, byte[]> read)
     {
-        byte[] mp3 = ReadBytes("splash.mp3");
+        string ReadText(string name) => Encoding.UTF8.GetString(read(name));
+        byte[] mp3 = read("splash.mp3");
         string mp3Version = Short(SHA256.HashData(mp3));
 
         string fontVersion;
@@ -217,7 +245,7 @@ public static class ThemeAssets
         {
             foreach (string file in Fonts.Values)
             {
-                fh.AppendData(ReadBytes(file));
+                fh.AppendData(read(file));
             }
 
             fontVersion = Short(fh.GetHashAndReset());
@@ -309,7 +337,7 @@ public static class ThemeAssets
         if (config.WelcomeSplash)
         {
             StringBuilder sj = new StringBuilder(prefix);
-            AppendFeature(sj, SplashFile, mp3Version);
+            AppendFeature(sj, SplashFile, mp3Version, read);
             splash = new Payload(Encoding.UTF8.GetBytes(sj.ToString()));
         }
 
@@ -321,12 +349,12 @@ public static class ThemeAssets
             StringBuilder dj = new StringBuilder(prefix);
             if (config.DashboardSkin)
             {
-                AppendFeature(dj, DashboardFile, mp3Version);
+                AppendFeature(dj, DashboardFile, mp3Version, read);
             }
 
             if (config.NowPlaying)
             {
-                AppendFeature(dj, NowPlayingFile, mp3Version);
+                AppendFeature(dj, NowPlayingFile, mp3Version, read);
             }
 
             dashboard = new Payload(Encoding.UTF8.GetBytes(dj.ToString()));
@@ -399,7 +427,7 @@ public static class ThemeAssets
             StringBuilder pj = new StringBuilder();
             foreach (string file in files)
             {
-                AppendFeature(pj, file, mp3Version);
+                AppendFeature(pj, file, mp3Version, read);
             }
 
             Payload payload = new Payload(Encoding.UTF8.GetBytes(pj.ToString()));
@@ -423,7 +451,7 @@ public static class ThemeAssets
         {
             if (file != "sleek_details.js")
             {
-                AppendFeature(js, file, mp3Version);
+                AppendFeature(js, file, mp3Version, read);
             }
         }
 
@@ -431,7 +459,7 @@ public static class ThemeAssets
         {
             if (on(config) && file is not ("js_12_player_skin.js" or "js_14_pause_screen.js" or "js_09_search_restyle.js" or "js_23_search.js"))
             {
-                AppendFeature(js, file, mp3Version);
+                AppendFeature(js, file, mp3Version, read);
             }
         }
 
@@ -510,9 +538,9 @@ public static class ThemeAssets
     }
 
     // each feature isolated: one failing never stops the others
-    private static void AppendFeature(StringBuilder sb, string file, string mp3Version)
+    private static void AppendFeature(StringBuilder sb, string file, string mp3Version, Func<string, byte[]> read)
     {
-        string code = ReadText(file).Replace("__TB_MP3__", "../UshereatsTheme/splash.mp3?v=" + mp3Version, StringComparison.Ordinal);
+        string code = Encoding.UTF8.GetString(read(file)).Replace("__TB_MP3__", "../UshereatsTheme/splash.mp3?v=" + mp3Version, StringComparison.Ordinal);
         sb.Append("try{").Append(code).Append("\n}catch(e){console.error(\"[Ushereats Theme] ").Append(file).Append("\",e)}\n");
     }
 

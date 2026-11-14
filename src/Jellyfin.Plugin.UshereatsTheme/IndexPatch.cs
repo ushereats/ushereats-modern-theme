@@ -144,9 +144,23 @@ public static class IndexPatch
             head = html.IndexOf("</head>", StringComparison.OrdinalIgnoreCase);
         }
 
-        // The theme itself: stylesheet (applied before first paint) + scripts (run once the page is parsed)
-        sb.Append("<link id=\"tb-theme-css\" rel=\"stylesheet\" href=\"../UshereatsTheme/theme.css?v=").Append(build.Version).Append("\">");
-        sb.Append("<script src=\"../UshereatsTheme/theme.js?v=").Append(build.Version).Append("\" defer></script>");
+        // The theme itself: stylesheet (applied before first paint) + scripts (run once the page is parsed).
+        // If this browser has localStorage ue-dev=1, load from the no-cache dev routes instead (only this browser).
+        bool devEnabled = !string.IsNullOrWhiteSpace(build.Config.DevAssetsUrl);
+        if (devEnabled)
+        {
+            sb.Append("<script>(function(){var d=0;try{d=localStorage.getItem('ue-dev')==='1'}catch(e){}");
+            sb.Append("var b=d?'../UshereatsTheme/dev':'../UshereatsTheme';");
+            sb.Append("var l=document.createElement('link');l.id='tb-theme-css';l.rel='stylesheet';");
+            sb.Append("l.href=b+'/theme.css'+(d?'':'?v=").Append(build.Version).Append("');document.head.appendChild(l);");
+            sb.Append("var s=document.createElement('script');s.defer=true;");
+            sb.Append("s.src=b+'/theme.js'+(d?'':'?v=").Append(build.Version).Append("');document.head.appendChild(s);})();</script>");
+        }
+        else
+        {
+            sb.Append("<link id=\"tb-theme-css\" rel=\"stylesheet\" href=\"../UshereatsTheme/theme.css?v=").Append(build.Version).Append("\">");
+            sb.Append("<script src=\"../UshereatsTheme/theme.js?v=").Append(build.Version).Append("\" defer></script>");
+        }
 
         return html.Insert(head, sb.ToString());
     }

@@ -62,7 +62,13 @@
   // Only: the rows' own entrance fade would be frozen at "invisible" while the old page is held and play after
   // the cross-fade (old page -> empty -> rows); rows that were there for a cross-fade don't play it.
   var st = document.createElement("style");
-  st.textContent = "html.tb-vt :is(#indexPage,#searchPage) .verticalSection,html.tb-vt :is(#moviesPage,#tvshowsPage,#tvRecommendedPage) .itemsContainer,.verticalSection.tb-noenter,.itemsContainer.tb-noenter{animation:none!important}";
+  st.textContent = "html.tb-vt :is(#indexPage,#searchPage) .verticalSection,html.tb-vt :is(#moviesPage,#tvshowsPage,#tvRecommendedPage) .itemsContainer,.verticalSection.tb-noenter,.itemsContainer.tb-noenter{animation:none!important}" +
+    // while the crossfade runs, skip layout/paint for sections below the banner so the main thread
+    // doesn't waste time laying out cast/similar/episodes before the animation even starts
+    "html.tb-vt #itemDetailPage .verticalSection,html.tb-vt #itemDetailPage .itemsContainer{content-visibility:hidden}" +
+    // the browser's ::view-transition overlay sits at z-index 10M with pointer-events:auto by default;
+    // started on pointerdown, it blocks the click that follows — set none so clicks fall through
+    "::view-transition,::view-transition-group(*),::view-transition-image-pair(*),::view-transition-old(*),::view-transition-new(*){pointer-events:none}";
   document.head.appendChild(st);
 
   var started = false, captured = false, held = [], replaying = false;
@@ -73,8 +79,9 @@
   // ready = what cinejoy fades into: the finished page (no loading placeholders, no empty banner)
   function ready(p, t, before) {
     if (!p) return false;
-    // the background colour follows the page in the same cross-fade (not a slow change after it)
-    if (t < 700 && window.tbAmbientPending && window.tbAmbientPending()) return false;
+    // the background colour follows the page in the same cross-fade (not a slow change after it).
+    // Title pages skip this: backdrop is prefetched, ambient fires immediately.
+    if (p && p.id !== "itemDetailPage" && t < 700 && window.tbAmbientPending && window.tbAmbientPending()) return false;
     if (p.id === "itemDetailPage") {
       // collections, albums, artists, playlists, people: Jellyfin's own layout (SleekFin leaves them alone)
       if (p.classList.contains("sleekfin-details-native")) {
@@ -87,6 +94,10 @@
         if (!html.classList.contains("sleekfin-details-mounted") || html.classList.contains("sleekfin-details-concealed") || p.getAttribute("data-sleekfin-details") !== "true") return false;
         var st = p.querySelectorAll(".sleekfin-details-title");
         if (st.length !== 1 || !st[0].childNodes.length) return false;
+        // banner complete: backdrop loaded (if the hero is there) and at least one action button visible
+        var sfhero = p.querySelector(".sleekfin-hero");
+        if (sfhero && !sfhero.querySelector("[data-loaded='true']")) return false;
+        if (!p.querySelector(".sleekfin-details-actions :is(button, a)")) return false;
         // Jellyfin's own title still showing next to SleekFin's (for a moment the name is there twice)
         var nat = p.querySelectorAll(".nameContainer, .itemName, .parentName");
         for (var i = 0; i < nat.length; i++) if (!nat[i].closest(".sleekfin-details-hero") && nat[i].getClientRects().length && nat[i].textContent.trim()) return false;
@@ -101,7 +112,8 @@
       if (html.classList.contains("tb-hero-on") && !hero && t < 400) return false;
       if (hero && t < 300 && !hero.querySelector(".sleekfin-hero-slide[data-active='true'] .sleekfin-hero-backdrop[data-loaded='true']")) return false;
       if (hero && t < 300 && !hero.getClientRects().length) return false;
-      return seen(p) || t > 300;
+      var rowsOk = html.classList.contains("tb-rows-ok") && !!p.querySelector(".tb-rows-c");
+      return rowsOk || seen(p) || t > 300;
     }
     // search: the theme's search box is put in a moment after Jellyfin's page shows
     if (p.id === "searchPage" && t < 800 && !p.querySelector("#smart-search-wrapper")) return false;
@@ -195,7 +207,9 @@
             var changed = moved && (from === null ? (p !== page0 || (p && p.id === "itemDetailPage") || (tab0 && shownTab(p) !== tab0)) : (p !== page0 || location.hash !== from));
             if (changed && target !== null && Math.abs(scrolled() - target) > 1) scrollNow(target);
             var still = changed ? layout(p) : 0;
-            if (changed && still >= 60 && (!p || p.id !== "itemDetailPage" || now - last >= 50) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); if (target !== null) keep(target); return resolve(); }
+            var isDetail = p && p.id === "itemDetailPage";
+            var goingToDetail = !isDetail && /\/details\b/i.test(location.hash);
+            if (changed && !goingToDetail && (isDetail || still >= 60) && (isDetail || !p || now - last >= 50) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); if (target !== null) keep(target); return resolve(); }
             // a title page waits for its content (cinejoy fades straight into the finished page, never a placeholder)
             if (now - t0 > (p && p.id === "itemDetailPage" ? 2500 : 1200)) { note("timeout " + (p && p.id) + " changed=" + !!changed + " still=" + still + " sig=" + sig + " ready=" + ready(p, now - moved, before)); if (changed && target !== null) keep(target); return resolve(); }
             setTimeout(tick, 16);
@@ -203,24 +217,20 @@
         });
       });
     } catch (e) { running = false; html.classList.remove("tb-vt"); return false; }
+    // Click/pointerdown-initiated transitions: navigation must go through immediately.
+    // The old-state snapshot was taken synchronously by startViewTransition, so setting
+    // captured=true now means hold() won't intercept the click's resulting hashchange.
+    // Back/forward (already=true) keeps the original async path: captured is set inside the callback.
+    if (!already) captured = true;
     var done = function () { running = false; captured = false; html.classList.remove("tb-vt"); };
     tr.finished.then(function () { note("done"); done(); }, function (e) { note("skipped " + (e && e.message)); done(); });
     return true;
   }
   window.tbCrossfade = crossfade;
 
-  // clicks that open a page: posters, links, the back arrows (before Jellyfin handles them)
   document.addEventListener("click", function (e) {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    var t = e.target && e.target.closest ? e.target : null;
-    if (!t) return;
-    // back arrows go back: the cross-fade starts from the history change they make (where you were is kept)
-    if (t.closest(".sleekfin-details-back, .headerBackButton")) return;
-    var b = t.closest("button");
-    if (b && !b.matches("[data-action='link'], .cardImageContainer, .itemAction[data-action='link']")) return;   // play, menus, favourites...
-    var a = t.closest("a[href]");
-    if (a && (a.target === "_blank" || !/#!?\//.test(a.getAttribute("href") || ""))) return;
-    if (a || t.closest(".card[data-id], [data-action='link']")) crossfade(400);
+    crossfade(400);
   }, true);
 
   // browser / mouse back and forward, and the back arrows (they call history.back()). Jellyfin swaps the page

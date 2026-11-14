@@ -60,8 +60,8 @@
     var dpr = window.devicePixelRatio || 1;
     return function (id, type, tag) {
       if (type === "Backdrop") {
-        var w = Math.min(2560, Math.max(960, Math.ceil((window.innerWidth || 1280) * dpr / 160) * 160));
-        return base + "Items/" + id + "/Images/Backdrop/0?tag=" + encodeURIComponent(tag) + "&maxWidth=" + w + "&quality=90" + (window.__tbImgFmt || "");
+        var w = window.tbBackdropWidth ? window.tbBackdropWidth() : Math.min(2560, Math.max(960, Math.ceil((window.innerWidth || 1280) * dpr / 160) * 160));
+        return base + "Items/" + id + "/Images/Backdrop/0?tag=" + encodeURIComponent(tag) + "&maxWidth=" + w + "&quality=80" + (window.__tbImgFmt || "");
       }
       return base + "Items/" + id + "/Images/Logo?tag=" + encodeURIComponent(tag) + "&maxHeight=" + Math.ceil(140 * dpr) + "&quality=90" + (/webp/.test(window.__tbImgFmt || "") ? window.__tbImgFmt : "");   // logos are see-through: WebP or as they are
     };
@@ -276,6 +276,7 @@
     var s = slides[i];
     if (!s || s.__tbBg.getAttribute("src")) return;
     var bg = s.__tbBg;
+    if (i === 0) bg.fetchPriority = "high";
     bg.src = bg.__tbSrc;
     // already in the browser (preloaded from the page head or seen before): show it with no fade
     if (bg.complete && bg.naturalWidth) bg.setAttribute("data-loaded", "true");

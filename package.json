@@ -1,0 +1,9 @@
+{
+  "name": "ushereats-modern-theme",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node dev-server.mjs",
+    "build-assets": "node build-assets.mjs"
+  }
+}

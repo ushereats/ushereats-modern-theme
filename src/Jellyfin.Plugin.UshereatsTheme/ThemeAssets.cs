@@ -160,10 +160,37 @@ public static class ThemeAssets
                 return current;
             }
 
-            current = Build(config, key);
+            current = Build(config, key, ReadBytes);
             s_current = current;
             return current;
         }
+    }
+
+    /// <summary>
+    /// Dev build: same as the normal build but reads each asset file from <paramref name="devUrl"/> instead of
+    /// the embedded copy. Never cached. Falls back to embedded if a file is not found at the URL.
+    /// </summary>
+    public static ThemeBuild BuildDev(PluginConfiguration config, string devUrl)
+    {
+        string baseUrl = devUrl.TrimEnd('/');
+        using System.Net.Http.HttpClient http = new System.Net.Http.HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+
+        byte[] FetchOrFallback(string name)
+        {
+            try
+            {
+                using var resp = http.GetAsync($"{baseUrl}/{name}").GetAwaiter().GetResult();
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadAsByteArrayAsync().GetAwaiter().GetResult();
+                }
+            }
+            catch { }
+
+            return ReadBytes(name);
+        }
+
+        return Build(config, "dev", FetchOrFallback);
     }
 
     /// <summary>Embedded font bytes, or null for an unknown name.</summary>
@@ -207,9 +234,10 @@ public static class ThemeAssets
         }
     }
 
-    private static ThemeBuild Build(PluginConfiguration config, string key)
+    private static ThemeBuild Build(PluginConfiguration config, string key, Func<string, byte[]> read)
     {
-        byte[] mp3 = ReadBytes("splash.mp3");
+        string ReadText(string name) => Encoding.UTF8.GetString(read(name));
+        byte[] mp3 = read("splash.mp3");
         string mp3Version = Short(SHA256.HashData(mp3));
 
         string fontVersion;
@@ -217,7 +245,7 @@ public static class ThemeAssets
         {
             foreach (string file in Fonts.Values)
             {
-                fh.AppendData(ReadBytes(file));
+                fh.AppendData(read(file));
             }
 
             fontVersion = Short(fh.GetHashAndReset());
@@ -309,7 +337,7 @@ public static class ThemeAssets
         if (config.WelcomeSplash)
         {
             StringBuilder sj = new StringBuilder(prefix);
-            AppendFeature(sj, SplashFile, mp3Version);
+            AppendFeature(sj, SplashFile, mp3Version, read);
             splash = new Payload(Encoding.UTF8.GetBytes(sj.ToString()));
         }
 
@@ -321,12 +349,12 @@ public static class ThemeAssets
             StringBuilder dj = new StringBuilder(prefix);
             if (config.DashboardSkin)
             {
-                AppendFeature(dj, DashboardFile, mp3Version);
+                AppendFeature(dj, DashboardFile, mp3Version, read);
             }
 
             if (config.NowPlaying)
             {
-                AppendFeature(dj, NowPlayingFile, mp3Version);
+                AppendFeature(dj, NowPlayingFile, mp3Version, read);
             }
 
             dashboard = new Payload(Encoding.UTF8.GetBytes(dj.ToString()));
@@ -341,7 +369,7 @@ public static class ThemeAssets
             // Admins who have opened it before get it downloaded (not run) while the browser is idle, so it opens
             // at once; the Now Playing panel's space is kept from the first frame (its last height), so the
             // dashboard's own boxes don't get pushed down when it appears.
-            js.Append("(function(){if(!document.body)return;var u=\"../UshereatsTheme/dashboard.js?v=")
+            js.Append("(function(){if(!document.body)return;var u=window.__tbDevMode?\"../UshereatsTheme/dev/dashboard.js\":\"../UshereatsTheme/dashboard.js?v=")
               .Append(dashboard.Hash)
               .Append("\",done=false,mo,seen=false;try{seen=!!localStorage.getItem(\"tb-dash\")}catch(e){}");
             if (config.NowPlaying)
@@ -399,7 +427,7 @@ public static class ThemeAssets
             StringBuilder pj = new StringBuilder();
             foreach (string file in files)
             {
-                AppendFeature(pj, file, mp3Version);
+                AppendFeature(pj, file, mp3Version, read);
             }
 
             Payload payload = new Payload(Encoding.UTF8.GetBytes(pj.ToString()));
@@ -408,7 +436,7 @@ public static class ThemeAssets
         }
 
         js.Append("(function(){var P={").Append(partList).Append("},done={};")
-          .Append("function load(n){if(!P[n]||done[n])return;done[n]=1;var s=document.createElement(\"script\");s.src=\"../UshereatsTheme/part/\"+n+\".js?v=\"+P[n];document.head.appendChild(s)}")
+          .Append("function load(n){if(!P[n]||done[n])return;done[n]=1;var s=document.createElement(\"script\");s.src=window.__tbDevMode?\"../UshereatsTheme/dev/part/\"+n+\".js\":\"../UshereatsTheme/part/\"+n+\".js?v=\"+P[n];document.head.appendChild(s)}")
           .Append("window.tbLoadPart=load;")
           .Append("function route(){var h=location.hash||\"\";if(/^#!?\\/(details|item)/i.test(h))load(\"details\");if(/^#!?\\/search/i.test(h))load(\"search\");if(/^#!?\\/video/i.test(h)||document.getElementById(\"videoOsdPage\"))load(\"player\")}")
           // search: also the moment the pointer or focus reaches the search button
@@ -416,14 +444,15 @@ public static class ThemeAssets
           .Append("document.addEventListener(\"pointerover\",near,{capture:true,passive:true});document.addEventListener(\"focusin\",near,true);")
           .Append("route();window.addEventListener(\"hashchange\",route);window.addEventListener(\"popstate\",route);")
           .Append("var idle=window.requestIdleCallback||function(f){return setTimeout(f,1200)};")
-          .Append("window.addEventListener(\"load\",function(){idle(function(){load(\"details\");load(\"search\");load(\"player\")},{timeout:2500})})})();\n");
+          // "details" loads straight at page load (not idle) so the title-page script is ready by the first hover
+          .Append("window.addEventListener(\"load\",function(){load(\"details\");idle(function(){load(\"search\");load(\"player\")},{timeout:2500})})})();\n");
 
         // SleekFin's scripts (built in; its own hero is left out: the plugin's hero replaces it)
         foreach (string file in SleekScripts)
         {
             if (file != "sleek_details.js")
             {
-                AppendFeature(js, file, mp3Version);
+                AppendFeature(js, file, mp3Version, read);
             }
         }
 
@@ -431,7 +460,7 @@ public static class ThemeAssets
         {
             if (on(config) && file is not ("js_12_player_skin.js" or "js_14_pause_screen.js" or "js_09_search_restyle.js" or "js_23_search.js"))
             {
-                AppendFeature(js, file, mp3Version);
+                AppendFeature(js, file, mp3Version, read);
             }
         }
 
@@ -510,9 +539,9 @@ public static class ThemeAssets
     }
 
     // each feature isolated: one failing never stops the others
-    private static void AppendFeature(StringBuilder sb, string file, string mp3Version)
+    private static void AppendFeature(StringBuilder sb, string file, string mp3Version, Func<string, byte[]> read)
     {
-        string code = ReadText(file).Replace("__TB_MP3__", "../UshereatsTheme/splash.mp3?v=" + mp3Version, StringComparison.Ordinal);
+        string code = Encoding.UTF8.GetString(read(file)).Replace("__TB_MP3__", "../UshereatsTheme/splash.mp3?v=" + mp3Version, StringComparison.Ordinal);
         sb.Append("try{").Append(code).Append("\n}catch(e){console.error(\"[Ushereats Theme] ").Append(file).Append("\",e)}\n");
     }
 

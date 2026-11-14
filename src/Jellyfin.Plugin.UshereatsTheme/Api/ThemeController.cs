@@ -121,6 +121,64 @@ public class ThemeController : ControllerBase
     [HttpGet("theme.js")]
     public IActionResult GetJs() => Serve(ThemeAssets.Get().Js, "application/javascript; charset=utf-8");
 
+    /// <summary>
+    /// Dev routes: same build logic as production but reads assets from DevAssetsUrl (the PC's npm run dev server).
+    /// Falls back to the embedded build if DevAssetsUrl is not set or the dev server can't be reached.
+    /// No caching — always fresh.
+    /// </summary>
+    [HttpGet("dev/theme.css")]
+    public IActionResult GetDevCss()
+    {
+        ThemeBuild build = DevBuild();
+        Response.Headers["Cache-Control"] = "no-store";
+        Response.Headers["Access-Control-Allow-Origin"] = "*";
+        return File(build.Css.Raw, "text/css; charset=utf-8");
+    }
+
+    [HttpGet("dev/theme.js")]
+    public IActionResult GetDevJs()
+    {
+        ThemeBuild build = DevBuild();
+        Response.Headers["Cache-Control"] = "no-store";
+        Response.Headers["Access-Control-Allow-Origin"] = "*";
+        return File(build.Js.Raw, "application/javascript; charset=utf-8");
+    }
+
+    [HttpGet("dev/splash.js")]
+    public IActionResult GetDevSplashJs()
+    {
+        ThemeBuild build = DevBuild();
+        Response.Headers["Cache-Control"] = "no-store";
+        Response.Headers["Access-Control-Allow-Origin"] = "*";
+        return File(build.SplashJs.Raw, "application/javascript; charset=utf-8");
+    }
+
+    [HttpGet("dev/dashboard.js")]
+    public IActionResult GetDevDashboardJs()
+    {
+        ThemeBuild build = DevBuild();
+        Response.Headers["Cache-Control"] = "no-store";
+        Response.Headers["Access-Control-Allow-Origin"] = "*";
+        return File(build.DashboardJs.Raw, "application/javascript; charset=utf-8");
+    }
+
+    [HttpGet("dev/part/{name}.js")]
+    public IActionResult GetDevPart([FromRoute] string name)
+    {
+        ThemeBuild build = DevBuild();
+        if (!build.Parts.TryGetValue(name, out Payload? part)) return NotFound();
+        Response.Headers["Cache-Control"] = "no-store";
+        Response.Headers["Access-Control-Allow-Origin"] = "*";
+        return File(part.Raw, "application/javascript; charset=utf-8");
+    }
+
+    private static ThemeBuild DevBuild()
+    {
+        PluginConfiguration config = Plugin.Instance?.Configuration ?? new PluginConfiguration();
+        string? url = config.DevAssetsUrl;
+        return string.IsNullOrWhiteSpace(url) ? ThemeAssets.Get() : ThemeAssets.BuildDev(config, url);
+    }
+
     [HttpGet("splash.js")]
     public IActionResult GetSplashJs() => Serve(ThemeAssets.Get().SplashJs, "application/javascript; charset=utf-8");
 

@@ -342,6 +342,10 @@ html.sleekfin-main-ui[data-sleekfin-media-card-shape="Circle"] .sleekfin-details
     transform: scale(1.05) !important;
 }
 
+.card:active .cardBox {
+    transform: scale(0.96) !important;
+    transition-duration: 80ms !important;
+}
 
 html.is-scrolling .card .cardBox {
     transition: none !important;

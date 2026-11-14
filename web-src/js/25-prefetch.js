@@ -8,9 +8,10 @@
   if (window.__tbPrefetch || !window.fetch) return;
   window.__tbPrefetch = true;
 
-  var ITEM = /\/Users\/[0-9a-f]{32}\/Items\/[0-9a-f]{32}(\?|$)/i;
-  var TTL = 15000;
-  var cache = {};   // url -> { at, p: Promise<{ status, statusText, headers, body }> }
+  // Jellyfin 10.9+ uses /Items/{id}?userId=... ; older used /Users/{uid}/Items/{id}. Match both.
+  var ITEM = /\/Items\/[0-9a-f]{32}(\?|$)/i;
+  var ITEM_KEEP = 600000, ITEM_FRESH = 15000;
+  var cache = {};   // url -> { at, x: { status, statusText, headers, body } }
 
   function key(url) { return String(url).replace(/^https?:\/\/[^/]+/i, "").replace(/[?&]tbBench=\d+/, ""); }
   function clear() { cache = {}; lists = {}; }
@@ -94,20 +95,20 @@
     if (LIST.test(url) && !(init && init.cache === "no-store") && !/[?&](SearchTerm|searchTerm)=/.test(url) && !/^#\/?home/i.test(location.hash)) return listFetch(this, arguments, url);
     // Favourites: shown at once from the copy kept from last time (and fetched ahead in idle time, see below)
     if (FAV.test(url) && !(init && init.cache === "no-store")) { rememberFav(url); return listFetch(this, arguments, url); }
-    if (!ITEM.test(url) || /[?&](fields|Fields)=/.test(url) || (init && init.cache === "no-store")) return realFetch.apply(this, arguments);
-    var k = key(url), hit = cache[k];
-    if (!hit || Date.now() - hit.at > TTL) {
-      var p = realFetch.apply(this, arguments).then(function (r) {
-        return r.text().then(function (body) {
-          var h = {};
-          r.headers.forEach(function (v, n) { h[n] = v; });
-          return { status: r.status, statusText: r.statusText, headers: h, body: body };
-        });
-      });
-      hit = cache[k] = { at: Date.now(), p: p };
-      p.then(function (x) { if (x.status !== 200 && cache[k] === hit) delete cache[k]; }, function () { if (cache[k] === hit) delete cache[k]; });
+    if (!ITEM.test(url) || (init && init.cache === "no-store")) return realFetch.apply(this, arguments);
+    var k = key(url), hit = cache[k], now = Date.now();
+    // stale-while-revalidate: return stale data at once, refresh in background
+    if (hit && hit.x && now - hit.at < ITEM_KEEP) {
+      if (now - hit.at > ITEM_FRESH && !hit.busy) {
+        hit.busy = true;
+        grab(this, arguments).then(function (x) { if (x.status === 200 && cache[k] === hit) cache[k] = { at: Date.now(), x: x }; else hit.busy = false; }, function () { hit.busy = false; });
+      }
+      return Promise.resolve(respond(hit.x));
     }
-    return hit.p.then(function (x) { return new Response(x.body, { status: x.status, statusText: x.statusText, headers: x.headers }); });
+    return grab(this, arguments).then(function (x) {
+      if (x.status === 200) cache[k] = { at: Date.now(), x: x };
+      return respond(x);
+    });
   };
   // changes made through Jellyfin's newer code (XMLHttpRequest) also clear it
   var open = XMLHttpRequest.prototype.open;
@@ -126,17 +127,26 @@
   // The same as below: twice the size, quality 96, WebP. Changed as the link is put on the picture, before it
   // downloads. Links that already name a format (ours, the theme's own rows) are left alone.
   var IMG = /\/Items\/[0-9a-f]{32}\/Images\/(Primary|Thumb|Banner)(\/\d+)?\?/i;
-  var DPR = Math.min(3, Math.max(1, window.devicePixelRatio || 1)), K = Math.max(1.5, 2 / DPR);
-  function upK(v) { return v ? Math.min(1000, Math.ceil(v * K / 20) * 20) : v; }
+  // Jellyfin's React pages pre-multiply by DPR before setting img.src.
+  // We divide back to CSS pixels, then apply our one rule: CSS × max(2, min(DPR, 3)), snapped to 40 px.
+  var _pbDpr = Math.min(3, Math.max(1, window.devicePixelRatio || 1));
+  var _pbK = Math.max(2, _pbDpr);
+  function _snap40(px) { return px ? Math.min(1000, Math.ceil(px / 40) * 40) : px; }
   function sharpUrl(u) {
     if (typeof u !== "string" || u.length > 2000 || !IMG.test(u) || /[?&]format=/i.test(u)) return u;
     try {
       var i = u.indexOf("?"), q = new URLSearchParams(u.slice(i + 1));
       var fw = +q.get("fillWidth") || 0, fh = +q.get("fillHeight") || 0;
       if (!(fw || fh || q.get("maxWidth") || q.get("maxHeight") || q.get("width") || q.get("height"))) return u;
-      if (fw && fh) { var nw = upK(fw); q.set("fillWidth", nw); q.set("fillHeight", Math.round(nw * fh / fw)); }
-      else ["fillWidth", "fillHeight", "maxWidth", "maxHeight", "width", "height"].forEach(function (n) { if (q.get(n)) q.set(n, upK(+q.get(n))); });
-      q.set("quality", Math.max(+q.get("quality") || 0, 96));
+      if (fw && fh) {
+        var nw = _snap40((fw / _pbDpr) * _pbK);
+        q.set("fillWidth", nw); q.set("fillHeight", Math.round(nw * fh / fw));
+      } else {
+        ["fillWidth", "fillHeight", "maxWidth", "maxHeight", "width", "height"].forEach(function(n) {
+          var v = +q.get(n); if (v) q.set(n, _snap40((v / _pbDpr) * _pbK));
+        });
+      }
+      q.set("quality", Math.max(+q.get("quality") || 0, (window.TB_CONFIG && window.TB_CONFIG.PosterQuality) || 85));
       q.set("format", fmt(false));
       return u.slice(0, i) + "?" + q.toString();
     } catch (e) { return u; }
@@ -150,7 +160,7 @@
       }
       var sa = Element.prototype.setAttribute;
       Element.prototype.setAttribute = function (n, v) {
-        if (this.tagName === "IMG" && (n === "src" || n === "SRC")) v = sharpUrl(String(v));
+        if (this instanceof HTMLImageElement && (n === "src" || n === "SRC")) v = sharpUrl(String(v));
         return sa.call(this, n, v);
       };
       var bd = Object.getOwnPropertyDescriptor(CSSStyleDeclaration.prototype, "backgroundImage");
@@ -171,11 +181,11 @@
     api.__tbLogoSized = true;
     var dpr = Math.min(3, Math.max(1, window.devicePixelRatio || 1));
     var W = Math.min(1800, Math.ceil(600 * dpr)), H = Math.min(600, Math.ceil(200 * dpr));
-    // Jellyfin already multiplies by the screen's pixel ratio; this adds what's needed for 2x (at least 1.5x more)
-    var k = Math.max(1.5, 2 / dpr);
+    // ApiClient receives CSS pixel values; apply the one-rule multiplier, snap to 40 px.
+    var k = Math.max(2, dpr);
     var depth = 0;
     function copy(o) { var c = {}; for (var x in o) c[x] = o[x]; return c; }
-    function up(v) { return v ? Math.min(1000, Math.ceil(v * k / 20) * 20) : v; }
+    function up(v) { return v ? Math.min(1000, Math.ceil(v * k / 40) * 40) : v; }
     function sharpen(o) {
       var c = copy(o);
       // fill sizes keep their exact shape (the server crops to it)
@@ -183,7 +193,7 @@
       ["fillWidth", "maxWidth", "width"].forEach(function (n) { if (c[n]) c[n] = up(+c[n]); });
       if (r) c.fillHeight = Math.round(c.fillWidth * r);
       ["maxHeight", "height"].concat(r ? [] : ["fillHeight"]).forEach(function (n) { if (c[n]) c[n] = up(+c[n]); });
-      c.quality = Math.max(+c.quality || 0, 96);
+      c.quality = Math.max(+c.quality || 0, (window.TB_CONFIG && window.TB_CONFIG.PosterQuality) || 85);
       // named format (WebP, else JPEG) so a cache in front of the server keeps them apart; art and disc
       // images can be see-through, so they only get WebP (JPEG has no transparency)
       if (!c.format) { var f = fmt(/^(art|disc)$/i.test(String(c.type || ""))); if (f) c.format = f; }
@@ -254,14 +264,13 @@
   function backdropUrl(item) {
     var api = window.ApiClient;
     if (!api || !item) return null;
-    var widths = [480, 720, 1280, 1440, 1920, 2560, 3840, 5120, 7680];
-    var w = window.innerWidth || 3840, h = window.innerHeight || 2160;
-    if (h > w) w = h * 16 / 9;
-    widths.sort(function (a, b) { return Math.abs(w - a) - Math.abs(w - b); });
+    var w = window.tbBackdropWidth ? window.tbBackdropWidth() : 1920;
     var own = item.BackdropImageTags && item.BackdropImageTags.length;
     var bOwner = own ? item.BackdropItemId || item.Id : item.ParentBackdropItemId;
     var bTag = own ? item.BackdropImageTags[0] : (item.ParentBackdropImageTags || [])[0];
-    return bOwner && bTag ? api.getScaledImageUrl(bOwner, { type: "Backdrop", tag: bTag, maxWidth: widths[0], index: 0 }) : null;
+    if (!bOwner || !bTag) return null;
+    var bdFmt = /webp/.test(window.__tbImgFmt || "") ? "webp" : "jpg";
+    return api.getScaledImageUrl(bOwner, { type: "Backdrop", tag: bTag, maxWidth: w, quality: 80, format: bdFmt, index: 0 });
   }
   window.tbBackdropUrl = backdropUrl;
 
@@ -269,24 +278,35 @@
   var warmed = {}, timer = 0;
   function warm(id) {
     var api = window.ApiClient;
-    if (!api || !id || warmed[id] && Date.now() - warmed[id] < TTL) return;
+    if (!api || !id || warmed[id] && Date.now() - warmed[id] < ITEM_FRESH) return;
     warmed[id] = Date.now();
-    if (window.tbLoadPart) window.tbLoadPart("details");   // the details page script, if not here yet
+    if (window.tbLoadPart) window.tbLoadPart("details");
     var uid = api.getCurrentUserId();
     if (!uid) return;
-    // same link and sign-in as Jellyfin's own request, so the page reuses it
-    window.fetch(api.getUrl("Users/" + uid + "/Items/" + id), { headers: { Authorization: 'MediaBrowser Token="' + api.accessToken() + '"' } })
-      .then(function (r) { return r.ok ? r.json() : null; })
+    var auth = { headers: { Authorization: 'MediaBrowser Token="' + api.accessToken() + '"' } };
+    // Use Jellyfin's own getItem so the URL and fields match exactly what the details page requests,
+    // ensuring our fetch interceptor's cache is populated with the right key.
+    api.getItem(uid, id)
       .then(function (item) {
         if (!item) return;
-        var urls = [];
+        var imgs = [];
         (window.tbItemMeta || (window.tbItemMeta = {}))[item.Id] = item;
         var bd = backdropUrl(item);
-        if (bd) { urls.push(bd); if (window.tbAmbientWarm) window.tbAmbientWarm(bd); }   // and the page's background colour
-        // logo: the link Jellyfin's details page uses
-        if (item.ImageTags && item.ImageTags.Logo) urls.push(api.getScaledImageUrl(item.Id, { type: "Logo", tag: item.ImageTags.Logo }));
-        else if (item.ParentLogoItemId && item.ParentLogoImageTag) urls.push(api.getScaledImageUrl(item.ParentLogoItemId, { type: "Logo", tag: item.ParentLogoImageTag }));
-        urls.forEach(function (u) { var im = new Image(); im.decoding = "async"; im.src = u; });
+        if (bd) { imgs.push(bd); if (window.tbAmbientWarm) window.tbAmbientWarm(bd); }
+        if (item.ImageTags && item.ImageTags.Logo) imgs.push(api.getScaledImageUrl(item.Id, { type: "Logo", tag: item.ImageTags.Logo }));
+        else if (item.ParentLogoItemId && item.ParentLogoImageTag) imgs.push(api.getScaledImageUrl(item.ParentLogoItemId, { type: "Logo", tag: item.ParentLogoImageTag }));
+        imgs.forEach(function (u, i) { var im = new Image(); im.decoding = "async"; if (i === 0) im.fetchPriority = "high"; im.src = u; });
+        // fire the same related requests the details page will make, so they're cached (or in-flight) on arrival
+        var extras = [
+          "Items/" + id + "/Similar?userId=" + uid + "&limit=12",
+          "Items/" + id + "/Ancestors?userId=" + uid,
+          "Items/" + id + "/ThemeMedia?userId=" + uid + "&inheritFromParent=true",
+        ];
+        if (item.Type === "Series") {
+          extras.push("Shows/" + id + "/Seasons?userId=" + uid + "&fields=BasicSyncInfo,ImageTags");
+          extras.push("Shows/NextUp?userId=" + uid + "&SeriesId=" + id + "&limit=1");
+        }
+        extras.forEach(function (path) { window.fetch(api.getUrl(path), auth)["catch"](function () {}); });
       })
       .catch(function () {});
   }

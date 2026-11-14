@@ -126,7 +126,7 @@
   function setRow(r, items, attached) {
     var sec = sections[r.id];
     if (!sec || !items) return;
-    var sig = JSON.stringify(items);
+    var sig = items.map(function (x) { return x.Id || x.id || ""; }).join(",");
     if (sec.__tbSig === sig) return;          // nothing changed: leave it exactly as it is
     sec.__tbSig = sig;
     var ic = sec.querySelector(".itemsContainer");

@@ -75,6 +75,7 @@ function activePage() {
 // Jellyfin renders a page's own artwork as a background-image URL containing /Items/<id>/, which is
 // what tells two containers with live content apart while they are on screen together.
 function referencesId(page, id) {
+  if (page.dataset.sleekfinItemId) return page.dataset.sleekfinItemId === id;
   const marker = `/Items/${id}/`;
   return Array.from(page.querySelectorAll('[style*="/Items/"]'))
     .some((element) => (element.style.backgroundImage || '').includes(marker));
@@ -213,6 +214,7 @@ function destroyMount() {
   state.mount.hero.destroy();
   state.mount.page.classList.remove('sleekfin-details-entering', 'sleekfin-details-season-posters');
   state.mount.page.removeAttribute('data-sleekfin-details');
+  state.mount.page.removeAttribute('data-sleekfin-item-id');
   state.mount.page.removeAttribute('data-sleekfin-item-type');
   state.mount = null;
   document.documentElement.classList.remove('sleekfin-details-mounted');
@@ -249,6 +251,7 @@ function mount() {
     trackPickers,
   };
   state.page.dataset.sleekfinDetails = 'true';
+  state.page.dataset.sleekfinItemId = state.currentId;
   state.page.classList.remove(NATIVE_CLASS);
   delete state.page.dataset.sleekfinNativeType;
   document.documentElement.classList.add('sleekfin-details-mounted');

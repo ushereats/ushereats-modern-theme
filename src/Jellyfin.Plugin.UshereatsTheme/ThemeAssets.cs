@@ -444,7 +444,8 @@ public static class ThemeAssets
           .Append("document.addEventListener(\"pointerover\",near,{capture:true,passive:true});document.addEventListener(\"focusin\",near,true);")
           .Append("route();window.addEventListener(\"hashchange\",route);window.addEventListener(\"popstate\",route);")
           .Append("var idle=window.requestIdleCallback||function(f){return setTimeout(f,1200)};")
-          .Append("window.addEventListener(\"load\",function(){idle(function(){load(\"details\");load(\"search\");load(\"player\")},{timeout:2500})})})();\n");
+          // "details" loads straight at page load (not idle) so the title-page script is ready by the first hover
+          .Append("window.addEventListener(\"load\",function(){load(\"details\");idle(function(){load(\"search\");load(\"player\")},{timeout:2500})})})();\n");
 
         // SleekFin's scripts (built in; its own hero is left out: the plugin's hero replaces it)
         foreach (string file in SleekScripts)

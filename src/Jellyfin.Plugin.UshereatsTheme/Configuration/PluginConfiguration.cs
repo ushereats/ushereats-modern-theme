@@ -54,6 +54,9 @@ public class PluginConfiguration : BasePluginConfiguration
     /// <summary>Gets or sets a value indicating whether each device opens with the answers to Jellyfin's start-up requests from last time ("Quick start").</summary>
     public bool DeviceCache { get; set; } = true;
 
+    /// <summary>JPEG/WebP quality for posters and thumbs (default 85; range 50-100). Backdrops use 80. Lower = smaller files.</summary>
+    public int PosterQuality { get; set; } = 85;
+
     // ── Settings ──
     /// <summary>URL of the local dev asset server (e.g. http://192.168.50.x:3131/). Empty = dev mode off.</summary>
     public string DevAssetsUrl { get; set; } = string.Empty;

@@ -31,7 +31,7 @@
 - Only affects the browser where the flag is set — nobody else on the server is affected
 
 ## Deployment — NEVER build or deploy a DLL
-- NEVER build, copy, or upload a plugin DLL to the homelab. Ever.
+- NEVER build, copy, upload, or scp a plugin DLL to the homelab. Ever. Not even once.
 - The server ONLY runs GitHub releases installed from the Jellyfin catalog.
 - C# changes ship via: commit to dev-devices → push to main → GitHub Actions builds + tags a release → user updates in Jellyfin.
 - "release" = user's word to push dev-devices to main. Wait for it before pushing.

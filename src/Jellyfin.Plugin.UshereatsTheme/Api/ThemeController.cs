@@ -118,7 +118,10 @@ public class ThemeController : ControllerBase
     [HttpGet("theme.css")]
     public IActionResult GetCss()
     {
-        IndexPatch.Origin ??= $"{Request.Scheme}://{Request.Host}";
+        // Respect Cloudflare / reverse-proxy forwarded headers on every request so og:image is always correct.
+        string proto = Request.Headers["X-Forwarded-Proto"].FirstOrDefault() ?? Request.Scheme;
+        string host = Request.Headers["X-Forwarded-Host"].FirstOrDefault() ?? Request.Host.ToString();
+        IndexPatch.Origin = $"{proto}://{host}";
         return Serve(ThemeAssets.Get().Css, "text/css; charset=utf-8");
     }
 

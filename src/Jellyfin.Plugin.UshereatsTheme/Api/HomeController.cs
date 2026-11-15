@@ -137,6 +137,11 @@ public class HomeController : ControllerBase
             return FetchTrending(row, user, limit);
         }
 
+        if (string.Equals(row.Type, "latest", StringComparison.Ordinal))
+        {
+            return FetchLatest(row, user, limit);
+        }
+
         var query = new InternalItemsQuery
         {
             User = user,
@@ -150,17 +155,10 @@ public class HomeController : ControllerBase
             query.ParentId = parentGuid;
         }
 
-        if (string.Equals(row.Type, "latest", StringComparison.Ordinal))
+        ApplySortBy(query, row);
+        if (row.Released == true)
         {
-            query.OrderBy = new[] { (ItemSortBy.DateCreated, SortOrder.Descending) };
-        }
-        else
-        {
-            ApplySortBy(query, row);
-            if (row.Released == true)
-            {
-                query.MaxPremiereDate = DateTime.UtcNow;
-            }
+            query.MaxPremiereDate = DateTime.UtcNow;
         }
 
         List<BaseItemDto> items = GetDtos(query, user);
@@ -170,6 +168,37 @@ public class HomeController : ControllerBase
         }
 
         return items;
+    }
+
+    private List<BaseItemDto> FetchLatest(HomeRowConfig row, User user, int limit)
+    {
+        if (ParseGuid(row.ParentId) is not Guid parentGuid)
+        {
+            return new List<BaseItemDto>();
+        }
+
+        BaseItem? parent = _library.GetItemById(parentGuid);
+        if (parent is null)
+        {
+            return new List<BaseItemDto>();
+        }
+
+        CollectionType? ct = _library.GetContentType(parent);
+        if (ct is null)
+        {
+            return new List<BaseItemDto>();
+        }
+
+        var query = new InternalItemsQuery
+        {
+            User = user,
+            Limit = limit,
+            Recursive = true,
+            IsVirtualItem = false,
+            IncludeItemTypes = ParseTypes(row.Types),
+        };
+        IReadOnlyList<BaseItem> items = _library.GetLatestItemList(query, new[] { parent }, ct.Value);
+        return _dto.GetBaseItemDtos(items, SlimDto, user, null, false).ToList();
     }
 
     private List<BaseItemDto> FetchContinue(HomeRowConfig row, User user)

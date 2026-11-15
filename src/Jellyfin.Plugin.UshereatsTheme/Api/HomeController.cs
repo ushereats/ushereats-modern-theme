@@ -318,39 +318,26 @@ public class HomeController : ControllerBase
 
     private static List<BaseItemDto> MergeContinue(List<BaseItemDto> movies, List<BaseItemDto> episodes, int limit)
     {
-        // Forward LastPlayedDate from later episodes to earlier ones (matches rows-boot.js mergeContinue logic)
-        for (int i = episodes.Count - 1; i >= 0; i--)
-        {
-            MediaBrowser.Model.Dto.UserItemDataDto? ud = episodes[i].UserData;
-            if (ud?.LastPlayedDate is null)
-            {
-                for (int j = i + 1; j < episodes.Count; j++)
-                {
-                    if (episodes[j].UserData?.LastPlayedDate is not null)
-                    {
-                        ud ??= new MediaBrowser.Model.Dto.UserItemDataDto { Key = string.Empty };
-                        ud.LastPlayedDate = episodes[j].UserData!.LastPlayedDate;
-                        episodes[i].UserData = ud;
-                        break;
-                    }
-                }
-            }
-        }
-
         List<BaseItemDto> all = movies.Concat(episodes).ToList();
+
+        // Use Ticks for comparison — never throws regardless of DateTime.Kind.
         all.Sort((a, b) =>
         {
-            long x = a.UserData?.LastPlayedDate is DateTime da ? new DateTimeOffset(da, TimeSpan.Zero).ToUnixTimeMilliseconds() : 0;
-            long y = b.UserData?.LastPlayedDate is DateTime db ? new DateTimeOffset(db, TimeSpan.Zero).ToUnixTimeMilliseconds() : 0;
+            long x = a.UserData?.LastPlayedDate is DateTime da ? da.Ticks : 0L;
+            long y = b.UserData?.LastPlayedDate is DateTime db ? db.Ticks : 0L;
             return y.CompareTo(x);
         });
 
+        // Deduplicate: episodes use SeriesId as the key so each series appears at most once.
+        // After the sort the first occurrence is always the most-recently-played card for that series.
         var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         var output = new List<BaseItemDto>(limit);
         foreach (BaseItemDto it in all)
         {
             if (output.Count >= limit) break;
-            string k = it.Id.ToString("N");
+            string k = (it.SeriesId.HasValue && it.SeriesId.Value != Guid.Empty)
+                ? it.SeriesId.Value.ToString("N")
+                : it.Id.ToString("N");
             if (!string.IsNullOrEmpty(k) && seen.Add(k))
             {
                 if (it.UserData is not null)

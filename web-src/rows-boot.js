@@ -56,16 +56,8 @@
     }
 
     // Continue Watching & Next Up in one row: films you're part-way through + the next episode of
-    // each show, newest watched first (same rules KefinTweaks used)
+    // each show, newest watched first. Deduplicates by SeriesId so each show appears at most once.
     function mergeContinue(movies, episodes, limit) {
-      for (var i = episodes.length - 1; i >= 0; i--) {
-        var e = episodes[i];
-        if (!e.UserData.LastPlayedDate) {
-          for (var j = i + 1; j < episodes.length; j++) {
-            if (episodes[j].UserData.LastPlayedDate) { e.UserData.LastPlayedDate = episodes[j].UserData.LastPlayedDate; break; }
-          }
-        }
-      }
       var all = movies.concat(episodes), seen = {}, out = [];
       all.sort(function (a, b) {
         var x = a.UserData.LastPlayedDate ? Date.parse(a.UserData.LastPlayedDate) : 0;
@@ -73,8 +65,9 @@
         return y - x;
       });
       for (var n = 0; n < all.length && out.length < limit; n++) {
-        if (seen[all[n].Id]) continue;
-        seen[all[n].Id] = 1;
+        var k = all[n].SeriesId || all[n].Id;
+        if (seen[k]) continue;
+        seen[k] = 1;
         delete all[n].UserData.LastPlayedDate;
         out.push(all[n]);
       }

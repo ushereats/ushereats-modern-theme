@@ -139,8 +139,9 @@
       var nonStudio = rows.filter(function (r) { return r.type !== "studios"; });
       var batchP;
       try {
-        batchP = get("UshereatsTheme/home?userId=" + enc(user) + "&rows=" + enc(JSON.stringify(nonStudio)), token)
-          ["catch"](function () { return null; });
+        batchP = window.__tbEarlyHome ||
+          get("UshereatsTheme/home?userId=" + enc(user) + "&rows=" + enc(JSON.stringify(nonStudio)), token)
+            ["catch"](function () { return null; });
       } catch (e) {
         batchP = Promise.resolve(null);
       }

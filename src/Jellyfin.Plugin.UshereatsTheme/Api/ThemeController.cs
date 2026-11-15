@@ -116,7 +116,11 @@ public class ThemeController : ControllerBase
     }
 
     [HttpGet("theme.css")]
-    public IActionResult GetCss() => Serve(ThemeAssets.Get().Css, "text/css; charset=utf-8");
+    public IActionResult GetCss()
+    {
+        IndexPatch.Origin ??= $"{Request.Scheme}://{Request.Host}";
+        return Serve(ThemeAssets.Get().Css, "text/css; charset=utf-8");
+    }
 
     [HttpGet("theme.js")]
     public IActionResult GetJs() => Serve(ThemeAssets.Get().Js, "application/javascript; charset=utf-8");

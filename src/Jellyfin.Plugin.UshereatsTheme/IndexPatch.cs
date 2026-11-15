@@ -24,6 +24,9 @@ public static class IndexPatch
 
     private const string LatinExtRange = "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF";
 
+    // Set by ThemeController on the first request; used to make og:image absolute for link previews.
+    internal static string? Origin { get; set; }
+
     public static string Apply(PatchPayload payload)
     {
         string html = payload.Contents ?? string.Empty;
@@ -47,6 +50,14 @@ public static class IndexPatch
         if (devEnabled)
         {
             sb.Append("<script>try{window.__tbDevMode=localStorage.getItem('ue-dev')==='1'}catch(e){}</script>");
+        }
+
+        // Preload theme CSS and JS so the browser fetches them while parsing the head's inline scripts.
+        // Skip in dev mode — the dev branch uses document.write and the URLs are conditional.
+        if (!devEnabled)
+        {
+            sb.Append("<link rel=\"preload\" href=\"../UshereatsTheme/theme.css?v=").Append(build.Version).Append("\" as=\"style\">");
+            sb.Append("<link rel=\"preload\" href=\"../UshereatsTheme/theme.js?v=").Append(build.Version).Append("\" as=\"script\">");
         }
 
         // Fonts: self-hosted, preloaded, always on (also on admin pages)
@@ -154,7 +165,11 @@ public static class IndexPatch
             sb.Append("<link rel=\"shortcut icon\" href=\"").Append(icon).Append("\" data-tb-icon>");
             sb.Append("<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"").Append(icon).Append("\" data-tb-icon>");
             sb.Append("<link rel=\"manifest\" href=\"../UshereatsTheme/manifest.json?v=").Append(build.Version).Append("\" data-tb-icon>");
-            sb.Append("<meta property=\"og:image\" content=\"").Append(icon).Append("\">");
+            // og:image must be absolute for link-preview crawlers; Origin is populated on the first theme.css hit.
+            string ogIcon = Origin is not null
+                ? WebUtility.HtmlEncode(Origin + "/" + logoUrl.TrimStart('.').TrimStart('/'))
+                : icon;
+            sb.Append("<meta property=\"og:image\" content=\"").Append(ogIcon).Append("\">");
             html = StripJellyfinIcons(html);
             head = html.IndexOf("</head>", StringComparison.OrdinalIgnoreCase);
         }

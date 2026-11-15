@@ -13,6 +13,8 @@
   "devDependencies": {
     "@types/node": "^26.6.6",
     "eslint": "^9.39.5",
+    "playwright": "^1.65.1",
+    "terser": "^5.51.2",
     "typescript": "^5.9.3"
   }
 }

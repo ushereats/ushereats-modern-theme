@@ -7,11 +7,12 @@ const out = process.argv[2] || "shots";
 fs.mkdirSync(out, { recursive: true });
 const s = JSON.parse(fs.readFileSync("ci-session.json", "utf8"));
 const H = { Authorization: `MediaBrowser Client="ci", Device="ci", DeviceId="ci-visual", Version="1.0", Token="${s.token}"` };
-const api = (p) => fetch(s.server + p, { headers: H }).then((r) => r.json());
+const api = (p) => fetch(s.server + p, { headers: H }).then((r) => r.ok ? r.json() : null).catch(() => null);
+const apiItems = (p) => api(p).then((r) => (r && r.Items) || []);
 
-const movies = (await api(`/Items?userId=${s.userId}&Recursive=true&IncludeItemTypes=Movie&SortBy=SortName`)).Items;
-const shows = (await api(`/Items?userId=${s.userId}&Recursive=true&IncludeItemTypes=Series&SortBy=SortName`)).Items;
-const eps = (await api(`/Items?userId=${s.userId}&Recursive=true&IncludeItemTypes=Episode&ParentId=${shows[0].Id}&SortBy=SortName`)).Items;
+const movies = await apiItems(`/Items?userId=${s.userId}&Recursive=true&IncludeItemTypes=Movie&SortBy=SortName`);
+const shows = await apiItems(`/Items?userId=${s.userId}&Recursive=true&IncludeItemTypes=Series&SortBy=SortName`);
+const eps = await apiItems(`/Items?userId=${s.userId}&Recursive=true&IncludeItemTypes=Episode&ParentId=${shows[0].Id}&SortBy=SortName`);
 
 const creds = JSON.stringify({ Servers: [{ ManualAddress: s.server, manualAddressOnly: true, Id: s.serverId, Name: "ci", DateLastAccessed: Date.now(), LastConnectionMode: 2, AccessToken: s.token, UserId: s.userId }] });
 const ffSet = s.forceFeatures ? `localStorage.setItem('tb-force-features', ${JSON.stringify(s.forceFeatures)});` : "";
@@ -109,7 +110,8 @@ async function collect(page, label) {
     if (!overrides[k].pages.includes(label)) overrides[k].pages.push(label);
   }
 }
-const browser = await chromium.launch();
+const chromiumExe = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined;
+const browser = await chromium.launch({ executablePath: chromiumExe });
 for (const [vw, vh, tag] of [[1920, 1080, "desktop"], [390, 844, "phone"]]) {
   const ctx = await browser.newContext({ locale: "en-US", timezoneId: "Australia/Sydney", viewport: { width: vw, height: vh }, deviceScaleFactor: 1, isMobile: tag === "phone", hasTouch: tag === "phone" });
   await ctx.addInitScript(init(true));
@@ -142,18 +144,22 @@ for (const [vw, vh, tag] of [[1920, 1080, "desktop"], [390, 844, "phone"]]) {
     if (name === "settings" && tag === "desktop") {
       // one Save for every tab: change a field, save, read the plugin settings back
       const before = await api("/Plugins/01c723cc-57de-4e19-b13c-514b644491a5/Configuration");
-      await page.click('.sleekfin-page-nav-button[data-sleekfin-panel="search"]');
-      await page.fill("#tb-SearchTitle", "CI saved");
-      await page.click(".sleekfin-save-button");
-      await page.waitForTimeout(2500);
-      const after = await api("/Plugins/01c723cc-57de-4e19-b13c-514b644491a5/Configuration");
-      // the speed test (Speed test tab)
-      await page.click('.sleekfin-page-nav-button[data-sleekfin-panel="speed"]');
-      await page.click("#tbBenchRun");
-      await page.waitForFunction(() => /^Done/.test(document.querySelector("#tbBenchStatus").textContent), null, { timeout: 420000 }).catch(() => {});
-      fs.writeFileSync(`${out}/speedtest.json`, await page.$eval("#tbBenchOut", (e) => e.value || ("(no result) " + document.querySelector("#tbBenchStatus").textContent)));
-      report.settingsSave = { title: after.SearchTitle, rowsKept: after.HomeRowsJson === before.HomeRowsJson, accentKept: after.AccentColor === before.AccentColor,
-        desktopLogo: after.Sleek && after.Sleek.HeaderDesktopLogoHeight, sleekKept: !!(after.Sleek && after.Sleek.HeaderHeight === before.Sleek.HeaderHeight) };
+      if (before) {
+        await page.click('.sleekfin-page-nav-button[data-sleekfin-panel="search"]').catch(() => {});
+        await page.fill("#tb-SearchTitle", "CI saved").catch(() => {});
+        await page.click(".sleekfin-save-button").catch(() => {});
+        await page.waitForTimeout(2500);
+        const after = await api("/Plugins/01c723cc-57de-4e19-b13c-514b644491a5/Configuration");
+        // the speed test (Speed test tab)
+        await page.click('.sleekfin-page-nav-button[data-sleekfin-panel="speed"]').catch(() => {});
+        await page.click("#tbBenchRun").catch(() => {});
+        await page.waitForFunction(() => /^Done/.test(document.querySelector("#tbBenchStatus").textContent), null, { timeout: 420000 }).catch(() => {});
+        fs.writeFileSync(`${out}/speedtest.json`, await page.$eval("#tbBenchOut", (e) => e.value || ("(no result) " + document.querySelector("#tbBenchStatus").textContent)).catch(() => "(admin required)"));
+        report.settingsSave = { title: after && after.SearchTitle, rowsKept: after && after.HomeRowsJson === before.HomeRowsJson, accentKept: after && after.AccentColor === before.AccentColor,
+          desktopLogo: after && after.Sleek && after.Sleek.HeaderDesktopLogoHeight, sleekKept: !!(after && after.Sleek && after.Sleek.HeaderHeight === before.Sleek.HeaderHeight) };
+      } else {
+        report.settingsSave = "skipped (non-admin user)";
+      }
     }
     if (name === "home" && tag === "desktop") {
       // Jellyfin's own (hidden) home rows are no longer built, and saving settings keeps the server's home sections

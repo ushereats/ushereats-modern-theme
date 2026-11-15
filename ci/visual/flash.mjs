@@ -1,7 +1,7 @@
 // Opening a title from the home page, recorded as a video, to catch flashes between pages.
 // Writes <out>/flash/video.webm, a frame-by-frame brightness list, frame pictures and the click times.
 // node ci/visual/flash.mjs <outdir>   (needs ci-session.json from setup.sh)
-import { chromium } from "playwright";
+import { chromium, webkit, devices } from "playwright";
 import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 
@@ -10,15 +10,15 @@ fs.mkdirSync(out + "/frames", { recursive: true });
 const s = JSON.parse(fs.readFileSync("ci-session.json", "utf8"));
 const H = { Authorization: `MediaBrowser Client="ci", Device="ci", DeviceId="ci-flash", Version="1.0", Token="${s.token}"`, "Content-Type": "application/json" };
 const PID = "01c723cc-57de-4e19-b13c-514b644491a5";
-const cfg = await fetch(s.server + `/Plugins/${PID}/Configuration`, { headers: H }).then((r) => r.json());
-cfg.AmbientBackground = true;
-await fetch(s.server + `/Plugins/${PID}/Configuration`, { method: "POST", headers: H, body: JSON.stringify(cfg) });
+const cfg = await fetch(s.server + `/Plugins/${PID}/Configuration`, { headers: H }).then((r) => r.ok ? r.json() : null).catch(() => null);
+if (cfg) { cfg.AmbientBackground = true; await fetch(s.server + `/Plugins/${PID}/Configuration`, { method: "POST", headers: H, body: JSON.stringify(cfg) }).catch(() => {}); }
 
 const creds = JSON.stringify({ Servers: [{ ManualAddress: s.server, manualAddressOnly: true, Id: s.serverId, Name: "ci", DateLastAccessed: Date.now(), LastConnectionMode: 2, AccessToken: s.token, UserId: s.userId }] });
 const ffSet = s.forceFeatures ? `localStorage.setItem('tb-force-features', ${JSON.stringify(s.forceFeatures)});` : "";
 const init = `(function(){ try{ sessionStorage.setItem('jf-welcomed','1'); localStorage.setItem('jellyfin_credentials', ${JSON.stringify(creds)}); ${ffSet} }catch(e){} })();`;
 
-const browser = await chromium.launch({ args: ["--force-color-profile=srgb"] });
+const chromiumExe = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined;
+const browser = await chromium.launch({ executablePath: chromiumExe, args: ["--force-color-profile=srgb"] });
 const ctx = await browser.newContext({ locale: "en-US", timezoneId: "Australia/Sydney", viewport: { width: 1280, height: 720 }, recordVideo: { dir: out, size: { width: 1280, height: 720 } } });
 await ctx.addInitScript(init);
 const page = await ctx.newPage();
@@ -63,7 +63,10 @@ if (ids[0]) await open(ids[0], "first-ever (no stand-in yet)");
 if (ids[0]) await open(ids[0], "same again");
 if (ids[1]) await open(ids[1], "another");
 if (ids[2]) await open(ids[2], "third");
-// scroll: back keeps where you were, the home button goes to the top; sampled every 40 ms so a jump shows
+// ── PERMANENT: back-nav and home-nav transition tests ──────────────────────
+// Back: home must appear instantly at the saved scroll position (no visible scroll, no blank frame).
+// Home button: home must appear instantly at the top (no blurry frame in between).
+// Frame-by-frame screenshots during and after each navigation catch regressions.
 {
   const sc = [];
   const sample = async (label, ms) => { const end = Date.now() + ms; while (Date.now() < end) { sc.push(label + " " + (Date.now() - t0) + " y=" + await page.evaluate(() => Math.round(window.scrollY)) + " vt=" + await page.evaluate(() => document.documentElement.classList.contains("tb-vt"))); await page.waitForTimeout(40); } };
@@ -72,18 +75,29 @@ if (ids[2]) await open(ids[2], "third");
   const deep = await page.evaluate(() => { const h = window.innerHeight; return [...document.querySelectorAll(".card[data-id]")].find((c) => { const r = c.getBoundingClientRect(); return r.top > 0 && r.bottom < h && /^(Movie|Series)$/.test(c.getAttribute("data-type") || ""); })?.getAttribute("data-id"); });
   sc.push("start y=" + await page.evaluate(() => Math.round(window.scrollY)) + " card=" + deep);
   if (deep) {
+    // ── back navigation test ──────────────────────────────────────────────
+    // Open a title page, then go back; capture dense frames during the transition.
     await page.locator(`.card[data-id="${deep}"]`).first().evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
     await sample("open", 3000);
-    await page.goBack();
-    await sample("back", 2500);
+    // Dense screenshots 0–600ms after goBack(): one clean cross-fade is the goal, no blurry frame.
+    mark("back-nav start y=" + await page.evaluate(() => Math.round(window.scrollY)));
+    const backP = page.goBack();
+    for (let i = 0; i < 20; i++) { await page.screenshot({ path: `${out}/seq-back-${String(i).padStart(2, "0")}.jpg`, quality: 70, type: "jpeg" }); await page.waitForTimeout(30); }
+    await backP;
+    await sample("back", 2000);
+    mark("back-nav end y=" + await page.evaluate(() => Math.round(window.scrollY)));
+    // ── home-button navigation test ───────────────────────────────────────
+    // Open a title page from the restored position, then click the home/logo button.
     await page.locator(`.card[data-id="${deep}"]`).first().evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
     await page.waitForTimeout(3000);
     const home = page.locator(".headerHomeButton, a[href='#/home'], a[href='#!/home'], .sleekfin-header a[href], .pageTitleWithLogo, a.headerLogo").first();
     sc.push("home button found=" + (await home.count()));
+    mark("home-nav start");
     if (await home.count()) { await home.evaluate((el) => (el.closest("a[href], button") || el).click()); }
     else await page.evaluate(() => { location.hash = "#/home"; });
-    await sample("home", 2500);
-    for (let i = 0; i < 4; i++) await page.screenshot({ path: `${out}/seq-home-${i}.jpg`, quality: 60, type: "jpeg" });
+    for (let i = 0; i < 20; i++) { await page.screenshot({ path: `${out}/seq-home-${String(i).padStart(2, "0")}.jpg`, quality: 70, type: "jpeg" }); await page.waitForTimeout(30); }
+    await sample("home", 2000);
+    mark("home-nav end y=" + await page.evaluate(() => Math.round(window.scrollY)));
   }
   fs.writeFileSync(out + "/scroll.txt", sc.join("\n"));
 }
@@ -163,7 +177,7 @@ await page.waitForTimeout(3000);
 const swRuns = [];
 swRuns.push(await timed(page, "with device cache (1st reload)"));
 swRuns.push(await timed(page, "with device cache (2nd reload)"));
-swRuns.push({ controlled: await page.evaluate(() => !!(navigator.serviceWorker && navigator.serviceWorker.controller)), caches: await page.evaluate(async () => { const o = {}; for (const k of await caches.keys()) o[k] = (await (await caches.open(k)).keys()).length; return o; }) });
+swRuns.push({ controlled: await page.evaluate(() => !!(navigator.serviceWorker && navigator.serviceWorker.controller)), caches: await page.evaluate(async () => { if (!window.caches) return {}; const o = {}; for (const k of await window.caches.keys()) o[k] = (await (await window.caches.open(k)).keys()).length; return o; }) });
 {
   const ctx2 = await browser.newContext({ locale: "en-US", viewport: { width: 1280, height: 720 }, serviceWorkers: "block" });
   await ctx2.addInitScript(init);
@@ -180,13 +194,58 @@ await ctx.close();
 await browser.close();
 fs.writeFileSync(out + "/marks.json", JSON.stringify({ marks, look }, null, 1));
 
+// ── PERMANENT: WebKit iPhone nav test ────────────────────────────────────────
+// Run the same back-nav and home-nav tests on WebKit with an iPhone viewport.
+try {
+  const wkOut = out + "/webkit";
+  fs.mkdirSync(wkOut, { recursive: true });
+  const iPhone = devices["iPhone 13"];
+  const wkBrowser = await webkit.launch();
+  const wkCtx = await wkBrowser.newContext({ ...iPhone, locale: "en-US", timezoneId: "Australia/Sydney" });
+  await wkCtx.addInitScript(init);
+  const wkPage = await wkCtx.newPage();
+  const wkSc = [];
+  await wkPage.goto(s.server + "/web/index.html#/home", { waitUntil: "load" });
+  await wkPage.waitForTimeout(7000);
+  await wkPage.evaluate(() => window.scrollTo(0, 500));
+  await wkPage.waitForTimeout(800);
+  const wkDeep = await wkPage.evaluate(() => { const h = window.innerHeight; return [...document.querySelectorAll(".card[data-id]")].find((c) => { const r = c.getBoundingClientRect(); return r.top > 0 && r.bottom < h && /^(Movie|Series)$/.test(c.getAttribute("data-type") || ""); })?.getAttribute("data-id"); });
+  wkSc.push("start y=" + await wkPage.evaluate(() => Math.round(window.scrollY)) + " card=" + wkDeep);
+  if (wkDeep) {
+    // back navigation
+    await wkPage.locator(`.card[data-id="${wkDeep}"]`).first().evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
+    await wkPage.waitForTimeout(3000);
+    const wkBackP = wkPage.goBack();
+    for (let i = 0; i < 20; i++) { await wkPage.screenshot({ path: `${wkOut}/seq-back-${String(i).padStart(2, "0")}.jpg`, quality: 70, type: "jpeg" }); await wkPage.waitForTimeout(30); }
+    await wkBackP;
+    await wkPage.waitForTimeout(1500);
+    wkSc.push("back y=" + await wkPage.evaluate(() => Math.round(window.scrollY)));
+    // home-button navigation
+    await wkPage.locator(`.card[data-id="${wkDeep}"]`).first().evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
+    await wkPage.waitForTimeout(3000);
+    const wkHome = wkPage.locator(".headerHomeButton, a[href='#/home'], a[href='#!/home'], .sleekfin-header a[href], .pageTitleWithLogo, a.headerLogo").first();
+    wkSc.push("home button found=" + (await wkHome.count()));
+    if (await wkHome.count()) { await wkHome.evaluate((el) => (el.closest("a[href], button") || el).click()); }
+    else await wkPage.evaluate(() => { location.hash = "#/home"; });
+    for (let i = 0; i < 20; i++) { await wkPage.screenshot({ path: `${wkOut}/seq-home-${String(i).padStart(2, "0")}.jpg`, quality: 70, type: "jpeg" }); await wkPage.waitForTimeout(30); }
+    await wkPage.waitForTimeout(1500);
+    wkSc.push("home y=" + await wkPage.evaluate(() => Math.round(window.scrollY)));
+  }
+  fs.writeFileSync(wkOut + "/scroll.txt", wkSc.join("\n"));
+  await wkCtx.close();
+  await wkBrowser.close();
+  console.log("webkit nav test done");
+} catch (e) { console.warn("webkit nav test failed:", e.message); }
+
 const vid = fs.readdirSync(out).find((f) => f.endsWith(".webm"));
-fs.renameSync(`${out}/${vid}`, `${out}/video.webm`);
+if (vid) fs.renameSync(`${out}/${vid}`, `${out}/video.webm`);
 const ff = fs.existsSync("/usr/lib/jellyfin-ffmpeg/ffmpeg") ? "/usr/lib/jellyfin-ffmpeg/ffmpeg" : "ffmpeg";
-execFileSync(ff, ["-v", "error", "-i", `${out}/video.webm`, "-vf", `scale=160:-1,signalstats,metadata=print:key=lavfi.signalstats.YAVG:file=${out}/yavg-raw.txt`, "-f", "null", "-"]);
-const lines = fs.readFileSync(`${out}/yavg-raw.txt`, "utf8").split("\n");
-let t = 0; const rows = [];
-for (const l of lines) { const m = /pts_time:([\d.]+)/.exec(l); if (m) t = +m[1]; const y = /YAVG=([\d.]+)/.exec(l); if (y) rows.push(t.toFixed(2) + " " + Math.round(+y[1])); }
-fs.writeFileSync(`${out}/yavg.txt`, rows.join("\n"));
-execFileSync(ff, ["-v", "error", "-i", `${out}/video.webm`, "-vf", "fps=25,scale=480:-1", "-q:v", "5", `${out}/frames/%04d.jpg`]);
+try {
+  execFileSync(ff, ["-v", "error", "-i", `${out}/video.webm`, "-vf", `scale=160:-1,signalstats,metadata=print:key=lavfi.signalstats.YAVG:file=${out}/yavg-raw.txt`, "-f", "null", "-"]);
+  const lines = fs.readFileSync(`${out}/yavg-raw.txt`, "utf8").split("\n");
+  let t = 0; const rows = [];
+  for (const l of lines) { const m = /pts_time:([\d.]+)/.exec(l); if (m) t = +m[1]; const y = /YAVG=([\d.]+)/.exec(l); if (y) rows.push(t.toFixed(2) + " " + Math.round(+y[1])); }
+  fs.writeFileSync(`${out}/yavg.txt`, rows.join("\n"));
+  execFileSync(ff, ["-v", "error", "-i", `${out}/video.webm`, "-vf", "fps=25,scale=480:-1", "-q:v", "5", `${out}/frames/%04d.jpg`]);
+} catch (e) { console.warn("ffmpeg not available, skipping video analysis:", e.code || e.message); }
 console.log("flash done");

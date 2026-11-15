@@ -25,7 +25,8 @@ function pass(label) { console.log("PASS  " + label); }
 function fail(label, reason) { console.error("FAIL  " + label + (reason ? ": " + reason : "")); allPassed = false; }
 
 async function runBrowser(browserType, label, viewportW, viewportH, ua, isMobile) {
-  const browser = await browserType.launch();
+  const exePath = browserType.name() === "chromium" ? (process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined) : undefined;
+  const browser = await browserType.launch(exePath ? { executablePath: exePath } : {});
   const ctxOpts = { locale: "en-US", viewport: { width: viewportW, height: viewportH }, isMobile: !!isMobile, hasTouch: !!isMobile };
   if (ua) ctxOpts.userAgent = ua;
   const ctx = await browser.newContext(ctxOpts);

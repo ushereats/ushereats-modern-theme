@@ -160,10 +160,6 @@
     var tr;
     try {
       tr = document.startViewTransition(function () {
-        // Add tb-vt here (not before) so the old-state snapshot is captured clean:
-        // adding it before the call hides the lower half of the title page in the snapshot,
-        // causing the "lower half disappears first" blurry-frame effect.
-        html.classList.add("tb-vt");
         // the old page is held from here: back/forward events kept until now go to Jellyfin
         captured = true;
         t0 = Date.now();
@@ -220,10 +216,13 @@
         });
       });
     } catch (e) { running = false; html.classList.remove("tb-vt"); return false; }
+    // tb-vt goes on html right after startViewTransition returns (old-state snapshot is already taken
+    // synchronously inside the call, so the snapshot is clean).  Being synchronous here matters: it
+    // means goHome()'s tbScroll.top() guard fires correctly, and SleekFin sees tb-vt before the hash
+    // changes so it skips its own detail-page concealing animation (which caused the frozen-second /
+    // hard-cut bug when tb-vt was only set inside the async callback).
+    html.classList.add("tb-vt");
     // Click/pointerdown-initiated transitions: navigation must go through immediately.
-    // The old-state snapshot was taken synchronously by startViewTransition, so setting
-    // captured=true now means hold() won't intercept the click's resulting hashchange.
-    // Back/forward (already=true) keeps the original async path: captured is set inside the callback.
     if (!already) captured = true;
     var done = function () { running = false; captured = false; html.classList.remove("tb-vt"); };
     tr.finished.then(function () { note("done"); done(); }, function (e) { note("skipped " + (e && e.message)); done(); });

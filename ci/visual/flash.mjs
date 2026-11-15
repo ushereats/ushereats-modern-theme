@@ -64,28 +64,49 @@ if (ids[0]) await open(ids[0], "same again");
 if (ids[1]) await open(ids[1], "another");
 if (ids[2]) await open(ids[2], "third");
 // ── PERMANENT: back-nav and home-nav transition tests ──────────────────────
-// Back: home must appear instantly at the saved scroll position (no visible scroll, no blank frame).
-// Home button: home must appear instantly at the top (no blurry frame in between).
-// Frame-by-frame screenshots during and after each navigation catch regressions.
+// Back: home must land instantly at the saved scroll position (no scroll drift, no blank frame).
+// Home button: home must cross-fade in from top (no frozen detail page, no hard cut).
+// FAIL conditions (set process.exitCode=1):
+//   back-nav:  final y ≠ saved y; any frame is blank/all-black; any frame shows y=0 when saved y≠0
+//   home-nav:  final y ≠ 0; any frame is blank/all-black; transition takes >800ms to start moving
 {
   const sc = [];
+  const navFailed = [];
   const sample = async (label, ms) => { const end = Date.now() + ms; while (Date.now() < end) { sc.push(label + " " + (Date.now() - t0) + " y=" + await page.evaluate(() => Math.round(window.scrollY)) + " vt=" + await page.evaluate(() => document.documentElement.classList.contains("tb-vt"))); await page.waitForTimeout(40); } };
+  // Detect a blank/all-black frame by checking average pixel brightness via canvas
+  const isBlankFrame = async () => { try { return await page.evaluate(() => { const c = document.createElement("canvas"); c.width = 16; c.height = 16; const ctx = c.getContext("2d"); if (!ctx) return false; ctx.drawImage(document.documentElement, 0, 0, 16, 16); const d = ctx.getImageData(0, 0, 16, 16).data; let sum = 0; for (let i = 0; i < d.length; i += 4) sum += d[i] + d[i+1] + d[i+2]; return sum / (d.length / 4 * 3) < 5; }); } catch { return false; } };
   await page.evaluate(() => window.scrollTo(0, 900));
   await page.waitForTimeout(800);
+  const savedY = await page.evaluate(() => Math.round(window.scrollY));
   const deep = await page.evaluate(() => { const h = window.innerHeight; return [...document.querySelectorAll(".card[data-id]")].find((c) => { const r = c.getBoundingClientRect(); return r.top > 0 && r.bottom < h && /^(Movie|Series)$/.test(c.getAttribute("data-type") || ""); })?.getAttribute("data-id"); });
-  sc.push("start y=" + await page.evaluate(() => Math.round(window.scrollY)) + " card=" + deep);
+  sc.push("start y=" + savedY + " card=" + deep);
   if (deep) {
     // ── back navigation test ──────────────────────────────────────────────
-    // Open a title page, then go back; capture dense frames during the transition.
+    // Open a title page, then go back; capture frames every 16ms during the transition.
     await page.locator(`.card[data-id="${deep}"]`).first().evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
     await sample("open", 3000);
-    // Dense screenshots 0–600ms after goBack(): one clean cross-fade is the goal, no blurry frame.
     mark("back-nav start y=" + await page.evaluate(() => Math.round(window.scrollY)));
     const backP = page.goBack();
-    for (let i = 0; i < 20; i++) { await page.screenshot({ path: `${out}/seq-back-${String(i).padStart(2, "0")}.jpg`, quality: 70, type: "jpeg" }); await page.waitForTimeout(30); }
+    const backFrames = [];
+    for (let i = 0; i < 38; i++) {
+      const p = `${out}/seq-back-${String(i).padStart(2, "0")}.jpg`;
+      await page.screenshot({ path: p, quality: 70, type: "jpeg" });
+      const y = await page.evaluate(() => Math.round(window.scrollY));
+      const blank = await isBlankFrame();
+      backFrames.push({ i, y, blank });
+      await page.waitForTimeout(16);
+    }
     await backP;
     await sample("back", 2000);
-    mark("back-nav end y=" + await page.evaluate(() => Math.round(window.scrollY)));
+    const backEndY = await page.evaluate(() => Math.round(window.scrollY));
+    mark("back-nav end y=" + backEndY);
+    // FAIL: landed at wrong position
+    if (Math.abs(backEndY - savedY) > 2) { navFailed.push(`back-nav: landed at y=${backEndY}, expected y≈${savedY}`); process.exitCode = 1; }
+    // FAIL: any frame was blank/all-black
+    const backBlank = backFrames.filter((f) => f.blank);
+    if (backBlank.length) { navFailed.push(`back-nav: ${backBlank.length} blank frame(s) at frames ${backBlank.map((f)=>f.i).join(",")}`); process.exitCode = 1; }
+    // FAIL: any frame showed y=0 when savedY is not 0 (would reveal the top-scroll bug)
+    if (savedY > 50) { const wrongY = backFrames.filter((f) => f.y < 10); if (wrongY.length) { navFailed.push(`back-nav: ${wrongY.length} frame(s) at y≈0 (should be ~${savedY}): frames ${wrongY.map((f)=>f.i).join(",")}`); process.exitCode = 1; } }
     // ── home-button navigation test ───────────────────────────────────────
     // Open a title page from the restored position, then click the home/logo button.
     await page.locator(`.card[data-id="${deep}"]`).first().evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
@@ -93,11 +114,34 @@ if (ids[2]) await open(ids[2], "third");
     const home = page.locator(".headerHomeButton, a[href='#/home'], a[href='#!/home'], .sleekfin-header a[href], .pageTitleWithLogo, a.headerLogo").first();
     sc.push("home button found=" + (await home.count()));
     mark("home-nav start");
+    const homeNavT0 = Date.now();
     if (await home.count()) { await home.evaluate((el) => (el.closest("a[href], button") || el).click()); }
     else await page.evaluate(() => { location.hash = "#/home"; });
-    for (let i = 0; i < 20; i++) { await page.screenshot({ path: `${out}/seq-home-${String(i).padStart(2, "0")}.jpg`, quality: 70, type: "jpeg" }); await page.waitForTimeout(30); }
+    const homeFrames = [];
+    let firstMoveMs = -1;
+    for (let i = 0; i < 38; i++) {
+      const p = `${out}/seq-home-${String(i).padStart(2, "0")}.jpg`;
+      await page.screenshot({ path: p, quality: 70, type: "jpeg" });
+      const y = await page.evaluate(() => Math.round(window.scrollY));
+      const hash = await page.evaluate(() => location.hash);
+      const blank = await isBlankFrame();
+      const ms = Date.now() - homeNavT0;
+      if (firstMoveMs < 0 && /home/.test(hash)) firstMoveMs = ms;
+      homeFrames.push({ i, y, blank, ms });
+      await page.waitForTimeout(16);
+    }
     await sample("home", 2000);
-    mark("home-nav end y=" + await page.evaluate(() => Math.round(window.scrollY)));
+    const homeEndY = await page.evaluate(() => Math.round(window.scrollY));
+    mark("home-nav end y=" + homeEndY);
+    // FAIL: didn't land at top
+    if (homeEndY > 10) { navFailed.push(`home-nav: landed at y=${homeEndY}, expected y≈0`); process.exitCode = 1; }
+    // FAIL: any frame was blank/all-black
+    const homeBlank = homeFrames.filter((f) => f.blank);
+    if (homeBlank.length) { navFailed.push(`home-nav: ${homeBlank.length} blank frame(s) at frames ${homeBlank.map((f)=>f.i).join(",")}`); process.exitCode = 1; }
+    // FAIL: transition took >800ms to start moving to home (frozen detail-page bug)
+    if (firstMoveMs > 800) { navFailed.push(`home-nav: hash didn't change to #/home until ${firstMoveMs}ms after click (threshold 800ms)`); process.exitCode = 1; }
+    if (navFailed.length) { sc.push("FAILURES: " + navFailed.join("; ")); console.error("\n── nav test FAILURES ──"); navFailed.forEach((f) => console.error("  FAIL " + f)); }
+    else sc.push("nav tests PASSED");
   }
   fs.writeFileSync(out + "/scroll.txt", sc.join("\n"));
 }

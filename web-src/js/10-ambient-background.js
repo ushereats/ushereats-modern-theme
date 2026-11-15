@@ -212,7 +212,7 @@
     }, 350);
   }
   document.addEventListener("pointerover", function (e) { if (!e.pointerType || e.pointerType === "mouse") onCardActive(e); }, { passive: true });
-  document.addEventListener("focusin", onCardActive);
+  document.addEventListener("focusin", onCardActive, { passive: true });
 
   function update() {
     var root = document.documentElement;

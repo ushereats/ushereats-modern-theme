@@ -435,7 +435,10 @@
   window.addEventListener("pageshow", schedule);
   // re-measure right before you leave/reload, when the layout is final
   window.addEventListener("pagehide", function () { saveRect(true); });
-  document.addEventListener("visibilitychange", function () { if (document.hidden) saveRect(true); });
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) { stopTimer(); saveRect(true); }
+    else if (root && root.isConnected && isHomeRoute()) startTimer();
+  });
   document.addEventListener("viewshow", schedule);
   document.addEventListener("load", function (e) {
     var t = e.target;

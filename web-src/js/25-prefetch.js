@@ -12,9 +12,10 @@
   var ITEM = /\/Items\/[0-9a-f]{32}(\?|$)/i;
   var ITEM_KEEP = 600000, ITEM_FRESH = 15000;
   var cache = {};   // url -> { at, x: { status, statusText, headers, body } }
+  var inflight = {};   // url -> Promise<x> (dedup concurrent requests for the same item)
 
   function key(url) { return String(url).replace(/^https?:\/\/[^/]+/i, "").replace(/[?&]tbBench=\d+/, ""); }
-  function clear() { cache = {}; lists = {}; }
+  function clear() { cache = {}; lists = {}; inflight = {}; }
 
   // ── library pages like the home rows ──
   // A library page (Movies, Shows, a collection, a genre...) you've already opened shows at once from the
@@ -105,10 +106,14 @@
       }
       return Promise.resolve(respond(hit.x));
     }
-    return grab(this, arguments).then(function (x) {
+    if (inflight[k]) return inflight[k].then(respond);
+    var prom = grab(this, arguments).then(function (x) {
+      delete inflight[k];
       if (x.status === 200) cache[k] = { at: Date.now(), x: x };
-      return respond(x);
-    });
+      return x;
+    }, function (e) { delete inflight[k]; return Promise.reject(e); });
+    inflight[k] = prom;
+    return prom.then(respond);
   };
   // changes made through Jellyfin's newer code (XMLHttpRequest) also clear it
   var open = XMLHttpRequest.prototype.open;
@@ -295,7 +300,7 @@
         if (bd) { imgs.push(bd); if (window.tbAmbientWarm) window.tbAmbientWarm(bd); }
         if (item.ImageTags && item.ImageTags.Logo) imgs.push(api.getScaledImageUrl(item.Id, { type: "Logo", tag: item.ImageTags.Logo }));
         else if (item.ParentLogoItemId && item.ParentLogoImageTag) imgs.push(api.getScaledImageUrl(item.ParentLogoItemId, { type: "Logo", tag: item.ParentLogoImageTag }));
-        imgs.forEach(function (u, i) { var im = new Image(); im.decoding = "async"; if (i === 0) im.fetchPriority = "high"; im.src = u; });
+        imgs.forEach(function (u, i) { var im = new Image(); im.decoding = "async"; if (i === 0) im.fetchPriority = "high"; im.src = u; if (im.decode) im.decode()["catch"](function () {}); });
         // fire the same related requests the details page will make, so they're cached (or in-flight) on arrival
         var extras = [
           "Items/" + id + "/Similar?userId=" + uid + "&limit=12",
@@ -321,9 +326,9 @@
     var id = idOf(e.target);
     clearTimeout(timer);
     if (id) timer = setTimeout(function () { warm(id); }, 120);
-  }, true);
-  document.addEventListener("focusin", function (e) { var id = idOf(e.target); if (id) warm(id); }, true);
-  document.addEventListener("pointerdown", function (e) { if (e.pointerType === "mouse" && e.button === 0) { var id = idOf(e.target); if (id) warm(id); } }, true);
+  }, { capture: true, passive: true });
+  document.addEventListener("focusin", function (e) { var id = idOf(e.target); if (id) warm(id); }, { capture: true, passive: true });
+  document.addEventListener("pointerdown", function (e) { if (e.pointerType === "mouse" && e.button === 0) { var id = idOf(e.target); if (id) warm(id); } }, { capture: true, passive: true });
   // phones: the moment a finger lands on a poster
   document.addEventListener("touchstart", function (e) { var id = idOf(e.target); if (id) warm(id); }, { capture: true, passive: true });
 })();

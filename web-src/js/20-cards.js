@@ -122,7 +122,7 @@
   }
 
   // one card (images are filled in by load() so off-screen rows don't download yet)
-  // what a title page needs to draw its backdrop the moment the card is clicked (see 28-instant-details)
+  // tbItemMeta: backdrop data for warm() in 25-prefetch so the detail page doesn't need a round-trip
   var META = window.tbItemMeta || (window.tbItemMeta = {});
   function card(it, shape, index, sid, extraClass, own, noText) {
     sid = sid || serverId();

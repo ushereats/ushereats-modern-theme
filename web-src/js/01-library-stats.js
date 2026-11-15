@@ -10,7 +10,6 @@
     var saved = JSON.parse(localStorage.getItem("tbStats") || "null");
     if (saved && saved.c) { counts = saved.c; active = saved.a == null ? null : saved.a; }
   } catch (e) {}
-  var countsAt = 0;
   var stale = true;
   var busy = false;
 

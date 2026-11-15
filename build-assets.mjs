@@ -4,6 +4,21 @@
 import { minify } from "terser";
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
+
+// Lint + typecheck: build fails on errors
+try {
+  execFileSync(process.execPath, [path.join("node_modules", ".bin", "eslint"), "web-src/"], { stdio: "inherit" });
+} catch {
+  console.error("ESLint errors — fix them before building.");
+  process.exit(1);
+}
+try {
+  execFileSync(process.execPath, [path.join("node_modules", ".bin", "tsc")], { stdio: "inherit" });
+} catch {
+  console.error("TypeScript errors — fix them before building.");
+  process.exit(1);
+}
 
 const SRC = "web-src";
 const OUT = "src/Jellyfin.Plugin.UshereatsTheme/Assets";
@@ -66,7 +81,6 @@ fs.copyFileSync(path.join(SRC, "splash.mp3"), path.join(OUT, "splash.mp3"));
 // Its frontend is built by sleekfin/build.js (esbuild + babel, same as SleekFin); needs `npm ci --prefix sleekfin` first.
 {
   const SF = "sleekfin";
-  const { execFileSync } = await import("node:child_process");
   execFileSync(process.execPath, ["build.js"], { cwd: SF, stdio: "inherit" });
   for (const name of ["runtime", "theme", "header", "media", "details", "details-builder"]) {
     fs.copyFileSync(path.join(SF, "build", "sleekfin-" + name + ".js"), path.join(OUT, "sleek_" + name.replace(/-/g, "_") + ".js"));

@@ -1,7 +1,6 @@
 (function newEpisodeTag() {
   // Shared page watcher: ONE observer for all custom scripts instead of one each.
   // While a video is playing full screen (or the tab is hidden) it only checks every 1.5s.
-  var tbWatch = window.tbWatch;   // shared page watcher (in every theme file)
   // ── Settings ──
   // Windows are counted from the episode's air date (falls back to date added)
   var EPISODE_DAYS = 7;          // "New episode": aired within the last week

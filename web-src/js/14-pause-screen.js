@@ -11,7 +11,7 @@
   var ACC = "var(--sleekfin-accent, rgb(232, 192, 80))";
   var ROOT_CLASS = "tb-paused";
 
-  var video = null, itemId = null, info = null, infoFor = null;
+  var video = null, info = null, infoFor = null;
   var timer = null, lastInteraction = Date.now(), dismissed = false, visible = false;
   var prevFocus = null;
   var cache = new Map();

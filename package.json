@@ -6,6 +6,13 @@
     "dev": "node dev-server.mjs",
     "build-assets": "node build-assets.mjs",
     "smoke": "node ci/smoke.mjs",
-    "check-jellyfin": "node ci/check-jellyfin.mjs"
+    "check-jellyfin": "node ci/check-jellyfin.mjs",
+    "lint": "eslint web-src/",
+    "typecheck": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "eslint": "^9.39.5",
+    "typescript": "^5.9.3"
   }
 }

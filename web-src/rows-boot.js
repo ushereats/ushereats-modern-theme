@@ -84,8 +84,8 @@
       var type = row.type;
       if (type === "studios") return Promise.resolve(null);
       if (type === "continue") {
-        var movies = get("UserItems/Resume?" + U + "&MediaTypes=Video&IncludeItemTypes=Movie&Limit=" + Math.max(num(row.resumeLimit, 50), 50) + COMMON, token);
-        var next = get("Shows/NextUp?" + U + "&Limit=" + Math.max(num(row.nextUpLimit, 50), 50) + "&EnableResumable=true&EnableRewatching=false" + COMMON, token);
+        var movies = get("UserItems/Resume?" + U + "&MediaTypes=Video&IncludeItemTypes=Movie&Limit=" + Math.max(num(row.resumeLimit, 50), 50) + COMMON, token)["catch"](function () { return null; });
+        var next = get("Shows/NextUp?" + U + "&Limit=" + Math.max(num(row.nextUpLimit, 50), 50) + "&EnableResumable=true&EnableRewatching=false" + COMMON, token)["catch"](function () { return null; });
         return Promise.all([movies, next]).then(function (r) {
           var m = list(r[0]), e = list(r[1]), a = [], b = [], i;
           for (i = 0; i < m.length; i++) a.push(slim(m[i]));

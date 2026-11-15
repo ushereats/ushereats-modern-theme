@@ -20,7 +20,12 @@ public static class IndexPatch
 {
     private const string Marker = "<!-- ushereats-theme -->";
 
-    private const string LatinRange = "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD";
+    // Cache of patched html, keyed by (ThemeBuild.Key, Origin). Cleared when Key changes.
+    private static readonly object _htmlCacheLock = new();
+    private static readonly Dictionary<(string key, string? origin), string> _htmlCache = new();
+    private static string _htmlCacheKey = string.Empty;
+
+    private const string LatinRange ="U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD";
 
     private const string LatinExtRange = "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF";
 
@@ -43,6 +48,18 @@ public static class IndexPatch
 
         ThemeBuild build = ThemeAssets.Get();
         bool devEnabled = !string.IsNullOrWhiteSpace(build.Config.DevAssetsUrl);
+
+        if (!devEnabled)
+        {
+            string cacheKey = build.Key;
+            string? cacheOrigin = Origin;
+            lock (_htmlCacheLock)
+            {
+                if (cacheKey != _htmlCacheKey) { _htmlCache.Clear(); _htmlCacheKey = cacheKey; }
+                if (_htmlCache.TryGetValue((cacheKey, cacheOrigin), out string? hit)) return hit;
+            }
+        }
+
         StringBuilder sb = new StringBuilder();
         sb.Append(Marker);
 
@@ -152,6 +169,26 @@ public static class IndexPatch
         if (build.Config.HomeRows)
         {
             sb.Append("<style>html.tb-rows #homeTab>.sections:not(.tb-rows-c){display:none!important}</style>");
+            // Start the /UshereatsTheme/home request the moment the page starts parsing (token already in localStorage).
+            // rows-boot.js checks window.__tbEarlyHome and reuses this promise instead of making a second request.
+            sb.Append("<script>")
+              .Append("(function(){try{")
+              .Append("if(!window.fetch||!window.Promise)return;")
+              .Append("var h=location.hash,m=/^#\\/(?:home)?(?:\\?([^#]*))?$/.exec(h);")
+              .Append("var ok=h===\"\"||h===\"#\"||(!!m&&!/(^|&)seerrfinTab=/.test(m[1]||\"\")&&!/(^|&)tab=(?!0(&|$))/.test(m[1]||\"\"));")
+              .Append("if(!ok)return;")
+              .Append("var rows=null;try{rows=JSON.parse(localStorage.getItem(\"tbRowsCfg\")||\"null\")}catch(e){}")
+              .Append("if(!rows||!rows.length)return;")
+              .Append("var creds=null;try{creds=JSON.parse(localStorage.getItem(\"jellyfin_credentials\")||\"null\")}catch(e){}")
+              .Append("var servers=(creds&&creds.Servers)||[],srv=null;")
+              .Append("for(var i=0;i<servers.length;i++){var x=servers[i];if(x&&x.AccessToken&&x.UserId&&(!srv||(x.DateLastAccessed||0)>(srv.DateLastAccessed||0)))srv=x;}")
+              .Append("if(!srv)return;")
+              .Append("var ns=rows.filter(function(r){return r.type!==\"studios\";});")
+              .Append("var base=location.pathname.replace(/\\/web(\\/.*)?$/,\"/\");")
+              .Append("if(base.charAt(base.length-1)!==\"/\")base+=\"/\";")
+              .Append("window.__tbEarlyHome=fetch(base+\"UshereatsTheme/home?userId=\"+encodeURIComponent(srv.UserId)+\"&rows=\"+encodeURIComponent(JSON.stringify(ns)),{headers:{Authorization:'MediaBrowser Token=\"'+srv.AccessToken+'\"'},credentials:\"same-origin\"}).then(function(r){return r.ok?r.json():null})[\"catch\"](function(){return null;});")
+              .Append("}catch(e){}})();")
+              .Append("</script>");
             sb.Append("<script>").Append(ThemeAssets.Text("rows_boot.js")).Append("</script>");
         }
 
@@ -193,7 +230,19 @@ public static class IndexPatch
             sb.Append("<script src=\"../UshereatsTheme/theme.js?v=").Append(build.Version).Append("\" defer></script>");
         }
 
-        return html.Insert(head, sb.ToString());
+        string result = html.Insert(head, sb.ToString());
+
+        if (!devEnabled)
+        {
+            string cacheKey = build.Key;
+            string? cacheOrigin = Origin;
+            lock (_htmlCacheLock)
+            {
+                if (cacheKey == _htmlCacheKey) _htmlCache[(cacheKey, cacheOrigin)] = result;
+            }
+        }
+
+        return result;
     }
 
     // Jellyfin's own <link rel="icon" / "apple-touch-icon" / "manifest"> tags (ours are added instead)

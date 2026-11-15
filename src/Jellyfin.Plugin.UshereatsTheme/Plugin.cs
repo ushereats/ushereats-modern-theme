@@ -59,6 +59,7 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
         }
 
         base.UpdateConfiguration(configuration);
+        IndexPatch.InvalidateHtmlCache();
     }
 
     private static void Normalize(SleekConfiguration s)

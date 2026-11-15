@@ -20,6 +20,11 @@ public static class IndexPatch
 {
     private const string Marker = "<!-- ushereats-theme -->";
 
+    public static void InvalidateHtmlCache()
+    {
+        lock (_htmlCacheLock) { _htmlCache.Clear(); _htmlCacheKey = string.Empty; }
+    }
+
     // Cache of patched html, keyed by (ThemeBuild.Key, Origin). Cleared when Key changes.
     private static readonly object _htmlCacheLock = new();
     private static readonly Dictionary<(string key, string? origin), string> _htmlCache = new();
@@ -238,7 +243,11 @@ public static class IndexPatch
             string? cacheOrigin = Origin;
             lock (_htmlCacheLock)
             {
-                if (cacheKey == _htmlCacheKey) _htmlCache[(cacheKey, cacheOrigin)] = result;
+                if (cacheKey == _htmlCacheKey)
+                {
+                    if (_htmlCache.Count >= 8) _htmlCache.Clear();
+                    _htmlCache[(cacheKey, cacheOrigin)] = result;
+                }
             }
         }
 

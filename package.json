@@ -4,6 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "node dev-server.mjs",
-    "build-assets": "node build-assets.mjs"
+    "build-assets": "node build-assets.mjs",
+    "smoke": "node ci/smoke.mjs",
+    "check-jellyfin": "node ci/check-jellyfin.mjs"
   }
 }

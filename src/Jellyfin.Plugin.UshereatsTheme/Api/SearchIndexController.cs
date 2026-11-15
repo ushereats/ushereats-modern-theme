@@ -5,8 +5,11 @@ using System.Text.Json.Serialization;
 using Jellyfin.Data.Enums;
 using Jellyfin.Database.Implementations.Entities;
 using Jellyfin.Database.Implementations.Enums;
+using MediaBrowser.Controller.Dto;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Library;
+using MediaBrowser.Model.Dto;
+using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Querying;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,13 +25,21 @@ public class SearchIndexController : ControllerBase
 {
     private const int MaxItems = 20_000;
 
+    private static readonly DtoOptions IndexDto = new DtoOptions(false)
+    {
+        ImageTypeLimit = 1,
+        EnableImages = true,
+    };
+
     private readonly ILibraryManager _library;
     private readonly IUserManager _users;
+    private readonly IDtoService _dto;
 
-    public SearchIndexController(ILibraryManager library, IUserManager users)
+    public SearchIndexController(ILibraryManager library, IUserManager users, IDtoService dto)
     {
         _library = library;
         _users = users;
+        _dto = dto;
     }
 
     /// <summary>
@@ -92,13 +103,13 @@ public class SearchIndexController : ControllerBase
         }
 
         var items = new List<SearchIndexItem>(result.Items.Count + personResult.Items.Count);
-        foreach (BaseItem it in result.Items)
+        foreach (BaseItemDto dto in _dto.GetBaseItemDtos(result.Items, IndexDto, user, null, true))
         {
-            items.Add(ToIndexItem(it));
+            items.Add(ToIndexItem(dto));
         }
-        foreach (BaseItem it in personResult.Items)
+        foreach (BaseItemDto dto in _dto.GetBaseItemDtos(personResult.Items, IndexDto, user, null, true))
         {
-            items.Add(ToIndexItem(it));
+            items.Add(ToIndexItem(dto));
         }
 
         string json = JsonSerializer.Serialize(new SearchIndexPayload { Version = version, Items = items }, JsonOpts);
@@ -110,16 +121,18 @@ public class SearchIndexController : ControllerBase
         return File(compressed, "application/json; charset=utf-8");
     }
 
-    private static SearchIndexItem ToIndexItem(BaseItem it)
+    private static SearchIndexItem ToIndexItem(BaseItemDto dto)
     {
         return new SearchIndexItem
         {
-            Id = it.Id.ToString("N"),
-            Name = it.Name,
-            OriginalTitle = it is MediaBrowser.Controller.Entities.Movies.Movie m ? m.OriginalTitle : null,
-            SortName = it.SortName,
-            Type = it.GetType().Name,
-            Year = it.ProductionYear,
+            Id = dto.Id.ToString("N"),
+            Name = dto.Name ?? string.Empty,
+            OriginalTitle = dto.OriginalTitle,
+            SortName = dto.SortName,
+            Type = dto.Type.ToString(),
+            Year = dto.ProductionYear,
+            Primary = dto.ImageTags != null && dto.ImageTags.TryGetValue(ImageType.Primary, out var p) ? p : null,
+            Thumb = dto.ImageTags != null && dto.ImageTags.TryGetValue(ImageType.Thumb, out var th) ? th : null,
         };
     }
 

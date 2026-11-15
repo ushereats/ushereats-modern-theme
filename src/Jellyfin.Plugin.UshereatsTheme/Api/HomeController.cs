@@ -254,7 +254,7 @@ public class HomeController : ControllerBase
             QueryResult<BaseItem> playedEps = _library.GetItemsResult(playedQuery);
             if (playedEps.Items.Count > 0)
             {
-                UserItemData playedUd = _userData.GetUserData(user, playedEps.Items[0]);
+                UserItemData? playedUd = _userData.GetUserData(user, playedEps.Items[0]);
                 DateTime? mostRecent = playedUd?.LastPlayedDate;
                 if (mostRecent.HasValue && mostRecent.Value > (ep.UserData.LastPlayedDate ?? DateTime.MinValue))
                 {

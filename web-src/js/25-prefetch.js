@@ -84,6 +84,22 @@
     setTimeout(function () { idle(warmFavs, { timeout: 4000 }); }, 2500);
   });
 
+  // After playback stops, clear the SW's cached /home response so the next home load fetches fresh.
+  // The SW uses CacheStorage (not the HTTP cache), so we delete the entries from the main thread.
+  function clearHomeSwCache() {
+    try {
+      if (!window.caches) return;
+      caches.open("tb-2-start").then(function (c) {
+        c.keys().then(function (keys) {
+          keys.forEach(function (req) {
+            if (/\/UshereatsTheme\/home\b/i.test(req.url)) c["delete"](req)["catch"](function () {});
+          });
+        })["catch"](function () {});
+      })["catch"](function () {});
+    } catch (e) {}
+  }
+  window.addEventListener("tb-playback-stopped", clearHomeSwCache);
+
   var realFetch = window.fetch;
   window.fetch = function (input, init) {
     var url = typeof input === "string" ? input : (input && input.url) || "";
@@ -91,6 +107,7 @@
     if (method !== "GET") {
       clear();
       if (/\/Sessions\/Playing\/Stopped/i.test(url)) { try { window.dispatchEvent(new Event("tb-playback-stopped")); } catch (e) {} }
+      if (/\/PlayedItems\//i.test(url)) clearHomeSwCache();
       return realFetch.apply(this, arguments);
     }
     if (LIST.test(url) && !(init && init.cache === "no-store") && !/[?&](SearchTerm|searchTerm)=/.test(url) && !/^#\/?home/i.test(location.hash)) return listFetch(this, arguments, url);
@@ -120,7 +137,9 @@
   XMLHttpRequest.prototype.open = function (method, url) {
     if (String(method).toUpperCase() !== "GET") {
       clear();
-      if (/\/Sessions\/Playing\/Stopped/i.test(String(url || ""))) { try { window.dispatchEvent(new Event("tb-playback-stopped")); } catch (e) {} }
+      var su = String(url || "");
+      if (/\/Sessions\/Playing\/Stopped/i.test(su)) { try { window.dispatchEvent(new Event("tb-playback-stopped")); } catch (e) {} }
+      if (/\/PlayedItems\//i.test(su)) clearHomeSwCache();
     }
     return open.apply(this, arguments);
   };

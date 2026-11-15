@@ -102,8 +102,11 @@
 
   // On hash change to a details route, show overlay if we have cached item data
   function onNavigate() {
-    if (overlay) removeOverlay();
+    // Always kill any lingering overlay div immediately — even if overlay ref was already cleared during its fade
+    var dead = overlay || document.getElementById("tb-instant-title");
+    if (dead && dead.parentNode) dead.parentNode.removeChild(dead);
     clearTimeout(hideTimer);
+    overlay = null;
     if (!featOn()) return;
     var id = detailId(location.hash);
     if (!id) return;

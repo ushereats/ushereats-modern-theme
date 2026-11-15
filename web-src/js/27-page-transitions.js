@@ -159,8 +159,11 @@
     want = null;
     var tr;
     try {
-      html.classList.add("tb-vt");
       tr = document.startViewTransition(function () {
+        // Add tb-vt here (not before) so the old-state snapshot is captured clean:
+        // adding it before the call hides the lower half of the title page in the snapshot,
+        // causing the "lower half disappears first" blurry-frame effect.
+        html.classList.add("tb-vt");
         // the old page is held from here: back/forward events kept until now go to Jellyfin
         captured = true;
         t0 = Date.now();

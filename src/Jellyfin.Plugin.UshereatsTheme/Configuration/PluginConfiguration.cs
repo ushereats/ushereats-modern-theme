@@ -94,4 +94,27 @@ public class PluginConfiguration : BasePluginConfiguration
     /// </summary>
     public SleekConfiguration? Sleek { get; set; }
 
+    // ── Feature switches (can be changed without a release) ──
+    /// <summary>Fetch all home data in one request instead of per-row. Off / AdminsOnly / Everyone.</summary>
+    public FeatureLevel HomeInOneRequest { get; set; } = FeatureLevel.Everyone;
+
+    /// <summary>Seed the home page from the device's SW cache copy on first paint. Off / AdminsOnly / Everyone.</summary>
+    public FeatureLevel HomeFromDeviceCopy { get; set; } = FeatureLevel.Everyone;
+
+    /// <summary>Pre-warm the hover card for the item under the cursor after a short idle. Off / AdminsOnly / Everyone.</summary>
+    public FeatureLevel HoverWarm { get; set; } = FeatureLevel.Everyone;
+
+    /// <summary>Local search index (instant search as you type). Off / AdminsOnly / Everyone.</summary>
+    public FeatureLevel InstantSearch { get; set; } = FeatureLevel.Off;
+
+    /// <summary>Instant title page top drawn from cached data before the server responds. Off / AdminsOnly / Everyone.</summary>
+    public FeatureLevel InstantTitles { get; set; } = FeatureLevel.Off;
+}
+
+/// <summary>Who can use a feature that may need a gradual rollout.</summary>
+public enum FeatureLevel
+{
+    Off = 0,
+    AdminsOnly = 1,
+    Everyone = 2,
 }

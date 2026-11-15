@@ -299,10 +299,26 @@
   window.tbBackdropUrl = backdropUrl;
 
   // ── getting a title ready before it's clicked ──
+  // HoverWarm feature switch: 0=Off, 1=AdminsOnly, 2=Everyone
+  function hoverWarmOn() {
+    var v = parseInt((window.TB_CONFIG || {}).HoverWarm || "2", 10);
+    if (v === 0) return false;
+    if (v >= 2) return true;
+    // AdminsOnly: use cached result; trigger async check on first call
+    if (window.__tbHoverWarmAdmin !== undefined) return !!window.__tbHoverWarmAdmin;
+    var api = window.ApiClient;
+    if (api && api.getCurrentUser) {
+      api.getCurrentUser().then(function (u) {
+        window.__tbHoverWarmAdmin = !!(u && u.Policy && u.Policy.IsAdministrator);
+      })["catch"](function () { window.__tbHoverWarmAdmin = false; });
+    }
+    return false;
+  }
+
   var warmed = {}, timer = 0;
   function warm(id) {
     var api = window.ApiClient;
-    if (!api || !id || warmed[id] && Date.now() - warmed[id] < ITEM_FRESH) return;
+    if (!api || !id || !hoverWarmOn() || (warmed[id] && Date.now() - warmed[id] < ITEM_FRESH)) return;
     warmed[id] = Date.now();
     if (window.tbLoadPart) window.tbLoadPart("details");
     var uid = api.getCurrentUserId();

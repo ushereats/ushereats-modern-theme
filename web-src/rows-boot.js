@@ -126,15 +126,21 @@
       });
     }
 
+    // Feature level: 0=Off, 1=AdminsOnly (treated as Off at boot — can't check admin status synchronously), 2=Everyone
+    function featOn(key) { var v = window.TB_CONFIG && parseInt(window.TB_CONFIG[key], 10); return v === 2; }
+
     function run(rows, user, token) {
       var out = {};
-      // B8: try the aggregated endpoint first; fall back per-row on miss or error
       var nonStudio = rows.filter(function (r) { return r.type !== "studios"; });
       var batchP;
       try {
-        batchP = window.__tbEarlyHome ||
-          get("UshereatsTheme/home?userId=" + enc(user) + "&rows=" + enc(JSON.stringify(nonStudio)), token)
-            ["catch"](function () { return null; });
+        // HomeInOneRequest: use batch endpoint (and SW cache copy) only when feature is on for Everyone
+        var earlyHome = featOn("HomeFromDeviceCopy") ? window.__tbEarlyHome : null;
+        batchP = featOn("HomeInOneRequest")
+          ? (earlyHome ||
+              get("UshereatsTheme/home?userId=" + enc(user) + "&rows=" + enc(JSON.stringify(nonStudio)), token)
+                ["catch"](function () { return null; }))
+          : Promise.resolve(null);
       } catch (e) {
         batchP = Promise.resolve(null);
       }

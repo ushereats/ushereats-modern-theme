@@ -2222,6 +2222,77 @@
 
                 <div class="sleekfin-page-panel" data-sleekfin-panel="speed">
                     <div class="sleekfin-section-container">
+                        <div class="sleekfin-config-section-title">Feature switches</div>
+                        <div class="sleekfin-card">
+                            <p class="sleekfin-field-description" style="margin:0 0 12px">Each switch can be changed without a release. <strong>Admins only</strong> lets you test a feature as an admin before rolling it out. <strong>Off</strong> disables it completely.</p>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-HomeInOneRequest">Home in one request</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-HomeInOneRequest" class="sleekfin-input" data-key="HomeInOneRequest" data-int="1">
+                                            <option value="0">Off</option>
+                                            <option value="1">Admins only</option>
+                                            <option value="2">Everyone</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">Fetch all home rows in one request to the server instead of one per row.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-HomeFromDeviceCopy">Home from device copy</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-HomeFromDeviceCopy" class="sleekfin-input" data-key="HomeFromDeviceCopy" data-int="1">
+                                            <option value="0">Off</option>
+                                            <option value="1">Admins only</option>
+                                            <option value="2">Everyone</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">Show home rows instantly from last visit's copy in the browser cache while fresh data loads.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-HoverWarm">Hover pre-warm</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-HoverWarm" class="sleekfin-input" data-key="HoverWarm" data-int="1">
+                                            <option value="0">Off</option>
+                                            <option value="1">Admins only</option>
+                                            <option value="2">Everyone</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">Pre-fetch the hover card for the item under the cursor after a short idle pause.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-InstantSearch">Instant search</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-InstantSearch" class="sleekfin-input" data-key="InstantSearch" data-int="1">
+                                            <option value="0">Off</option>
+                                            <option value="1">Admins only</option>
+                                            <option value="2">Everyone</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">Local search index on device — instant results as you type, no server round trip.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-InstantTitles">Instant title pages</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-InstantTitles" class="sleekfin-input" data-key="InstantTitles" data-int="1">
+                                            <option value="0">Off</option>
+                                            <option value="1">Admins only</option>
+                                            <option value="2">Everyone</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">Draw the title page hero from cached card data the moment you click — before the server responds.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sleekfin-section-container">
                         <div class="sleekfin-config-section-title">Speed test</div>
                         <div class="sleekfin-card">
                             <p class="sleekfin-field-description" style="margin:0 0 12px">Tests the whole site: times every kind of server request (3 times each), lists what each plugin adds to every page, then opens every page in a frame (everything in the header, every library, a movie, a show, a season, an episode, a person, a collection, music, playlists, search, favourites, your settings, the dashboard) and times when each part appears, freezes, layout jumps, the slowest files and whose they are. Meanwhile the server records every request it answers (Jellyfin's and every plugin's) with how long it took, plus CPU and memory, and the scheduled tasks are listed with how long they last took. Takes 1–3 minutes: don't touch anything. Then copy the results and send them.</p>

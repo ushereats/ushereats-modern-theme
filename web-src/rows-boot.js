@@ -60,9 +60,13 @@
     function mergeContinue(movies, episodes, limit) {
       var all = movies.concat(episodes), seen = {}, out = [];
       all.sort(function (a, b) {
-        var x = a.UserData.LastPlayedDate ? Date.parse(a.UserData.LastPlayedDate) : 0;
-        var y = b.UserData.LastPlayedDate ? Date.parse(b.UserData.LastPlayedDate) : 0;
-        return y - x;
+        var x = a.UserData && a.UserData.LastPlayedDate ? Date.parse(a.UserData.LastPlayedDate) : 0;
+        var y = b.UserData && b.UserData.LastPlayedDate ? Date.parse(b.UserData.LastPlayedDate) : 0;
+        if (y !== x) return y - x;
+        // On tie: in-progress (has PlaybackPositionTicks) wins over next-up
+        var ax = a.UserData && a.UserData.PlaybackPositionTicks ? 1 : 0;
+        var bx = b.UserData && b.UserData.PlaybackPositionTicks ? 1 : 0;
+        return bx - ax;
       });
       for (var n = 0; n < all.length && out.length < limit; n++) {
         var k = all[n].SeriesId || all[n].Id;

@@ -41,17 +41,20 @@ public class HomeController : ControllerBase
     private readonly IUserManager _users;
     private readonly IDtoService _dto;
     private readonly ITVSeriesManager _tv;
+    private readonly IUserDataManager _userData;
 
     public HomeController(
         ILibraryManager library,
         IUserManager users,
         IDtoService dto,
-        ITVSeriesManager tv)
+        ITVSeriesManager tv,
+        IUserDataManager userData)
     {
         _library = library;
         _users = users;
         _dto = dto;
         _tv = tv;
+        _userData = userData;
     }
 
     // ── B8 ───────────────────────────────────────────────────────────────────
@@ -230,6 +233,26 @@ public class HomeController : ControllerBase
         QueryResult<BaseItem> nextUpResult = _tv.GetNextUp(nextUpQuery, SlimDto);
         List<BaseItemDto> episodes = _dto.GetBaseItemDtos(nextUpResult.Items, SlimDto, user, null, false).ToList();
 
+        // Brief requirement: next-up episode sort key = last time ANY episode of that series was played.
+        // The episode's own LastPlayedDate is null/old for unplayed next-up episodes; look up the Series instead.
+        foreach (BaseItemDto ep in episodes)
+        {
+            if (ep.SeriesId.HasValue && ep.SeriesId.Value != Guid.Empty && ep.UserData is not null)
+            {
+                BaseItem? series = _library.GetItemById(ep.SeriesId.Value);
+                if (series is not null)
+                {
+                    UserItemData ud = _userData.GetUserData(user, series);
+                    DateTime? seriesDate = ud?.LastPlayedDate;
+                    // Only upgrade: use series date if it's later than the episode's own date
+                    if (seriesDate.HasValue && seriesDate.Value > (ep.UserData.LastPlayedDate ?? DateTime.MinValue))
+                    {
+                        ep.UserData.LastPlayedDate = seriesDate.Value;
+                    }
+                }
+            }
+        }
+
         return MergeContinue(movies, episodes, limit);
     }
 
@@ -321,11 +344,17 @@ public class HomeController : ControllerBase
         List<BaseItemDto> all = movies.Concat(episodes).ToList();
 
         // Use Ticks for comparison — never throws regardless of DateTime.Kind.
+        // On tie: in-progress (PlaybackPositionTicks > 0) wins over next-up (brief requirement).
         all.Sort((a, b) =>
         {
             long x = a.UserData?.LastPlayedDate is DateTime da ? da.Ticks : 0L;
             long y = b.UserData?.LastPlayedDate is DateTime db ? db.Ticks : 0L;
-            return y.CompareTo(x);
+            int cmp = y.CompareTo(x);
+            if (cmp != 0) return cmp;
+            bool ax = (a.UserData?.PlaybackPositionTicks ?? 0) > 0;
+            bool bx = (b.UserData?.PlaybackPositionTicks ?? 0) > 0;
+            if (ax == bx) return 0;
+            return ax ? -1 : 1;  // in-progress first
         });
 
         // Deduplicate: episodes use SeriesId as the key so each series appears at most once.

@@ -38,19 +38,22 @@ public class ErrorController : ControllerBase
     [Authorize]
     public async Task<IActionResult> PostError()
     {
-        // Rate-limit per remote IP
-        string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "?";
+        // Rate-limit per auth token so users behind a shared IP (e.g. Cloudflare tunnel) each get their own window.
+        // Hash the token so raw credentials are never stored in memory.
+        string auth = Request.Headers["Authorization"].ToString();
+        var m = System.Text.RegularExpressions.Regex.Match(auth, @"Token=""([^""]+)""", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+        string rateKey = m.Success ? Hash(m.Groups[1].Value) : (HttpContext.Connection.RemoteIpAddress?.ToString() ?? "?");
         lock (_lock)
         {
             long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            if (_rate.TryGetValue(ip, out var r) && now - r.At < RateLimitWindowMs)
+            if (_rate.TryGetValue(rateKey, out var r) && now - r.At < RateLimitWindowMs)
             {
                 if (r.Count >= RateLimitMax) return StatusCode(429);
-                _rate[ip] = (r.At, r.Count + 1);
+                _rate[rateKey] = (r.At, r.Count + 1);
             }
             else
             {
-                _rate[ip] = (now, 1);
+                _rate[rateKey] = (now, 1);
             }
         }
 
@@ -140,6 +143,14 @@ public class ErrorController : ControllerBase
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
     };
+
+    // FNV-1a 32-bit hash — fast, good enough to anonymize tokens in the rate-limit dictionary.
+    private static string Hash(string s)
+    {
+        uint h = 2166136261u;
+        foreach (char c in s) { h ^= (byte)(c & 0xFF); h *= 16777619u; h ^= (byte)(c >> 8); h *= 16777619u; }
+        return h.ToString("x8");
+    }
 }
 
 public class ClientError

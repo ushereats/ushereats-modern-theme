@@ -35,3 +35,13 @@
 - The server ONLY runs GitHub releases installed from the Jellyfin catalog.
 - C# changes ship via: commit to dev-devices → push to main → GitHub Actions builds + tags a release → user updates in Jellyfin.
 - "release" = user's word to push dev-devices to main. Wait for it before pushing.
+
+## Local tests (ci-session.json)
+- `ci-session.json` is gitignored — never commit it. Contains `{server, token, userId, serverId, movieLib}`.
+- Use the dedicated test user (read-only, for tests only). See test-user-setup.md for creation steps.
+- Local runs allowed: `node ci/visual/shots.mjs shots`, `node ci/visual/flash.mjs shots`, `npm run smoke`, `npm run check-jellyfin`.
+- After every Jellyfin server update, run `npm run check-jellyfin` to detect API changes early.
+
+## WebKit / Safari
+- Install: `npx playwright install webkit` (one-time, per machine).
+- iPhone + iPad smoke runs included in `npm run smoke` automatically.

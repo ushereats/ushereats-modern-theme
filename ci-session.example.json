@@ -1,0 +1,7 @@
+{
+  "server": "http://YOUR_JELLYFIN_HOST:8096",
+  "token": "YOUR_TEST_USER_API_TOKEN",
+  "userId": "YOUR_TEST_USER_ID_32HEX",
+  "serverId": "YOUR_SERVER_ID_32HEX",
+  "movieLib": "YOUR_MOVIE_LIBRARY_ID_32HEX"
+}

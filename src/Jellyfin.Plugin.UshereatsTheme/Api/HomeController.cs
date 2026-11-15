@@ -233,22 +233,32 @@ public class HomeController : ControllerBase
         QueryResult<BaseItem> nextUpResult = _tv.GetNextUp(nextUpQuery, SlimDto);
         List<BaseItemDto> episodes = _dto.GetBaseItemDtos(nextUpResult.Items, SlimDto, user, null, false).ToList();
 
-        // Brief requirement: next-up episode sort key = last time ANY episode of that series was played.
-        // The episode's own LastPlayedDate is null/old for unplayed next-up episodes; look up the Series instead.
+        // Sort key = most recent LastPlayedDate of ANY played episode in the series.
+        // Jellyfin does not reliably update the Series item's own LastPlayedDate; querying played
+        // episodes directly mirrors how ITVSeriesManager.GetNextUp decides recency.
         foreach (BaseItemDto ep in episodes)
         {
-            if (ep.SeriesId.HasValue && ep.SeriesId.Value != Guid.Empty && ep.UserData is not null)
+            if (!ep.SeriesId.HasValue || ep.SeriesId.Value == Guid.Empty || ep.UserData is null) continue;
+
+            var playedQuery = new InternalItemsQuery
             {
-                BaseItem? series = _library.GetItemById(ep.SeriesId.Value);
-                if (series is not null)
+                User = user,
+                Recursive = true,
+                IsVirtualItem = false,
+                IncludeItemTypes = new[] { BaseItemKind.Episode },
+                AncestorIds = new[] { ep.SeriesId.Value },
+                IsPlayed = true,
+                OrderBy = new[] { (ItemSortBy.DatePlayed, SortOrder.Descending) },
+                Limit = 1,
+            };
+            QueryResult<BaseItem> playedEps = _library.GetItemsResult(playedQuery);
+            if (playedEps.Items.Count > 0)
+            {
+                UserItemData playedUd = _userData.GetUserData(user, playedEps.Items[0]);
+                DateTime? mostRecent = playedUd?.LastPlayedDate;
+                if (mostRecent.HasValue && mostRecent.Value > (ep.UserData.LastPlayedDate ?? DateTime.MinValue))
                 {
-                    UserItemData ud = _userData.GetUserData(user, series);
-                    DateTime? seriesDate = ud?.LastPlayedDate;
-                    // Only upgrade: use series date if it's later than the episode's own date
-                    if (seriesDate.HasValue && seriesDate.Value > (ep.UserData.LastPlayedDate ?? DateTime.MinValue))
-                    {
-                        ep.UserData.LastPlayedDate = seriesDate.Value;
-                    }
+                    ep.UserData.LastPlayedDate = mostRecent.Value;
                 }
             }
         }

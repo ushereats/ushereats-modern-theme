@@ -203,9 +203,9 @@ public class HomeController : ControllerBase
 
     private List<BaseItemDto> FetchContinue(HomeRowConfig row, User user)
     {
-        int resumeLimit = row.ResumeLimit > 0 ? row.ResumeLimit : 12;
-        int nextUpLimit = row.NextUpLimit > 0 ? row.NextUpLimit : 24;
-        int limit = row.Limit > 0 ? row.Limit : 16;
+        int resumeLimit = Math.Max(row.ResumeLimit > 0 ? row.ResumeLimit : 50, 50);
+        int nextUpLimit = Math.Max(row.NextUpLimit > 0 ? row.NextUpLimit : 50, 50);
+        int limit = row.Limit > 0 ? row.Limit : 50;
 
         var resumeQuery = new InternalItemsQuery
         {

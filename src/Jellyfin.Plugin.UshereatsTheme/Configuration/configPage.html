@@ -1695,6 +1695,7 @@
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="signin">Sign-in &amp; splash</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="dashboard">Dashboard</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="speed">Speed test</button>
+                <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="errors" id="tbErrorsNavBtn">Errors</button>
             </nav>
 
             <form id="sleekFinConfigurationForm" class="sleekFinConfigurationForm">
@@ -2231,6 +2232,38 @@
                                 <span id="tbBenchStatus" class="sleekfin-field-description"></span>
                             </div>
                             <textarea id="tbBenchOut" class="sleekfin-input" rows="18" spellcheck="false" readonly hidden style="width:100%;box-sizing:border-box;margin-top:12px;font:12px/1.4 ui-monospace,monospace"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sleekfin-page-panel" data-sleekfin-panel="errors" id="tbErrorsPanel">
+                    <div class="sleekfin-section-container">
+                        <div class="sleekfin-config-section-title">Client errors</div>
+                        <div class="sleekfin-card">
+                            <p class="sleekfin-field-description" style="margin:0 0 12px">Errors caught by the theme in users&#39; browsers (window.onerror + unhandledrejection). Stored in memory — clears on server restart. Up to 500 unique errors, deduplicated by message + page + stack.</p>
+                            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+                                <button type="button" id="tbErrorsRefresh" class="sleekfin-builder-config-button">Refresh</button>
+                                <button type="button" id="tbErrorsClear" class="sleekfin-builder-config-button">Clear all</button>
+                                <span id="tbErrorsStatus" class="sleekfin-field-description"></span>
+                            </div>
+                            <div id="tbErrorsTable" style="overflow-x:auto">
+                                <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.4">
+                                    <thead>
+                                        <tr style="text-align:left;border-bottom:1px solid rgba(255,255,255,0.1)">
+                                            <th style="padding:4px 8px;white-space:nowrap">#</th>
+                                            <th style="padding:4px 8px">Message</th>
+                                            <th style="padding:4px 8px;white-space:nowrap">Page</th>
+                                            <th style="padding:4px 8px;white-space:nowrap">Count</th>
+                                            <th style="padding:4px 8px;white-space:nowrap">First seen</th>
+                                            <th style="padding:4px 8px;white-space:nowrap">Last seen</th>
+                                            <th style="padding:4px 8px;white-space:nowrap">Version</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbErrorsTbody">
+                                        <tr><td colspan="7" style="padding:8px;color:rgba(255,255,255,0.4);font-style:italic">Loading&hellip;</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -6153,6 +6186,114 @@
           input.focus();
         });
       }
+    })();
+    </script>
+    <script>
+    (function () {
+      // ── Errors panel ──
+      var page = document.querySelector("#sleekFinConfigurationPage");
+      var navBtn = page && page.querySelector("#tbErrorsNavBtn");
+      var tbody = page && page.querySelector("#tbErrorsTbody");
+      var statusEl = page && page.querySelector("#tbErrorsStatus");
+      var refreshBtn = page && page.querySelector("#tbErrorsRefresh");
+      var clearBtn = page && page.querySelector("#tbErrorsClear");
+      if (!navBtn || !tbody) return;
+
+      function apiBase() {
+        var loc = window.location;
+        var base = loc.pathname.replace(/\/web(\/.*)?$/, "/");
+        if (base.charAt(base.length - 1) !== "/") base += "/";
+        return base;
+      }
+
+      function authHeader() {
+        try {
+          var c = JSON.parse(localStorage.getItem("jellyfin_credentials") || "null");
+          var servers = (c && c.Servers) || [], best = null;
+          for (var i = 0; i < servers.length; i++) {
+            var s = servers[i];
+            if (s && s.AccessToken && (!best || (s.DateLastAccessed || 0) > (best.DateLastAccessed || 0))) best = s;
+          }
+          return best && best.AccessToken ? 'MediaBrowser Token="' + best.AccessToken + '"' : null;
+        } catch (e) { return null; }
+      }
+
+      function fmtDate(iso) {
+        if (!iso) return "";
+        try { return new Date(iso).toLocaleString(); } catch (e) { return iso; }
+      }
+
+      function esc(s) {
+        if (!s) return "";
+        return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      }
+
+      function renderErrors(errors) {
+        if (!errors || !errors.length) {
+          tbody.innerHTML = '<tr><td colspan="7" style="padding:8px;color:rgba(255,255,255,0.4);font-style:italic">No errors recorded.</td></tr>';
+          return;
+        }
+        // Sort: most recent last-seen first
+        errors = errors.slice().sort(function (a, b) {
+          return (b.lastSeen || "").localeCompare(a.lastSeen || "");
+        });
+        var rows = errors.map(function (e, i) {
+          var msg = esc(e.message || "");
+          var stack = esc(e.stack || "");
+          var title = stack ? 'title="' + stack.replace(/"/g, "&quot;").slice(0, 500) + '"' : "";
+          return '<tr style="border-bottom:1px solid rgba(255,255,255,0.06)">' +
+            '<td style="padding:4px 8px;color:rgba(255,255,255,0.4)">' + (i + 1) + '</td>' +
+            '<td style="padding:4px 8px;max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" ' + title + '>' + msg + '</td>' +
+            '<td style="padding:4px 8px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(e.page || "") + '</td>' +
+            '<td style="padding:4px 8px;text-align:right">' + (e.count || 1) + '</td>' +
+            '<td style="padding:4px 8px;white-space:nowrap">' + fmtDate(e.firstSeen) + '</td>' +
+            '<td style="padding:4px 8px;white-space:nowrap">' + fmtDate(e.lastSeen) + '</td>' +
+            '<td style="padding:4px 8px;white-space:nowrap">' + esc(e.themeVersion || "") + '</td>' +
+            '</tr>';
+        });
+        tbody.innerHTML = rows.join("");
+      }
+
+      function loadErrors() {
+        var auth = authHeader();
+        if (!auth) { statusEl.textContent = "Not signed in."; return; }
+        statusEl.textContent = "Loading…";
+        fetch(apiBase() + "UshereatsTheme/errors", {
+          headers: { Authorization: auth, "Cache-Control": "no-store" }
+        }).then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.json();
+        }).then(function (data) {
+          statusEl.textContent = "";
+          renderErrors(data.errors || []);
+        }).catch(function (e) { statusEl.textContent = "Error: " + e.message; });
+      }
+
+      function clearErrors() {
+        var auth = authHeader();
+        if (!auth) { statusEl.textContent = "Not signed in."; return; }
+        statusEl.textContent = "Clearing…";
+        fetch(apiBase() + "UshereatsTheme/errors", {
+          method: "DELETE",
+          headers: { Authorization: auth }
+        }).then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          statusEl.textContent = "Cleared.";
+          renderErrors([]);
+        }).catch(function (e) { statusEl.textContent = "Error: " + e.message; });
+      }
+
+      refreshBtn.addEventListener("click", loadErrors);
+      clearBtn.addEventListener("click", clearErrors);
+
+      // Auto-load when the panel becomes visible
+      var panelEl = page.querySelector('[data-sleekfin-panel="errors"]');
+      navBtn.addEventListener("click", function () {
+        // Brief delay to let nav panel activation run first
+        setTimeout(loadErrors, 50);
+      });
+      // Also load if the panel is already active on page load (unlikely but safe)
+      if (panelEl && panelEl.classList.contains("is-active")) loadErrors();
     })();
     </script>
 </div>

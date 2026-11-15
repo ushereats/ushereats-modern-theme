@@ -135,11 +135,30 @@
 
     function run(rows, user, token) {
       var out = {};
+      // B8: try the aggregated endpoint first; fall back per-row on miss or error
+      var nonStudio = rows.filter(function (r) { return r.type !== "studios"; });
+      var batchP;
+      try {
+        batchP = get("UshereatsTheme/home?userId=" + enc(user) + "&rows=" + enc(JSON.stringify(nonStudio)), token)
+          ["catch"](function () { return null; });
+      } catch (e) {
+        batchP = Promise.resolve(null);
+      }
       for (var i = 0; i < rows.length; i++) {
         (function (row) {
-          var p = load(row, user, token);
+          if (row.type === "studios") { out[row.id] = Promise.resolve(null); return; }
+          var id = row.id;
+          var p = batchP.then(function (batch) {
+            var arr = batch && batch[id];
+            if (arr && arr.length) {
+              var r = [];
+              for (var n = 0; n < arr.length; n++) r.push(slim(arr[n]));
+              return r;
+            }
+            return load(row, user, token);
+          });
           p["catch"](function () {});
-          out[row.id] = p;
+          out[id] = p;
         })(rows[i]);
       }
       return out;

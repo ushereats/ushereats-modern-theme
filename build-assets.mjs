@@ -7,14 +7,17 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 
 // Lint + typecheck: build fails on errors
+const isWin = process.platform === "win32";
+const eslintBin = path.join("node_modules", ".bin", isWin ? "eslint.cmd" : "eslint");
+const tscBin = path.join("node_modules", ".bin", isWin ? "tsc.cmd" : "tsc");
 try {
-  execFileSync(process.execPath, [path.join("node_modules", ".bin", "eslint"), "web-src/"], { stdio: "inherit" });
+  execFileSync(isWin ? eslintBin : process.execPath, isWin ? ["web-src/"] : [eslintBin, "web-src/"], { stdio: "inherit", shell: isWin });
 } catch {
   console.error("ESLint errors — fix them before building.");
   process.exit(1);
 }
 try {
-  execFileSync(process.execPath, [path.join("node_modules", ".bin", "tsc")], { stdio: "inherit" });
+  execFileSync(isWin ? tscBin : process.execPath, isWin ? [] : [tscBin], { stdio: "inherit", shell: isWin });
 } catch {
   console.error("TypeScript errors — fix them before building.");
   process.exit(1);

@@ -101,6 +101,25 @@
     e.page.classList.toggle("tb-searching", !!on);
   }
 
+  function renderResults(e, c, wanted, term, res, types) {
+    var now = els();
+    if (!now || !now.results || ctrl !== c || (mode + "|" + (now.input ? now.input.value.trim() : "")) !== wanted) return;
+    ctrl = null;
+    var out = "", sid = C.serverId();
+    types.forEach(function (t, i) {
+      var items = res[i];
+      if (!items || !items.length) return;
+      var cards = "";
+      for (var n = 0; n < items.length; n++) cards += C.card(items[n], SHAPE[t] || "poster", n, sid, "", true);
+      out += C.section({ title: NAMES[t] || t, cards: cards, wrap: true, cls: "tb-search-section", attrs: ' data-type="' + t + '"' });
+    });
+    now.results.innerHTML = out || '<div class="noItemsMessage centerMessage">Sorry! No results found for "' + C.esc(term) + '"</div>';
+    C.upgrade(now.results);
+    C.loadEach(now.results);
+    C.decorate();
+    showResults(now, true);
+  }
+
   function run(term) {
     var e = els();
     if (!e || !e.results) return;
@@ -112,25 +131,26 @@
     var c = window.AbortController ? new AbortController() : null;
     ctrl = c;
     var wanted = mode + "|" + term;
+
+    // Try local index first (instant, no network)
+    if (window.__tbSearchLocal) {
+      var local = window.__tbSearchLocal(term, types);
+      if (local !== null) {
+        // Group by type
+        var byType = {};
+        for (var n = 0; n < local.length; n++) { var t2 = local[n].Type; (byType[t2] = byType[t2] || []).push(local[n]); }
+        var localRes = types.map(function (t3) { return byType[t3] || []; });
+        renderResults(e, c, wanted, term, localRes, types);
+        // Also fire server search in background to refine (server returns richer data for episodes etc.)
+        ctrl = c;   // keep ctrl so server result can still win
+      }
+    }
+
+    // Server search (always fires; result replaces local if the query is still current)
     Promise.all(types.map(function (t) {
       return query(t, term, c && c.signal).then(function (items) { return items; }, function (err) { return err && err.name === "AbortError" ? null : []; });
     })).then(function (res) {
-      var now = els();
-      if (!now || !now.results || ctrl !== c || (mode + "|" + (now.input ? now.input.value.trim() : "")) !== wanted) return;
-      ctrl = null;
-      var out = "", sid = C.serverId();
-      types.forEach(function (t, i) {
-        var items = res[i];
-        if (!items || !items.length) return;
-        var cards = "";
-        for (var n = 0; n < items.length; n++) cards += C.card(items[n], SHAPE[t] || "poster", n, sid, "", true);
-        out += C.section({ title: NAMES[t] || t, cards: cards, wrap: true, cls: "tb-search-section", attrs: ' data-type="' + t + '"' });
-      });
-      now.results.innerHTML = out || '<div class="noItemsMessage centerMessage">Sorry! No results found for "' + C.esc(term) + '"</div>';
-      C.upgrade(now.results);
-      C.loadEach(now.results);
-      C.decorate();
-      showResults(now, true);
+      renderResults(e, c, wanted, term, res, types);
     });
   }
 

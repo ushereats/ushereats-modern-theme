@@ -133,6 +133,7 @@ public static class ThemeAssets
         ("js_26_tv_remote.js", c => true),
         ("js_27_page_transitions.js", c => c.PageTransitions),
         ("js_28_error_reporter.js", c => true),
+        ("js_29_search_index.js", c => c.InstantSearch != Configuration.FeatureLevel.Off),
     };
 
     private static readonly Dictionary<string, Payload?> StudioCache = new Dictionary<string, Payload?>(StringComparer.OrdinalIgnoreCase);

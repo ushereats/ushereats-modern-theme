@@ -131,7 +131,13 @@
     }
 
     // Feature level: 0=Off, 1=AdminsOnly (treated as Off at boot — can't check admin status synchronously), 2=Everyone
-    function featOn(key) { var v = window.TB_CONFIG && parseInt(window.TB_CONFIG[key], 10); return v === 2; }
+    // Test override: localStorage['tb-force-features'] = "Feat1,Feat2" forces those features on in this browser.
+    function featOn(key) {
+      var v = window.TB_CONFIG && parseInt(window.TB_CONFIG[key], 10);
+      if (v === 2) return true;
+      try { var ff = localStorage.getItem("tb-force-features"); if (ff && ff.split(",").indexOf(key) >= 0) return true; } catch (x) {}
+      return false;
+    }
 
     function run(rows, user, token) {
       var out = {};

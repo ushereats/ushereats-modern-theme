@@ -14,9 +14,10 @@ const shows = (await api(`/Items?userId=${s.userId}&Recursive=true&IncludeItemTy
 const eps = (await api(`/Items?userId=${s.userId}&Recursive=true&IncludeItemTypes=Episode&ParentId=${shows[0].Id}&SortBy=SortName`)).Items;
 
 const creds = JSON.stringify({ Servers: [{ ManualAddress: s.server, manualAddressOnly: true, Id: s.serverId, Name: "ci", DateLastAccessed: Date.now(), LastConnectionMode: 2, AccessToken: s.token, UserId: s.userId }] });
+const ffSet = s.forceFeatures ? `localStorage.setItem('tb-force-features', ${JSON.stringify(s.forceFeatures)});` : "";
 const init = (signedIn) => `
   (function(){ var x=7; Math.random=function(){ x=(x*16807)%2147483647; return (x-1)/2147483646; };
-  try{ sessionStorage.setItem('jf-welcomed','1'); ${signedIn ? `localStorage.setItem('jellyfin_credentials', ${JSON.stringify(creds)});` : "localStorage.clear();"} }catch(e){} })();`;
+  try{ sessionStorage.setItem('jf-welcomed','1'); ${signedIn ? `localStorage.setItem('jellyfin_credentials', ${JSON.stringify(creds)});` : "localStorage.clear();"} ${ffSet} }catch(e){} })();`;
 
 const pages = [
   ["home", "#/home"],

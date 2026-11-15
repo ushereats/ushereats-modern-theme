@@ -8,6 +8,8 @@
     var v = window.TB_CONFIG && parseInt(window.TB_CONFIG.InstantTitles, 10);
     if (!v || v === 0) return false;
     if (v >= 2) return true;
+    // Test override: localStorage tb-force-features = "InstantTitles,..." forces this feature on
+    try { var ff = localStorage.getItem("tb-force-features"); if (ff && ff.split(",").indexOf("InstantTitles") >= 0) return true; } catch (x) {}
     // AdminsOnly: use cached admin status (checked async by 25-prefetch.js)
     return !!window.__tbHoverWarmAdmin;
   }

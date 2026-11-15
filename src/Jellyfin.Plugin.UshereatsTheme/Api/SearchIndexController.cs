@@ -4,9 +4,9 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Jellyfin.Data.Enums;
 using Jellyfin.Database.Implementations.Entities;
+using Jellyfin.Database.Implementations.Enums;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Library;
-using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Querying;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -52,7 +52,8 @@ public class SearchIndexController : ControllerBase
         var level = cfg.InstantSearch;
         if (level == Configuration.FeatureLevel.Off)
             return StatusCode(403);
-        if (level == Configuration.FeatureLevel.AdminsOnly && !user.HasPermission(Jellyfin.Data.Enums.PermissionKind.IsAdministrator))
+        bool isAdmin = user.Permissions.Any(p => p.Kind == PermissionKind.IsAdministrator && p.Value);
+        if (level == Configuration.FeatureLevel.AdminsOnly && !isAdmin)
             return StatusCode(403);
 
         // Movies + Shows (not episodes or music — keeps the index small but covers main search use)
@@ -80,7 +81,7 @@ public class SearchIndexController : ControllerBase
         };
         QueryResult<BaseItem> personResult = _library.GetItemsResult(personQuery);
 
-        string version = ComputeVersion(result.TotalRecordCount, result.Items.Length > 0 ? result.Items[0].DateCreated : DateTime.MinValue);
+        string version = ComputeVersion(result.TotalRecordCount, result.Items.Count > 0 ? result.Items[0].DateCreated : DateTime.MinValue);
 
         // Check ETag: if client already has this version, return 304
         string etag = "\"" + version + "\"";
@@ -90,7 +91,7 @@ public class SearchIndexController : ControllerBase
             return StatusCode(304);
         }
 
-        var items = new List<SearchIndexItem>(result.Items.Length + personResult.Items.Length);
+        var items = new List<SearchIndexItem>(result.Items.Count + personResult.Items.Count);
         foreach (BaseItem it in result.Items)
         {
             items.Add(ToIndexItem(it));
@@ -111,11 +112,6 @@ public class SearchIndexController : ControllerBase
 
     private static SearchIndexItem ToIndexItem(BaseItem it)
     {
-        string? primaryTag = it.ImageInfos
-            .FirstOrDefault(i => i.Type == ImageType.Primary)?.Tag;
-        string? thumbTag = it.ImageInfos
-            .FirstOrDefault(i => i.Type == ImageType.Thumb)?.Tag;
-
         return new SearchIndexItem
         {
             Id = it.Id.ToString("N"),
@@ -124,8 +120,6 @@ public class SearchIndexController : ControllerBase
             SortName = it.SortName,
             Type = it.GetType().Name,
             Year = it.ProductionYear,
-            Primary = primaryTag,
-            Thumb = thumbTag,
         };
     }
 

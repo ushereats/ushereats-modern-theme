@@ -41,6 +41,11 @@
       var t = token(req, u);
       return t ? { key: p + u.search + (u.search ? "&" : "?") + "tb-who=" + hash(t) } : null;
     }
+    // home rows: per-user, stale-while-revalidate
+    if (/\/UshereatsTheme\/home\b/i.test(p)) {
+      var th = token(req, u);
+      return th ? { key: p + u.search + (u.search ? "&" : "?") + "tb-who=" + hash(th) } : null;
+    }
     return null;
   }
 

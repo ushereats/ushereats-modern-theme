@@ -292,7 +292,7 @@
     var base = location.pathname.replace(/\/web(\/.*)?$/, "/");
     if (base.charAt(base.length - 1) !== "/") base += "/";
 
-    function afterItem(item, hasSimilar) {
+    function afterItem(item) {
       if (!item) return;
       var imgs = [];
       (window.tbItemMeta || (window.tbItemMeta = {}))[item.Id || id] = item;
@@ -302,10 +302,10 @@
       else if (item.ParentLogoItemId && item.ParentLogoImageTag) imgs.push(api.getScaledImageUrl(item.ParentLogoItemId, { type: "Logo", tag: item.ParentLogoImageTag }));
       imgs.forEach(function (u, i) { var im = new Image(); im.decoding = "async"; if (i === 0) im.fetchPriority = "high"; im.src = u; if (im.decode) im.decode()["catch"](function () {}); });
       var extras = [
+        "Items/" + id + "/Similar?userId=" + uid + "&limit=12",
         "Items/" + id + "/Ancestors?userId=" + uid,
         "Items/" + id + "/ThemeMedia?userId=" + uid + "&inheritFromParent=true",
       ];
-      if (!hasSimilar) extras.push("Items/" + id + "/Similar?userId=" + uid + "&limit=12");
       if (item.Type === "Series") {
         extras.push("Shows/" + id + "/Seasons?userId=" + uid + "&fields=BasicSyncInfo,ImageTags");
         extras.push("Shows/NextUp?userId=" + uid + "&SeriesId=" + id + "&limit=1");
@@ -313,25 +313,16 @@
       extras.forEach(function (path) { window.fetch(api.getUrl(path), auth)["catch"](function () {}); });
     }
 
-    // B9: item + similar in one request
+    // B9: slim DTO via plugin route fires in parallel with api.getItem().
+    // Whichever returns first warms the images; api.getItem() populates the interceptor's cache for the detail page.
     realFetch(base + "UshereatsTheme/item/" + encodeURIComponent(id) + "?userId=" + encodeURIComponent(uid), auth)
       .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (data) {
-        if (data && data.item) {
-          if (data.similar && data.similar.length) {
-            (window.tbItemMeta || (window.tbItemMeta = {}))[id + ".__tbSimilar"] = data.similar;
-          }
-          afterItem(data.item, !!(data.similar && data.similar.length));
-          // Also fire api.getItem so the fetch interceptor's item cache is populated for the detail page
-          api.getItem(uid, id)["catch"](function () {});
-        } else {
-          // B9 failed or returned nothing: fall back to individual requests
-          api.getItem(uid, id).then(function (item) { afterItem(item, false); })["catch"](function () {});
-        }
-      })
-      ["catch"](function () {
-        api.getItem(uid, id).then(function (item) { afterItem(item, false); })["catch"](function () {});
-      });
+      .then(function (item) { if (item && !warmed[id + ".img"]) { warmed[id + ".img"] = 1; afterItem(item); } })
+      ["catch"](function () {});
+
+    api.getItem(uid, id)
+      .then(function (item) { if (item && !warmed[id + ".img"]) { warmed[id + ".img"] = 1; afterItem(item); } })
+      ["catch"](function () {});
   }
   function idOf(t) {
     var card = t && t.closest && t.closest(".card[data-id]");

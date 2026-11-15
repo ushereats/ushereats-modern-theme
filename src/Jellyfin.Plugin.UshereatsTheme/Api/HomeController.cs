@@ -7,6 +7,7 @@ using MediaBrowser.Controller.Dto;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.TV;
+using MediaBrowser.Model.Dto;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Querying;
 using Microsoft.AspNetCore.Authorization;
@@ -16,40 +17,40 @@ namespace Jellyfin.Plugin.UshereatsTheme.Api;
 
 /// <summary>
 /// B8: aggregate all home rows in one round-trip.
-/// B9: aggregate item details (item + related) in one round-trip.
+/// B9: return a real Jellyfin DTO for a single item.
+/// All serialization goes through Jellyfin's configured ASP.NET JSON serializer (Ok()) so the JSON
+/// is byte-for-byte compatible with what /Items and /Users/{uid}/Items/{id} return.
 /// </summary>
 [ApiController]
 [AllowAnonymous]
 [Route("UshereatsTheme")]
 public class HomeController : ControllerBase
 {
-    private static readonly JsonSerializerOptions JsonOpts = new JsonSerializerOptions
-    {
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-    };
-
+    // Matches the query string rows-boot.js sends to Jellyfin's own /Items endpoint:
+    //   &Fields=PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary,Backdrop,Thumb
     private static readonly DtoOptions SlimDto = new DtoOptions(false)
     {
+        Fields = new[] { ItemFields.PrimaryImageAspectRatio },
+        ImageTypes = new[] { ImageType.Primary, ImageType.Backdrop, ImageType.Thumb },
         ImageTypeLimit = 1,
         EnableImages = true,
-        Fields = new[] { ItemFields.PrimaryImageAspectRatio },
+        EnableUserData = true,
     };
 
     private readonly ILibraryManager _library;
     private readonly IUserManager _users;
-    private readonly IUserDataManager _userData;
+    private readonly IDtoService _dto;
     private readonly ITVSeriesManager _tv;
 
     public HomeController(
         ILibraryManager library,
         IUserManager users,
-        IUserDataManager userData,
+        IDtoService dto,
         ITVSeriesManager tv)
     {
         _library = library;
         _users = users;
-        _userData = userData;
+        _dto = dto;
         _tv = tv;
     }
 
@@ -57,6 +58,7 @@ public class HomeController : ControllerBase
 
     /// <summary>
     /// All home rows in one request. rows-boot.js calls this before falling back to individual /Items? calls.
+    /// Returns { rowId: BaseItemDto[] } — the same objects Jellyfin's own /Items endpoint would return.
     /// </summary>
     [HttpGet("home")]
     public async Task<IActionResult> GetHomeRows(
@@ -88,10 +90,9 @@ public class HomeController : ControllerBase
 
         if (rowList is null || rowList.Count == 0)
         {
-            return Content("{}", "application/json; charset=utf-8");
+            return Ok(new Dictionary<string, List<BaseItemDto>>());
         }
 
-        // Run all row queries in parallel, skipping studio rows (they're static, no server call needed).
         Task<RowResult>[] tasks = rowList
             .Where(r => !string.Equals(r.Type, "studios", StringComparison.Ordinal))
             .Select(r => Task.Run(() => FetchRow(r, user)))
@@ -99,14 +100,14 @@ public class HomeController : ControllerBase
 
         await Task.WhenAll(tasks).ConfigureAwait(false);
 
-        var result = new Dictionary<string, List<HomeItemDto>>();
+        var result = new Dictionary<string, List<BaseItemDto>>();
         foreach (Task<RowResult> t in tasks)
         {
             result[t.Result.Id] = t.Result.Items;
         }
 
         Response.Headers["Cache-Control"] = "no-cache";
-        return Content(JsonSerializer.Serialize(result, JsonOpts), "application/json; charset=utf-8");
+        return Ok(result);
     }
 
     private RowResult FetchRow(HomeRowConfig row, User user)
@@ -118,11 +119,11 @@ public class HomeController : ControllerBase
         }
         catch
         {
-            return new RowResult(id, new List<HomeItemDto>());
+            return new RowResult(id, new List<BaseItemDto>());
         }
     }
 
-    private List<HomeItemDto> FetchRowItems(HomeRowConfig row, User user)
+    private List<BaseItemDto> FetchRowItems(HomeRowConfig row, User user)
     {
         int limit = row.Limit > 0 ? row.Limit : 16;
 
@@ -136,7 +137,6 @@ public class HomeController : ControllerBase
             return FetchTrending(row, user, limit);
         }
 
-        // "latest" and generic rows both use GetItemsResult
         var query = new InternalItemsQuery
         {
             User = user,
@@ -163,7 +163,7 @@ public class HomeController : ControllerBase
             }
         }
 
-        List<HomeItemDto> items = GetItemsResult(query, user);
+        List<BaseItemDto> items = GetDtos(query, user);
         if (row.Shuffle)
         {
             Shuffle(items);
@@ -172,13 +172,12 @@ public class HomeController : ControllerBase
         return items;
     }
 
-    private List<HomeItemDto> FetchContinue(HomeRowConfig row, User user)
+    private List<BaseItemDto> FetchContinue(HomeRowConfig row, User user)
     {
         int resumeLimit = row.ResumeLimit > 0 ? row.ResumeLimit : 12;
         int nextUpLimit = row.NextUpLimit > 0 ? row.NextUpLimit : 24;
         int limit = row.Limit > 0 ? row.Limit : 16;
 
-        // Resume: partially-watched movies
         var resumeQuery = new InternalItemsQuery
         {
             User = user,
@@ -190,9 +189,8 @@ public class HomeController : ControllerBase
             IsVirtualItem = false,
             OrderBy = new[] { (ItemSortBy.DatePlayed, SortOrder.Descending) },
         };
-        List<HomeItemDto> movies = GetItemsResult(resumeQuery, user);
+        List<BaseItemDto> movies = GetDtos(resumeQuery, user);
 
-        // Next-Up: next unwatched episode per series
         var nextUpQuery = new NextUpQuery
         {
             User = user,
@@ -201,14 +199,12 @@ public class HomeController : ControllerBase
             EnableRewatching = false,
         };
         QueryResult<BaseItem> nextUpResult = _tv.GetNextUp(nextUpQuery, SlimDto);
-        List<HomeItemDto> episodes = nextUpResult.Items
-            .Select(it => ToSlimItem(it, user))
-            .ToList();
+        List<BaseItemDto> episodes = _dto.GetBaseItemDtos(nextUpResult.Items, SlimDto, user, null, false).ToList();
 
         return MergeContinue(movies, episodes, limit);
     }
 
-    private List<HomeItemDto> FetchTrending(HomeRowConfig row, User user, int limit)
+    private List<BaseItemDto> FetchTrending(HomeRowConfig row, User user, int limit)
     {
         TrendingList t = Trending.Current;
         bool allowUnreleased = row.Released == false;
@@ -220,7 +216,7 @@ public class HomeController : ControllerBase
 
         if (ids.Count == 0)
         {
-            return new List<HomeItemDto>();
+            return new List<BaseItemDto>();
         }
 
         var query = new InternalItemsQuery
@@ -229,19 +225,14 @@ public class HomeController : ControllerBase
             ItemIds = ids.Select(i => Guid.TryParse(i, out Guid g) ? g : Guid.Empty).Where(g => g != Guid.Empty).ToArray(),
             Limit = limit + 10,
         };
-        Dictionary<string, HomeItemDto> byId = GetItemsResult(query, user)
-            .ToDictionary(x => x.Id ?? string.Empty, x => x);
+        Dictionary<string, BaseItemDto> byId = GetDtos(query, user)
+            .ToDictionary(x => x.Id.ToString("N"), x => x);
 
-        // Preserve TMDB's order
-        List<HomeItemDto> ordered = new List<HomeItemDto>();
+        var ordered = new List<BaseItemDto>();
         foreach (string id in ids)
         {
-            if (ordered.Count >= limit)
-            {
-                break;
-            }
-
-            if (byId.TryGetValue(id, out HomeItemDto? item))
+            if (ordered.Count >= limit) break;
+            if (byId.TryGetValue(id.Replace("-", string.Empty, StringComparison.Ordinal), out BaseItemDto? item))
             {
                 ordered.Add(item);
             }
@@ -253,7 +244,8 @@ public class HomeController : ControllerBase
     // ── B9 ───────────────────────────────────────────────────────────────────
 
     /// <summary>
-    /// Item + similar in one request. warm() in 25-prefetch.js calls this on hover.
+    /// Single item as a real Jellyfin DTO. warm() in 25-prefetch.js calls this on hover to start
+    /// image warming with correct tags before the detail page opens.
     /// </summary>
     [HttpGet("item/{id}")]
     public IActionResult GetItemDetail(
@@ -282,230 +274,32 @@ public class HomeController : ControllerBase
             return NotFound();
         }
 
-        HomeItemDto main = ToSlimItem(item, user);
-
-        // Similar items: same kind + at least one shared genre, excluding the item itself (best-effort)
-        List<HomeItemDto> similar = new List<HomeItemDto>();
-        try
-        {
-            var simQuery = new InternalItemsQuery
-            {
-                User = user,
-                Limit = 24,
-                Recursive = true,
-                IsVirtualItem = false,
-                IncludeItemTypes = new[] { item.GetBaseItemKind() },
-                ExcludeItemIds = new[] { item.Id },
-                OrderBy = new[] { (ItemSortBy.Random, SortOrder.Ascending) },
-            };
-            string[] genres = item.Genres;
-            if (genres.Length > 0)
-            {
-                simQuery.Genres = genres;
-                simQuery.Limit = 12;
-            }
-
-            QueryResult<BaseItem> sim = _library.GetItemsResult(simQuery);
-            similar = sim.Items.Select(i => ToSlimItem(i, user)).ToList();
-        }
-        catch
-        {
-            // ignore
-        }
-
-        var response = new { item = main, similar };
+        BaseItemDto dto = _dto.GetBaseItemDto(item, SlimDto, user, null);
         Response.Headers["Cache-Control"] = "no-cache";
-        return Content(JsonSerializer.Serialize(response, JsonOpts), "application/json; charset=utf-8");
+        return Ok(dto);
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────────
 
-    private List<HomeItemDto> GetItemsResult(InternalItemsQuery query, User user)
+    private List<BaseItemDto> GetDtos(InternalItemsQuery query, User user)
     {
         QueryResult<BaseItem> result = _library.GetItemsResult(query);
-        return result.Items.Select(it => ToSlimItem(it, user)).ToList();
+        return _dto.GetBaseItemDtos(result.Items, SlimDto, user, null, false).ToList();
     }
 
-    private HomeItemDto ToSlimItem(BaseItem it, User user)
+    private static List<BaseItemDto> MergeContinue(List<BaseItemDto> movies, List<BaseItemDto> episodes, int limit)
     {
-        var dto = new HomeItemDto
-        {
-            Id = it.Id.ToString("N"),
-            Name = it.Name,
-            Type = it.GetBaseItemKind().ToString(),
-            IsFolder = it is Folder,
-        };
-
-        // Optional scalar fields
-        if (it.MediaType != MediaType.Unknown)
-        {
-            dto.MediaType = it.MediaType.ToString();
-        }
-
-        if (it.ProductionYear.HasValue)
-        {
-            dto.ProductionYear = it.ProductionYear;
-        }
-
-        if (it.RunTimeTicks.HasValue)
-        {
-            dto.RunTimeTicks = it.RunTimeTicks;
-        }
-
-        if (it.PremiereDate.HasValue)
-        {
-            dto.PremiereDate = it.PremiereDate;
-        }
-
-        if (it.EndDate.HasValue)
-        {
-            dto.EndDate = it.EndDate;
-        }
-
-        if (it.ParentIndexNumber.HasValue)
-        {
-            dto.ParentIndexNumber = it.ParentIndexNumber;
-        }
-
-        if (it.IndexNumber.HasValue)
-        {
-            dto.IndexNumber = it.IndexNumber;
-        }
-
-        if (!string.IsNullOrEmpty(it.Name) && it is MediaBrowser.Controller.Entities.TV.Series s)
-        {
-            dto.Status = s.Status?.ToString();
-        }
-
-        if (it is MediaBrowser.Controller.Entities.TV.Episode ep)
-        {
-            dto.SeriesId = ep.SeriesId.ToString("N");
-            dto.SeriesName = ep.SeriesName;
-
-            // parent series images for backdrop warm-up
-            BaseItem? series = _library.GetItemById(ep.SeriesId);
-            if (series is not null)
-            {
-                ItemImageInfo? si = series.GetImages(ImageType.Primary).FirstOrDefault();
-                if (si is not null)
-                {
-                    dto.SeriesPrimaryImageTag = si.DateModified.Ticks.ToString("x8");
-                }
-
-                ItemImageInfo? bi = series.GetImages(ImageType.Backdrop).FirstOrDefault();
-                if (bi is not null)
-                {
-                    dto.ParentBackdropItemId = ep.SeriesId.ToString("N");
-                    dto.ParentBackdropImageTags = new[] { bi.DateModified.Ticks.ToString("x8") };
-                }
-            }
-
-            // parent thumb (season poster) fallback
-            BaseItem? season = ep.Season;
-            if (season is not null)
-            {
-                ItemImageInfo? ti = season.GetImages(ImageType.Thumb).FirstOrDefault()
-                    ?? season.GetImages(ImageType.Primary).FirstOrDefault();
-                if (ti is not null)
-                {
-                    dto.ParentThumbItemId = season.Id.ToString("N");
-                    dto.ParentThumbImageTag = ti.DateModified.Ticks.ToString("x8");
-                }
-            }
-        }
-
-        // Image tags
-        var imageTags = new Dictionary<string, string>(2);
-        ItemImageInfo? primaryImg = it.GetImages(ImageType.Primary).FirstOrDefault();
-        if (primaryImg is not null)
-        {
-            imageTags["Primary"] = primaryImg.DateModified.Ticks.ToString("x8");
-        }
-
-        ItemImageInfo? thumbImg = it.GetImages(ImageType.Thumb).FirstOrDefault();
-        if (thumbImg is not null)
-        {
-            imageTags["Thumb"] = thumbImg.DateModified.Ticks.ToString("x8");
-        }
-
-        if (imageTags.Count > 0)
-        {
-            dto.ImageTags = imageTags;
-        }
-
-        ItemImageInfo? backdropImg = it.GetImages(ImageType.Backdrop).FirstOrDefault();
-        if (backdropImg is not null)
-        {
-            dto.BackdropImageTags = new[] { backdropImg.DateModified.Ticks.ToString("x8") };
-        }
-
-        // User data
-        try
-        {
-            UserItemData? ud = _userData.GetUserData(user, it);
-            if (ud is not null)
-            {
-                var uDto = new HomeUserDataDto();
-                bool hasData = false;
-
-                if (ud.PlaybackPositionTicks > 0)
-                {
-                    uDto.PlaybackPositionTicks = ud.PlaybackPositionTicks;
-                    hasData = true;
-
-                    if (it.RunTimeTicks is > 0)
-                    {
-                        double pct = (double)ud.PlaybackPositionTicks / it.RunTimeTicks.Value * 100.0;
-                        uDto.PlayedPercentage = Math.Round(pct * 10) / 10;
-                    }
-                }
-
-                if (ud.Played)
-                {
-                    uDto.Played = true;
-                    hasData = true;
-                }
-
-                if (ud.IsFavorite)
-                {
-                    uDto.IsFavorite = true;
-                    hasData = true;
-                }
-
-                if (ud.LastPlayedDate.HasValue)
-                {
-                    uDto.LastPlayedDate = ud.LastPlayedDate;
-                    hasData = true;
-                }
-
-                if (hasData)
-                {
-                    dto.UserData = uDto;
-                }
-            }
-        }
-        catch
-        {
-            // user data is optional; ignore errors
-        }
-
-        return dto;
-    }
-
-    // Replicates rows-boot.js mergeContinue: movies + next-up episodes, sorted by LastPlayedDate, deduplicated
-    private static List<HomeItemDto> MergeContinue(List<HomeItemDto> movies, List<HomeItemDto> episodes, int limit)
-    {
-        // Forward LastPlayedDate from later episodes to earlier ones (matches JS logic)
+        // Forward LastPlayedDate from later episodes to earlier ones (matches rows-boot.js mergeContinue logic)
         for (int i = episodes.Count - 1; i >= 0; i--)
         {
-            HomeUserDataDto? ud = episodes[i].UserData;
+            MediaBrowser.Model.Dto.UserItemDataDto? ud = episodes[i].UserData;
             if (ud?.LastPlayedDate is null)
             {
                 for (int j = i + 1; j < episodes.Count; j++)
                 {
                     if (episodes[j].UserData?.LastPlayedDate is not null)
                     {
-                        ud ??= new HomeUserDataDto();
+                        ud ??= new MediaBrowser.Model.Dto.UserItemDataDto { Key = string.Empty };
                         ud.LastPlayedDate = episodes[j].UserData!.LastPlayedDate;
                         episodes[i].UserData = ud;
                         break;
@@ -514,37 +308,32 @@ public class HomeController : ControllerBase
             }
         }
 
-        List<HomeItemDto> all = movies.Concat(episodes).ToList();
+        List<BaseItemDto> all = movies.Concat(episodes).ToList();
         all.Sort((a, b) =>
         {
-            long x = a.UserData?.LastPlayedDate is DateTimeOffset da ? da.ToUnixTimeMilliseconds() : 0;
-            long y = b.UserData?.LastPlayedDate is DateTimeOffset db ? db.ToUnixTimeMilliseconds() : 0;
+            long x = a.UserData?.LastPlayedDate is DateTime da ? new DateTimeOffset(da, TimeSpan.Zero).ToUnixTimeMilliseconds() : 0;
+            long y = b.UserData?.LastPlayedDate is DateTime db ? new DateTimeOffset(db, TimeSpan.Zero).ToUnixTimeMilliseconds() : 0;
             return y.CompareTo(x);
         });
 
-        var seen = new HashSet<string>(StringComparer.Ordinal);
-        var out2 = new List<HomeItemDto>(limit);
-        foreach (HomeItemDto item in all)
+        var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var output = new List<BaseItemDto>(limit);
+        foreach (BaseItemDto it in all)
         {
-            if (out2.Count >= limit)
+            if (output.Count >= limit) break;
+            string k = it.Id.ToString("N");
+            if (!string.IsNullOrEmpty(k) && seen.Add(k))
             {
-                break;
-            }
-
-            string key = item.Id ?? string.Empty;
-            if (seen.Add(key))
-            {
-                // Clear the forwarded LastPlayedDate (matches JS: `delete all[n].UserData.LastPlayedDate`)
-                if (item.UserData is not null)
+                if (it.UserData is not null)
                 {
-                    item.UserData.LastPlayedDate = null;
+                    it.UserData.LastPlayedDate = null;
                 }
 
-                out2.Add(item);
+                output.Add(it);
             }
         }
 
-        return out2;
+        return output;
     }
 
     private static Guid? ParseGuid(string? s) =>
@@ -566,10 +355,7 @@ public class HomeController : ControllerBase
 
     private static void ApplySortBy(InternalItemsQuery query, HomeRowConfig row)
     {
-        if (string.IsNullOrEmpty(row.SortBy))
-        {
-            return;
-        }
+        if (string.IsNullOrEmpty(row.SortBy)) return;
 
         SortOrder order = string.Equals(row.SortOrder, "Ascending", StringComparison.OrdinalIgnoreCase)
             ? SortOrder.Ascending
@@ -597,12 +383,17 @@ public class HomeController : ControllerBase
         }
     }
 
-    private record RowResult(string Id, List<HomeItemDto> Items);
+    private static readonly JsonSerializerOptions JsonOpts = new JsonSerializerOptions
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+    };
+
+    private record RowResult(string Id, List<BaseItemDto> Items);
 }
 
-// ── DTOs ─────────────────────────────────────────────────────────────────────
+// ── Row config DTO (from rows-boot.js, camelCase localStorage) ───────────────
 
-/// <summary>Row config from rows-boot.js (camelCase from JS localStorage).</summary>
 public class HomeRowConfig
 {
     [JsonPropertyName("id")]
@@ -637,95 +428,4 @@ public class HomeRowConfig
 
     [JsonPropertyName("nextUpLimit")]
     public int NextUpLimit { get; set; }
-}
-
-/// <summary>Slim item matching the shape slim() in rows-boot.js produces from Jellyfin's /Items response.</summary>
-public class HomeItemDto
-{
-    [JsonPropertyName("Id")]
-    public string? Id { get; set; }
-
-    [JsonPropertyName("Name")]
-    public string? Name { get; set; }
-
-    [JsonPropertyName("Type")]
-    public string? Type { get; set; }
-
-    [JsonPropertyName("IsFolder")]
-    public bool IsFolder { get; set; }
-
-    [JsonPropertyName("MediaType")]
-    public string? MediaType { get; set; }
-
-    [JsonPropertyName("ProductionYear")]
-    public int? ProductionYear { get; set; }
-
-    [JsonPropertyName("RunTimeTicks")]
-    public long? RunTimeTicks { get; set; }
-
-    [JsonPropertyName("PremiereDate")]
-    public DateTimeOffset? PremiereDate { get; set; }
-
-    [JsonPropertyName("EndDate")]
-    public DateTimeOffset? EndDate { get; set; }
-
-    [JsonPropertyName("Status")]
-    public string? Status { get; set; }
-
-    [JsonPropertyName("ParentIndexNumber")]
-    public int? ParentIndexNumber { get; set; }
-
-    [JsonPropertyName("IndexNumber")]
-    public int? IndexNumber { get; set; }
-
-    [JsonPropertyName("SeriesId")]
-    public string? SeriesId { get; set; }
-
-    [JsonPropertyName("SeriesName")]
-    public string? SeriesName { get; set; }
-
-    [JsonPropertyName("SeriesPrimaryImageTag")]
-    public string? SeriesPrimaryImageTag { get; set; }
-
-    [JsonPropertyName("ParentBackdropItemId")]
-    public string? ParentBackdropItemId { get; set; }
-
-    [JsonPropertyName("ParentBackdropImageTags")]
-    public string[]? ParentBackdropImageTags { get; set; }
-
-    [JsonPropertyName("ParentThumbItemId")]
-    public string? ParentThumbItemId { get; set; }
-
-    [JsonPropertyName("ParentThumbImageTag")]
-    public string? ParentThumbImageTag { get; set; }
-
-    [JsonPropertyName("ImageTags")]
-    public Dictionary<string, string>? ImageTags { get; set; }
-
-    [JsonPropertyName("BackdropImageTags")]
-    public string[]? BackdropImageTags { get; set; }
-
-    [JsonPropertyName("UserData")]
-    public HomeUserDataDto? UserData { get; set; }
-}
-
-public class HomeUserDataDto
-{
-    [JsonPropertyName("PlayedPercentage")]
-    public double? PlayedPercentage { get; set; }
-
-    [JsonPropertyName("PlaybackPositionTicks")]
-    public long? PlaybackPositionTicks { get; set; }
-
-    [JsonPropertyName("Played")]
-    public bool? Played { get; set; }
-
-    [JsonPropertyName("UnplayedItemCount")]
-    public int? UnplayedItemCount { get; set; }
-
-    [JsonPropertyName("IsFavorite")]
-    public bool? IsFavorite { get; set; }
-
-    [JsonPropertyName("LastPlayedDate")]
-    public DateTimeOffset? LastPlayedDate { get; set; }
 }

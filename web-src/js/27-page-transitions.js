@@ -113,7 +113,6 @@
       if (hero && t < 300 && !hero.querySelector(".sleekfin-hero-slide[data-active='true'] .sleekfin-hero-backdrop[data-loaded='true']")) return false;
       if (hero && t < 300 && !hero.getClientRects().length) return false;
       var rowsOk = html.classList.contains("tb-rows-ok") && !!p.querySelector(".tb-rows-c");
-      if (window.tbRowsReady && p.querySelector(".tb-rows-c") && (!html.classList.contains("tb-hero-on") || (hero && hero.isConnected))) return true;
       return rowsOk || seen(p) || t > 300;
     }
     // search: the theme's search box is put in a moment after Jellyfin's page shows

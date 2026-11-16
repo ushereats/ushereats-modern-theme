@@ -16,7 +16,7 @@
   var css =
     // the page behind stays where it was, frozen and not clickable
     "html:is(.tb-tmodal,.tb-tmodal-closing) .page.tb-under{display:block!important;position:fixed!important;left:0;right:0;top:var(--tb-under-top,0px);pointer-events:none!important;visibility:visible!important;transition:filter .22s ease}" +
-    "html.tb-tmodal .page.tb-under{filter:blur(7px) brightness(.62)}" +
+    "html.tb-tmodal .page.tb-under{filter:blur(2px) brightness(.45)}" +
     "html.tb-tmodal-closing .page.tb-under{filter:none}" +
     // the panel: your title page, centred, scrolling on its own, everything around it dimmed
     "html:is(.tb-tmodal,.tb-tmodal-closing) #itemDetailPage:not(.hide){position:fixed!important;z-index:1000;top:6vh!important;bottom:6vh!important;" +
@@ -32,7 +32,7 @@
     "--sleekfin-details-hero-height:min(66vh,620px)!important;--sleekfin-page-gutter:48px!important;--sleekfin-header-height:0px!important}" +
     "html.tb-tmodal #itemDetailPage .sleekfin-details-hero{padding-top:48px!important}" +
     // the top bar steps aside while the panel is open
-    "html.tb-tmodal :is(header.MuiAppBar-root,.skinHeader){opacity:0!important;pointer-events:none!important;transition:opacity .2s}" +
+    "html.tb-tmodal :is(header.MuiAppBar-root,.skinHeader){filter:brightness(.45);pointer-events:none!important;transition:filter .22s ease}" +
     // close button
     "#tb-tmodal-close{position:fixed;z-index:1001;top:calc(6vh + 16px);right:calc(max(24px,calc((100vw - 1100px) / 2)) + 16px);width:40px;height:40px;" +
     "border-radius:50%;border:0;display:none;align-items:center;justify-content:center;cursor:pointer;color:#fff;" +

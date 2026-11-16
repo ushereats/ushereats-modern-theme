@@ -17,6 +17,8 @@
     // the page behind stays where it was, frozen and not clickable
     "html:is(.tb-tmodal,.tb-tmodal-closing) .page.tb-under{display:block!important;position:fixed!important;left:0;right:0;top:var(--tb-under-top,0px);pointer-events:none!important;visibility:visible!important;transition:filter .22s ease}" +
     "html.tb-tmodal .page.tb-under{filter:blur(2px) brightness(.45)}" +
+    // Jellyfin hides the page's wrapper, not just the page: keep the wrappers of the page behind showing too
+    "html:is(.tb-tmodal,.tb-tmodal-closing) .tb-under-wrap.hide{display:block!important;visibility:visible!important}" +
     "html.tb-tmodal-closing .page.tb-under{filter:none}" +
     // the panel: your title page, centred, scrolling on its own, everything around it dimmed
     "html:is(.tb-tmodal,.tb-tmodal-closing) #itemDetailPage:not(.hide){position:fixed!important;z-index:1000;top:6vh!important;bottom:6vh!important;" +
@@ -78,6 +80,7 @@
     if (p && p.id !== "itemDetailPage") {
       if (under && under !== p) release(false);
       under = p;
+      for (var a = p.parentElement; a && a !== document.body; a = a.parentElement) a.classList.add("tb-under-wrap");
       underY = pressY !== null ? pressY : scrolled();
       under.style.setProperty("--tb-under-top", -underY + "px");
       under.classList.add("tb-under");
@@ -92,6 +95,7 @@
   function release(restore) {
     if (!under) return;
     under.classList.remove("tb-under");
+    Array.prototype.forEach.call(document.querySelectorAll(".tb-under-wrap"), function (a) { a.classList.remove("tb-under-wrap"); });
     under.style.removeProperty("--tb-under-top");
     under = null;
     if (restore) { try { window.scrollTo({ top: underY, left: 0, behavior: "instant" }); } catch (e) { window.scrollTo(0, underY); } }
@@ -107,7 +111,7 @@
     var u = under, t0 = Date.now();
     clearTimeout(closeTimer);
     (function wait() {
-      var vp = visiblePage(), back = !u.classList.contains("hide"), elsewhere = !!vp && vp !== u && vp.id !== "itemDetailPage";
+      var vp = visiblePage(), back = !u.closest(".hide"), elsewhere = !!vp && vp !== u && vp.id !== "itemDetailPage";
       if (back || elsewhere || Date.now() - t0 > 1500 || html.classList.contains("tb-tmodal")) {
         if (!html.classList.contains("tb-tmodal")) release(back);
         html.classList.remove("tb-tmodal-closing");

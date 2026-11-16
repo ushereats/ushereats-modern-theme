@@ -41,11 +41,8 @@
       var t = token(req, u);
       return t ? { key: p + u.search + (u.search ? "&" : "?") + "tb-who=" + hash(t) } : null;
     }
-    // home rows: per-user, stale-while-revalidate
-    if (/\/UshereatsTheme\/home\b/i.test(p)) {
-      var th = token(req, u);
-      return th ? { key: p + u.search + (u.search ? "&" : "?") + "tb-who=" + hash(th) } : null;
-    }
+    // (home rows are NOT kept here: the page already shows last visit's rows itself and then asks for fresh
+    // ones; a copy here made that "fresh" answer the old one again, so Continue Watching lagged a visit behind)
     return null;
   }
 

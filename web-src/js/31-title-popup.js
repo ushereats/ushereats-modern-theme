@@ -28,15 +28,20 @@
     "html.tb-pop-open #tb-pop{display:flex}" +
     "#tb-pop{display:none;position:fixed;inset:0;z-index:1200;justify-content:center;align-items:flex-start}" +
     "#tb-pop .tb-pop-shade{position:absolute;inset:0;background:rgba(0,0,0,.62);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}" +
-    "#tb-pop .tb-pop-panel{position:relative;margin-top:5vh;width:min(1100px,calc(100vw - 48px));max-height:90vh;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;" +
-    "border-radius:18px;background:var(--sleekfin-background,#0b0b0d);box-shadow:0 30px 90px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08);outline:none;scrollbar-width:thin;color:#fff}" +
+    "#tb-pop .tb-pop-box{position:relative;display:flex;margin-top:5vh;width:min(1100px,calc(100vw - 48px));max-height:90vh;border-radius:18px;overflow:hidden;isolation:isolate;" +
+    "background:var(--sleekfin-background,#0b0b0d);box-shadow:0 30px 90px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08)}" +
+    // the panel's background: the title's own picture, softened, like the ambient background everywhere else
+    "#tb-pop .tb-pop-amb{position:absolute;inset:-12%;z-index:-1;background:50% 30%/cover no-repeat;filter:blur(46px) saturate(1.25);opacity:0;transition:opacity .35s ease}" +
+    "#tb-pop .tb-pop-amb.on{opacity:1}" +
+    "#tb-pop .tb-pop-box::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.72) 100%)}" +
+    "#tb-pop .tb-pop-panel{position:relative;flex:1;min-width:0;max-height:90vh;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;outline:none;scrollbar-width:thin;color:#fff;background:transparent}" +
     "#tb-pop .tb-pop-bar{position:sticky;top:0;height:0;z-index:5}" +
     "#tb-pop .tb-pop-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;border:0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;" +
     "background:rgba(20,20,24,.72);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 0 0 1px rgba(255,255,255,.14)}" +
     "#tb-pop .tb-pop-close:hover{background:rgba(40,40,46,.9)}" +
     "#tb-pop .tb-pop-hero{position:relative;min-height:min(62vh,560px);display:flex;align-items:flex-end}" +
-    "#tb-pop .tb-pop-bd{position:absolute;inset:0;background:#000 50% 25%/cover no-repeat}" +
-    "#tb-pop .tb-pop-bd::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.4) 45%,transparent 78%),linear-gradient(180deg,transparent 40%,var(--sleekfin-background,#0b0b0d) 100%)}" +
+    "#tb-pop .tb-pop-bd{position:absolute;inset:0;background:50% 25%/cover no-repeat;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 50%,rgba(0,0,0,.6) 72%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 50%,rgba(0,0,0,.6) 72%,transparent 100%)}" +
+    "#tb-pop .tb-pop-bd::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.36) 45%,transparent 78%)}" +
     "#tb-pop .tb-pop-in{position:relative;z-index:1;padding:56px 48px 26px;max-width:680px}" +
     "#tb-pop .tb-pop-logo{display:block;max-width:min(380px,75%);max-height:140px;margin:0 0 16px;object-fit:contain;object-position:left bottom}" +
     "#tb-pop .tb-pop-title{font-family:'Bebas Neue',var(--app-font);font-size:58px;line-height:.95;margin:0 0 14px;font-weight:400;letter-spacing:.01em}" +
@@ -63,8 +68,8 @@
     "#tb-pop .tb-pop-eph .sectionTitle{margin:0}" +
     "#tb-pop .tb-pop-season{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:8px 12px;font:inherit;font-weight:600;cursor:pointer}" +
     "#tb-pop .tb-pop-season option{background:#16161a;color:#fff}" +
-    "#tb-pop .tb-pop-eps{min-height:120px}" +
-    "#tb-pop .tb-pop-ep{border-top:1px solid rgba(255,255,255,.07)}" +
+    "#tb-pop .tb-pop-eps{display:block!important;min-height:120px;white-space:normal!important;overflow:visible!important}" +
+    "#tb-pop .tb-pop-ep{display:block!important;width:100%!important;flex:none!important;border-top:1px solid rgba(255,255,255,.07)}" +
     "#tb-pop .tb-pop-ep-btn{all:unset;box-sizing:border-box;display:grid;grid-template-columns:34px 190px 1fr;gap:18px;align-items:center;width:100%;padding:14px 10px;border-radius:12px;cursor:pointer}" +
     "#tb-pop .tb-pop-ep-btn:hover,#tb-pop .tb-pop-ep-btn:focus-visible{background:rgba(255,255,255,.06)}" +
     "#tb-pop .tb-pop-ep-n{font-size:22px;color:rgba(255,255,255,.55);text-align:center}" +
@@ -79,7 +84,7 @@
     "#tb-pop .tb-pop-ep-o{display:-webkit-box;margin-top:6px;font-size:13px;line-height:1.45;color:rgba(255,255,255,.68);-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}" +
     "#tb-pop .tb-pop-empty{padding:18px 10px;color:rgba(255,255,255,.55);font-size:14px}" +
     "#tb-pop .tb-pop-role{opacity:.65}" +
-    "@media (max-width:700px){#tb-pop .tb-pop-panel{margin:0;width:100vw;max-height:none;height:100%;border-radius:0}" +
+    "@media (max-width:700px){#tb-pop .tb-pop-box{margin:0;width:100vw;max-height:none;height:100%;border-radius:0}#tb-pop .tb-pop-panel{max-height:none}" +
     "#tb-pop .tb-pop-in{padding:56px 20px 20px}#tb-pop .tb-pop-body{padding:4px 20px 32px}#tb-pop .tb-pop-title{font-size:44px}" +
     "#tb-pop .tb-pop-ep-btn{grid-template-columns:24px 120px 1fr;gap:12px}#tb-pop .tb-pop-ep-o{display:none}" +
     "#tb-pop .tb-pop-close{top:12px;right:12px}}";
@@ -89,7 +94,7 @@
     if (root) return;
     root = document.createElement("div");
     root.id = "tb-pop";
-    root.innerHTML = '<div class="tb-pop-shade"></div><div class="tb-pop-panel" role="dialog" aria-modal="true" tabindex="-1"></div>';
+    root.innerHTML = '<div class="tb-pop-shade"></div><div class="tb-pop-box"><div class="tb-pop-amb"></div><div class="tb-pop-panel" role="dialog" aria-modal="true" tabindex="-1"></div></div>';
     document.body.appendChild(root);
     panel = root.querySelector(".tb-pop-panel");
     var shade = root.querySelector(".tb-pop-shade");
@@ -152,6 +157,7 @@
     cur = null;
     html.classList.remove("tb-pop-open");
     if (panel) panel.innerHTML = "";
+    ambient(null);
   }
   function userClose() {
     if (!cur) return;
@@ -184,6 +190,7 @@
     var logo = logoId && logoTag && a ? a.getScaledImageUrl(logoId, { type: "Logo", tag: logoTag, maxWidth: 760, quality: 90 }) : null;
     var name = isEp ? (it.SeriesName || it.Name) : it.Name;
     var h = '<div class="tb-pop-bar"><button type="button" class="tb-pop-close" aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>';
+    ambient(bd);
     h += '<div class="tb-pop-hero"><div class="tb-pop-bd"' + (bd ? ' style="background-image:url(&quot;' + esc(bd) + '&quot;)"' : "") + '></div><div class="tb-pop-in">';
     h += logo ? '<img class="tb-pop-logo" alt="' + esc(name) + '" src="' + esc(logo) + '">' : (name ? '<h1 class="tb-pop-title">' + esc(name) + "</h1>" : "");
     if (isEp) h += '<div class="tb-pop-sub">' + (it.ParentIndexNumber != null && it.IndexNumber != null ? "S" + it.ParentIndexNumber + ":E" + it.IndexNumber + " · " : "") + esc(it.Name || "") + "</div>";
@@ -213,12 +220,25 @@
       cur.seriesId = isEp ? it.SeriesId : it.Id;
       body.insertAdjacentHTML("beforeend", '<div class="tb-pop-eph"><h2 class="sectionTitle sectionTitle-cards">Episodes</h2><select class="tb-pop-season" aria-label="Season" disabled></select></div><div class="tb-pop-eps" is="emby-itemscontainer"></div>');
       upgrade(body);
-      seasons(cur.seriesId, isEp ? it.SeasonId : seasonId, token);
+      seasons(cur.seriesId, isEp ? it.SeasonId : seasonId, token, isEp ? it.ParentIndexNumber : null);
     }
     cast(it, body);
     similar(isEp && it.SeriesId ? it.SeriesId : it.Id, body, token);
   }
   function upgrade(node) { var c = C(); if (c && node) c.upgrade(node); }
+  var ambUrl = null;
+  function ambient(url) {
+    var a = root && root.querySelector(".tb-pop-amb");
+    if (!a || url === ambUrl) return;
+    ambUrl = url;
+    if (!url) { a.classList.remove("on"); a.style.backgroundImage = ""; return; }
+    // the softened picture: a small copy is enough (it's blurred), shown once it has loaded
+    var small = url.replace(/([?&])(maxWidth|fillWidth)=\d+/i, "$1$2=480");
+    var im = new Image();
+    a.classList.remove("on");
+    im.onload = function () { if (ambUrl !== url) return; a.style.backgroundImage = 'url("' + small.replace(/"/g, "%22") + '")'; a.classList.add("on"); };
+    im.src = small;
+  }
 
   // Play / Resume, start again, favourite, watched, Jellyfin's ⋮ menu, full page
   function actions(it, token) {
@@ -255,7 +275,7 @@
     } else build(it);
   }
 
-  function seasons(seriesId, want, token) {
+  function seasons(seriesId, want, token, wantNum) {
     get("Shows/" + seriesId + "/Seasons", { userId: uid() }).then(function (r) {
       if (token !== gen) return;
       var list = (r && r.Items) || [], sel = panel.querySelector(".tb-pop-season"), eps = panel.querySelector(".tb-pop-eps");
@@ -269,6 +289,8 @@
         loadEpisodes(seriesId, id, token);
       };
       if (want && list.some(function (x) { return x.Id === want; })) return go(want);
+      // an episode whose season id doesn't match the list: find its season by number
+      if (wantNum != null) { var byNum = list.filter(function (x) { return x.IndexNumber === wantNum; })[0]; if (byNum) return go(byNum.Id); }
       // the season you're up to
       get("Shows/NextUp", { userId: uid(), SeriesId: seriesId, Limit: 1, EnableResumable: true }).then(function (n) {
         var e = n && n.Items && n.Items[0];

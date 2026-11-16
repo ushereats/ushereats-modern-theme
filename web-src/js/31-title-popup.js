@@ -15,15 +15,18 @@
 
   var css =
     // the page behind stays where it was, frozen and not clickable
-    "html.tb-tmodal .page.tb-under{display:block!important;position:fixed!important;left:0;right:0;top:var(--tb-under-top,0px);pointer-events:none!important;visibility:visible!important;" +
-    "filter:blur(7px) brightness(.62);transform:scale(1.02);transition:filter .25s ease}" +
+    "html:is(.tb-tmodal,.tb-tmodal-closing) .page.tb-under{display:block!important;position:fixed!important;left:0;right:0;top:var(--tb-under-top,0px);pointer-events:none!important;visibility:visible!important;transition:filter .22s ease}" +
+    "html.tb-tmodal .page.tb-under{filter:blur(7px) brightness(.62)}" +
+    "html.tb-tmodal-closing .page.tb-under{filter:none}" +
     // the panel: your title page, centred, scrolling on its own, everything around it dimmed
-    "html.tb-tmodal #itemDetailPage:not(.hide){position:fixed!important;z-index:1000;top:6vh!important;bottom:6vh!important;" +
+    "html:is(.tb-tmodal,.tb-tmodal-closing) #itemDetailPage:not(.hide){position:fixed!important;z-index:1000;top:6vh!important;bottom:6vh!important;" +
     "left:max(24px,calc((100vw - 1100px) / 2))!important;right:max(24px,calc((100vw - 1100px) / 2))!important;width:auto!important;height:auto!important;min-height:0!important;" +
     "overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;border-radius:18px;" +
     "background:var(--sleekfin-background,#0b0b0d)!important;box-shadow:0 30px 90px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08);" +
     "animation:tbTmodalIn .22s ease-out both;scrollbar-width:thin}" +
     "@keyframes tbTmodalIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}" +
+    "html.tb-tmodal-closing #itemDetailPage:not(.hide){animation:tbTmodalOut .18s ease-in both;pointer-events:none}" +
+    "@keyframes tbTmodalOut{to{opacity:0;transform:translateY(14px) scale(.985)}}" +
     // sizes inside the panel: a shorter banner, no room kept for the top bar
     "html.tb-tmodal #itemDetailPage[data-sleekfin-details],html.tb-tmodal #itemDetailPage[data-sleekfin-details]>*{" +
     "--sleekfin-details-hero-height:min(66vh,620px)!important;--sleekfin-page-gutter:48px!important;--sleekfin-header-height:0px!important}" +
@@ -94,10 +97,24 @@
     if (restore) { try { window.scrollTo({ top: underY, left: 0, behavior: "instant" }); } catch (e) { window.scrollTo(0, underY); } }
   }
 
+  var closeTimer = 0;
   function leave() {
     html.classList.remove("tb-tmodal");
-    // going back to the page that was behind: it's exactly where you left it
-    release(true);
+    if (!under) return;
+    // the panel slides away and the page behind sharpens, staying exactly where it was while Jellyfin swaps pages
+    // back (it would otherwise blink: the title page full-size for a frame, or an empty frame)
+    html.classList.add("tb-tmodal-closing");
+    var u = under, t0 = Date.now();
+    clearTimeout(closeTimer);
+    (function wait() {
+      var vp = visiblePage(), back = !u.classList.contains("hide"), elsewhere = !!vp && vp !== u && vp.id !== "itemDetailPage";
+      if (back || elsewhere || Date.now() - t0 > 1500 || html.classList.contains("tb-tmodal")) {
+        if (!html.classList.contains("tb-tmodal")) release(back);
+        html.classList.remove("tb-tmodal-closing");
+        return;
+      }
+      closeTimer = setTimeout(wait, 16);
+    })();
   }
 
   function sync() {
@@ -114,6 +131,17 @@
     if (document.querySelector(".dialogContainer .dialog, .actionSheet, [role='dialog']:not([aria-hidden='true'])")) return;
     e.preventDefault();
     close();
+  }, true);
+  window.addEventListener("click", function (e) {
+    if (!enabled || html.classList.contains("tb-tmodal") || e.button !== 0) return;
+    var t = e.target && e.target.closest ? e.target : null;
+    if (!t) return;
+    var a = t.closest("a[href]"), card = t.closest(".card[data-id]");
+    var toTitle = (a && /details\?/i.test(a.getAttribute("href") || "")) ||
+      (card && !/^(CollectionFolder|UserView|Folder|Person|Genre|Studio)$/.test(card.getAttribute("data-type") || ""));
+    if (!toTitle) return;
+    window.__tbPopupNav = true;
+    setTimeout(function () { window.__tbPopupNav = false; }, 800);
   }, true);
   document.addEventListener("click", function (e) {
     if (!html.classList.contains("tb-tmodal") || e.button !== 0) return;

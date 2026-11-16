@@ -48,7 +48,8 @@
   var html = document.documentElement;
 
   function off() {
-    return html.classList.contains("layout-tv") || (document.body && document.body.classList.contains("layout-tv")) ||
+    return html.classList.contains("tb-tmodal") || html.classList.contains("tb-tmodal-closing") || !!window.__tbPopupNav ||
+      html.classList.contains("layout-tv") || (document.body && document.body.classList.contains("layout-tv")) ||
       /^#\/?(video|queue)/i.test(location.hash) || !!document.getElementById("videoOsdPage") && !document.getElementById("videoOsdPage").classList.contains("hide") ||
       (document.body && document.body.classList.contains("dashboardDocument"));
   }

@@ -141,7 +141,50 @@
     if (sec.style.display !== want) sec.style.display = want;
     if (attached) { C.upgrade(ic); C.refreshScroller(sec); C.decorate(); }
     C.load(sec);
+    if (r.type === "continue") addRemove(ic);
   }
+
+  // ── Continue Watching: ✕ on a part-watched title removes it ──
+  // Jellyfin has no "hide" flag, so the saved position is cleared on the server: every app (Moonfin, phones,
+  // TVs) drops it from Continue Watching too. Watched / unwatched marks are not touched.
+  var X_BTN = '<button type="button" class="tb-cw-x" data-action="none" title="Remove from Continue Watching" aria-label="Remove from Continue Watching">' +
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
+  function addRemove(ic) {
+    var cards = ic.querySelectorAll(".card[data-positionticks]");
+    for (var i = 0; i < cards.length; i++) {
+      var sc = cards[i].querySelector(".cardScalable");
+      if (sc && !sc.querySelector(".tb-cw-x")) sc.insertAdjacentHTML("beforeend", X_BTN);
+    }
+  }
+  function removeFromContinue(btn) {
+    var card = btn.closest(".card[data-id]"), sec = btn.closest("[data-tb-row]"), me = who(), api = window.ApiClient;
+    if (!card || !sec || !me || !api || card.classList.contains("tb-cw-going")) return;
+    var id = card.getAttribute("data-id"), rid = sec.getAttribute("data-tb-row");
+    var r = rows.filter(function (x) { return x.id === rid; })[0];
+    card.classList.add("tb-cw-going");
+    api.ajax({ type: "POST", url: api.getUrl("UserItems/" + id + "/UserData"), data: JSON.stringify({ PlaybackPositionTicks: 0 }), contentType: "application/json" })
+      .then(function () {
+        try { localStorage.setItem("tbRowsStale", String(Date.now())); } catch (e) {}
+        setTimeout(function () {
+          if (r && data[rid]) {
+            data[rid] = data[rid].filter(function (x) { return (x.Id || x.id) !== id; });
+            setRow(r, data[rid], !!(root && root.isConnected));
+            saveCache();
+          }
+          // the row from the server: the show's next episode can take its place
+          setTimeout(function () { if (root && !fetching) refresh(); }, 600);
+        }, 320);
+      }, function () {
+        card.classList.remove("tb-cw-going");
+      });
+  }
+  window.addEventListener("click", function (e) {
+    var b = e.target && e.target.closest && e.target.closest(".tb-cw-x");
+    if (!b) return;
+    e.preventDefault();
+    e.stopPropagation();
+    removeFromContinue(b);
+  }, true);
 
   function build(u, initial) {
     user = u;
@@ -303,7 +346,17 @@
     // no poster backing, shadow, dim layer or hover shadow behind the logos
     ".tb-studios .card .cardScalable:not(#tb-x) { background: none !important; box-shadow: none !important; border: 0 !important; clip-path: none !important; }",
     ".tb-studios .card .cardScalable:not(#tb-x)::before, .tb-studios .card .cardScalable:not(#tb-x)::after { content: none !important; display: none !important; }",
-    ".tb-studios .card:not(#tb-x) .cardBox, .tb-studios .card:hover:not(#tb-x) .cardBox { filter: none !important; box-shadow: none !important; background: none !important; }"
+    ".tb-studios .card:not(#tb-x) .cardBox, .tb-studios .card:hover:not(#tb-x) .cardBox { filter: none !important; box-shadow: none !important; background: none !important; }",
+    // Continue Watching: the remove button (top right, shows on hover; always there on touch screens)
+    ".tb-cw-x { position: absolute; top: 8px; right: 8px; z-index: 5; width: 30px; height: 30px; padding: 7px; border: 0; border-radius: 50%; cursor: pointer;" +
+      " background: rgba(10,10,12,.62); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: 0 0 0 1px rgba(255,255,255,.18);" +
+      " opacity: 0; transform: scale(.85); transition: opacity .15s ease, transform .15s ease, background .15s ease; }",
+    ".tb-cw-x svg { display: block; width: 100%; height: 100%; fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; }",
+    ".card:hover .tb-cw-x, .card:focus-within .tb-cw-x { opacity: 1; transform: none; }",
+    ".tb-cw-x:hover { background: var(--sleekfin-accent, #dc2626); }",
+    "@media (hover: none) { .tb-cw-x { opacity: .9; transform: none; } }",
+    "html.layout-tv .tb-cw-x { display: none; }",
+    ".card.tb-cw-going { opacity: 0; transform: scale(.92); transition: opacity .3s ease, transform .3s ease; pointer-events: none; }"
   ].join("\n");
   tbCss(st);
 

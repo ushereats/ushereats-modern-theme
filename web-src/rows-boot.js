@@ -55,25 +55,26 @@
       return a;
     }
 
-    // Continue Watching & Next Up in one row: films you're part-way through + the next episode of
-    // each show, newest watched first. Deduplicates by SeriesId so each show appears at most once.
-    function mergeContinue(movies, episodes, limit) {
-      var all = movies.concat(episodes), seen = {}, out = [];
-      all.sort(function (a, b) {
-        var x = a.UserData && a.UserData.LastPlayedDate ? Date.parse(a.UserData.LastPlayedDate) : 0;
-        var y = b.UserData && b.UserData.LastPlayedDate ? Date.parse(b.UserData.LastPlayedDate) : 0;
-        if (y !== x) return y - x;
-        // On tie: in-progress (has PlaybackPositionTicks) wins over next-up
-        var ax = a.UserData && a.UserData.PlaybackPositionTicks ? 1 : 0;
-        var bx = b.UserData && b.UserData.PlaybackPositionTicks ? 1 : 0;
-        return bx - ax;
-      });
-      for (var n = 0; n < all.length && out.length < limit; n++) {
-        var k = all[n].SeriesId || all[n].Id;
+    // Continue Watching & Next Up in one row, the same rules as the server (only used if the server can't answer):
+    // everything part-watched (films and episodes) + the next episode of each show, newest first, one card per show.
+    // A next episode counts as "watched" as recently as the show's latest part-watched episode.
+    function showKey(x) { return x.SeriesId || x.Id; }
+    function mergeContinue(resume, next, limit) {
+      var showLast = {}, all = [], i;
+      for (i = 0; i < resume.length; i++) {
+        var d = resume[i].UserData && resume[i].UserData.LastPlayedDate ? Date.parse(resume[i].UserData.LastPlayedDate) : 0;
+        all.push({ it: resume[i], d: d, r: 0, i: i });
+        if (resume[i].SeriesId && d > (showLast[resume[i].SeriesId] || 0)) showLast[resume[i].SeriesId] = d;
+      }
+      for (i = 0; i < next.length; i++) all.push({ it: next[i], d: showLast[next[i].SeriesId] || 0, r: 1, i: i });
+      all.sort(function (a, b) { return (b.d - a.d) || (a.r - b.r) || (a.i - b.i); });
+      var seen = {}, out = [];
+      for (i = 0; i < all.length && out.length < limit; i++) {
+        var k = showKey(all[i].it);
         if (seen[k]) continue;
         seen[k] = 1;
-        delete all[n].UserData.LastPlayedDate;
-        out.push(all[n]);
+        if (all[i].it.UserData) delete all[i].it.UserData.LastPlayedDate;
+        out.push(all[i].it);
       }
       return out;
     }
@@ -84,13 +85,24 @@
       var type = row.type;
       if (type === "studios") return Promise.resolve(null);
       if (type === "continue") {
-        var movies = get("UserItems/Resume?" + U + "&MediaTypes=Video&IncludeItemTypes=Movie&Limit=" + Math.max(num(row.resumeLimit, 50), 50) + COMMON, token)["catch"](function () { return null; });
-        var next = get("Shows/NextUp?" + U + "&Limit=" + Math.max(num(row.nextUpLimit, 50), 50) + "&EnableResumable=true&EnableRewatching=false" + COMMON, token)["catch"](function () { return null; });
-        return Promise.all([movies, next]).then(function (r) {
-          var m = list(r[0]), e = list(r[1]), a = [], b = [], i;
-          for (i = 0; i < m.length; i++) a.push(slim(m[i]));
-          for (i = 0; i < e.length; i++) b.push(slim(e[i]));
-          return mergeContinue(a, b, L);
+        var CL = Math.min(60, Math.max(L, 40));
+        // the server's version of this row on its own first (same rules as the home request), then Jellyfin's lists
+        return get("UshereatsTheme/home?userId=" + enc(user) + "&rows=" + enc(JSON.stringify([row])), token).then(function (j) {
+          var arr = j && j[row.id];
+          if (!arr) throw new Error("no row");
+          var r = [];
+          for (var n = 0; n < arr.length; n++) r.push(slim(arr[n]));
+          return r;
+        })["catch"](function () {
+          var resume = get("UserItems/Resume?" + U + "&MediaTypes=Video&IncludeItemTypes=Movie,Episode&Limit=60" + COMMON, token)["catch"](function () { return null; });
+          var next = get("Shows/NextUp?" + U + "&Limit=60&EnableResumable=false&EnableRewatching=false" + COMMON, token)["catch"](function () { return null; });
+          return Promise.all([resume, next]).then(function (r) {
+            var m = list(r[0]), e = list(r[1]), a = [], b = [], i;
+            if (!r[0] && !r[1]) throw new Error("offline");
+            for (i = 0; i < m.length; i++) a.push(slim(m[i]));
+            for (i = 0; i < e.length; i++) b.push(slim(e[i]));
+            return mergeContinue(a, b, CL);
+          });
         });
       }
       if (type === "trending") {
@@ -160,7 +172,7 @@
           var id = row.id;
           var p = batchP.then(function (batch) {
             var arr = batch && batch[id];
-            if (arr && arr.length) {
+            if (arr && (arr.length || row.type === "continue")) {
               var r = [];
               for (var n = 0; n < arr.length; n++) r.push(slim(arr[n]));
               return r;

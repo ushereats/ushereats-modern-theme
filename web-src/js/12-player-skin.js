@@ -314,6 +314,77 @@
     "}"
   ].join("\n");
 
+  // ── Floating glass dock (setting: Features > Player > Player bar style) ──
+  // The controls sit in one frosted, rounded panel floating above the bottom of the picture:
+  // time + progress on top; volume, subtitles, audio, episodes on the left; previous, back 10, a big white
+  // play / pause, forward, next in the middle; settings, picture-in-picture, full screen on the right.
+  // "Ends at" floats above the dock as a small pill. Desktop and laptop sizes only: phones and TVs keep the
+  // layout above.
+  if (tbCfg("PlayerDock", true) !== false) {
+    document.documentElement.classList.add("tb-dock");
+    var D = "html.tb-dock:not(.layout-tv) " + P;
+    var B = D + " .videoOsdBottom .buttons";
+    var GLASS = "background: rgba(255,255,255,0.11) !important; -webkit-backdrop-filter: blur(26px) saturate(1.6); backdrop-filter: blur(26px) saturate(1.6);" +
+      " border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 24px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.22);";
+    css += "\n" + [
+      "@media (min-width: 901px) {",
+      // the shade behind is lighter: the dock carries the contrast itself
+      "  " + D + " .videoOsdBottom" + X + " { background: linear-gradient(0deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 100%) !important; padding-top: 6em !important; padding-bottom: 34px !important; }",
+      "  " + D + " .osdControls" + X + " { position: relative; flex: 0 1 1060px; max-width: calc(100% - 64px); padding: 16px 26px 14px !important; border-radius: 30px; " + GLASS +
+        " transition: transform .3s cubic-bezier(.2,.8,.2,1); }",
+      "  " + D + " .videoOsdBottom-hidden .osdControls" + X + " { transform: translateY(18px); }",
+      // the title is shown top left (logo), not inside the dock
+      "  " + D + " .osdTitle" + X + ", " + D + " .osdSecondaryMediaInfo" + X + " { display: none !important; }",
+      "  " + D + " .osdMainTextContainer" + X + " { margin: 0 !important; padding: 0 !important; min-height: 0; }",
+      "  " + D + " .osdMainTextContainer:not(:has(.osdMediaStatus:not(.hide)))" + X + " { display: none !important; }",
+      "  " + D + " .osdPositionText" + X + ", " + D + " .osdDurationText" + X + " { margin-bottom: 0 !important; min-width: 58px; font-size: 13px; }",
+      "  " + D + " .osdDurationText" + X + " { justify-content: flex-end; }",
+      // the button row: left group, centred transport, right group
+      "  " + B + X + " { min-height: 64px; padding: 6px 0 0 !important; flex-wrap: nowrap !important; gap: 4px; }",
+      "  " + B + " .volumeButtons" + X + " { order: 1; margin: 0 4px 0 0 !important; }",
+      "  " + B + " .osdVolumeSliderContainer" + X + " { width: 5.5em; flex-grow: 0; }",
+      "  " + B + " .btnSubtitles" + X + " { order: 2; }",
+      "  " + B + " .btnAudio" + X + " { order: 3; }",
+      "  " + B + " .tb-pep-btn" + X + " { order: 4; }",
+      "  " + B + " .btnUserRating" + X + " { order: 5; }",
+      "  " + B + " .btnVideoOsdSettings" + X + " { order: 20; }",
+      "  " + B + " .btnAirPlay" + X + " { order: 21; }",
+      "  " + B + " .btnPip" + X + " { order: 22; }",
+      "  " + B + " .btnFullscreen" + X + " { order: 23; }",
+      "  " + B + " > div[dir='ltr']" + X + " { position: absolute; left: 50%; bottom: 14px; height: 64px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; }",
+      // round icon buttons with a soft hover disc
+      "  " + B + " .paper-icon-button-light:not(.btnPause):not(.btnRewind):not(.btnFastForward)" + X + " {",
+      "    width: 46px; height: 46px; padding: 0 !important; margin: 0 !important; border-radius: 50% !important; display: inline-flex; align-items: center; justify-content: center;",
+      "    transition: background-color .15s ease, transform .12s ease !important;",
+      "  }",
+      "  " + B + " .paper-icon-button-light.hide" + X + " { display: none !important; }",
+      "  " + B + " .paper-icon-button-light .material-icons" + X + " { font-size: 26px !important; }",
+      "  " + B + " .paper-icon-button-light.btnVideoOsdSettings.btnVideoOsdSettings:not(.btnPause):not(.btnRewind)" + X + " { margin-left: auto !important; }",
+      "  " + B + " .paper-icon-button-light:not(.btnPause):not(.btnRewind):not(.btnFastForward)" + X + ":hover { background: rgba(255,255,255,0.14) !important; transform: none; }",
+      "  " + B + " .paper-icon-button-light" + X + ":active { transform: scale(.92) !important; }",
+      // play / pause: a solid white disc in the middle; back / forward 10 beside it
+      "  " + D + " .videoOsdBottom .btnPause" + X + " { position: static !important; width: 64px; height: 64px; margin: 0 6px !important; background: #fff !important; color: #0b0b0b !important; border: 0 !important;",
+      "    box-shadow: 0 8px 24px rgba(0,0,0,0.35); }",
+      "  " + B + " .btnPause.paper-icon-button-light" + X + " .material-icons { font-size: 38px !important; color: #0b0b0b !important; }",
+      "  " + D + " .videoOsdBottom .btnPause" + X + ":hover { transform: scale(1.06); background: #fff !important; }",
+      "  " + D + " .videoOsdBottom .btnRewind" + X + ", " + D + " .videoOsdBottom .btnFastForward" + X + " { position: static !important; width: 48px; height: 48px; margin: 0 !important; }",
+      "  " + B + " .btnRewind.paper-icon-button-light" + X + " .material-icons, " + B + " .btnFastForward.paper-icon-button-light" + X + " .material-icons { font-size: 30px !important; }",
+      "  " + D + " .videoOsdBottom .btnRewind" + X + ":hover, " + D + " .videoOsdBottom .btnFastForward" + X + ":hover { background: rgba(255,255,255,0.14) !important; }",
+      "  " + D + " .videoOsdBottom .btnPause" + X + ":focus-visible, " + B + " .paper-icon-button-light" + X + ":focus-visible { outline: none; box-shadow: 0 0 0 3px " + ACC + " !important; }",
+      // "Ends at 9:42 pm" as a little glass pill above the dock
+      "  " + B + " .osdTimeText" + X + " { position: absolute; left: 50%; bottom: calc(100% + 12px); transform: translateX(-50%); margin: 0 !important; pointer-events: none; }",
+      "  " + B + " .endsAtText" + X + " { display: inline-block !important; padding: 7px 15px; border-radius: 18px; white-space: nowrap; font-size: 13px; " + GLASS + " }",
+      "  " + B + " .endsAtText:empty" + X + " { display: none !important; }",
+      // the back button: a glass circle to match
+      "  html.tb-dock:not(.layout-tv) .osdHeader .headerBackButton" + X + " { width: 52px; height: 52px; border-radius: 50% !important; " + GLASS + " }",
+      "  html.tb-dock:not(.layout-tv) ." + LOGO_CLASS + " { left: 88px; top: 18px; }",
+      // Skip Intro / Next sits above the dock instead of behind it
+      "  html.tb-dock:not(.layout-tv) .skip-button-container { --skip-btn-bottom: 12.5em; }",
+      "  html.tb-dock:not(.layout-tv) body:has(.videoOsdBottom-hidden) .skip-button-container { transform: translateY(8em); }",
+      "}"
+    ].join("\n");
+  }
+
   var style = document.createElement("style");
   style.id = "tb-player-skin";
   style.textContent = css;

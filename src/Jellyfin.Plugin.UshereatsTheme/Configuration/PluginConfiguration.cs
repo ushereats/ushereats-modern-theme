@@ -122,6 +122,9 @@ public class PluginConfiguration : BasePluginConfiguration
     /// <summary>An Episodes button in the video player that opens the show's episode list beside the picture.</summary>
     public bool PlayerEpisodes { get; set; } = true;
 
+    /// <summary>Player bar style: true = floating glass dock, false = the classic bar (big play button in the middle).</summary>
+    public bool PlayerDock { get; set; } = true;
+
     /// <summary>Smooth mouse-wheel scrolling with glide. Off / AdminsOnly / Everyone.</summary>
     public FeatureLevel SmoothScroll { get; set; } = FeatureLevel.Off;
 

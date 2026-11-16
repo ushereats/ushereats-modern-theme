@@ -120,7 +120,7 @@
       .then(function (info) { info = info || {}; return { name: info.ServerName, version: info.Version, update: !!info.HasUpdateAvailable, restart: !!info.HasPendingRestart }; }).then(upd()).catch(noop);
     cached("sessions", 10000, function () { return Promise.resolve(a.getSessions({ ActiveWithinSeconds: 960 })); })
       .then(function (sessions) { return sessions ? { streams: sessions.filter(function (s) { return s.NowPlayingItem; }).length, devices: sessions.length } : null; }).then(upd()).catch(noop);
-    cached("users", 300000, function () { return Promise.resolve(a.getUsers()); })
+    cached("users", 1800000, function () { return Promise.resolve(a.getUsers()); })
       .then(function (users) { return users ? { users: users.length } : null; }).then(upd()).catch(noop);
   }
   function draw(hero, d) {
@@ -458,10 +458,13 @@
     // The sig + __tbSeen guard already prevents re-fetching when rows are stable; this TTL is a
     // belt-and-suspenders cap in case Jellyfin re-renders the list while our data is still fresh.
     var logKey = "actlog:" + (isAlerts ? "1" : "0");
-    Promise.all([
-      cached(logKey, 15000, function () { return getJSON("System/ActivityLog/Entries", q); }),
-      cached("users", 300000, function () { return Promise.resolve(api().getUsers()); }).catch(function () { return []; })
-    ]).then(function (r) {
+    cached(logKey, 15000, function () { return getJSON("System/ActivityLog/Entries", q); }).then(function (log) {
+      var ids = {};
+      ((log && log.Items) || []).forEach(function (e) { if (e.UserId) ids[e.UserId] = 1; });
+      return Promise.all(Object.keys(ids).map(function (id) {
+        return cached("user:" + id, 1800000, function () { return getJSON("Users/" + id); })["catch"](function () { return null; });
+      })).then(function (us) { return [log, us.filter(Boolean)]; });
+    }).then(function (r) {
       if (list.__sig !== sig) return;
       var entries = (r[0] && r[0].Items) || [];
       var users = {};
@@ -720,6 +723,7 @@
     if (!p) return;
     try { doHero(p); } catch (e) {}
     try { doTiles(p); } catch (e) {}
+    if (!document.body.classList.contains("tb-dash-ready")) document.body.classList.add("tb-dash-ready");
     try { doRecent(p); } catch (e) {}
     try { doPaths(p); } catch (e) {}
     try { doLog(p, "useractivity=true", false); } catch (e) {}

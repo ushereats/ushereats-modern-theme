@@ -136,6 +136,7 @@ public static class ThemeAssets
         ("js_29_search_index.js", c => c.InstantSearch != Configuration.FeatureLevel.Off),
         ("js_30_instant_titles.js", c => c.InstantTitles != Configuration.FeatureLevel.Off && c.TitlePopup == Configuration.FeatureLevel.Off),
         ("js_31_title_popup.js", c => c.TitlePopup != Configuration.FeatureLevel.Off),
+        ("js_32_title_sound.js", c => c.TitleSound),
     };
 
     private static readonly Dictionary<string, Payload?> StudioCache = new Dictionary<string, Payload?>(StringComparer.OrdinalIgnoreCase);
@@ -382,8 +383,14 @@ public static class ThemeAssets
                     + "var ph=document.createElement(\"style\");ph.textContent=\"body.dashboardDocument #dashboardPage:not(.hide) .content-primary:not(:has(> #tb-np))::before{content:'';display:block;height:var(--tb-np-h,0px)}\";document.head.appendChild(ph);");
             }
 
-            js.Append("function c(){if(done||!document.body.classList.contains(\"dashboardDocument\"))return;done=true;mo.disconnect();try{localStorage.setItem(\"tb-dash\",\"1\")}catch(e){}var s=document.createElement(\"script\");s.src=u;document.head.appendChild(s)}mo=new MutationObserver(c);mo.observe(document.body,{attributes:true,attributeFilter:[\"class\"]});c();"
-                + "if(seen&&!done){var pf=function(){if(done)return;var l=document.createElement(\"link\");l.rel=\"prefetch\";l.as=\"script\";l.href=u;document.head.appendChild(l)};var go=function(){setTimeout(function(){(window.requestIdleCallback||setTimeout)(pf,{timeout:4000})},2500)};if(document.readyState===\"complete\")go();else window.addEventListener(\"load\",go)}"
+            if (config.DashboardSkin)
+            {
+                // the dashboard home stays hidden until the skin has drawn it (at most 1.5 s), so it appears once
+                // instead of Jellyfin's boxes showing and then moving
+                js.Append("var hd=document.createElement(\"style\");hd.textContent=\"body.dashboardDocument:not(.tb-dash-ready) #dashboardPage .content-primary{visibility:hidden}\";document.head.appendChild(hd);");
+            }
+
+            js.Append("function c(){if(done||!document.body.classList.contains(\"dashboardDocument\"))return;done=true;setTimeout(function(){document.body.classList.add(\"tb-dash-ready\")},1500);mo.disconnect();try{localStorage.setItem(\"tb-dash\",\"1\")}catch(e){}var s=document.createElement(\"script\");s.src=u;document.head.appendChild(s)}mo=new MutationObserver(c);mo.observe(document.body,{attributes:true,attributeFilter:[\"class\"]});c();"
                 + "})();\n");
         }
 

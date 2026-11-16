@@ -169,6 +169,7 @@
       try { if (cur && history.state && history.state.tbPop) history.replaceState(st, "", location.href); else history.pushState(st, "", location.href); } catch (e) {}
       pushing = false;
     }
+    if (!fromHistory && window.tbTitleSound) window.tbTitleSound();
     var token = ++gen;
     cur = { id: id, type: type || "", seriesId: null };
     html.classList.add("tb-pop-open");

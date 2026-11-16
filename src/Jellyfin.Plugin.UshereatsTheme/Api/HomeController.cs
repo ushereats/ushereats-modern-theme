@@ -295,30 +295,64 @@ public class HomeController : ControllerBase
             EnableRewatching = false,
         };
         QueryResult<BaseItem> nextUpResult = _tv.GetNextUp(nextUpQuery, SlimDto);
+        List<BaseItemDto> nextDtos = _dto.GetBaseItemDtos(nextUpResult.Items, SlimDto, user, null, false).ToList();
+
+        // when you last watched each of those shows: ONE lookup for all of them (newest first, so the first
+        // episode seen per show is its latest), instead of one lookup per show
+        var seriesIds = nextDtos.Where(e => e.SeriesId.HasValue && e.SeriesId.Value != Guid.Empty).Select(e => e.SeriesId!.Value).Distinct().ToArray();
+        var lastPlayed = new Dictionary<string, DateTime>(StringComparer.Ordinal);
+        if (seriesIds.Length > 0)
+        {
+            var playedQuery = new InternalItemsQuery
+            {
+                User = user,
+                Recursive = true,
+                IsVirtualItem = false,
+                IncludeItemTypes = new[] { BaseItemKind.Episode },
+                AncestorIds = seriesIds,
+                IsPlayed = true,
+                OrderBy = new[] { (ItemSortBy.DatePlayed, SortOrder.Descending) },
+                Limit = 1000,
+            };
+            foreach (BaseItem played in _library.GetItemsResult(playedQuery).Items)
+            {
+                if (played is not MediaBrowser.Controller.Entities.TV.Episode pe || pe.SeriesId == Guid.Empty)
+                {
+                    continue;
+                }
+
+                string k = pe.SeriesId.ToString("N");
+                if (lastPlayed.ContainsKey(k))
+                {
+                    continue;
+                }
+
+                DateTime? when = _userData.GetUserData(user, played)?.LastPlayedDate;
+                if (when.HasValue)
+                {
+                    lastPlayed[k] = when.Value;
+                }
+
+                if (lastPlayed.Count == seriesIds.Length)
+                {
+                    break;
+                }
+            }
+        }
+
         i = 0;
-        foreach (BaseItemDto ep in _dto.GetBaseItemDtos(nextUpResult.Items, SlimDto, user, null, false))
+        foreach (BaseItemDto ep in nextDtos)
         {
             DateTime? date = null;
             if (ep.SeriesId.HasValue && ep.SeriesId.Value != Guid.Empty)
             {
-                var playedQuery = new InternalItemsQuery
+                string k = ShowKey(ep);
+                if (lastPlayed.TryGetValue(k, out DateTime full))
                 {
-                    User = user,
-                    Recursive = true,
-                    IsVirtualItem = false,
-                    IncludeItemTypes = new[] { BaseItemKind.Episode },
-                    AncestorIds = new[] { ep.SeriesId.Value },
-                    IsPlayed = true,
-                    OrderBy = new[] { (ItemSortBy.DatePlayed, SortOrder.Descending) },
-                    Limit = 1,
-                };
-                QueryResult<BaseItem> played = _library.GetItemsResult(playedQuery);
-                if (played.Items.Count > 0)
-                {
-                    date = _userData.GetUserData(user, played.Items[0])?.LastPlayedDate;
+                    date = full;
                 }
 
-                if (showLast.TryGetValue(ShowKey(ep), out DateTime partly) && (date is null || partly > date.Value))
+                if (showLast.TryGetValue(k, out DateTime partly) && (date is null || partly > date.Value))
                 {
                     date = partly;
                 }

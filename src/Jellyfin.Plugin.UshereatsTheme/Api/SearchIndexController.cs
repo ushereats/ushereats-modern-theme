@@ -69,6 +69,27 @@ public class SearchIndexController : ControllerBase
             return StatusCode(403);
 
         // Movies + Shows (not episodes or music — keeps the index small but covers main search use)
+        // First a cheap check (count + newest title only): when the device already has this version the answer is
+        // "nothing changed" without building the whole index (that took ~1.6 s on a big library).
+        var probe = new InternalItemsQuery
+        {
+            User = user,
+            Recursive = true,
+            IsVirtualItem = false,
+            IncludeItemTypes = new[] { BaseItemKind.Movie, BaseItemKind.Series },
+            OrderBy = new[] { (ItemSortBy.DateCreated, SortOrder.Descending) },
+            Limit = 1,
+            EnableTotalRecordCount = true,
+        };
+        QueryResult<BaseItem> head = _library.GetItemsResult(probe);
+        string version = ComputeVersion(head.TotalRecordCount, head.Items.Count > 0 ? head.Items[0].DateCreated : DateTime.MinValue);
+        string etag = "\"" + version + "\"";
+        if (Request.Headers["If-None-Match"].ToString() == etag)
+        {
+            Response.Headers["ETag"] = etag;
+            return StatusCode(304);
+        }
+
         var query = new InternalItemsQuery
         {
             User = user,
@@ -92,16 +113,6 @@ public class SearchIndexController : ControllerBase
             Limit = 2000,
         };
         QueryResult<BaseItem> personResult = _library.GetItemsResult(personQuery);
-
-        string version = ComputeVersion(result.TotalRecordCount, result.Items.Count > 0 ? result.Items[0].DateCreated : DateTime.MinValue);
-
-        // Check ETag: if client already has this version, return 304
-        string etag = "\"" + version + "\"";
-        if (Request.Headers["If-None-Match"].ToString() == etag)
-        {
-            Response.Headers["ETag"] = etag;
-            return StatusCode(304);
-        }
 
         var items = new List<SearchIndexItem>(result.Items.Count + personResult.Items.Count);
         foreach (BaseItemDto dto in _dto.GetBaseItemDtos(result.Items, IndexDto, user, null, true))

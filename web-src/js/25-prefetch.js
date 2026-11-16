@@ -298,6 +298,20 @@
   }
   window.tbBackdropUrl = backdropUrl;
 
+  // ── the title page's logo at a sensible size ──
+  // Jellyfin asks for it with no size at all (the original file, often 200+ KB); it's capped the moment Jellyfin
+  // queues it, before it downloads
+  function capLogo(el) {
+    var u = el.getAttribute("data-src");
+    if (!u || !/\/Images\/Logo/i.test(u) || /[?&](maxWidth|maxHeight|fillWidth|fillHeight|width|height)=/i.test(u)) return;
+    el.setAttribute("data-src", u + (u.indexOf("?") < 0 ? "?" : "&") + "maxWidth=760&quality=90");
+  }
+  try {
+    new MutationObserver(function (ms) {
+      for (var i = 0; i < ms.length; i++) { var t = ms[i].target; if (t.classList && t.classList.contains("detailLogo")) capLogo(t); }
+    }).observe(document.documentElement, { subtree: true, attributes: true, attributeFilter: ["data-src"] });
+  } catch (e) {}
+
   // ── getting a title ready before it's clicked ──
   // Feature switches: 0=Off, 1=Admins only, 2=Everyone. Test override: localStorage 'tb-force-features'.
   // Whether you're an admin is asked once and remembered (window.__tbIsAdmin; __tbHoverWarmAdmin is the old name

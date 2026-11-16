@@ -112,6 +112,12 @@ public class PluginConfiguration : BasePluginConfiguration
 
     /// <summary>How a title opens: Off = full page (default), AdminsOnly / Everyone = Netflix-style pop-up over the page you were on.</summary>
     public FeatureLevel TitlePopup { get; set; } = FeatureLevel.Off;
+
+    /// <summary>A short soft sound when a title is opened.</summary>
+    public bool TitleSound { get; set; } = true;
+
+    /// <summary>Its volume, 0 to 1.</summary>
+    public double TitleSoundVolume { get; set; } = 0.35;
 }
 
 /// <summary>Who can use a feature that may need a gradual rollout.</summary>

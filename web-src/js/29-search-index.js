@@ -68,7 +68,10 @@
     if (!force && _version) headers["If-None-Match"] = '"' + _version + '"';
     fetch(url, { headers: headers })
       .then(function (r) {
-        if (r.status === 304) return null;      // already up to date
+        if (r.status === 304) {                  // already up to date: check again in 6 hours, not on every visit
+          if (_db && _items) dbPut(_db, uid + "|" + (srv.Id || ""), { v: _version, items: _items, at: Date.now() });
+          return null;
+        }
         if (r.status === 403) return null;      // feature off for this user
         if (!r.ok) throw new Error("HTTP " + r.status);
         return r.json();

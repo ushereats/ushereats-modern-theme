@@ -165,9 +165,22 @@ if (ids[1]) {
     await page.waitForTimeout(400);
     await page.screenshot({ path: out + "/arrow-on.png", clip: { x: 0, y: 0, width: 220, height: 110 } });
     mark("back-arrow click");
+    // ── PERMANENT: on-page back arrow must restore the saved scroll position ──
+    // Capture dense frames from the click so any blurry frame or wrong scroll is visible.
     await back.click().catch(() => {});
-    await page.waitForTimeout(2500);
-    mark("after back arrow y=" + await page.evaluate(() => Math.round(window.scrollY)) + " (was " + yBefore + ")");
+    const arrowFrames = [];
+    for (let i = 0; i < 38; i++) {
+      await page.screenshot({ path: `${out}/seq-arrow-${String(i).padStart(2, "0")}.jpg`, quality: 70, type: "jpeg" });
+      arrowFrames.push({ i, y: await page.evaluate(() => Math.round(window.scrollY)) });
+      await page.waitForTimeout(16);
+    }
+    await page.waitForTimeout(1500);
+    const arrowEndY = await page.evaluate(() => Math.round(window.scrollY));
+    mark("after back arrow y=" + arrowEndY + " (was " + yBefore + ")");
+    // FAIL: arrow back must land at the saved position, not the top
+    if (Math.abs(arrowEndY - yBefore) > 2) { console.error("  FAIL arrow-back: landed at y=" + arrowEndY + ", expected y≈" + yBefore); process.exitCode = 1; }
+    // FAIL: any frame showed y=0 when yBefore is not 0 (would reveal the top-scroll bug)
+    if (yBefore > 50) { const wrongY = arrowFrames.filter((f) => f.y < 10); if (wrongY.length) { console.error("  FAIL arrow-back: " + wrongY.length + " frame(s) at y≈0 (should be ~" + yBefore + ")"); process.exitCode = 1; } }
   }
 }
 // a library page: the image links it asks for (sharpness, WebP) and how fast it shows the second time

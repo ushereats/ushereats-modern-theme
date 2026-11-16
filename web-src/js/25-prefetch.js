@@ -271,7 +271,7 @@
     if (/^#\/home(\.html)?(\?|$)/.test(location.hash) && !/[?&]tab=/.test(location.hash)) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
     if (window.tbCrossfade) window.tbCrossfade(300);
     location.hash = "#/home";
-    if (window.tbScroll && !document.documentElement.classList.contains("tb-vt")) window.tbScroll.top();
+    if (window.tbScroll && !window.tbXfActive) window.tbScroll.top();
   }
   window.tbGoHome = goHome;
   document.addEventListener("click", function (e) {

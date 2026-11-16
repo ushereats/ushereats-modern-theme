@@ -303,6 +303,136 @@ public class HomeController : ControllerBase
         return ordered;
     }
 
+    // ── Debug: Continue Watching pipeline ────────────────────────────────────
+
+    /// <summary>
+    /// Debug view of the Continue Watching pipeline for the signed-in user.
+    /// Returns every step — rawResume, rawNextUp, merged, deduped, final — so you can see
+    /// exactly which step drops a series. Only works for the userId in the query string.
+    /// Usage: GET /UshereatsTheme/home/debug?userId=&lt;uid&gt;&amp;resumeLimit=50&amp;nextUpLimit=50&amp;limit=50
+    /// </summary>
+    [HttpGet("home/debug")]
+    public IActionResult GetContinueDebug(
+        [FromQuery(Name = "userId")] string? userId,
+        [FromQuery(Name = "resumeLimit")] int resumeLimit = 50,
+        [FromQuery(Name = "nextUpLimit")] int nextUpLimit = 50,
+        [FromQuery(Name = "limit")] int limit = 50)
+    {
+        if (string.IsNullOrEmpty(userId) || !Guid.TryParse(userId, out Guid uid))
+            return BadRequest();
+
+        User? user = _users.GetUserById(uid);
+        if (user is null)
+            return Unauthorized();
+
+        int rl = Math.Max(resumeLimit, 50);
+        int nl = Math.Max(nextUpLimit, 50);
+        int lim = limit > 0 ? limit : 50;
+
+        // Step 1 — raw Resume (movies only)
+        var resumeQuery = new InternalItemsQuery
+        {
+            User = user,
+            IsResumable = true,
+            MediaTypes = new[] { MediaType.Video },
+            IncludeItemTypes = new[] { BaseItemKind.Movie },
+            Limit = rl,
+            Recursive = true,
+            IsVirtualItem = false,
+            OrderBy = new[] { (ItemSortBy.DatePlayed, SortOrder.Descending) },
+        };
+        List<BaseItemDto> rawMovies = GetDtos(resumeQuery, user);
+
+        // Step 2 — raw NextUp (episodes)
+        var nextUpQuery = new NextUpQuery
+        {
+            User = user,
+            Limit = nl,
+            EnableResumable = true,
+            EnableRewatching = false,
+        };
+        QueryResult<BaseItem> nextUpResult = _tv.GetNextUp(nextUpQuery, SlimDto);
+        List<BaseItemDto> rawEpisodes = _dto.GetBaseItemDtos(nextUpResult.Items, SlimDto, user, null, false).ToList();
+
+        // Step 3 — sort key enrichment (same as FetchContinue)
+        foreach (BaseItemDto ep in rawEpisodes)
+        {
+            if (!ep.SeriesId.HasValue || ep.SeriesId.Value == Guid.Empty || ep.UserData is null) continue;
+            var playedQuery = new InternalItemsQuery
+            {
+                User = user,
+                Recursive = true,
+                IsVirtualItem = false,
+                IncludeItemTypes = new[] { BaseItemKind.Episode },
+                AncestorIds = new[] { ep.SeriesId.Value },
+                IsPlayed = true,
+                OrderBy = new[] { (ItemSortBy.DatePlayed, SortOrder.Descending) },
+                Limit = 1,
+            };
+            QueryResult<BaseItem> playedEps = _library.GetItemsResult(playedQuery);
+            if (playedEps.Items.Count > 0)
+            {
+                UserItemData? playedUd = _userData.GetUserData(user, playedEps.Items[0]);
+                DateTime? mostRecent = playedUd?.LastPlayedDate;
+                if (mostRecent.HasValue && mostRecent.Value > (ep.UserData.LastPlayedDate ?? DateTime.MinValue))
+                    ep.UserData.LastPlayedDate = mostRecent.Value;
+            }
+        }
+
+        // Step 4 — merge + sort
+        List<BaseItemDto> merged = rawMovies.Concat(rawEpisodes).ToList();
+        merged.Sort((a, b) =>
+        {
+            long x = a.UserData?.LastPlayedDate is DateTime da ? da.Ticks : 0L;
+            long y = b.UserData?.LastPlayedDate is DateTime db ? db.Ticks : 0L;
+            int cmp = y.CompareTo(x);
+            if (cmp != 0) return cmp;
+            bool ax = (a.UserData?.PlaybackPositionTicks ?? 0) > 0;
+            bool bx = (b.UserData?.PlaybackPositionTicks ?? 0) > 0;
+            if (ax == bx) return 0;
+            return ax ? -1 : 1;
+        });
+
+        // Step 5 — dedup (same key logic as MergeContinue, but no mutation)
+        var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var deduped = new List<BaseItemDto>();
+        foreach (BaseItemDto it in merged)
+        {
+            string k = (it.SeriesId.HasValue && it.SeriesId.Value != Guid.Empty)
+                ? it.SeriesId.Value.ToString("N")
+                : it.Id.ToString("N");
+            if (!string.IsNullOrEmpty(k) && seen.Add(k))
+                deduped.Add(it);
+        }
+
+        // Step 6 — limit
+        List<BaseItemDto> final = deduped.Take(lim).ToList();
+
+        static object ToDebugEntry(BaseItemDto it) => new
+        {
+            id = it.Id,
+            seriesId = it.SeriesId,
+            name = it.Name,
+            seriesName = it.SeriesName,
+            episode = it.ParentIndexNumber is int s && it.IndexNumber is int ep
+                ? $"S{s:D2}E{ep:D2}" : (string?)null,
+            sortDate = it.UserData?.LastPlayedDate,
+            positionTicks = it.UserData?.PlaybackPositionTicks ?? 0,
+            type = it.Type,
+        };
+
+        Response.Headers["Cache-Control"] = "no-cache";
+        return Ok(new
+        {
+            rawResume = rawMovies.Select(ToDebugEntry),
+            rawNextUp = rawEpisodes.Select(ToDebugEntry),
+            merged = merged.Select(ToDebugEntry),
+            deduped = deduped.Select(ToDebugEntry),
+            final = final.Select(ToDebugEntry),
+            limits = new { resumeLimit = rl, nextUpLimit = nl, limit = lim },
+        });
+    }
+
     // ── B9 ───────────────────────────────────────────────────────────────────
 
     /// <summary>

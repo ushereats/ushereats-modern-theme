@@ -96,11 +96,14 @@
         })["catch"](function () {
           var resume = get("UserItems/Resume?" + U + "&MediaTypes=Video&IncludeItemTypes=Movie,Episode&Limit=60" + COMMON, token)["catch"](function () { return null; });
           var next = get("Shows/NextUp?" + U + "&Limit=60&EnableResumable=false&EnableRewatching=false" + COMMON, token)["catch"](function () { return null; });
-          return Promise.all([resume, next]).then(function (r) {
-            var m = list(r[0]), e = list(r[1]), a = [], b = [], i;
+          // next episodes removed from the row with the ✕
+          var hidden = get("UshereatsTheme/continue/hidden", token)["catch"](function () { return null; });
+          return Promise.all([resume, next, hidden]).then(function (r) {
+            var m = list(r[0]), e = list(r[1]), a = [], b = [], i, gone = {}, h = (r[2] && r[2].ids) || [];
             if (!r[0] && !r[1]) throw new Error("offline");
+            for (i = 0; i < h.length; i++) gone[String(h[i]).replace(/-/g, "")] = 1;
             for (i = 0; i < m.length; i++) a.push(slim(m[i]));
-            for (i = 0; i < e.length; i++) b.push(slim(e[i]));
+            for (i = 0; i < e.length; i++) if (!gone[e[i].Id]) b.push(slim(e[i]));
             return mergeContinue(a, b, CL);
           });
         });

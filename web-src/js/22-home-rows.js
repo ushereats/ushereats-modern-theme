@@ -144,13 +144,15 @@
     if (r.type === "continue") addRemove(ic);
   }
 
-  // ── Continue Watching: ✕ on a part-watched title removes it ──
-  // Jellyfin has no "hide" flag, so the saved position is cleared on the server: every app (Moonfin, phones,
-  // TVs) drops it from Continue Watching too. Watched / unwatched marks are not touched.
+  // ── Continue Watching: ✕ on a card removes it ──
+  //  - part-watched: the saved position is cleared in Jellyfin, so every app (Moonfin, phones, TVs) drops it too
+  //  - next episodes (and the part-watched one, so it doesn't come straight back as the next episode): kept on
+  //    the theme's own list for you, until you watch further in that show
+  // Watched / unwatched marks are never touched.
   var X_BTN = '<button type="button" class="tb-cw-x" data-action="none" title="Remove from Continue Watching" aria-label="Remove from Continue Watching">' +
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
   function addRemove(ic) {
-    var cards = ic.querySelectorAll(".card[data-positionticks]");
+    var cards = ic.querySelectorAll(".card[data-id]");
     for (var i = 0; i < cards.length; i++) {
       var sc = cards[i].querySelector(".cardScalable");
       if (sc && !sc.querySelector(".tb-cw-x")) sc.insertAdjacentHTML("beforeend", X_BTN);
@@ -162,7 +164,10 @@
     var id = card.getAttribute("data-id"), rid = sec.getAttribute("data-tb-row");
     var r = rows.filter(function (x) { return x.id === rid; })[0];
     card.classList.add("tb-cw-going");
-    api.ajax({ type: "POST", url: api.getUrl("UserItems/" + id + "/UserData"), data: JSON.stringify({ PlaybackPositionTicks: 0 }), contentType: "application/json" })
+    var jobs = [api.ajax({ type: "POST", url: api.getUrl("UshereatsTheme/continue/hide", { itemId: id }) })];
+    if (card.hasAttribute("data-positionticks"))
+      jobs.push(api.ajax({ type: "POST", url: api.getUrl("UserItems/" + id + "/UserData"), data: JSON.stringify({ PlaybackPositionTicks: 0 }), contentType: "application/json" }));
+    Promise.all(jobs)
       .then(function () {
         try { localStorage.setItem("tbRowsStale", String(Date.now())); } catch (e) {}
         setTimeout(function () {

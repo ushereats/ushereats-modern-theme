@@ -1,17 +1,25 @@
 (function tbSmoothScroll() {
-  // Smooth scrolling (setting: Features > Scrolling). Mouse wheel only: each notch glides and eases to a stop
-  // instead of jumping. Touchpads, touch screens, keyboards, the scrollbar and TVs keep the browser's own
-  // scrolling. Optional extras while moving: rows lean slightly with the speed, and a light motion blur.
+  // Smooth scrolling (setting: Motion & scrolling). With a mouse wheel each notch glides and eases to a stop
+  // instead of jumping; touchpads and touch screens already glide on their own and keep it. The extras (rows lean
+  // with the speed, motion blur) follow any scrolling: wheel, touchpad, keyboard or scrollbar. TVs: off.
   if (window.__tbSmooth) return;
   window.__tbSmooth = true;
   var html = document.documentElement;
-  if (!window.tbFeat) return;
-  window.tbFeat("SmoothScroll").then(function (on) { if (on) start(); });
+  // "Admins only" needs to know who you are, which isn't known until Jellyfin has signed you in: keep asking
+  // until it is (asking too early answered "no" for good)
+  var lvl = parseInt((window.TB_CONFIG || {}).SmoothScroll, 10) || 0, started = false;
+  (function ask() {
+    var a = window.ApiClient;
+    if (window.tbFeat && (lvl >= 2 || (a && a.getCurrentUserId && a.getCurrentUserId()))) {
+      window.tbFeat("SmoothScroll").then(function (on) { if (on && !started) { started = true; start(); } });
+    } else setTimeout(ask, 500);
+  })();
 
   function start() {
     var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
     var mouse = window.matchMedia ? matchMedia("(pointer: fine)").matches : true;
-    if (reduce || !mouse) return;
+    if (reduce || !mouse || html.classList.contains("layout-tv")) return;
+    html.classList.add("tb-ss-on");
     var STRETCH = tbCfg("ScrollStretch", true) !== false;
     var BLUR = tbCfg("ScrollBlur", false) === true;
     var EASE = 0.12;          // share of the remaining distance covered per frame (60 fps); lower = longer glide
@@ -55,8 +63,6 @@
       raf = 0;
       if (el) el.style.scrollBehavior = "";
       el = null;
-      vel = 0;
-      settle();
     }
 
     function frame(now) {
@@ -65,15 +71,13 @@
       var dt = Math.min(64, now - (lastT || now - 16.7)) || 16.7;
       lastT = now;
       var k = 1 - Math.pow(1 - EASE, dt / 16.7);
-      var prev = y;
       y += (target - y) * k;
       if (Math.abs(target - y) < 0.5) y = target;
       lastSet = Math.round(y);
       el.scrollTop = y;
       lastSet = el.scrollTop;
-      if (el === doc) { vel = vel * 0.6 + ((y - prev) / dt) * 0.4; effects(); }
       if (y !== target) raf = requestAnimationFrame(frame);
-      else { el.style.scrollBehavior = ""; vel = 0; settle(); el = null; }
+      else { el.style.scrollBehavior = ""; el = null; }
     }
 
     window.addEventListener("wheel", function (e) {
@@ -107,8 +111,20 @@
     ["hashchange", "popstate"].forEach(function (t) { window.addEventListener(t, stop); });
     document.addEventListener("viewshow", stop);
 
-    // ── the extras while the page moves ──
-    var moving = false, blurNode = null, lastBlur = -1;
+    // ── the extras while the page moves (measured from the page's own position, so any scrolling counts) ──
+    var moving = false, blurNode = null, lastBlur = -1, sRaf = 0, sY = null, sT = 0, lastEvt = 0;
+    function sample(now) {
+      sRaf = 0;
+      var d = doc || scrollingDoc(), py = d.scrollTop;
+      if (sY === null) { sY = py; sT = now; }
+      var dt = Math.min(64, now - sT) || 16.7;
+      vel = vel * 0.6 + ((py - sY) / dt) * 0.4;
+      sY = py; sT = now;
+      effects();
+      if (moving || Math.abs(vel) > 0.02 || now - lastEvt < 150) sRaf = requestAnimationFrame(sample);
+      else { vel = 0; sY = null; }
+    }
+    if (STRETCH || BLUR) window.addEventListener("scroll", function () { lastEvt = performance.now(); if (!sRaf) sRaf = requestAnimationFrame(sample); }, { passive: true });
     if (BLUR) {
       var ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg");
       svg.setAttribute("width", "0"); svg.setAttribute("height", "0");

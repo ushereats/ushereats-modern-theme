@@ -340,9 +340,16 @@ public class HomeController : ControllerBase
             }
         }
 
+        // episodes this person removed from the row with the ✕ (until they watch further)
+        HashSet<string> hidden = ContinueHidden.For(user.Id);
         i = 0;
         foreach (BaseItemDto ep in nextDtos)
         {
+            if (hidden.Contains(ep.Id.ToString("N")))
+            {
+                continue;
+            }
+
             DateTime? date = null;
             if (ep.SeriesId.HasValue && ep.SeriesId.Value != Guid.Empty)
             {
@@ -447,6 +454,42 @@ public class HomeController : ControllerBase
         }
 
         return ordered;
+    }
+
+    // ── Continue Watching: removing a card ───────────────────────────────────
+
+    /// <summary>
+    /// Removes a Next Up episode from the signed-in user's Continue Watching row (the ✕ on a card).
+    /// Part-watched items are also cleared by the client (their position is reset in Jellyfin itself).
+    /// </summary>
+    [HttpPost("continue/hide")]
+    public IActionResult HideFromContinue([FromQuery(Name = "itemId")] string? itemId)
+    {
+        if (SignedInUserId() is not Guid uid)
+        {
+            return Unauthorized();
+        }
+
+        if (!Guid.TryParse(itemId, out Guid item) || item == Guid.Empty)
+        {
+            return BadRequest();
+        }
+
+        ContinueHidden.Add(uid, item);
+        return NoContent();
+    }
+
+    /// <summary>The episode ids the signed-in user removed (for the browser's own fallback version of the row).</summary>
+    [HttpGet("continue/hidden")]
+    public IActionResult HiddenFromContinue()
+    {
+        if (SignedInUserId() is not Guid uid)
+        {
+            return Unauthorized();
+        }
+
+        Response.Headers["Cache-Control"] = "no-cache";
+        return Ok(new { ids = ContinueHidden.For(uid) });
     }
 
     // ── Debug: Continue Watching pipeline ────────────────────────────────────

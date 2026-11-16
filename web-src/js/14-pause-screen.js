@@ -178,8 +178,18 @@
   }
 
   // ── Show / hide ──
+  // leaving the player (the back arrow, browser back, Esc) pauses the video on its way out: that pause is not
+  // "paused to look at the details", so the screen must not flash up over the page you're going back to
+  var leftAt = 0;
+  function inPlayer() { return /^#!?\/?video/i.test(location.hash); }
+  function leaving() { leftAt = Date.now(); clearTimeout(timer); hide(false); }
+  document.addEventListener("click", function (e) { if (e.target && e.target.closest && e.target.closest(".headerBackButton")) leaving(); }, true);
+  window.addEventListener("popstate", function () { if (!inPlayer()) leaving(); }, true);
+  window.addEventListener("hashchange", function () { if (!inPlayer()) leaving(); }, true);
+
   function show() {
     if (!video || !video.paused || video.ended || dismissed || visible) return;
+    if (!inPlayer() || Date.now() - leftAt < 1500) return;
     var id = currentId();
     if (!id) { askSession().then(function () { if (currentId()) show(); }); return; }
     var go = function (d) {

@@ -1679,9 +1679,9 @@
             </div>
 
             <nav class="sleekfin-page-nav">
-                <button type="button" class="sleekfin-page-nav-button is-active" data-sleekfin-panel="general">General</button>
-                <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="features">Features</button>
+                <button type="button" class="sleekfin-page-nav-button is-active" data-sleekfin-panel="general">Look</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="home">Home</button>
+                <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="titles">Titles</button>
                 <div class="sleekfin-builder-nav">
                     <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="ui-builder">Header &amp; pages</button>
                     <div class="sleekfin-builder-subnav">
@@ -1689,13 +1689,13 @@
                         <div class="sleekfin-builder-subnav-item" data-sleekfin-builder-panel="details">Details pages</div>
                     </div>
                 </div>
-                <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="overview">Look</button>
-                <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="posters">Custom posters</button>
-                <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="search">Search</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="player">Player</button>
+                <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="search">Search</button>
+                <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="motion">Motion &amp; scrolling</button>
+                <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="posters">Custom posters</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="signin">Sign-in &amp; splash</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="dashboard">Dashboard</button>
-                <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="speed">Speed test</button>
+                <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="speed">Speed &amp; developer</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="errors" id="tbErrorsNavBtn">Errors</button>
             </nav>
 
@@ -1778,35 +1778,6 @@
                         </div>
                     </div>
 
-                    <div class="sleekfin-section-container">
-                        <div class="sleekfin-config-section-title">Page changes</div>
-                        <div class="sleekfin-card">
-                            <div class="sleekfin-toggle-row">
-                                <div class="sleekfin-toggle-copy">
-                                    <label class="sleekfin-toggle-label" for="tb-PageTransitions">Smooth page changes</label>
-                                    <div class="sleekfin-field-description">Exactly as on cinejoy.pk: the page you were on stays on screen until the next one is ready, then the whole screen cross-fades (the browser's own 0.25 s fade). Opening a title, going back, changing page. Browsers without it (Firefox before 144, Safari before 18) just change page. Off on TVs, during video, and when the device asks for less motion.</div>
-                                </div>
-                                <div class="sleekfin-toggle-actions">
-                                    <label class="sleekfin-toggle">
-                                        <input id="tb-PageTransitions" type="checkbox" data-key="PageTransitions" />
-                                        <span class="sleekfin-toggle-slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="sleekfin-toggle-row">
-                                <div class="sleekfin-toggle-copy">
-                                    <label class="sleekfin-toggle-label" for="tb-DeviceCache">Quick start</label>
-                                    <div class="sleekfin-field-description">Before it draws anything, Jellyfin asks the server several things one after another (server info, your account...): over the internet each one is a wait. Each device keeps the answers from last time and opens with them at once, fetching fresh ones in the background for next time. Off: the kept answers are cleared.</div>
-                                </div>
-                                <div class="sleekfin-toggle-actions">
-                                    <label class="sleekfin-toggle">
-                                        <input id="tb-DeviceCache" type="checkbox" data-key="DeviceCache" />
-                                        <span class="sleekfin-toggle-slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="sleekfin-section-container">
                         <div class="sleekfin-config-section-title">Posters</div>
@@ -1883,9 +1854,65 @@
                         </div>
                     </div>
 
+                    <div class="sleekfin-section-container">
+                        <div class="sleekfin-config-section-title">Card shapes</div>
+                        <div class="sleekfin-card">
+                            <div class="sleekfin-toggle-row">
+                                <div class="sleekfin-toggle-copy">
+                                    <label class="sleekfin-toggle-label" for="sleekFinCardButtonShape">Card buttons</label>
+                                    <div class="sleekfin-field-description">Watched, favorite, more, and status badges on media cards.</div>
+                                </div>
+                                <div class="sleekfin-toggle-actions">
+                                    <select id="sleekFinCardButtonShape" class="sleekfin-input">
+                                        <option value="Square">Square (slightly rounded)</option>
+                                        <option value="Squircle" selected>Squircle</option>
+                                        <option value="Circle">Circle</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="sleekfin-toggle-row">
+                                <div class="sleekfin-toggle-copy">
+                                    <label class="sleekfin-toggle-label" for="sleekFinPlayButtonShape">Play button</label>
+                                    <div class="sleekfin-field-description">The large Play button centered on media cards.</div>
+                                </div>
+                                <div class="sleekfin-toggle-actions">
+                                    <select id="sleekFinPlayButtonShape" class="sleekfin-input">
+                                        <option value="Square">Square (slightly rounded)</option>
+                                        <option value="Squircle">Squircle</option>
+                                        <option value="Circle" selected>Circle</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="sleekfin-toggle-row">
+                                <div class="sleekfin-toggle-copy">
+                                    <label class="sleekfin-toggle-label" for="sleekFinMediaCardShape">Posters and thumbnails</label>
+                                    <div class="sleekfin-field-description">Movie, series, episode, Next Up, Continue Watching, music, and Live TV artwork. Circle turns rectangular artwork into capsules.</div>
+                                </div>
+                                <div class="sleekfin-toggle-actions">
+                                    <select id="sleekFinMediaCardShape" class="sleekfin-input">
+                                        <option value="Square">Square (slightly rounded)</option>
+                                        <option value="Squircle" selected>Squircle</option>
+                                        <option value="Circle">Circle</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="sleekfin-toggle-row">
+                                <div class="sleekfin-toggle-copy">
+                                    <label class="sleekfin-toggle-label" for="sleekFinCastCrewShape">Cast and crew</label>
+                                    <div class="sleekfin-field-description">Person images on detail pages and people libraries. Circle uses square avatars.</div>
+                                </div>
+                                <div class="sleekfin-toggle-actions">
+                                    <select id="sleekFinCastCrewShape" class="sleekfin-input">
+                                        <option value="Square">Square (slightly rounded)</option>
+                                        <option value="Squircle" selected>Squircle</option>
+                                        <option value="Circle">Circle</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="sleekfin-page-panel" data-sleekfin-panel="features">
+                <div class="sleekfin-page-panel" data-sleekfin-panel="titles">
                     <div class="sleekfin-section-container">
                         <div class="sleekfin-config-section-title">Titles</div>
                         <div class="sleekfin-card">
@@ -1900,19 +1927,6 @@
                                             <option value="2">Pop-up (everyone)</option>
                                         </select>
                                         <div class="sleekfin-field-description">Pop-up: clicking a title opens it Netflix-style as a panel over the page you were on (same banner, buttons, cast and episodes). Close it with ✕, Esc, back or by clicking outside, and you're exactly where you were.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-InstantTitles">Instant title pages</label>
-                                    <div class="sleekfin-input-stack">
-                                        <select id="tb-InstantTitles" class="sleekfin-input" data-key="InstantTitles" data-int="1">
-                                            <option value="0">Off</option>
-                                            <option value="1">Admins only</option>
-                                            <option value="2">Everyone</option>
-                                        </select>
-                                        <div class="sleekfin-field-description">Draw the title page hero from cached card data the moment you click — before the server responds.</div>
                                     </div>
                                 </div>
                             </div>
@@ -1939,60 +1953,22 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="sleekfin-page-panel" data-sleekfin-panel="motion">
                     <div class="sleekfin-section-container">
-                        <div class="sleekfin-config-section-title">Faster loading</div>
+                        <div class="sleekfin-config-section-title">Page changes</div>
                         <div class="sleekfin-card">
-                            <p class="sleekfin-field-description" style="margin:0 0 12px">Speed features. Off brings back the old behaviour straight away (no update needed, next page load).</p>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-HoverWarm">Hover pre-warm</label>
-                                    <div class="sleekfin-input-stack">
-                                        <select id="tb-HoverWarm" class="sleekfin-input" data-key="HoverWarm" data-int="1">
-                                            <option value="0">Off</option>
-                                            <option value="1">Admins only</option>
-                                            <option value="2">Everyone</option>
-                                        </select>
-                                        <div class="sleekfin-field-description">Pre-fetch the hover card for the item under the cursor after a short idle pause.</div>
-                                    </div>
+                            <div class="sleekfin-toggle-row">
+                                <div class="sleekfin-toggle-copy">
+                                    <label class="sleekfin-toggle-label" for="tb-PageTransitions">Smooth page changes</label>
+                                    <div class="sleekfin-field-description">Exactly as on cinejoy.pk: the page you were on stays on screen until the next one is ready, then the whole screen cross-fades (the browser's own 0.25 s fade). Opening a title, going back, changing page. Browsers without it (Firefox before 144, Safari before 18) just change page. Off on TVs, during video, and when the device asks for less motion.</div>
                                 </div>
-                            </div>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-InstantSearch">Instant search</label>
-                                    <div class="sleekfin-input-stack">
-                                        <select id="tb-InstantSearch" class="sleekfin-input" data-key="InstantSearch" data-int="1">
-                                            <option value="0">Off</option>
-                                            <option value="1">Admins only</option>
-                                            <option value="2">Everyone</option>
-                                        </select>
-                                        <div class="sleekfin-field-description">Local search index on device — instant results as you type, no server round trip.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-HomeInOneRequest">Home in one request</label>
-                                    <div class="sleekfin-input-stack">
-                                        <select id="tb-HomeInOneRequest" class="sleekfin-input" data-key="HomeInOneRequest" data-int="1">
-                                            <option value="0">Off</option>
-                                            <option value="1">Admins only</option>
-                                            <option value="2">Everyone</option>
-                                        </select>
-                                        <div class="sleekfin-field-description">Fetch all home rows in one request to the server instead of one per row.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-HomeFromDeviceCopy">Home rows early start</label>
-                                    <div class="sleekfin-input-stack">
-                                        <select id="tb-HomeFromDeviceCopy" class="sleekfin-input" data-key="HomeFromDeviceCopy" data-int="1">
-                                            <option value="0">Off</option>
-                                            <option value="1">Admins only</option>
-                                            <option value="2">Everyone</option>
-                                        </select>
-                                        <div class="sleekfin-field-description">Start asking for the home rows the moment the site opens (before Jellyfin has finished loading), so they arrive sooner.</div>
-                                    </div>
+                                <div class="sleekfin-toggle-actions">
+                                    <label class="sleekfin-toggle">
+                                        <input id="tb-PageTransitions" type="checkbox" data-key="PageTransitions" />
+                                        <span class="sleekfin-toggle-slider"></span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -2039,21 +2015,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="sleekfin-section-container">
-                        <div class="sleekfin-config-section-title">Developer</div>
-                        <div class="sleekfin-card">
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-DevAssetsUrl">Dev assets URL</label>
-                                    <div class="sleekfin-input-stack">
-                                        <input id="tb-DevAssetsUrl" class="sleekfin-input" type="text" data-key="DevAssetsUrl" placeholder="http://192.168.50.x:3131/" />
-                                        <div class="sleekfin-field-description">URL of your PC's dev server (npm run dev). Empty = dev mode off. Enables /UshereatsTheme/dev/ routes.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+
+
 
                 <div class="sleekfin-page-panel" data-sleekfin-panel="home">
                     <div class="sleekfin-section-container">
@@ -2211,6 +2175,19 @@
                                     <div class="sleekfin-input-stack">
                                         <input id="tb-SearchTitle" class="sleekfin-input" type="text" data-key="SearchTitle" />
                                         <div class="sleekfin-field-description"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-InstantSearch">Instant search</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-InstantSearch" class="sleekfin-input" data-key="InstantSearch" data-int="1">
+                                            <option value="0">Off</option>
+                                            <option value="1">Admins only</option>
+                                            <option value="2">Everyone</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">Local search index on device — instant results as you type, no server round trip.</div>
                                     </div>
                                 </div>
                             </div>
@@ -2413,6 +2390,76 @@
 
                 <div class="sleekfin-page-panel" data-sleekfin-panel="speed">
                     <div class="sleekfin-section-container">
+                        <div class="sleekfin-config-section-title">Faster loading</div>
+                        <div class="sleekfin-card">
+                            <p class="sleekfin-field-description" style="margin:0 0 12px">Speed features. Off brings back the old behaviour straight away (no update needed, next page load).</p>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-HoverWarm">Hover pre-warm</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-HoverWarm" class="sleekfin-input" data-key="HoverWarm" data-int="1">
+                                            <option value="0">Off</option>
+                                            <option value="1">Admins only</option>
+                                            <option value="2">Everyone</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">Pre-fetch the hover card for the item under the cursor after a short idle pause.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-HomeInOneRequest">Home in one request</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-HomeInOneRequest" class="sleekfin-input" data-key="HomeInOneRequest" data-int="1">
+                                            <option value="0">Off</option>
+                                            <option value="1">Admins only</option>
+                                            <option value="2">Everyone</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">Fetch all home rows in one request to the server instead of one per row.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-HomeFromDeviceCopy">Home rows early start</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-HomeFromDeviceCopy" class="sleekfin-input" data-key="HomeFromDeviceCopy" data-int="1">
+                                            <option value="0">Off</option>
+                                            <option value="1">Admins only</option>
+                                            <option value="2">Everyone</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">Start asking for the home rows the moment the site opens (before Jellyfin has finished loading), so they arrive sooner.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-toggle-row">
+                                <div class="sleekfin-toggle-copy">
+                                    <label class="sleekfin-toggle-label" for="tb-DeviceCache">Quick start</label>
+                                    <div class="sleekfin-field-description">Before it draws anything, Jellyfin asks the server several things one after another (server info, your account...): over the internet each one is a wait. Each device keeps the answers from last time and opens with them at once, fetching fresh ones in the background for next time. Off: the kept answers are cleared.</div>
+                                </div>
+                                <div class="sleekfin-toggle-actions">
+                                    <label class="sleekfin-toggle">
+                                        <input id="tb-DeviceCache" type="checkbox" data-key="DeviceCache" />
+                                        <span class="sleekfin-toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-InstantTitles">Instant title pages</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-InstantTitles" class="sleekfin-input" data-key="InstantTitles" data-int="1">
+                                            <option value="0">Off</option>
+                                            <option value="1">Admins only</option>
+                                            <option value="2">Everyone</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">Draw the title page hero from cached card data the moment you click — before the server responds.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sleekfin-section-container">
                         <div class="sleekfin-config-section-title">Speed test</div>
                         <div class="sleekfin-card">
                             <p class="sleekfin-field-description" style="margin:0 0 12px">Tests the whole site: times every kind of server request (3 times each), lists what each plugin adds to every page, then opens every page in a frame (everything in the header, every library, a movie, a show, a season, an episode, a person, a collection, music, playlists, search, favourites, your settings, the dashboard) and times when each part appears, freezes, layout jumps, the slowest files and whose they are. Meanwhile the server records every request it answers (Jellyfin's and every plugin's) with how long it took, plus CPU and memory, and the scheduled tasks are listed with how long they last took. Takes 1–3 minutes: don't touch anything. Then copy the results and send them.</p>
@@ -2423,6 +2470,20 @@
                                 <span id="tbBenchStatus" class="sleekfin-field-description"></span>
                             </div>
                             <textarea id="tbBenchOut" class="sleekfin-input" rows="18" spellcheck="false" readonly hidden style="width:100%;box-sizing:border-box;margin-top:12px;font:12px/1.4 ui-monospace,monospace"></textarea>
+                        </div>
+                    </div>
+                    <div class="sleekfin-section-container">
+                        <div class="sleekfin-config-section-title">Developer</div>
+                        <div class="sleekfin-card">
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-DevAssetsUrl">Dev assets URL</label>
+                                    <div class="sleekfin-input-stack">
+                                        <input id="tb-DevAssetsUrl" class="sleekfin-input" type="text" data-key="DevAssetsUrl" placeholder="http://192.168.50.x:3131/" />
+                                        <div class="sleekfin-field-description">URL of your PC's dev server (npm run dev). Empty = dev mode off. Enables /UshereatsTheme/dev/ routes.</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2534,7 +2595,8 @@
 
                 </div>
 
-                <div class="sleekfin-page-panel" data-sleekfin-panel="overview">
+
+                <div class="sleekfin-page-panel" data-sleekfin-panel="ui-builder" data-sleekfin-builder-panel="home">
                     <div class="sleekfin-section-container">
                         <div class="sleekfin-config-section-title">Dependencies</div>
                         <div class="sleekfin-card">
@@ -2544,9 +2606,8 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="sleekfin-section-container">
-                        <div class="sleekfin-config-section-title">General options</div>
+                        <div class="sleekfin-config-section-title">SleekFin header &amp; title pages</div>
                         <div class="sleekfin-card">
                             <div class="sleekfin-toggle-row">
                                 <div class="sleekfin-toggle-copy">
@@ -2605,68 +2666,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="sleekfin-section-container">
-                        <div class="sleekfin-config-section-title">Cards</div>
-                        <div class="sleekfin-card">
-                            <div class="sleekfin-toggle-row">
-                                <div class="sleekfin-toggle-copy">
-                                    <label class="sleekfin-toggle-label" for="sleekFinCardButtonShape">Card buttons</label>
-                                    <div class="sleekfin-field-description">Watched, favorite, more, and status badges on media cards.</div>
-                                </div>
-                                <div class="sleekfin-toggle-actions">
-                                    <select id="sleekFinCardButtonShape" class="sleekfin-input">
-                                        <option value="Square">Square (slightly rounded)</option>
-                                        <option value="Squircle" selected>Squircle</option>
-                                        <option value="Circle">Circle</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="sleekfin-toggle-row">
-                                <div class="sleekfin-toggle-copy">
-                                    <label class="sleekfin-toggle-label" for="sleekFinPlayButtonShape">Play button</label>
-                                    <div class="sleekfin-field-description">The large Play button centered on media cards.</div>
-                                </div>
-                                <div class="sleekfin-toggle-actions">
-                                    <select id="sleekFinPlayButtonShape" class="sleekfin-input">
-                                        <option value="Square">Square (slightly rounded)</option>
-                                        <option value="Squircle">Squircle</option>
-                                        <option value="Circle" selected>Circle</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="sleekfin-toggle-row">
-                                <div class="sleekfin-toggle-copy">
-                                    <label class="sleekfin-toggle-label" for="sleekFinMediaCardShape">Posters and thumbnails</label>
-                                    <div class="sleekfin-field-description">Movie, series, episode, Next Up, Continue Watching, music, and Live TV artwork. Circle turns rectangular artwork into capsules.</div>
-                                </div>
-                                <div class="sleekfin-toggle-actions">
-                                    <select id="sleekFinMediaCardShape" class="sleekfin-input">
-                                        <option value="Square">Square (slightly rounded)</option>
-                                        <option value="Squircle" selected>Squircle</option>
-                                        <option value="Circle">Circle</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="sleekfin-toggle-row">
-                                <div class="sleekfin-toggle-copy">
-                                    <label class="sleekfin-toggle-label" for="sleekFinCastCrewShape">Cast and crew</label>
-                                    <div class="sleekfin-field-description">Person images on detail pages and people libraries. Circle uses square avatars.</div>
-                                </div>
-                                <div class="sleekfin-toggle-actions">
-                                    <select id="sleekFinCastCrewShape" class="sleekfin-input">
-                                        <option value="Square">Square (slightly rounded)</option>
-                                        <option value="Squircle" selected>Squircle</option>
-                                        <option value="Circle">Circle</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="sleekfin-page-panel" data-sleekfin-panel="ui-builder" data-sleekfin-builder-panel="home">
                     <div class="sleekfin-section-container sleekfin-hero-builder-section">
                         <div class="sleekfin-config-section-title">Hero carousel</div>
                         <div class="sleekfin-hero-builder-shell">
@@ -6343,7 +6342,9 @@
         player: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/>',
         signin: '<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5M15 12H3"/>',
         dashboard: '<rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/>',
-        speed: '<path d="M12 14l4-4"/><path d="M3.5 18a9 9 0 1 1 17 0"/>'
+        speed: '<path d="M12 14l4-4"/><path d="M3.5 18a9 9 0 1 1 17 0"/>',
+        titles: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h6M7 11h10"/>',
+        motion: '<path d="M4 7h11M4 12h16M4 17h8"/><path d="M18 4l3 3-3 3"/>'
       };
       if (nav) {
         Array.prototype.forEach.call(nav.querySelectorAll(".sleekfin-page-nav-button"), function (b) {

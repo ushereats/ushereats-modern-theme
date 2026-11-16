@@ -14,7 +14,7 @@
   // Set while the old page is still held, and kept for a moment after, because Jellyfin and the rows growing
   // move the page a moment after it shows (that was the jump seen right after the change).
   var pos = {}, want = null, until = 0, userMoved = false, running = false;
-  var targetOverride = null, xfClick = false;
+  var targetOverride = null, xfClick = false, xfBack = false;
   try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch (e) {}
   function scrolled() { var e = document.scrollingElement || document.documentElement; return Math.max(window.pageYOffset || 0, e ? e.scrollTop : 0); }
   function scrollNow(y) { try { window.scrollTo({ top: y, left: 0, behavior: "instant" }); } catch (e) { window.scrollTo(0, y); } }
@@ -237,7 +237,7 @@
     window.tbXfActive = true;
     // Click/pointerdown-initiated transitions: navigation must go through immediately.
     if (!already) captured = true;
-    var done = function () { running = false; captured = false; window.tbXfActive = false; html.classList.remove("tb-vt"); targetOverride = null; xfClick = false; };
+    var done = function () { running = false; captured = false; window.tbXfActive = false; html.classList.remove("tb-vt"); targetOverride = null; xfClick = false; xfBack = false; };
     tr.finished.then(function () { note("done"); done(); }, function (e) { note("skipped " + (e && e.message)); done(); });
     return true;
   }
@@ -245,6 +245,10 @@
 
   document.addEventListener("click", function (e) {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    // Set xfBack when the user clicked a back button so hold() knows to apply the saved
+    // scroll position from the popstate — not for logo/home clicks which also cause a
+    // popstate when Jellyfin pops the detail page from the history stack.
+    xfBack = !!(e.target && e.target.closest && e.target.closest(".sleekfin-details-back, [data-action='back'], .btnBack"));
     crossfade(400);
   }, true);
 
@@ -255,10 +259,12 @@
     if (running && captured) {
       // A popstate while a click-initiated crossfade is running means history.back() was called
       // (e.g. the back arrow).  Switch the in-flight crossfade to the saved scroll position.
-      if (e.type === "popstate" && xfClick) {
+      // popstate during a back-button click (xfBack) = history.back() was called by the
+      // back arrow; apply the saved scroll position.  For logo/home, Jellyfin also fires
+      // a popstate internally (popping the detail entry), but xfBack is false for those.
+      if (e.type === "popstate" && xfClick && xfBack) {
         var saved = pos[location.hash];
-        if (saved !== undefined) { targetOverride = saved; note("backArrow override " + saved + " for " + location.hash); }
-        else note("backArrow noSaved hash=" + location.hash + " keys=" + Object.keys(pos).join(","));
+        if (saved !== undefined) { targetOverride = saved; note("backArrow override " + saved); }
       }
       return;
     }

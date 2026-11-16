@@ -107,6 +107,8 @@ if (ids[2]) await open(ids[2], "third");
     if (backBlank.length) { navFailed.push(`back-nav: ${backBlank.length} blank frame(s) at frames ${backBlank.map((f)=>f.i).join(",")}`); process.exitCode = 1; }
     // FAIL: any frame showed y=0 when savedY is not 0 (would reveal the top-scroll bug)
     if (savedY > 50) { const wrongY = backFrames.filter((f) => f.y < 10); if (wrongY.length) { navFailed.push(`back-nav: ${wrongY.length} frame(s) at y≈0 (should be ~${savedY}): frames ${wrongY.map((f)=>f.i).join(",")}`); process.exitCode = 1; } }
+    // FAIL: browser-back must keep y=savedY in every frame (no position drift during transition)
+    if (savedY > 50) { const driftY = backFrames.filter((f) => Math.abs(f.y - savedY) > 50); if (driftY.length) { navFailed.push(`back-nav: ${driftY.length} frame(s) drifted from y≈${savedY}: frames ${driftY.map((f)=>f.i+":y="+f.y).join(",")}`); process.exitCode = 1; } }
     // ── home-button navigation test ───────────────────────────────────────
     // Open a title page from the restored position, then click the home/logo button.
     await page.locator(`.card[data-id="${deep}"]`).first().evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
@@ -127,7 +129,7 @@ if (ids[2]) await open(ids[2], "third");
       const blank = await isBlankFrame();
       const ms = Date.now() - homeNavT0;
       if (firstMoveMs < 0 && /home/.test(hash)) firstMoveMs = ms;
-      homeFrames.push({ i, y, blank, ms });
+      homeFrames.push({ i, y, blank, ms, home: /home/.test(hash) });
       await page.waitForTimeout(16);
     }
     await sample("home", 2000);
@@ -140,6 +142,9 @@ if (ids[2]) await open(ids[2], "third");
     if (homeBlank.length) { navFailed.push(`home-nav: ${homeBlank.length} blank frame(s) at frames ${homeBlank.map((f)=>f.i).join(",")}`); process.exitCode = 1; }
     // FAIL: transition took >800ms to start moving to home (frozen detail-page bug)
     if (firstMoveMs > 800) { navFailed.push(`home-nav: hash didn't change to #/home until ${firstMoveMs}ms after click (threshold 800ms)`); process.exitCode = 1; }
+    // FAIL: any frame after hash shows #/home is not at y=0 (logo must always land at top)
+    const homeWrongY = homeFrames.filter((f) => f.home && f.y > 10);
+    if (homeWrongY.length) { navFailed.push(`home-nav: ${homeWrongY.length} frame(s) at y>0 after hash=#/home (should be y=0): frames ${homeWrongY.map((f)=>f.i).join(",")}`); process.exitCode = 1; }
     if (navFailed.length) { sc.push("FAILURES: " + navFailed.join("; ")); console.error("\n── nav test FAILURES ──"); navFailed.forEach((f) => console.error("  FAIL " + f)); }
     else sc.push("nav tests PASSED");
   }
@@ -181,6 +186,8 @@ if (ids[1]) {
     if (Math.abs(arrowEndY - yBefore) > 2) { console.error("  FAIL arrow-back: landed at y=" + arrowEndY + ", expected y≈" + yBefore); process.exitCode = 1; }
     // FAIL: any frame showed y=0 when yBefore is not 0 (would reveal the top-scroll bug)
     if (yBefore > 50) { const wrongY = arrowFrames.filter((f) => f.y < 10); if (wrongY.length) { console.error("  FAIL arrow-back: " + wrongY.length + " frame(s) at y≈0 (should be ~" + yBefore + ")"); process.exitCode = 1; } }
+    // FAIL: on-page back arrow must keep y=yBefore in every frame (no position drift)
+    if (yBefore > 50) { const driftY = arrowFrames.filter((f) => Math.abs(f.y - yBefore) > 50); if (driftY.length) { console.error("  FAIL arrow-back: " + driftY.length + " frame(s) drifted from y≈" + yBefore + ": " + driftY.slice(0,5).map((f)=>"f"+f.i+":y="+f.y).join(",")); process.exitCode = 1; } }
   }
 }
 // a library page: the image links it asks for (sharpness, WebP) and how fast it shows the second time

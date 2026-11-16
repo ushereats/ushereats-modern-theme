@@ -24,6 +24,10 @@
   // Nothing below runs (and no styles exist) outside the admin dashboard, so the main UI pays zero cost.
   var st = document.createElement("style");
   st.id = "tb-dashboard-skin";
+  // Update all & restart button: accent colour instead of the red of Restart / Shutdown, fills up while working
+  CSS += "\nbody.dashboardDocument button[data-tb-upd]:not(#tb-x){background:linear-gradient(90deg,rgba(var(--tbd-rgb),.6) var(--p,0%),rgba(var(--tbd-rgb),.16) var(--p,0%))!important;border-color:rgba(var(--tbd-rgb),.5)!important;margin-left:8px}" +
+    "\nbody.dashboardDocument button[data-tb-upd] .tb-hold-fill{background:linear-gradient(90deg,var(--tbd-acc),rgba(var(--tbd-rgb),.7))}" +
+    "\nbody.dashboardDocument button[data-tb-upd][data-tb-busy]{pointer-events:none}\n";
   st.textContent = CSS;
   // Fonts (Bebas Neue / Funnel Sans) are self-hosted by the plugin from the page head.
 
@@ -548,6 +552,98 @@
     });
   }
 
+  // \u2550\u2550\u2550\u2550\u2550 Update all plugins, then restart (button next to Restart) \u2550\u2550\u2550\u2550\u2550
+  // Hold to confirm (like Restart). Runs Jellyfin's own "Update Plugins" task (it picks the right version of each
+  // plugin for this server), shows its progress on the button, then restarts the server if anything was installed
+  // and reloads this page once the server is back.
+  var upd = { busy: false, label: null };
+  var UPD_LABEL = "Update all & restart";
+  function restartBtn(p) {
+    var i = $('svg[data-testid="RestartAltIcon"]', p);
+    if (i) return i.closest("button");
+    var bs = $$("button", p);
+    for (var k = 0; k < bs.length; k++) if (/^\s*restart\s*$/i.test(bs[k].textContent || "")) return bs[k];
+    return null;
+  }
+  function doUpdateAll(p) {
+    var rb = restartBtn(p);
+    if (!rb || !rb.parentNode || rb.parentNode.querySelector("button[data-tb-upd]")) return;
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = rb.className;
+    b.setAttribute("data-tb-upd", "");
+    b.setAttribute("data-tb-hold", "");
+    b.title = "Hold to update every plugin, then restart the server";
+    b.appendChild(el("span", "tb-hold-fill"));
+    b.appendChild(el("span", "tb-upd-label", upd.label || UPD_LABEL));
+    rb.parentNode.insertBefore(b, rb.nextSibling);
+    bindHold(b);
+    b.addEventListener("click", function () { if (b.__tbOk) updateAll(); });
+  }
+  function setUpd(text, pct) {
+    upd.label = text;
+    $$("button[data-tb-upd]").forEach(function (b) {
+      var l = $(".tb-upd-label", b);
+      if (l && l.textContent !== text) l.textContent = text;
+      if (pct == null) { b.style.removeProperty("--p"); if (b.hasAttribute("data-tb-busy")) b.removeAttribute("data-tb-busy"); }
+      else { b.style.setProperty("--p", pct + "%"); setAttr(b, "data-tb-busy", ""); }
+    });
+  }
+  function post(path) { var a = api(); return Promise.resolve(a.ajax({ type: "POST", url: a.getUrl(path) })); }
+  function updDone(text) {
+    upd.busy = false;
+    setUpd(text, null);
+    setTimeout(function () { if (!upd.busy) setUpd(UPD_LABEL, null); }, 6000);
+  }
+  function waitForServer() {
+    // the server goes down, then comes back: reload once it answers again
+    var base = location.pathname.replace(/\/web(\/.*)?$/, "/");
+    if (base.charAt(base.length - 1) !== "/") base += "/";
+    var tries = 0;
+    (function ping() {
+      fetch(base + "System/Info/Public", { cache: "no-store" }).then(function (r) {
+        if (r.ok) location.reload(); else throw new Error();
+      })["catch"](function () { if (++tries < 150) setTimeout(ping, 2000); });
+    })();
+  }
+  function updateAll() {
+    if (upd.busy || !api()) return;
+    upd.busy = true;
+    setUpd("Checking for updates\u2026", 0);
+    getJSON("ScheduledTasks").then(function (tasks) {
+      var task = (tasks || []).filter(function (x) { return x.Key === "PluginUpdates"; })[0];
+      if (!task) throw new Error("no task");
+      var t0 = Date.now(), seenRun = task.State === "Running";
+      return (seenRun ? Promise.resolve() : post("ScheduledTasks/Running/" + task.Id)).then(function () {
+        return new Promise(function (resolve, reject) {
+          (function poll() {
+            getJSON("ScheduledTasks/" + task.Id).then(function (t) {
+              if (t.State === "Running") {
+                seenRun = true;
+                var pct = Math.max(0, Math.min(100, Math.round(t.CurrentProgressPercentage || 0)));
+                setUpd("Updating plugins\u2026 " + pct + "%", pct);
+              }
+              if (t.State !== "Running" && (seenRun || Date.now() - t0 > 8000)) {
+                var res = t.LastExecutionResult || {};
+                return res.Status === "Failed" ? reject(new Error("failed")) : resolve();
+              }
+              if (Date.now() - t0 > 15 * 60000) return reject(new Error("timeout"));
+              setTimeout(poll, 1500);
+            }, function () { setTimeout(poll, 3000); });
+          })();
+        });
+      });
+    }).then(function () {
+      return getJSON("System/Info");
+    }).then(function (info) {
+      if (!info || !info.HasPendingRestart) return updDone("All plugins up to date \u2014 no restart needed");
+      setUpd("Restarting server\u2026", 100);
+      return post("System/Restart").then(function () { setTimeout(waitForServer, 5000); });
+    })["catch"](function (e) {
+      updDone(e && e.message === "no task" ? "Couldn't find the Update Plugins task" : "Update failed \u2014 see Scheduled Tasks");
+    });
+  }
+
   // \u2550\u2550\u2550\u2550\u2550 9. Menu: collapsible Plugins + icons \u2550\u2550\u2550\u2550\u2550
   var ICONS = [
     [/discord|notif|webhook|gotify|telegram/i, "M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"],
@@ -629,6 +725,7 @@
     try { doLog(p, "useractivity=true", false); } catch (e) {}
     try { doLog(p, "useractivity=false", true); } catch (e) {}
     try { doDialogs(); } catch (e) {}
+    try { doUpdateAll(p); } catch (e) {}
   }
   var queued = false;
   function schedule() {

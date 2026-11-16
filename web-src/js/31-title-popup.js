@@ -19,7 +19,33 @@
   function uid() { try { return api().getCurrentUserId(); } catch (e) { return null; } }
   function sid() { try { return api().serverId(); } catch (e) { return ""; } }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
-  function get(path, params) { var a = api(); return Promise.resolve(a.getJSON(a.getUrl(path, params || {}))); }
+  var cache = {}, KEEP = 60000;
+  function get(path, params) {
+    var a = api(), url = a.getUrl(path, params || {}), hit = cache[url];
+    if (hit && Date.now() - hit.at < KEEP) return hit.p;
+    var p = Promise.resolve(a.getJSON(url));
+    cache[url] = { at: Date.now(), p: p };
+    p["catch"](function () { if (cache[url] && cache[url].p === p) delete cache[url]; });
+    return p;
+  }
+  // anything that changes something (watched, favourite, playing) makes the kept answers stale
+  function forget() { cache = {}; }
+  window.addEventListener("tb-playback-stopped", forget);
+  (function () {
+    var f = window.fetch;
+    if (typeof f === "function") window.fetch = function (input, init) {
+      var m = (init && init.method) || (input && input.method) || "GET";
+      if (String(m).toUpperCase() !== "GET") forget();
+      return f.apply(this, arguments);
+    };
+    var open = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function (m) { if (String(m).toUpperCase() !== "GET") forget(); return open.apply(this, arguments); };
+  })();
+  // the requests the panel makes (the same ones hovering makes ahead of time)
+  function qNextUp(seriesId) { return get("Shows/NextUp", { userId: uid(), SeriesId: seriesId, Limit: 1, EnableResumable: true }); }
+  function qSeasons(seriesId) { return get("Shows/" + seriesId + "/Seasons", { userId: uid() }); }
+  function qEpisodes(seriesId, seasonId) { return get("Shows/" + seriesId + "/Episodes", { userId: uid(), seasonId: seasonId, Fields: "Overview", EnableImageTypes: "Primary,Thumb,Backdrop", ImageTypeLimit: 1 }); }
+  function qSimilar(id) { return get("Items/" + id + "/Similar", { userId: uid(), limit: 12, Fields: "PrimaryImageAspectRatio", EnableImageTypes: "Primary,Backdrop,Thumb", ImageTypeLimit: 1 }); }
   var base = location.pathname.replace(/\/web(\/.*)?$/, "/");
   if (base.charAt(base.length - 1) !== "/") base += "/";
   function imgUrl(id, type, tag, q) { return base + "Items/" + id + "/Images/" + type + "?" + q + "&quality=85" + (window.__tbImgFmt || "") + "&tag=" + encodeURIComponent(tag); }
@@ -70,23 +96,33 @@
     "#tb-pop .tb-pop-season option{background:#16161a;color:#fff}" +
     "#tb-pop .tb-pop-eps{display:block!important;min-height:120px;white-space:normal!important;overflow:visible!important}" +
     "#tb-pop .tb-pop-ep{display:block!important;width:100%!important;flex:none!important;border-top:1px solid rgba(255,255,255,.07)}" +
-    "#tb-pop .tb-pop-ep-btn{all:unset;box-sizing:border-box;display:grid;grid-template-columns:34px 190px 1fr;gap:18px;align-items:center;width:100%;padding:14px 10px;border-radius:12px;cursor:pointer}" +
-    "#tb-pop .tb-pop-ep-btn:hover,#tb-pop .tb-pop-ep-btn:focus-visible{background:rgba(255,255,255,.06)}" +
-    "#tb-pop .tb-pop-ep-n{font-size:22px;color:rgba(255,255,255,.55);text-align:center}" +
-    "#tb-pop .tb-pop-ep-img{position:relative;aspect-ratio:16/9;border-radius:8px;background:#1c1c20 center/cover no-repeat;overflow:hidden}" +
-    "#tb-pop .tb-pop-ep-img .material-icons{position:absolute;inset:0;margin:auto;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.55);opacity:0;transition:opacity .15s}" +
-    "#tb-pop .tb-pop-ep-btn:hover .tb-pop-ep-img .material-icons{opacity:1}" +
-    "#tb-pop .tb-pop-ep-bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.25)}" +
-    "#tb-pop .tb-pop-ep-bar i{display:block;height:100%;background:var(--sleekfin-accent,#4fc3f7)}" +
-    "#tb-pop .tb-pop-ep-t{display:flex;justify-content:space-between;gap:12px;font-weight:700;font-size:15px}" +
-    "#tb-pop .tb-pop-ep-t em{font-style:normal;font-weight:600;color:rgba(255,255,255,.55);white-space:nowrap}" +
-    "#tb-pop .tb-pop-ep-t .material-icons{font-size:16px;vertical-align:-3px;margin-left:6px;color:var(--sleekfin-accent,#4fc3f7)}" +
-    "#tb-pop .tb-pop-ep-o{display:-webkit-box;margin-top:6px;font-size:13px;line-height:1.45;color:rgba(255,255,255,.68);-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}" +
+    "#tb-pop .tb-pop-ep{position:relative;border-radius:12px;transition:background-color .16s ease}" +
+    "#tb-pop .tb-pop-ep+.tb-pop-ep::before{content:'';position:absolute;left:12px;right:12px;top:0;height:1px;background:rgba(255,255,255,.07)}" +
+    "#tb-pop .tb-pop-ep:hover,#tb-pop .tb-pop-ep:focus-within{background:rgba(255,255,255,.05)}" +
+    "#tb-pop .tb-pop-ep-btn{all:unset;box-sizing:border-box;display:grid;width:100%;cursor:pointer;grid-template-columns:64px 240px minmax(0,1fr);" +
+    "grid-template-areas:'num img title' 'num img ov' 'num img foot';grid-template-rows:auto auto auto;align-content:center;column-gap:22px;row-gap:6px;padding:16px 16px 16px 6px}" +
+    "#tb-pop .tb-pop-ep-n{grid-area:num;align-self:center;justify-self:center;font-family:var(--title-font,'Bebas Neue',sans-serif);font-size:46px;line-height:1;letter-spacing:.02em;color:rgba(255,255,255,.38)}" +
+    "#tb-pop .tb-pop-ep[data-current] .tb-pop-ep-n{color:var(--sleekfin-accent,#4fc3f7)}" +
+    "#tb-pop .tb-pop-ep[data-played]:not([data-current]) .tb-pop-ep-n{color:rgba(255,255,255,.2)}" +
+    "#tb-pop .tb-pop-ep-img{grid-area:img;grid-row:1/span 3;position:relative;width:240px;height:135px;align-self:center;border-radius:8px;background:#1c1c20 center/cover no-repeat;overflow:hidden;box-shadow:0 6px 18px -8px rgba(0,0,0,.7)}" +
+    "#tb-pop .tb-pop-ep[data-played]:not([data-current]) .tb-pop-ep-img{opacity:.55}" +
+    "#tb-pop .tb-pop-ep-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);opacity:0;transition:opacity .16s ease}" +
+    "#tb-pop .tb-pop-ep-play::after{content:'';width:44px;height:44px;border-radius:50%;box-shadow:0 4px 14px rgba(0,0,0,.5);background:#fff url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b0b0b' d='M8 5.5v13l11-6.5z'/%3E%3C/svg%3E\") 55% 50%/20px 20px no-repeat}" +
+    "#tb-pop .tb-pop-ep:hover .tb-pop-ep-play,#tb-pop .tb-pop-ep:focus-within .tb-pop-ep-play{opacity:1}" +
+    "#tb-pop .tb-pop-ep-bar{position:absolute;left:8px;right:8px;bottom:8px;height:4px;border-radius:2px;background:rgba(255,255,255,.25);overflow:hidden}" +
+    "#tb-pop .tb-pop-ep-bar i{display:block;height:100%;border-radius:2px;background:var(--sleekfin-accent,#4fc3f7)}" +
+    "#tb-pop .tb-pop-ep-t{grid-area:title;align-self:end;font:600 17px/1.3 var(--app-font,Inter,sans-serif);color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}" +
+    "#tb-pop .tb-pop-ep-o{grid-area:ov;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font:400 14px/1.5 var(--app-font,Inter,sans-serif);color:rgba(255,255,255,.62)}" +
+    "#tb-pop .tb-pop-ep-f{grid-area:foot;align-self:start;display:flex;gap:16px;margin-top:2px;font:600 12px/16px var(--app-font,Inter,sans-serif);color:rgba(255,255,255,.55)}" +
+    "#tb-pop .tb-pop-ep-f span{display:inline-flex;align-items:center;gap:4px}" +
+    "#tb-pop .tb-pop-ep-f .material-icons{font-size:13px}" +
     "#tb-pop .tb-pop-empty{padding:18px 10px;color:rgba(255,255,255,.55);font-size:14px}" +
     "#tb-pop .tb-pop-role{opacity:.65}" +
     "@media (max-width:700px){#tb-pop .tb-pop-box{margin:0;width:100vw;max-height:none;height:100%;border-radius:0}#tb-pop .tb-pop-panel{max-height:none}" +
     "#tb-pop .tb-pop-in{padding:56px 20px 20px}#tb-pop .tb-pop-body{padding:4px 20px 32px}#tb-pop .tb-pop-title{font-size:44px}" +
-    "#tb-pop .tb-pop-ep-btn{grid-template-columns:24px 120px 1fr;gap:12px}#tb-pop .tb-pop-ep-o{display:none}" +
+    "#tb-pop .tb-pop-ep-btn{grid-template-columns:30px 40% minmax(0,1fr);grid-template-areas:'num img title' 'num img foot' 'ov ov ov';column-gap:12px;padding:12px 4px}" +
+    "#tb-pop .tb-pop-ep-img{grid-row:1/span 2;width:100%;height:auto;aspect-ratio:16/9}#tb-pop .tb-pop-ep-n{grid-row:1/span 2;font-size:28px}" +
+    "#tb-pop .tb-pop-ep-t{white-space:normal;font-size:15px}#tb-pop .tb-pop-ep-o{margin-top:8px;font-size:13px}" +
     "#tb-pop .tb-pop-close{top:12px;right:12px}}";
 
   // ── the panel's frame (made once) ──
@@ -250,6 +286,7 @@
       if (token !== gen || !box.isConnected) return;
       var u = (target && target.UserData) || {};
       var h = "";
+      if (target && target.Type === "Episode" && cur) { cur.nextId = target.Id; markCurrent(); }
       var label = target && target.Type === "Episode" && it.Type === "Series" && target.ParentIndexNumber != null && target.IndexNumber != null ? " S" + target.ParentIndexNumber + ":E" + target.IndexNumber : "";
       if (target) {
         if (u.PlaybackPositionTicks) {
@@ -269,14 +306,14 @@
     }
     if (it.Type === "Series") {
       // the episode to continue with: Jellyfin's own Next Up for this show
-      get("Shows/NextUp", { userId: uid(), SeriesId: it.Id, Limit: 1, EnableResumable: true }).then(function (r) {
+      qNextUp(it.Id).then(function (r) {
         build(r && r.Items && r.Items[0] ? r.Items[0] : it);
       }, function () { build(it); });
     } else build(it);
   }
 
   function seasons(seriesId, want, token, wantNum) {
-    get("Shows/" + seriesId + "/Seasons", { userId: uid() }).then(function (r) {
+    qSeasons(seriesId).then(function (r) {
       if (token !== gen) return;
       var list = (r && r.Items) || [], sel = panel.querySelector(".tb-pop-season"), eps = panel.querySelector(".tb-pop-eps");
       if (!sel || !eps) return;
@@ -292,7 +329,7 @@
       // an episode whose season id doesn't match the list: find its season by number
       if (wantNum != null) { var byNum = list.filter(function (x) { return x.IndexNumber === wantNum; })[0]; if (byNum) return go(byNum.Id); }
       // the season you're up to
-      get("Shows/NextUp", { userId: uid(), SeriesId: seriesId, Limit: 1, EnableResumable: true }).then(function (n) {
+      qNextUp(seriesId).then(function (n) {
         var e = n && n.Items && n.Items[0];
         go(e && e.SeasonId);
       }, function () { go(null); });
@@ -303,11 +340,18 @@
     });
   }
 
+  function markCurrent() {
+    if (!panel || !cur) return;
+    Array.prototype.forEach.call(panel.querySelectorAll(".tb-pop-ep"), function (e) {
+      var on = cur.nextId ? e.getAttribute("data-id") === cur.nextId : e.hasAttribute("data-positionticks");
+      if (on) e.setAttribute("data-current", ""); else e.removeAttribute("data-current");
+    });
+  }
   function loadEpisodes(seriesId, seasonId, token) {
     var box = panel.querySelector(".tb-pop-eps");
     if (!box || !seriesId || !seasonId) return;
     box.style.minHeight = Math.max(120, box.offsetHeight) + "px";   // keeps its height while the next season loads
-    get("Shows/" + seriesId + "/Episodes", { userId: uid(), seasonId: seasonId, Fields: "Overview", EnableImageTypes: "Primary,Thumb,Backdrop", ImageTypeLimit: 1 }).then(function (r) {
+    qEpisodes(seriesId, seasonId).then(function (r) {
       if (token !== gen || !box.isConnected) return;
       var eps = (r && r.Items) || [], h = "";
       eps.forEach(function (e) {
@@ -316,14 +360,19 @@
         else if (e.ParentThumbItemId && e.ParentThumbImageTag) still = imgUrl(e.ParentThumbItemId, "Thumb", e.ParentThumbImageTag, "fillWidth=400&fillHeight=225");
         else if (e.ParentBackdropItemId && e.ParentBackdropImageTags && e.ParentBackdropImageTags[0]) still = imgUrl(e.ParentBackdropItemId, "Backdrop", e.ParentBackdropImageTags[0], "fillWidth=400&fillHeight=225");
         var pct = u.PlaybackPositionTicks && e.RunTimeTicks ? Math.min(100, Math.max(1, Math.round(u.PlaybackPositionTicks / e.RunTimeTicks * 100))) : 0;
-        h += '<div class="tb-pop-ep"' + attrs(e, true) + '><button type="button" class="itemAction tb-pop-ep-btn" data-action="' + (u.PlaybackPositionTicks ? "resume" : "play") + '" title="Play ' + esc(e.Name) + '">' +
-          '<span class="tb-pop-ep-n">' + (e.IndexNumber != null ? e.IndexNumber : "") + "</span>" +
-          '<span class="tb-pop-ep-img"' + (still ? ' style="background-image:url(&quot;' + esc(still) + '&quot;)"' : "") + ">" + icon("play_arrow") + (pct ? '<span class="tb-pop-ep-bar"><i style="width:' + pct + '%"></i></span>' : "") + "</span>" +
-          '<span><span class="tb-pop-ep-t"><span>' + esc(e.Name) + (u.Played ? icon("check_circle") : "") + "</span><em>" + runtime(e.RunTimeTicks) + "</em></span>" +
-          (e.Overview ? '<span class="tb-pop-ep-o">' + esc(e.Overview) + "</span>" : "") + "</span></button></div>";
+        var n = e.IndexNumber != null ? (e.IndexNumber < 10 ? "0" : "") + e.IndexNumber : "";
+        var foot = (e.RunTimeTicks ? "<span>" + icon("play_arrow") + runtime(e.RunTimeTicks) + "</span>" : "") +
+          (e.CommunityRating ? "<span>" + icon("star") + (Math.round(e.CommunityRating * 10) / 10).toFixed(1) + "</span>" : "");
+        h += '<div class="tb-pop-ep"' + attrs(e, true) + (u.Played ? " data-played" : "") + '><button type="button" class="itemAction tb-pop-ep-btn" data-action="' + (u.PlaybackPositionTicks ? "resume" : "play") + '" title="Play ' + esc(e.Name) + '">' +
+          '<span class="tb-pop-ep-n">' + n + "</span>" +
+          '<span class="tb-pop-ep-img"' + (still ? ' style="background-image:url(&quot;' + esc(still) + '&quot;)"' : "") + '><span class="tb-pop-ep-play"></span>' + (pct ? '<span class="tb-pop-ep-bar"><i style="width:' + pct + '%"></i></span>' : "") + "</span>" +
+          '<span class="tb-pop-ep-t">' + esc(e.Name) + "</span>" +
+          (e.Overview ? '<span class="tb-pop-ep-o">' + esc(e.Overview) + "</span>" : "") +
+          (foot ? '<span class="tb-pop-ep-f">' + foot + "</span>" : "") + "</button></div>";
       });
       box.innerHTML = h || '<div class="tb-pop-empty">No episodes in this season yet.</div>';
       box.style.minHeight = "";
+      markCurrent();
     }, function () {
       if (token !== gen || !box.isConnected) return;
       box.innerHTML = '<div class="tb-pop-empty">Couldn’t load the episodes.</div>';
@@ -362,7 +411,7 @@
   }
 
   function similar(id, body, token) {
-    get("Items/" + id + "/Similar", { userId: uid(), limit: 12, Fields: "PrimaryImageAspectRatio", EnableImageTypes: "Primary,Backdrop,Thumb", ImageTypeLimit: 1 }).then(function (r) {
+    qSimilar(id).then(function (r) {
       if (token !== gen) return;
       var c = C(), items = (r && r.Items) || [];
       if (!c || !items.length) return;
@@ -374,6 +423,39 @@
       put(body, row("More like this", out, "tb-pop-similar"));
     }, function () {});
   }
+
+  // ── hovering a title for a moment gets its whole panel ready (so clicking shows it complete) ──
+  var warmT = 0, warmedAt = {};
+  function preload(id, type) {
+    if (!enabled || !id || !api() || !uid()) return;
+    if (warmedAt[id] && Date.now() - warmedAt[id] < KEEP) return;
+    warmedAt[id] = Date.now();
+    var pics = function (r) {
+      ((r && r.Items) || []).slice(0, 8).forEach(function (e) {
+        if (e.ImageTags && e.ImageTags.Primary) { var im = new Image(); im.decoding = "async"; im.src = imgUrl(e.Id, "Primary", e.ImageTags.Primary, "fillWidth=400&fillHeight=225"); }
+      });
+    };
+    var show = function (seriesId, seasonId) {
+      qSeasons(seriesId);
+      if (seasonId) qEpisodes(seriesId, seasonId).then(pics, function () {});
+      else qNextUp(seriesId).then(function (n) { var e = n && n.Items && n.Items[0]; if (e && e.SeasonId) qEpisodes(seriesId, e.SeasonId).then(pics, function () {}); }, function () {});
+    };
+    Promise.resolve(api().getItem(uid(), id)).then(function (it) {
+      if (!it) return;
+      if (it.Type === "Series") { qNextUp(it.Id); show(it.Id, null); qSimilar(it.Id); }
+      else if (it.Type === "Episode" && it.SeriesId) { show(it.SeriesId, it.SeasonId); qSimilar(it.SeriesId); }
+      else if (it.Type === "Season" && it.SeriesId) { api().getItem(uid(), it.SeriesId); show(it.SeriesId, it.Id); qSimilar(it.SeriesId); }
+      else qSimilar(it.Id);
+    })["catch"](function () {});
+  }
+  document.addEventListener("mouseover", function (e) {
+    if (!enabled) return;
+    var card = e.target && e.target.closest && e.target.closest(".card[data-id]");
+    clearTimeout(warmT);
+    if (!card || !TYPES[card.getAttribute("data-type")]) return;
+    var id = card.getAttribute("data-id"), type = card.getAttribute("data-type");
+    warmT = setTimeout(function () { preload(id, type); }, 150);
+  }, { capture: true, passive: true });
 
   // ── clicks on titles open the panel instead of the page ──
   window.addEventListener("click", function (e) {

@@ -1680,6 +1680,7 @@
 
             <nav class="sleekfin-page-nav">
                 <button type="button" class="sleekfin-page-nav-button is-active" data-sleekfin-panel="general">General</button>
+                <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="features">Features</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="home">Home</button>
                 <div class="sleekfin-builder-nav">
                     <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="ui-builder">Header &amp; pages</button>
@@ -1879,6 +1880,105 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="sleekfin-page-panel" data-sleekfin-panel="features">
+                    <div class="sleekfin-section-container">
+                        <div class="sleekfin-config-section-title">Titles</div>
+                        <div class="sleekfin-card">
+                            <p class="sleekfin-field-description" style="margin:0 0 12px">How a movie or show opens when you click it. Each switch: Off, Admins only (try it yourself first) or Everyone.</p>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-TitlePopup">Title opens as</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-TitlePopup" class="sleekfin-input" data-key="TitlePopup" data-int="1">
+                                            <option value="0">Full page</option>
+                                            <option value="1">Pop-up (admins only)</option>
+                                            <option value="2">Pop-up (everyone)</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">Pop-up: clicking a title opens it Netflix-style as a panel over the page you were on (same banner, buttons, cast and episodes). Close it with ✕, Esc, back or by clicking outside, and you're exactly where you were.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-InstantTitles">Instant title pages</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-InstantTitles" class="sleekfin-input" data-key="InstantTitles" data-int="1">
+                                            <option value="0">Off</option>
+                                            <option value="1">Admins only</option>
+                                            <option value="2">Everyone</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">Draw the title page hero from cached card data the moment you click — before the server responds.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sleekfin-section-container">
+                        <div class="sleekfin-config-section-title">Faster loading</div>
+                        <div class="sleekfin-card">
+                            <p class="sleekfin-field-description" style="margin:0 0 12px">Speed features. Off brings back the old behaviour straight away (no update needed, next page load).</p>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-HoverWarm">Hover pre-warm</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-HoverWarm" class="sleekfin-input" data-key="HoverWarm" data-int="1">
+                                            <option value="0">Off</option>
+                                            <option value="1">Admins only</option>
+                                            <option value="2">Everyone</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">Pre-fetch the hover card for the item under the cursor after a short idle pause.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-InstantSearch">Instant search</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-InstantSearch" class="sleekfin-input" data-key="InstantSearch" data-int="1">
+                                            <option value="0">Off</option>
+                                            <option value="1">Admins only</option>
+                                            <option value="2">Everyone</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">Local search index on device — instant results as you type, no server round trip.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-HomeInOneRequest">Home in one request</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-HomeInOneRequest" class="sleekfin-input" data-key="HomeInOneRequest" data-int="1">
+                                            <option value="0">Off</option>
+                                            <option value="1">Admins only</option>
+                                            <option value="2">Everyone</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">Fetch all home rows in one request to the server instead of one per row.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-HomeFromDeviceCopy">Home rows early start</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-HomeFromDeviceCopy" class="sleekfin-input" data-key="HomeFromDeviceCopy" data-int="1">
+                                            <option value="0">Off</option>
+                                            <option value="1">Admins only</option>
+                                            <option value="2">Everyone</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">Start asking for the home rows the moment the site opens (before Jellyfin has finished loading), so they arrive sooner.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sleekfin-section-container">
+                        <div class="sleekfin-config-section-title">Developer</div>
+                        <div class="sleekfin-card">
                             <div class="sleekfin-input-group">
                                 <div class="sleekfin-field-main">
                                     <label class="sleekfin-label sleekfin-label--side" for="tb-DevAssetsUrl">Dev assets URL</label>
@@ -1888,42 +1988,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-TmdbKey">TMDB API key</label>
-                                    <div class="sleekfin-input-stack">
-                                        <input id="tb-TmdbKey" class="sleekfin-input" type="text" data-key="TmdbKey" />
-                                        <div class="sleekfin-field-description">API Key (32 characters) or Read Access Token. Used for Trending and release dates.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-TrendingRefreshHours">Trending updates</label>
-                                    <div class="sleekfin-input-stack">
-                                        <select id="tb-TrendingRefreshHours" class="sleekfin-input" data-key="TrendingRefreshHours" data-int="1">
-                                            <option value="1">Every hour</option>
-                                            <option value="3">Every 3 hours</option>
-                                            <option value="6">Every 6 hours</option>
-                                            <option value="12">Every 12 hours</option>
-                                            <option value="24">Once a day</option>
-                                        </select>
-                                        <div class="sleekfin-field-description">How often TMDB's trending chart is read again. A title you add that's on the chart joins Trending This Week straight away (as soon as Jellyfin has its details), whatever this is set to.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-TmdbCountries">Release countries</label>
-                                    <div class="sleekfin-input-stack">
-                                        <input id="tb-TmdbCountries" class="sleekfin-input" type="text" data-key="TmdbCountries" />
-                                        <div class="sleekfin-field-description">Preferred order, comma separated, e.g. AU,US</div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="sleekfin-page-panel" data-sleekfin-panel="home">
@@ -1998,7 +2064,45 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="sleekfin-section-container">
+                        <div class="sleekfin-config-section-title">Trending (TMDB)</div>
+                        <div class="sleekfin-card">
+                            <p class="sleekfin-field-description" style="margin:0 0 12px">Used for the Trending row and release dates.</p>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-TmdbKey">TMDB API key</label>
+                                    <div class="sleekfin-input-stack">
+                                        <input id="tb-TmdbKey" class="sleekfin-input" type="text" data-key="TmdbKey" />
+                                        <div class="sleekfin-field-description">API Key (32 characters) or Read Access Token. Used for Trending and release dates.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-TrendingRefreshHours">Trending updates</label>
+                                    <div class="sleekfin-input-stack">
+                                        <select id="tb-TrendingRefreshHours" class="sleekfin-input" data-key="TrendingRefreshHours" data-int="1">
+                                            <option value="1">Every hour</option>
+                                            <option value="3">Every 3 hours</option>
+                                            <option value="6">Every 6 hours</option>
+                                            <option value="12">Every 12 hours</option>
+                                            <option value="24">Once a day</option>
+                                        </select>
+                                        <div class="sleekfin-field-description">How often TMDB's trending chart is read again. A title you add that's on the chart joins Trending This Week straight away (as soon as Jellyfin has its details), whatever this is set to.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sleekfin-input-group">
+                                <div class="sleekfin-field-main">
+                                    <label class="sleekfin-label sleekfin-label--side" for="tb-TmdbCountries">Release countries</label>
+                                    <div class="sleekfin-input-stack">
+                                        <input id="tb-TmdbCountries" class="sleekfin-input" type="text" data-key="TmdbCountries" />
+                                        <div class="sleekfin-field-description">Preferred order, comma separated, e.g. AU,US</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="sleekfin-page-panel" data-sleekfin-panel="search">
@@ -2221,90 +2325,6 @@
                 </div>
 
                 <div class="sleekfin-page-panel" data-sleekfin-panel="speed">
-                    <div class="sleekfin-section-container">
-                        <div class="sleekfin-config-section-title">Feature switches</div>
-                        <div class="sleekfin-card">
-                            <p class="sleekfin-field-description" style="margin:0 0 12px">Each switch can be changed without a release. <strong>Admins only</strong> lets you test a feature as an admin before rolling it out. <strong>Off</strong> disables it completely.</p>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-HomeInOneRequest">Home in one request</label>
-                                    <div class="sleekfin-input-stack">
-                                        <select id="tb-HomeInOneRequest" class="sleekfin-input" data-key="HomeInOneRequest" data-int="1">
-                                            <option value="0">Off</option>
-                                            <option value="1">Admins only</option>
-                                            <option value="2">Everyone</option>
-                                        </select>
-                                        <div class="sleekfin-field-description">Fetch all home rows in one request to the server instead of one per row.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-HomeFromDeviceCopy">Home from device copy</label>
-                                    <div class="sleekfin-input-stack">
-                                        <select id="tb-HomeFromDeviceCopy" class="sleekfin-input" data-key="HomeFromDeviceCopy" data-int="1">
-                                            <option value="0">Off</option>
-                                            <option value="1">Admins only</option>
-                                            <option value="2">Everyone</option>
-                                        </select>
-                                        <div class="sleekfin-field-description">Show home rows instantly from last visit's copy in the browser cache while fresh data loads.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-HoverWarm">Hover pre-warm</label>
-                                    <div class="sleekfin-input-stack">
-                                        <select id="tb-HoverWarm" class="sleekfin-input" data-key="HoverWarm" data-int="1">
-                                            <option value="0">Off</option>
-                                            <option value="1">Admins only</option>
-                                            <option value="2">Everyone</option>
-                                        </select>
-                                        <div class="sleekfin-field-description">Pre-fetch the hover card for the item under the cursor after a short idle pause.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-InstantSearch">Instant search</label>
-                                    <div class="sleekfin-input-stack">
-                                        <select id="tb-InstantSearch" class="sleekfin-input" data-key="InstantSearch" data-int="1">
-                                            <option value="0">Off</option>
-                                            <option value="1">Admins only</option>
-                                            <option value="2">Everyone</option>
-                                        </select>
-                                        <div class="sleekfin-field-description">Local search index on device — instant results as you type, no server round trip.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-InstantTitles">Instant title pages</label>
-                                    <div class="sleekfin-input-stack">
-                                        <select id="tb-InstantTitles" class="sleekfin-input" data-key="InstantTitles" data-int="1">
-                                            <option value="0">Off</option>
-                                            <option value="1">Admins only</option>
-                                            <option value="2">Everyone</option>
-                                        </select>
-                                        <div class="sleekfin-field-description">Draw the title page hero from cached card data the moment you click — before the server responds.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-TitlePopup">Title opens as</label>
-                                    <div class="sleekfin-input-stack">
-                                        <select id="tb-TitlePopup" class="sleekfin-input" data-key="TitlePopup" data-int="1">
-                                            <option value="0">Full page</option>
-                                            <option value="1">Pop-up (admins only)</option>
-                                            <option value="2">Pop-up (everyone)</option>
-                                        </select>
-                                        <div class="sleekfin-field-description">Pop-up: clicking a title opens it Netflix-style as a panel over the page you were on (same banner, buttons, cast and episodes). Close it with ✕, Esc, back or by clicking outside, and you're exactly where you were.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="sleekfin-section-container">
                         <div class="sleekfin-config-section-title">Speed test</div>
                         <div class="sleekfin-card">

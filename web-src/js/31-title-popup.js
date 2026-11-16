@@ -130,6 +130,17 @@
   });
   window.addEventListener("hashchange", sync, true);
   window.addEventListener("popstate", sync, true);
+  // Jellyfin opens pages with history.pushState, which fires no event: hear about those too (the old page is
+  // still on screen at that moment, which is the one kept behind the panel)
+  ["pushState", "replaceState"].forEach(function (m) {
+    var orig = history[m];
+    if (typeof orig !== "function") return;
+    history[m] = function () {
+      var r = orig.apply(this, arguments);
+      try { sync(); } catch (e) {}
+      return r;
+    };
+  });
 
   function start(on) {
     if (!on) return;

@@ -1691,7 +1691,6 @@
                 </div>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="player">Player</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="search">Search</button>
-                <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="motion">Motion &amp; scrolling</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="posters">Custom posters</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="signin">Sign-in &amp; splash</button>
                 <button type="button" class="sleekfin-page-nav-button" data-sleekfin-panel="dashboard">Dashboard</button>
@@ -1773,6 +1772,23 @@
                                         <input id="tb-AmbientDim" class="sleekfin-input" type="number" data-key="AmbientDim" step="0.01" min="0" max="1" />
                                         <div class="sleekfin-field-description">0 = full colour, 1 = black.</div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sleekfin-section-container">
+                        <div class="sleekfin-config-section-title">Page changes</div>
+                        <div class="sleekfin-card">
+                            <div class="sleekfin-toggle-row">
+                                <div class="sleekfin-toggle-copy">
+                                    <label class="sleekfin-toggle-label" for="tb-PageTransitions">Smooth page changes</label>
+                                    <div class="sleekfin-field-description">Exactly as on cinejoy.pk: the page you were on stays on screen until the next one is ready, then the whole screen cross-fades (the browser's own 0.25 s fade). Opening a title, going back, changing page. Browsers without it (Firefox before 144, Safari before 18) just change page. Off on TVs, during video, and when the device asks for less motion.</div>
+                                </div>
+                                <div class="sleekfin-toggle-actions">
+                                    <label class="sleekfin-toggle">
+                                        <input id="tb-PageTransitions" type="checkbox" data-key="PageTransitions" />
+                                        <span class="sleekfin-toggle-slider"></span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -1954,70 +1970,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="sleekfin-page-panel" data-sleekfin-panel="motion">
-                    <div class="sleekfin-section-container">
-                        <div class="sleekfin-config-section-title">Page changes</div>
-                        <div class="sleekfin-card">
-                            <div class="sleekfin-toggle-row">
-                                <div class="sleekfin-toggle-copy">
-                                    <label class="sleekfin-toggle-label" for="tb-PageTransitions">Smooth page changes</label>
-                                    <div class="sleekfin-field-description">Exactly as on cinejoy.pk: the page you were on stays on screen until the next one is ready, then the whole screen cross-fades (the browser's own 0.25 s fade). Opening a title, going back, changing page. Browsers without it (Firefox before 144, Safari before 18) just change page. Off on TVs, during video, and when the device asks for less motion.</div>
-                                </div>
-                                <div class="sleekfin-toggle-actions">
-                                    <label class="sleekfin-toggle">
-                                        <input id="tb-PageTransitions" type="checkbox" data-key="PageTransitions" />
-                                        <span class="sleekfin-toggle-slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sleekfin-section-container">
-                        <div class="sleekfin-config-section-title">Scrolling</div>
-                        <div class="sleekfin-card">
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-SmoothScroll">Smooth scrolling</label>
-                                    <div class="sleekfin-input-stack">
-                                        <select id="tb-SmoothScroll" class="sleekfin-input" data-key="SmoothScroll" data-int="1">
-                                            <option value="0">Off</option>
-                                            <option value="1">Admins only</option>
-                                            <option value="2">Everyone</option>
-                                        </select>
-                                        <div class="sleekfin-field-description">Mouse-wheel scrolling glides and eases to a stop instead of jumping. Touchpads, phones and TVs keep their own scrolling. Off for anyone with "reduce motion" set on their device.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sleekfin-toggle-row">
-                                <div class="sleekfin-toggle-copy">
-                                    <label class="sleekfin-toggle-label" for="tb-ScrollStretch">Rows lean with the scroll</label>
-                                    <div class="sleekfin-field-description">With smooth scrolling: rows tilt very slightly with the speed and settle back when you stop.</div>
-                                </div>
-                                <div class="sleekfin-toggle-actions">
-                                    <label class="sleekfin-toggle">
-                                        <input id="tb-ScrollStretch" type="checkbox" data-key="ScrollStretch" />
-                                        <span class="sleekfin-toggle-slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="sleekfin-toggle-row">
-                                <div class="sleekfin-toggle-copy">
-                                    <label class="sleekfin-toggle-label" for="tb-ScrollBlur">Motion blur</label>
-                                    <div class="sleekfin-field-description">With smooth scrolling: posters blur a little in the scroll direction while moving fast. Costs some speed on weak computers.</div>
-                                </div>
-                                <div class="sleekfin-toggle-actions">
-                                    <label class="sleekfin-toggle">
-                                        <input id="tb-ScrollBlur" type="checkbox" data-key="ScrollBlur" />
-                                        <span class="sleekfin-toggle-slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
 
                 <div class="sleekfin-page-panel" data-sleekfin-panel="home">
                     <div class="sleekfin-section-container">
@@ -6343,8 +6295,7 @@
         signin: '<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5M15 12H3"/>',
         dashboard: '<rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/>',
         speed: '<path d="M12 14l4-4"/><path d="M3.5 18a9 9 0 1 1 17 0"/>',
-        titles: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h6M7 11h10"/>',
-        motion: '<path d="M4 7h11M4 12h16M4 17h8"/><path d="M18 4l3 3-3 3"/>'
+        titles: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h6M7 11h10"/>'
       };
       if (nav) {
         Array.prototype.forEach.call(nav.querySelectorAll(".sleekfin-page-nav-button"), function (b) {

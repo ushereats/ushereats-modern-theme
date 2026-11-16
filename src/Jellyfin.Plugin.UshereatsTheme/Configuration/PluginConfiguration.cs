@@ -124,15 +124,6 @@ public class PluginConfiguration : BasePluginConfiguration
 
     /// <summary>Player bar style: true = floating glass dock, false = the classic bar (big play button in the middle).</summary>
     public bool PlayerDock { get; set; } = true;
-
-    /// <summary>Smooth mouse-wheel scrolling with glide. Off / AdminsOnly / Everyone.</summary>
-    public FeatureLevel SmoothScroll { get; set; } = FeatureLevel.Off;
-
-    /// <summary>With smooth scrolling: rows lean slightly with the scroll speed and settle back.</summary>
-    public bool ScrollStretch { get; set; } = true;
-
-    /// <summary>With smooth scrolling: a light motion blur on the rows while scrolling fast.</summary>
-    public bool ScrollBlur { get; set; } = false;
 }
 
 /// <summary>Who can use a feature that may need a gradual rollout.</summary>

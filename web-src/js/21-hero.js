@@ -227,6 +227,7 @@
     sec.setAttribute("data-active", "false");
     var bg = el("img", "sleekfin-hero-backdrop");
     bg.alt = "";
+    bg.draggable = false;
     bg.decoding = "async";
     bg.setAttribute("data-loaded", "false");
     bg.__tbSrc = imgUrl(item.Id, "Backdrop", item.Backdrop);
@@ -242,6 +243,7 @@
     if (treat !== "Text" && item.Logo) {
       var logo = el("img", "sleekfin-hero-title-logo");
       logo.alt = "";
+      logo.draggable = false;
       logo.setAttribute("data-loaded", "false");
       logo.addEventListener("load", function () { logo.setAttribute("data-loaded", "true"); });
       logo.addEventListener("error", function () { if (treat !== "Logo") title(); });

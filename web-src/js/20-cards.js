@@ -142,7 +142,7 @@
       (/^(MusicAlbum|MusicArtist|Audio)$/.test(it.Type) ? "" : " card-withuserdata") + (extraClass ? " " + extraClass : "") + '">';
     h += '<div class="cardBox' + (noText ? "" : " cardBox-bottompadded") + '"><div class="cardScalable"><div class="cardPadder cardPadder-' + cls + '">' +
       (src ? "" : '<span class="cardImageIcon material-icons ' + (ICONS[it.Type] || "folder") + '" aria-hidden="true"></span>') + "</div>";
-    h += '<a href="' + href(it.Id, sid) + '" data-action="link" class="cardImageContainer coveredImage cardContent itemAction"' +
+    h += '<a href="' + href(it.Id, sid) + '" data-action="link" draggable="false" class="cardImageContainer coveredImage cardContent itemAction"' +
       (src ? ' data-tb-src="' + esc(src) + '"' : "") + ' aria-label="' + esc(name) + '" role="img">';
     h += indicators(it);
     if (pct) h += '<div class="innerCardFooter fullInnerCardFooter innerCardFooterClear"><div class="itemProgressBar"><div class="itemProgressBarForeground" style="width:' + pct + '%;"></div></div></div>';
@@ -162,7 +162,7 @@
     var link = x.url || (x.id ? href(x.id, sid) : "#");
     return '<div data-index="' + index + '" class="card overflowBackdropCard tb-logo-card' + (layout() === "desktop" ? " card-hoverable" : "") + '">' +
       '<div class="cardBox"><div class="cardScalable"><div class="cardPadder cardPadder-overflowBackdrop"></div>' +
-      '<a href="' + esc(link) + '" class="cardImageContainer cardContent tb-logo-link" aria-label="' + esc(x.name) + '">' +
+      '<a href="' + esc(link) + '" draggable="false" class="cardImageContainer cardContent tb-logo-link" aria-label="' + esc(x.name) + '">' +
       '<span class="tb-logo-img" data-tb-src="' + esc(src) + '"></span></a></div></div></div>';
   }
 

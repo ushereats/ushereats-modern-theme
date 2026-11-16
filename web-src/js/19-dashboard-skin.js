@@ -450,8 +450,12 @@
     var q = isAlerts
       ? { startIndex: 0, limit: 200, minDate: new Date(Date.now() - 7 * DAY).toISOString(), hasUserId: false }
       : { startIndex: 0, limit: 7, minDate: new Date(Date.now() - DAY).toISOString(), hasUserId: true };
+    // Cache with a 15 s floor so heroTimer re-runs (every 15 s) don't re-fetch when rows haven't changed.
+    // The sig + __tbSeen guard already prevents re-fetching when rows are stable; this TTL is a
+    // belt-and-suspenders cap in case Jellyfin re-renders the list while our data is still fresh.
+    var logKey = "actlog:" + (isAlerts ? "1" : "0");
     Promise.all([
-      getJSON("System/ActivityLog/Entries", q),
+      cached(logKey, 15000, function () { return getJSON("System/ActivityLog/Entries", q); }),
       cached("users", 300000, function () { return Promise.resolve(api().getUsers()); }).catch(function () { return []; })
     ]).then(function (r) {
       if (list.__sig !== sig) return;

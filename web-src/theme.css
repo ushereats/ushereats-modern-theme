@@ -1048,3 +1048,9 @@ html .verticalSection > .emby-scrollbuttons .emby-scrollbuttons-button { transit
 }
 
 
+
+/* Disable native drag on card links and hero images so holding + moving the mouse doesn't
+   start the browser's ghost-image drag, which snaps back and stalls the page for ~1 s.
+   Clicking, hover, row arrows, scrolling, and page fades are unaffected. */
+.card a, .tb-logo-link { -webkit-user-drag: none; user-drag: none; }
+.sleekfin-hero-backdrop, .sleekfin-hero-title-logo { -webkit-user-drag: none; user-drag: none; }

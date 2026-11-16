@@ -22,7 +22,7 @@ namespace Jellyfin.Plugin.UshereatsTheme.Api;
 /// is byte-for-byte compatible with what /Items and /Users/{uid}/Items/{id} return.
 /// </summary>
 [ApiController]
-[AllowAnonymous]
+[Authorize]
 [Route("UshereatsTheme")]
 public class HomeController : ControllerBase
 {
@@ -57,6 +57,14 @@ public class HomeController : ControllerBase
         _userData = userData;
     }
 
+    // The signed-in user, from the access token (never from the query string: a userId in the address
+    // would let anyone read another user's watch history).
+    private Guid? SignedInUserId()
+    {
+        string? v = HttpContext.User.FindFirst("Jellyfin-UserId")?.Value;
+        return Guid.TryParse(v, out Guid g) ? g : null;
+    }
+
     // ── B8 ───────────────────────────────────────────────────────────────────
 
     /// <summary>
@@ -68,9 +76,9 @@ public class HomeController : ControllerBase
         [FromQuery(Name = "userId")] string? userId,
         [FromQuery(Name = "rows")] string? rows)
     {
-        if (string.IsNullOrEmpty(userId) || !Guid.TryParse(userId, out Guid uid))
+        if (SignedInUserId() is not Guid uid)
         {
-            return BadRequest();
+            return Unauthorized();
         }
 
         User? user = _users.GetUserById(uid);
@@ -318,8 +326,8 @@ public class HomeController : ControllerBase
         [FromQuery(Name = "nextUpLimit")] int nextUpLimit = 50,
         [FromQuery(Name = "limit")] int limit = 50)
     {
-        if (string.IsNullOrEmpty(userId) || !Guid.TryParse(userId, out Guid uid))
-            return BadRequest();
+        if (SignedInUserId() is not Guid uid)
+            return Unauthorized();
 
         User? user = _users.GetUserById(uid);
         if (user is null)
@@ -449,9 +457,9 @@ public class HomeController : ControllerBase
             return BadRequest();
         }
 
-        if (string.IsNullOrEmpty(userId) || !Guid.TryParse(userId, out Guid uid))
+        if (SignedInUserId() is not Guid uid)
         {
-            return BadRequest();
+            return Unauthorized();
         }
 
         User? user = _users.GetUserById(uid);
@@ -461,7 +469,7 @@ public class HomeController : ControllerBase
         }
 
         BaseItem? item = _library.GetItemById(itemGuid);
-        if (item is null)
+        if (item is null || !item.IsVisible(user))
         {
             return NotFound();
         }

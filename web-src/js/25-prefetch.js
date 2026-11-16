@@ -271,7 +271,7 @@
     if (/^#\/home(\.html)?(\?|$)/.test(location.hash) && !/[?&]tab=/.test(location.hash)) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
     if (window.tbCrossfade) window.tbCrossfade(300);
     location.hash = "#/home";
-    if (window.tbScroll && !window.tbXfActive) window.tbScroll.top();
+    if (window.tbScroll && !document.documentElement.classList.contains("tb-vt")) window.tbScroll.top();
   }
   window.tbGoHome = goHome;
   document.addEventListener("click", function (e) {
@@ -299,20 +299,33 @@
   window.tbBackdropUrl = backdropUrl;
 
   // ── getting a title ready before it's clicked ──
-  // HoverWarm feature switch: 0=Off, 1=AdminsOnly, 2=Everyone
-  function hoverWarmOn() {
-    var v = parseInt((window.TB_CONFIG || {}).HoverWarm || "2", 10);
-    if (v === 0) return false;
-    if (v >= 2) return true;
-    // AdminsOnly: use cached result; trigger async check on first call
-    if (window.__tbHoverWarmAdmin !== undefined) return !!window.__tbHoverWarmAdmin;
+  // Feature switches: 0=Off, 1=Admins only, 2=Everyone. Test override: localStorage 'tb-force-features'.
+  // Whether you're an admin is asked once and remembered (window.__tbIsAdmin; __tbHoverWarmAdmin is the old name
+  // 30-instant-titles.js reads).
+  var adminAsk = null;
+  function isAdmin() {
+    if (window.__tbIsAdmin !== undefined) return Promise.resolve(!!window.__tbIsAdmin);
     var api = window.ApiClient;
-    if (api && api.getCurrentUser) {
-      api.getCurrentUser().then(function (u) {
-        window.__tbHoverWarmAdmin = !!(u && u.Policy && u.Policy.IsAdministrator);
-      })["catch"](function () { window.__tbHoverWarmAdmin = false; });
-    }
-    return false;
+    if (!api || !api.getCurrentUser || !api.getCurrentUserId || !api.getCurrentUserId()) return Promise.resolve(false);
+    return adminAsk || (adminAsk = api.getCurrentUser().then(function (u) {
+      window.__tbIsAdmin = window.__tbHoverWarmAdmin = !!(u && u.Policy && u.Policy.IsAdministrator);
+      return window.__tbIsAdmin;
+    }, function () { adminAsk = null; return false; }));
+  }
+  function featLevel(key, dflt) { var v = parseInt((window.TB_CONFIG || {})[key], 10); return isNaN(v) ? dflt : v; }
+  function forced(key) { try { var ff = localStorage.getItem("tb-force-features"); return !!ff && ff.split(",").indexOf(key) >= 0; } catch (e) { return false; } }
+  window.tbFeat = function (key) {
+    var v = featLevel(key, 0);
+    if (forced(key) || v >= 2) return Promise.resolve(true);
+    return v === 1 ? isAdmin() : Promise.resolve(false);
+  };
+  window.addEventListener("load", function () { setTimeout(isAdmin, 2500); });
+  function hoverWarmOn() {
+    var v = featLevel("HoverWarm", 2);
+    if (v >= 2 || forced("HoverWarm")) return true;
+    if (v === 0) return false;
+    if (window.__tbIsAdmin === undefined) isAdmin();
+    return !!window.__tbIsAdmin;
   }
 
   var warmed = {}, timer = 0;

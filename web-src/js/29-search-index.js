@@ -43,7 +43,7 @@
   }
 
   // --- In-memory index state ---
-  var _db = null, _ready = false, _items = null, _version = null;
+  var _db = null, _ready = false, _items = null, _version = null, _on = false, _busy = false;
 
   // --- Auth helpers ---
   function creds() {
@@ -61,7 +61,8 @@
   // --- Download and store index ---
   function download(srv, force) {
     var tk = srv.AccessToken, uid = srv.UserId;
-    if (!tk || !uid) return;
+    if (!tk || !uid || _busy) return;
+    _busy = true;
     var url = base + "UshereatsTheme/search-index?userId=" + encodeURIComponent(uid);
     var headers = { Authorization: 'MediaBrowser Token="' + tk + '"' };
     if (!force && _version) headers["If-None-Match"] = '"' + _version + '"';
@@ -73,6 +74,7 @@
         return r.json();
       })
       .then(function (data) {
+        _busy = false;
         if (!data) return;
         _items = data.items || [];
         _version = data.version || "";
@@ -83,7 +85,7 @@
           dbPut(_db, key, { v: _version, items: _items, at: Date.now() });
         }
       })
-      ["catch"](function () {});
+      ["catch"](function () { _busy = false; });
   }
 
   // --- Load from IndexedDB on startup, then refresh if stale ---
@@ -148,14 +150,18 @@
   };
 
   // Start in idle time after page load
+  // Only when the "Instant search" switch is on for this user (Off / Admins only / Everyone).
   window.addEventListener("load", function () {
     var idle = window.requestIdleCallback || function (f) { return setTimeout(f, 3000); };
-    setTimeout(function () { idle(init, { timeout: 10000 }); }, 1500);
+    setTimeout(function () {
+      var feat = window.tbFeat ? window.tbFeat("InstantSearch") : Promise.resolve(false);
+      feat.then(function (on) { if (!on) return; _on = true; idle(init, { timeout: 10000 }); });
+    }, 3000);
   });
 
   // Re-download when user changes (sign-in/sign-out)
   window.addEventListener("hashchange", function () {
-    if (_ready) return;   // already loaded; refresh happens on next session load
+    if (!_on || _ready) return;   // switch off, or already loaded (refresh happens on next session load)
     var srv = creds();
     if (srv && _db) download(srv, true);
   });

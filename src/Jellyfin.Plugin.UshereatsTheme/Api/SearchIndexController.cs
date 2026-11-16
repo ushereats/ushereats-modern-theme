@@ -50,8 +50,9 @@ public class SearchIndexController : ControllerBase
     [Authorize]
     public IActionResult GetSearchIndex([FromQuery(Name = "userId")] string? userId)
     {
-        if (string.IsNullOrEmpty(userId) || !Guid.TryParse(userId, out Guid uid))
-            return BadRequest();
+        string? claim = HttpContext.User.FindFirst("Jellyfin-UserId")?.Value;
+        if (!Guid.TryParse(claim, out Guid uid))
+            return Unauthorized();
 
         User? user = _users.GetUserById(uid);
         if (user is null)

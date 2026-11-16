@@ -14,7 +14,6 @@
   // Set while the old page is still held, and kept for a moment after, because Jellyfin and the rows growing
   // move the page a moment after it shows (that was the jump seen right after the change).
   var pos = {}, want = null, until = 0, userMoved = false, running = false;
-  var targetOverride = null, xfClick = false, xfBack = false;
   try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch (e) {}
   function scrolled() { var e = document.scrollingElement || document.documentElement; return Math.max(window.pageYOffset || 0, e ? e.scrollTop : 0); }
   function scrollNow(y) { try { window.scrollTo({ top: y, left: 0, behavior: "instant" }); } catch (e) { window.scrollTo(0, y); } }
@@ -63,13 +62,7 @@
   // Only: the rows' own entrance fade would be frozen at "invisible" while the old page is held and play after
   // the cross-fade (old page -> empty -> rows); rows that were there for a cross-fade don't play it.
   var st = document.createElement("style");
-  st.textContent = "html.tb-vt :is(#indexPage,#searchPage) .verticalSection,html.tb-vt :is(#moviesPage,#tvshowsPage,#tvRecommendedPage) .itemsContainer,.verticalSection.tb-noenter,.itemsContainer.tb-noenter{animation:none!important}" +
-    // while the crossfade runs, skip layout/paint for sections below the banner so the main thread
-    // doesn't waste time laying out cast/similar/episodes before the animation even starts
-    "html.tb-vt #itemDetailPage .verticalSection,html.tb-vt #itemDetailPage .itemsContainer{content-visibility:hidden}" +
-    // the browser's ::view-transition overlay sits at z-index 10M with pointer-events:auto by default;
-    // started on pointerdown, it blocks the click that follows — set none so clicks fall through
-    "::view-transition,::view-transition-group(*),::view-transition-image-pair(*),::view-transition-old(*),::view-transition-new(*){pointer-events:none}";
+  st.textContent = "html.tb-vt :is(#indexPage,#searchPage) .verticalSection,html.tb-vt :is(#moviesPage,#tvshowsPage,#tvRecommendedPage) .itemsContainer,.verticalSection.tb-noenter,.itemsContainer.tb-noenter{animation:none!important}";
   document.head.appendChild(st);
 
   var started = false, captured = false, held = [], replaying = false;
@@ -80,9 +73,8 @@
   // ready = what cinejoy fades into: the finished page (no loading placeholders, no empty banner)
   function ready(p, t, before) {
     if (!p) return false;
-    // the background colour follows the page in the same cross-fade (not a slow change after it).
-    // Title pages skip this: backdrop is prefetched, ambient fires immediately.
-    if (p && p.id !== "itemDetailPage" && t < 700 && window.tbAmbientPending && window.tbAmbientPending()) return false;
+    // the background colour follows the page in the same cross-fade (not a slow change after it)
+    if (t < 700 && window.tbAmbientPending && window.tbAmbientPending()) return false;
     if (p.id === "itemDetailPage") {
       // collections, albums, artists, playlists, people: Jellyfin's own layout (SleekFin leaves them alone)
       if (p.classList.contains("sleekfin-details-native")) {
@@ -95,10 +87,6 @@
         if (!html.classList.contains("sleekfin-details-mounted") || html.classList.contains("sleekfin-details-concealed") || p.getAttribute("data-sleekfin-details") !== "true") return false;
         var st = p.querySelectorAll(".sleekfin-details-title");
         if (st.length !== 1 || !st[0].childNodes.length) return false;
-        // banner complete: backdrop loaded (if the hero is there) and at least one action button visible
-        var sfhero = p.querySelector(".sleekfin-hero");
-        if (sfhero && !sfhero.querySelector("[data-loaded='true']")) return false;
-        if (!p.querySelector(".sleekfin-details-actions :is(button, a)")) return false;
         // Jellyfin's own title still showing next to SleekFin's (for a moment the name is there twice)
         var nat = p.querySelectorAll(".nameContainer, .itemName, .parentName");
         for (var i = 0; i < nat.length; i++) if (!nat[i].closest(".sleekfin-details-hero") && nat[i].getClientRects().length && nat[i].textContent.trim()) return false;
@@ -113,8 +101,7 @@
       if (html.classList.contains("tb-hero-on") && !hero && t < 400) return false;
       if (hero && t < 300 && !hero.querySelector(".sleekfin-hero-slide[data-active='true'] .sleekfin-hero-backdrop[data-loaded='true']")) return false;
       if (hero && t < 300 && !hero.getClientRects().length) return false;
-      var rowsOk = html.classList.contains("tb-rows-ok") && !!p.querySelector(".tb-rows-c");
-      return rowsOk || seen(p) || t > 300;
+      return seen(p) || t > 300;
     }
     // search: the theme's search box is put in a moment after Jellyfin's page shows
     if (p.id === "searchPage" && t < 800 && !p.querySelector("#smart-search-wrapper")) return false;
@@ -150,7 +137,6 @@
     if (running || !started || off()) return false;
     running = true;
     captured = false;
-    xfClick = !already;
     note("start " + location.hash);
     // already: the address has changed (back / forward), the page hasn't yet
     var from = already ? null : location.hash, page0 = current(), t0 = Date.now(), moved = already ? t0 : 0, before = stamp(page0);
@@ -161,11 +147,8 @@
     want = null;
     var tr;
     try {
+      html.classList.add("tb-vt");
       tr = document.startViewTransition(function () {
-        // The old-state snapshot is taken on the next render frame AFTER startViewTransition()
-        // returns.  tb-vt must be added here — after that capture — so the CSS
-        // content-visibility:hidden rule doesn't apply to the snapshot.
-        html.classList.add("tb-vt");
         // the old page is held from here: back/forward events kept until now go to Jellyfin
         captured = true;
         t0 = Date.now();
@@ -210,64 +193,41 @@
             if (moved) watchPage(p);
             if (!moved && now - t0 > wait) { note("no page change"); return resolve(); }
             var changed = moved && (from === null ? (p !== page0 || (p && p.id === "itemDetailPage") || (tab0 && shownTab(p) !== tab0)) : (p !== page0 || location.hash !== from));
-            // If a click-initiated crossfade received a popstate (back arrow → history.back()),
-            // hold() sets targetOverride to the saved position; apply it here before scrolling.
-            if (targetOverride !== null) { note("applyOverride " + targetOverride + " changed=" + !!changed); target = targetOverride; targetOverride = null; }
             if (changed && target !== null && Math.abs(scrolled() - target) > 1) scrollNow(target);
             var still = changed ? layout(p) : 0;
-            var isDetail = p && p.id === "itemDetailPage";
-            var goingToDetail = !isDetail && /\/details\b/i.test(location.hash);
-            // For back/forward (already=true) the page we start on is the one we're LEAVING.
-            // Don't run ready() against that page — wait until the DOM actually shows the new one.
-            var destReady = !already || p !== page0;
-            // For click-initiated transitions, wait at least 32 ms after page change before resolving.
-            // This ensures any popstate from a back-button click has fired and set targetOverride,
-            // so keep() uses the saved scroll position, not 0.
-            if (changed && !goingToDetail && (isDetail || still >= 60) && (isDetail || !p || now - last >= 50) && destReady && (already || now - moved >= 32) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); if (target !== null) keep(target); return resolve(); }
-            // a title page waits for its content (cinejoy fades straight into the finished page, never a placeholder);
-            // 2500 ms only when arriving at a detail page, not when leaving one (back nav uses 1200 ms)
-            if (now - t0 > (!already && p && p.id === "itemDetailPage" ? 2500 : 1200)) { note("timeout " + (p && p.id) + " changed=" + !!changed + " still=" + still + " sig=" + sig + " ready=" + ready(p, now - moved, before)); if (changed && target !== null) keep(target); return resolve(); }
+            if (changed && still >= 60 && (!p || p.id !== "itemDetailPage" || now - last >= 50) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); if (target !== null) keep(target); return resolve(); }
+            // a title page waits for its content (cinejoy fades straight into the finished page, never a placeholder)
+            if (now - t0 > (p && p.id === "itemDetailPage" ? 2500 : 1200)) { note("timeout " + (p && p.id) + " changed=" + !!changed + " still=" + still + " sig=" + sig + " ready=" + ready(p, now - moved, before)); if (changed && target !== null) keep(target); return resolve(); }
             setTimeout(tick, 16);
           })();
         });
       });
     } catch (e) { running = false; html.classList.remove("tb-vt"); return false; }
-    // Synchronous signal: set before anything else can run so goHome()'s tbScroll.top() guard
-    // fires correctly.  Uses a window flag (not tb-vt) so no CSS content-visibility rule fires.
-    window.tbXfActive = true;
-    // Click/pointerdown-initiated transitions: navigation must go through immediately.
-    if (!already) captured = true;
-    var done = function () { running = false; captured = false; window.tbXfActive = false; html.classList.remove("tb-vt"); targetOverride = null; xfClick = false; xfBack = false; };
+    var done = function () { running = false; captured = false; html.classList.remove("tb-vt"); };
     tr.finished.then(function () { note("done"); done(); }, function (e) { note("skipped " + (e && e.message)); done(); });
     return true;
   }
   window.tbCrossfade = crossfade;
 
+  // clicks that open a page: posters, links, the back arrows (before Jellyfin handles them)
   document.addEventListener("click", function (e) {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    // Set xfBack when the user clicked a back button so hold() knows to apply the saved
-    // scroll position from the popstate — not for logo/home clicks which also cause a
-    // popstate when Jellyfin pops the detail page from the history stack.
-    xfBack = !!(e.target && e.target.closest && e.target.closest(".sleekfin-details-back, [data-action='back'], .btnBack"));
-    crossfade(400);
+    var t = e.target && e.target.closest ? e.target : null;
+    if (!t) return;
+    // back arrows go back: the cross-fade starts from the history change they make (where you were is kept)
+    if (t.closest(".sleekfin-details-back, .headerBackButton")) return;
+    var b = t.closest("button");
+    if (b && !b.matches("[data-action='link'], .cardImageContainer, .itemAction[data-action='link']")) return;   // play, menus, favourites...
+    var a = t.closest("a[href]");
+    if (a && (a.target === "_blank" || !/#!?\//.test(a.getAttribute("href") || ""))) return;
+    if (a || t.closest(".card[data-id], [data-action='link']")) crossfade(400);
   }, true);
 
   // browser / mouse back and forward, and the back arrows (they call history.back()). Jellyfin swaps the page
   // straight away on these: the event is kept from Jellyfin until the old page is held, then handed on unchanged.
   function hold(e) {
     if (replaying || !started || off()) return;
-    if (running && captured) {
-      // A popstate while a click-initiated crossfade is running means history.back() was called
-      // (e.g. the back arrow).  Switch the in-flight crossfade to the saved scroll position.
-      // popstate during a back-button click (xfBack) = history.back() was called by the
-      // back arrow; apply the saved scroll position.  For logo/home, Jellyfin also fires
-      // a popstate internally (popping the detail entry), but xfBack is false for those.
-      if (e.type === "popstate" && xfClick && xfBack) {
-        var saved = pos[location.hash];
-        if (saved !== undefined) { targetOverride = saved; note("backArrow override " + saved); }
-      }
-      return;
-    }
+    if (running && captured) return;
     if (!running && !crossfade(300, true)) return;
     e.stopImmediatePropagation();
     held.push(e.type === "popstate" ? new PopStateEvent("popstate", { state: e.state }) : new HashChangeEvent("hashchange", { oldURL: e.oldURL, newURL: e.newURL }));

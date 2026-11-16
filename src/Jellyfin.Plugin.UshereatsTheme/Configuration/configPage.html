@@ -5380,9 +5380,39 @@
           var sk = el.getAttribute("data-sleek-key");
           var v = sk ? (cfg.Sleek || {})[sk] : cfg[el.getAttribute("data-key")];
           if (el.type === "checkbox") el.checked = !!v;
+          else if (el.tagName === "SELECT" && el.hasAttribute("data-int") && typeof v === "string" && isNaN(parseInt(v, 10))) {
+            var named = { Off: 0, AdminsOnly: 1, Everyone: 2 };
+            el.value = named[v] != null ? String(named[v]) : "";
+          }
           else el.value = v == null ? "" : v;
         });
+        tbFeatureLinks();
       }
+      // Title pop-up on: instant title pages isn't used (the pop-up replaces it) and hover pre-warm is on for at
+      // least the same people (it gets the pop-up's pictures ready). Full page: everything as it was.
+      function tbFeatureLinks() {
+        var pop = page.querySelector("#tb-TitlePopup"), it = page.querySelector("#tb-InstantTitles"), hw = page.querySelector("#tb-HoverWarm");
+        if (!pop || !it) return;
+        var lvl = parseInt(pop.value, 10) || 0;
+        var note = page.querySelector("#tb-InstantTitlesNote");
+        if (!note) {
+          note = document.createElement("div");
+          note.id = "tb-InstantTitlesNote";
+          note.className = "sleekfin-field-description";
+          note.textContent = "Not used while titles open as a pop-up (the pop-up is already instant).";
+          it.parentNode.appendChild(note);
+        }
+        if (lvl > 0) {
+          if (it.value !== "0") it.value = "0";
+          it.disabled = true;
+          note.style.display = "";
+          if (hw && (parseInt(hw.value, 10) || 0) < lvl) hw.value = String(lvl);
+        } else {
+          it.disabled = false;
+          note.style.display = "none";
+        }
+      }
+      page.addEventListener("change", function (e) { if (e.target && e.target.id === "tb-TitlePopup") tbFeatureLinks(); });
       page.addEventListener("viewshow", function () {
         ApiClient.getPluginConfiguration(PLUGIN_ID).then(function (cfg) {
           readInto(cfg);

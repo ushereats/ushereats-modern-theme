@@ -134,7 +134,7 @@ public static class ThemeAssets
         ("js_27_page_transitions.js", c => c.PageTransitions),
         ("js_28_error_reporter.js", c => true),
         ("js_29_search_index.js", c => c.InstantSearch != Configuration.FeatureLevel.Off),
-        ("js_30_instant_titles.js", c => c.InstantTitles != Configuration.FeatureLevel.Off),
+        ("js_30_instant_titles.js", c => c.InstantTitles != Configuration.FeatureLevel.Off && c.TitlePopup == Configuration.FeatureLevel.Off),
         ("js_31_title_popup.js", c => c.TitlePopup != Configuration.FeatureLevel.Off),
     };
 

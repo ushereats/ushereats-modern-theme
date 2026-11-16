@@ -10,7 +10,7 @@
   window.__tbTitlePopup = true;
 
   var html = document.documentElement;
-  var TYPES = { Movie: 1, Series: 1, Season: 1, Episode: 1 };
+  var TYPES = { Movie: 1, Series: 1, Season: 1, Episode: 1, Person: 1, BoxSet: 1 };
   var enabled = false;
   var root = null, panel = null, cur = null, gen = 0, pushing = false;
 
@@ -45,6 +45,8 @@
   function qNextUp(seriesId) { return get("Shows/NextUp", { userId: uid(), SeriesId: seriesId, Limit: 1, EnableResumable: true }); }
   function qSeasons(seriesId) { return get("Shows/" + seriesId + "/Seasons", { userId: uid() }); }
   function qEpisodes(seriesId, seasonId) { return get("Shows/" + seriesId + "/Episodes", { userId: uid(), seasonId: seasonId, Fields: "Overview", EnableImageTypes: "Primary,Thumb,Backdrop", ImageTypeLimit: 1 }); }
+  function qPersonItems(id) { return get("Items", { userId: uid(), PersonIds: id, Recursive: true, IncludeItemTypes: "Movie,Series", SortBy: "PremiereDate,ProductionYear,SortName", SortOrder: "Descending", Fields: "PrimaryImageAspectRatio", EnableImageTypes: "Primary,Backdrop,Thumb", ImageTypeLimit: 1, Limit: 120 }); }
+  function qCollection(id) { return get("Items", { userId: uid(), ParentId: id, SortBy: "PremiereDate,ProductionYear,SortName", SortOrder: "Ascending", Fields: "PrimaryImageAspectRatio", EnableImageTypes: "Primary,Backdrop,Thumb", ImageTypeLimit: 1 }); }
   function qSimilar(id) { return get("Items/" + id + "/Similar", { userId: uid(), limit: 12, Fields: "PrimaryImageAspectRatio", EnableImageTypes: "Primary,Backdrop,Thumb", ImageTypeLimit: 1 }); }
   var base = location.pathname.replace(/\/web(\/.*)?$/, "/");
   if (base.charAt(base.length - 1) !== "/") base += "/";
@@ -116,6 +118,13 @@
     "#tb-pop .tb-pop-ep-f{grid-area:foot;align-self:start;display:flex;gap:16px;margin-top:2px;font:600 12px/16px var(--app-font,Inter,sans-serif);color:rgba(255,255,255,.55)}" +
     "#tb-pop .tb-pop-ep-f span{display:inline-flex;align-items:center;gap:4px}" +
     "#tb-pop .tb-pop-ep-f .material-icons{font-size:13px}" +
+    "#tb-pop .tb-pop-person{display:flex;gap:36px;align-items:flex-end;padding:64px 48px 24px}" +
+    "#tb-pop .tb-pop-face{flex:none;width:220px;aspect-ratio:2/3;border-radius:14px;background:#1c1c20 50% 20%/cover no-repeat;box-shadow:0 18px 40px -12px rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center}" +
+    "#tb-pop .tb-pop-face .material-icons{font-size:72px;opacity:.4}" +
+    "#tb-pop .tb-pop-pin{min-width:0;flex:1}" +
+    "#tb-pop .tb-pop-bio{-webkit-line-clamp:6}" +
+    "#tb-pop .tb-pop-coll .itemsContainer{display:flex;flex-wrap:wrap;gap:0}" +
+    "@media (max-width:700px){#tb-pop .tb-pop-person{flex-direction:column;align-items:flex-start;gap:18px;padding:56px 20px 16px}#tb-pop .tb-pop-face{width:140px}}" +
     "#tb-pop .tb-pop-empty{padding:18px 10px;color:rgba(255,255,255,.55);font-size:14px}" +
     "#tb-pop .tb-pop-role{opacity:.65}" +
     "@media (max-width:700px){#tb-pop .tb-pop-box{margin:0;width:100vw;max-height:none;height:100%;border-radius:0}#tb-pop .tb-pop-panel{max-height:none}" +
@@ -170,6 +179,14 @@
     try { panel.focus({ preventScroll: true }); } catch (e) {}
     Promise.resolve(api().getItem(uid(), id)).then(function (item) {
       if (token !== gen || !item) return;
+      if (item.Type === "Person") return drawPerson(item, token);
+      if (!TYPES[item.Type]) {
+        // not something the pop-up shows (an album, a folder...): its normal page instead
+        closeUI();
+        try { if (history.state && history.state.tbPop) { var st2 = {}; for (var k2 in history.state) if (k2 !== "tbPop") st2[k2] = history.state[k2]; pushing = true; history.replaceState(st2, "", location.href); pushing = false; } } catch (e) { pushing = false; }
+        location.hash = detailsHref(item.Id);
+        return;
+      }
       if (item.Type === "Season" && item.SeriesId) {
         // a season: show its show, on that season
         return Promise.resolve(api().getItem(uid(), item.SeriesId)).then(function (series) {
@@ -235,6 +252,7 @@
       if (it.CommunityRating) meta.push('<span><span class="tb-pop-star">★</span> ' + (Math.round(it.CommunityRating * 10) / 10) + "</span>");
       if (it.ProductionYear) meta.push("<span>" + it.ProductionYear + "</span>");
       if (it.Type === "Series" && it.ChildCount) meta.push("<span>" + it.ChildCount + (it.ChildCount === 1 ? " Season" : " Seasons") + "</span>");
+      else if (it.Type === "BoxSet" && it.ChildCount) meta.push("<span>" + it.ChildCount + (it.ChildCount === 1 ? " title" : " titles") + "</span>");
       else if (it.RunTimeTicks) meta.push("<span>" + runtime(it.RunTimeTicks) + "</span>");
       if (it.OfficialRating) meta.push('<span class="tb-pop-age">' + esc(it.OfficialRating) + "</span>");
       if (meta.length) h += '<div class="tb-pop-meta">' + meta.join("") + "</div>";
@@ -252,6 +270,7 @@
     if (quick) return;
     actions(it, token);
     var body = panel.querySelector(".tb-pop-body");
+    if (it.Type === "BoxSet") { collection(it.Id, body, token); return; }
     if (it.Type === "Series" || (isEp && it.SeriesId)) {
       cur.seriesId = isEp ? it.SeriesId : it.Id;
       body.insertAdjacentHTML("beforeend", '<div class="tb-pop-eph"><h2 class="sectionTitle sectionTitle-cards">Episodes</h2><select class="tb-pop-season" aria-label="Season" disabled></select></div><div class="tb-pop-eps" is="emby-itemscontainer"></div>');
@@ -262,6 +281,55 @@
     similar(isEp && it.SeriesId ? it.SeriesId : it.Id, body, token);
   }
   function upgrade(node) { var c = C(); if (c && node) c.upgrade(node); }
+
+  // an actor / director: photo, born, about, and everything they're in from your library
+  function drawPerson(p, token) {
+    var a = api(), s = sid();
+    var pic = p.ImageTags && p.ImageTags.Primary && a ? a.getScaledImageUrl(p.Id, { type: "Primary", tag: p.ImageTags.Primary, maxHeight: 900, quality: 90 }) : null;
+    ambient(pic);
+    var born = "";
+    if (p.PremiereDate) { try { born = new Date(p.PremiereDate).toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" }); } catch (e) {} }
+    var where = p.ProductionLocations && p.ProductionLocations[0] ? p.ProductionLocations[0] : "";
+    var h = '<div class="tb-pop-bar"><button type="button" class="tb-pop-close" aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>';
+    h += '<div class="tb-pop-person">' + (pic ? '<div class="tb-pop-face" style="background-image:url(&quot;' + esc(pic) + '&quot;)"></div>' : '<div class="tb-pop-face">' + icon("person") + "</div>") + '<div class="tb-pop-pin">';
+    h += '<h1 class="tb-pop-title">' + esc(p.Name) + "</h1>";
+    if (born || where) h += '<div class="tb-pop-meta">' + (born ? "<span>Born " + esc(born) + "</span>" : "") + (where ? "<span>" + esc(where) + "</span>" : "") + "</div>";
+    if (p.Overview) h += '<p class="tb-pop-ov tb-pop-bio">' + esc(p.Overview) + "</p>";
+    var iu = p.UserData || {};
+    h += '<div class="tb-pop-actions" is="emby-itemscontainer">' +
+      '<button is="emby-ratingbutton" type="button" data-action="none" class="tb-pop-ic sleekfin-control-3d" title="Favourite" data-id="' + p.Id + '" data-serverid="' + esc(p.ServerId || s) + '" data-itemtype="Person" data-likes="" data-isfavorite="' + !!iu.IsFavorite + '">' + icon("favorite") + "</button>" +
+      '<a class="tb-pop-ic sleekfin-control-3d tb-pop-full" href="' + detailsHref(p.Id) + '" title="Full page">' + icon("open_in_full") + "</a></div>";
+    h += '</div></div><div class="tb-pop-body"></div>';
+    panel.innerHTML = h;
+    upgrade(panel.querySelector(".tb-pop-person"));
+    var body = panel.querySelector(".tb-pop-body");
+    qPersonItems(p.Id).then(function (r) {
+      if (token !== gen) return;
+      var items = (r && r.Items) || [];
+      var films = items.filter(function (x) { return x.Type === "Movie"; }), shows = items.filter(function (x) { return x.Type === "Series"; });
+      if (!items.length) { body.innerHTML = '<div class="tb-pop-empty">Nothing with ' + esc(p.Name) + " in your library yet.</div>"; return; }
+      if (films.length) put(body, row("Movies", cardsOf(films), "tb-pop-films"));
+      if (shows.length) put(body, row("Shows", cardsOf(shows), "tb-pop-shows"));
+    }, function () { if (token === gen) body.innerHTML = '<div class="tb-pop-empty">Couldn\u2019t load their titles.</div>'; });
+  }
+  function cardsOf(items) {
+    var c = C(), slim = window.__tbRowsBoot && window.__tbRowsBoot.slim, s = sid(), out = "";
+    items.forEach(function (x, i) {
+      var it = slim ? slim(x) : { Id: x.Id, Name: x.Name, Type: x.Type, ProductionYear: x.ProductionYear, Primary: x.ImageTags && x.ImageTags.Primary, UserData: x.UserData || {} };
+      out += c.card(it, "poster", i, s, "", false, false);
+    });
+    return out;
+  }
+  // a collection: its films in order, as a grid
+  function collection(id, body, token) {
+    qCollection(id).then(function (r) {
+      if (token !== gen) return;
+      var c = C(), items = (r && r.Items) || [];
+      if (!c || !items.length) return;
+      var sec = c.frag(c.section({ title: "In this collection", cls: "tb-row show-card-titles tb-pop-coll", cards: cardsOf(items), wrap: true }));
+      put(body, sec);
+    }, function () {});
+  }
   var ambUrl = null;
   function ambient(url) {
     var a = root && root.querySelector(".tb-pop-amb");
@@ -300,7 +368,7 @@
       h += '<button is="emby-ratingbutton" type="button" data-action="none" class="tb-pop-ic sleekfin-control-3d" title="Favourite" data-id="' + it.Id + '" data-serverid="' + esc(it.ServerId || s) + '" data-itemtype="' + esc(it.Type) + '" data-likes="" data-isfavorite="' + !!iu.IsFavorite + '">' + icon("favorite") + "</button>";
       h += '<button is="emby-playstatebutton" type="button" data-action="none" class="tb-pop-ic sleekfin-control-3d" title="Watched" data-id="' + it.Id + '" data-serverid="' + esc(it.ServerId || s) + '" data-itemtype="' + esc(it.Type) + '" data-played="' + !!iu.Played + '">' + icon("check") + "</button>";
       h += "<span" + attrs(it, false) + '><button type="button" class="itemAction tb-pop-ic sleekfin-control-3d" data-action="menu" title="More">' + icon("more_vert") + "</button></span>";
-      h += '<a class="tb-pop-ic sleekfin-control-3d" href="' + detailsHref(it.Id) + '" title="Full page">' + icon("open_in_full") + "</a>";
+      h += '<a class="tb-pop-ic sleekfin-control-3d tb-pop-full" href="' + detailsHref(it.Id) + '" title="Full page">' + icon("open_in_full") + "</a>";
       box.innerHTML = h;
       upgrade(box);
     }
@@ -445,6 +513,8 @@
       if (it.Type === "Series") { qNextUp(it.Id); show(it.Id, null); qSimilar(it.Id); }
       else if (it.Type === "Episode" && it.SeriesId) { show(it.SeriesId, it.SeasonId); qSimilar(it.SeriesId); }
       else if (it.Type === "Season" && it.SeriesId) { api().getItem(uid(), it.SeriesId); show(it.SeriesId, it.Id); qSimilar(it.SeriesId); }
+      else if (it.Type === "Person") qPersonItems(it.Id);
+      else if (it.Type === "BoxSet") qCollection(it.Id);
       else qSimilar(it.Id);
     })["catch"](function () {});
   }
@@ -457,25 +527,43 @@
     warmT = setTimeout(function () { preload(id, type); }, 150);
   }, { capture: true, passive: true });
 
-  // ── clicks on titles open the panel instead of the page ──
+  // ── every way of opening a title opens the panel instead of the page ──
+  // cards, the home banner's "More info", the show name under an episode, list rows, plain links to a title
+  function typeOf(id) {
+    var m = window.tbItemMeta && window.tbItemMeta[id];
+    if (m && m.Type) return Promise.resolve(m.Type);
+    return Promise.resolve(api().getItem(uid(), id)).then(function (it) { return it && it.Type; });
+  }
   window.addEventListener("click", function (e) {
     if (!enabled || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     if (html.classList.contains("layout-tv") || document.body.classList.contains("dashboardDocument")) return;
     var t = e.target;
     if (!t || !t.closest) return;
-    var card = t.closest(".card[data-id]");
-    if (!card) return;
-    // the card's own buttons (play, watched, favourite, menu) keep doing what they do
+    if (t.closest(".tb-pop-full, .tb-pop-ep, #tb-pop .tb-pop-actions")) return;   // full page button; the panel's own play buttons
+    // a card's or row's own buttons (play, watched, favourite, menu) keep doing what they do
     var act = t.closest("[data-action]");
     if (act && act.getAttribute("data-action") !== "link") return;
     var btn = t.closest("button");
     if (btn && btn !== act) return;
-    var holder = t.closest("[data-id]") || card;
-    var id = holder.getAttribute("data-id"), type = holder.getAttribute("data-type") || card.getAttribute("data-type");
-    if (!id || !TYPES[type]) return;
-    if (!open(id, type)) return;
+    var id = null, type = null;
+    var holder = act ? (act.hasAttribute("data-id") ? act : act.closest("[data-id]")) : t.closest(".card[data-id], .listItem[data-id]");
+    if (holder) {
+      id = holder.getAttribute("data-id");
+      type = holder.getAttribute("data-type") || ((holder.closest(".card[data-id], .listItem[data-id]") || holder).getAttribute("data-type"));
+    } else {
+      var a = t.closest("a[href]"), m = a && /details\?(?:[^#]*&)?id=([0-9a-f]{32}|[0-9a-f-]{36})/i.exec(a.getAttribute("href") || "");
+      if (m) id = m[1].replace(/-/g, "");
+    }
+    if (!id || (type && !TYPES[type])) return;
+    if (!api() || !uid()) return;
     e.preventDefault();
     e.stopImmediatePropagation();
+    if (type) { open(id, type); return; }
+    // a plain link: find out what it is, then the panel or its normal page
+    typeOf(id).then(function (tp) {
+      if (TYPES[tp]) open(id, tp);
+      else location.hash = detailsHref(id);
+    }, function () { location.hash = detailsHref(id); });
   }, true);
 
   document.addEventListener("keydown", function (e) {
@@ -522,6 +610,19 @@
     st.id = "tb-pop-css";
     st.textContent = css;
     document.head.appendChild(st);
+    // landed straight on a title's page (a shared link, a bookmark): home, with that title's panel on top
+    var dm = /^#!?\/?details\?(?:[^#]*&)?id=([0-9a-f]{32}|[0-9a-f-]{36})/i.exec(location.hash);
+    if (dm) {
+      var did = dm[1].replace(/-/g, "");
+      (function when() {
+        if (!api() || !uid()) return setTimeout(when, 200);
+        typeOf(did).then(function (tp) {
+          if (!TYPES[tp] || !/details/i.test(location.hash)) return;
+          location.replace(location.href.replace(/#.*$/, "#/home"));
+          setTimeout(function () { open(did, tp); }, 400);
+        }, function () {});
+      })();
+    }
     // reloaded while a panel was open: open it again
     try { if (history.state && history.state.tbPop) { var again = history.state.tbPop; setTimeout(function () { if (history.state && history.state.tbPop === again) open(again, null, true); }, 600); } } catch (e) {}
   }

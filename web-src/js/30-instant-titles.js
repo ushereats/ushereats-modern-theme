@@ -5,6 +5,7 @@
   window.__tbInstantTitles = true;
 
   function featOn() {
+    if (document.documentElement.classList.contains("tb-tmodal-on")) return false;   // the title pop-up is on instead
     var v = window.TB_CONFIG && parseInt(window.TB_CONFIG.InstantTitles, 10);
     if (!v || v === 0) return false;
     if (v >= 2) return true;

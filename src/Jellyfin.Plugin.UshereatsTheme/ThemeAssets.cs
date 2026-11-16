@@ -135,6 +135,7 @@ public static class ThemeAssets
         ("js_28_error_reporter.js", c => true),
         ("js_29_search_index.js", c => c.InstantSearch != Configuration.FeatureLevel.Off),
         ("js_30_instant_titles.js", c => c.InstantTitles != Configuration.FeatureLevel.Off),
+        ("js_31_title_popup.js", c => c.TitlePopup != Configuration.FeatureLevel.Off),
     };
 
     private static readonly Dictionary<string, Payload?> StudioCache = new Dictionary<string, Payload?>(StringComparer.OrdinalIgnoreCase);

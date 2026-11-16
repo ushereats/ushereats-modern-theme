@@ -109,6 +109,9 @@ public class PluginConfiguration : BasePluginConfiguration
 
     /// <summary>Instant title page top drawn from cached data before the server responds. Off / AdminsOnly / Everyone.</summary>
     public FeatureLevel InstantTitles { get; set; } = FeatureLevel.Off;
+
+    /// <summary>How a title opens: Off = full page (default), AdminsOnly / Everyone = Netflix-style pop-up over the page you were on.</summary>
+    public FeatureLevel TitlePopup { get; set; } = FeatureLevel.Off;
 }
 
 /// <summary>Who can use a feature that may need a gradual rollout.</summary>

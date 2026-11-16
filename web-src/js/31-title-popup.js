@@ -15,12 +15,13 @@
 
   var css =
     // the page behind stays where it was, frozen and not clickable
-    "html.tb-tmodal .page.tb-under{display:block!important;position:fixed!important;left:0;right:0;top:var(--tb-under-top,0px);pointer-events:none!important;visibility:visible!important}" +
+    "html.tb-tmodal .page.tb-under{display:block!important;position:fixed!important;left:0;right:0;top:var(--tb-under-top,0px);pointer-events:none!important;visibility:visible!important;" +
+    "filter:blur(7px) brightness(.62);transform:scale(1.02);transition:filter .25s ease}" +
     // the panel: your title page, centred, scrolling on its own, everything around it dimmed
-    "html.tb-tmodal #itemDetailPage:not(.hide){position:fixed!important;z-index:1000;top:28px;bottom:0;" +
-    "left:max(16px,calc((100vw - 1180px) / 2));right:max(16px,calc((100vw - 1180px) / 2));" +
-    "overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;border-radius:var(--sleekfin-radius,12px) var(--sleekfin-radius,12px) 0 0;" +
-    "background:var(--sleekfin-background,#0b0b0d)!important;box-shadow:0 0 0 100vmax rgba(0,0,0,.72),0 24px 80px rgba(0,0,0,.6);" +
+    "html.tb-tmodal #itemDetailPage:not(.hide){position:fixed!important;z-index:1000;top:6vh!important;bottom:6vh!important;" +
+    "left:max(24px,calc((100vw - 1100px) / 2))!important;right:max(24px,calc((100vw - 1100px) / 2))!important;width:auto!important;height:auto!important;min-height:0!important;" +
+    "overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;border-radius:18px;" +
+    "background:var(--sleekfin-background,#0b0b0d)!important;box-shadow:0 30px 90px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08);" +
     "animation:tbTmodalIn .22s ease-out both;scrollbar-width:thin}" +
     "@keyframes tbTmodalIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}" +
     // sizes inside the panel: a shorter banner, no room kept for the top bar
@@ -30,13 +31,13 @@
     // the top bar steps aside while the panel is open
     "html.tb-tmodal :is(header.MuiAppBar-root,.skinHeader){opacity:0!important;pointer-events:none!important;transition:opacity .2s}" +
     // close button
-    "#tb-tmodal-close{position:fixed;z-index:1001;top:44px;right:calc(max(16px,calc((100vw - 1180px) / 2)) + 16px);width:40px;height:40px;" +
+    "#tb-tmodal-close{position:fixed;z-index:1001;top:calc(6vh + 16px);right:calc(max(24px,calc((100vw - 1100px) / 2)) + 16px);width:40px;height:40px;" +
     "border-radius:50%;border:0;display:none;align-items:center;justify-content:center;cursor:pointer;color:#fff;" +
     "background:rgba(20,20,24,.72);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 0 0 1px rgba(255,255,255,.14)}" +
     "#tb-tmodal-close:hover{background:rgba(40,40,46,.9)}" +
     "html.tb-tmodal #tb-tmodal-close{display:flex}" +
     // phones: the panel fills the screen
-    "@media (max-width:700px){html.tb-tmodal #itemDetailPage:not(.hide){top:0;left:0;right:0;border-radius:0;box-shadow:none}" +
+    "@media (max-width:700px){html.tb-tmodal #itemDetailPage:not(.hide){top:0!important;bottom:0!important;left:0!important;right:0!important;border-radius:0;box-shadow:none}" +
     "html.tb-tmodal #itemDetailPage[data-sleekfin-details],html.tb-tmodal #itemDetailPage[data-sleekfin-details]>*{--sleekfin-page-gutter:20px!important}" +
     "#tb-tmodal-close{top:14px;right:14px}}";
 

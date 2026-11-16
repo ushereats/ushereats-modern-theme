@@ -9,17 +9,18 @@
 
   var html = document.documentElement;
   var enabled = false;      // the setting is on for this user
-  var under = null;         // the page you opened the title from (kept on screen behind the panel)
+  var under = null;         // a copy of the page you opened the title from, shown behind the panel
   var underY = 0;           // where that page was scrolled to
   var pressY = null;        // where the page was when you pressed (taken before the browser can move it)
 
   var css =
-    // the page behind stays where it was, frozen and not clickable
-    "html:is(.tb-tmodal,.tb-tmodal-closing) .page.tb-under{display:block!important;position:fixed!important;left:0;right:0;top:var(--tb-under-top,0px);pointer-events:none!important;visibility:visible!important;transition:filter .22s ease}" +
-    "html.tb-tmodal .page.tb-under{filter:blur(2px) brightness(.45)}" +
-    // Jellyfin hides the page's wrapper, not just the page: keep the wrappers of the page behind showing too
-    "html:is(.tb-tmodal,.tb-tmodal-closing) .tb-under-wrap.hide{display:block!important;visibility:visible!important}" +
-    "html.tb-tmodal-closing .page.tb-under{filter:none}" +
+    // Jellyfin removes the page you were on when a title opens, so an exact copy of it (taken the moment you
+    // click) sits behind the panel: frozen and not clickable
+    "#tb-under{position:fixed;z-index:0;pointer-events:none;overflow:hidden;margin:0!important;transition:filter .22s ease,opacity .18s ease}" +
+    "html.tb-tmodal #tb-under{filter:blur(2px) brightness(.45)}" +
+    // closing: the copy stays on top of the real page Jellyfin rebuilds, until that's at the same spot
+    "html.tb-tmodal-closing #tb-under{z-index:999}" +
+    "#tb-under.tb-gone{opacity:0;z-index:999}" +
     // the panel: your title page, centred, scrolling on its own, everything around it dimmed
     "html:is(.tb-tmodal,.tb-tmodal-closing) #itemDetailPage:not(.hide){position:fixed!important;z-index:1000;top:6vh!important;bottom:6vh!important;" +
     "left:max(24px,calc((100vw - 1100px) / 2))!important;right:max(24px,calc((100vw - 1100px) / 2))!important;width:auto!important;height:auto!important;min-height:0!important;" +
@@ -70,20 +71,44 @@
   function close() {
     if (!html.classList.contains("tb-tmodal")) return;
     // back to where you came from; opened straight from a link (nothing behind): home
-    if (under && under.isConnected && history.length > 1) history.back();
+    if (under && history.length > 1) history.back();
     else location.hash = "#/home";
+  }
+
+  // a still copy of the page on screen: same place, same scroll spot (no ids, nothing for scripts to find)
+  function copyOf(p) {
+    var r = p.getBoundingClientRect();
+    var c = p.cloneNode(true);
+    c.removeAttribute("id");
+    c.className = "tb-under-copy " + String(p.className || "").replace(/\bpage\b|\bhide\b|\bmainAnimatedPage\b/g, "");
+    Array.prototype.forEach.call(c.querySelectorAll("[id]"), function (e) { e.removeAttribute("id"); });
+    Array.prototype.forEach.call(c.querySelectorAll("video,iframe,audio,script"), function (e) { e.parentNode && e.parentNode.removeChild(e); });
+    c.setAttribute("aria-hidden", "true");
+    c.setAttribute("inert", "");
+    var w = document.createElement("div");
+    w.id = "tb-under";
+    w.style.cssText = "top:0;left:0;width:100vw;height:100vh";
+    c.style.cssText += ";position:absolute!important;margin:0!important;top:" + r.top + "px!important;left:" + r.left + "px!important;width:" + r.width + "px!important;transform:none!important";
+    w.appendChild(c);
+    return w;
   }
 
   function enter() {
     var p = visiblePage();
-    // keep the page you came from behind the panel (not another title, not the player)
+    // copy the page you came from (not another title, not the player) and put it behind the panel
     if (p && p.id !== "itemDetailPage") {
-      if (under && under !== p) release(false);
-      under = p;
-      for (var a = p.parentElement; a && a !== document.body; a = a.parentElement) a.classList.add("tb-under-wrap");
+      drop();
       underY = pressY !== null ? pressY : scrolled();
-      under.style.setProperty("--tb-under-top", -underY + "px");
-      under.classList.add("tb-under");
+      try {
+        under = copyOf(p);
+        document.body.appendChild(under);
+        // line the copy up exactly with the real page (a margin can sit differently in the copy)
+        var c = under.firstChild, a = p.firstElementChild, b = c && c.firstElementChild;
+        if (a && b) {
+          var d = a.getBoundingClientRect().top - b.getBoundingClientRect().top;
+          if (Math.abs(d) > 0.5) c.style.setProperty("top", (parseFloat(c.style.top) + d) + "px", "important");
+        }
+      } catch (e) { under = null; }
     }
     html.classList.add("tb-tmodal");
     closeBtn();
@@ -92,31 +117,40 @@
     if (d) d.scrollTop = 0;
   }
 
-  function release(restore) {
-    if (!under) return;
-    under.classList.remove("tb-under");
-    Array.prototype.forEach.call(document.querySelectorAll(".tb-under-wrap"), function (a) { a.classList.remove("tb-under-wrap"); });
-    under.style.removeProperty("--tb-under-top");
+  function drop() {
+    var u = document.getElementById("tb-under");
+    if (u && u.parentNode) u.parentNode.removeChild(u);
     under = null;
-    if (restore) { try { window.scrollTo({ top: underY, left: 0, behavior: "instant" }); } catch (e) { window.scrollTo(0, underY); } }
   }
+  function scrollNow(y) { try { window.scrollTo({ top: y, left: 0, behavior: "instant" }); } catch (e) { window.scrollTo(0, y); } }
 
   var closeTimer = 0;
   function leave() {
     html.classList.remove("tb-tmodal");
     if (!under) return;
-    // the panel slides away and the page behind sharpens, staying exactly where it was while Jellyfin swaps pages
-    // back (it would otherwise blink: the title page full-size for a frame, or an empty frame)
+    // the panel slides away and the copy sharpens; once Jellyfin has the real page back, it's put at the same
+    // scroll spot under the copy and the copy fades away (so the swap can't be seen)
     html.classList.add("tb-tmodal-closing");
-    var u = under, t0 = Date.now();
+    var u = under, t0 = Date.now(), seen = 0, userMoved = false;
+    var mark = function () { userMoved = true; };
+    window.addEventListener("wheel", mark, { passive: true, once: true });
+    window.addEventListener("touchstart", mark, { passive: true, once: true });
     clearTimeout(closeTimer);
     (function wait() {
-      var vp = visiblePage(), back = !u.closest(".hide"), elsewhere = !!vp && vp !== u && vp.id !== "itemDetailPage";
-      if (back || elsewhere || Date.now() - t0 > 1500 || html.classList.contains("tb-tmodal")) {
-        if (!html.classList.contains("tb-tmodal")) release(back);
-        html.classList.remove("tb-tmodal-closing");
-        return;
-      }
+      if (html.classList.contains("tb-tmodal")) { html.classList.remove("tb-tmodal-closing"); return; }   // opened another title
+      var vp = visiblePage(), now = Date.now();
+      var back = !!vp && vp.id !== "itemDetailPage";
+      if (back) {
+        if (!seen) seen = now;
+        if (!userMoved && Math.abs(scrolled() - underY) > 1) scrollNow(underY);
+        // the rows can take a moment to grow back to full height: keep the spot for a little while
+        if (now - seen > 250 && (Math.abs(scrolled() - underY) <= 1 || now - seen > 900 || userMoved)) {
+          html.classList.remove("tb-tmodal-closing");
+          u.classList.add("tb-gone");
+          setTimeout(function () { if (under === u) drop(); else if (u.parentNode) u.parentNode.removeChild(u); }, 200);
+          return;
+        }
+      } else if (now - t0 > 2500) { html.classList.remove("tb-tmodal-closing"); drop(); return; }
       closeTimer = setTimeout(wait, 16);
     })();
   }

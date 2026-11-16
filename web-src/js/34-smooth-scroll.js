@@ -11,14 +11,23 @@
   (function ask() {
     var a = window.ApiClient;
     if (window.tbFeat && (lvl >= 2 || (a && a.getCurrentUserId && a.getCurrentUserId()))) {
-      window.tbFeat("SmoothScroll").then(function (on) { if (on && !started) { started = true; start(); } });
+      window.tbFeat("SmoothScroll").then(function (on) { if (!on) why = "off: Admins only and you're not an admin"; if (on && !started) { started = true; start(); } });
     } else setTimeout(ask, 500);
   })();
 
+  var why = "waiting for sign-in", wheels = 0, glides = 0;
+  // console check: tbSmoothDebug()
+  window.tbSmoothDebug = function () {
+    return { setting: ["Off", "Admins only", "Everyone"][lvl] || lvl, state: why, wheelEvents: wheels, glides: glides,
+      pageScroller: (document.scrollingElement || html).tagName, lastWheel: window.__tbLastWheel || null };
+  };
   function start() {
     var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
     var mouse = window.matchMedia ? matchMedia("(pointer: fine)").matches : true;
-    if (reduce || !mouse || html.classList.contains("layout-tv")) return;
+    if (reduce) { why = "off: this device has 'reduce motion' turned on"; return; }
+    if (!mouse) { why = "off: no mouse or touchpad (touch screen)"; return; }
+    if (html.classList.contains("layout-tv")) { why = "off: TV layout"; return; }
+    why = "on";
     html.classList.add("tb-ss-on");
     var STRETCH = tbCfg("ScrollStretch", true) !== false;
     var BLUR = tbCfg("ScrollBlur", false) === true;
@@ -29,11 +38,13 @@
     function scrollingDoc() { return document.scrollingElement || html; }
 
     // the wheel: is it a mouse wheel (notches), not a touchpad (a stream of small precise steps)?
+    // (Windows display scaling and free-spinning wheels make the steps 125, 150, 87.5…, not just 100 / 120;
+    // a touchpad sends a stream of small, uneven steps and is left alone)
     function isNotch(e) {
       if (e.deltaMode === 1 || e.deltaMode === 2) return true;
-      var w = e.wheelDeltaY;
-      if (w == null || w === 0) return false;
-      return Math.abs(w) % 120 === 0 && Math.abs(e.deltaY) >= 40;
+      var w = e.wheelDeltaY, d = Math.abs(e.deltaY);
+      if (w && Math.abs(w) % 120 === 0 && d >= 40) return true;
+      return e.deltaX === 0 && d >= 50 && Math.abs(d * 2 - Math.round(d * 2)) < 0.01;
     }
     function distance(e) {
       var d = e.deltaY;
@@ -81,6 +92,8 @@
     }
 
     window.addEventListener("wheel", function (e) {
+      wheels++;
+      window.__tbLastWheel = { deltaY: e.deltaY, deltaX: e.deltaX, mode: e.deltaMode, wheelDeltaY: e.wheelDeltaY, mouseWheel: isNotch(e) };
       if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY) || !e.deltaY) return;
       if (html.classList.contains("layout-tv") || !isNotch(e)) return;
@@ -88,6 +101,7 @@
       var dy = distance(e), s = scroller(e.target, dy);
       if (!s) return;
       e.preventDefault();
+      glides++;
       if (s !== el) {
         if (el) el.style.scrollBehavior = "";
         el = s;
@@ -112,10 +126,10 @@
     document.addEventListener("viewshow", stop);
 
     // ── the extras while the page moves (measured from the page's own position, so any scrolling counts) ──
-    var moving = false, blurNode = null, lastBlur = -1, sRaf = 0, sY = null, sT = 0, lastEvt = 0;
+    var moving = false, blurNode = null, lastBlur = -1, sRaf = 0, sY = null, sT = 0, lastEvt = 0, sEl = null;
     function sample(now) {
       sRaf = 0;
-      var d = doc || scrollingDoc(), py = d.scrollTop;
+      var d = sEl || doc || scrollingDoc(), py = d.scrollTop;
       if (sY === null) { sY = py; sT = now; }
       var dt = Math.min(64, now - sT) || 16.7;
       vel = vel * 0.6 + ((py - sY) / dt) * 0.4;
@@ -124,7 +138,14 @@
       if (moving || Math.abs(vel) > 0.02 || now - lastEvt < 150) sRaf = requestAnimationFrame(sample);
       else { vel = 0; sY = null; }
     }
-    if (STRETCH || BLUR) window.addEventListener("scroll", function () { lastEvt = performance.now(); if (!sRaf) sRaf = requestAnimationFrame(sample); }, { passive: true });
+    // the page itself or any big scrolling area in it (some layouts scroll a panel, not the page)
+    if (STRETCH || BLUR) document.addEventListener("scroll", function (e) {
+      var t = e.target === document || e.target === document.body || e.target === html ? scrollingDoc() : e.target;
+      if (!t || t.nodeType !== 1 || t.clientHeight < window.innerHeight * 0.5) return;   // small lists inside the page don't count
+      if (t !== sEl) { sEl = t; sY = null; }
+      lastEvt = performance.now();
+      if (!sRaf) sRaf = requestAnimationFrame(sample);
+    }, { capture: true, passive: true });
     if (BLUR) {
       var ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg");
       svg.setAttribute("width", "0"); svg.setAttribute("height", "0");

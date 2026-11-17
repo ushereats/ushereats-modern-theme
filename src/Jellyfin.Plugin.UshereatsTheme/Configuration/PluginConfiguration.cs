@@ -130,6 +130,9 @@ public class PluginConfiguration : BasePluginConfiguration
 
     /// <summary>The clicked poster grows into the title pop-up (and shrinks back when it closes).</summary>
     public bool PopupAnimation { get; set; } = true;
+
+    /// <summary>How the pop-up animation looks: "genie" (the poster flies into the panel and back down into its spot) or "melt" (the poster melts in place, the panel fades into its spot on close).</summary>
+    public string PopupAnimationStyle { get; set; } = "genie";
 }
 
 /// <summary>Who can use a feature that may need a gradual rollout.</summary>

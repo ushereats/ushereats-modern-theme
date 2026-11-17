@@ -228,6 +228,14 @@
     var b = Math.max(0, to.top + to.height - (r.top + r.height)), rt = Math.max(0, to.left + to.width - (r.left + r.width));
     return "inset(" + t + "px " + rt + "px " + b + "px " + l + "px round 10px)";
   }
+  // two looks (setting: Titles > Animation style): "genie" = the poster flies out of its spot into the panel and
+  // back down into it on close; "melt" = the poster melts in place and the panel fades into the spot on close
+  var GENIE = String(tbCfg("PopupAnimationStyle", "genie")).toLowerCase() !== "melt";
+  function moveTo(r, to) {
+    var sx = Math.min(to.width / r.width, to.height / r.height) * 0.55;
+    var dx = to.left + to.width / 2 - (r.left + r.width / 2), dy = to.top + Math.min(to.height, 520) / 2 - (r.top + r.height / 2);
+    return "translate(" + dx + "px," + dy + "px) scale(" + sx.toFixed(3) + ")";
+  }
   function visibleRect(el) {
     if (!el || !el.isConnected || !el.getClientRects().length) return null;
     var r = el.getBoundingClientRect();
@@ -237,13 +245,14 @@
     if (!ANIM || !src || !root || !root.animate) return;
     stopAnims();
     var box = root.querySelector(".tb-pop-box"), shade = root.querySelector(".tb-pop-shade");
-    var to = box.getBoundingClientRect(), r = src.rect, D = 380;
+    var to = box.getBoundingClientRect(), r = src.rect, D = GENIE ? 400 : 380;
     anims.push(box.animate([{ clipPath: insetOf(r, to) }, { clipPath: "inset(0px 0px 0px 0px round 18px)" }], { duration: D, easing: EASE }));
     anims.push(shade.animate([{ opacity: 0 }, { opacity: 1 }], { duration: D, easing: "ease-out" }));
     // the poster stays on its own spot and melts away in the first moment (moving it across the panel showed
     // the title twice)
     var p = layer(src.bg, r, src.radius);
-    p.animate([{ transform: "none", opacity: 1 }, { transform: "scale(1.06)", opacity: 0 }], { duration: 170, easing: "ease-out", fill: "forwards" }).onfinish = function () { p.remove(); };
+    if (GENIE) p.animate([{ transform: "none", opacity: 1 }, { transform: moveTo(r, to), opacity: 0 }], { duration: D * 0.75, easing: EASE, fill: "forwards" }).onfinish = function () { p.remove(); };
+    else p.animate([{ transform: "none", opacity: 1 }, { transform: "scale(1.06)", opacity: 0 }], { duration: 170, easing: "ease-out", fill: "forwards" }).onfinish = function () { p.remove(); };
   }
   // closing: returns true when it animates (the panel is cleared when the animation ends)
   function flyBack(src, done) {
@@ -254,18 +263,24 @@
     var box = root.querySelector(".tb-pop-box"), shade = root.querySelector(".tb-pop-shade");
     var from = box.getBoundingClientRect(), D = 300;
     root.style.pointerEvents = "none";
-    // the panel shrinks into the poster's spot and fades as it gets there (so no scraps of it show in the
-    // small box); the poster fades back in on its own spot
-    var a = box.animate([{ clipPath: "inset(0px 0px 0px 0px round 18px)", opacity: 1 }, { opacity: 1, offset: 0.35 }, { clipPath: insetOf(r, from), opacity: 0 }],
-      { duration: D, easing: EASE, fill: "forwards" });
+    var a, p = layer(src.bg, r, src.radius);
+    if (GENIE) {
+      // the panel shrinks into the poster's spot while the poster flies down into it
+      a = box.animate([{ clipPath: "inset(0px 0px 0px 0px round 18px)" }, { clipPath: insetOf(r, from) }], { duration: D + 20, easing: EASE, fill: "forwards" });
+      p.animate([{ transform: moveTo(r, from), opacity: 0 }, { transform: "none", opacity: 1, offset: 0.85 }, { transform: "none", opacity: 1 }], { duration: D + 60, easing: EASE, fill: "forwards" }).onfinish = function () { p.remove(); };
+    } else {
+      // the panel fades as it shrinks into the poster's spot (no scraps of it in the small box); the poster comes
+      // back underneath it
+      a = box.animate([{ clipPath: "inset(0px 0px 0px 0px round 18px)", opacity: 1 }, { opacity: 1, offset: 0.35 }, { clipPath: insetOf(r, from), opacity: 0 }],
+        { duration: D, easing: EASE, fill: "forwards" });
+      p.style.zIndex = "1199";
+      p.style.boxShadow = "none";
+      p.animate([{ opacity: 0 }, { opacity: 0, offset: 0.35 }, { opacity: 1 }], { duration: D, easing: "ease-out", fill: "forwards" }).onfinish = function () {
+        setTimeout(function () { p.remove(); }, 30);
+      };
+    }
     anims.push(a);
     anims.push(shade.animate([{ opacity: 1 }, { opacity: 0 }], { duration: D, easing: "ease-in", fill: "forwards" }));
-    var p = layer(src.bg, r, src.radius);
-    p.style.zIndex = "1199";   // under the panel and its shade: the panel shrinking away uncovers it
-    p.style.boxShadow = "none";
-    p.animate([{ opacity: 0 }, { opacity: 0, offset: 0.35 }, { opacity: 1 }], { duration: D, easing: "ease-out", fill: "forwards" }).onfinish = function () {
-      setTimeout(function () { p.remove(); }, 30);
-    };
     a.onfinish = done;
     return true;
   }

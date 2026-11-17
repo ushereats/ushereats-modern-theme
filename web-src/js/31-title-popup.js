@@ -82,6 +82,10 @@
     "#tb-pop .tb-pop-prog b{display:block;width:180px;height:4px;border-radius:2px;background:rgba(255,255,255,.25);overflow:hidden}" +
     "#tb-pop .tb-pop-prog b i{display:block;height:100%;background:var(--sleekfin-accent,#4fc3f7)}" +
     "#tb-pop .tb-pop-ov{margin:14px 0 0;font-size:15px;line-height:1.5;color:rgba(255,255,255,.88);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}" +
+    "#tb-pop .tb-pop-skel i{display:block;height:13px;margin-top:5px;border-radius:7px;background:rgba(255,255,255,.1);animation:tbPopSk 1.2s ease-in-out infinite alternate}" +
+    "#tb-pop .tb-pop-skel i.o{width:100%;max-width:560px;margin-top:10px}#tb-pop .tb-pop-skel i:nth-of-type(3){margin-top:20px}" +
+    "#tb-pop .tb-pop-skel b{display:block;width:260px;height:44px;margin-top:24px;border-radius:10px;background:rgba(255,255,255,.08);animation:tbPopSk 1.2s ease-in-out infinite alternate}" +
+    "@keyframes tbPopSk{from{opacity:.55}to{opacity:1}}" +
     "#tb-pop .tb-pop-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:22px;min-height:44px}" +
     "#tb-pop .tb-pop-actions>span{display:contents}" +
     "#tb-pop .tb-pop-ic{width:44px!important;height:44px!important;min-width:0!important;border-radius:50%!important;display:inline-flex;align-items:center;justify-content:center;color:#fff!important;padding:0!important;margin:0!important;cursor:pointer}" +
@@ -372,6 +376,11 @@
       }
       if (it.Overview) h += '<p class="tb-pop-ov">' + esc(it.Overview) + "</p>";
       h += '<div class="tb-pop-actions" is="emby-itemscontainer" data-tb-pop-actions></div>';
+    } else {
+      // the room the details will take (rating line, genres, overview, buttons), so the logo doesn't jump up
+      // when they arrive
+      h += '<div class="tb-pop-skel" aria-hidden="true"><i style="width:210px"></i><i style="width:150px;margin-top:9px"></i>' +
+        '<i class="o"></i><i class="o"></i><i class="o" style="width:55%"></i><b></b></div>';
     }
     h += '</div></div><div class="tb-pop-body"></div>';
     panel.innerHTML = h;

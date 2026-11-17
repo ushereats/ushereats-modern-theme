@@ -133,7 +133,8 @@
     "#tb-pop .tb-pop-ep-img{grid-row:1/span 2;width:100%;height:auto;aspect-ratio:16/9}#tb-pop .tb-pop-ep-n{grid-row:1/span 2;font-size:28px}" +
     "#tb-pop .tb-pop-ep-t{white-space:normal;font-size:15px}#tb-pop .tb-pop-ep-o{margin-top:8px;font-size:13px}" +
     "#tb-pop .tb-pop-close{top:12px;right:12px}}" +
-    ".tb-pop-ghost{position:fixed;z-index:1201;pointer-events:none;background:#16161a center/cover no-repeat;box-shadow:0 30px 80px rgba(0,0,0,.55);will-change:left,top,width,height}";
+    ".tb-pop-ghost{position:fixed;z-index:1201;pointer-events:none;background:#16161a center/cover no-repeat;transform-origin:50% 50%;will-change:transform,opacity;box-shadow:0 20px 60px rgba(0,0,0,.5)}" +
+    ".tb-pop-ghost-wide{background-position:50% 25%;box-shadow:none;will-change:clip-path,opacity}";
 
   // ── the panel's frame (made once) ──
   function frame() {
@@ -189,15 +190,31 @@
     if (!bg) return null;
     return { el: img, rect: r, bg: bg, radius: getComputedStyle(img).borderRadius || "8px" };
   }
-  function ghost(bg) {
+  // Two layers, both moved only with transform / opacity / clip (no resizing every frame: that's what jittered):
+  //  - the title's wide picture, at the panel's banner size, opened out from the poster's spot (clip)
+  //  - the poster itself, growing and fading over it
+  function layer(bg, r, radius, cls) {
     var g = document.createElement("div");
-    g.className = "tb-pop-ghost";
-    g.style.backgroundImage = bg;
+    g.className = "tb-pop-ghost" + (cls ? " " + cls : "");
+    g.style.cssText = "left:" + r.left + "px;top:" + r.top + "px;width:" + r.width + "px;height:" + r.height + "px;border-radius:" + radius + ";background-image:" + bg;
     document.body.appendChild(g);
     return g;
   }
-  function frameAt(r, radius, opacity) {
-    return { left: r.left + "px", top: r.top + "px", width: r.width + "px", height: r.height + "px", borderRadius: radius, opacity: opacity };
+  function insetOf(r, to) {
+    var t = Math.max(0, r.top - to.top), l = Math.max(0, r.left - to.left);
+    var b = Math.max(0, to.top + to.height - (r.top + r.height)), rt = Math.max(0, to.left + to.width - (r.left + r.width));
+    return "inset(" + t + "px " + rt + "px " + b + "px " + l + "px round 10px)";
+  }
+  function moveTo(r, to) {
+    // the poster's transform that puts its centre on the banner's centre, a little bigger
+    var sx = Math.min(to.width / r.width, to.height / r.height) * 0.9;
+    var dx = to.left + to.width / 2 - (r.left + r.width / 2), dy = to.top + to.height / 2 - (r.top + r.height / 2);
+    return "translate(" + dx + "px," + dy + "px) scale(" + sx.toFixed(3) + ")";
+  }
+  function wideOf(src) {
+    var bd = panel && panel.querySelector(".tb-pop-bd");
+    var u = bd && bd.style.backgroundImage;
+    return u && u !== "none" ? u : null;
   }
   function heroRect() {
     var h = panel && panel.querySelector(".tb-pop-hero"), b = root.querySelector(".tb-pop-box");
@@ -207,19 +224,30 @@
   function flyIn(src) {
     if (!ANIM || !src || !root || !root.animate) return;
     var box = root.querySelector(".tb-pop-box"), shade = root.querySelector(".tb-pop-shade");
-    var to = heroRect(), g = ghost(src.bg);
-    g.animate([frameAt(src.rect, src.radius, 1), Object.assign(frameAt(to, "18px", 1), { offset: 0.72 }), frameAt(to, "18px", 0)],
-      { duration: 460, easing: EASE, fill: "forwards" }).onfinish = function () { g.remove(); };
-    box.animate([{ opacity: 0, transform: "scale(.97)" }, { opacity: 1, transform: "none" }], { duration: 260, delay: 170, easing: EASE, fill: "backwards" });
-    shade.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: "ease-out" });
+    var to = heroRect(), wide = wideOf(src), r = src.rect, D = 420;
+    if (wide) {
+      var w = layer(wide, to, "18px", "tb-pop-ghost-wide");
+      w.animate([{ clipPath: insetOf(r, to), opacity: 0.2 }, { clipPath: "inset(0px 0px 0px 0px round 18px)", opacity: 1, offset: 0.7 }, { clipPath: "inset(0px 0px 0px 0px round 18px)", opacity: 0 }],
+        { duration: D + 80, easing: EASE, fill: "forwards" }).onfinish = function () { w.remove(); };
+    }
+    var p = layer(src.bg, r, src.radius, "");
+    p.animate([{ transform: "none", opacity: 1 }, { transform: moveTo(r, to), opacity: wide ? 0 : 1, offset: wide ? 0.55 : 0.75 }, { transform: moveTo(r, to), opacity: 0 }],
+      { duration: D, easing: EASE, fill: "forwards" }).onfinish = function () { p.remove(); };
+    box.animate([{ opacity: 0, transform: "scale(.98)" }, { opacity: 1, transform: "none" }], { duration: 240, delay: 200, easing: EASE, fill: "backwards" });
+    shade.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 280, easing: "ease-out" });
   }
   function flyBack(src) {
     if (!ANIM || !src || !src.el || !src.el.isConnected || !root || !root.animate) return;
     var r = src.el.getBoundingClientRect();
     if (r.width < 24 || r.bottom < 0 || r.top > window.innerHeight || !src.el.getClientRects().length) return;
-    var from = heroRect(), g = ghost(src.bg);
-    g.animate([frameAt(from, "18px", 0.4), Object.assign(frameAt(from, "18px", 1), { offset: 0.12 }), frameAt(r, src.radius, 1)],
-      { duration: 340, easing: EASE, fill: "forwards" }).onfinish = function () { g.remove(); };
+    var from = heroRect(), wide = wideOf(src), D = 320;
+    if (wide) {
+      var w = layer(wide, from, "18px", "tb-pop-ghost-wide");
+      w.animate([{ clipPath: "inset(0px 0px 0px 0px round 18px)", opacity: 1 }, { clipPath: insetOf(r, from), opacity: 0 }],
+        { duration: D, easing: EASE, fill: "forwards" }).onfinish = function () { w.remove(); };
+    }
+    var p = layer(src.bg, r, src.radius, "");
+    p.animate([{ transform: moveTo(r, from), opacity: 0 }, { transform: "none", opacity: 1 }], { duration: D, easing: EASE, fill: "forwards" }).onfinish = function () { p.remove(); };
   }
 
   function open(id, type, fromHistory, src) {
@@ -245,9 +273,13 @@
     var known = window.tbItemMeta && window.tbItemMeta[id];
     draw(known && known.Name ? known : { Id: id, Type: type || "" }, token, true);
     panel.scrollTop = 0;
-    if (from) flyIn(from);
+    if (from) { flyIn(from); cur.holdUntil = Date.now() + 430; }
     try { panel.focus({ preventScroll: true }); } catch (e) {}
     Promise.resolve(api().getItem(uid(), id)).then(function (item) {
+      // the panel drawing everything (rows, episodes) mid-animation is what makes it stutter: after it instead
+      var wait = cur && cur.holdUntil ? cur.holdUntil - Date.now() : 0;
+      return wait > 0 ? new Promise(function (res) { setTimeout(function () { res(item); }, wait); }) : item;
+    }).then(function (item) {
       if (token !== gen || !item) return;
       if (item.Type === "Person") return drawPerson(item, token);
       if (!TYPES[item.Type]) {
@@ -565,8 +597,12 @@
 
   // ── hovering a title for a moment gets its whole panel ready (so clicking shows it complete) ──
   var warmT = 0, warmedAt = {};
+  var warmPics = {};
   function preload(id, type) {
     if (!enabled || !id || !api() || !uid()) return;
+    // the wide picture the panel (and its opening animation) shows, in the browser before the click
+    var mt = window.tbItemMeta && window.tbItemMeta[id], bu = mt && window.tbBackdropUrl ? window.tbBackdropUrl(mt) : null;
+    if (bu && !warmPics[bu]) { warmPics[bu] = 1; var wi = new Image(); wi.decoding = "async"; wi.src = bu; }
     if (warmedAt[id] && Date.now() - warmedAt[id] < KEEP) return;
     warmedAt[id] = Date.now();
     var pics = function (r) {

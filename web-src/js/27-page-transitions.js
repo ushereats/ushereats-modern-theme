@@ -241,8 +241,20 @@
 
   // browser / mouse back and forward, and the back arrows (they call history.back()). Jellyfin swaps the page
   // straight away on these: the event is kept from Jellyfin until the old page is held, then handed on unchanged.
+  // the address the page is on: menus and dialogs (right-click menu, "…" menu, settings dialogs) add a history
+  // entry with the SAME address, and closing one goes "back" to it. That's not a page change: no fade, no hold.
+  var lastHref = location.href;
+  setInterval(function () { if (!running) lastHref = location.href; }, 300);
+  function sameAddress() {
+    var same = location.href === lastHref;
+    lastHref = location.href;
+    return same;
+  }
   function hold(e) {
-    if (replaying || !started || off()) return;
+    if (replaying || !started) return;
+    var st = e && e.state;
+    if (sameAddress() || (st && st.dialogs) || document.querySelector(".dialogContainer .dialog, .actionSheet")) return;
+    if (off()) return;
     if (running && captured) return;
     if (!running && !crossfade(300, true)) return;
     e.stopImmediatePropagation();

@@ -24,7 +24,7 @@ html.ue-main-ui .card[data-type] .visualCardBox {
     overflow: hidden;
 }
 
-/* Jellyfin's focus border is important, but the UeTheme visual card border must stay important to beat its theme. */
+/* Jellyfin's focus border is important, but the base look visual card border must stay important to beat its theme. */
 html.ue-main-ui .card[data-type]:focus .visualCardBox {
     border-color: var(--ue-accent) !important;
 }
@@ -43,7 +43,7 @@ html.ue-main-ui .card[data-type] .cardOverlayContainer {
     container-type: size;
 }
 
-/* Thumbnail rows such as Next Up match UeTheme episode cards: a 380px image followed by a 12px gap. */
+/* Thumbnail rows such as Next Up match the base look episode cards: a 380px image followed by a 12px gap. */
 html.ue-main-ui .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not([data-type="CollectionFolder"]):not([data-type="UserView"]) {
     width: 392px;
 }
@@ -115,7 +115,7 @@ html.ue-main-ui:not(.tb-hover) .card[data-type]:not(.ue-details-season-card) :is
     }
 }
 
-/* Item actions take the top-right corner like UeTheme season cards. */
+/* Item actions take the top-right corner like the base look season cards. */
 html.ue-main-ui .card[data-type]:not(.ue-details-season-card) .cardOverlayButton-br:not(button) {
     bottom: auto;
     gap: 4px;

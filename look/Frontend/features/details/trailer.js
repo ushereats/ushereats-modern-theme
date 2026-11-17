@@ -89,7 +89,7 @@ export function createTrailerPreview(page, nativeBackdrop, actions) {
       const { client, playSessionId } = encoding;
       encoding = null;
       // Never stop a foreground transcode that belongs to the same device.
-      client.ajax({ type: 'DELETE', url: client.getUrl('Videos/ActiveEncodings', { deviceId: client.deviceId(), playSessionId }) }).catch(() => console.warn('[UeTheme] Trailer encoding cleanup failed.'));
+      client.ajax({ type: 'DELETE', url: client.getUrl('Videos/ActiveEncodings', { deviceId: client.deviceId(), playSessionId }) }).catch(() => console.warn('[Ushereats Theme] Trailer encoding cleanup failed.'));
     }
   }
 

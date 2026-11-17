@@ -322,7 +322,7 @@ function load(id, serverId, sourceSelect = null) {
     .catch(() => {
       if (!isCurrent()) return;
       if (sourceSelect) {
-        console.warn('[UeTheme] Could not refresh the selected media version.');
+        console.warn('[Ushereats Theme] Could not refresh the selected media version.');
         return;
       }
       // Only an item that cannot be resolved falls back to Jellyfin's own page, otherwise the

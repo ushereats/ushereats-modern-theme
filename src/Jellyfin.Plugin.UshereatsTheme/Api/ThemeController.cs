@@ -210,7 +210,7 @@ public class ThemeController : ControllerBase
         return File(font, "font/woff2");
     }
 
-    // ── Built-in UeTheme: its settings (the page already has them; these are for after you change them) ──
+    // ── Base look: its settings (the page already has them; these are for after you change them) ──
     [HttpGet("Look/Header")]
     public IActionResult GetLookHeader() => LookAnswer(LookSettings.Header);
 
@@ -220,7 +220,7 @@ public class ThemeController : ControllerBase
     [HttpGet("Look/Details/Settings")]
     public IActionResult GetLookDetails() => LookAnswer(LookSettings.Details);
 
-    /// <summary>Files the UeTheme settings page loads by name (details builder script + styles).</summary>
+    /// <summary>Files the base look settings page loads by name (details builder script + styles).</summary>
     [HttpGet("Look/{file}")]
     public IActionResult GetLookFile([FromRoute] string file)
     {

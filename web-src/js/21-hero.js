@@ -1,14 +1,14 @@
 (function ushereatsHero() {
-  // Home hero: a copy of UeTheme's hero (same markup + classes, so UeTheme's own styling and all
+  // Home hero: a copy of the base look's hero (same markup + classes, so the base look's own styling and all
   // theme tweaks apply), but instant:
-  //  - the list + UeTheme's look settings were already requested from the page head before Jellyfin started
+  //  - the list + the base look's look settings were already requested from the page head before Jellyfin started
   //  - the first backdrop was already downloading (and painted) from the head
   //  - it is built once and kept: coming back to Home re-uses it, nothing reloads
   //  - it lives directly in the home page (#indexPage), OUTSIDE the rows area that KefinTweaks/Jellyfin
   //    rebuild, and if anything ever removes it, it's put back before the next frame is drawn (no flash)
-  //  - only the shown slide + the next one load their backdrop (UeTheme loads all of them at once)
+  //  - only the shown slide + the next one load their backdrop (the base look loads all of them at once)
   // Content: the 10 newest movies & shows by release date, random order.
-  // Needs UeTheme's own hero switched OFF in UeTheme's settings.
+  // Needs the base look's own hero switched OFF in the base look's settings.
   if (window.__tbHeroStarted) return;
   window.__tbHeroStarted = true;
 
@@ -117,7 +117,7 @@
     return dataPromise;
   }
 
-  // ── look (same CSS variables UeTheme sets) ──
+  // ── look (same CSS variables the base look sets) ──
   function applyLook(root, s) {
     function pick(k) { return s[k] != null && s[k] !== "" ? s[k] : DEFAULTS[k]; }
     var radius = { Pill: "999px", Rounded: "12px", Square: "0" }[pick("buttonCornerStyle")] || "999px";
@@ -154,7 +154,7 @@
     root.setAttribute("data-vertical-alignment", String(pick("verticalAlignment")).toLowerCase());
   }
 
-  // ── building (same markup as UeTheme's HeroSlide) ──
+  // ── building (same markup as the base look's HeroSlide) ──
   function button(item, action, variant, icon, label) {
     var b = el("button", "ue-button ue-button-" + variant + (variant === "control" ? " ue-control-3d" : "") + " itemAction");
     b.type = "button";
@@ -188,7 +188,7 @@
     return box;
   }
   function expandable(p) {
-    // click a cut-off description to open it (as UeTheme does)
+    // click a cut-off description to open it (as the base look does)
     var open = false;
     function cut() { return p.scrollHeight - p.clientHeight > 1; }
     function set(v) {

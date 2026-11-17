@@ -1,7 +1,7 @@
 
 namespace Jellyfin.Plugin.UshereatsTheme.Look;
 
-/// <summary>UeTheme's settings (MIT, varunaditya-plus), now part of this plugin. Same names as UeTheme, so its saved settings carry over.</summary>
+/// <summary>the base look's settings (MIT, varunaditya-plus), now part of this plugin. Same names as the base look, so its saved settings carry over.</summary>
 public sealed class LookConfiguration
 {
     public const string DefaultAccentColor = "#dc2626";

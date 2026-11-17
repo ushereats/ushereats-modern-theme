@@ -1,7 +1,7 @@
 const runtime = window.UeRuntime;
 
 if (!runtime) {
-  throw new Error('UeTheme runtime must load before feature bundles.');
+  throw new Error('Theme runtime must load before feature bundles.');
 }
 
 export const Fragment = runtime.Fragment;

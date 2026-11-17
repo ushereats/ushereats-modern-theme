@@ -80,8 +80,8 @@ console.log("css", css.length, "->", min.length);
 
 fs.copyFileSync(path.join(SRC, "splash.mp3"), path.join(OUT, "splash.mp3"));
 
-// ── UeTheme (MIT, varunaditya-plus), built into the plugin ──
-// Its frontend is built by look/build.js (esbuild + babel, same as UeTheme); needs `npm ci --prefix look` first.
+// ── Base look (MIT, varunaditya-plus), built into the plugin ──
+// Its frontend is built by look/build.js (esbuild + babel, as the original project); needs `npm ci --prefix look` first.
 {
   const SF = "look";
   execFileSync(process.execPath, ["build.js"], { cwd: SF, stdio: "inherit" });
@@ -94,7 +94,7 @@ fs.copyFileSync(path.join(SRC, "splash.mp3"), path.join(OUT, "splash.mp3"));
   if (!bootMin.code || bootMin.code.includes("</")) throw new Error("details boot minify failed");
   fs.writeFileSync(path.join(OUT, "look_details_boot.js"), bootMin.code);
 
-  // all of UeTheme's styles in UeTheme's own order, in one file (prepended to theme.css by the plugin).
+  // all of the base look's styles in the base look's own order, in one file (prepended to theme.css by the plugin).
   // Left out: Jellyfin Enhanced styles (not installed).
   const ORDER = [
     "Theme/ue-fonts.css", "Theme/ue-tokens.css", "Theme/ue-foundation.css",

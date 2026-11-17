@@ -127,7 +127,7 @@
     return img && (img.currentSrc || img.src);
   }
 
-  // Details page (UeTheme): the title's backdrop sits on #itemBackdrop as a CSS background
+  // Details page (the base look): the title's backdrop sits on #itemBackdrop as a CSS background
   function detailsPage() {
     var page = document.querySelector("#itemDetailPage:not(.hide)");
     if (!page || page.closest(".hide")) return null;

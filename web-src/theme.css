@@ -581,7 +581,7 @@ html body #loginPage a.tb-discord-pill:not(#tb-x):focus { outline: none; box-sha
 
 /* ═══════════ Settings + Profile pages ═══════════
    Settings menu, Profile, Display, Home, Playback, Subtitles, Controls, Quick Connect.
-   Dark panels, Bebas headings, gold accents (follows UeTheme's accent). Delete this block to undo. */
+   Dark panels, Bebas headings, gold accents (follows the base look's accent). Delete this block to undo. */
 html body .userPreferencesPage:not(#tb-x) {
   --tb-set-panel: rgba(14, 14, 16, 0.72);
   --tb-set-line: rgba(255, 255, 255, 0.08);
@@ -834,8 +834,8 @@ html body .alphaPicker:not(#tb-x) .alphaPickerButton.Mui-focusVisible { box-shad
 
 
 /* ═══════════ Header: logo, stats, bar and avatar on one centre line (PC) ═══════════
-   Everything is centred on the middle of UeTheme's header height, so it stays level
-   when you change the header size in UeTheme and when it shrinks on scroll. */
+   Everything is centred on the middle of the base look's header height, so it stays level
+   when you change the header size in the base look and when it shrinks on scroll. */
 @media (min-width: 900px) {
   /* library stats (home only): just right of the logo, on the header's centre line */
   #jf-stats {
@@ -933,7 +933,7 @@ html body .tb-studios .emby-scroller::-webkit-scrollbar { display: none; }
 
 
 /* ═══════════ Other title pages: people, collections, albums, artists, songs, playlists, genres ═══════════
-   (movies and shows have UeTheme's banner; these keep Jellyfin's own layout - picture overlapping the band,
+   (movies and shows have the base look's banner; these keep Jellyfin's own layout - picture overlapping the band,
    name and buttons beside it - with the theme's background, fonts and buttons) */
 #itemDetailPage.ue-details-native { background: transparent !important; }
 #itemDetailPage.ue-details-native :is(.detailPageWrapperContainer, .detailPageSecondaryContainer, .detailPageContent, .detailPagePrimaryContainer, .detailRibbon) {

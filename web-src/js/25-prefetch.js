@@ -308,7 +308,7 @@
     goHome();
   }, true);
 
-  // the backdrop link a title page uses (exactly UeTheme's / Jellyfin's, so the browser downloads it once)
+  // the backdrop link a title page uses (exactly the base look's / Jellyfin's, so the browser downloads it once)
   function backdropUrl(item) {
     var api = window.ApiClient;
     if (!api || !item) return null;

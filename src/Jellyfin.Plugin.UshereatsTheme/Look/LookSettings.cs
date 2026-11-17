@@ -1,7 +1,7 @@
 namespace Jellyfin.Plugin.UshereatsTheme.Look;
 
 /// <summary>
-/// The settings UeTheme's scripts use (same shape as UeTheme's own API answers).
+/// The settings the base look's scripts use (same shape as the base look's own API answers).
 /// They're put straight into the page, so nothing waits for a request.
 /// </summary>
 public static class LookSettings

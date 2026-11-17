@@ -1,6 +1,6 @@
 /* Poster hover (the theme's, as cinejoy.pk): the poster dims evenly, a white round play button with a soft glow fades in
    and grows to 110%, the title and "2026 ★ 7.1" under it. Part of the stylesheet from the first frame (html.tb-hover is
-   set by the plugin's head script); 11-hover-cards.js only adds the title and rating. UeTheme's own Play button
+   set by the plugin's head script); 11-hover-cards.js only adds the title and rating. the base look's own Play button
    rules apply only without it (ue-card.css). */
 @media (hover: hover) and (pointer: fine) {
   html.tb-hover .card:not(:where(.tb-logo-card)) .cardScalable::after {

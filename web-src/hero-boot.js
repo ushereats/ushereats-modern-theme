@@ -1,6 +1,6 @@
 /* Inlined in the page head by the plugin (runs before Jellyfin starts).
    1. Paints the hero we're about to show straight away (from the last visit's list) and starts its download.
-   2. Asks the server for the fresh hero list + UeTheme's hero look settings immediately,
+   2. Asks the server for the fresh hero list + the base look's hero settings immediately,
       using your sign-in token, in parallel with Jellyfin starting up.
    ES5 only: this runs on TVs too. */
 (function () {

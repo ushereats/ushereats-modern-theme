@@ -416,7 +416,7 @@ html.ue-header-mounted [data-ue-header-proxy="legacy"] {
     }
 }
 
-/* Header shrinks when you scroll (PC). UeTheme marks the header data-ue-scrolled="true" after ~20px.
+/* Header shrinks when you scroll (PC). the base look marks the header data-ue-scrolled="true" after ~20px.
    Only heights/offsets change (never widths), so the pill measuring stays correct. */
 @media (min-width: 900px) {
     html.ue-header-mounted:not(.layout-tv) [data-ue-header-toolbar],
@@ -473,7 +473,7 @@ html.layout-tv .innerCardFooter {
 }
 
 /* phones/tablets only: once you scroll, the top bar gets a solid backing so rows don't show through the logo
-   (PC keeps UeTheme's own soft fade, which lets the ambient colour through) */
+   (PC keeps the base look's own soft fade, which lets the ambient colour through) */
 @media (max-width: 899px) {
   html.ue-header-mounted:not(.layout-tv) [data-ue-header][data-ue-scrolled="true"]::before {
     background: linear-gradient(180deg, rgba(6, 6, 8, 0.97) 0%, rgba(6, 6, 8, 0.9) 62%, rgba(6, 6, 8, 0) 100%) !important;

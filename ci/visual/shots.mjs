@@ -37,7 +37,7 @@ const playing = () => fetch(s.server + "/Sessions/Playing", { method: "POST",
   headers: { Authorization: `MediaBrowser Client="CI Player", Device="Living Room TV", DeviceId="ci-player", Version="1.0", Token="${s.token}"`, "Content-Type": "application/json" },
   body: JSON.stringify({ ItemId: movies[1].Id, PositionTicks: 12000000000, PlayMethod: "DirectPlay", CanSeek: true, IsPaused: false }) }).then((r) => r.status).catch((e) => String(e));
 const report = { errors: {} };
-// Which of the theme's rules restyle something a built-in UeTheme rule also styles (same element, same property)?
+// Which of the theme's rules restyle something a base look rule also styles (same element, same property)?
 const overrides = {};
 async function collect(page, label) {
   const found = await page.evaluate(() => {
@@ -84,7 +84,7 @@ async function collect(page, label) {
         if (shared.length) cand.push({ el, pseudo: t.pseudo || null, t: rules[t.ri].sel.slice(0, 220), s: rules[s.ri].sel.slice(0, 220), shared, tv: rules[t.ri].vals, sv: rules[s.ri].vals });
       }
     }
-    // Only real overrides count: the theme part must change the computed value of a property UeTheme sets.
+    // Only real overrides count: the theme part must change the computed value of a property the base look sets.
     const read = () => cand.map((c) => { const cs = getComputedStyle(c.el, c.pseudo); return c.shared.map((p) => cs.getPropertyValue(p)); });
     const withTheme = read();
     const kill = document.createElement("style");

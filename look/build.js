@@ -1,4 +1,4 @@
-// UeTheme's frontend (MIT, varunaditya-plus), built into the Ushereats Theme plugin.
+// the base look's frontend (MIT, varunaditya-plus), built into the Ushereats Theme plugin.
 // The hero is not built: the plugin has its own instant hero.
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';

@@ -9,7 +9,7 @@
   if (window.__tbPageFx) return;
   window.__tbPageFx = true;
 
-  // ── where each page was scrolled to (one place for it: UeTheme's own copy is gone) ──
+  // ── where each page was scrolled to (one place for it: the base look's own copy is gone) ──
   // Going back puts you where you were; anything else (a title, the home button, a library) starts at the top.
   // Set while the old page is still held, and kept for a moment after, because Jellyfin and the rows growing
   // move the page a moment after it shows (that was the jump seen right after the change).
@@ -89,7 +89,7 @@
     // the background colour follows the page in the same cross-fade (not a slow change after it)
     if (t < 700 && window.tbAmbientPending && window.tbAmbientPending()) return false;
     if (p.id === "itemDetailPage") {
-      // collections, albums, artists, playlists, people: Jellyfin's own layout (UeTheme leaves them alone)
+      // collections, albums, artists, playlists, people: Jellyfin's own layout (the base look leaves them alone)
       if (p.classList.contains("ue-details-native")) {
         if (html.classList.contains("ue-details-concealed")) return false;
         var nn = p.querySelector(".itemName");
@@ -100,7 +100,7 @@
         if (!html.classList.contains("ue-details-mounted") || html.classList.contains("ue-details-concealed") || p.getAttribute("data-ue-details") !== "true") return false;
         var st = p.querySelectorAll(".ue-details-title");
         if (st.length !== 1 || !st[0].childNodes.length) return false;
-        // Jellyfin's own title still showing next to UeTheme's (for a moment the name is there twice)
+        // Jellyfin's own title still showing next to the base look's (for a moment the name is there twice)
         var nat = p.querySelectorAll(".nameContainer, .itemName, .parentName");
         for (var i = 0; i < nat.length; i++) if (!nat[i].closest(".ue-details-hero") && nat[i].getClientRects().length && nat[i].textContent.trim()) return false;
         return st[0].innerHTML !== before;   // a new title, not the one we came from

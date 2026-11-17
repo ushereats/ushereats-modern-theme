@@ -3136,7 +3136,7 @@
         (function () {
             'use strict';
 
-            var PLUGIN_ID = '01c723cc-57de-4e19-b13c-514b644491a5'; // Ushereats Theme (UeTheme is built in; its settings live under .Look)
+            var PLUGIN_ID = '01c723cc-57de-4e19-b13c-514b644491a5'; // Ushereats Theme (the base look is built in; its settings live under .Look)
             var JELLYFIN_ENHANCED_ID = 'f69e946a-4b3c-4e9a-8f0a-8d7c1b2c4d9b';
             var SEERRFIN_ID = 'c8e4f2a1-9b3d-4e7f-a6c2-1d5e8f0a3b7c';
             var page = document.getElementById('ueThemeConfigurationPage');
@@ -6213,8 +6213,8 @@
     </script>
 
     <style>
-        /* ── Modern look (layered over UeTheme's settings styles) ── */
-        /* UeTheme's rows set display:flex, which showed rows marked hidden */
+        /* ── Modern look (layered over the base look's settings styles) ── */
+        /* the base look's rows set display:flex, which showed rows marked hidden */
         #ueThemeConfigurationPage [hidden] { display: none !important; }
         #ueThemeConfigurationPage { --tb-a: var(--accent, #00a4dc); --tb-line: rgba(255,255,255,.09); --tb-card: rgba(255,255,255,.035); --tb-dim: rgba(255,255,255,.6); }
         #ueThemeConfigurationPage .content-primary { max-width: 1320px; }

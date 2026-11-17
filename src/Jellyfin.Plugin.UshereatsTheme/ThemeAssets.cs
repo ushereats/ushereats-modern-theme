@@ -94,7 +94,7 @@ public static class ThemeAssets
         ["funnel-latin-ext.woff2"] = "font_funnel_latin_ext.woff2",
         ["bebas-latin.woff2"] = "font_bebas_latin.woff2",
         ["bebas-latin-ext.woff2"] = "font_bebas_latin_ext.woff2",
-        // UeTheme's font (Inter, SIL OFL)
+        // the base look's font (Inter, SIL OFL)
         ["inter-latin.woff2"] = "font_inter_latin.woff2",
         ["inter-latin-ext.woff2"] = "font_inter_latin_ext.woff2",
         ["inter-cyrillic.woff2"] = "font_inter_cyrillic.woff2",
@@ -124,7 +124,7 @@ public static class ThemeAssets
         ("js_12_player_skin.js", c => c.PlayerSkin),
         ("js_13_login_extras.js", c => c.LoginExtras),
         ("js_14_pause_screen.js", c => c.PauseScreen),
-        // with UeTheme built in, the accent is set from the page head instead (no script needed)
+        // with the base look built in, the accent is set from the page head instead (no script needed)
         ("js_21_hero.js", c => c.Hero),
         ("js_20_cards.js", c => c.HomeRows || c.Search),
         ("js_22_home_rows.js", c => c.HomeRows),
@@ -260,7 +260,7 @@ public static class ThemeAssets
 
         // ── CSS ──
         StringBuilder css = new StringBuilder();
-        // UeTheme (built in): its styles first, then the theme, in one file (nothing loads later and restyles the page)
+        // The base look: its styles first, then the theme, in one file (nothing loads later and restyles the page)
         {
             css.Append(ReadText("look.css")
                 .Replace("__TB_FONT_V__", fontVersion, StringComparison.Ordinal)
@@ -275,7 +275,7 @@ public static class ThemeAssets
                 ).Append('\n');
         }
 
-        css.Append(".tb-look-end{--tb-look-end:1}\n");   // marks where the built-in UeTheme's styles end (used by the visual test)
+        css.Append(".tb-look-end{--tb-look-end:1}\n");   // marks where the base look's styles end (used by the visual test)
         css.Append(ReadText("theme.css")).Append('\n');
         // the logo everywhere Jellyfin draws its own: the top bar, the loading screen, the sign-in page, and the
         // dashboard's and side menu's Jellyfin pictures (the stylesheet is at /UshereatsTheme/theme.css)
@@ -298,7 +298,7 @@ public static class ThemeAssets
         // ── JS ──
         // settings for the scripts (each file carries them, so they work in any load order)
         JsonObject tbConfig = JsonSerializer.SerializeToNode(config)!.AsObject();
-        tbConfig.Remove("Look");   // UeTheme's settings go separately (below), in the shape its scripts expect
+        tbConfig.Remove("Look");   // the base look's settings go separately (below), in the shape its scripts expect
         string prefix = "window.TB_CONFIG=" + tbConfig.ToJsonString() + ";\n"
             + "window.__tbLook=window.__tbLook||" + LookJson(config, ThemeAssets.LookOf(config)) + ";\n"
             + "window.tbCfg=function(k,d){var c=window.TB_CONFIG||{},v=c[k];return v===undefined||v===null||v===\"\"?d:v};\n"
@@ -463,7 +463,7 @@ public static class ThemeAssets
               ? "window.addEventListener(\"load\",function(){idle(function(){load(\"search\");load(\"player\");setTimeout(function(){load(\"details\")},4000)},{timeout:3000})})})();\n"
               : "window.addEventListener(\"load\",function(){load(\"details\");idle(function(){load(\"search\");load(\"player\")},{timeout:2500})})})();\n");
 
-        // UeTheme's scripts (built in; its own hero is left out: the plugin's hero replaces it)
+        // the base look's scripts (built in; its own hero is left out: the plugin's hero replaces it)
         foreach (string file in LookScripts)
         {
             if (file != "look_details.js")
@@ -512,10 +512,10 @@ public static class ThemeAssets
     internal static string Accent(PluginConfiguration config) =>
         Plugin.IsHex(config.AccentColor) ? config.AccentColor.ToLowerInvariant() : LookOf(config).AccentColor;
 
-    /// <summary>UeTheme's settings (defaults if none are saved yet).</summary>
+    /// <summary>the base look's settings (defaults if none are saved yet).</summary>
     internal static LookConfiguration LookOf(PluginConfiguration config) => config.Look ?? DefaultLook;
 
-    /// <summary>UeTheme's settings in the shape its scripts expect (header, details, hero look).</summary>
+    /// <summary>the base look's settings in the shape its scripts expect (header, details, hero look).</summary>
     internal static string LookJson(PluginConfiguration config, LookConfiguration s) => JsonSerializer.Serialize(new
     {
         icon = LogoUrl(config, "../") ?? string.Empty,
@@ -524,7 +524,7 @@ public static class ThemeAssets
         hero = LookSettings.Hero(s),
     });
 
-    /// <summary>A file the UeTheme settings page loads on its own (details builder script + styles).</summary>
+    /// <summary>A file the base look settings page loads on its own (details builder script + styles).</summary>
     internal static Payload? LookFile(string name)
     {
         string? file = name switch

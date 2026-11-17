@@ -96,7 +96,7 @@ public static class IndexPatch
         // The accent colour as plain numbers (see-through glows, dashboard skin): defined once, here, for every page
         sb.Append("<style>:root{--tb-accent-rgb:").Append(HexToRgb(ThemeAssets.Accent(build.Config))).Append("}</style>");
 
-        // UeTheme (built in): its page flags, colours and shapes, set before anything is drawn
+        // The base look: its page flags, colours and shapes, set before anything is drawn
         {
             LookConfiguration s = ThemeAssets.LookOf(build.Config);
             // (card shapes and the accent are written into the stylesheet itself, from these settings)
@@ -108,7 +108,7 @@ public static class IndexPatch
             }
         }
 
-        // Ambient background from the first frame: pages are see-through and UeTheme's pieces take their ambient look
+        // Ambient background from the first frame: pages are see-through and the base look's pieces take their ambient look
         // straight away (the script only picks the picture later)
         if (build.Config.AmbientBackground)
         {
@@ -121,9 +121,9 @@ public static class IndexPatch
             sb.Append("<script>document.documentElement.classList.add(\"tb-hover\")</script>");
         }
 
-        // UeTheme header: Jellyfin's own header (logo, server name, plain tab links) never shows before UeTheme's
-        // header is ready, and UeTheme's header appears at once instead of fading in. Safety: shown anyway after 4s,
-        // and straight away on pages where UeTheme doesn't draw a header (sign-in, dashboard, player).
+        // the base look header: Jellyfin's own header (logo, server name, plain tab links) never shows before the base look's
+        // header is ready, and the base look's header appears at once instead of fading in. Safety: shown anyway after 4s,
+        // and straight away on pages where the base look doesn't draw a header (sign-in, dashboard, player).
         sb.Append("<style>html[data-ue-header-enabled=\"true\"]:not(.ue-header-mounted):not(.tb-hdr-ok) :is(header.MuiAppBar-root,.skinHeader){opacity:0!important}html.ue-header-mounted [data-ue-header]{animation:none!important}</style>");
         sb.Append("<script>(function(){var r=document.documentElement;function ok(){r.className+=\" tb-hdr-ok\"}if(/^#\\/?(login|selectserver|addserver|forgotpassword|wizard|dashboard|configurationpage|metadata|video)/i.test(location.hash))ok();else setTimeout(ok,4000)})();</script>");
 
@@ -262,7 +262,7 @@ public static class IndexPatch
             string.Empty,
             System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
-    // UeTheme's boot flags (same as UeTheme's own): header/hero switches, card shapes, sizes, and the
+    // the base look's boot flags (same as the base look's own): header/hero switches, card shapes, sizes, and the
     // "header loading" state that keeps Jellyfin's plain header invisible until the real one is built
     private static string LookBoot(LookConfiguration c)
     {

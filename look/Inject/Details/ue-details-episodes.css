@@ -413,7 +413,7 @@
 }
 
 /* List view: big episode number, wide still with the progress bar on it, title, two-line synopsis, runtime
-   (the theme's look; UeTheme's own list rules are gone so there is one set). */
+   (the theme's look; the base look's own list rules are gone so there is one set). */
 .ue-details-episode-list[data-view="list"] { gap: 0 !important; margin-top: 14px !important; }
 .ue-details-episode-list[data-view="list"] .ue-details-episode.card { height: auto !important; aspect-ratio: auto !important; border: 0 !important; border-radius: 12px !important;
   overflow: visible !important; background: transparent; transition: background-color 160ms ease; }

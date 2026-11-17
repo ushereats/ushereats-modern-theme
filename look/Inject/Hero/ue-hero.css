@@ -5,7 +5,7 @@ html:is(.ue-hero-boot-loading, .ue-hero-loading) #indexPage.homePage.libraryPage
     padding-top: 0 !important;
 }
 
-/* MediaBar sets its duplicate carousel inline, so hide it while UeTheme owns the home hero. */
+/* MediaBar sets its duplicate carousel inline, so hide it while the base look owns the home hero. */
 
 /* the hero sits right before #homeTab; the rows rise over the bottom of the banner */
 #indexPage > .ue-hero + #homeTab > .sections {

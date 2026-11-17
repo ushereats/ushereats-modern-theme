@@ -8,7 +8,7 @@ namespace Jellyfin.Plugin.UshereatsTheme.Configuration;
 /// </summary>
 public class PluginConfiguration : BasePluginConfiguration
 {
-    /// <summary>Accent colour for the whole UI (#rrggbb). Empty = UeTheme's saved colour on first start.</summary>
+    /// <summary>Accent colour for the whole UI (#rrggbb). Empty = the base look's saved colour on first start.</summary>
     public string AccentColor { get; set; } = string.Empty;
 
     // ── Features (each one is only downloaded when switched on) ──
@@ -30,7 +30,7 @@ public class PluginConfiguration : BasePluginConfiguration
     /// <summary>"Now Playing" panel on the dashboard home (replaces the PlayInfo plugin).</summary>
     public bool NowPlaying { get; set; } = true;
 
-    /// <summary>Instant home hero (replaces UeTheme's hero; switch UeTheme's hero off).</summary>
+    /// <summary>Instant home hero (replaces the base look's hero; switch the base look's hero off).</summary>
     public bool Hero { get; set; } = true;
 
     /// <summary>Home rows set below (replaces KefinTweaks' Enhanced Home Screen and Jellyfin's own rows).</summary>

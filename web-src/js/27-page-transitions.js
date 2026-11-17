@@ -47,8 +47,20 @@
 
   var html = document.documentElement;
 
+  // the player: never faded out of. Leaving it pauses and stops the video and Jellyfin waits for the server's
+  // "playback stopped" answer before it rebuilds the page, so a fade held the frozen screen until its limit.
+  // By the time the back event arrives the player is already hidden, so "were we in the player a moment ago"
+  // is what counts (checked twice a second, only a lookup).
+  var playerAt = 0;
+  function inPlayerNow() {
+    var o = document.getElementById("videoOsdPage");
+    return /^#!?\/?(video|queue)/i.test(location.hash) || !!(o && !o.classList.contains("hide")) || !!document.querySelector(".videoPlayerContainer:not(.hide) video");
+  }
+  setInterval(function () { if (!document.hidden && inPlayerNow()) playerAt = Date.now(); }, 500);
   function off() {
-    return html.classList.contains("tb-pop-open") ||   // the title pop-up closing with back: no page changes
+    if (inPlayerNow()) playerAt = Date.now();
+    return Date.now() - playerAt < 2500 || html.classList.contains("tb-launch-on") ||
+      html.classList.contains("tb-pop-open") ||   // the title pop-up closing with back: no page changes
       html.classList.contains("layout-tv") || (document.body && document.body.classList.contains("layout-tv")) ||
       /^#\/?(video|queue)/i.test(location.hash) || !!document.getElementById("videoOsdPage") && !document.getElementById("videoOsdPage").classList.contains("hide") ||
       (document.body && document.body.classList.contains("dashboardDocument"));
@@ -198,7 +210,10 @@
             var still = changed ? layout(p) : 0;
             if (changed && still >= 60 && (!p || p.id !== "itemDetailPage" || now - last >= 50) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); if (target !== null) keep(target); return resolve(); }
             // a title page waits for its content (cinejoy fades straight into the finished page, never a placeholder)
-            if (now - t0 > (p && p.id === "itemDetailPage" ? 2500 : 1200)) { note("timeout " + (p && p.id) + " changed=" + !!changed + " still=" + still + " sig=" + sig + " ready=" + ready(p, now - moved, before)); if (changed && target !== null) keep(target); return resolve(); }
+            // never hold the screen long: while it's held nothing moves, which feels like a freeze. Back / forward
+            // a quarter of a second, a click about half a second (a title page a little more), then the fade runs
+            // into whatever is there
+            if (now - t0 > (already ? 280 : p && p.id === "itemDetailPage" ? 700 : 450)) { note("timeout " + (p && p.id) + " changed=" + !!changed + " still=" + still + " sig=" + sig + " ready=" + ready(p, now - moved, before)); if (changed && target !== null) keep(target); return resolve(); }
             setTimeout(tick, 16);
           })();
         });

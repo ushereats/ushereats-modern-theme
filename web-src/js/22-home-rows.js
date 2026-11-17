@@ -260,7 +260,7 @@
     C.upgrade(root);
     C.decorate();
     // rows wait (invisible) for the banner above them, so they never jump down when it arrives; 1.5 s at most
-    setTimeout(function () { document.documentElement.classList.add("tb-rows-ok"); }, 1500);
+    setTimeout(function () { document.documentElement.classList.add("tb-rows-ok"); }, 450);
   }
 
   var started = false, retryAt = 0;
@@ -310,10 +310,14 @@
   }
 
   // coming back to Home: quietly re-check (Continue Watching after you watched something, new items...)
-  var wasHome = isHomeRoute();
+  var wasHome = isHomeRoute(), playerAt = 0, stoppedAt = 0;
   function onRoute() {
     var home = isHomeRoute();
-    if (home && !wasHome && root && Date.now() - lastFetch > 8000) refresh();
+    if (/^#!?\/?video/i.test(location.hash)) playerAt = Date.now();
+    // straight back from the player: the refresh after "playback stopped" brings the new Continue Watching (one
+    // asked now would come before the server has saved where you stopped, and be asked again a moment later)
+    var fromPlayer = Date.now() - playerAt < 4000 || Date.now() - stoppedAt < 4000;
+    if (home && !wasHome && root && !fromPlayer && Date.now() - lastFetch > 8000) refresh();
     wasHome = home;
   }
 
@@ -325,8 +329,9 @@
   }
   tbWatch(function () { if (root) place(); schedule(); });
   window.addEventListener("tb-playback-stopped", function () {
+    stoppedAt = Date.now();
     try { localStorage.setItem("tbRowsStale", String(Date.now())); } catch (e) {}
-    setTimeout(function () { if (root) refresh(); }, 1500);
+    setTimeout(function () { if (root) refresh(); }, 300);   // (announced once the server has saved it)
   });
   window.addEventListener("hashchange", function () { onRoute(); schedule(); });
   window.addEventListener("popstate", function () { onRoute(); schedule(); });

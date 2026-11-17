@@ -106,9 +106,15 @@
     var method = String((init && init.method) || (input && input.method) || "GET").toUpperCase();
     if (method !== "GET") {
       clear();
-      if (/\/Sessions\/Playing\/Stopped/i.test(url)) { try { window.dispatchEvent(new Event("tb-playback-stopped")); } catch (e) {} }
       if (/\/PlayedItems\//i.test(url)) clearHomeSwCache();
-      return realFetch.apply(this, arguments);
+      var sent = realFetch.apply(this, arguments);
+      // announced once the server has answered (it saves where you stopped first): a Continue Watching asked
+      // for before that showed the old position
+      if (/\/Sessions\/Playing\/Stopped/i.test(url)) {
+        var said = function () { try { window.dispatchEvent(new Event("tb-playback-stopped")); } catch (e) {} };
+        Promise.resolve(sent).then(said, said);
+      }
+      return sent;
     }
     if (LIST.test(url) && !(init && init.cache === "no-store") && !/[?&](SearchTerm|searchTerm)=/.test(url) && !/^#\/?home/i.test(location.hash)) return listFetch(this, arguments, url);
     // Favourites: shown at once from the copy kept from last time (and fetched ahead in idle time, see below)
@@ -138,7 +144,10 @@
     if (String(method).toUpperCase() !== "GET") {
       clear();
       var su = String(url || "");
-      if (/\/Sessions\/Playing\/Stopped/i.test(su)) { try { window.dispatchEvent(new Event("tb-playback-stopped")); } catch (e) {} }
+      if (/\/Sessions\/Playing\/Stopped/i.test(su)) {
+        var xhr = this;
+        try { xhr.addEventListener("loadend", function () { try { window.dispatchEvent(new Event("tb-playback-stopped")); } catch (e) {} }); } catch (e) {}
+      }
       if (/\/PlayedItems\//i.test(su)) clearHomeSwCache();
     }
     return open.apply(this, arguments);

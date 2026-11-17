@@ -266,8 +266,12 @@
     var a, p = layer(src.bg, r, src.radius);
     if (GENIE) {
       // the panel shrinks into the poster's spot while the poster flies down into it
-      a = box.animate([{ clipPath: "inset(0px 0px 0px 0px round 18px)" }, { clipPath: insetOf(r, from) }], { duration: D + 20, easing: EASE, fill: "forwards" });
-      p.animate([{ transform: moveTo(r, from), opacity: 0 }, { transform: "none", opacity: 1, offset: 0.85 }, { transform: "none", opacity: 1 }], { duration: D + 60, easing: EASE, fill: "forwards" }).onfinish = function () { p.remove(); };
+      // (the panel dissolves on the way, so only the poster lands in the card: a still-solid panel showed as a slab
+      // stuck to the poster's side near the end)
+      a = box.animate([{ clipPath: "inset(0px 0px 0px 0px round 18px)", opacity: 1, offset: 0 }, { opacity: 1, offset: 0.12 }, { opacity: 0, offset: 0.62 }, { clipPath: insetOf(r, from), opacity: 0, offset: 1 }],
+        { duration: D + 20, easing: EASE, fill: "forwards" });
+      p.animate([{ transform: moveTo(r, from), opacity: 0, offset: 0 }, { opacity: 1, offset: 0.3 }, { transform: "none", opacity: 1, offset: 0.85 }, { transform: "none", opacity: 1, offset: 1 }],
+        { duration: D + 60, easing: EASE, fill: "forwards" }).onfinish = function () { p.remove(); };
     } else {
       // the panel fades as it shrinks into the poster's spot (no scraps of it in the small box); the poster comes
       // back underneath it

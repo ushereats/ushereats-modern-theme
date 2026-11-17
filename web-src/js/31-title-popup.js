@@ -176,7 +176,12 @@
 
   // ── open / close ──
   // ── the poster growing into the panel (setting: Titles > Poster to pop-up animation) ──
-  var ANIM = tbCfg("PopupAnimation", true) !== false && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+  // (the setting decides, not the computer's "reduce motion": Windows turns that on with "Animation effects" off,
+  // which most people did for speed, not because animations bother them)
+  var ANIM = tbCfg("PopupAnimation", true) !== false;
+  window.tbPopDebug = function () {
+    return { popup: enabled, animation: ANIM, reduceMotionOnThisComputer: !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches), webAnimations: !!document.body.animate };
+  };
   var EASE = "cubic-bezier(.2,.8,.2,1)";
   // the picture of what was clicked: where it is on screen and what it shows
   function sourceOf(el) {

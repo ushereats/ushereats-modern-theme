@@ -22,32 +22,11 @@
       if (id && id !== playingId) { playingId = id; schedule(); }
     } catch (e) {}
   }
-  if (window.fetch && !window.fetch.__tbPlayer) {
-    var origFetch = window.fetch;
-    var wrapped = function (input, init) {
-      try {
-        var url = typeof input === "string" ? input : (input && input.url);
-        noteUrl(url);
-        if (init && init.body) noteBody(url, init.body);
-      } catch (e) {}
-      return origFetch.apply(this, arguments);
-    };
-    wrapped.__tbPlayer = true;
-    window.fetch = wrapped;
-  }
-  // older clients use XHR
-  var origOpen = XMLHttpRequest.prototype.open;
-  var origSend = XMLHttpRequest.prototype.send;
-  if (!origOpen.__tbPlayer) {
-    XMLHttpRequest.prototype.open = function (method, url) {
-      try { this.__tbUrl = url; noteUrl(url); } catch (e) {}
-      return origOpen.apply(this, arguments);
-    };
-    XMLHttpRequest.prototype.open.__tbPlayer = true;
-    XMLHttpRequest.prototype.send = function (body) {
-      try { noteBody(this.__tbUrl, body); } catch (e) {}
-      return origSend.apply(this, arguments);
-    };
+  if (window.tbOnRequest) {
+    window.tbOnRequest(function (url, method, body) {
+      noteUrl(url);
+      if (body) noteBody(url, typeof body === "string" ? body : null);
+    });
   }
 
   // Fallback: ask the server what this device is playing (rate-limited)

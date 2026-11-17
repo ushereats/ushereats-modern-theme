@@ -91,56 +91,39 @@
 
     watch(scalable);
     watch(badge);
-    requestAnimationFrame(function () { carve(scalable, badge); });
+    carve(scalable, badge);
   }
 
-  // Clip cardScalable to carve the notch around the badge
-  function carve(scalable, badge) {
-      var bw = badge.offsetWidth;
-      var bh = badge.offsetHeight;
-      var sw = scalable.offsetWidth;
-      var sh = scalable.offsetHeight;
-      // Not laid out yet: ResizeObserver will call again once it has a size
-      if (!sw || !sh || !bw || !bh) return;
-
-      var cr = parseFloat(getComputedStyle(scalable).borderTopRightRadius) || 6;
-      var r = 10;  // concave curve radius at inside corner
-      var r2 = 6;  // small concave curves at edge intersections
-
-      // Single L-shaped path: full card minus top-left notch
-      // with concave curves at notch-card transitions
-      var d =
-        // Start on top edge, right of notch
-        "M " + (bw + r2) + " 0" +
-        // Top edge to near top-right corner
-        " L " + (sw - cr) + " 0" +
-        // Top-right rounded corner
-        " Q " + sw + " 0 " + sw + " " + cr +
-        // Right edge
-        " L " + sw + " " + (sh - cr) +
-        // Bottom-right rounded corner
-        " Q " + sw + " " + sh + " " + (sw - cr) + " " + sh +
-        // Bottom edge
-        " L " + cr + " " + sh +
-        // Bottom-left rounded corner
-        " Q 0 " + sh + " 0 " + (sh - cr) +
-        // Left edge up to near notch bottom
-        " L 0 " + (bh + r2) +
-        // Small concave curve: left edge → notch bottom
-        " Q 0 " + bh + " " + r2 + " " + bh +
-        // Notch bottom edge to near inside corner
-        " L " + (bw - r) + " " + bh +
-        // Main concave curve at inside corner
-        " Q " + bw + " " + bh + " " + bw + " " + (bh - r) +
-        // Notch right edge up to near top
-        " L " + bw + " " + r2 +
-        // Small concave curve: notch right edge → top edge
-        " Q " + bw + " 0 " + (bw + r2) + " 0" +
-        " Z";
-
-      var clip = "path('" + d + "')";
-      if (scalable.style.clipPath !== clip) scalable.style.clipPath = clip;
-  }
+  // Notches for every badged poster are cut together: all the sizes are read first, then all the cuts are
+  // written, once a frame. (Each poster reading its size and then writing its cut made the browser redo the
+  // page's layout once per poster.) Shared by the time-left and release-date badges.
+  window.tbNotch = window.tbNotch || (function () {
+    var q = new Map(), raf = 0;
+    function path(sc, b) {
+      var bw = b.offsetWidth, bh = b.offsetHeight, sw = sc.offsetWidth, sh = sc.offsetHeight;
+      if (!sw || !sh || !bw || !bh) return null;   // not laid out yet: the size watcher calls again
+      var cr = parseFloat(getComputedStyle(sc).borderTopRightRadius) || 6, r = 10, r2 = 6;
+      return "M " + (bw + r2) + " 0 L " + (sw - cr) + " 0 Q " + sw + " 0 " + sw + " " + cr +
+        " L " + sw + " " + (sh - cr) + " Q " + sw + " " + sh + " " + (sw - cr) + " " + sh +
+        " L " + cr + " " + sh + " Q 0 " + sh + " 0 " + (sh - cr) + " L 0 " + (bh + r2) +
+        " Q 0 " + bh + " " + r2 + " " + bh + " L " + (bw - r) + " " + bh +
+        " Q " + bw + " " + bh + " " + bw + " " + (bh - r) + " L " + bw + " " + r2 +
+        " Q " + bw + " 0 " + (bw + r2) + " 0 Z";
+    }
+    function flush() {
+      raf = 0;
+      var jobs = [];
+      q.forEach(function (b, sc) { if (sc.isConnected && b.isConnected) jobs.push([sc, path(sc, b)]); });
+      q.clear();
+      for (var i = 0; i < jobs.length; i++) {
+        if (!jobs[i][1]) continue;
+        var c = "path('" + jobs[i][1] + "')";
+        if (jobs[i][0].style.clipPath !== c) jobs[i][0].style.clipPath = c;
+      }
+    }
+    return function (sc, b) { q.set(sc, b); if (!raf) raf = requestAnimationFrame(flush); };
+  })();
+  function carve(scalable, badge) { window.tbNotch(scalable, badge); return true; }
 
   // itemId -> badge text ("" = no badge). Filled by one batched request.
   var cache = new Map();

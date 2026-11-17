@@ -42,16 +42,8 @@
   // anything that changes something (watched, favourite, playing) makes the kept answers stale
   function forget() { cache = {}; items = {}; }
   window.addEventListener("tb-playback-stopped", forget);
-  (function () {
-    var f = window.fetch;
-    if (typeof f === "function") window.fetch = function (input, init) {
-      var m = (init && init.method) || (input && input.method) || "GET";
-      if (String(m).toUpperCase() !== "GET") forget();
-      return f.apply(this, arguments);
-    };
-    var open = XMLHttpRequest.prototype.open;
-    XMLHttpRequest.prototype.open = function (m) { if (String(m).toUpperCase() !== "GET") forget(); return open.apply(this, arguments); };
-  })();
+  if (window.tbOnRequest) window.tbOnRequest(function (url, method) { if (method !== "GET") forget(); });
+
   // the requests the panel makes (the same ones hovering makes ahead of time)
   function qNextUp(seriesId) { return get("Shows/NextUp", { userId: uid(), SeriesId: seriesId, Limit: 1, EnableResumable: true }); }
   function qSeasons(seriesId) { return get("Shows/" + seriesId + "/Seasons", { userId: uid() }); }

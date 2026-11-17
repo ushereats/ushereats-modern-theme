@@ -100,10 +100,20 @@
   }
   window.addEventListener("tb-playback-stopped", clearHomeSwCache);
 
+  // ── one request hook for the whole theme ──
+  // Features that only need to know about requests (the player skin: what's playing; the pop-up: something
+  // changed) listen here: window.tbOnRequest(function (url, method, body) {}). Before, each wrapped the browser's
+  // request functions itself, and every request went through all of them.
+  var listeners = [];
+  window.tbOnRequest = function (fn) { listeners.push(fn); };
+  function tell(url, method, body) {
+    for (var i = 0; i < listeners.length; i++) { try { listeners[i](url, method, body); } catch (e) {} }
+  }
   var realFetch = window.fetch;
   window.fetch = function (input, init) {
     var url = typeof input === "string" ? input : (input && input.url) || "";
     var method = String((init && init.method) || (input && input.method) || "GET").toUpperCase();
+    if (listeners.length) tell(url, method, init && init.body);
     if (method !== "GET") {
       clear();
       if (/\/PlayedItems\//i.test(url)) clearHomeSwCache();
@@ -139,8 +149,13 @@
     return prom.then(respond);
   };
   // changes made through Jellyfin's newer code (XMLHttpRequest) also clear it
-  var open = XMLHttpRequest.prototype.open;
+  var open = XMLHttpRequest.prototype.open, send = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.send = function (body) {
+    if (listeners.length && this.__tbReq) tell(this.__tbReq[1], this.__tbReq[0], body);
+    return send.apply(this, arguments);
+  };
   XMLHttpRequest.prototype.open = function (method, url) {
+    this.__tbReq = [String(method || "GET").toUpperCase(), String(url || "")];
     if (String(method).toUpperCase() !== "GET") {
       clear();
       var su = String(url || "");

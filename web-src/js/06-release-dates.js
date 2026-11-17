@@ -110,31 +110,36 @@
   }
 
   // ── Badge (carved corner) ──
-  function carve(scalable, badge) {
-    var bw = badge.offsetWidth, bh = badge.offsetHeight;
-    var sw = scalable.offsetWidth, sh = scalable.offsetHeight;
-    if (!sw || !sh || !bw || !bh) return false;
-    var cr = parseFloat(getComputedStyle(scalable).borderTopRightRadius) || 6;
-    var r = 10, r2 = 6;
-    var d =
-      "M " + (bw + r2) + " 0" +
-      " L " + (sw - cr) + " 0" +
-      " Q " + sw + " 0 " + sw + " " + cr +
-      " L " + sw + " " + (sh - cr) +
-      " Q " + sw + " " + sh + " " + (sw - cr) + " " + sh +
-      " L " + cr + " " + sh +
-      " Q 0 " + sh + " 0 " + (sh - cr) +
-      " L 0 " + (bh + r2) +
-      " Q 0 " + bh + " " + r2 + " " + bh +
-      " L " + (bw - r) + " " + bh +
-      " Q " + bw + " " + bh + " " + bw + " " + (bh - r) +
-      " L " + bw + " " + r2 +
-      " Q " + bw + " 0 " + (bw + r2) + " 0" +
-      " Z";
-    scalable.style.clipPath = "path('" + d + "')";
-    scalable.dataset.rdbSize = sw + "x" + sh;
-    return true;
-  }
+  // Notches for every badged poster are cut together: all the sizes are read first, then all the cuts are
+  // written, once a frame. (Each poster reading its size and then writing its cut made the browser redo the
+  // page's layout once per poster.) Shared by the time-left and release-date badges.
+  window.tbNotch = window.tbNotch || (function () {
+    var q = new Map(), raf = 0;
+    function path(sc, b) {
+      var bw = b.offsetWidth, bh = b.offsetHeight, sw = sc.offsetWidth, sh = sc.offsetHeight;
+      if (!sw || !sh || !bw || !bh) return null;   // not laid out yet: the size watcher calls again
+      var cr = parseFloat(getComputedStyle(sc).borderTopRightRadius) || 6, r = 10, r2 = 6;
+      return "M " + (bw + r2) + " 0 L " + (sw - cr) + " 0 Q " + sw + " 0 " + sw + " " + cr +
+        " L " + sw + " " + (sh - cr) + " Q " + sw + " " + sh + " " + (sw - cr) + " " + sh +
+        " L " + cr + " " + sh + " Q 0 " + sh + " 0 " + (sh - cr) + " L 0 " + (bh + r2) +
+        " Q 0 " + bh + " " + r2 + " " + bh + " L " + (bw - r) + " " + bh +
+        " Q " + bw + " " + bh + " " + bw + " " + (bh - r) + " L " + bw + " " + r2 +
+        " Q " + bw + " 0 " + (bw + r2) + " 0 Z";
+    }
+    function flush() {
+      raf = 0;
+      var jobs = [];
+      q.forEach(function (b, sc) { if (sc.isConnected && b.isConnected) jobs.push([sc, path(sc, b)]); });
+      q.clear();
+      for (var i = 0; i < jobs.length; i++) {
+        if (!jobs[i][1]) continue;
+        var c = "path('" + jobs[i][1] + "')";
+        if (jobs[i][0].style.clipPath !== c) jobs[i][0].style.clipPath = c;
+      }
+    }
+    return function (sc, b) { q.set(sc, b); if (!raf) raf = requestAnimationFrame(flush); };
+  })();
+  function carve(scalable, badge) { window.tbNotch(scalable, badge); return true; }
 
   // Re-carve only when a card actually changes size (no layout reads on every page change)
   var ro = typeof window.ResizeObserver === "function" ? new ResizeObserver(function (entries) {
@@ -179,7 +184,7 @@
     badge.dataset.key = key;
     badge.title = info.digital ? "Digital release" : "Premiere date";
     badge.innerHTML = "<b>" + day + "</b> <span>" + mon + "</span>";
-    requestAnimationFrame(function () { carve(scalable, badge); });
+    carve(scalable, badge);
   }
 
   // ── Sort the row: newest digital release first, upcoming at the end, unknown last ──

@@ -2407,19 +2407,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-HomeFromDeviceCopy">Home rows early start</label>
-                                    <div class="sleekfin-input-stack">
-                                        <select id="tb-HomeFromDeviceCopy" class="sleekfin-input" data-key="HomeFromDeviceCopy" data-int="1">
-                                            <option value="0">Off</option>
-                                            <option value="1">Admins only</option>
-                                            <option value="2">Everyone</option>
-                                        </select>
-                                        <div class="sleekfin-field-description">Start asking for the home rows the moment the site opens (before Jellyfin has finished loading), so they arrive sooner.</div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="sleekfin-toggle-row">
                                 <div class="sleekfin-toggle-copy">
                                     <label class="sleekfin-toggle-label" for="tb-DeviceCache">Quick start</label>
@@ -2430,19 +2417,6 @@
                                         <input id="tb-DeviceCache" type="checkbox" data-key="DeviceCache" />
                                         <span class="sleekfin-toggle-slider"></span>
                                     </label>
-                                </div>
-                            </div>
-                            <div class="sleekfin-input-group">
-                                <div class="sleekfin-field-main">
-                                    <label class="sleekfin-label sleekfin-label--side" for="tb-InstantTitles">Instant title pages</label>
-                                    <div class="sleekfin-input-stack">
-                                        <select id="tb-InstantTitles" class="sleekfin-input" data-key="InstantTitles" data-int="1">
-                                            <option value="0">Off</option>
-                                            <option value="1">Admins only</option>
-                                            <option value="2">Everyone</option>
-                                        </select>
-                                        <div class="sleekfin-field-description">Draw the title page hero from cached card data the moment you click — before the server responds.</div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -5462,29 +5436,12 @@
         });
         tbFeatureLinks();
       }
-      // Title pop-up on: instant title pages isn't used (the pop-up replaces it) and hover pre-warm is on for at
-      // least the same people (it gets the pop-up's pictures ready). Full page: everything as it was.
+      // Title pop-up on: hover pre-warm is on for at least the same people (it gets the pop-up's pictures ready).
       function tbFeatureLinks() {
-        var pop = page.querySelector("#tb-TitlePopup"), it = page.querySelector("#tb-InstantTitles"), hw = page.querySelector("#tb-HoverWarm");
-        if (!pop || !it) return;
+        var pop = page.querySelector("#tb-TitlePopup"), hw = page.querySelector("#tb-HoverWarm");
+        if (!pop || !hw) return;
         var lvl = parseInt(pop.value, 10) || 0;
-        var note = page.querySelector("#tb-InstantTitlesNote");
-        if (!note) {
-          note = document.createElement("div");
-          note.id = "tb-InstantTitlesNote";
-          note.className = "sleekfin-field-description";
-          note.textContent = "Not used while titles open as a pop-up (the pop-up is already instant).";
-          it.parentNode.appendChild(note);
-        }
-        if (lvl > 0) {
-          if (it.value !== "0") it.value = "0";
-          it.disabled = true;
-          note.style.display = "";
-          if (hw && (parseInt(hw.value, 10) || 0) < lvl) hw.value = String(lvl);
-        } else {
-          it.disabled = false;
-          note.style.display = "none";
-        }
+        if (lvl > 0 && (parseInt(hw.value, 10) || 0) < lvl) hw.value = String(lvl);
       }
       page.addEventListener("change", function (e) { if (e.target && e.target.id === "tb-TitlePopup") tbFeatureLinks(); });
       page.addEventListener("viewshow", function () {

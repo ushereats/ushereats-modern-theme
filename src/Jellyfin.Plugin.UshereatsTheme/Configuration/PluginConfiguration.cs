@@ -98,8 +98,6 @@ public class PluginConfiguration : BasePluginConfiguration
     /// <summary>Fetch all home data in one request instead of per-row. Off / AdminsOnly / Everyone.</summary>
     public FeatureLevel HomeInOneRequest { get; set; } = FeatureLevel.Everyone;
 
-    /// <summary>Seed the home page from the device's SW cache copy on first paint. Off / AdminsOnly / Everyone.</summary>
-    public FeatureLevel HomeFromDeviceCopy { get; set; } = FeatureLevel.Everyone;
 
     /// <summary>Pre-warm the hover card for the item under the cursor after a short idle. Off / AdminsOnly / Everyone.</summary>
     public FeatureLevel HoverWarm { get; set; } = FeatureLevel.Everyone;
@@ -107,8 +105,6 @@ public class PluginConfiguration : BasePluginConfiguration
     /// <summary>Local search index (instant search as you type). Off / AdminsOnly / Everyone.</summary>
     public FeatureLevel InstantSearch { get; set; } = FeatureLevel.Off;
 
-    /// <summary>Instant title page top drawn from cached data before the server responds. Off / AdminsOnly / Everyone.</summary>
-    public FeatureLevel InstantTitles { get; set; } = FeatureLevel.Off;
 
     /// <summary>How a title opens: Off = full page (default), AdminsOnly / Everyone = Netflix-style pop-up over the page you were on.</summary>
     public FeatureLevel TitlePopup { get; set; } = FeatureLevel.Off;

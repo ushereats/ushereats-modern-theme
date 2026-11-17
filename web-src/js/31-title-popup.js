@@ -806,7 +806,6 @@
   function start(on) {
     if (!on || enabled) return;
     enabled = true;
-    html.classList.add("tb-tmodal-on");   // instant titles stays out of the way
     var st = document.createElement("style");
     st.id = "tb-pop-css";
     st.textContent = css;

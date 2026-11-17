@@ -134,7 +134,6 @@ public static class ThemeAssets
         ("js_27_page_transitions.js", c => c.PageTransitions),
         ("js_28_error_reporter.js", c => true),
         ("js_29_search_index.js", c => c.InstantSearch != Configuration.FeatureLevel.Off),
-        ("js_30_instant_titles.js", c => c.InstantTitles != Configuration.FeatureLevel.Off && c.TitlePopup == Configuration.FeatureLevel.Off),
         ("js_31_title_popup.js", c => c.TitlePopup != Configuration.FeatureLevel.Off),
         ("js_32_title_sound.js", c => c.TitleSound),
         ("js_33_player_episodes.js", c => c.PlayerEpisodes),
@@ -419,7 +418,7 @@ public static class ThemeAssets
 
             string? part = file switch
             {
-                "js_12_player_skin.js" or "js_14_pause_screen.js" => "player",
+                "js_12_player_skin.js" or "js_14_pause_screen.js" or "js_33_player_episodes.js" => "player",
                 "js_09_search_restyle.js" or "js_23_search.js" => "search",
                 _ => null,
             };
@@ -458,8 +457,11 @@ public static class ThemeAssets
           .Append("document.addEventListener(\"pointerover\",near,{capture:true,passive:true});document.addEventListener(\"focusin\",near,true);")
           .Append("route();window.addEventListener(\"hashchange\",route);window.addEventListener(\"popstate\",route);")
           .Append("var idle=window.requestIdleCallback||function(f){return setTimeout(f,1200)};")
-          // "details" loads straight at page load (not idle) so the title-page script is ready by the first hover
-          .Append("window.addEventListener(\"load\",function(){load(\"details\");idle(function(){load(\"search\");load(\"player\")},{timeout:2500})})})();\n");
+          // "details" loads straight at page load (not idle) so the title-page script is ready by the first hover;
+          // with the pop-up on for everyone the full title page is rare: it waits for idle time (or the page itself)
+          .Append(config.TitlePopup == Configuration.FeatureLevel.Everyone
+              ? "window.addEventListener(\"load\",function(){idle(function(){load(\"search\");load(\"player\");setTimeout(function(){load(\"details\")},4000)},{timeout:3000})})})();\n"
+              : "window.addEventListener(\"load\",function(){load(\"details\");idle(function(){load(\"search\");load(\"player\")},{timeout:2500})})})();\n");
 
         // SleekFin's scripts (built in; its own hero is left out: the plugin's hero replaces it)
         foreach (string file in SleekScripts)
@@ -472,7 +474,7 @@ public static class ThemeAssets
 
         foreach ((string file, Func<PluginConfiguration, bool> on) in Features)
         {
-            if (on(config) && file is not ("js_12_player_skin.js" or "js_14_pause_screen.js" or "js_09_search_restyle.js" or "js_23_search.js"))
+            if (on(config) && file is not ("js_12_player_skin.js" or "js_14_pause_screen.js" or "js_33_player_episodes.js" or "js_09_search_restyle.js" or "js_23_search.js"))
             {
                 AppendFeature(js, file, mp3Version, read);
             }

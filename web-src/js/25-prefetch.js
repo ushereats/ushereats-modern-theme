@@ -324,7 +324,7 @@
   // ── getting a title ready before it's clicked ──
   // Feature switches: 0=Off, 1=Admins only, 2=Everyone. Test override: localStorage 'tb-force-features'.
   // Whether you're an admin is asked once and remembered (window.__tbIsAdmin; __tbHoverWarmAdmin is the old name
-  // 30-instant-titles.js reads).
+  // older scripts read).
   var adminAsk = null;
   function isAdmin() {
     if (window.__tbIsAdmin !== undefined) return Promise.resolve(!!window.__tbIsAdmin);

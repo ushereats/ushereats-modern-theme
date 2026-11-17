@@ -160,7 +160,7 @@
       var batchP;
       try {
         // HomeInOneRequest: use batch endpoint (and SW cache copy) only when feature is on for Everyone
-        var earlyHome = featOn("HomeFromDeviceCopy") ? window.__tbEarlyHome : null;
+        var earlyHome = window.__tbEarlyHome || null;   // asked from the page head, before Jellyfin started
         batchP = featOn("HomeInOneRequest")
           ? (earlyHome ||
               get("UshereatsTheme/home?userId=" + enc(user) + "&rows=" + enc(JSON.stringify(nonStudio)), token)

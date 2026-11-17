@@ -21,7 +21,7 @@ public static class ServiceWorkerPatch
         }
 
         var cfg = Plugin.Instance?.Configuration;
-        bool on = (cfg?.DeviceCache ?? true) && (cfg?.HomeFromDeviceCopy ?? Configuration.FeatureLevel.Everyone) != Configuration.FeatureLevel.Off;
+        bool on = cfg?.DeviceCache ?? true;
         return js + "\n" + Marker + "\n" + (on ? ThemeAssets.Text("sw_cache.js") : Clear) + "\n";
     }
 }

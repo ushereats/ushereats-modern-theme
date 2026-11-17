@@ -188,7 +188,7 @@
 
   function openFull(id, type) {
     var art = box && box.querySelector(".tb-hc-art");
-    var src = art ? { rect: art.getBoundingClientRect(), bg: art.style.backgroundImage, radius: "12px", el: showing && showing.card && showing.card.querySelector(".cardImageContainer") } : null;
+    var src = art ? { rect: art.getBoundingClientRect(), bg: art.style.backgroundImage, radius: "12px", el: showing && showing.card && (showing.card.querySelector(".cardScalable") || showing.card.querySelector(".cardImageContainer")) } : null;
     hide(true);
     if (window.tbPopOpen && window.tbPopOpen(id, type, src)) return;
     location.hash = "#/details?id=" + id + "&serverId=" + sid();

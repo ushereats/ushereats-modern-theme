@@ -209,6 +209,8 @@
     var bg = getComputedStyle(img).backgroundImage;
     if (!bg || bg === "none") bg = img.getAttribute("data-tb-src") ? 'url("' + img.getAttribute("data-tb-src") + '")' : null;
     if (!bg) return null;
+    var sh = shapeOf(img);
+    if (sh) return { el: sh.el, rect: sh.el.getBoundingClientRect(), bg: bg, radius: "0px", clip: sh.clip };
     return { el: img, rect: r, bg: bg, radius: getComputedStyle(img).borderRadius || "8px" };
   }
   // The real panel opens out of the poster's spot (a clip on the panel itself: what you see growing is exactly
@@ -216,10 +218,20 @@
   // Only clip / transform / opacity move.
   var anims = [];
   function stopAnims() { anims.forEach(function (x) { try { x.cancel(); } catch (e) {} }); anims = []; }
-  function layer(bg, r, radius) {
+  // the poster's own shape: cards with a release-date or time-left badge have a notch cut out of the corner
+  // (a clip on .cardScalable, in its own pixels), so the flying poster gets the same box and the same cut
+  function shapeOf(el) {
+    var sc = el && el.closest ? el.closest(".cardScalable") : null;
+    if (!sc) return null;
+    var cp = getComputedStyle(sc).clipPath;
+    if (!cp || cp === "none") return null;
+    return { el: sc, clip: cp };
+  }
+  function layer(bg, r, radius, clip) {
     var g = document.createElement("div");
     g.className = "tb-pop-ghost";
-    g.style.cssText = "left:" + r.left + "px;top:" + r.top + "px;width:" + r.width + "px;height:" + r.height + "px;border-radius:" + radius + ";background-image:" + bg;
+    g.style.cssText = "left:" + r.left + "px;top:" + r.top + "px;width:" + r.width + "px;height:" + r.height + "px;border-radius:" + radius + ";background-image:" + bg +
+      (clip ? ";clip-path:" + clip + ";box-shadow:none" : "");
     document.body.appendChild(g);
     return g;
   }
@@ -250,20 +262,22 @@
     anims.push(shade.animate([{ opacity: 0 }, { opacity: 1 }], { duration: D, easing: "ease-out" }));
     // the poster stays on its own spot and melts away in the first moment (moving it across the panel showed
     // the title twice)
-    var p = layer(src.bg, r, src.radius);
+    var p = layer(src.bg, r, src.radius, src.clip);
     if (GENIE) p.animate([{ transform: "none", opacity: 1 }, { transform: moveTo(r, to), opacity: 0 }], { duration: D * 0.75, easing: EASE, fill: "forwards" }).onfinish = function () { p.remove(); };
     else p.animate([{ transform: "none", opacity: 1 }, { transform: "scale(1.06)", opacity: 0 }], { duration: 170, easing: "ease-out", fill: "forwards" }).onfinish = function () { p.remove(); };
   }
   // closing: returns true when it animates (the panel is cleared when the animation ends)
   function flyBack(src, done) {
     if (!ANIM || !src || !root || !root.animate) return false;
+    var sh = shapeOf(src.el);
+    if (sh) { src.el = sh.el; src.clip = sh.clip; src.radius = "0px"; }
     var r = visibleRect(src.el);
     if (!r) return false;
     stopAnims();
     var box = root.querySelector(".tb-pop-box"), shade = root.querySelector(".tb-pop-shade");
     var from = box.getBoundingClientRect(), D = 300;
     root.style.pointerEvents = "none";
-    var a, p = layer(src.bg, r, src.radius);
+    var a, p = layer(src.bg, r, src.radius, src.clip);
     if (GENIE) {
       // the panel shrinks into the poster's spot while the poster flies down into it
       // (the panel dissolves on the way, so only the poster lands in the card: a still-solid panel showed as a slab

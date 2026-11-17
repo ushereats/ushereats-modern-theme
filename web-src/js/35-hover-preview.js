@@ -59,7 +59,17 @@
     card = null;
     if (!c || off() || !TYPES[c.getAttribute("data-type")] || c.closest("#tb-pop, #tb-pep, #tb-hc, .tb-studios")) return;
     card = c;
-    timer = setTimeout(function () { if (card === c && c.matches(":hover") && !off()) show(c); }, DELAY);
+    // not while the mouse rests on the poster's own play button (the card would cover it): it waits until the
+    // mouse moves off it, onto the rest of the poster
+    var onPlay = function () { return !!c.querySelector(".cardOverlayFab-primary:hover, .cardOverlayButton-centered:hover, button[data-action='play']:hover, button[data-action='resume']:hover"); };
+    var wait = function (ms) {
+      timer = setTimeout(function () {
+        if (card !== c || !c.matches(":hover") || off()) return;
+        if (onPlay()) return wait(250);
+        show(c);
+      }, ms);
+    };
+    wait(DELAY);
   }, { passive: true });
   // the pointer ended up outside both the card and its preview (it can open a little off to the side near the
   // window's edges, where mouseleave never fires)
@@ -91,8 +101,7 @@
     var wrap = document.createElement("div");
     wrap.innerHTML = '<div id="tb-hc" is="emby-itemscontainer" style="width:' + W + 'px">' +
       '<div class="tb-hc-art" style="height:' + ART + 'px;background-image:' + (bd ? 'url(&quot;' + esc(bd) + '&quot;)' : esc(posterBg)) + '">' +
-        '<div class="tb-hc-logo"></div><div class="tb-hc-prog"></div>' +
-        '<button type="button" class="tb-hc-artplay" title="Play" aria-label="Play"><span class="material-icons play_arrow" aria-hidden="true"></span></button></div>' +
+        '<div class="tb-hc-logo"></div><div class="tb-hc-prog"></div></div>' +
       '<div class="tb-hc-info"><div class="tb-hc-btns"><span class="tb-hc-wait"></span></div>' +
         '<div class="tb-hc-meta"></div><div class="tb-hc-gen"></div></div></div>';
     box = wrap.firstChild;
@@ -111,14 +120,6 @@
     box.addEventListener("mouseleave", function () { if (box && showing && showing.id === id) hide(); });
     box.addEventListener("click", function (e) {
       var t = e.target;
-      // the big play button in the middle (where the poster's own play button is): play, never the pop-up
-      if (t.closest(".tb-hc-artplay")) {
-        e.preventDefault();
-        e.stopPropagation();
-        var pb = box.querySelector(".tb-hc-play");
-        if (pb) pb.click(); else if (showing) showing.playWhenReady = true;
-        return;
-      }
       if (t.closest(".tb-hc-x")) { e.preventDefault(); var x = c.querySelector(".tb-cw-x"); hide(true); if (x) x.click(); return; }
       if (t.closest('[data-action="play"], [data-action="resume"]')) {
         var lg = box.querySelector(".tb-hc-logo img"), art = box.querySelector(".tb-hc-art");
@@ -178,9 +179,6 @@
     var btns = box.querySelector(".tb-hc-btns");
     btns.innerHTML = h;
     upgrade(btns);
-    var ap = box.querySelector(".tb-hc-artplay");
-    if (ap && !playable) ap.remove();
-    if (showing && showing.playWhenReady) { showing.playWhenReady = false; var pb = btns.querySelector(".tb-hc-play"); if (pb) pb.click(); }
     if (pos && tg.RunTimeTicks) {
       var pct = Math.min(100, Math.max(2, Math.round(pos / tg.RunTimeTicks * 100)));
       box.querySelector(".tb-hc-prog").innerHTML = "<i style=\"width:" + pct + '%"></i>';
@@ -220,9 +218,6 @@
     "#tb-hc .tb-hc-prog{position:absolute;left:14px;right:14px;bottom:0;z-index:1;height:3px;border-radius:2px;background:rgba(255,255,255,.22);overflow:hidden;display:none}" +
     "#tb-hc .tb-hc-prog.on{display:block}#tb-hc .tb-hc-prog i{display:block;height:100%;background:var(--sleekfin-accent,#dc2626)}" +
     "#tb-hc .tb-hc-info{padding:12px 14px 14px}" +
-    "#tb-hc .tb-hc-artplay{all:unset;box-sizing:border-box;position:absolute;left:50%;top:50%;z-index:2;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;" +
-    "background:rgba(255,255,255,.92);color:#0b0b0b;box-shadow:0 0 0 6px rgba(255,255,255,.18),0 8px 26px rgba(0,0,0,.45);transition:transform .14s ease,background-color .14s ease}" +
-    "#tb-hc .tb-hc-artplay .material-icons{font-size:32px}#tb-hc .tb-hc-artplay:hover{transform:scale(1.1);background:#fff}" +
     "#tb-hc .tb-hc-btns{display:flex;align-items:center;gap:8px;min-height:38px}" +
     "#tb-hc .tb-hc-btns>span{display:contents}" +
     "#tb-hc .tb-hc-wait{display:block;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08)}" +

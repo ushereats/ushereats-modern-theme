@@ -141,7 +141,7 @@
       if (!bd && window.tbBackdropUrl) { var b2 = window.tbBackdropUrl(it); if (b2) { var im = new Image(); im.onload = function () { if (my === gen && art) art.style.backgroundImage = 'url("' + b2 + '")'; }; im.src = b2; } }
       var logoId = it.ImageTags && it.ImageTags.Logo ? it.Id : it.ParentLogoItemId, logoTag = it.ImageTags && it.ImageTags.Logo ? it.ImageTags.Logo : it.ParentLogoImageTag;
       var lg = box.querySelector(".tb-hc-logo");
-      if (logoId && logoTag) lg.innerHTML = '<img alt="' + esc(showing.name) + '" src="' + esc(a.getScaledImageUrl(logoId, { type: "Logo", tag: logoTag, maxWidth: 480, quality: 90 })) + '">';
+      if (logoId && logoTag) lg.innerHTML = '<img decoding="async" alt="' + esc(showing.name) + '" src="' + esc(a.getScaledImageUrl(logoId, { type: "Logo", tag: logoTag, maxWidth: 480, quality: 90 })) + '">';
       else lg.innerHTML = '<b>' + esc(showing.name) + "</b>";
       var m = [];
       if (it.CommunityRating) m.push('<span class="tb-hc-star">★ ' + (Math.round(it.CommunityRating * 10) / 10).toFixed(1) + "</span>");

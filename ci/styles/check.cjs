@@ -71,8 +71,35 @@ async function snapshot(browser, css) {
   const sels = new Set();
   postcss.parse(css).walkRules((r) => { if (r.parent.type === 'atrule' && /keyframes/.test(r.parent.name)) return; r.selectors.forEach((s) => sels.add(s.trim())); });
   const groups = new Map();
-  for (const s of sels) {
-    const p = plan(s); if (!p) continue;
+  const planned = [];
+  for (const s of sels) { const p = plan(s); if (p) planned.push([s, p]); }
+  // pieces matched by two selectors at once (same element), so rules that compete are checked against each other
+  const bySubject = new Map();
+  for (const [s, p] of planned) {
+    const sub = p.chain[p.chain.length - 1].c;
+    for (const k of sub.classes.concat(sub.id ? ['#' + sub.id] : [])) { if (!bySubject.has(k)) bySubject.set(k, []); bySubject.get(k).push([s, p]); }
+  }
+  const pairs = new Set(), extra = [];
+  const ok = (p) => p.chain.every((x) => x.rel === '' || x.rel === ' ' || x.rel === '>');
+  for (const list of bySubject.values()) {
+    if (list.length > 60) continue;
+    for (let i = 0; i < list.length; i++) for (let j = i + 1; j < list.length; j++) {
+      let [sa, a] = list[i], [sb, b] = list[j];
+      if (!ok(a) || !ok(b)) continue;
+      const ra = a.chain[a.chain.length - 1].rel, rb = b.chain[b.chain.length - 1].rel;
+      if (ra === '>' && rb === '>') continue;
+      if (ra === '>') { [sa, a, sb, b] = [sb, b, sa, a]; }   // the one that needs a direct parent goes inside
+      const key = sa + ' || ' + sb; if (pairs.has(key)) continue; pairs.add(key);
+      const sa_ = a.chain[a.chain.length - 1].c, sb_ = b.chain[b.chain.length - 1].c;
+      const subj = { tag: sb_.tag || sa_.tag, id: sb_.id || sa_.id, classes: [...new Set(sa_.classes.concat(sb_.classes))], attrs: sa_.attrs.concat(sb_.attrs), has: sa_.has.concat(sb_.has), states: [...new Set(sa_.states.concat(sb_.states))], pe: sb_.pe || sa_.pe };
+      if (sa_.tag && sb_.tag && sa_.tag !== sb_.tag) continue;
+      const chain = a.chain.slice(0, -1).concat(b.chain.slice(0, -1).map((x, k) => ({ c: x.c, rel: k === 0 ? ' ' : x.rel })), [{ c: subj, rel: b.chain.length > 1 ? rb : (a.chain.length > 1 ? ' ' : '') }]);
+      chain[0].rel = '';
+      const merge = (x, y) => ({ ...x, classes: [...new Set(x.classes.concat(y.classes))], attrs: x.attrs.concat(y.attrs), id: x.id || y.id });
+      extra.push([key, { html: merge(a.html, b.html), body: merge(a.body, b.body), chain }]);
+    }
+  }
+  for (const [s, p] of planned.concat(extra)) {
     const key = JSON.stringify([p.html.classes.sort(), p.html.attrs, p.body.classes.sort(), p.body.attrs, p.html.id, p.body.id]);
     if (!groups.has(key)) groups.set(key, { html: p.html, body: p.body, items: [] });
     groups.get(key).items.push({ s, chain: p.chain });
@@ -170,6 +197,8 @@ async function snapshot(browser, css) {
     const b = Object.fromEntries(snap[k].split('\n').map((x) => [x.slice(0, x.indexOf(':')), x.slice(x.indexOf(':') + 1)]));
     for (const p of new Set([...Object.keys(a), ...Object.keys(b)])) if (a[p] !== b[p]) { diffs++; if (lines.length < 60) lines.push(k.slice(0, 120) + ' | ' + p + ' | ' + a[p] + ' -> ' + b[p]); }
   }
+  const ji = process.argv.indexOf('--json');
+  if (ji > 0) fs.writeFileSync(process.argv[ji + 1], JSON.stringify(Object.keys(base).filter((k) => k in snap && base[k] !== snap[k])));
   const gone = Object.keys(base).filter((k) => !(k in snap)).length, added = Object.keys(snap).filter((k) => !(k in base)).length;
   console.log(lines.join('\n'));
   console.log(`compared ${Object.keys(base).length - gone} styled pieces: ${diffs} differences (${gone} no longer exist, ${added} new)`);

@@ -299,7 +299,7 @@
       stop(); resume(); return;
     }
     if (k === "ArrowUp" || k === "ArrowRight" || c === 38 || c === 39) { stop(); closeBtn.focus(); return; }
-    if (k === "ArrowDown" || k === "ArrowLeft" || c === 40 || c === 37) { stop(); overlay.focus(); return; }
+    if (k === "ArrowDown" || k === "ArrowLeft" || c === 40 || c === 37) { stop(); overlay.focus(); }
   }, true);
 
   // ── Styles ──

@@ -115,7 +115,7 @@
       draw(hero, d);
     }
     var a = api();
-    function upd(k) { return function (v) { if (v != null) { for (var x in v) d[x] = v[x]; draw(hero, d); try { localStorage.setItem("tb-dash-hero", JSON.stringify(d)); } catch (e) {} } }; }
+    function upd() { return function (v) { if (v != null) { for (var x in v) d[x] = v[x]; draw(hero, d); try { localStorage.setItem("tb-dash-hero", JSON.stringify(d)); } catch (e) {} } }; }
     cached("sysinfo", 60000, function () { return Promise.resolve(a.getSystemInfo()); })
       .then(function (info) { info = info || {}; return { name: info.ServerName, version: info.Version, update: !!info.HasUpdateAvailable, restart: !!info.HasPendingRestart }; }).then(upd()).catch(noop);
     cached("plugins", 300000, function () { return Promise.resolve(a.getInstalledPlugins()); })

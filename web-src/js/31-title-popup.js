@@ -416,7 +416,7 @@
     var h = '<div class="tb-pop-bar"><button type="button" class="tb-pop-close" aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>';
     ambient(bd);
     h += '<div class="tb-pop-hero"><div class="tb-pop-bd"' + (bd ? ' style="background-image:url(&quot;' + esc(bd) + '&quot;)"' : "") + '></div><div class="tb-pop-in">';
-    h += logo ? '<img class="tb-pop-logo" alt="' + esc(name) + '" src="' + esc(logo) + '">' : (name && !quick ? '<h1 class="tb-pop-title">' + esc(name) + "</h1>" : quick ? '<div class="tb-pop-logo-ph"></div>' : "");
+    h += logo ? '<img class="tb-pop-logo" decoding="async" alt="' + esc(name) + '" src="' + esc(logo) + '">' : (name && !quick ? '<h1 class="tb-pop-title">' + esc(name) + "</h1>" : quick ? '<div class="tb-pop-logo-ph"></div>' : "");
     if (isEp) h += '<div class="tb-pop-sub">' + (it.ParentIndexNumber != null && it.IndexNumber != null ? "S" + it.ParentIndexNumber + ":E" + it.IndexNumber + " · " : "") + esc(it.Name || "") + "</div>";
     if (!quick) {
       var meta = [];
@@ -693,7 +693,7 @@
   // ── hovering a title for a moment gets its whole panel ready (so clicking shows it complete) ──
   var warmT = 0, warmedAt = {};
   var warmPics = {};
-  function preload(id, type) {
+  function preload(id) {
     if (!enabled || !id || !api() || !uid()) return;
     // the wide picture the panel (and its opening animation) shows, in the browser before the click
     var mt = window.tbItemMeta && window.tbItemMeta[id], bu = mt && window.tbBackdropUrl ? window.tbBackdropUrl(mt) : null;
@@ -725,8 +725,8 @@
     var card = e.target && e.target.closest && e.target.closest(".card[data-id]");
     clearTimeout(warmT);
     if (!card || !TYPES[card.getAttribute("data-type")]) return;
-    var id = card.getAttribute("data-id"), type = card.getAttribute("data-type");
-    warmT = setTimeout(function () { preload(id, type); }, 150);
+    var id = card.getAttribute("data-id");
+    warmT = setTimeout(function () { preload(id); }, 150);
   }, { capture: true, passive: true });
 
   // ── every way of opening a title opens the panel instead of the page ──

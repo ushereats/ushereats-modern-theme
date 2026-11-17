@@ -63,7 +63,7 @@
     else if (info && info.year) meta.push("<span>" + info.year + "</span>");
     if (info && info.rating) meta.push('<span class="tb-hv-rate">' + STAR + info.rating + "</span>");
     var useLogo = !!(wide && info && info.logo);
-    var head = useLogo ? '<img class="tb-hv-logo" alt="">' : '<div class="tb-hv-title"></div>';
+    var head = useLogo ? '<img class="tb-hv-logo" alt="" decoding="async">' : '<div class="tb-hv-title"></div>';
     var html = head + (meta.length ? '<div class="tb-hv-meta">' + meta.join("") + "</div>" : "");
     var key = html + name + (useLogo ? info.logo : "");
     el.classList.toggle("tb-hv-wide", !!wide);

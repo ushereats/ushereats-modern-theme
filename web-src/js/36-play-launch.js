@@ -32,7 +32,7 @@
     gen++;
     el.innerHTML = '<div class="tb-launch-bd"' + (art && art.bg && art.bg !== "none" ? ' style="background-image:' + esc(art.bg) + '"' : "") + "></div>" +
       '<div class="tb-launch-in">' +
-        (art && art.logo ? '<img class="tb-launch-logo" alt="" src="' + esc(art.logo) + '">' : '<div class="tb-launch-title">' + esc(art && art.title) + "</div>") +
+        (art && art.logo ? '<img class="tb-launch-logo" alt="" decoding="async" src="' + esc(art.logo) + '">' : '<div class="tb-launch-title">' + esc(art && art.title) + "</div>") +
         (art && art.sub ? '<div class="tb-launch-sub">' + esc(art.sub) + "</div>" : "") +
         '<div class="tb-launch-bar"><i></i></div>' +
       "</div>";

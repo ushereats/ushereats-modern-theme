@@ -175,17 +175,17 @@
     if (s.UserPrimaryImageTag) try { av = api().getUrl("Users/" + s.UserId + "/Images/Primary", { tag: s.UserPrimaryImageTag, maxHeight: 128, quality: 90 }); } catch (e) {}
 
     var chips = [];
-    if (v.Width) chips.push('<span class="np-chip np-blue">' + res(v.Width, v.Height) + "</span>");
-    if (v.Width) chips.push('<span class="np-chip np-gold">' + hdrName + "</span>");
+    if (v.Width) chips.push('<span class="np-chip np-blue">' + esc(res(v.Width, v.Height)) + "</span>");
+    if (v.Width) chips.push('<span class="np-chip np-gold">' + esc(hdrName) + "</span>");
     chips.push('<span class="np-chip">' + LABEL[m] + "</span>");
-    if (v.Codec) chips.push('<span class="np-chip' + (ti && !ti.IsVideoDirect ? " np-red" : "") + '">' + codec(v.Codec) + (ti && !ti.IsVideoDirect ? "→" + videoOut : "") + "</span>");
+    if (v.Codec) chips.push('<span class="np-chip' + (ti && !ti.IsVideoDirect ? " np-red" : "") + '">' + esc(codec(v.Codec) + (ti && !ti.IsVideoDirect ? "→" + videoOut : "")) + "</span>");
     if (v.BitDepth) chips.push('<span class="np-chip">' + v.BitDepth + "-bit</span>");
     if (a.Codec) {
-      chips.push('<span class="np-chip' + (ti && !ti.IsAudioDirect ? " np-red" : " np-violet") + '">' + channels(a.Channels, a.ChannelLayout) + "</span>");
-      chips.push('<span class="np-chip' + (ti && !ti.IsAudioDirect ? " np-red" : " np-violet") + '">' + codec(a.Codec) + (ti && !ti.IsAudioDirect ? "→" + audioOut : "") + "</span>");
+      chips.push('<span class="np-chip' + (ti && !ti.IsAudioDirect ? " np-red" : " np-violet") + '">' + esc(channels(a.Channels, a.ChannelLayout)) + "</span>");
+      chips.push('<span class="np-chip' + (ti && !ti.IsAudioDirect ? " np-red" : " np-violet") + '">' + esc(codec(a.Codec) + (ti && !ti.IsAudioDirect ? "→" + audioOut : "")) + "</span>");
       if (/atmos/i.test((a.Profile || "") + (a.DisplayTitle || ""))) chips.push('<span class="np-chip np-violet">Atmos</span>');
     }
-    if (container) chips.push('<span class="np-chip">' + container + (outContainer && outContainer !== container ? "→" + outContainer : "") + "</span>");
+    if (container) chips.push('<span class="np-chip">' + esc(container + (outContainer && outContainer !== container ? "→" + outContainer : "")) + "</span>");
     if (bitrate) chips.push('<span class="np-chip' + (ti && (ti.TranscodeReasons || []).indexOf("ContainerBitrateExceedsLimit") >= 0 ? " np-gold" : " np-green") + '">' + mbps(bitrate) + "</span>");
     if (fps) chips.push('<span class="np-chip">' + Math.round(fps * 1000) / 1000 + " fps</span>");
     if (sub) chips.push('<span class="np-chip' + (ti && (ti.TranscodeReasons || []).indexOf("SubtitleCodecNotSupported") >= 0 ? " np-red" : "") + '">' + esc(sub.Language || codec(sub.Codec)).toUpperCase() + "</span>");
@@ -199,10 +199,10 @@
     }
     var details = "";
     if (v.Codec) details += line("Video", !ti || ti.IsVideoDirect, esc(codec(v.Codec) + " → " + videoOut) + " • " + (v.Width ? v.Width + "x" + v.Height + " → " + (ti && !ti.IsVideoDirect && ti.Width ? ti.Width + "x" + ti.Height : v.Width + "x" + v.Height) : "") + (fps ? " • " + Math.round(fps * 1000) / 1000 + " fps" : ""));
-    if (a.Codec) details += line("Audio", !ti || ti.IsAudioDirect, esc(codec(a.Codec) + " → " + audioOut) + " • " + esc((a.Language || "").toUpperCase()) + " " + channels(a.Channels, a.ChannelLayout));
+    if (a.Codec) details += line("Audio", !ti || ti.IsAudioDirect, esc(codec(a.Codec) + " → " + audioOut) + " • " + esc((a.Language || "").toUpperCase()) + " " + esc(channels(a.Channels, a.ChannelLayout)));
     details += line("Subtitles", null, sub ? esc((sub.DisplayTitle || sub.Language || "") + " (" + codec(sub.Codec) + ")") : "Not active");
     details += line("Container", null, esc(container + " → " + outContainer) + (bitrate ? " • Overall bitrate: " + mbps(bitrate) : ""));
-    if (v.Codec) details += line("HDR", null, hdrName + " • Tone mapping: " + (toneMap ? "Active" : hdr ? "Not needed" : "Not used"));
+    if (v.Codec) details += line("HDR", null, esc(hdrName) + " • Tone mapping: " + (toneMap ? "Active" : hdr ? "Not needed" : "Not used"));
     details += line("Engine", null, ti ? esc(ti.HardwareAccelerationType ? ti.HardwareAccelerationType.toUpperCase() : "Software (CPU)") + (ti.Framerate ? " • " + Math.round(ti.Framerate) + " fps" : "") : "Not applicable");
 
     var paused = !!ps.IsPaused;
@@ -334,7 +334,9 @@
       else stop();
     });
   }
-  new MutationObserver(check).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["class"] });
+  // the shared page watcher (core.js) instead of a private one that also fired on every class change on the page;
+  // switching pages is caught by hashchange
+  tbWatch(check);
   document.addEventListener("visibilitychange", function () { if (!document.hidden) check(); });
   window.addEventListener("hashchange", check);
   check();

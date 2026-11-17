@@ -16,5 +16,6 @@ module.exports = async function collect(browser) {
   await p.close();
   const look = fs.readFileSync(path.join(A, 'look.css'), 'utf8');
   const theme = fs.readFileSync(path.join(__dirname, '../../web-src/theme.css'), 'utf8');
-  return { css: (look + '\n.tb-look-end{--tb-look-end:1}\n' + theme + '\n' + css.out).replace(/__TB_[A-Z_]+__/g, '1'), fails: css.fails };
+  const jf = fs.readFileSync(path.join(__dirname, 'jellyfin.css'), 'utf8');
+  return { css: (jf + '\n' + look + '\n.tb-look-end{--tb-look-end:1}\n' + theme + '\n' + css.out).replace(/__TB_[A-Z_]+__/g, '1'), fails: css.fails };
 };

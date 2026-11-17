@@ -6,7 +6,11 @@
 
   // Arrow positions only change when a row's size changes -> measure then, not on every DOM change
   var ro = typeof window.ResizeObserver === "function"
-    ? new ResizeObserver(function () { requestAnimationFrame(placeScrollButtons); }) : null;
+    ? new ResizeObserver(function (entries) {
+      // a row that left the page reports one last size (0): stop watching it so it can be freed
+      for (var i = 0; i < entries.length; i++) if (!entries[i].target.isConnected) ro.unobserve(entries[i].target);
+      requestAnimationFrame(placeScrollButtons);
+    }) : null;
   function watchScrollers() {
     var fresh = false;
     document.querySelectorAll(".verticalSection > .emby-scroller").forEach(function (sc) {

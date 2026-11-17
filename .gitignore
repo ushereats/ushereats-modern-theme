@@ -9,3 +9,4 @@ look/build/
 src/Jellyfin.Plugin.UshereatsTheme/Assets/
 ci-session.json
 shots/
+ci/styles/.baseline/

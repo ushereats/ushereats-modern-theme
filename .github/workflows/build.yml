@@ -22,7 +22,7 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
-      - name: Build web assets (minify scripts, strip CSS comments, build the built-in UeTheme)
+      - name: Build web assets (minify scripts, strip CSS comments, build the base look)
         run: |
           set -o pipefail
           npm ci --prefix look --no-audit --no-fund 2>&1 | tail -n 25 | sed 's/^/::warning::npm: /'

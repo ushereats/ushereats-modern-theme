@@ -5,6 +5,7 @@ import { minify } from "terser";
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
+import postcss from "postcss";
 
 // Lint + typecheck: build fails on errors
 const isWin = process.platform === "win32";
@@ -71,7 +72,22 @@ function stripCss(css) {
     if (c === "/" && css[i + 1] === "*") { const e = css.indexOf("*/", i + 2); i = e < 0 ? css.length : e + 2; continue; }
     out += c; i++;
   }
-  return out.split("\n").map((l) => l.trim()).filter(Boolean).join("\n");
+  return minCss(out);
+}
+// Whitespace-only minify: same rules, same order, same values (nothing merged or rewritten), just no spaces/newlines
+// the browser doesn't need. Values with quotes are left exactly as written.
+function minCss(css) {
+  const ws = (t) => (/["']/.test(t) ? t.trim() : t.replace(/\s+/g, " ").trim());
+  const root = postcss.parse(css);
+  root.walkComments((c) => c.remove());
+  root.walk((n) => {
+    n.raws.before = ""; n.raws.after = "";
+    if (n.type === "decl") { n.raws.between = ":"; n.value = ws(n.value); if (n.important) n.raws.important = "!important"; }
+    else if (n.type === "rule") { n.raws.between = ""; n.raws.semicolon = false; n.selector = n.selectors.map(ws).join(","); }
+    else if (n.type === "atrule") { n.raws.between = ""; n.raws.afterName = " "; n.raws.semicolon = false; n.params = ws(n.params); if (!n.params) n.raws.afterName = ""; }
+  });
+  root.raws.after = "";
+  return root.toString();
 }
 const css = fs.readFileSync(path.join(SRC, "theme.css"), "utf8");
 const min = stripCss(css);

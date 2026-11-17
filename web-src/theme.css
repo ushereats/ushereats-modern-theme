@@ -295,14 +295,14 @@ html body #loginPage#loginPage::before {
 }
 
 /* only the username/password form: no "Manual Login" step, no user tiles */
-html body #loginPage .manualLoginForm.hide:not(#tb-x) { display: block !important; }
-html body #loginPage .visualLoginForm:not(#tb-x),
-html body #loginPage .btnManual:not(#tb-x),
-html body #loginPage .btnCancel:not(#tb-x),
-html body #loginPage .btnForgotPassword:not(#tb-x) { display: none !important; }
+html body #loginPage .manualLoginForm.hide { display: block !important; }
+html body #loginPage .visualLoginForm,
+html body #loginPage .btnManual,
+html body #loginPage .btnCancel,
+html body #loginPage .btnForgotPassword { display: none !important; }
 /* the Forgot Password page itself (if someone opens it by URL) */
-html body #forgotPasswordPage form:not(#tb-x), html body #forgotPasswordPage .readOnlyContent:not(#tb-x) { display: none !important; }
-html body #forgotPasswordPage:not(#tb-x)::after {
+html body #forgotPasswordPage form, html body #forgotPasswordPage .readOnlyContent { display: none !important; }
+html body #forgotPasswordPage::after {
   content: "Forgot your password? Join our Discord and message the admin.\A discord.gg/fgKX5u4Zn9";
   display: block; white-space: pre-line; text-align: center;
   margin: 30vh auto 0; padding: 0 24px; max-width: 520px;
@@ -335,10 +335,10 @@ html body #loginPage .manualLoginForm > .flex {
   flex-direction: column; align-items: flex-start !important;
   padding: 0 !important; margin-bottom: 30px;
 }
-html body #loginPage h1:not(#tb-x) {
+html body #loginPage h1 {
   font-size: 0 !important; margin: 0 !important; padding: 0 !important; letter-spacing: 0 !important;
 }
-html body #loginPage h1:not(#tb-x)::after {
+html body #loginPage h1::after {
   content: "Sign in";
   display: block;
   color: #fff; text-transform: none;
@@ -351,7 +351,7 @@ html body #loginPage .manualLoginForm > .flex::after {
 
 /* fields */
 html body #loginPage .inputContainer { margin: 0 0 18px !important; }
-html body #loginPage .inputLabel:not(#tb-x) {
+html body #loginPage .inputLabel {
   display: block; text-align: left; font-weight: 600; text-transform: uppercase;
   margin: 0 0 8px; transform: none;
 }
@@ -365,8 +365,8 @@ html body #loginPage .emby-input:not(#tb-x) {
   font-family: inherit;
   transition: border-color 150ms ease, background 150ms ease, box-shadow 150ms ease;
 }
-html body #loginPage .emby-input:not(#tb-x):hover { border-color: rgba(255, 255, 255, 0.18) !important; }
-html body #loginPage .emby-input:not(#tb-x):focus {
+html body #loginPage .emby-input:hover { border-color: rgba(255, 255, 255, 0.18) !important; }
+html body #loginPage .emby-input:focus {
   outline: none;
   background: rgba(255, 255, 255, 0.06) !important;
   border-color: var(--tb-login-red) !important;
@@ -379,16 +379,16 @@ html body #loginPage .checkboxContainer:not(#tb-x) {
   width: auto !important; margin: 2px 0 24px !important;
 }
 html body #loginPage .checkboxLabel { color: rgba(255, 255, 255, 0.7); }
-html body #loginPage .checkboxOutline:not(#tb-x) {
+html body #loginPage .checkboxOutline {
   border-radius: 6px !important; border: 1px solid rgba(255, 255, 255, 0.25) !important;
   background: rgba(255, 255, 255, 0.04) !important;
 }
-html body #loginPage .emby-checkbox:checked ~ .checkboxOutline:not(#tb-x) {
+html body #loginPage .emby-checkbox:checked ~ .checkboxOutline {
   background: var(--tb-login-red) !important; border-color: var(--tb-login-red) !important;
 }
 
 /* buttons */
-html body #loginPage .emby-button.block:not(#tb-x) {
+html body #loginPage .emby-button.block {
   display: flex; align-items: center; justify-content: center;
   height: 50px; width: 100%; box-sizing: border-box;
   margin: 0 0 10px !important; padding: 0 16px !important;
@@ -399,15 +399,15 @@ html body #loginPage .emby-button.block:not(#tb-x) {
   box-shadow: none !important;
   transition: background 150ms ease, border-color 150ms ease, transform 100ms ease, filter 150ms ease;
 }
-html body #loginPage .emby-button.block:not(#tb-x):hover { background: rgba(255, 255, 255, 0.08) !important; border-color: rgba(255, 255, 255, 0.22) !important; }
+html body #loginPage .emby-button.block:hover { background: rgba(255, 255, 255, 0.08) !important; border-color: rgba(255, 255, 255, 0.22) !important; }
 html body #loginPage .emby-button.button-submit:not(#tb-x) {
   background: var(--tb-login-red) !important; border-color: var(--tb-login-red) !important;
   color: #111 !important; font-weight: 700 !important;
   box-shadow: 0 10px 30px -12px rgba(var(--tb-accent-rgb, 232, 192, 80), 0.55) !important;
 }
-html body #loginPage .emby-button.button-submit:not(#tb-x):hover { background: var(--tb-login-red) !important; border-color: var(--tb-login-red) !important; filter: brightness(1.08); }
-html body #loginPage .emby-button.block:not(#tb-x):active { transform: scale(0.985); }
-html body #loginPage .emby-button.block:not(#tb-x):focus { outline: none; box-shadow: 0 0 0 2px #fff !important; }
+html body #loginPage .emby-button.button-submit:hover { background: var(--tb-login-red) !important; border-color: var(--tb-login-red) !important; filter: brightness(1.08); }
+html body #loginPage .emby-button.block:active { transform: scale(0.985); }
+html body #loginPage .emby-button.block:focus { outline: none; box-shadow: 0 0 0 2px #fff !important; }
 html body #loginPage .manualLoginForm > div[style] { margin-top: 0 !important; }
 
 /* "OR" divider */
@@ -427,18 +427,18 @@ html body #loginPage .loginDisclaimerContainer:not(#tb-x) {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   text-align: left;
 }
-html body #loginPage .loginDisclaimer:not(#tb-x) { display: contents; font-size: 0 !important; }
-html body #loginPage .loginDisclaimer:not(#tb-x) > * { display: none !important; }
+html body #loginPage .loginDisclaimer { display: contents; font-size: 0 !important; }
+html body #loginPage .loginDisclaimer > * { display: none !important; }
 
 /* tagline */
-html body #loginPage .loginDisclaimer:not(#tb-x)::before {
+html body #loginPage .loginDisclaimer::before {
   content: "100% Free  ·  As-Is  ·  Independent";
   order: 1; display: block; white-space: pre;
   font-family: var(--app-font, Inter, sans-serif); font-weight: 700; text-transform: uppercase;
   color: var(--tb-login-red);
 }
 /* headline: white line + gold brand line */
-html body #loginPage .loginDisclaimerContainer:not(#tb-x)::before {
+html body #loginPage .loginDisclaimerContainer::before {
   content: "Welcome to\A" var(--tb-login-brand);
   order: 2; display: block; white-space: pre;   /* exactly two lines: white, then gold */
   margin-top: 12px;
@@ -450,7 +450,7 @@ html body #loginPage .loginDisclaimerContainer:not(#tb-x)::before {
   -webkit-text-fill-color: transparent;
 }
 /* the three points */
-html body #loginPage .loginDisclaimer:not(#tb-x)::after {
+html body #loginPage .loginDisclaimer::after {
   content: "If you paid for this account, you were scammed.\A This is a private hobbyist server with no uptime guarantees.\A Not affiliated with the official Jellyfin Project.";
   order: 3; display: block; white-space: pre-line;
   margin-top: 18px; padding-left: 16px;
@@ -460,12 +460,12 @@ html body #loginPage .loginDisclaimer:not(#tb-x)::after {
   color: rgba(255, 255, 255, 0.66);
 }
 /* Discord pill (the Sign-in Extras script swaps it for a real clickable link) */
-html body #loginPage .loginDisclaimerContainer:not(#tb-x)::after {
+html body #loginPage .loginDisclaimerContainer::after {
   content: "Forgot password or need help? Join our Discord\A discord.gg/fgKX5u4Zn9";
 }
-html body #loginPage .loginDisclaimerContainer.tb-has-link:not(#tb-x)::after { content: none; display: none; }
-html body #loginPage .loginDisclaimerContainer:not(#tb-x)::after,
-html body #loginPage a.tb-discord-pill:not(#tb-x) {
+html body #loginPage .loginDisclaimerContainer.tb-has-link::after { content: none; display: none; }
+html body #loginPage .loginDisclaimerContainer::after,
+html body #loginPage a.tb-discord-pill {
   order: 4; display: block; white-space: pre-line; text-decoration: none !important;
   transition: background-color 150ms ease, border-color 150ms ease, transform 120ms ease;
   margin-top: 22px; padding: 11px 18px 11px 46px;
@@ -509,36 +509,36 @@ html body #loginPage a.tb-discord-pill:not(#tb-x) {
     transform: translateY(-50%);
     margin: 0; padding: 0; border: 0;
   }
-  html body #loginPage .loginDisclaimerContainer:not(#tb-x)::before { font-size: clamp(64px, 7.5vw, 124px); margin-top: 18px; }
-  html body #loginPage .loginDisclaimer:not(#tb-x)::before { font-size: 12px; }
-  html body #loginPage .loginDisclaimer:not(#tb-x)::after { font-size: 16px; margin-top: 26px; padding-left: 20px; }
-  html body #loginPage .loginDisclaimerContainer:not(#tb-x)::after,
-  html body #loginPage a.tb-discord-pill:not(#tb-x) { margin-top: 30px; }
+  html body #loginPage .loginDisclaimerContainer::before { font-size: clamp(64px, 7.5vw, 124px); margin-top: 18px; }
+  html body #loginPage .loginDisclaimer::before { font-size: 12px; }
+  html body #loginPage .loginDisclaimer::after { font-size: 16px; margin-top: 26px; padding-left: 20px; }
+  html body #loginPage .loginDisclaimerContainer::after,
+  html body #loginPage a.tb-discord-pill { margin-top: 30px; }
 }
 /* ── Section-title font (Bebas) for headings, labels and buttons ── */
-html body #loginPage h1:not(#tb-x)::after {
+html body #loginPage h1::after {
   font-family: var(--title-font, "Bebas Neue", sans-serif);
   font-size: 52px; font-weight: 400; line-height: 0.95; letter-spacing: 0.01em;
 }
 html body #loginPage .inputLabel:not(#tb-x),
 html body #loginPage .checkboxLabel,
 html body #loginPage .readOnlyContent::before,
-html body #loginPage .loginDisclaimer:not(#tb-x)::before {
+html body #loginPage .loginDisclaimer::before {
   font-family: var(--title-font, "Bebas Neue", sans-serif) !important;
   font-weight: 400 !important;
 }
 html body #loginPage .inputLabel:not(#tb-x) { font-size: 17px; letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.75) !important; }
 html body #loginPage .checkboxLabel { font-size: 17px; letter-spacing: 0.06em; }
 html body #loginPage .readOnlyContent::before { font-size: 15px; letter-spacing: 0.2em; }
-html body #loginPage .loginDisclaimer:not(#tb-x)::before { font-size: 18px !important; letter-spacing: 0.16em; }
+html body #loginPage .loginDisclaimer::before { font-size: 18px !important; letter-spacing: 0.16em; }
 html body #loginPage .emby-button.block:not(#tb-x) {
   font-family: var(--title-font, "Bebas Neue", sans-serif) !important;
   font-size: 21px !important; font-weight: 400 !important; letter-spacing: 0.06em !important;
   padding-top: 3px !important;   /* Bebas sits high: optical centring */
 }
-html body #loginPage a.tb-discord-pill:not(#tb-x):hover { background-color: rgba(88, 101, 242, 0.28) !important; border-color: rgba(88, 101, 242, 0.8); }
-html body #loginPage a.tb-discord-pill:not(#tb-x):active { transform: scale(0.98); }
-html body #loginPage a.tb-discord-pill:not(#tb-x):focus { outline: none; box-shadow: 0 0 0 2px #fff; }
+html body #loginPage a.tb-discord-pill:hover { background-color: rgba(88, 101, 242, 0.28) !important; border-color: rgba(88, 101, 242, 0.8); }
+html body #loginPage a.tb-discord-pill:active { transform: scale(0.98); }
+html body #loginPage a.tb-discord-pill:focus { outline: none; box-shadow: 0 0 0 2px #fff; }
 
 /* Loading spinner in the accent colour (whole app) */
 /* ═══════════ end sign-in page ═══════════ */
@@ -582,13 +582,13 @@ html body #loginPage a.tb-discord-pill:not(#tb-x):focus { outline: none; box-sha
 /* ═══════════ Settings + Profile pages ═══════════
    Settings menu, Profile, Display, Home, Playback, Subtitles, Controls, Quick Connect.
    Dark panels, Bebas headings, gold accents (follows the base look's accent). Delete this block to undo. */
-html body .userPreferencesPage:not(#tb-x) {
+html body .userPreferencesPage {
   --tb-set-panel: rgba(14, 14, 16, 0.72);
   --tb-set-line: rgba(255, 255, 255, 0.08);
 }
 /* each group becomes a rounded panel */
 html body .userPreferencesPage:not(#tb-x) .verticalSection,
-html body .userPreferencesPage:not(#tb-x) .updatePasswordForm {
+html body .userPreferencesPage .updatePasswordForm {
   background: var(--tb-set-panel);
   border: 1px solid var(--tb-set-line);
   border-radius: 18px;
@@ -613,94 +613,94 @@ html body #myPreferencesMenuPage .headerUsername.sectionTitle:not(#tb-x)::before
   font-family: var(--app-font, Inter, sans-serif); font-size: 12px; font-weight: 700;
   letter-spacing: 0.2em; text-transform: uppercase; color: var(--ue-accent, rgb(233, 196, 106));
 }
-html body .userPreferencesPage .listItem-border:not(#tb-x) {
+html body .userPreferencesPage .listItem-border {
   display: block !important; border: 0 !important; border-radius: 12px !important;
   margin: 2px 0 !important; padding: 0 !important; position: relative;
   transition: background-color 140ms ease;
 }
-html body .userPreferencesPage .listItem-border:not(#tb-x) .listItem {
+html body .userPreferencesPage .listItem-border .listItem {
   display: flex; align-items: center; gap: 14px; min-height: 0 !important;
   padding: 11px 12px !important; border: 0 !important; background: none !important;
 }
-html body .userPreferencesPage .listItem-border:not(#tb-x) .listItemIcon {
+html body .userPreferencesPage .listItem-border .listItemIcon {
   width: 38px !important; height: 38px !important; flex: 0 0 38px; margin: 0 !important; padding: 0 !important;
   display: flex !important; align-items: center; justify-content: center;
   border-radius: 10px !important; font-size: 20px !important;
   background: rgba(255, 255, 255, 0.06) !important; color: rgba(255, 255, 255, 0.82) !important;
   transition: background-color 140ms ease, color 140ms ease;
 }
-html body .userPreferencesPage .listItem-border:not(#tb-x) .listItemBodyText {
+html body .userPreferencesPage .listItem-border .listItemBodyText {
   font-size: 15px !important; font-weight: 600 !important; color: #fff;
 }
-html body .userPreferencesPage .listItem-border:not(#tb-x) .listItem::after {
+html body .userPreferencesPage .listItem-border .listItem::after {
   content: ""; margin-left: auto; margin-right: 6px; width: 8px; height: 8px; flex: 0 0 8px;
   border-right: 2px solid rgba(255, 255, 255, 0.3); border-bottom: 2px solid rgba(255, 255, 255, 0.3);
   transform: rotate(-45deg); transition: border-color 140ms ease, transform 140ms ease;
 }
-html body .userPreferencesPage .listItem-border:not(#tb-x):hover,
-html body .userPreferencesPage .listItem-border:not(#tb-x):focus {
+html body .userPreferencesPage .listItem-border:hover,
+html body .userPreferencesPage .listItem-border:focus {
   background: rgba(255, 255, 255, 0.06) !important; outline: none;
 }
-html body .userPreferencesPage .listItem-border:not(#tb-x):hover .listItemIcon,
-html body .userPreferencesPage .listItem-border:not(#tb-x):focus .listItemIcon {
+html body .userPreferencesPage .listItem-border:hover .listItemIcon,
+html body .userPreferencesPage .listItem-border:focus .listItemIcon {
   background: rgba(var(--tb-accent-rgb, 233, 196, 106), 0.18) !important;
   color: var(--ue-accent, rgb(233, 196, 106)) !important;
 }
-html body .userPreferencesPage .listItem-border:not(#tb-x):hover .listItem::after,
-html body .userPreferencesPage .listItem-border:not(#tb-x):focus .listItem::after {
+html body .userPreferencesPage .listItem-border:hover .listItem::after,
+html body .userPreferencesPage .listItem-border:focus .listItem::after {
   border-color: #fff; transform: translateX(2px) rotate(-45deg);
 }
-html body .userPreferencesPage .listItem-border:not(#tb-x):focus { box-shadow: 0 0 0 2px var(--ue-accent, rgb(233, 196, 106)); }
+html body .userPreferencesPage .listItem-border:focus { box-shadow: 0 0 0 2px var(--ue-accent, rgb(233, 196, 106)); }
 
 /* ── Profile page ── */
-html body #userProfilePage .imagePlaceHolder:not(#tb-x) { border-radius: 50%; }
-html body #userProfilePage #image:not(#tb-x) {
+html body #userProfilePage .imagePlaceHolder { border-radius: 50%; }
+html body #userProfilePage #image {
   width: 180px !important; height: 180px !important;
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08), 0 20px 50px -16px rgba(0, 0, 0, 0.8);
   transition: box-shadow 160ms ease, filter 160ms ease;
 }
-html body #userProfilePage .imagePlaceHolder:not(#tb-x):hover #image {
+html body #userProfilePage .imagePlaceHolder:hover #image {
   box-shadow: 0 0 0 4px var(--ue-accent, rgb(233, 196, 106)), 0 20px 50px -16px rgba(0, 0, 0, 0.8);
   filter: brightness(0.7);
 }
-html body #userProfilePage .imagePlaceHolder:not(#tb-x)::after {
+html body #userProfilePage .imagePlaceHolder::after {
   content: "Change photo"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
   font-family: var(--title-font, "Bebas Neue", sans-serif); font-size: 22px; letter-spacing: 0.06em; color: #fff;
   white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 160ms ease;
 }
-html body #userProfilePage .imagePlaceHolder:not(#tb-x):hover::after { opacity: 1; }
+html body #userProfilePage .imagePlaceHolder:hover::after { opacity: 1; }
 html body #userProfilePage h2.username:not(#tb-x) {
   font-family: var(--title-font, "Bebas Neue", sans-serif) !important;
   font-size: 60px !important; font-weight: 400 !important; line-height: 0.95; letter-spacing: 0.02em; color: #fff !important;
 }
-html body #userProfilePage h2.username:not(#tb-x) + br { display: none; }
-html body #userProfilePage #btnAddImage:not(#tb-x),
-html body #userProfilePage #btnDeleteImage:not(#tb-x) {
+html body #userProfilePage h2.username + br { display: none; }
+html body #userProfilePage #btnAddImage,
+html body #userProfilePage #btnDeleteImage {
   height: 40px; margin: 14px 0 0 !important; padding: 0 18px !important; border-radius: 999px !important;
   background: rgba(255, 255, 255, 0.06) !important; color: #fff !important;
   border: 1px solid rgba(255, 255, 255, 0.14) !important; box-shadow: none !important;
   font-size: 13px !important; font-weight: 600 !important; text-transform: none !important;
 }
-html body #userProfilePage #btnDeleteImage:not(#tb-x):hover { background: rgba(255, 90, 90, 0.12) !important; border-color: rgba(255, 120, 120, 0.5) !important; color: #ff9a9a !important; }
-html body #userProfilePage .updatePasswordForm:not(#tb-x)::before {
+html body #userProfilePage #btnDeleteImage:hover { background: rgba(255, 90, 90, 0.12) !important; border-color: rgba(255, 120, 120, 0.5) !important; color: #ff9a9a !important; }
+html body #userProfilePage .updatePasswordForm::before {
   content: "Change password"; display: block; margin-bottom: 16px;
   font-family: var(--title-font, "Bebas Neue", sans-serif); font-size: 28px; line-height: 1; letter-spacing: 0.02em; color: #fff;
 }
 @media (max-width: 700px) {
-  html body #userProfilePage .readOnlyContent:first-child:not(#tb-x) { flex-direction: column !important; text-align: center; }
+  html body #userProfilePage .readOnlyContent:first-child { flex-direction: column !important; text-align: center; }
   html body #userProfilePage h2.username:not(#tb-x) { font-size: 44px !important; }
 }
 
 /* ── Fields everywhere on these pages ── */
-html body .userPreferencesPage .inputLabel:not(#tb-x),
+html body .userPreferencesPage .inputLabel,
 html body .userPreferencesPage .selectLabel:not(#tb-x),
-html body .userPreferencesPage .checkboxListLabel:not(#tb-x),
-html body .userPreferencesPage .textareaLabel:not(#tb-x) {
+html body .userPreferencesPage .checkboxListLabel,
+html body .userPreferencesPage .textareaLabel {
   font-size: 13px !important; font-weight: 600 !important; color: rgba(255, 255, 255, 0.72) !important; margin-bottom: 8px;
 }
 html body .userPreferencesPage .emby-input:not(#tb-x),
 html body .userPreferencesPage .emby-select:not(#tb-x),
-html body .userPreferencesPage .emby-textarea:not(#tb-x) {
+html body .userPreferencesPage .emby-textarea {
   background: rgba(255, 255, 255, 0.04) !important; color: #fff !important;
   border: 1px solid rgba(255, 255, 255, 0.10) !important; border-radius: 12px !important;
   font-size: 14px !important; box-sizing: border-box;
@@ -709,34 +709,34 @@ html body .userPreferencesPage .emby-textarea:not(#tb-x) {
 html body .userPreferencesPage .emby-input:not(#tb-x),
 html body .userPreferencesPage .emby-select:not(#tb-x) { height: 46px; padding: 0 14px !important; }
 html body .userPreferencesPage .emby-select:not(#tb-x) { padding-right: 40px !important; }
-html body .userPreferencesPage .emby-select:not(#tb-x) option { background: #141416; color: #fff; }
-html body .userPreferencesPage .emby-input:not(#tb-x):hover,
-html body .userPreferencesPage .emby-select:not(#tb-x):hover,
-html body .userPreferencesPage .emby-textarea:not(#tb-x):hover { border-color: rgba(255, 255, 255, 0.2) !important; }
-html body .userPreferencesPage .emby-input:not(#tb-x):focus,
-html body .userPreferencesPage .emby-select:not(#tb-x):focus,
-html body .userPreferencesPage .emby-textarea:not(#tb-x):focus {
+html body .userPreferencesPage .emby-select option { background: #141416; color: #fff; }
+html body .userPreferencesPage .emby-input:hover,
+html body .userPreferencesPage .emby-select:hover,
+html body .userPreferencesPage .emby-textarea:hover { border-color: rgba(255, 255, 255, 0.2) !important; }
+html body .userPreferencesPage .emby-input:focus,
+html body .userPreferencesPage .emby-select:focus,
+html body .userPreferencesPage .emby-textarea:focus {
   outline: none; background: rgba(255, 255, 255, 0.06) !important;
   border-color: var(--ue-accent, rgb(233, 196, 106)) !important;
   box-shadow: 0 0 0 4px rgba(var(--tb-accent-rgb, 233, 196, 106), 0.14);
 }
-html body .userPreferencesPage .fieldDescription:not(#tb-x) { font-size: 12.5px; line-height: 1.5; color: rgba(255, 255, 255, 0.5) !important; margin-top: 6px; }
-html body .userPreferencesPage .checkboxOutline:not(#tb-x) { border-radius: 6px !important; }
+html body .userPreferencesPage .fieldDescription { font-size: 12.5px; line-height: 1.5; color: rgba(255, 255, 255, 0.5) !important; margin-top: 6px; }
+html body .userPreferencesPage .checkboxOutline { border-radius: 6px !important; }
 html body .userPreferencesPage .inputContainer:not(#tb-x),
-html body .userPreferencesPage .selectContainer:not(#tb-x),
-html body .userPreferencesPage .checkboxContainer:not(#tb-x) { margin-bottom: 18px !important; }
+html body .userPreferencesPage .selectContainer,
+html body .userPreferencesPage .checkboxContainer { margin-bottom: 18px !important; }
 
 /* ── Buttons: gold Save, outlined secondary ── */
-html body .userPreferencesPage .button-submit:not(#tb-x) {
+html body .userPreferencesPage .button-submit {
   height: 48px; border-radius: 12px !important; border: 0 !important; box-shadow: none !important;
   background: var(--ue-accent, rgb(233, 196, 106)) !important; color: #111 !important;
   font-size: 15px !important; font-weight: 700 !important; text-transform: none !important;
   transition: filter 140ms ease, transform 100ms ease;
 }
-html body .userPreferencesPage .button-submit:not(#tb-x):hover { filter: brightness(1.08); }
-html body .userPreferencesPage .button-submit:not(#tb-x):active { transform: scale(0.985); }
-html body .userPreferencesPage .button-submit:not(#tb-x):focus { outline: none; box-shadow: 0 0 0 2px #fff !important; }
-html body .userPreferencesPage .button-cancel:not(#tb-x) {
+html body .userPreferencesPage .button-submit:hover { filter: brightness(1.08); }
+html body .userPreferencesPage .button-submit:active { transform: scale(0.985); }
+html body .userPreferencesPage .button-submit:focus { outline: none; box-shadow: 0 0 0 2px #fff !important; }
+html body .userPreferencesPage .button-cancel {
   height: 48px; border-radius: 12px !important; background: rgba(255, 255, 255, 0.06) !important;
   border: 1px solid rgba(255, 255, 255, 0.14) !important; color: #fff !important; box-shadow: none !important;
 }
@@ -813,7 +813,7 @@ html body :is(.page, header.MuiAppBar-root) :is(.MuiButtonGroup-root > .MuiButto
 }
 
 /* A–Z bar: floating glass capsule, gold selected letter */
-html body .alphaPicker-fixed-right:not(#tb-x) {
+html body .alphaPicker-fixed-right {
   padding: 8px 4px !important; right: 10px !important;
   background: rgba(14, 14, 16, 0.72); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 999px;
   box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.8);
@@ -825,7 +825,7 @@ html body .alphaPicker:not(#tb-x) .alphaPickerButton {
   color: rgba(255, 255, 255, 0.55) !important; font: 700 11px/1.5 var(--app-font, Inter, sans-serif) !important;
   transition: background-color 120ms ease, color 120ms ease;
 }
-html body .alphaPicker:not(#tb-x) .alphaPickerButton:hover { color: #fff !important; background: rgba(255, 255, 255, 0.08) !important; }
+html body .alphaPicker .alphaPickerButton:hover { color: #fff !important; background: rgba(255, 255, 255, 0.08) !important; }
 html body .alphaPicker:not(#tb-x) .alphaPickerButton:is(.Mui-selected, .alphaPickerButton-selected) {
   color: #111 !important; background: var(--ue-accent, rgb(233, 196, 106)) !important;
 }
@@ -860,7 +860,7 @@ html body { overflow-x: clip; }
 
 @media (max-width: 899px) {
   /* library pages: the A-Z strip on the right doesn't cover the last column */
-  html:not(.layout-tv) body .page:not(.hide):not(#tb-x):not(#tb-y):has(.alphaPicker-fixed-right) .itemsContainer.vertical-wrap {
+  html:not(.layout-tv) body .page:not(.hide):not(#tb-y):has(.alphaPicker-fixed-right) .itemsContainer.vertical-wrap {
     padding-right: 48px !important;
     box-sizing: border-box;
   }

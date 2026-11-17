@@ -124,6 +124,12 @@ public class PluginConfiguration : BasePluginConfiguration
 
     /// <summary>Player bar style: true = floating glass dock, false = the classic bar (big play button in the middle).</summary>
     public bool PlayerDock { get; set; } = true;
+
+    /// <summary>Netflix-style hover cards: rest on a poster and it grows into a bigger card with Play, My List, Watched and details.</summary>
+    public bool HoverPreview { get; set; } = true;
+
+    /// <summary>The clicked poster grows into the title pop-up (and shrinks back when it closes).</summary>
+    public bool PopupAnimation { get; set; } = true;
 }
 
 /// <summary>Who can use a feature that may need a gradual rollout.</summary>

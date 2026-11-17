@@ -132,7 +132,8 @@
     "#tb-pop .tb-pop-ep-btn{grid-template-columns:30px 40% minmax(0,1fr);grid-template-areas:'num img title' 'num img foot' 'ov ov ov';column-gap:12px;padding:12px 4px}" +
     "#tb-pop .tb-pop-ep-img{grid-row:1/span 2;width:100%;height:auto;aspect-ratio:16/9}#tb-pop .tb-pop-ep-n{grid-row:1/span 2;font-size:28px}" +
     "#tb-pop .tb-pop-ep-t{white-space:normal;font-size:15px}#tb-pop .tb-pop-ep-o{margin-top:8px;font-size:13px}" +
-    "#tb-pop .tb-pop-close{top:12px;right:12px}}";
+    "#tb-pop .tb-pop-close{top:12px;right:12px}}" +
+    ".tb-pop-ghost{position:fixed;z-index:1201;pointer-events:none;background:#16161a center/cover no-repeat;box-shadow:0 30px 80px rgba(0,0,0,.55);will-change:left,top,width,height}";
 
   // ── the panel's frame (made once) ──
   function frame() {
@@ -150,6 +151,22 @@
       var t = e.target;
       if (t && t.closest && t.closest(".tb-pop-close")) { e.preventDefault(); userClose(); }
     });
+    // Play / Resume (the main button or an episode): the title's picture stays up while the video starts,
+    // instead of a black screen (36-play-launch.js)
+    panel.addEventListener("click", function (e) {
+      var b = e.target && e.target.closest && e.target.closest('[data-action="play"], [data-action="resume"]');
+      if (!b || !window.tbLaunch) return;
+      var bd = panel.querySelector(".tb-pop-bd"), lg = panel.querySelector(".tb-pop-logo"), tt = panel.querySelector(".tb-pop-title");
+      var ep = b.closest(".tb-pop-ep"), sub = "";
+      if (ep) {
+        var n = ep.querySelector(".tb-pop-ep-n"), et = ep.querySelector(".tb-pop-ep-t");
+        sub = (n && n.textContent ? "E" + parseInt(n.textContent, 10) + " · " : "") + (et ? et.textContent : "");
+      } else {
+        var lab = b.querySelector("span:last-child");
+        sub = lab ? lab.textContent.replace(/^(Play|Resume)\s*/, "").trim() : "";
+      }
+      window.tbLaunch({ bg: bd && bd.style.backgroundImage, logo: lg && lg.src, title: tt ? tt.textContent : (lg ? lg.alt : ""), sub: sub });
+    }, true);
     panel.addEventListener("change", function (e) {
       var s = e.target;
       if (s && s.classList && s.classList.contains("tb-pop-season") && cur) loadEpisodes(cur.seriesId, s.value, gen);
@@ -157,9 +174,58 @@
   }
 
   // ── open / close ──
-  function open(id, type, fromHistory) {
+  // ── the poster growing into the panel (setting: Titles > Poster to pop-up animation) ──
+  var ANIM = tbCfg("PopupAnimation", true) !== false && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var EASE = "cubic-bezier(.2,.8,.2,1)";
+  // the picture of what was clicked: where it is on screen and what it shows
+  function sourceOf(el) {
+    var c = el && el.closest ? (el.closest(".card[data-id]") || el.closest(".listItem[data-id]")) : null;
+    var img = c && (c.querySelector(".cardImageContainer") || c.querySelector(".cardScalable") || c.querySelector(".listItemImage"));
+    if (!img) return null;
+    var r = img.getBoundingClientRect();
+    if (r.width < 24 || r.height < 24 || r.bottom < 0 || r.top > window.innerHeight) return null;
+    var bg = getComputedStyle(img).backgroundImage;
+    if (!bg || bg === "none") bg = img.getAttribute("data-tb-src") ? 'url("' + img.getAttribute("data-tb-src") + '")' : null;
+    if (!bg) return null;
+    return { el: img, rect: r, bg: bg, radius: getComputedStyle(img).borderRadius || "8px" };
+  }
+  function ghost(bg) {
+    var g = document.createElement("div");
+    g.className = "tb-pop-ghost";
+    g.style.backgroundImage = bg;
+    document.body.appendChild(g);
+    return g;
+  }
+  function frameAt(r, radius, opacity) {
+    return { left: r.left + "px", top: r.top + "px", width: r.width + "px", height: r.height + "px", borderRadius: radius, opacity: opacity };
+  }
+  function heroRect() {
+    var h = panel && panel.querySelector(".tb-pop-hero"), b = root.querySelector(".tb-pop-box");
+    var br = b.getBoundingClientRect(), hr = h ? h.getBoundingClientRect() : br;
+    return { left: br.left, top: br.top, width: br.width, height: Math.min(hr.height || br.height, br.height) };
+  }
+  function flyIn(src) {
+    if (!ANIM || !src || !root || !root.animate) return;
+    var box = root.querySelector(".tb-pop-box"), shade = root.querySelector(".tb-pop-shade");
+    var to = heroRect(), g = ghost(src.bg);
+    g.animate([frameAt(src.rect, src.radius, 1), Object.assign(frameAt(to, "18px", 1), { offset: 0.72 }), frameAt(to, "18px", 0)],
+      { duration: 460, easing: EASE, fill: "forwards" }).onfinish = function () { g.remove(); };
+    box.animate([{ opacity: 0, transform: "scale(.97)" }, { opacity: 1, transform: "none" }], { duration: 260, delay: 170, easing: EASE, fill: "backwards" });
+    shade.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: "ease-out" });
+  }
+  function flyBack(src) {
+    if (!ANIM || !src || !src.el || !src.el.isConnected || !root || !root.animate) return;
+    var r = src.el.getBoundingClientRect();
+    if (r.width < 24 || r.bottom < 0 || r.top > window.innerHeight || !src.el.getClientRects().length) return;
+    var from = heroRect(), g = ghost(src.bg);
+    g.animate([frameAt(from, "18px", 0.4), Object.assign(frameAt(from, "18px", 1), { offset: 0.12 }), frameAt(r, src.radius, 1)],
+      { duration: 340, easing: EASE, fill: "forwards" }).onfinish = function () { g.remove(); };
+  }
+
+  function open(id, type, fromHistory, src) {
     if (!id || !api() || !uid()) return false;
     frame();
+    var wasOpen = html.classList.contains("tb-pop-open");
     if (!fromHistory) {
       // a marker in the browser history (same address), so back / forward close and reopen the panel
       var st = {};
@@ -171,12 +237,15 @@
     }
     if (!fromHistory && window.tbTitleSound) window.tbTitleSound();
     var token = ++gen;
-    cur = { id: id, type: type || "", seriesId: null };
+    // (opened from inside the panel, like "More like this": it was already open, nothing flies)
+    var from = !fromHistory && !wasOpen && src && src.bg ? src : null;
+    cur = { id: id, type: type || "", seriesId: null, src: from || (wasOpen && cur ? cur.src : null) };
     html.classList.add("tb-pop-open");
     // instant first draw from what hovering the poster already fetched, then the full details
     var known = window.tbItemMeta && window.tbItemMeta[id];
     draw(known && known.Name ? known : { Id: id, Type: type || "" }, token, true);
     panel.scrollTop = 0;
+    if (from) flyIn(from);
     try { panel.focus({ preventScroll: true }); } catch (e) {}
     Promise.resolve(api().getItem(uid(), id)).then(function (item) {
       if (token !== gen || !item) return;
@@ -205,8 +274,9 @@
     return true;
   }
 
-  function closeUI() {
+  function closeUI(animate) {
     if (!cur && !html.classList.contains("tb-pop-open")) return;
+    if (animate && cur && cur.src) { try { flyBack(cur.src); } catch (e) {} }
     gen++;
     cur = null;
     html.classList.remove("tb-pop-open");
@@ -216,7 +286,7 @@
   function userClose() {
     if (!cur) return;
     if (history.state && history.state.tbPop) history.back();   // the back below closes it
-    else closeUI();
+    else closeUI(true);
   }
 
   function detailsHref(id) { return "#/details?id=" + id + "&serverId=" + sid(); }
@@ -559,10 +629,11 @@
     if (!api() || !uid()) return;
     e.preventDefault();
     e.stopImmediatePropagation();
-    if (type) { open(id, type); return; }
+    var src = ANIM ? sourceOf(t) : null;
+    if (type) { open(id, type, false, src); return; }
     // a plain link: find out what it is, then the panel or its normal page
     typeOf(id).then(function (tp) {
-      if (TYPES[tp]) open(id, tp);
+      if (TYPES[tp]) open(id, tp, false, src);
       else location.hash = detailsHref(id);
     }, function () { location.hash = detailsHref(id); });
   }, true);
@@ -586,7 +657,7 @@
       return;
     }
     if (cur) {
-      closeUI();
+      closeUI(true);
       e.stopImmediatePropagation();
     }
   }, true);
@@ -602,6 +673,12 @@
       return r;
     };
   });
+
+  // for the hover cards: open a title's panel, growing from a given picture ({ rect, bg, radius })
+  window.tbPopOpen = function (id, type, src) {
+    if (!enabled || !TYPES[type]) return false;
+    return open(id, type, false, src && src.bg ? src : null);
+  };
 
   function start(on) {
     if (!on || enabled) return;

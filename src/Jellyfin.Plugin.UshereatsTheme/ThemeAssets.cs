@@ -138,6 +138,8 @@ public static class ThemeAssets
         ("js_31_title_popup.js", c => c.TitlePopup != Configuration.FeatureLevel.Off),
         ("js_32_title_sound.js", c => c.TitleSound),
         ("js_33_player_episodes.js", c => c.PlayerEpisodes),
+        ("js_35_hover_preview.js", c => c.HoverPreview),
+        ("js_36_play_launch.js", c => c.HoverPreview || c.TitlePopup != Configuration.FeatureLevel.Off),
     };
 
     private static readonly Dictionary<string, Payload?> StudioCache = new Dictionary<string, Payload?>(StringComparer.OrdinalIgnoreCase);

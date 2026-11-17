@@ -118,13 +118,18 @@
     function upd(k) { return function (v) { if (v != null) { for (var x in v) d[x] = v[x]; draw(hero, d); try { localStorage.setItem("tb-dash-hero", JSON.stringify(d)); } catch (e) {} } }; }
     cached("sysinfo", 60000, function () { return Promise.resolve(a.getSystemInfo()); })
       .then(function (info) { info = info || {}; return { name: info.ServerName, version: info.Version, update: !!info.HasUpdateAvailable, restart: !!info.HasPendingRestart }; }).then(upd()).catch(noop);
+    cached("plugins", 300000, function () { return Promise.resolve(a.getInstalledPlugins()); })
+      .then(function (list) {
+        var me = (list || []).filter(function (x) { return String(x.Id || "").replace(/-/g, "") === "01c723cc57de4e19b13c514b644491a5"; })[0];
+        return me ? { theme: String(me.Version || "").replace(/\.0$/, "") } : null;
+      }).then(upd()).catch(noop);
     cached("sessions", 10000, function () { return Promise.resolve(a.getSessions({ ActiveWithinSeconds: 960 })); })
       .then(function (sessions) { return sessions ? { streams: sessions.filter(function (s) { return s.NowPlayingItem; }).length, devices: sessions.length } : null; }).then(upd()).catch(noop);
     cached("users", 1800000, function () { return Promise.resolve(a.getUsers()); })
       .then(function (users) { return users ? { users: users.length } : null; }).then(upd()).catch(noop);
   }
   function draw(hero, d) {
-    var key = [d.name, d.version, d.update, d.restart, d.streams, d.devices, d.users].join("|");
+    var key = [d.name, d.version, d.theme, d.update, d.restart, d.streams, d.devices, d.users].join("|");
     if (hero.__key === key) return;
     hero.__key = key;
     hero.__name.textContent = d.name || "Jellyfin";
@@ -134,6 +139,7 @@
     on.appendChild(document.createTextNode("Online"));
     hero.__chips.appendChild(on);
     if (d.version) hero.__chips.appendChild(el("span", "tb-chip", "v" + d.version));
+    if (d.theme) hero.__chips.appendChild(el("span", "tb-chip", "Ushereats Theme v" + d.theme));
     if (d.update) hero.__chips.appendChild(el("span", "tb-chip acc", "Update available"));
     if (d.restart) hero.__chips.appendChild(el("span", "tb-chip warn", "Restart pending"));
     hero.__stats.textContent = "";

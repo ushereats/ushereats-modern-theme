@@ -6,9 +6,6 @@ html:is(.ue-hero-boot-loading, .ue-hero-loading) #indexPage.homePage.libraryPage
 }
 
 /* MediaBar sets its duplicate carousel inline, so hide it while UeTheme owns the home hero. */
-html.ue-hero-mounted #slides-container {
-    display: none !important;
-}
 
 /* the hero sits right before #homeTab; the rows rise over the bottom of the banner */
 #indexPage > .ue-hero + #homeTab > .sections {

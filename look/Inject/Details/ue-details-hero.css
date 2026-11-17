@@ -117,7 +117,6 @@ html.ue-details-mounted #itemDetailPage[data-ue-details] > #itemBackdrop > ifram
 
 .ue-details-back {
     border-radius: 999px;
-    color: var(--ue-text);
     height: 40px;
     left: var(--ue-page-gutter);
     pointer-events: auto;
@@ -359,10 +358,6 @@ html.ue-details-mounted.ue-header-mounted [data-ue-header-menu-offset="true"] {
 .ue-details-facts .mediaInfoItem-audioLanguage {
     margin: 0;
     max-width: 100%;
-    min-width: 0;
-}
-
-.ue-details-facts .audio-languages-container {
     min-width: 0;
 }
 

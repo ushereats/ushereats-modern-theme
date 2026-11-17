@@ -131,7 +131,6 @@ html.ue-details-mounted #itemDetailPage[data-ue-details] .detailVerticalSection 
 
 html.ue-details-mounted #itemDetailPage[data-ue-details] .detailVerticalSection .cardText {
     color: var(--ue-text);
-    font-family: var(--app-font);
 }
 
 html.ue-details-mounted #itemDetailPage[data-ue-details] .detailVerticalSection .cardText-secondary {
@@ -181,7 +180,6 @@ html.ue-details-mounted #castCollapsible .cardText {
     font-weight: 500;
     font-size: 13px;
     line-height: 18px;
-    font-family: var(--app-font);
     padding: 6px 0 0;
     text-align: start !important;
 }

@@ -294,9 +294,6 @@ html.ue-main-ui .ue-details-info-metadata .streaming-lookup-container .ue-detail
     outline-offset: 2px;
 }
 
-.ue-details-track-trigger:disabled {
-}
-
 .ue-details-track-native:disabled ~ .ue-details-track {
     opacity: 0.45;
 }

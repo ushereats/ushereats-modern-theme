@@ -59,10 +59,6 @@ html.tb-ambient :is(.backgroundContainer, .mainAnimatedPages, .skinBody, .mainAn
     background: transparent !important;
 }
 
-html.tb-ambient-page :is(.page:not(.hide), .mainAnimatedPage:not(.hide) .pageTabContent, .mainAnimatedPage:not(.hide) .itemsContainer) {
-    background: transparent !important;
-}
-
 /* Jellyfin's full-screen backdrop ("Backdrops" display setting): the ambient background replaces it */
 html.tb-ambient :is(.backdropContainer, .backgroundContainer.withBackdrop) {
     display: none !important;

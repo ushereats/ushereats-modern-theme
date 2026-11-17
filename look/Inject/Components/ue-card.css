@@ -176,7 +176,6 @@ html.ue-main-ui .card:is([data-type], .chapterCard):not(.ue-details-episode) .ca
     font-weight: 500;
     font-size: 13px;
     line-height: 1.375;
-    font-family: var(--app-font);
 }
 
 html.ue-main-ui .card[data-type]:not(.ue-details-episode) .cardText-secondary {
@@ -346,8 +345,4 @@ html.ue-main-ui[data-ue-media-card-shape="Circle"] .ue-details-episode-list[data
 .card:active .cardBox {
     transform: scale(0.96) !important;
     transition-duration: 80ms !important;
-}
-
-html.is-scrolling .card .cardBox {
-    transition: none !important;
 }

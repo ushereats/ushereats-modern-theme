@@ -66,21 +66,10 @@
 .ue-details-season-title {
     color: var(--ue-text);
     font-style: normal;
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 1.05;
-    font-family: var(--title-font);
-    letter-spacing: -0.025em;
     margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-@media (min-width: 768px) {
-    .ue-details-season-title {
-        font-size: 36px;
-    }
 }
 
 .ue-details-season-native,
@@ -133,27 +122,6 @@
 .ue-details-control,
 .ue-details-episode-download {
     transition: color 180ms ease;
-}
-
-.ue-details-view-controls {
-    border-radius: 12px;
-    display: flex;
-    height: 36px;
-    padding: 2px;
-}
-
-.ue-details-view-controls .ue-details-control {
-    background: transparent !important;
-    border: 0 !important;
-    border-radius: 10px;
-    box-shadow: none;
-    height: 32px;
-    width: 32px;
-}
-
-.ue-details-view-controls .ue-details-control[data-active="true"] {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: var(--ue-text);
 }
 
 .ue-details-search {
@@ -298,7 +266,6 @@
     font-weight: 600;
     font-size: 17px;
     line-height: 22px;
-    font-family: var(--app-font);
     min-width: 0;
     overflow: visible;
     padding: 0;

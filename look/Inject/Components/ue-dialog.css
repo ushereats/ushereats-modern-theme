@@ -15,10 +15,6 @@ html.ue-main-ui .dialog.ue-more-menu,html.ue-main-ui .MuiDialog-paper {
     max-width: calc(100% - 32px);
 }
 
-@media (max-width: 80em), (max-height: 45em) {
-
-}
-
 html.ue-main-ui :is(.dialogBackdrop, .MuiBackdrop-root, #streaming-settings-modal) {
     -webkit-backdrop-filter: blur(2px);
     backdrop-filter: blur(2px);

@@ -138,10 +138,6 @@ html.ue-media-mounted :is(#indexPage, #searchPage) .sectionTitleTextButton:hover
     transform: translateX(2px);
 }
 
-html.ue-media-mounted #indexPage .homeLibraryButtonContainer {
-    margin-inline: 0;
-}
-
 html.ue-media-mounted #indexPage .homeLibraryButton {
     background: var(--ue-surface) !important;
     border: 1px solid var(--ue-border);
@@ -250,7 +246,6 @@ html.ue-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedP
     font-weight: 500;
     font-size: 13px;
     line-height: 1.375;
-    font-family: var(--app-font);
     letter-spacing: 0;
 }
 
@@ -348,12 +343,6 @@ html.ue-main-ui #indexPage .homeSectionsContainer .verticalSection:not(.tb-studi
 
 /* ════════ Home layout (not on TV: remote focus zoom needs the room) ════════ */
 /* room above and below a row so a grown poster isn't cut off */
-@media (hover: hover) and (pointer: fine) {
-    html:not(.layout-tv) #indexPage .homeSectionsContainer .emby-scroller {
-        padding-bottom: max(18px, 1.4vw) !important;
-        padding-top: max(14px, 1.2vw) !important;
-    }
-}
 
 html:not(.layout-tv) {
     --tb-lift: clamp(40px, 9vh, 100px); /* how far the first row rises into the banner */

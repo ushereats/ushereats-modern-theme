@@ -35,7 +35,6 @@ html.ue-details-mounted #similarCollapsible .cardText {
     font-weight: 500;
     font-size: 13px;
     line-height: 1.375;
-    font-family: var(--app-font);
     padding: 10px 2px 0;
     text-align: start !important;
 }

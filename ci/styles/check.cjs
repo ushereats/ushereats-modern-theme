@@ -188,7 +188,10 @@ async function snapshot(browser, css) {
     return;
   }
   if (!fs.existsSync(FILE)) { console.error('no snapshot: run `npm run check-styles -- save` first'); process.exit(2); }
-  const base = JSON.parse(zlib.gunzipSync(fs.readFileSync(FILE)));
+  // keys are selectors: a selector that only lost ':not(#tb-x)' (or got it) is the same piece of markup
+  const norm = (o) => { const r = {}; for (const k of Object.keys(o)) r[k.split(':not(#tb-x)').join('')] = o[k]; return r; };
+  const base = norm(JSON.parse(zlib.gunzipSync(fs.readFileSync(FILE))));
+  Object.assign(snap, norm(snap)); for (const k of Object.keys(snap)) if (k.includes(':not(#tb-x)')) delete snap[k];
   let diffs = 0; const lines = [];
   for (const k of Object.keys(base)) {
     if (!(k in snap)) continue;   // selector removed/renamed: nothing to compare

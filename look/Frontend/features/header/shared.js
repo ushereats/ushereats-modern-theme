@@ -1,0 +1,208 @@
+import { dom } from '../../shared/runtime.js';
+
+export function isTvLayout() {
+  return document.documentElement.classList.contains('layout-tv') || Boolean(document.body?.classList.contains('layout-tv'));
+}
+
+export function layoutMode() {
+  if (isTvLayout()) return 'desktop';
+  const compact = typeof window.matchMedia === 'function' ? window.matchMedia('(max-width: 899px)').matches : window.innerWidth < 900;
+  return compact || document.documentElement.classList.contains('layout-mobile') ? 'compact' : 'desktop';
+}
+
+function findVisibleHeader(selector, childSelector) {
+  return Array.from(document.querySelectorAll(selector)).find((header) => !header.classList.contains('osdHeader') && dom.isVisible(header) && Boolean(header.querySelector(childSelector))) || null;
+}
+
+export function findSurface() {
+  const modern = findVisibleHeader('header.MuiAppBar-root', '.MuiToolbar-root');
+  if (modern) return { header: modern, kind: 'modern' };
+
+  const legacy = findVisibleHeader('.skinHeader', '.headerTop');
+  return legacy ? { header: legacy, kind: 'legacy' } : null;
+}
+
+function ownAttribute(mount, element, name) {
+  const existing = mount.ownedAttributes.find((record) => record.element === element && record.name === name);
+  if (!existing) {
+    mount.ownedAttributes.push({
+      element,
+      hadValue: element.hasAttribute(name),
+      name,
+      value: element.getAttribute(name),
+    });
+  }
+}
+
+function ownStyle(mount, element, name) {
+  const existing = mount.ownedStyles.find((record) => record.element === element && record.name === name);
+  if (!existing) {
+    mount.ownedStyles.push({
+      element,
+      name,
+      priority: element.style.getPropertyPriority(name),
+      value: element.style.getPropertyValue(name),
+    });
+  }
+}
+
+export function mark(mount, element, name, value) {
+  if (!element) return;
+
+  ownAttribute(mount, element, name);
+  const nextValue = value === undefined ? 'true' : value;
+  if (element.getAttribute(name) !== nextValue) {
+    element.setAttribute(name, nextValue);
+  }
+}
+
+// What this header last wrote to each style, as given. The browser hands values back rewritten (colours,
+// numbers), so comparing with what it reports always looked "changed": every settings pass rewrote every
+// variable on the page root, restyling the whole page each time (about a hundred times while it starts).
+const written = new WeakMap();
+
+export function setStyle(mount, element, name, value, priority) {
+  if (!element) return;
+
+  ownStyle(mount, element, name);
+  const nextPriority = priority || '';
+  let mine = written.get(element);
+  if (!mine) { mine = new Map(); written.set(element, mine); }
+  const stamp = `${value}|${nextPriority}`;
+  // skip only when it's still exactly what we left there (nothing else changed it since)
+  if (mine.get(name)?.stamp === stamp && element.style.getPropertyValue(name) === mine.get(name).seen && element.style.getPropertyPriority(name) === nextPriority) return;
+  if (element.style.getPropertyValue(name) !== value || element.style.getPropertyPriority(name) !== nextPriority) {
+    element.style.setProperty(name, value, nextPriority);
+  }
+  mine.set(name, { stamp, seen: element.style.getPropertyValue(name) });
+}
+
+// PCs (900px+, not TV) use the desktop logo size; phones/tablets/TV use the normal one.
+function logoHeightFor(settings) {
+  const wide = typeof window.matchMedia === 'function' ? window.matchMedia('(min-width: 900px)').matches : window.innerWidth >= 900;
+  return wide && !isTvLayout() ? settings.desktopLogoHeight : settings.logoHeight;
+}
+
+export function applySettings(mount, settings) {
+  const root = document.documentElement;
+  const logoHeight = logoHeightFor(settings);
+  const variables = {
+    '--ue-header-active-background': settings.activeItemBackgroundColor,
+    '--ue-header-active-opacity': String(settings.activeItemOpacity / 100),
+    '--ue-header-active-text': settings.activeItemTextColor,
+    '--ue-header-bar-padding': `${settings.barPadding}px`,
+    '--ue-header-bar-top': `${(settings.height - settings.itemHeight - 2 * settings.barPadding) / 2}px`,
+    '--ue-header-brand-gap': `${settings.brandSpacing}px`,
+    '--ue-header-brand-top': `calc((var(--ue-header-height, ${settings.height}px) - ${logoHeight}px) / 2)`,
+    '--ue-header-height': `${settings.height}px`,
+    '--ue-header-hover-opacity': String(settings.hoverOpacity / 100),
+    '--ue-header-item-background': settings.itemBackgroundColor,
+    '--ue-header-item-height': `${settings.itemHeight}px`,
+    '--ue-header-item-spacing': `${settings.itemSpacing}px`,
+    '--ue-header-item-text': settings.itemTextColor,
+    '--ue-header-logo-height': `${logoHeight}px`,
+    '--ue-header-name-color': settings.serverNameColor,
+  };
+
+  Object.keys(variables).forEach((name) => setStyle(mount, root, name, variables[name]));
+  mark(mount, root, 'data-ue-header-bar-position', settings.barPosition.toLowerCase());
+  mark(mount, root, 'data-ue-header-layout', layoutMode());
+  mark(mount, root, 'data-ue-header-brand-display', settings.brandDisplay.toLowerCase());
+  mark(mount, root, 'data-ue-header-brand-position', settings.brandPosition.toLowerCase());
+}
+
+export function directChildren(element) {
+  return element ? Array.from(element.children) : [];
+}
+
+function rememberMove(mount, element) {
+  mount.movedNodes.push({
+    element,
+    nextSibling: element.nextSibling,
+    parent: element.parentNode,
+  });
+}
+
+export function move(mount, element, destination) {
+  if (!element || !destination || element.parentNode === destination) return;
+
+  rememberMove(mount, element);
+  destination.appendChild(element);
+}
+
+export function updateScrolledState(mount) {
+  // Jellyfin detail pages scroll their page element instead of the window.
+  const offset = Math.max(window.scrollY, ...Array.from(document.querySelectorAll('.page:not(.hide)'), (page) => page.scrollTop));
+  mark(mount, mount.header, 'data-ue-scrolled', offset > 20 ? 'true' : 'false');
+}
+
+function restoreOwnedAttributes(mount) {
+  mount.ownedAttributes
+    .slice()
+    .reverse()
+    .forEach((record) => {
+      if (record.hadValue) {
+        record.element.setAttribute(record.name, record.value);
+      } else {
+        record.element.removeAttribute(record.name);
+      }
+    });
+}
+
+function restoreMovedNodes(mount) {
+  for (let index = mount.movedNodes.length - 1; index >= 0; index -= 1) {
+    const record = mount.movedNodes[index];
+    if (!dom.isConnected(record.element) || !dom.isConnected(record.parent)) {
+      continue;
+    }
+
+    const nextSibling = record.nextSibling?.parentNode === record.parent ? record.nextSibling : null;
+    record.parent.insertBefore(record.element, nextSibling);
+  }
+}
+
+function restoreOwnedStyles(mount) {
+  mount.ownedStyles
+    .slice()
+    .reverse()
+    .forEach((record) => {
+      if (record.value) {
+        record.element.style.setProperty(record.name, record.value, record.priority);
+      } else {
+        record.element.style.removeProperty(record.name);
+      }
+    });
+}
+
+export function cleanup(mount) {
+  if (!mount) return;
+
+  mount.active = false;
+  if (mount.animationFrame) {
+    window.cancelAnimationFrame(mount.animationFrame);
+    mount.animationFrame = 0;
+  }
+  if (mount.proxyFrame) {
+    window.cancelAnimationFrame(mount.proxyFrame);
+    mount.proxyFrame = 0;
+  }
+  mount.resizeObserver?.disconnect();
+  mount.overflow?.destroy();
+  restoreOwnedAttributes(mount);
+  restoreOwnedStyles(mount);
+  restoreMovedNodes(mount);
+  mount.proxy?.remove();
+  mount.cluster?.remove();
+}
+
+export function createMount(values) {
+  return {
+    active: true,
+    animationFrame: 0,
+    proxyFrame: 0,
+    movedNodes: [],
+    ownedAttributes: [],
+    ownedStyles: [],
+    ...values,
+  };
+}

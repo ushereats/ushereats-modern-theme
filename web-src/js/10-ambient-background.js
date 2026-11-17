@@ -113,7 +113,7 @@
 
   // ── Where are we? ──
   function homeHero() {
-    var hero = document.querySelector("#indexPage:not(.hide) .sleekfin-hero, .sleekfin-hero");
+    var hero = document.querySelector("#indexPage:not(.hide) .ue-hero, .ue-hero");
     if (!hero || hero.closest(".hide")) return null;   // class check: no forced layout
     return hero;
   }
@@ -122,12 +122,12 @@
   }
 
   function activeBackdrop(hero) {
-    var img = hero.querySelector('.sleekfin-hero-slide[data-active="true"] img.sleekfin-hero-backdrop') ||
-              hero.querySelector("img.sleekfin-hero-backdrop");
+    var img = hero.querySelector('.ue-hero-slide[data-active="true"] img.ue-hero-backdrop') ||
+              hero.querySelector("img.ue-hero-backdrop");
     return img && (img.currentSrc || img.src);
   }
 
-  // Details page (SleekFin): the title's backdrop sits on #itemBackdrop as a CSS background
+  // Details page (UeTheme): the title's backdrop sits on #itemBackdrop as a CSS background
   function detailsPage() {
     var page = document.querySelector("#itemDetailPage:not(.hide)");
     if (!page || page.closest(".hide")) return null;
@@ -280,7 +280,7 @@
     setTimeout(function () { requestAnimationFrame(function () { queued = false; update(); }); }, 150);
   }
 
-  // (its styles are part of the main stylesheet, from the first frame: sleekfin/Inject/Theme/sleekfin-ambient.css)
+  // (its styles are part of the main stylesheet, from the first frame: look/Inject/Theme/ue-ambient.css)
 
   // ── Watch for the hero mounting and for slide changes ──
   // New / removed elements come from the shared watcher; attribute changes are filtered here so
@@ -291,8 +291,8 @@
       var t = recs[i].target, a = recs[i].attributeName, cl = t.classList;
       if (!cl) continue;
       if (a === "data-active" ||
-          (a === "class" && (cl.contains("page") || cl.contains("sleekfin-hero-slide"))) ||
-          ((a === "src" || a === "data-loaded") && cl.contains("sleekfin-hero-backdrop")) ||
+          (a === "class" && (cl.contains("page") || cl.contains("ue-hero-slide"))) ||
+          ((a === "src" || a === "data-loaded") && cl.contains("ue-hero-backdrop")) ||
           (a === "style" && t.id === "itemBackdrop")) { schedule(); return; }
     }
   }).observe(document.body, {

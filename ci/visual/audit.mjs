@@ -135,7 +135,7 @@ const look = () => {
     ambient: amb ? (layer ? "on" : "no-picture") : "none",
     ambientMode: Array.from(html.classList).filter((c) => /^tb-ambient/.test(c)).join(" "),
     bodyBg: bgOf(body), pageBg: bgOf(page),
-    header: vis(document.querySelector("[data-sleekfin-header]")),
+    header: vis(document.querySelector("[data-ue-header]")),
     sideways: html.scrollWidth > innerWidth + 1,
     oldButtons, dialogs, fonts,
     errorsShown: Array.from(document.querySelectorAll(".toast, .MuiAlert-root")).filter(vis).map((e) => e.textContent.trim().slice(0, 80)),
@@ -183,12 +183,12 @@ for (const [tag, vw, vh, mobile] of [["pc", 1920, 1080, false], ["phone", 390, 8
 
   await go("#/home");
   // top bar buttons, one at a time (SyncPlay, cast, user...)
-  const headerButtons = await page.locator("[data-sleekfin-header-proxy] button:visible, [data-sleekfin-header] .headerSyncButton:visible, [data-sleekfin-header] .headerCastButton:visible").count();
+  const headerButtons = await page.locator("[data-ue-header-proxy] button:visible, [data-ue-header] .headerSyncButton:visible, [data-ue-header] .headerCastButton:visible").count();
   for (let i = 0; i < Math.min(headerButtons, 8); i++) {
-    await menu("header-" + i, async () => { await page.locator("[data-sleekfin-header-proxy] button:visible, [data-sleekfin-header] .headerSyncButton:visible, [data-sleekfin-header] .headerCastButton:visible").nth(i).click({ timeout: 4000 }); });
+    await menu("header-" + i, async () => { await page.locator("[data-ue-header-proxy] button:visible, [data-ue-header] .headerSyncButton:visible, [data-ue-header] .headerCastButton:visible").nth(i).click({ timeout: 4000 }); });
   }
   await menu("user", () => click("#tb-header-avatar"));
-  if (mobile) await menu("drawer", () => click("[data-sleekfin-header] .mainDrawerButton, button[aria-label='Open menu'], [data-sleekfin-header] svg[data-testid='MenuIcon']"));
+  if (mobile) await menu("drawer", () => click("[data-ue-header] .mainDrawerButton, button[aria-label='Open menu'], [data-ue-header] svg[data-testid='MenuIcon']"));
   // a poster's own menu (three dots)
   await menu("card-menu", async () => {
     const card = page.locator(".tb-rows-c .card:not(.tb-logo-card) .cardImageContainer").nth(3);
@@ -233,7 +233,7 @@ for (const [tag, vw, vh, mobile] of [["pc", 1920, 1080, false], ["phone", 390, 8
   for (let i = 0; i < nm; i++) { await menu("music-tab-" + i, async () => { await mtabs.nth(i).click({ timeout: 3000 }); await page.waitForTimeout(1500); }); }
   // the video player and its menus
   await go(det(episode));
-  await menu("player", async () => { if (!(await click(".page:not(.hide) .btnPlay:visible, .page:not(.hide) .btnResume:visible, .page:not(.hide) .sleekfin-button-primary:visible"))) return false; await page.waitForTimeout(3000); await page.evaluate(() => { const v = document.querySelector("video"); if (v) v.pause(); }); await page.mouse.move(vw / 2, vh / 2); await page.mouse.move(vw / 2 + 20, vh / 2 + 10); });
+  await menu("player", async () => { if (!(await click(".page:not(.hide) .btnPlay:visible, .page:not(.hide) .btnResume:visible, .page:not(.hide) .ue-button-primary:visible"))) return false; await page.waitForTimeout(3000); await page.evaluate(() => { const v = document.querySelector("video"); if (v) v.pause(); }); await page.mouse.move(vw / 2, vh / 2); await page.mouse.move(vw / 2 + 20, vh / 2 + 10); });
   for (const [n, sel] of [["player-settings", ".btnVideoOsdSettings"], ["player-audio", ".btnAudio"], ["player-subtitles", ".btnSubtitles"], ["player-info", ".btnPlaybackInfo, .btnVideoOsdInfo"]]) {
     await menu(n, async () => { await page.mouse.move(vw / 2, vh / 2 + 30); await page.waitForTimeout(300); return click(`${sel}:visible`); });
   }
@@ -242,7 +242,7 @@ for (const [tag, vw, vh, mobile] of [["pc", 1920, 1080, false], ["phone", 390, 8
   await page.waitForTimeout(1500);
   // music player bar
   await go(det(album));
-  await menu("music-playing", async () => { if (!(await click(".page:not(.hide) .btnPlay:visible, .page:not(.hide) .sleekfin-button-primary:visible, .page:not(.hide) button[title='Play']:visible"))) return false; await page.waitForTimeout(2500); });
+  await menu("music-playing", async () => { if (!(await click(".page:not(.hide) .btnPlay:visible, .page:not(.hide) .ue-button-primary:visible, .page:not(.hide) button[title='Play']:visible"))) return false; await page.waitForTimeout(2500); });
   await menu("now-playing-page", async () => { await page.evaluate(() => { location.hash = "#/queue"; }); await page.waitForTimeout(1800); });
   await page.evaluate(() => { try { window.playbackManager && window.playbackManager.stop(); } catch (e) {} document.querySelectorAll("audio,video").forEach((m) => m.pause()); });
 
@@ -253,7 +253,7 @@ for (const [tag, vw, vh, mobile] of [["pc", 1920, 1080, false], ["phone", 390, 8
       const pg = document.querySelector("#itemDetailPage:not(.hide)");
       if (!pg) return null;
       const walk = (e, d) => { if (!e || d > 4) return []; const r = e.getBoundingClientRect(), c = getComputedStyle(e); const me = "  ".repeat(d) + e.tagName.toLowerCase() + (e.id ? "#" + e.id : "") + (typeof e.className === "string" && e.className ? "." + e.className.trim().split(/\s+/).slice(0, 5).join(".") : "") + ` [${Math.round(r.left)},${Math.round(r.top)} ${Math.round(r.width)}x${Math.round(r.height)}] ${c.display}/${c.position}`; return [me].concat(...Array.from(e.children).slice(0, 8).map((k) => walk(k, d + 1))); };
-      return { cls: pg.className, type: pg.dataset.sleekfinNativeType || null, tree: walk(pg, 0).slice(0, 80) };
+      return { cls: pg.className, type: pg.dataset.ueNativeType || null, tree: walk(pg, 0).slice(0, 80) };
     });
   }
 
@@ -266,7 +266,7 @@ for (const [tag, vw, vh, mobile] of [["pc", 1920, 1080, false], ["phone", 390, 8
       if (!(await card.count())) break;
       await page.evaluate(() => {
         const f = (window.__tbFrames = []); const t0 = performance.now(); const html = document.documentElement;
-        const tick = () => { f.push({ t: Math.round(performance.now() - t0), standIn: !!document.getElementById("tb-instant-bd"), concealed: html.classList.contains("sleekfin-details-concealed"), mounted: !!document.querySelector("#itemDetailPage[data-sleekfin-details='true']:not(.hide)"), home: !!document.querySelector("#indexPage:not(.hide)") }); if (performance.now() - t0 < 1500) requestAnimationFrame(tick); };
+        const tick = () => { f.push({ t: Math.round(performance.now() - t0), standIn: !!document.getElementById("tb-instant-bd"), concealed: html.classList.contains("ue-details-concealed"), mounted: !!document.querySelector("#itemDetailPage[data-ue-details='true']:not(.hide)"), home: !!document.querySelector("#indexPage:not(.hide)") }); if (performance.now() - t0 < 1500) requestAnimationFrame(tick); };
         requestAnimationFrame(tick);
       });
       await card.dispatchEvent("click").catch(() => {});

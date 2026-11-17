@@ -80,44 +80,48 @@ console.log("css", css.length, "->", min.length);
 
 fs.copyFileSync(path.join(SRC, "splash.mp3"), path.join(OUT, "splash.mp3"));
 
-// ── SleekFin (MIT, varunaditya-plus), built into the plugin ──
-// Its frontend is built by sleekfin/build.js (esbuild + babel, same as SleekFin); needs `npm ci --prefix sleekfin` first.
+// ── UeTheme (MIT, varunaditya-plus), built into the plugin ──
+// Its frontend is built by look/build.js (esbuild + babel, same as UeTheme); needs `npm ci --prefix look` first.
 {
-  const SF = "sleekfin";
+  const SF = "look";
   execFileSync(process.execPath, ["build.js"], { cwd: SF, stdio: "inherit" });
   for (const name of ["runtime", "theme", "header", "media", "details", "details-builder"]) {
-    fs.copyFileSync(path.join(SF, "build", "sleekfin-" + name + ".js"), path.join(OUT, "sleek_" + name.replace(/-/g, "_") + ".js"));
+    fs.copyFileSync(path.join(SF, "build", "ue-" + name + ".js"), path.join(OUT, "look_" + name.replace(/-/g, "_") + ".js"));
   }
   // details page "hide until built" script: inlined in the page head, so ES5 + minified
-  const boot = fs.readFileSync(path.join(SF, "Inject/Details/sleekfin-details-boot.js"), "utf8");
+  const boot = fs.readFileSync(path.join(SF, "Inject/Details/ue-details-boot.js"), "utf8");
   const bootMin = await minify(boot, { ecma: 5, compress: { passes: 2 }, mangle: true, format: { ascii_only: true, comments: false } });
   if (!bootMin.code || bootMin.code.includes("</")) throw new Error("details boot minify failed");
-  fs.writeFileSync(path.join(OUT, "sleek_details_boot.js"), bootMin.code);
+  fs.writeFileSync(path.join(OUT, "look_details_boot.js"), bootMin.code);
 
-  // all of SleekFin's styles in SleekFin's own order, in one file (prepended to theme.css by the plugin).
+  // all of UeTheme's styles in UeTheme's own order, in one file (prepended to theme.css by the plugin).
   // Left out: Jellyfin Enhanced styles (not installed).
   const ORDER = [
-    "Theme/sleekfin-fonts.css", "Theme/sleekfin-tokens.css", "Theme/sleekfin-foundation.css",
-    "Components/sleekfin-control-surface.css", "Components/sleekfin-dialog.css", "Components/sleekfin-button.css",
-    "Components/sleekfin-section-heading.css", "Components/sleekfin-fact.css", "Components/sleekfin-meta.css",
-    "Header/sleekfin-header-shared.css", "Header/sleekfin-header-brand.css", "Header/sleekfin-header-modern.css", "Header/sleekfin-header-legacy.css", "Header/sleekfin-header-avatar.css",
-    "Hero/sleekfin-hero.css", "Hero/sleekfin-hero-slide.css", "Hero/sleekfin-hero-carousel.css",
-    "Media/sleekfin-media.css", "Media/sleekfin-media-metadata.css",
-    "Details/sleekfin-details.css", "Details/sleekfin-details-hero.css", "Details/sleekfin-details-actions.css",
-    "Details/sleekfin-details-sections.css", "Details/sleekfin-details-similar.css", "Details/sleekfin-details-episodes.css",
-    "Details/sleekfin-details-dropdown.css", "Details/sleekfin-details-track-picker.css",
-    "Components/sleekfin-card.css", "Components/sleekfin-hover.css", "Theme/sleekfin-ambient.css"
+    "Theme/ue-fonts.css", "Theme/ue-tokens.css", "Theme/ue-foundation.css",
+    "Components/ue-control-surface.css", "Components/ue-dialog.css", "Components/ue-button.css",
+    "Components/ue-section-heading.css", "Components/ue-fact.css", "Components/ue-meta.css",
+    "Header/ue-header-shared.css", "Header/ue-header-brand.css", "Header/ue-header-modern.css", "Header/ue-header-legacy.css", "Header/ue-header-avatar.css",
+    "Hero/ue-hero.css", "Hero/ue-hero-slide.css", "Hero/ue-hero-carousel.css",
+    "Media/ue-media.css", "Media/ue-media-metadata.css",
+    "Details/ue-details.css", "Details/ue-details-hero.css", "Details/ue-details-actions.css",
+    "Details/ue-details-sections.css", "Details/ue-details-similar.css", "Details/ue-details-episodes.css",
+    "Details/ue-details-dropdown.css", "Details/ue-details-track-picker.css",
+    "Components/ue-card.css", "Components/ue-hover.css", "Theme/ue-ambient.css"
   ];
   let all = "";
   for (const f of ORDER) all += stripCss(fs.readFileSync(path.join(SF, "Inject", f), "utf8")) + "\n";
   all = all.replace(/url\("fonts\/(inter-[a-z-]+\.woff2)"\)/g, 'url("font/$1?v=__TB_FONT_V__")');
-  fs.writeFileSync(path.join(OUT, "sleek.css"), all);
-  console.log("css sleekfin", all.length);
-  // single files the SleekFin settings page loads by name (details builder preview)
-  for (const dir of ["Configuration", "Details", "Components", "Theme", "Header", "Hero", "Media"]) {
-    for (const f of fs.readdirSync(path.join(SF, "Inject", dir)).filter((f) => f.endsWith(".css"))) {
-      fs.writeFileSync(path.join(OUT, "sleekcss_" + f.slice(9).replace(/-/g, "_")), stripCss(fs.readFileSync(path.join(SF, "Inject", dir, f), "utf8")));
-    }
+  fs.writeFileSync(path.join(OUT, "look.css"), all);
+  console.log("css look", all.length);
+  // the single files the settings page loads by name (details builder preview); nothing else asks for one
+  const SINGLE = [
+    "Configuration/ue-details-builder.css", "Configuration/ue-details-builder-fields.css",
+    "Configuration/ue-details-builder-overflow.css", "Configuration/ue-details-builder-preview.css",
+    "Details/ue-details-hero.css", "Details/ue-details-actions.css", "Details/ue-details-dropdown.css", "Details/ue-details-track-picker.css"
+  ];
+  for (const rel of SINGLE) {
+    const f = path.basename(rel);
+    fs.writeFileSync(path.join(OUT, "lookcss_" + f.slice(3).replace(/-/g, "_")), stripCss(fs.readFileSync(path.join(SF, "Inject", rel), "utf8")));
   }
   for (const f of fs.readdirSync(path.join(SF, "Inject/Fonts")).filter((f) => f.endsWith(".woff2"))) {
     fs.copyFileSync(path.join(SF, "Inject/Fonts", f), path.join(OUT, "font_" + f.replace(/-/g, "_")));

@@ -1,6 +1,6 @@
 using System.Xml.Serialization;
 using Jellyfin.Plugin.UshereatsTheme.Configuration;
-using Jellyfin.Plugin.UshereatsTheme.Sleek;
+using Jellyfin.Plugin.UshereatsTheme.Look;
 using MediaBrowser.Common.Configuration;
 using MediaBrowser.Common.Plugins;
 using MediaBrowser.Model.Plugins;
@@ -18,70 +18,77 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
         : base(applicationPaths, xmlSerializer)
     {
         Instance = this;
-        _paths = applicationPaths;
-        if (Configuration.Sleek == null)
+        if (Configuration.Look == null)
         {
-            // first start with SleekFin built in: bring over SleekFin's own saved settings
-            Configuration.Sleek = ImportSleekFin() ?? new SleekConfiguration();
-            Normalize(Configuration.Sleek);
+            // settings saved before the rename: moved over once, nothing resets
+            Configuration.Look = ReadSavedLook() ?? new LookConfiguration();
+            Normalize(Configuration.Look);
             SaveConfiguration();
         }
         else
         {
-            Normalize(Configuration.Sleek);
+            Normalize(Configuration.Look);
         }
 
         if (!IsHex(Configuration.AccentColor))
         {
-            // accent moved to this page: start from the colour SleekFin had
-            Configuration.AccentColor = Configuration.Sleek.AccentColor;
+            // accent moved to this page: start from the colour the look had
+            Configuration.AccentColor = Configuration.Look.AccentColor;
             SaveConfiguration();
         }
     }
 
     internal static bool IsHex(string? s) => s != null && s.Length == 7 && s[0] == '#' && s.Skip(1).All(char.IsAsciiHexDigit);
 
-    private readonly IApplicationPaths _paths;
-
     public override void UpdateConfiguration(BasePluginConfiguration configuration)
     {
         if (configuration is PluginConfiguration c)
         {
-            c.Sleek ??= Configuration.Sleek ?? new SleekConfiguration();
+            c.Look ??= Configuration.Look ?? new LookConfiguration();
             if (!IsHex(c.AccentColor))
             {
-                c.AccentColor = IsHex(Configuration.AccentColor) ? Configuration.AccentColor : c.Sleek.AccentColor;
+                c.AccentColor = IsHex(Configuration.AccentColor) ? Configuration.AccentColor : c.Look.AccentColor;
             }
 
             c.AccentColor = c.AccentColor.ToLowerInvariant();
-            c.Sleek.AccentColor = c.AccentColor;   // one colour: SleekFin's previews follow it too
-            Normalize(c.Sleek);
+            c.Look.AccentColor = c.AccentColor;   // one colour: the settings previews follow it too
+            Normalize(c.Look);
         }
 
         base.UpdateConfiguration(configuration);
         IndexPatch.InvalidateHtmlCache();
     }
 
-    private static void Normalize(SleekConfiguration s)
+    private static void Normalize(LookConfiguration s)
     {
         HeaderConfiguration.Normalize(s);
         HeroConfiguration.Normalize(s);
         DetailsConfiguration.Normalize(s);
     }
 
-    private SleekConfiguration? ImportSleekFin()
+    // The look's settings were saved under the section's old name before the rename: read once from this
+    // plugin's own settings file and saved under the new one.
+    private const string OldSection = "Sleek";
+
+    private LookConfiguration? ReadSavedLook()
     {
         try
         {
-            string file = Path.Combine(_paths.PluginConfigurationsPath, "Jellyfin.Plugin.SleekFin.xml");
+            string file = ConfigurationFilePath;
             if (!File.Exists(file))
             {
                 return null;
             }
 
-            XmlSerializer xs = new XmlSerializer(typeof(SleekConfiguration), new XmlRootAttribute("PluginConfiguration"));
-            using FileStream fs = File.OpenRead(file);
-            return xs.Deserialize(fs) as SleekConfiguration;
+            System.Xml.Linq.XElement? el = System.Xml.Linq.XDocument.Load(file).Root?.Element(OldSection);
+            if (el == null)
+            {
+                return null;
+            }
+
+            XmlSerializer xs = new XmlSerializer(typeof(LookConfiguration), new XmlRootAttribute(OldSection));
+            using System.Xml.XmlReader r = el.CreateReader();
+            return xs.Deserialize(r) as LookConfiguration;
         }
         catch (Exception)
         {
@@ -93,7 +100,7 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
 
     public override Guid Id => Guid.Parse("01c723cc-57de-4e19-b13c-514b644491a5");
 
-    public override string Description => "Custom look for Jellyfin + SleekFin, loaded instantly from the page head.";
+    public override string Description => "Custom look for Jellyfin, loaded instantly from the page head.";
 
     public static Plugin? Instance { get; private set; }
 

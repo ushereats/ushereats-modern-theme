@@ -1,0 +1,145 @@
+import { Fragment, dom, h, render } from '../../shared/runtime.js';
+import { mark } from './shared.js';
+
+function FallbackBrand({ imageSource, serverName }) {
+  return (
+    <>
+      {imageSource ? <img src={imageSource} /> : null}
+      <span>{serverName}</span>
+    </>
+  );
+}
+
+// Your own icon (plugin setting), if there is one
+function iconUrl() {
+  const url = window.__tbLook?.icon;
+  return typeof url === 'string' && /^https?:\/\//i.test(url) ? url : '';
+}
+
+// Puts your icon in Jellyfin's brand link (in place of Jellyfin's logo), as the header is built
+export function applyIcon(nativeBrand) {
+  const url = iconUrl();
+  if (!url || !nativeBrand) return;
+  nativeBrand.querySelectorAll('img').forEach((image) => {
+    if (image.getAttribute('src') === url) return;
+    image.removeAttribute('srcset');
+    image.setAttribute('src', url);
+  });
+  nativeBrand.querySelectorAll('svg').forEach((svg) => {
+    const image = document.createElement('img');
+    image.alt = '';
+    image.src = url;
+    svg.replaceWith(image);
+  });
+}
+
+export function createBrandController(isActive) {
+  const state = {
+    fallback: null,
+    serverName: '',
+    serverNameRequest: 0,
+    serverNameRequested: false,
+  };
+
+  function readServerName(nativeBrand) {
+    const nativeText = nativeBrand?.textContent.trim();
+    if (nativeText) {
+      state.serverName = nativeText;
+    }
+    if (!state.serverName) {
+      state.serverName = (document.title || 'Jellyfin').replace(/\s+[|·-]\s+Jellyfin$/i, '').trim() || 'Jellyfin';
+    }
+    return state.serverName;
+  }
+
+  function findImageSource() {
+    if (iconUrl()) return iconUrl();
+    const nativeImage = document.querySelector('a[href="#/"] img');
+    if (nativeImage) return nativeImage.currentSrc || nativeImage.src;
+
+    const icons = Array.from(document.querySelectorAll('link[rel~="icon"]'));
+    const preferredIcon = icons.find((icon) => /icon-transparent|apple-touch|192|512/i.test(icon.getAttribute('href') || '')) || icons[icons.length - 1];
+    return preferredIcon ? preferredIcon.href : '';
+  }
+
+  function renderFallback() {
+    if (!dom.isConnected(state.fallback)) return;
+
+    render(<FallbackBrand imageSource={findImageSource()} serverName={readServerName(null)} />, state.fallback);
+  }
+
+  function requestServerName() {
+    if (state.serverNameRequested || typeof window.fetch !== 'function') return;
+
+    const systemInfoUrl = window.ApiClient && typeof window.ApiClient.getUrl === 'function' ? window.ApiClient.getUrl('/System/Info/Public') : new URL('../System/Info/Public', document.baseURI).toString();
+    const request = ++state.serverNameRequest;
+    state.serverNameRequested = true;
+    window
+      .fetch(systemInfoUrl, { credentials: 'same-origin' })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((systemInfo) => {
+        if (!isActive() || request !== state.serverNameRequest) return;
+
+        const serverName = typeof systemInfo?.ServerName === 'string' ? systemInfo.ServerName.trim() : '';
+        if (serverName) {
+          state.serverName = serverName;
+          renderFallback();
+        }
+      })
+      .catch(() => {});
+  }
+
+  function resetServer() {
+    state.serverName = '';
+    state.serverNameRequest += 1;
+    state.serverNameRequested = false;
+    renderFallback();
+  }
+
+  function removeFallback() {
+    if (!state.fallback) return;
+
+    render(null, state.fallback);
+    state.fallback.remove();
+    state.fallback = null;
+  }
+
+  function ensureFallback(parent = document.body) {
+    requestServerName();
+    if (dom.isConnected(state.fallback)) return;
+
+    removeFallback();
+    const fallback = document.createElement('a');
+    fallback.className = 'ue-header-fallback-brand';
+    fallback.href = '#/';
+    parent.appendChild(fallback);
+    state.fallback = fallback;
+    renderFallback();
+  }
+
+  function useNative(mount, nativeBrand) {
+    applyIcon(nativeBrand);
+    readServerName(nativeBrand);
+    mark(mount, nativeBrand, 'data-ue-header-brand');
+    removeFallback();
+  }
+
+  function updateOverlap(mount) {
+    const element = mount.brand || state.fallback;
+    if (!element) return;
+
+    mark(mount, element, 'data-ue-header-overlap-hidden', 'false');
+    if (!mount.proxy || (window.innerWidth >= 1100 && mount.proxy.getAttribute('data-ue-header-overflow-active') !== 'true' && !document.documentElement.classList.contains('ue-details-mounted'))) return;
+
+    const brandBounds = element.getBoundingClientRect();
+    const barBounds = mount.proxy.getBoundingClientRect();
+    const overlaps = brandBounds.width > 0 && barBounds.width > 0 && brandBounds.left < barBounds.right && brandBounds.right > barBounds.left && brandBounds.top < barBounds.bottom && brandBounds.bottom > barBounds.top;
+    mark(mount, element, 'data-ue-header-overlap-hidden', overlaps ? 'true' : 'false');
+  }
+
+  function updateOffset(mount) {
+    mark(mount, mount.brand || state.fallback, 'data-ue-header-menu-offset', dom.isVisible(mount.menu) ? 'true' : 'false');
+  }
+
+  return { ensureFallback, removeFallback, resetServer, updateOffset, updateOverlap, useNative };
+}

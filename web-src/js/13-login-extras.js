@@ -65,7 +65,7 @@
   window.addEventListener("hashchange", schedule);
   schedule();
 
-  var ACC = "var(--sleekfin-accent, rgb(232, 192, 80))";
+  var ACC = "var(--ue-accent, rgb(232, 192, 80))";
   var css = [
     "#quickConnectAlert.tb-qc {",
     "  background: #0b0b0d !important; color: #fff;",

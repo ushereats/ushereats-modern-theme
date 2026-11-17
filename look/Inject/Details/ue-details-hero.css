@@ -1,0 +1,441 @@
+html.ue-details-mounted #itemDetailPage[data-ue-details] > #itemBackdrop {
+    background-attachment: scroll !important;
+    background-image: none !important;
+    height: var(--ue-details-hero-height) !important;
+    inset: 0 0 auto !important;
+    margin: 0 !important;
+    opacity: 1 !important;
+    -webkit-mask-image: var(--ue-details-backdrop-mask, none) !important;
+    mask-image: var(--ue-details-backdrop-mask, none) !important;
+    overflow: hidden;
+    position: absolute !important;
+    width: 100% !important;
+    z-index: 0;
+}
+
+html.ue-details-mounted #itemDetailPage[data-ue-details] > #itemBackdrop::before,
+html.ue-details-mounted #itemDetailPage[data-ue-details] > #itemBackdrop::after {
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 1;
+}
+
+html.ue-details-mounted #itemDetailPage[data-ue-details] > #itemBackdrop::before {
+    background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.667) 20%, rgba(0, 0, 0, 0.298) 42%, transparent 68%);
+    opacity: var(--ue-details-side-shading, 0.84);
+}
+
+html.ue-details-mounted #itemDetailPage[data-ue-details] > #itemBackdrop::after {
+    background: var(--ue-details-bottom-shade, linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.14) 28%, rgba(0, 0, 0, 0.55) 64%, var(--ue-background) 100%));
+    height: var(--ue-details-fade-height, 50%);
+    inset: auto 0 0;
+    opacity: var(--ue-details-bottom-fade, 1);
+}
+
+html.ue-details-mounted #itemDetailPage[data-ue-details] > #itemBackdrop > .ue-details-trailer {
+    border: 0;
+    filter: blur(var(--ue-details-backdrop-blur, 0px));
+    height: 100%;
+    inset: 0;
+    object-fit: var(--ue-details-backdrop-size, cover);
+    object-position: var(--ue-details-backdrop-focus-x, 50%) var(--ue-details-backdrop-focus-y, 24%);
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 350ms ease;
+    width: 100%;
+    z-index: 0;
+}
+
+html.ue-details-mounted #itemDetailPage[data-ue-details] > #itemBackdrop > .ue-details-trailer[data-playing="true"] {
+    opacity: var(--ue-details-backdrop-opacity, 1);
+}
+
+html.ue-details-mounted #itemDetailPage[data-ue-details] > #itemBackdrop > iframe.ue-details-trailer {
+    inset: 0 auto auto 0;
+}
+
+.ue-details-artwork {
+    background-position: var(--ue-details-backdrop-focus-x, 50%) var(--ue-details-backdrop-focus-y, 24%);
+    background-repeat: no-repeat;
+    background-size: var(--ue-details-backdrop-size, cover);
+    filter: blur(var(--ue-details-backdrop-blur, 0px));
+    inset: 0;
+    opacity: var(--ue-details-backdrop-opacity, 1);
+    position: absolute;
+}
+
+.ue-details-hero {
+    align-items: var(--ue-details-vertical-align, flex-end);
+    box-sizing: border-box;
+    display: flex;
+    min-height: var(--ue-details-hero-height);
+    padding: max(96px, var(--ue-header-height, 0px)) var(--ue-details-side-inset, var(--ue-page-gutter)) var(--ue-details-bottom-spacing, 72px);
+    padding-inline: min(var(--ue-details-side-inset, var(--ue-page-gutter)), max(0px, calc((100% - 240px) / 2)));
+    pointer-events: none;
+    position: relative;
+    z-index: 2;
+}
+
+.ue-details-back-root {
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+}
+
+/* cinejoy's back arrow: a plain arrow (no button behind it), the whole button grows to 110% (0.2 s) and dips to 90%
+   while pressed */
+.ue-details-back.ue-details-back,
+.ue-details-back.ue-details-back:hover {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    color: #fff !important;
+}
+
+.ue-details-back > * {
+    filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.04)) drop-shadow(0 4px 3px rgba(0, 0, 0, 0.1));
+}
+
+.ue-details-back.ue-details-back {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .ue-details-back:hover {
+        transform: scale(1.1);
+    }
+}
+
+.ue-details-back:active {
+    transform: scale(0.9);
+}
+
+.ue-details-back {
+    border-radius: 999px;
+    color: var(--ue-text);
+    height: 40px;
+    left: var(--ue-page-gutter);
+    pointer-events: auto;
+    position: absolute;
+    top: 24px;
+    width: 40px;
+}
+
+html.ue-details-mounted.ue-header-mounted {
+    --ue-details-back-size: calc(var(--ue-header-item-height) + var(--ue-header-bar-padding) + var(--ue-header-bar-padding));
+}
+
+html.ue-details-concealed [data-ue-header] > .ue-details-back-root {
+    visibility: hidden;
+}
+
+html.ue-details-mounted [data-ue-header] > .ue-details-back-root {
+    z-index: 4;
+}
+
+html.ue-details-mounted [data-ue-header] .ue-details-back {
+    height: var(--ue-details-back-size);
+    top: var(--ue-header-bar-top);
+    width: var(--ue-details-back-size);
+}
+
+html.ue-details-mounted [data-ue-header] .ue-details-back-after-menu .ue-details-back {
+    left: calc(var(--ue-page-gutter) + 56px);
+}
+
+html.ue-details-mounted.ue-header-mounted[data-ue-header-bar-position="left"] :is([data-ue-header-first-cluster], [data-ue-legacy-cluster]) {
+    margin-inline-start: calc(var(--ue-details-back-size) + var(--ue-header-brand-gap)) !important;
+}
+
+html.ue-details-mounted.ue-header-mounted[data-ue-header-brand-position] :is([data-ue-header-brand], .ue-header-fallback-brand) {
+    left: calc(var(--ue-page-gutter) + var(--ue-details-back-size) + var(--ue-header-brand-gap) + var(--ue-details-brand-menu-offset, 0px)) !important;
+    right: auto !important;
+    transform: none;
+}
+
+html.ue-details-mounted.ue-header-mounted [data-ue-header-menu-offset="true"] {
+    --ue-details-brand-menu-offset: 56px;
+}
+
+.ue-details-back svg {
+    height: 18px;
+    width: 18px;
+}
+
+.ue-details-stack {
+    align-items: var(--ue-details-content-align, flex-start);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    pointer-events: auto;
+    text-align: var(--ue-details-text-align, left);
+    width: 100%;
+}
+
+.ue-details-title {
+    align-items: var(--ue-details-content-align, flex-start);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    max-width: var(--ue-details-content-max-width, 520px);
+    width: 100%;
+}
+
+.ue-details-title .detailLogo {
+    background-position: var(--ue-details-text-align, left) bottom !important;
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+    display: block !important;
+    filter: drop-shadow(0 3px 14px rgba(0, 0, 0, var(--ue-details-title-shadow, 0.45)));
+    height: var(--ue-details-logo-height, 96px) !important;
+    inset: auto !important;
+    margin: 0 !important;
+    max-width: var(--ue-details-logo-max-width, 340px) !important;
+    opacity: 1 !important;
+    position: static !important;
+    width: 100% !important;
+}
+
+.ue-details-title .detailLogo.hide {
+    display: none !important;
+}
+
+/* a title known to have a logo keeps the logo's space while Jellyfin is still putting the picture in */
+.ue-details-hero.ue-details-has-logo .ue-details-title .detailLogo.hide {
+    display: block !important;
+}
+
+.ue-details-title .nameContainer {
+    align-items: var(--ue-details-content-align, flex-start);
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    max-width: 100%;
+    min-width: 0;
+    width: 100%;
+}
+
+.ue-details-hero .nameContainer > :is(.itemName, .parentName) {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    text-align: var(--ue-details-text-align, left);
+}
+
+.ue-details-hero.ue-details-has-logo .ue-details-title .nameContainer > :not(.originalTitle),
+[data-ue-details-title-treatment="Logo"] .ue-details-title .nameContainer > :not(.originalTitle),
+.ue-details-has-child-title:not(.ue-details-has-logo) .ue-details-title {
+    display: none;
+}
+
+.ue-details-hero .ue-details-title :is(h1, .parentName) {
+    color: var(--ue-details-title-color, #fff);
+    font-style: normal;
+    font-weight: var(--ue-details-title-weight, 800);
+    font-size: var(--ue-details-title-size, 48px);
+    line-height: var(--ue-details-title-line-height, 0.95);
+    font-family: var(--app-font);
+    letter-spacing: var(--ue-details-title-letter-spacing, -0.03em);
+    margin: 0;
+    text-shadow: 0 3px 14px rgba(0, 0, 0, var(--ue-details-title-shadow, 0.45));
+    text-transform: var(--ue-details-title-transform, uppercase);
+    white-space: normal;
+}
+
+.ue-details-child-title {
+    margin-top: 14px;
+    max-width: var(--ue-details-content-max-width, 520px);
+    width: 100%;
+}
+
+.ue-details-hero .ue-details-child-title .parentName {
+    color: var(--ue-details-parent-title-color, rgba(255, 255, 255, 0.68));
+    display: block;
+    font-style: normal;
+    font-weight: 600;
+    font-size: var(--ue-details-parent-title-size, 11px);
+    line-height: 1.45;
+    font-family: var(--app-font);
+    letter-spacing: 0.05em;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.ue-details-hero .ue-details-child-title .itemName {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--ue-details-child-heading-lines, 2);
+    color: var(--ue-details-child-heading-color, #fff);
+    display: -webkit-box;
+    font-style: normal;
+    font-weight: var(--ue-details-child-heading-weight, 700);
+    font-size: var(--ue-details-child-heading-size, 26px);
+    line-height: 1.23;
+    font-family: var(--app-font);
+    letter-spacing: -0.02em;
+    margin: 2px 0 0;
+    overflow: hidden;
+    text-shadow: 0 3px 14px rgba(0, 0, 0, var(--ue-details-title-shadow, 0.45));
+    white-space: normal;
+}
+
+.ue-details-child-title a {
+    color: inherit;
+}
+
+.ue-details-hero .nameContainer .originalTitle {
+    color: var(--ue-details-original-title-color, var(--ue-muted));
+    display: block;
+    font-style: normal;
+    font-weight: 400;
+    font-size: var(--ue-details-original-title-size, 14px);
+    line-height: 1.43;
+    font-family: var(--app-font);
+    letter-spacing: normal;
+    margin: 6px 0 0;
+    text-shadow: none;
+}
+
+.ue-details-facts,
+.ue-details-genres {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--ue-details-metadata-size, 14px);
+    font-weight: var(--ue-details-metadata-weight, 500);
+    justify-content: var(--ue-details-content-align, flex-start);
+    line-height: 1.29;
+}
+
+.ue-details-facts {
+    color: var(--ue-details-metadata-color, rgba(255, 255, 255, 0.92));
+    margin-top: var(--ue-details-title-metadata-spacing, 16px);
+}
+
+.ue-details-genres {
+    color: var(--ue-details-genres-color, rgba(255, 255, 255, 0.78));
+    margin-top: var(--ue-details-metadata-genres-spacing, 7px);
+}
+
+.ue-details-score {
+    color: var(--ue-text);
+}
+
+.ue-details-score .ue-icon {
+    color: var(--ue-details-rating-color, var(--ue-accent));
+}
+
+.ue-details-certification {
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    border-radius: 4px;
+    font-size: 0.79em;
+    line-height: 1.64;
+    padding: 0 5px;
+}
+
+.ue-details-fact-values,
+.ue-details-facts .itemMiscInfo-primary {
+    display: contents;
+}
+
+.ue-details-facts .itemMiscInfo-primary {
+    font: inherit;
+}
+
+/* JE does language updates and deduplication inside the native primary container. */
+.ue-details-facts .itemMiscInfo-primary > :not(.mediaInfoItem-audioLanguage) {
+    display: none !important;
+}
+
+.ue-details-fact-values:not(:empty) + .itemMiscInfo-primary:has(> .mediaInfoItem-audioLanguage)::before {
+    color: rgba(255, 255, 255, 0.42);
+    content: '·';
+    margin: 0 8px;
+}
+
+.ue-details-facts .mediaInfoItem-audioLanguage {
+    margin: 0;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.ue-details-facts .audio-languages-container {
+    min-width: 0;
+}
+
+.ue-details-stack > .overview {
+    -webkit-box-orient: vertical;
+    color: var(--ue-details-description-color, rgba(255, 255, 255, 0.88)) !important;
+    display: -webkit-box;
+    font-style: normal;
+    font-weight: var(--ue-details-description-weight, 400);
+    font-size: var(--ue-details-description-size, 14px);
+    line-height: var(--ue-details-description-line-height, 1.45);
+    font-family: var(--app-font);
+    margin: var(--ue-details-genres-description-spacing, 12px) 0 0 !important;
+    max-width: min(var(--ue-details-content-max-width, 520px), var(--ue-details-description-width, 520px));
+    overflow: hidden;
+}
+
+.ue-details-stack > .overview.detail-clamp-text {
+    -webkit-line-clamp: var(--ue-details-description-lines, 3);
+}
+
+.ue-details-stack > .overview-controls {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .ue-details-back {
+        height: 44px;
+        width: 44px;
+    }
+}
+
+[data-ue-details-title-treatment="Text"] .ue-details-title .detailLogo,
+[data-ue-details-show-title="false"] :is(.ue-details-title, .ue-details-child-title),
+[data-ue-details-show-parent-title="false"] .ue-details-child-title .parentName,
+[data-ue-details-original-title-mode="Hide"] .ue-details-hero .originalTitle,
+[data-ue-details-show-audio-languages="false"] .ue-details-facts .itemMiscInfo-primary,
+[data-ue-details-show-genres="false"] .ue-details-genres,
+[data-ue-details-show-description="false"] .ue-details-stack > .overview,
+.ue-details-genres:empty,
+.ue-details-facts:not(:has(.ue-fact, .mediaInfoItem-audioLanguage)) {
+    display: none !important;
+}
+
+[data-ue-details-show-audio-languages="false"] .ue-details-facts:not(:has(.ue-fact)) {
+    display: none;
+}
+
+[data-ue-details-fact-separator="None"] :is(.ue-details-facts, .ue-details-genres) .ue-fact-dot {
+    visibility: hidden;
+}
+
+[data-ue-details-fact-separator="None"] .ue-details-fact-values + .itemMiscInfo-primary::before {
+    content: '';
+}
+
+@media (max-width: 767px) {
+    [data-ue-details] {
+        --ue-details-responsive-hero-height: max(var(--ue-details-mobile-min-height, 620px), var(--ue-details-mobile-height, 85vh));
+        --ue-details-responsive-side-inset: var(--ue-details-mobile-side-inset);
+        --ue-details-responsive-bottom-spacing: var(--ue-details-mobile-bottom-spacing);
+        --ue-details-responsive-logo-max-width: var(--ue-details-mobile-logo-max-width);
+        --ue-details-responsive-logo-height: var(--ue-details-mobile-logo-height);
+        --ue-details-responsive-title-size: var(--ue-details-mobile-title-size);
+        --ue-details-responsive-child-heading-size: var(--ue-details-mobile-child-heading-size);
+        --ue-details-responsive-metadata-size: var(--ue-details-mobile-metadata-size);
+        --ue-details-responsive-description-size: var(--ue-details-mobile-description-size);
+        --ue-details-responsive-button-height: var(--ue-details-mobile-button-height);
+        --ue-details-responsive-play-icon-size: var(--ue-details-mobile-play-icon-size);
+    }
+}
+
+/* TV / Xbox: Jellyfin switches the title-page backdrop off in its TV look; the banner needs it */
+html.layout-tv.ue-details-mounted #itemDetailPage[data-ue-details] > #itemBackdrop {
+    display: block !important;
+}

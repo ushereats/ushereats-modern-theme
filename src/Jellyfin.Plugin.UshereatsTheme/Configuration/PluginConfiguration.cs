@@ -1,4 +1,4 @@
-using Jellyfin.Plugin.UshereatsTheme.Sleek;
+using Jellyfin.Plugin.UshereatsTheme.Look;
 using MediaBrowser.Model.Plugins;
 
 namespace Jellyfin.Plugin.UshereatsTheme.Configuration;
@@ -8,7 +8,7 @@ namespace Jellyfin.Plugin.UshereatsTheme.Configuration;
 /// </summary>
 public class PluginConfiguration : BasePluginConfiguration
 {
-    /// <summary>Accent colour for the whole UI (#rrggbb). Empty = SleekFin's saved colour on first start.</summary>
+    /// <summary>Accent colour for the whole UI (#rrggbb). Empty = UeTheme's saved colour on first start.</summary>
     public string AccentColor { get; set; } = string.Empty;
 
     // ── Features (each one is only downloaded when switched on) ──
@@ -30,7 +30,7 @@ public class PluginConfiguration : BasePluginConfiguration
     /// <summary>"Now Playing" panel on the dashboard home (replaces the PlayInfo plugin).</summary>
     public bool NowPlaying { get; set; } = true;
 
-    /// <summary>Instant home hero (replaces SleekFin's hero; switch SleekFin's hero off).</summary>
+    /// <summary>Instant home hero (replaces UeTheme's hero; switch UeTheme's hero off).</summary>
     public bool Hero { get; set; } = true;
 
     /// <summary>Home rows set below (replaces KefinTweaks' Enhanced Home Screen and Jellyfin's own rows).</summary>
@@ -89,10 +89,9 @@ public class PluginConfiguration : BasePluginConfiguration
     public bool DashboardPluginsCollapsed { get; set; } = true;
 
     /// <summary>
-    /// SleekFin's settings (header, details pages, cards, hero look...). SleekFin is built into this plugin now;
-    /// on first start these are copied from the SleekFin plugin's saved settings.
+    /// The look's settings (header, title pages, cards, banner look...).
     /// </summary>
-    public SleekConfiguration? Sleek { get; set; }
+    public LookConfiguration? Look { get; set; }
 
     // ── Feature switches (can be changed without a release) ──
     /// <summary>Fetch all home data in one request instead of per-row. Off / AdminsOnly / Everyone.</summary>

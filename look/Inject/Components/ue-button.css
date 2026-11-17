@@ -1,0 +1,145 @@
+.ue-button {
+    align-items: center;
+    appearance: none;
+    border-radius: 999px !important;
+    box-sizing: border-box;
+    display: inline-flex;
+    font-family: var(--app-font);
+    font-weight: 500;
+    height: 40px !important;
+    justify-content: center;
+    letter-spacing: -0.025em;
+    min-width: 0 !important;
+    padding: 0 16px !important;
+    transition: background 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+
+.ue-button > .ue-icon,
+.ue-button-content > .ue-icon {
+    flex: 0 0 auto;
+}
+
+.ue-button-content {
+    align-items: center;
+    display: flex;
+    font: inherit;
+    gap: inherit;
+}
+
+.ue-button-primary {
+    background: var(--ue-text) !important;
+    border: 0 !important;
+    color: #05070a !important;
+    gap: 8px;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.ue-button-primary .ue-icon {
+    height: 20px;
+    width: 20px;
+}
+
+.ue-button-control {
+    color: var(--ue-text) !important;
+    gap: 8px;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.ue-button-control .ue-icon {
+    height: 18px;
+    width: 18px;
+}
+
+.ue-button-control .ue-icon[data-ue-icon="download"],
+.ue-icon-button > .ue-icon {
+    height: 16px;
+    width: 16px;
+}
+
+@media (hover: hover) {
+    .ue-button-primary:hover {
+        background: #fff !important;
+    }
+}
+
+
+.ue-button-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ue-icon-button {
+    align-items: center;
+    border-radius: 12px;
+    box-sizing: border-box;
+    color: var(--ue-muted);
+    display: inline-flex;
+    height: 36px;
+    justify-content: center;
+    padding: 0;
+    width: 36px;
+}
+
+.ue-icon-button:is(:hover, [data-active="true"]) {
+    color: var(--ue-text);
+}
+
+@media (min-width: 768px) {
+    .ue-button {
+        height: 44px !important;
+    }
+
+    .ue-button-primary {
+        gap: 12px;
+        padding-inline: 28px !important;
+    }
+
+    .ue-button-primary .ue-icon {
+        height: 22px;
+        width: 22px;
+    }
+
+    .ue-button-control {
+        font-size: 13px;
+        gap: 12px;
+        line-height: 19.5px;
+        padding-inline: 24px !important;
+    }
+}
+
+/* cinejoy: Play grows to 105% on hover and 95% while pressed (0.2 s); the icons on the other buttons grow to 110%
+   when their button is hovered (0.3 s) */
+:is(.ue-hero-actions, .ue-details-actions) :is(.ue-button-primary, .ue-details-play) {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s, opacity 0.2s !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    :is(.ue-hero-actions, .ue-details-actions) :is(.ue-button-primary, .ue-details-play):hover {
+        transform: scale(1.05);
+    }
+
+    :is(.ue-hero-actions, .ue-details-actions) button:not(.ue-button-primary) :is(svg, .material-icons) {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    :is(.ue-hero-actions, .ue-details-actions) button:not(.ue-button-primary):hover :is(svg, .material-icons) {
+        transform: scale(1.1);
+    }
+}
+
+.ue-button:active {
+    transform: scale(0.98);
+}
+
+:is(.ue-hero-actions, .ue-details-actions) :is(.ue-button-primary, .ue-details-play):active {
+    transform: scale(0.95);
+}
+
+/* TV / Xbox (remote or controller): the selected button grows and gets a soft ring */
+html.layout-tv :is(.ue-button, .ue-icon-button):focus {
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.18) !important;
+    transform: scale(1.08);
+}

@@ -7,7 +7,7 @@
     --skip-hide-duration: 8s;
 }
 
-/* ── Global font (fonts are defined in sleekfin-tokens.css) ── */
+/* ── Global font (fonts are defined in ue-tokens.css) ── */
 html body,
 body button:not(.material-icons):not([class*="icon" i]),
 body input:not(.material-icons):not([class*="icon" i]),
@@ -43,9 +43,8 @@ body .detailPagePrimaryContainer,
 body :is(.time-remaining-badge, .release-date-badge, .tb-quality-badge, .tb-ep, #jf-stats) {
     font-family: var(--app-font) !important;
 }
-/* Row titles — Bebas Neue like the reference (bold, 36px, -0.025em; all-caps by design) */
-html body .sectionTitle:not(#tb-x),
-html body .sectionTitleTextButton:not(#tb-x) {
+/* Row titles — Bebas Neue (bold, 36px, -0.025em; all-caps by design). Same specificity as the base font rule above, later in the file, so it wins */
+html body :is(.sectionTitle, .sectionTitleTextButton):not(.material-icons) {
     font-family: var(--title-font) !important;
     font-weight: 700 !important;
     letter-spacing: -0.025em !important;
@@ -53,16 +52,15 @@ html body .sectionTitleTextButton:not(#tb-x) {
     line-height: 1.05 !important;
 }
 @media (min-width: 768px) {
-    html body .sectionTitle:not(#tb-x),
-html body .sectionTitleTextButton:not(#tb-x) {
+    html body :is(.sectionTitle, .sectionTitleTextButton):not(.material-icons) {
         font-size: 36px !important;
     }
 }
 /* The ">" / icons inside title buttons keep their icon font */
-html body :is(.sectionTitle, .sectionTitleTextButton):not(#tb-x) .material-icons { font-family: "Material Icons" !important; }
+html body :is(.sectionTitle, .sectionTitleTextButton) .material-icons { font-family: "Material Icons" !important; }
 /* Search page keeps its small grey headings in the normal font */
-html body #searchPage .sectionTitle:not(#tb-x),
-html body #searchPage .sectionTitleTextButton:not(#tb-x) { font-family: var(--app-font) !important; }
+html body #searchPage .sectionTitle,
+html body #searchPage .sectionTitleTextButton { font-family: var(--app-font) !important; }
 
 #indexPage #homeTab {
     margin-top: 0 !important;
@@ -96,7 +94,7 @@ html body #searchPage .sectionTitleTextButton:not(#tb-x) { font-family: var(--ap
   padding-right: 0 !important;
 }
 
-/* (each poster's number space is set with the other card margins, in sleekfin-media.css) */
+/* (each poster's number space is set with the other card margins, in ue-media.css) */
 
 /* Poster sits above the number */
 .ranked-list .itemsContainer > .card .cardScalable {
@@ -262,7 +260,7 @@ a, button, .card, [role="button"] {
 #loginPage {
   --tb-login-brand: "USHEREATS";            /* wordmark + big headline */
   --tb-login-name: "Usher Eats";            /* unused by default, kept for edits */
-  --tb-login-red: var(--sleekfin-accent, rgb(232, 192, 80));   /* accent (gold) */
+  --tb-login-red: var(--ue-accent, rgb(232, 192, 80));   /* accent (gold) */
   --tb-panel-w: 480px;                      /* width of the sign-in panel on big screens */
 }
 
@@ -556,8 +554,8 @@ html body #loginPage a.tb-discord-pill:not(#tb-x):focus { outline: none; box-sha
   --skip-btn-shadow: 0 0 0 transparent;
   --skip-btn-bg-hover: #fff;
   --skip-btn-text-color-hover: #0b0b0b;
-  --skip-btn-accent: var(--sleekfin-accent, rgb(232, 192, 80));
-  --skip-btn-ring-shadow: 0 10px 28px -10px rgba(0, 0, 0, 0.8), 0 0 0 2px var(--sleekfin-accent, rgb(232, 192, 80));
+  --skip-btn-accent: var(--ue-accent, rgb(232, 192, 80));
+  --skip-btn-ring-shadow: 0 10px 28px -10px rgba(0, 0, 0, 0.8), 0 0 0 2px var(--ue-accent, rgb(232, 192, 80));
 }
 .skip-button:not(#tb-x) {
   font-family: var(--title-font, "Bebas Neue", sans-serif) !important;
@@ -583,7 +581,7 @@ html body #loginPage a.tb-discord-pill:not(#tb-x):focus { outline: none; box-sha
 
 /* ═══════════ Settings + Profile pages ═══════════
    Settings menu, Profile, Display, Home, Playback, Subtitles, Controls, Quick Connect.
-   Dark panels, Bebas headings, gold accents (follows SleekFin's accent). Delete this block to undo. */
+   Dark panels, Bebas headings, gold accents (follows UeTheme's accent). Delete this block to undo. */
 html body .userPreferencesPage:not(#tb-x) {
   --tb-set-panel: rgba(14, 14, 16, 0.72);
   --tb-set-line: rgba(255, 255, 255, 0.08);
@@ -613,7 +611,7 @@ html body #myPreferencesMenuPage .headerUsername.sectionTitle:not(#tb-x) {
 html body #myPreferencesMenuPage .headerUsername.sectionTitle:not(#tb-x)::before {
   content: "Settings"; display: block; margin-bottom: 6px;
   font-family: var(--app-font, Inter, sans-serif); font-size: 12px; font-weight: 700;
-  letter-spacing: 0.2em; text-transform: uppercase; color: var(--sleekfin-accent, rgb(233, 196, 106));
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--ue-accent, rgb(233, 196, 106));
 }
 html body .userPreferencesPage .listItem-border:not(#tb-x) {
   display: block !important; border: 0 !important; border-radius: 12px !important;
@@ -646,13 +644,13 @@ html body .userPreferencesPage .listItem-border:not(#tb-x):focus {
 html body .userPreferencesPage .listItem-border:not(#tb-x):hover .listItemIcon,
 html body .userPreferencesPage .listItem-border:not(#tb-x):focus .listItemIcon {
   background: rgba(var(--tb-accent-rgb, 233, 196, 106), 0.18) !important;
-  color: var(--sleekfin-accent, rgb(233, 196, 106)) !important;
+  color: var(--ue-accent, rgb(233, 196, 106)) !important;
 }
 html body .userPreferencesPage .listItem-border:not(#tb-x):hover .listItem::after,
 html body .userPreferencesPage .listItem-border:not(#tb-x):focus .listItem::after {
   border-color: #fff; transform: translateX(2px) rotate(-45deg);
 }
-html body .userPreferencesPage .listItem-border:not(#tb-x):focus { box-shadow: 0 0 0 2px var(--sleekfin-accent, rgb(233, 196, 106)); }
+html body .userPreferencesPage .listItem-border:not(#tb-x):focus { box-shadow: 0 0 0 2px var(--ue-accent, rgb(233, 196, 106)); }
 
 /* ── Profile page ── */
 html body #userProfilePage .imagePlaceHolder:not(#tb-x) { border-radius: 50%; }
@@ -662,7 +660,7 @@ html body #userProfilePage #image:not(#tb-x) {
   transition: box-shadow 160ms ease, filter 160ms ease;
 }
 html body #userProfilePage .imagePlaceHolder:not(#tb-x):hover #image {
-  box-shadow: 0 0 0 4px var(--sleekfin-accent, rgb(233, 196, 106)), 0 20px 50px -16px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 0 4px var(--ue-accent, rgb(233, 196, 106)), 0 20px 50px -16px rgba(0, 0, 0, 0.8);
   filter: brightness(0.7);
 }
 html body #userProfilePage .imagePlaceHolder:not(#tb-x)::after {
@@ -719,7 +717,7 @@ html body .userPreferencesPage .emby-input:not(#tb-x):focus,
 html body .userPreferencesPage .emby-select:not(#tb-x):focus,
 html body .userPreferencesPage .emby-textarea:not(#tb-x):focus {
   outline: none; background: rgba(255, 255, 255, 0.06) !important;
-  border-color: var(--sleekfin-accent, rgb(233, 196, 106)) !important;
+  border-color: var(--ue-accent, rgb(233, 196, 106)) !important;
   box-shadow: 0 0 0 4px rgba(var(--tb-accent-rgb, 233, 196, 106), 0.14);
 }
 html body .userPreferencesPage .fieldDescription:not(#tb-x) { font-size: 12.5px; line-height: 1.5; color: rgba(255, 255, 255, 0.5) !important; margin-top: 6px; }
@@ -731,7 +729,7 @@ html body .userPreferencesPage .checkboxContainer:not(#tb-x) { margin-bottom: 18
 /* ── Buttons: gold Save, outlined secondary ── */
 html body .userPreferencesPage .button-submit:not(#tb-x) {
   height: 48px; border-radius: 12px !important; border: 0 !important; box-shadow: none !important;
-  background: var(--sleekfin-accent, rgb(233, 196, 106)) !important; color: #111 !important;
+  background: var(--ue-accent, rgb(233, 196, 106)) !important; color: #111 !important;
   font-size: 15px !important; font-weight: 700 !important; text-transform: none !important;
   transition: filter 140ms ease, transform 100ms ease;
 }
@@ -781,7 +779,7 @@ html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x)
 html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x) + .MuiButton-contained,
 html body :is(.page, header.MuiAppBar-root) button.MuiButton-contained:not(#tb-x):has(svg[data-testid="AddIcon"]) {
   height: 40px; padding: 0 18px !important; border-radius: 999px !important; border: 0 !important; box-shadow: none !important;
-  background: var(--sleekfin-accent, rgb(233, 196, 106)) !important; color: #111 !important;
+  background: var(--ue-accent, rgb(233, 196, 106)) !important; color: #111 !important;
   font: 700 14px/1 var(--app-font, Inter, sans-serif) !important; text-transform: none !important; letter-spacing: 0 !important;
 }
 html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x) > .MuiButton-root:first-child:hover,
@@ -792,26 +790,26 @@ html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x)
 
 /* Filter / Sort / View + page arrows: round glass buttons */
 html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) { gap: 6px; }
-html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root:not([data-sleekfin-header-link]):not([data-sleekfin-header-brand]),
-html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):not([data-sleekfin-header-link]):not([data-sleekfin-header-brand]) {
+html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root:not([data-ue-header-link]):not([data-ue-header-brand]),
+html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):not([data-ue-header-link]):not([data-ue-header-brand]) {
   width: 40px; height: 40px; min-width: 0 !important; padding: 0 !important;
   border-radius: 50% !important; border: 1px solid rgba(255, 255, 255, 0.10) !important;
   background: rgba(255, 255, 255, 0.05) !important; color: rgba(255, 255, 255, 0.85) !important;
   transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease !important;
 }
-html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root:not([data-sleekfin-header-link]):not([data-sleekfin-header-brand]):hover,
-html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):not([data-sleekfin-header-link]):not([data-sleekfin-header-brand]):hover {
+html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root:not([data-ue-header-link]):not([data-ue-header-brand]):hover,
+html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):not([data-ue-header-link]):not([data-ue-header-brand]):hover {
   background: rgba(255, 255, 255, 0.12) !important; border-color: rgba(255, 255, 255, 0.2) !important; color: #fff !important;
 }
-html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):not([data-sleekfin-header-link]):not([data-sleekfin-header-brand]):disabled { opacity: 0.3; }
+html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):not([data-ue-header-link]):not([data-ue-header-brand]):disabled { opacity: 0.3; }
 html body :is(.page, header.MuiAppBar-root) .MuiStack-root .MuiTypography-body2:not(#tb-x) {
   font: 600 13px/1 var(--app-font, Inter, sans-serif) !important; color: rgba(255, 255, 255, 0.6) !important;
 }
 /* "filters on" dot */
-html body :is(.page, header.MuiAppBar-root) .MuiBadge-dot:not(#tb-x) { background: var(--sleekfin-accent, rgb(233, 196, 106)) !important; }
+html body :is(.page, header.MuiAppBar-root) .MuiBadge-dot:not(#tb-x) { background: var(--ue-accent, rgb(233, 196, 106)) !important; }
 /* TV remote focus */
 html body :is(.page, header.MuiAppBar-root) :is(.MuiButtonGroup-root > .MuiButton-root, .MuiStack-root > .MuiButton-text).Mui-focusVisible:not(#tb-x) {
-  box-shadow: 0 0 0 2px var(--sleekfin-accent, rgb(233, 196, 106)) !important;
+  box-shadow: 0 0 0 2px var(--ue-accent, rgb(233, 196, 106)) !important;
 }
 
 /* A–Z bar: floating glass capsule, gold selected letter */
@@ -829,21 +827,21 @@ html body .alphaPicker:not(#tb-x) .alphaPickerButton {
 }
 html body .alphaPicker:not(#tb-x) .alphaPickerButton:hover { color: #fff !important; background: rgba(255, 255, 255, 0.08) !important; }
 html body .alphaPicker:not(#tb-x) .alphaPickerButton:is(.Mui-selected, .alphaPickerButton-selected) {
-  color: #111 !important; background: var(--sleekfin-accent, rgb(233, 196, 106)) !important;
+  color: #111 !important; background: var(--ue-accent, rgb(233, 196, 106)) !important;
 }
-html body .alphaPicker:not(#tb-x) .alphaPickerButton.Mui-focusVisible { box-shadow: 0 0 0 2px var(--sleekfin-accent, rgb(233, 196, 106)) !important; }
+html body .alphaPicker:not(#tb-x) .alphaPickerButton.Mui-focusVisible { box-shadow: 0 0 0 2px var(--ue-accent, rgb(233, 196, 106)) !important; }
 /* ═══════════ end library toolbar ═══════════ */
 
 
 /* ═══════════ Header: logo, stats, bar and avatar on one centre line (PC) ═══════════
-   Everything is centred on the middle of SleekFin's header height, so it stays level
-   when you change the header size in SleekFin and when it shrinks on scroll. */
+   Everything is centred on the middle of UeTheme's header height, so it stays level
+   when you change the header size in UeTheme and when it shrinks on scroll. */
 @media (min-width: 900px) {
   /* library stats (home only): just right of the logo, on the header's centre line */
   #jf-stats {
     position: fixed; z-index: 9999; pointer-events: none; white-space: nowrap;
-    top: calc(var(--sleekfin-header-height, 72px) / 2);
-    left: calc(var(--sleekfin-page-gutter, 24px) + var(--sleekfin-header-logo-height, 32px) + 16px);
+    top: calc(var(--ue-header-height, 72px) / 2);
+    left: calc(var(--ue-page-gutter, 24px) + var(--ue-header-logo-height, 32px) + 16px);
     transform: translateY(-50%);
     font: 600 12px/1 var(--app-font);
     color: rgba(255, 255, 255, 0.5);
@@ -928,61 +926,61 @@ html body .tb-studios .emby-scroller::-webkit-scrollbar { display: none; }
 :is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiListItemText-secondary { color: rgba(255, 255, 255, 0.5) !important; font-size: 12px !important; }
 :is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiListItemIcon-root { color: rgba(255, 255, 255, 0.6) !important; min-width: 32px !important; }
 :is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiMenuItem-root:is(:hover, .Mui-focusVisible) { background: rgba(255, 255, 255, 0.07) !important; color: #fff !important; }
-:is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiMenuItem-root:is(:hover, .Mui-focusVisible) .MuiListItemIcon-root { color: var(--sleekfin-accent) !important; }
+:is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiMenuItem-root:is(:hover, .Mui-focusVisible) .MuiListItemIcon-root { color: var(--ue-accent) !important; }
 :is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiDivider-root { border-color: rgba(255, 255, 255, 0.08) !important; margin: 6px 4px !important; }
 :is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiListSubheader-root { background: transparent !important; color: rgba(255, 255, 255, 0.45) !important; font: 700 11px/2.4 var(--app-font) !important; letter-spacing: 0.08em; text-transform: uppercase; }
 /* ═══════════ end top bar menus ═══════════ */
 
 
 /* ═══════════ Other title pages: people, collections, albums, artists, songs, playlists, genres ═══════════
-   (movies and shows have SleekFin's banner; these keep Jellyfin's own layout - picture overlapping the band,
+   (movies and shows have UeTheme's banner; these keep Jellyfin's own layout - picture overlapping the band,
    name and buttons beside it - with the theme's background, fonts and buttons) */
-#itemDetailPage.sleekfin-details-native { background: transparent !important; }
-#itemDetailPage.sleekfin-details-native :is(.detailPageWrapperContainer, .detailPageSecondaryContainer, .detailPageContent, .detailPagePrimaryContainer, .detailRibbon) {
+#itemDetailPage.ue-details-native { background: transparent !important; }
+#itemDetailPage.ue-details-native :is(.detailPageWrapperContainer, .detailPageSecondaryContainer, .detailPageContent, .detailPagePrimaryContainer, .detailRibbon) {
   background: transparent !important;
   background-color: transparent !important;
   box-shadow: none !important;
 }
-#itemDetailPage.sleekfin-details-native > #itemBackdrop {
+#itemDetailPage.ue-details-native > #itemBackdrop {
   -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
   mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
 }
-#itemDetailPage.sleekfin-details-native .detailImageContainer .cardScalable {
+#itemDetailPage.ue-details-native .detailImageContainer .cardScalable {
   border-radius: 14px !important;
   box-shadow: 0 22px 48px -16px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.06) !important;
   overflow: hidden;
 }
-#itemDetailPage.sleekfin-details-native .nameContainer .itemName:not(.parentName) { font-family: var(--app-font) !important; font-size: clamp(26px, 2.4vw, 40px) !important; font-weight: 800 !important; letter-spacing: -0.01em; line-height: 1.1 !important; }
-#itemDetailPage.sleekfin-details-native .itemMiscInfo { color: rgba(255, 255, 255, 0.7) !important; font-family: var(--app-font) !important; }
-#itemDetailPage.sleekfin-details-native .mainDetailButtons .detailButton {
+#itemDetailPage.ue-details-native .nameContainer .itemName:not(.parentName) { font-family: var(--app-font) !important; font-size: clamp(26px, 2.4vw, 40px) !important; font-weight: 800 !important; letter-spacing: -0.01em; line-height: 1.1 !important; }
+#itemDetailPage.ue-details-native .itemMiscInfo { color: rgba(255, 255, 255, 0.7) !important; font-family: var(--app-font) !important; }
+#itemDetailPage.ue-details-native .mainDetailButtons .detailButton {
   background: rgba(255, 255, 255, 0.08) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 999px !important;
 }
-#itemDetailPage.sleekfin-details-native .mainDetailButtons .detailButton:is(:hover, :focus-visible) { background: rgba(255, 255, 255, 0.16) !important; }
-#itemDetailPage.sleekfin-details-native .mainDetailButtons .detailButton.btnPlay { background: #f1f2f4 !important; color: #05070a !important; }
+#itemDetailPage.ue-details-native .mainDetailButtons .detailButton:is(:hover, :focus-visible) { background: rgba(255, 255, 255, 0.16) !important; }
+#itemDetailPage.ue-details-native .mainDetailButtons .detailButton.btnPlay { background: #f1f2f4 !important; color: #05070a !important; }
 /* track lists (albums, playlists): a soft panel, rows highlight on hover */
-#itemDetailPage.sleekfin-details-native .vertical-list:has(> .listItem) {
+#itemDetailPage.ue-details-native .vertical-list:has(> .listItem) {
   background: rgba(10, 10, 12, 0.45) !important;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 14px;
   overflow: hidden;
   padding: 4px !important;
 }
-#itemDetailPage.sleekfin-details-native .listItem { border-radius: 10px; border-bottom: 0 !important; font-family: var(--app-font) !important; }
-#itemDetailPage.sleekfin-details-native .listItem:hover { background: rgba(255, 255, 255, 0.06) !important; }
+#itemDetailPage.ue-details-native .listItem { border-radius: 10px; border-bottom: 0 !important; font-family: var(--app-font) !important; }
+#itemDetailPage.ue-details-native .listItem:hover { background: rgba(255, 255, 255, 0.06) !important; }
 /* phones: name, info and buttons stacked full width (they were squeezed into a narrow column) */
 @media (max-width: 699px) {
-  #itemDetailPage.sleekfin-details-native .detailPagePrimaryContainer { display: block !important; }
-  #itemDetailPage.sleekfin-details-native .detailImageContainer { display: none !important; }
-  #itemDetailPage.sleekfin-details-native :is(.detailRibbon, .detailPagePrimaryContent) { display: block !important; width: auto !important; max-width: none !important; }
-  #itemDetailPage.sleekfin-details-native .infoWrapper { width: auto !important; }
-  #itemDetailPage.sleekfin-details-native .nameContainer .itemName { white-space: normal !important; overflow-wrap: anywhere; }
-  #itemDetailPage.sleekfin-details-native .mainDetailButtons { justify-content: flex-start !important; margin: 10px 0 !important; }
+  #itemDetailPage.ue-details-native .detailPagePrimaryContainer { display: block !important; }
+  #itemDetailPage.ue-details-native .detailImageContainer { display: none !important; }
+  #itemDetailPage.ue-details-native :is(.detailRibbon, .detailPagePrimaryContent) { display: block !important; width: auto !important; max-width: none !important; }
+  #itemDetailPage.ue-details-native .infoWrapper { width: auto !important; }
+  #itemDetailPage.ue-details-native .nameContainer .itemName { white-space: normal !important; overflow-wrap: anywhere; }
+  #itemDetailPage.ue-details-native .mainDetailButtons { justify-content: flex-start !important; margin: 10px 0 !important; }
 }
 
 /* ═══════════ Every other pop-up list: player settings, audio / subtitle pickers, poster menus, sort ═══════════ */
-.dialog.actionSheet:not(.sleekfin-more-menu):not(.actionsheet-fullscreen) {
+.dialog.actionSheet:not(.ue-more-menu):not(.actionsheet-fullscreen) {
   background: rgba(18, 18, 20, 0.95) !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 14px !important;
@@ -991,20 +989,20 @@ html body .tb-studios .emby-scroller::-webkit-scrollbar { display: none; }
   min-width: 220px;
 }
 .dialog.actionSheet.actionsheet-fullscreen { background: rgba(12, 12, 14, 0.97) !important; font-family: var(--app-font) !important; }
-.dialog.actionSheet:not(.sleekfin-more-menu) .actionSheetContent { padding: 6px !important; }
-.dialog.actionSheet:not(.sleekfin-more-menu) .actionSheetTitle { font: 700 12px/2.2 var(--app-font) !important; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.5) !important; padding: 4px 10px !important; margin: 0 !important; }
-.dialog.actionSheet:not(.sleekfin-more-menu) .actionSheetMenuItem {
+.dialog.actionSheet:not(.ue-more-menu) .actionSheetContent { padding: 6px !important; }
+.dialog.actionSheet:not(.ue-more-menu) .actionSheetTitle { font: 700 12px/2.2 var(--app-font) !important; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.5) !important; padding: 4px 10px !important; margin: 0 !important; }
+.dialog.actionSheet:not(.ue-more-menu) .actionSheetMenuItem {
   border-radius: 8px !important;
   color: rgba(255, 255, 255, 0.82) !important;
   font: 500 13px/1.3 var(--app-font) !important;
   min-height: 38px;
   padding: 0 10px !important;
 }
-.dialog.actionSheet:not(.sleekfin-more-menu) .actionSheetMenuItem:is(:hover, :focus) { background: rgba(255, 255, 255, 0.1) !important; color: #fff !important; }
-.dialog.actionSheet:not(.sleekfin-more-menu) .actionsheetListItemBody { padding: 0 !important; }
-.dialog.actionSheet:not(.sleekfin-more-menu) .actionSheetItemAsideText { color: rgba(255, 255, 255, 0.45) !important; font-size: 12px !important; }
-.dialog.actionSheet:not(.sleekfin-more-menu) .actionsheetMenuItemIcon { font-size: 18px !important; margin-right: 10px !important; }
-.dialog.actionSheet:not(.sleekfin-more-menu) .actionsheetMenuItemIcon.check { color: var(--sleekfin-accent) !important; }
+.dialog.actionSheet:not(.ue-more-menu) .actionSheetMenuItem:is(:hover, :focus) { background: rgba(255, 255, 255, 0.1) !important; color: #fff !important; }
+.dialog.actionSheet:not(.ue-more-menu) .actionsheetListItemBody { padding: 0 !important; }
+.dialog.actionSheet:not(.ue-more-menu) .actionSheetItemAsideText { color: rgba(255, 255, 255, 0.45) !important; font-size: 12px !important; }
+.dialog.actionSheet:not(.ue-more-menu) .actionsheetMenuItemIcon { font-size: 18px !important; margin-right: 10px !important; }
+.dialog.actionSheet:not(.ue-more-menu) .actionsheetMenuItemIcon.check { color: var(--ue-accent) !important; }
 
 /* ═══════════ Phone side menu (☰) ═══════════ */
 .MuiDrawer-paper {
@@ -1019,7 +1017,7 @@ html body .tb-studios .emby-scroller::-webkit-scrollbar { display: none; }
 .MuiDrawer-paper .MuiListItemButton-root { border-radius: 10px; margin: 1px 8px; }
 .MuiDrawer-paper .MuiListItemButton-root:is(:hover, .Mui-focusVisible) { background: rgba(255, 255, 255, 0.07) !important; }
 .MuiDrawer-paper .MuiListItemButton-root.Mui-selected { background: rgba(var(--tb-accent-rgb, 233, 196, 106), 0.14) !important; }
-.MuiDrawer-paper .MuiListItemButton-root.Mui-selected :is(.MuiListItemIcon-root, .MuiTypography-root) { color: var(--sleekfin-accent) !important; }
+.MuiDrawer-paper .MuiListItemButton-root.Mui-selected :is(.MuiListItemIcon-root, .MuiTypography-root) { color: var(--ue-accent) !important; }
 .MuiDrawer-paper .MuiListItemIcon-root { color: rgba(255, 255, 255, 0.65) !important; min-width: 40px !important; }
 .MuiDrawer-paper .MuiDivider-root { border-color: rgba(255, 255, 255, 0.06) !important; }
 
@@ -1053,4 +1051,4 @@ html .verticalSection > .emby-scrollbuttons .emby-scrollbuttons-button { transit
    start the browser's ghost-image drag, which snaps back and stalls the page for ~1 s.
    Clicking, hover, row arrows, scrolling, and page fades are unaffected. */
 .card a, .tb-logo-link { -webkit-user-drag: none; user-drag: none; }
-.sleekfin-hero-backdrop, .sleekfin-hero-title-logo { -webkit-user-drag: none; user-drag: none; }
+.ue-hero-backdrop, .ue-hero-title-logo { -webkit-user-drag: none; user-drag: none; }

@@ -1,0 +1,9 @@
+html.ue-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage) .ue-media-meta-source {
+    display: none !important;
+}
+
+html.ue-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage) .cardText-secondary[data-ue-media-meta] {
+    line-height: 1;
+    margin-top: 4px;
+    padding: 0 2px;
+}

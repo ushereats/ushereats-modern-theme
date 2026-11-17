@@ -4,8 +4,8 @@ out/
 dist/
 node_modules/
 /package-lock.json
-sleekfin/node_modules/
-sleekfin/build/
+look/node_modules/
+look/build/
 src/Jellyfin.Plugin.UshereatsTheme/Assets/
 ci-session.json
 shots/

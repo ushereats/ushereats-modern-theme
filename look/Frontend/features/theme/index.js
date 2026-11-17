@@ -1,0 +1,90 @@
+import { createMoreMenuFeature } from './menus.js';
+
+const ROOT_CLASS = 'ue-main-ui';
+const WINDOW_EVENTS = ['hashchange', 'load', 'pageshow', 'popstate'];
+const ENHANCED_THEME = {
+  name: 'UeTheme',
+  uniqueIdentifier: '--ue-accent',
+  variables: {
+    panelBg: '--ue-surface',
+    panelBgFallback: '#101113',
+    secondaryBg: '--ue-surface-raised',
+    secondaryBgFallback: '#1a1c20',
+    primaryAccent: '--ue-accent',
+    primaryAccentFallback: '#dc2626',
+    textColor: '--ue-text',
+    textColorFallback: '#f1f2f4',
+    altAccent: '--ue-border',
+    altAccentFallback: '#26292e',
+    blur: null,
+    blurFallback: '18px',
+  },
+};
+
+function syncEnhancedTheme(active) {
+  const themer = window.JellyfinEnhanced?.themer;
+  if (!themer?.registerTheme || !themer.detectActiveTheme) return;
+
+  if (active) {
+    if (!themer.supportedThemes.look) themer.registerTheme('look', ENHANCED_THEME);
+    // JE has selected preset borders inline with !important from its theme accent.
+    themer.activeTheme = { key: 'look', ...themer.supportedThemes.look };
+  } else if (themer.activeTheme?.key === 'look') {
+    themer.detectActiveTheme();
+  }
+}
+
+function createThemeFeature() {
+  let started = false;
+  let enhancedTimer = null;
+  // Scroll positions are kept by the theme's page changes (27-page-transitions.js), in one place.
+  const moreMenus = createMoreMenuFeature();
+
+  function isDashboardRoute() {
+    const route = (window.location.hash.slice(1) || window.location.pathname).split('?')[0].toLowerCase();
+    return route === '/dashboard' || route.startsWith('/dashboard/') || route === '/configurationpage' || route === '/metadata';
+  }
+
+  function reconcile() {
+    const active = !isDashboardRoute();
+    document.documentElement.classList.toggle(ROOT_CLASS, active);
+    syncEnhancedTheme(active);
+    if (!enhancedTimer && !window.JellyfinEnhanced?.initialized && document.querySelector('script[src*="/JellyfinEnhanced/"]')) {
+      let checks = 0;
+      // JE loads its themer asynchronously, and later detects the theme again after initialization.
+      enhancedTimer = window.setInterval(() => {
+        syncEnhancedTheme(!isDashboardRoute());
+        if (window.JellyfinEnhanced?.initialized || ++checks >= 120) {
+          window.clearInterval(enhancedTimer);
+          enhancedTimer = null;
+        }
+      }, 250);
+    }
+  }
+
+  function start() {
+    if (started || !document.documentElement) return;
+
+    started = true;
+    WINDOW_EVENTS.forEach((eventName) => window.addEventListener(eventName, reconcile));
+    reconcile();
+    moreMenus.start();
+  }
+
+  function stop() {
+    started = false;
+    WINDOW_EVENTS.forEach((eventName) => window.removeEventListener(eventName, reconcile));
+    if (enhancedTimer) window.clearInterval(enhancedTimer);
+    enhancedTimer = null;
+    document.documentElement?.classList.remove(ROOT_CLASS);
+    syncEnhancedTheme(false);
+    moreMenus.stop();
+  }
+
+  return { start, stop };
+}
+
+const features = (window.UeFeatures = window.UeFeatures || {});
+features.theme?.stop?.();
+features.theme = createThemeFeature();
+features.theme.start();

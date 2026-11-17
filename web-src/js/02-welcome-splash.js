@@ -64,7 +64,7 @@
   function showSplash(name) {
     var h = new Date().getHours();
     var g = h < 5 ? "Good night" : h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening";
-    var ACC = "var(--sleekfin-accent, rgb(232, 192, 80))";
+    var ACC = "var(--ue-accent, rgb(232, 192, 80))";
     var TITLE = "var(--title-font, 'Bebas Neue', sans-serif)";
     
     var style = document.createElement("style");

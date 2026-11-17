@@ -1,0 +1,353 @@
+html.ue-main-ui .card:is(.personCard, [data-type="Person"]) {
+    --ue-card-radius: var(--ue-person-radius);
+    --ue-card-inner-radius: var(--ue-person-inner-radius);
+}
+
+html.ue-main-ui .card:is([data-type], .chapterCard):not(.ue-details-episode) .cardScalable {
+    background: var(--ue-surface);
+    border: 0;
+    border-radius: var(--ue-card-radius);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+html.ue-main-ui .card:is([data-type], .chapterCard) .cardBox:not(.visualCardBox) :is(.cardContent, .cardImageContainer, .cardOverlayContainer, .blurhash-canvas) {
+    border-radius: var(--ue-card-inner-radius);
+}
+
+html.ue-main-ui .card[data-type] .visualCardBox {
+    background: var(--ue-surface) !important;
+    border: 1px solid var(--ue-border) !important;
+    border-radius: var(--ue-card-radius);
+    box-shadow: none;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Jellyfin's focus border is important, but the UeTheme visual card border must stay important to beat its theme. */
+html.ue-main-ui .card[data-type]:focus .visualCardBox {
+    border-color: var(--ue-accent) !important;
+}
+
+html.ue-main-ui .card[data-type] .visualCardBox .cardScalable {
+    border: 0;
+    border-radius: 0;
+}
+
+html.ue-main-ui .card[data-type] .visualCardBox :is(.cardContent, .cardOverlayContainer, .blurhash-canvas) {
+    border-radius: var(--ue-card-inner-radius) var(--ue-card-inner-radius) 0 0;
+}
+
+html.ue-main-ui .card[data-type] .cardOverlayContainer {
+    background: transparent;
+    container-type: size;
+}
+
+/* Thumbnail rows such as Next Up match UeTheme episode cards: a 380px image followed by a 12px gap. */
+html.ue-main-ui .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not([data-type="CollectionFolder"]):not([data-type="UserView"]) {
+    width: 392px;
+}
+
+html.ue-main-ui .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not([data-type="CollectionFolder"]):not([data-type="UserView"]) > .cardBox {
+    margin: 0 !important;
+    margin-inline-end: 12px !important;
+}
+
+@media (max-width: 767px) {
+    html.ue-main-ui .card:is(.overflowBackdropCard, .overflowSmallBackdropCard)[data-type]:not([data-type="CollectionFolder"]):not([data-type="UserView"]) {
+        width: calc(min(84vw, 380px) + 12px);
+    }
+}
+
+html.ue-main-ui .card[data-type] :is(button.cardOverlayButton, .ue-icon-button) {
+    align-items: center;
+    border-radius: var(--ue-card-button-radius) !important;
+    color: var(--ue-muted);
+    display: inline-flex;
+    flex: 0 0 auto;
+    height: 32px;
+    justify-content: center;
+    min-width: 0;
+    padding: 0 !important;
+    width: 32px;
+}
+
+html.ue-main-ui .card[data-type] button.cardOverlayButton:not(.cardOverlayFab-primary):not(.cardOverlayButton-centered) {
+    margin: 0;
+}
+
+/* Jellyfin centres both Play buttons with negative margins derived from their size. */
+html.ue-main-ui:not(.tb-hover) .card[data-type]:not(.ue-details-season-card) :is(.cardOverlayContainer > button.cardOverlayFab-primary, button.cardOverlayButton-centered) {
+    border-radius: var(--ue-card-play-radius) !important;
+    color: var(--ue-text);
+    height: 52px;
+    margin: -26px 0 0 -26px;
+    width: 52px;
+}
+
+html.ue-main-ui:not(.tb-hover) .card[data-type]:not(.ue-details-season-card) .cardOverlayContainer > button.cardOverlayFab-primary:hover {
+    transform: scale(1.06);
+}
+
+html.ue-main-ui:not(.tb-hover) .card[data-type]:not(.ue-details-season-card) :is(.cardOverlayContainer > button.cardOverlayFab-primary, button.cardOverlayButton-centered) > :is(.cardOverlayButtonIcon, .MuiSvgIcon-root) {
+    font-size: 30px !important;
+    height: 30px !important;
+    width: 30px !important;
+}
+
+/* Short backdrops cannot fit a centred Play button beside the action row, so it moves into the space beneath. */
+@container (max-height: 139px) {
+    html.ue-main-ui:not(.tb-hover) .card[data-type]:not(.ue-details-season-card) .cardOverlayContainer > button.cardOverlayFab-primary {
+        height: 40px;
+        margin: -20px 0 0 -20px;
+        top: calc(50% + 21px);
+        width: 40px;
+    }
+
+    html.ue-main-ui:not(.tb-hover)[data-ue-media-card-shape="Circle"] .card[data-type]:not(.personCard):not([data-type="Person"]):not(.ue-details-season-card) .cardOverlayContainer > button.cardOverlayFab-primary {
+        top: calc(50% - 21px);
+    }
+
+    html.ue-main-ui:not(.tb-hover) .card[data-type]:not(.ue-details-season-card) .cardOverlayContainer > button.cardOverlayFab-primary > :is(.cardOverlayButtonIcon, .MuiSvgIcon-root) {
+        font-size: 24px !important;
+        height: 24px !important;
+        width: 24px !important;
+    }
+}
+
+/* Item actions take the top-right corner like UeTheme season cards. */
+html.ue-main-ui .card[data-type]:not(.ue-details-season-card) .cardOverlayButton-br:not(button) {
+    bottom: auto;
+    gap: 4px;
+    right: 10px;
+    top: 10px;
+}
+
+html.ue-main-ui .card[data-type] button.cardOverlayButton-br:not(.cardOverlayButton-centered) {
+    bottom: 10px;
+    right: 10px;
+}
+
+/* Mobile layouts show Jellyfin's corner Play button instead of the hover menu. */
+html.ue-main-ui .card[data-type] button.cardOverlayButton-br[data-action="play"] {
+    border-radius: var(--ue-card-play-radius) !important;
+}
+
+html.ue-main-ui .card[data-type] .cardIndicators {
+    transition: opacity 200ms ease;
+}
+
+/* Hover actions take the badge corner and already show the watched and favorite state. */
+html.ue-main-ui .card-hoverable[data-type]:is(:hover, :focus-within) .cardIndicators {
+    opacity: 0;
+}
+
+/* Legacy icons carry a second circular surface and important em-based dimensions. */
+html.ue-main-ui .card[data-type] .cardOverlayButtonIcon {
+    background: transparent !important;
+    font-size: 18px !important;
+    height: 18px !important;
+    width: 18px !important;
+}
+
+html.ue-main-ui .card[data-type] button.cardOverlayButton > .MuiSvgIcon-root {
+    height: 18px;
+    width: 18px;
+}
+
+html.ue-main-ui .card[data-type] :is(button.cardOverlayButton, .ue-icon-button):hover {
+    color: var(--ue-text);
+}
+
+html.ue-main-ui .card[data-type] button.cardOverlayButton:is(.playstatebutton-played, .ratingbutton-withrating):not(:disabled),
+html.ue-main-ui .card[data-type] button.cardOverlayButton:has(> .MuiSvgIcon-colorError):not(:disabled) {
+    background: var(--ue-accent) !important;
+    border-color: var(--ue-accent) !important;
+    color: var(--ue-surface) !important;
+}
+
+html.ue-main-ui .card[data-type] button.cardOverlayButton > .MuiSvgIcon-colorError {
+    color: var(--ue-surface);
+}
+
+html.ue-main-ui .card:is([data-type], .chapterCard):not(.ue-details-episode) .cardText {
+    color: var(--ue-text);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.375;
+    font-family: var(--app-font);
+}
+
+html.ue-main-ui .card[data-type]:not(.ue-details-episode) .cardText-secondary {
+    color: var(--ue-muted);
+    font-size: 11px;
+    font-weight: 400;
+}
+
+html.ue-main-ui .card[data-type] :is(.cardTextCentered, .cardTextCentered > .textActionButton) {
+    text-align: start !important;
+}
+
+html.ue-main-ui .card[data-type] :is(.countIndicator, .playedIndicator, .mediaSourceIndicator, .videoIndicator) {
+    background: rgba(16, 17, 19, 0.86) !important;
+    border: var(--ue-glass-border);
+    border-radius: var(--ue-card-button-radius);
+    box-shadow: var(--ue-glass-shadow);
+    color: var(--ue-text);
+}
+
+html.ue-main-ui .card[data-type] :is(.missingIndicator, .unairedIndicator) {
+    background: var(--ue-accent);
+    border-radius: var(--ue-card-button-radius);
+    color: #fff;
+}
+
+html.ue-main-ui .card[data-type] .itemProgressBar {
+    background: rgba(150, 154, 161, 0.28);
+    height: 3px;
+}
+
+html.ue-main-ui .card[data-type] .itemProgressBarForeground,
+html.ue-main-ui .card[data-type] .itemLinearProgress .MuiLinearProgress-bar {
+    background: var(--ue-accent) !important;
+}
+
+html.ue-main-ui .card[data-type] .itemLinearProgress {
+    background: rgba(150, 154, 161, 0.28);
+    height: 3px;
+}
+
+/* Rows that show titles (Continue Watching): rounder cards, progress bar floating inside the thumbnail */
+html.ue-main-ui .show-card-titles {
+    --ue-card-radius: 12px;
+    --ue-card-inner-radius: 12px;
+}
+
+html.ue-main-ui .show-card-titles .card .innerCardFooter {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: none;
+    border-radius: 3px;
+    bottom: 10px !important;
+    left: 14px !important;
+    max-width: none !important;
+    overflow: visible !important;
+    right: 14px !important;
+    width: auto !important;
+    z-index: 3;
+}
+
+/* soft dark fade behind the bar (drawn by the bar's own box, so it can't cover the bar) */
+html.ue-main-ui .show-card-titles .card .innerCardFooter::before {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
+    bottom: -10px;
+    content: "";
+    height: 70px;
+    left: -14px;
+    pointer-events: none;
+    position: absolute;
+    right: -14px;
+    z-index: -1;
+}
+
+html.ue-main-ui .show-card-titles .card[data-type] :is(.itemProgressBar, .itemLinearProgress) {
+    background: rgba(255, 255, 255, 0.28);
+    border-radius: 3px;
+    height: 4px;
+    overflow: hidden;
+}
+
+html.ue-main-ui .show-card-titles .card[data-type] :is(.itemProgressBarForeground, .itemLinearProgress .MuiLinearProgress-bar) {
+    border-radius: 3px;
+    height: 100%;
+}
+
+html.ue-main-ui[data-ue-cast-crew-shape="Circle"] .card:is(.personCard, [data-type="Person"]) .cardPadder {
+    padding-bottom: 100% !important;
+}
+
+/* Fully rounded artwork needs its controls inset from the clipped corners. */
+html.ue-main-ui[data-ue-media-card-shape="Circle"] .card[data-type]:not(.personCard):not([data-type="Person"]) .cardOverlayButton-br:not(button),
+html.ue-main-ui[data-ue-cast-crew-shape="Circle"] .card:is(.personCard, [data-type="Person"]) .cardOverlayButton-br:not(button) {
+    bottom: 15%;
+    right: 50%;
+    top: auto;
+    transform: translateX(50%);
+}
+
+html.ue-main-ui[data-ue-media-card-shape="Circle"] .card[data-type]:not(.personCard):not([data-type="Person"]) .cardIndicators,
+html.ue-main-ui[data-ue-cast-crew-shape="Circle"] .card:is(.personCard, [data-type="Person"]) .cardIndicators {
+    right: 50%;
+    top: 15%;
+    transform: translateX(50%);
+}
+
+html.ue-main-ui[data-ue-media-card-shape="Circle"] .card[data-type]:not(.personCard):not([data-type="Person"]) .innerCardFooter {
+    bottom: 12%;
+    left: 20%;
+    right: 20%;
+}
+
+html.ue-main-ui[data-ue-media-card-shape="Circle"] .ue-details-episode-actions {
+    right: 15%;
+    top: 15%;
+}
+
+html.ue-main-ui[data-ue-media-card-shape="Circle"] .ue-details-episode-list[data-view="grid"] .ue-details-episode-number {
+    left: 15%;
+    top: 15%;
+}
+
+/* ── Posters: rounded, no shadow under them (the large cinejoy shadow showed as a dark band under every row,
+   cut off in a hard line where the row ends), the whole card pops on hover ── */
+.card .cardScalable {
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.card:is(.personCard, [data-type="Person"]) .cardScalable {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(0, 0, 0, 0.10) !important;
+}
+
+.card .cardScalable iframe,
+.card .cardScalable video,
+.card:not(:where(.tb-logo-card)) .cardScalable .cardImageContainer {
+    border-radius: var(--ue-card-inner-radius, 9px) !important;
+}
+
+/* rounded clip only while hovered (when trailers play); a permanent clip would cut the resting shadow */
+.card:not(:where(.tb-logo-card)):hover .cardScalable {
+    clip-path: inset(0 round var(--ue-card-radius, 10px));
+}
+
+/* the whole card scales (the clipped poster itself never transforms: Chrome drops its rounded corners) */
+.card .cardBox {
+    transform-origin: 50% 50%;
+    transition: transform 0.5s cubic-bezier(0, 0, 0.2, 1) !important;   /* cinejoy: 105% over 0.5 s, easing out (the shadow
+       switches on at once: a shadow filter that animates repaints the poster on every frame) */
+}
+
+/* Jellyfin's "contain: paint" on cards would slice the scaled poster's edges */
+.card:not(.show-animation) {
+    contain: layout style !important;
+}
+
+.card:hover {
+    position: relative;
+    z-index: 50;
+}
+
+.card:not(:where(.tb-logo-card)):hover .cardBox {
+    filter: drop-shadow(0 0 14px rgba(0, 0, 0, 0.32));
+    transform: scale(1.05) !important;
+}
+
+.card:active .cardBox {
+    transform: scale(0.96) !important;
+    transition-duration: 80ms !important;
+}
+
+html.is-scrolling .card .cardBox {
+    transition: none !important;
+}

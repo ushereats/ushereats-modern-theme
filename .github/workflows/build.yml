@@ -22,10 +22,10 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
-      - name: Build web assets (minify scripts, strip CSS comments, build the built-in SleekFin)
+      - name: Build web assets (minify scripts, strip CSS comments, build the built-in UeTheme)
         run: |
           set -o pipefail
-          npm ci --prefix sleekfin --no-audit --no-fund 2>&1 | tail -n 25 | sed 's/^/::warning::npm: /'
+          npm ci --prefix look --no-audit --no-fund 2>&1 | tail -n 25 | sed 's/^/::warning::npm: /'
           npm install --no-save terser@5.31.6
           node build-assets.mjs > build.log 2>&1 || { tail -n 30 build.log | sed 's/^/::error::/'; exit 1; }
 

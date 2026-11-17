@@ -37,7 +37,7 @@ const playing = () => fetch(s.server + "/Sessions/Playing", { method: "POST",
   headers: { Authorization: `MediaBrowser Client="CI Player", Device="Living Room TV", DeviceId="ci-player", Version="1.0", Token="${s.token}"`, "Content-Type": "application/json" },
   body: JSON.stringify({ ItemId: movies[1].Id, PositionTicks: 12000000000, PlayMethod: "DirectPlay", CanSeek: true, IsPaused: false }) }).then((r) => r.status).catch((e) => String(e));
 const report = { errors: {} };
-// Which of the theme's rules restyle something a built-in SleekFin rule also styles (same element, same property)?
+// Which of the theme's rules restyle something a built-in UeTheme rule also styles (same element, same property)?
 const overrides = {};
 async function collect(page, label) {
   const found = await page.evaluate(() => {
@@ -50,7 +50,7 @@ async function collect(page, label) {
         if (r.cssRules && r.media) { if (window.matchMedia(r.media.mediaText).matches) walk(r.cssRules); continue; }
         if (r.cssRules && r.conditionText !== undefined && !r.selectorText) { walk(r.cssRules); continue; }
         if (!r.selectorText) continue;
-        if (r.selectorText === ".tb-sleek-end") { marker = rules.length; continue; }
+        if (r.selectorText === ".tb-look-end") { marker = rules.length; continue; }
         const props = [];
         for (let i = 0; i < r.style.length; i++) props.push(r.style[i]);
         if (!props.length) continue;
@@ -77,21 +77,21 @@ async function collect(page, label) {
     }
     const cand = [];
     for (const [el, hs] of hits) {
-      const sleek = hs.filter((h) => h.ri < marker), theme = hs.filter((h) => h.ri > marker);
-      for (const t of theme) for (const s of sleek) {
+      const base = hs.filter((h) => h.ri < marker), theme = hs.filter((h) => h.ri > marker);
+      for (const t of theme) for (const s of base) {
         if (t.pseudo !== s.pseudo) continue;
         const shared = rules[t.ri].props.filter((x) => rules[s.ri].props.includes(x));
         if (shared.length) cand.push({ el, pseudo: t.pseudo || null, t: rules[t.ri].sel.slice(0, 220), s: rules[s.ri].sel.slice(0, 220), shared, tv: rules[t.ri].vals, sv: rules[s.ri].vals });
       }
     }
-    // Only real overrides count: the theme part must change the computed value of a property SleekFin sets.
+    // Only real overrides count: the theme part must change the computed value of a property UeTheme sets.
     const read = () => cand.map((c) => { const cs = getComputedStyle(c.el, c.pseudo); return c.shared.map((p) => cs.getPropertyValue(p)); });
     const withTheme = read();
     const kill = document.createElement("style");
     kill.textContent = "*,*::before,*::after{transition:none!important;animation:none!important}";
     document.head.appendChild(kill);
     let top = -1;
-    for (let i = 0; i < sheet.cssRules.length; i++) if (sheet.cssRules[i].selectorText === ".tb-sleek-end") top = i;
+    for (let i = 0; i < sheet.cssRules.length; i++) if (sheet.cssRules[i].selectorText === ".tb-look-end") top = i;
     const saved = [];
     while (sheet.cssRules.length > top + 1) { saved.unshift(sheet.cssRules[sheet.cssRules.length - 1].cssText); sheet.deleteRule(sheet.cssRules.length - 1); }
     const without = read();
@@ -145,18 +145,18 @@ for (const [vw, vh, tag] of [[1920, 1080, "desktop"], [390, 844, "phone"]]) {
       // one Save for every tab: change a field, save, read the plugin settings back
       const before = await api("/Plugins/01c723cc-57de-4e19-b13c-514b644491a5/Configuration");
       if (before) {
-        await page.click('.sleekfin-page-nav-button[data-sleekfin-panel="search"]').catch(() => {});
+        await page.click('.ue-page-nav-button[data-ue-panel="search"]').catch(() => {});
         await page.fill("#tb-SearchTitle", "CI saved").catch(() => {});
-        await page.click(".sleekfin-save-button").catch(() => {});
+        await page.click(".ue-save-button").catch(() => {});
         await page.waitForTimeout(2500);
         const after = await api("/Plugins/01c723cc-57de-4e19-b13c-514b644491a5/Configuration");
         // the speed test (Speed test tab)
-        await page.click('.sleekfin-page-nav-button[data-sleekfin-panel="speed"]').catch(() => {});
+        await page.click('.ue-page-nav-button[data-ue-panel="speed"]').catch(() => {});
         await page.click("#tbBenchRun").catch(() => {});
         await page.waitForFunction(() => /^Done/.test(document.querySelector("#tbBenchStatus").textContent), null, { timeout: 420000 }).catch(() => {});
         fs.writeFileSync(`${out}/speedtest.json`, await page.$eval("#tbBenchOut", (e) => e.value || ("(no result) " + document.querySelector("#tbBenchStatus").textContent)).catch(() => "(admin required)"));
         report.settingsSave = { title: after && after.SearchTitle, rowsKept: after && after.HomeRowsJson === before.HomeRowsJson, accentKept: after && after.AccentColor === before.AccentColor,
-          desktopLogo: after && after.Sleek && after.Sleek.HeaderDesktopLogoHeight, sleekKept: !!(after && after.Sleek && after.Sleek.HeaderHeight === before.Sleek.HeaderHeight) };
+          desktopLogo: after && after.Look && after.Look.HeaderDesktopLogoHeight, lookKept: !!(after && after.Look && after.Look.HeaderHeight === before.Look.HeaderHeight) };
       } else {
         report.settingsSave = "skipped (non-admin user)";
       }
@@ -189,7 +189,7 @@ for (const [vw, vh, tag] of [[1920, 1080, "desktop"], [390, 844, "phone"]]) {
         await page.waitForTimeout(2500);
         await page.evaluate((nf) => { window.__tbNoHomeFix = nf; }, noFix);
         await page.evaluate((h) => { location.hash = h; }, `#/details?id=${movies[2].Id}&serverId=${s.serverId}`);
-        await page.waitForFunction(() => document.querySelector("#itemDetailPage[data-sleekfin-details='true']") && !document.documentElement.classList.contains("sleekfin-details-concealed"), null, { timeout: 15000 }).catch(() => {});
+        await page.waitForFunction(() => document.querySelector("#itemDetailPage[data-ue-details='true']") && !document.documentElement.classList.contains("ue-details-concealed"), null, { timeout: 15000 }).catch(() => {});
         await page.waitForTimeout(800);
         await page.evaluate(() => {
           window.__bad = []; window.__frames = 0; const t0 = performance.now();
@@ -199,14 +199,14 @@ for (const [vw, vh, tag] of [[1920, 1080, "desktop"], [390, 844, "phone"]]) {
             document.querySelectorAll("#itemDetailPage").forEach((p) => {
               for (let n = p; n && n !== document.body; n = n.parentElement) if (n.classList.contains("hide")) return;
               if (!p.getClientRects().length || getComputedStyle(p).visibility === "hidden") return;
-              if (p.dataset.sleekfinDetails !== "true") window.__bad.push(Math.round(performance.now() - t0) + "ms native-details" + (html.classList.contains("sleekfin-details-concealed") ? "(concealed?)" : ""));
+              if (p.dataset.ueDetails !== "true") window.__bad.push(Math.round(performance.now() - t0) + "ms native-details" + (html.classList.contains("ue-details-concealed") ? "(concealed?)" : ""));
             });
             if (performance.now() - t0 < 2500) requestAnimationFrame(tick);
           };
           requestAnimationFrame(tick);
         });
         if (how === "logo") {
-          const logo = page.locator("[data-sleekfin-header-brand]:visible, .sleekfin-header-fallback-brand:visible, a[href='#/']:visible").first();
+          const logo = page.locator("[data-ue-header-brand]:visible, .ue-header-fallback-brand:visible, a[href='#/']:visible").first();
           if (!(await logo.count())) return { error: "no logo link" };
           var clicked = await logo.evaluate((e) => e.outerHTML.slice(0, 200));
           await logo.click({ timeout: 5000 }).catch((e) => { clicked += " CLICK FAILED " + String(e.message).slice(0, 100); });

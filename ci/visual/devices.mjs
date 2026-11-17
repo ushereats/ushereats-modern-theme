@@ -96,11 +96,11 @@ const inspect = (touch) => {
     if (!r.width || !r.height || r.top > Hh || r.bottom < 0 || r.right < 0 || r.left > W || !shown(e)) continue;
     if (r.width < 30 || r.height < 30) small.push(path(e) + ` ${Math.round(r.width)}x${Math.round(r.height)}`);
   }
-  const hdr = document.querySelector("[data-sleekfin-header]");
+  const hdr = document.querySelector("[data-ue-header]");
   const hr = hdr && hdr.getBoundingClientRect();
   // text that runs out of its box
   const cut = [];
-  for (const e of document.querySelectorAll("h1,h2,h3,.sectionTitle,.sleekfin-hero *,.cardText,button")) {
+  for (const e of document.querySelectorAll("h1,h2,h3,.sectionTitle,.ue-hero *,.cardText,button")) {
     if (!shown(e) || !e.getClientRects().length) continue;
     const r = e.getBoundingClientRect();
     if (r.top > Hh || r.bottom < 0) continue;
@@ -115,10 +115,10 @@ const inspect = (touch) => {
     smallTapCount: small.length,
     textCut: cut.slice(0, 6),
     header: hr ? { top: Math.round(hr.top), height: Math.round(hr.height), width: Math.round(hr.width), shown: shown(hdr) } : null,
-    hero: !!document.querySelector(".sleekfin-hero"),
-    details: !!document.querySelector("#itemDetailPage[data-sleekfin-details='true']") && !html.classList.contains("sleekfin-details-concealed"),
+    hero: !!document.querySelector(".ue-hero"),
+    details: !!document.querySelector("#itemDetailPage[data-ue-details='true']") && !html.classList.contains("ue-details-concealed"),
     rows: document.querySelectorAll(".tb-rows-c .card").length,
-    concealed: html.classList.contains("sleekfin-details-concealed"),
+    concealed: html.classList.contains("ue-details-concealed"),
   };
 };
 
@@ -141,21 +141,21 @@ const probe = () => {
   const cs = (e) => { const c = getComputedStyle(e); return { pos: c.position, z: c.zIndex, vis: c.visibility, op: c.opacity, disp: c.display, ov: c.overflowX + "/" + c.overflowY, tr: c.transform !== "none" ? "T" : "", iso: c.isolation }; };
   const nm = (e) => (e.id ? "#" + e.id : e.tagName.toLowerCase()) + (typeof e.className === "string" && e.className.trim() ? "." + e.className.trim().split(/\s+/).slice(0, 4).join(".") : "");
   const chain = (e) => { const out = []; for (let n = e; n && n !== document.documentElement; n = n.parentElement) out.push(nm(n) + " " + JSON.stringify(cs(n))); return out.slice(0, 8); };
-  const hdr = document.querySelector("[data-sleekfin-header]");
+  const hdr = document.querySelector("[data-ue-header]");
   const r = hdr && hdr.getBoundingClientRect();
   const at = (x, y) => { const e = document.elementFromPoint(x, y); return e ? nm(e) : null; };
-  const back = Array.from(document.querySelectorAll(".backdropContainer, .backdropImage, .sleekfin-details-backdrop, [class*='backdrop' i]")).slice(0, 12).map((e) => { const b = e.getBoundingClientRect(); const c = getComputedStyle(e); return nm(e) + ` [${Math.round(b.left)},${Math.round(b.top)},${Math.round(b.width)}x${Math.round(b.height)}] disp=${c.display} vis=${c.visibility} op=${c.opacity} bg=${(c.backgroundImage || "").slice(0, 60)} src=${(e.currentSrc || e.src || "").slice(-50)}`; });
+  const back = Array.from(document.querySelectorAll(".backdropContainer, .backdropImage, .ue-details-backdrop, [class*='backdrop' i]")).slice(0, 12).map((e) => { const b = e.getBoundingClientRect(); const c = getComputedStyle(e); return nm(e) + ` [${Math.round(b.left)},${Math.round(b.top)},${Math.round(b.width)}x${Math.round(b.height)}] disp=${c.display} vis=${c.visibility} op=${c.opacity} bg=${(c.backgroundImage || "").slice(0, 60)} src=${(e.currentSrc || e.src || "").slice(-50)}`; });
   const logo = document.querySelector(".tb-logo-link");
   const fc = []; for (let n = logo; n; n = n.parentElement) if (/focuscontainer|focusable/.test(n.className || "")) fc.push(nm(n));
-  const imgs = Array.from(document.querySelectorAll("[data-sleekfin-header] img, .sleekfin-header-fallback-brand img")).map((i) => nm(i) + " src=" + (i.getAttribute("src") || "(none)").slice(0, 60) + " ok=" + (i.complete && i.naturalWidth > 0));
+  const imgs = Array.from(document.querySelectorAll("[data-ue-header] img, .ue-header-fallback-brand img")).map((i) => nm(i) + " src=" + (i.getAttribute("src") || "(none)").slice(0, 60) + " ok=" + (i.complete && i.naturalWidth > 0));
   const clock = Array.from(document.querySelectorAll("body *")).filter((e) => !e.children.length && /^\s*\d{1,2}:\d\d/.test(e.textContent || "")).slice(0, 4).map((e) => nm(e) + " '" + e.textContent.trim().slice(0, 12) + "' " + JSON.stringify(cs(e)));
-  const proxy = document.querySelector("[data-sleekfin-header-proxy]");
+  const proxy = document.querySelector("[data-ue-header-proxy]");
   const dock = proxy ? Array.from(proxy.querySelectorAll("button, a")).map((e) => nm(e) + " aria=" + (e.getAttribute("aria-label") || "") + " " + JSON.stringify(e.getBoundingClientRect().toJSON ? [Math.round(e.getBoundingClientRect().left), Math.round(e.getBoundingClientRect().top)] : 0)) : null;
   return {
     htmlClass: document.documentElement.className.slice(0, 300), bodyClass: document.body.className.slice(0, 200),
     header: r ? { rect: [Math.round(r.left), Math.round(r.top), Math.round(r.width), Math.round(r.height)], chain: chain(hdr), coveredBy: at(r.left + r.width - 60, r.top + 30), atLeft: at(120, r.top + 30) } : null,
     backdrops: back, logoFocusContainers: fc, headerImgs: imgs, clock, dock,
-    hero: (() => { const h = document.querySelector(".sleekfin-hero"); return h ? { rect: JSON.stringify(h.getBoundingClientRect()), chain: chain(h).slice(0, 4) } : null; })(),
+    hero: (() => { const h = document.querySelector(".ue-hero"); return h ? { rect: JSON.stringify(h.getBoundingClientRect()), chain: chain(h).slice(0, 4) } : null; })(),
   };
 };
 
@@ -205,7 +205,7 @@ for (const d of devices) {
         await page.waitForTimeout(900);
         await page.screenshot({ path: `${out}/${d.tag}-${name}-down.png`, animations: "disabled", caret: "hide" });
         R.pages[name + "-down"] = await page.evaluate(inspect, d.mobile);
-        R.pages[name + "-down"].scrolled = await page.evaluate(() => { const h = document.querySelector("[data-sleekfin-header]"); if (!h) return null; const b = getComputedStyle(h, "::before"); return { attr: h.getAttribute("data-sleekfin-scrolled"), y: Math.round(scrollY), pageTop: Math.max(0, ...Array.from(document.querySelectorAll(".page:not(.hide)"), (p) => p.scrollTop)), before: b.opacity + " " + b.height + " " + b.backgroundImage.slice(0, 80), tag: h.tagName }; });
+        R.pages[name + "-down"].scrolled = await page.evaluate(() => { const h = document.querySelector("[data-ue-header]"); if (!h) return null; const b = getComputedStyle(h, "::before"); return { attr: h.getAttribute("data-ue-scrolled"), y: Math.round(scrollY), pageTop: Math.max(0, ...Array.from(document.querySelectorAll(".page:not(.hide)"), (p) => p.scrollTop)), before: b.opacity + " " + b.height + " " + b.backgroundImage.slice(0, 80), tag: h.tagName }; });
         await page.evaluate(() => window.scrollTo(0, 0));
       }
       if (d.pc && (name === "home" || name === "movies" || name === "series")) {
@@ -257,7 +257,7 @@ for (const d of devices) {
       }
       if (name === "episode") {
         // the player: press Play
-        const play = page.locator(".sleekfin-details-hero button:visible, .detailButton.btnPlay:visible, button.btnPlay:visible").first();
+        const play = page.locator(".ue-details-hero button:visible, .detailButton.btnPlay:visible, button.btnPlay:visible").first();
         if (await play.count()) {
           await play.click({ timeout: 4000 }).catch(() => {});
           await page.waitForTimeout(2500);

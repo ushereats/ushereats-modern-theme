@@ -16,7 +16,7 @@
 ## Source layout
 - `web-src/` — theme source (CSS + JS features)
 - `src/.../Assets/` — **generated** by `build-assets.mjs`, never edit directly
-- `sleekfin/` — SleekFin plugin source, edited directly (not overridden from the theme)
+- `look/` — the look's frontend source (header, title pages, cards, styles), edited directly
 
 ## Dev workflow
 - `npm run dev` — local dev server (see below); no need to build the full plugin for CSS/JS changes

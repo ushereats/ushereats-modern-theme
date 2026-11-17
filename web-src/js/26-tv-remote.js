@@ -18,10 +18,10 @@
   function list(root, sel) { return root ? Array.prototype.filter.call(root.querySelectorAll(sel), shown) : []; }
   function home() { return document.querySelector("#indexPage:not(.hide)"); }
   function heroButtons() {
-    var p = home(), h = p && p.querySelector(".sleekfin-hero");
+    var p = home(), h = p && p.querySelector(".ue-hero");
     if (!h) return [];
-    var s = h.querySelector('.sleekfin-hero-slide[data-active="true"]') || h;
-    return list(s, ".sleekfin-hero-actions button");
+    var s = h.querySelector('.ue-hero-slide[data-active="true"]') || h;
+    return list(s, ".ue-hero-actions button");
   }
   function firstRow() {
     var p = home(), c = p && p.querySelector(".tb-rows-c");
@@ -35,7 +35,7 @@
   }
   function topBar() {
     var a = document.getElementById("tb-header-avatar");
-    var h = document.querySelector("[data-sleekfin-header]");
+    var h = document.querySelector("[data-ue-header]");
     var f = list(h, "a[href], button").filter(function (e) { return e.getAttribute("tabindex") !== "-1"; });
     if (shown(a) && f.indexOf(a) < 0) f.push(a);
     return f;
@@ -90,7 +90,7 @@
       } else {
         var page = document.querySelector("#itemDetailPage:not(.hide)");
         if (page && (idle || topBar().indexOf(a) >= 0)) {
-          var b = list(page, ".btnResume:not(.hide), .btnPlay:not(.hide), .sleekfin-button-primary");
+          var b = list(page, ".btnResume:not(.hide), .btnPlay:not(.hide), .ue-button-primary");
           if (b.length) { go(b[0]); return; }
         }
         if (!page) return;

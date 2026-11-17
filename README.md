@@ -10,11 +10,10 @@
 [![Release](https://img.shields.io/github/v/release/ushereats/ushereats-modern-theme?style=flat-square&logo=github&logoColor=F43F5E&label=Release&color=F43F5E)](https://github.com/ushereats/ushereats-modern-theme/releases/latest)
 [![Pipeline](https://img.shields.io/github/actions/workflow/status/ushereats/ushereats-modern-theme/build.yml?branch=main&style=flat-square&logo=githubactions&logoColor=8B5CF6&label=Pipeline&color=8B5CF6)](https://github.com/ushereats/ushereats-modern-theme/actions/workflows/build.yml)
 [![Jellyfin](https://img.shields.io/badge/Jellyfin-12.x-00A4DC?style=flat-square&logo=jellyfin&logoColor=00A4DC)](https://jellyfin.org)
-[![SleekFin](https://img.shields.io/badge/SleekFin-built%20in-14B8A6?style=flat-square&logo=css&logoColor=14B8A6)](https://github.com/varunaditya-plus/SleekFin)
 [![AI](https://img.shields.io/badge/AI-assisted-5786FE?style=flat-square&logo=anthropic&logoColor=5786FE)](https://github.com/ushereats/ushereats-modern-theme)
 [![Stars](https://img.shields.io/github/stars/ushereats/ushereats-modern-theme?style=flat-square&label=Stars&color=EAB308&logo=github&logoColor=EAB308)](https://github.com/ushereats/ushereats-modern-theme)
 
-**Ushereats Theme** is an unofficial Jellyfin plugin that gives the whole web app a modern look, with SleekFin built in, and loads it from the page head so the default Jellyfin look never flashes.
+**Ushereats Theme** is an unofficial Jellyfin plugin that gives the whole web app a modern look, and loads it from the page head so the default Jellyfin look never flashes.
 
 <img src="docs/home.jpg" alt="Home" width="100%" />
 
@@ -32,7 +31,7 @@
 ## Features
 
 - **Instant Loading:** The stylesheet, fonts and icon load from the page head before the first frame, so there's no flash of the default look. Scripts are bundled, minified, pre-compressed and cached for a year.
-- **SleekFin Built In:** SleekFin's header, details pages and episode list are included, with the header built before the first paint. Drag your favourite items into the header bar from the settings page.
+- **Header and title pages:** the header, title pages and episode list are built in, with the header built before the first paint. Drag your favourite items into the header bar from the settings page.
 - **Hero Banner:** A full-width trending banner on the home page with logo, rating, genres, Play and More Info. Uses TMDB for trending titles.
 - **Home Rows:** Continue Watching, Next Up, studios and your own rows, drawn instantly from your last visit. Only rows that changed are redrawn. One layout for everyone, edited on the plugin page.
 - **Search:** A restyled search page that searches every type at once, with results cached for a minute.
@@ -51,7 +50,6 @@
 ### Option 1: Install from the Plugin Repository
 
 1. Install the **File Transformation** plugin first and restart Jellyfin.
-2. Uninstall the separate **SleekFin** plugin if you have it (it's built into this one).
 3. Open **Dashboard -> Plugins -> Repositories** in Jellyfin.
 4. Add this repository URL:
 
@@ -79,7 +77,7 @@
 2. From this repository, run:
 
     ```shell
-    npm ci --prefix sleekfin
+    npm ci --prefix look
     npm install --no-save terser@5.31.6
     node build-assets.mjs
     dotnet publish src/Jellyfin.Plugin.UshereatsTheme/Jellyfin.Plugin.UshereatsTheme.csproj -c Release -o out
@@ -104,7 +102,7 @@ Every feature has its own switch on the settings page and is on by default. The 
 
 - **Accent colour, icon and Discord link** for the sign-in page and splash.
 - **Home rows editor** for the home page layout.
-- **Header bar builder** for the SleekFin header.
+- **Header bar builder** for the header.
 - **Page changes:** style (Rise or Fade) and length (200 ms by default).
 - **Ambient dim, splash volume, pause screen style and delay, search colour and title.**
 - **Extra CSS** for quick tweaks without rebuilding.
@@ -112,7 +110,7 @@ Every feature has its own switch on the settings page and is on by default. The 
 ## Troubleshooting
 
 - **The default Jellyfin look still shows:** Confirm **File Transformation** is installed and enabled, restart Jellyfin, then hard refresh.
-- **Things load twice or look doubled:** Clear **Custom CSS** and remove old theme scripts from **JS Injector**, and uninstall the separate **SleekFin** plugin.
+- **Things load twice or look doubled:** Clear **Custom CSS** and remove old theme scripts from **JS Injector**.
 - **No hero banner or trending titles:** Add a TMDB API key in the plugin settings.
 - **A change doesn't show up:** Hard refresh (Ctrl+F5). Each release gets a new file version, so a normal refresh is usually enough.
 - **Apps other than the web app:** The theme styles the Jellyfin web app and apps that use it (Android, Android TV, Xbox, desktop). Native apps like Infuse or Swiftfin draw their own interface.
@@ -125,4 +123,4 @@ Every feature has its own switch on the settings page and is on by default. The 
 
 ## Disclaimer
 
-This is an unofficial Jellyfin plugin. [SleekFin](https://github.com/varunaditya-plus/SleekFin) (MIT, varunaditya-plus) is included in `sleekfin/`. Studio logos are from [KefinTweaks](https://github.com/ranaldsgift/KefinTweaks) (MIT, ranaldsgift). Fonts: Funnel Sans and Bebas Neue (SIL Open Font License). Trending data from [TMDB](https://www.themoviedb.org); this product uses the TMDB API but is not endorsed or certified by TMDB.
+This is an unofficial Jellyfin plugin. Third-party code and assets and their licences are listed in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).Studio logos are from [KefinTweaks](https://github.com/ranaldsgift/KefinTweaks) (MIT, ranaldsgift). Fonts: Funnel Sans and Bebas Neue (SIL Open Font License). Trending data from [TMDB](https://www.themoviedb.org); this product uses the TMDB API but is not endorsed or certified by TMDB.

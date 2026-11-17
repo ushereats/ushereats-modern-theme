@@ -23,9 +23,9 @@ page.on("pageerror", (e) => errors.push(String(e.message)));
 page.on("console", (m) => { if (m.type() === "error") errors.push(m.text().slice(0, 200)); });
 await page.goto(s.server + "/web/index.html#/configurationpage?name=UshereatsTheme", { waitUntil: "load" });
 await page.waitForTimeout(5000);
-await page.click('.sleekfin-page-nav-button[data-sleekfin-panel="posters"]');
+await page.click('.ue-page-nav-button[data-ue-panel="posters"]');
 await page.waitForTimeout(3000);
-const panel = page.locator('.sleekfin-page-panel[data-sleekfin-panel="posters"]');
+const panel = page.locator('.ue-page-panel[data-ue-panel="posters"]');
 await panel.screenshot({ path: `${out}/1-loaded.png` });
 report.shown = await page.evaluate(() => ({
   libs: Array.from(document.querySelectorAll("#tbPLibs label")).map((l) => l.textContent.trim() + (l.querySelector("input").checked ? " [x]" : " [ ]")),

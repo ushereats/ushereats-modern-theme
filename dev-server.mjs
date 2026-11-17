@@ -1,6 +1,6 @@
 // Dev asset server — run with: npm run dev
 //
-// Watches web-src/ and sleekfin/ for changes, runs build-assets.mjs on every change,
+// Watches web-src/ and look/ for changes, runs build-assets.mjs on every change,
 // and serves the resulting Assets/ folder over HTTP on your LAN at port 3131.
 //
 // Set "Dev assets URL" in the plugin settings to http://<your-pc-ip>:3131/
@@ -46,10 +46,10 @@ function onChange(dir, filename) {
 }
 
 watch("web-src", { recursive: true }, onChange);
-watch("sleekfin", { recursive: true, }, (_, f) => {
+watch("look", { recursive: true, }, (_, f) => {
   // ignore build output and node_modules
   if (f && (f.startsWith("build") || f.startsWith("node_modules"))) return;
-  onChange("sleekfin", f);
+  onChange("look", f);
 });
 
 // ── serve ──────────────────────────────────────────────────────────────────

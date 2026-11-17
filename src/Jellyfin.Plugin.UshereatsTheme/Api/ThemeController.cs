@@ -1,5 +1,5 @@
 using Jellyfin.Plugin.UshereatsTheme.Configuration;
-using Jellyfin.Plugin.UshereatsTheme.Sleek;
+using Jellyfin.Plugin.UshereatsTheme.Look;
 using MediaBrowser.Controller.Library;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -210,21 +210,21 @@ public class ThemeController : ControllerBase
         return File(font, "font/woff2");
     }
 
-    // ── Built-in SleekFin: its settings (the page already has them; these are for after you change them) ──
-    [HttpGet("Sleek/Header")]
-    public IActionResult GetSleekHeader() => SleekAnswer(SleekSettings.Header);
+    // ── Built-in UeTheme: its settings (the page already has them; these are for after you change them) ──
+    [HttpGet("Look/Header")]
+    public IActionResult GetLookHeader() => LookAnswer(LookSettings.Header);
 
-    [HttpGet("Sleek/Hero/Settings")]
-    public IActionResult GetSleekHero() => SleekAnswer(SleekSettings.Hero);
+    [HttpGet("Look/Hero/Settings")]
+    public IActionResult GetLookHero() => LookAnswer(LookSettings.Hero);
 
-    [HttpGet("Sleek/Details/Settings")]
-    public IActionResult GetSleekDetails() => SleekAnswer(SleekSettings.Details);
+    [HttpGet("Look/Details/Settings")]
+    public IActionResult GetLookDetails() => LookAnswer(LookSettings.Details);
 
-    /// <summary>Files the SleekFin settings page loads by name (details builder script + styles).</summary>
-    [HttpGet("Sleek/{file}")]
-    public IActionResult GetSleekFile([FromRoute] string file)
+    /// <summary>Files the UeTheme settings page loads by name (details builder script + styles).</summary>
+    [HttpGet("Look/{file}")]
+    public IActionResult GetLookFile([FromRoute] string file)
     {
-        Payload? p = ThemeAssets.SleekFile(file);
+        Payload? p = ThemeAssets.LookFile(file);
         if (p == null)
         {
             return NotFound();
@@ -233,9 +233,9 @@ public class ThemeController : ControllerBase
         return Serve(p, file.EndsWith(".css", StringComparison.Ordinal) ? "text/css; charset=utf-8" : "application/javascript; charset=utf-8");
     }
 
-    private IActionResult SleekAnswer(Func<SleekConfiguration, object> pick)
+    private IActionResult LookAnswer(Func<LookConfiguration, object> pick)
     {
-        SleekConfiguration s = Plugin.Instance?.Configuration.Sleek ?? new SleekConfiguration();
+        LookConfiguration s = Plugin.Instance?.Configuration.Look ?? new LookConfiguration();
         Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
         return Content(System.Text.Json.JsonSerializer.Serialize(pick(s)), "application/json; charset=utf-8");
     }

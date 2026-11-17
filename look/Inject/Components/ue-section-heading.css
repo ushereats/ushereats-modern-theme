@@ -1,0 +1,59 @@
+.ue-section-heading {
+    align-items: flex-start;
+    display: flex;
+    gap: 10px;
+    min-width: 0;
+}
+
+.ue-section-rail {
+    align-self: stretch;
+    background: var(--ue-accent);
+    border-radius: 999px;
+    flex: 0 0 3px;
+    margin-top: 2px;
+    min-height: 1.15em;
+}
+
+.ue-section-copy {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.ue-section-title {
+    color: var(--ue-text);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.05;
+    font-family: var(--title-font);
+    letter-spacing: -0.025em;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ue-section-subtitle {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    color: var(--ue-muted);
+    display: -webkit-box;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 19.5px;
+    font-family: var(--app-font);
+    margin: 2px 0 0;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .ue-section-title {
+        font-size: 36px;
+    }
+
+    .ue-section-subtitle {
+        font-size: 14px;
+        line-height: 20px;
+    }
+}

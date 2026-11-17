@@ -1,12 +1,12 @@
 /* Inlined in the page head by the plugin (runs before Jellyfin starts).
    1. Paints the hero we're about to show straight away (from the last visit's list) and starts its download.
-   2. Asks the server for the fresh hero list + SleekFin's hero look settings immediately,
+   2. Asks the server for the fresh hero list + UeTheme's hero look settings immediately,
       using your sign-in token, in parallel with Jellyfin starting up.
    ES5 only: this runs on TVs too. */
 (function () {
   try {
     var root = document.documentElement;
-    root.classList.add("tb-hero-on");   // rows wait for the banner (see sleekfin-media.css)
+    root.classList.add("tb-hero-on");   // rows wait for the banner (see ue-media.css)
     var base = location.pathname.replace(/\/web(\/.*)?$/, "/");
     if (base.charAt(base.length - 1) !== "/") base += "/";
     var dpr = window.devicePixelRatio || 1;
@@ -28,7 +28,7 @@
     // jump up 80 px when the banner arrived). The hero script takes this off (also if there's no banner).
     if (home) {
       root.classList.add("tb-hero-boot");
-      setTimeout(function () { if (!root.classList.contains("sleekfin-hero-mounted")) root.classList.remove("tb-hero-boot"); }, 10000);
+      setTimeout(function () { if (!root.classList.contains("ue-hero-mounted")) root.classList.remove("tb-hero-boot"); }, 10000);
     }
 
     function preload(url, high) {
@@ -86,7 +86,7 @@
       user: srv.UserId,
       items: get(query).then(function (j) { return (j && j.Items) || null; }),
       // the look settings are already in the page
-      settings: Promise.resolve(window.__tbSleekHero || null)
+      settings: Promise.resolve(window.__tbLookHero || null)
     };
   } catch (e) {}
 })();

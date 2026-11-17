@@ -1,0 +1,259 @@
+.mainDetailButtons.ue-details-actions {
+    align-items: center;
+    align-self: stretch;
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: var(--ue-details-button-spacing, 12px);
+    justify-content: flex-start;
+    margin: var(--ue-details-description-to-buttons, 18px) 0 0 !important;
+    min-width: 0;
+    padding: 0 !important;
+    position: relative;
+    width: 100%;
+}
+
+.mainDetailButtons.ue-details-actions [data-ue-action-id] {
+    flex: 0 0 auto;
+    margin: 0 !important;
+    max-width: 100%;
+}
+
+.mainDetailButtons.ue-details-actions > [data-ue-action-id]:not(.hide):not([hidden]):not([data-ue-action-hidden="true"]) {
+    display: inline-flex !important;
+}
+
+.mainDetailButtons.ue-details-actions [data-ue-action-hidden="true"],
+.mainDetailButtons.ue-details-actions [hidden],
+.mainDetailButtons.ue-details-actions .ue-details-action-control.hide,
+[data-ue-details] [data-ue-enhanced-source] {
+    display: none !important;
+}
+
+/* Jellyfin keeps video downloads in More even when the item permits downloading. */
+.mainDetailButtons.ue-details-actions[data-ue-can-download="true"] .btnDownload.hide:not([hidden]):not([data-ue-action-hidden="true"]) {
+    display: inline-flex !important;
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-action-control {
+    align-items: center;
+    backdrop-filter: blur(var(--ue-details-button-blur, 18px)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--ue-details-button-blur, 18px)) saturate(140%);
+    background: linear-gradient(rgba(255, 255, 255, .055), rgba(255, 255, 255, .01)), var(--ue-details-secondary-button-fill, rgba(22, 22, 24, .82)) !important;
+    border-radius: var(--ue-details-icon-button-radius, 50%) !important;
+    box-sizing: border-box;
+    color: var(--ue-details-secondary-button-text-color, #f1f2f4) !important;
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 500;
+    height: var(--ue-details-button-height, 44px) !important;
+    justify-content: center;
+    line-height: 1.5;
+    margin: 0 !important;
+    min-height: 0 !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    text-decoration: none;
+    transition: background .16s ease, border-color .16s ease, transform .16s ease;
+    width: var(--ue-details-button-height, 44px) !important;
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-action-control.ue-button {
+    border-radius: var(--ue-details-button-radius, 999px) !important;
+    padding: 0 var(--ue-details-main-button-padding, 24px) !important;
+    width: auto !important;
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-action-control.ue-button-primary {
+    background: var(--ue-details-primary-button-fill, #f1f2f4) !important;
+    color: var(--ue-details-primary-button-text-color, #05070a) !important;
+    padding: 0 var(--ue-details-primary-button-padding, 28px) !important;
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-action-control:hover {
+    background: linear-gradient(rgba(255, 255, 255, .055), rgba(255, 255, 255, .01)), var(--ue-details-secondary-button-hover-fill, #161618) !important;
+    transform: translateY(calc(-1 * var(--ue-details-button-hover-lift, 0px)));
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-action-control.ue-button-primary:hover {
+    background: var(--ue-details-primary-button-hover-fill, #f1f2f4) !important;
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-action-control:active {
+    transform: translateY(calc(-1 * var(--ue-details-button-hover-lift, 0px))) scale(.98);
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-action-control:is(.ratingbutton-withrating, .playstatebutton-played, [data-isfavorite="true"]) {
+    background: var(--ue-details-button-active-color, var(--ue-accent)) !important;
+    border-color: var(--ue-details-button-active-color, var(--ue-accent)) !important;
+    color: var(--ue-surface, #161618) !important;
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-action-control:is(.ratingbutton-withrating, .playstatebutton-played, [data-isfavorite="true"]) .material-icons {
+    color: inherit !important;
+}
+
+.mainDetailButtons.ue-details-actions .detailButton-content {
+    align-items: center;
+    display: inline-flex;
+    flex-direction: row !important;
+    gap: 8px;
+    height: auto;
+    justify-content: center;
+    min-width: 0;
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-action-control :is(.ue-icon, .material-icons) {
+    color: inherit !important;
+    flex: 0 0 auto;
+    font-size: var(--ue-details-control-icon-size, 18px) !important;
+    height: var(--ue-details-control-icon-size, 18px) !important;
+    line-height: 1;
+    margin: 0 !important;
+    width: var(--ue-details-control-icon-size, 18px) !important;
+}
+
+.mainDetailButtons.ue-details-actions .ue-button-primary .ue-icon {
+    height: var(--ue-details-play-icon-size, 22px) !important;
+    width: var(--ue-details-play-icon-size, 22px) !important;
+}
+
+.mainDetailButtons.ue-details-actions .ue-button:not(.btnReplay):not(.btnUserRating) .detailButton-content .material-icons,
+.mainDetailButtons.ue-details-actions .ue-details-action-label,
+.mainDetailButtons.ue-details-actions .detailButton-icon-text,
+.mainDetailButtons.ue-details-actions .arr-tag-link-text {
+    display: none !important;
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-enhanced-action:not(.arr-dropdown) {
+    font-size: 0 !important;
+    gap: 0 !important;
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-enhanced-action :is(img, .arr-tag-link-icon, .arr-tag-link-icon svg, .material-icons),
+.mainDetailButtons.ue-details-actions .ue-details-enhanced-action.letterboxd-link-icon::before {
+    flex: 0 0 auto;
+    font-size: var(--ue-details-external-icon-size, 22px) !important;
+    height: var(--ue-details-external-icon-size, 22px) !important;
+    margin: 0 !important;
+    object-fit: contain;
+    width: var(--ue-details-external-icon-size, 22px) !important;
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-enhanced-action.arr-link > span:not(.ue-details-action-label):not(.detailButton-content) {
+    display: none !important;
+}
+
+.mainDetailButtons.ue-details-actions[data-ue-details-button-content="Icons"] .ue-button-label {
+    display: none !important;
+}
+
+.mainDetailButtons.ue-details-actions[data-ue-details-button-content="Icons"] .ue-details-action-control.ue-button {
+    border-radius: var(--ue-details-icon-button-radius, 50%) !important;
+    padding: 0 !important;
+    width: var(--ue-details-button-height, 44px) !important;
+}
+
+.mainDetailButtons.ue-details-actions[data-ue-details-button-content="Labels"] .ue-details-action-control:not(.ue-details-action-overflow-trigger) {
+    border-radius: var(--ue-details-button-radius, 999px) !important;
+    font-size: 13px !important;
+    padding: 0 20px !important;
+    width: auto !important;
+}
+
+.mainDetailButtons.ue-details-actions[data-ue-details-button-content="Labels"] .ue-details-action-control:not(.ue-details-action-overflow-trigger) :is(.ue-icon, .material-icons, img, .arr-tag-link-icon),
+.mainDetailButtons.ue-details-actions[data-ue-details-button-content="Labels"] .letterboxd-link-icon::before {
+    display: none !important;
+}
+
+.mainDetailButtons.ue-details-actions[data-ue-details-button-content="Labels"] .ue-details-action-control .ue-details-action-label {
+    display: inline !important;
+    font-size: 13px;
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-action-spacer {
+    flex: var(--ue-details-button-group-flex, 1 1 0px);
+    margin-inline: var(--ue-details-button-group-margin, 0px);
+    min-width: 0;
+    order: 9999;
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-action-spacer[data-ue-no-left-actions="true"] {
+    flex: 1 1 0px;
+    margin-left: 0;
+    margin-right: calc(-1 * var(--ue-details-button-spacing, 12px));
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-action-overflow {
+    align-items: center;
+    background: var(--ue-surface, #161618);
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 16px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, .35);
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ue-details-button-spacing, 12px);
+    max-width: min(420px, calc(100vw - 32px));
+    padding: 14px;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    width: max-content;
+    z-index: 20;
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-enhanced-action.arr-dropdown .arr-dropdown-menu {
+    box-sizing: border-box;
+    max-width: calc(100vw - 32px);
+    min-width: min(240px, calc(100vw - 32px));
+}
+
+.mainDetailButtons.ue-details-actions .ue-details-enhanced-action.arr-dropdown .arr-dropdown-item-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mainDetailButtons.ue-details-actions[data-ue-details-action-preview="mobile"][data-ue-details-mobile-action-groups="Stack"] > .ue-details-action-spacer:not([data-ue-no-left-actions="true"]) {
+    flex: 0 0 100%;
+    height: 0;
+    margin-inline: 0;
+    margin-top: 0;
+}
+
+.mainDetailButtons.ue-details-actions[data-ue-details-action-preview="mobile"][data-ue-details-mobile-action-groups="Stack"] > [data-ue-action-first-row="true"] {
+    margin-top: calc(var(--ue-details-button-group-block-gap, 12px) - 2 * var(--ue-details-button-spacing, 12px)) !important;
+}
+
+.mainDetailButtons.ue-details-actions[data-ue-details-action-preview="mobile"][data-ue-details-mobile-action-groups="Stack"] > [data-ue-action-first-right="true"] {
+    margin-left: auto !important;
+}
+
+.mainDetailButtons.ue-details-actions[data-ue-details-action-preview="mobile"] {
+    --ue-details-main-button-padding: 16px;
+    --ue-details-primary-button-padding: 16px;
+}
+
+@media (max-width: 767px) {
+    .mainDetailButtons.ue-details-actions:not([data-ue-details-action-preview="desktop"])[data-ue-details-mobile-action-groups="Stack"] > .ue-details-action-spacer:not([data-ue-no-left-actions="true"]) {
+        flex: 0 0 100%;
+        height: 0;
+        margin-inline: 0;
+        margin-top: 0;
+    }
+
+    .mainDetailButtons.ue-details-actions:not([data-ue-details-action-preview="desktop"])[data-ue-details-mobile-action-groups="Stack"] > [data-ue-action-first-row="true"] {
+        margin-top: calc(var(--ue-details-button-group-block-gap, 12px) - 2 * var(--ue-details-button-spacing, 12px)) !important;
+    }
+
+    .mainDetailButtons.ue-details-actions:not([data-ue-details-action-preview="desktop"])[data-ue-details-mobile-action-groups="Stack"] > [data-ue-action-first-right="true"] {
+        margin-left: auto !important;
+    }
+
+    .mainDetailButtons.ue-details-actions:not([data-ue-details-action-preview="desktop"]) {
+        --ue-details-main-button-padding: 16px;
+        --ue-details-primary-button-padding: 16px;
+    }
+}

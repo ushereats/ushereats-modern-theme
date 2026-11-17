@@ -113,7 +113,7 @@ if (ids[2]) await open(ids[2], "third");
     // Open a title page from the restored position, then click the home/logo button.
     await page.locator(`.card[data-id="${deep}"]`).first().evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
     await page.waitForTimeout(3000);
-    const home = page.locator(".headerHomeButton, a[href='#/home'], a[href='#!/home'], .sleekfin-header a[href], .pageTitleWithLogo, a.headerLogo").first();
+    const home = page.locator(".headerHomeButton, a[href='#/home'], a[href='#!/home'], .ue-header a[href], .pageTitleWithLogo, a.headerLogo").first();
     sc.push("home button found=" + (await home.count()));
     mark("home-nav start");
     const homeNavT0 = Date.now();
@@ -163,7 +163,7 @@ if (ids[1]) {
   mark("click arrow-test y=" + yBefore);
   await card.evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
   await page.waitForTimeout(3000);
-  const back = page.locator(".sleekfin-details-back").first();
+  const back = page.locator(".ue-details-back").first();
   if (await back.count()) {
     await page.screenshot({ path: out + "/arrow-off.png", clip: { x: 0, y: 0, width: 220, height: 110 } });
     await back.hover().catch(() => {});
@@ -287,7 +287,7 @@ try {
     // home-button navigation
     await wkPage.locator(`.card[data-id="${wkDeep}"]`).first().evaluate((c) => { const t = c.querySelector("a.cardImageContainer, .cardImageContainer, a") || c; t.click(); });
     await wkPage.waitForTimeout(3000);
-    const wkHome = wkPage.locator(".headerHomeButton, a[href='#/home'], a[href='#!/home'], .sleekfin-header a[href], .pageTitleWithLogo, a.headerLogo").first();
+    const wkHome = wkPage.locator(".headerHomeButton, a[href='#/home'], a[href='#!/home'], .ue-header a[href], .pageTitleWithLogo, a.headerLogo").first();
     wkSc.push("home button found=" + (await wkHome.count()));
     if (await wkHome.count()) { await wkHome.evaluate((el) => (el.closest("a[href], button") || el).click()); }
     else await wkPage.evaluate(() => { location.hash = "#/home"; });

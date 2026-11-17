@@ -71,7 +71,7 @@
     "#tb-launch .tb-launch-title{font:400 64px/1 var(--title-font,'Bebas Neue',sans-serif);color:#fff;text-shadow:0 4px 18px rgba(0,0,0,.6)}" +
     "#tb-launch .tb-launch-sub{font:600 18px/1.3 var(--app-font,Inter,sans-serif);color:rgba(255,255,255,.88)}" +
     "#tb-launch .tb-launch-bar{position:relative;width:min(320px,60vw);height:3px;border-radius:2px;background:rgba(255,255,255,.18);overflow:hidden;margin-top:6px}" +
-    "#tb-launch .tb-launch-bar i{position:absolute;top:0;bottom:0;width:35%;border-radius:2px;background:var(--sleekfin-accent,#dc2626);animation:tbLaunchBar 1.1s ease-in-out infinite}" +
+    "#tb-launch .tb-launch-bar i{position:absolute;top:0;bottom:0;width:35%;border-radius:2px;background:var(--ue-accent,#dc2626);animation:tbLaunchBar 1.1s ease-in-out infinite}" +
     "@keyframes tbLaunchBar{from{left:-35%}to{left:100%}}" +
     "@media (prefers-reduced-motion:reduce){#tb-launch .tb-launch-bd{animation:none}}" +
     "@media (max-width:700px){#tb-launch .tb-launch-title{font-size:42px}#tb-launch .tb-launch-sub{font-size:15px}}";

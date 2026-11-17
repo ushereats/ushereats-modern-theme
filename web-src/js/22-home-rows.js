@@ -348,22 +348,19 @@
     // studio logos: white, no tile behind them, no titles
     ".tb-studios .itemsContainer > .card { width: 8vw !important; min-width: 96px; }",
     "@media (max-width: 768px) { .tb-studios .itemsContainer > .card { width: 30vw !important; } }",
-    // (:not(#tb-x) outranks SleekFin's "html.sleekfin-main-ui .cardBox:not(.visualCardBox) .cardPadder" tile colour)
-    ".tb-studios .cardPadder:not(#tb-x), .tb-studios .cardImageContainer:not(#tb-x), .tb-studios .cardContent:not(#tb-x) { background: transparent !important; box-shadow: none !important; border-radius: 0 !important; }",
+    ".tb-studios .cardPadder, .tb-studios .cardImageContainer, .tb-studios .cardContent { background: transparent !important; box-shadow: none !important; border-radius: 0 !important; }",
     ".tb-studios .tb-logo-img { position: absolute; top: 10%; left: 8%; right: 8%; bottom: 10%; background: center / contain no-repeat; filter: brightness(0) invert(1); opacity: .92; transition: opacity .15s ease; }",
     ".tb-studios .tb-logo-link:hover .tb-logo-img, .tb-studios .tb-logo-link:focus .tb-logo-img { opacity: 1; }",
     ".tb-studios .cardBox { margin-bottom: 0 !important; }",
     // no poster backing, shadow, dim layer or hover shadow behind the logos
-    ".tb-studios .card .cardScalable:not(#tb-x) { background: none !important; box-shadow: none !important; border: 0 !important; clip-path: none !important; }",
-    ".tb-studios .card .cardScalable:not(#tb-x)::before, .tb-studios .card .cardScalable:not(#tb-x)::after { content: none !important; display: none !important; }",
-    ".tb-studios .card:not(#tb-x) .cardBox, .tb-studios .card:hover:not(#tb-x) .cardBox { filter: none !important; box-shadow: none !important; background: none !important; }",
+    ".tb-studios .card .cardScalable { background: none !important; box-shadow: none !important; border: 0 !important; }",
     // Continue Watching: the remove button (top right, shows on hover; always there on touch screens)
     ".tb-cw-x { position: absolute; top: 8px; right: 8px; z-index: 5; width: 30px; height: 30px; padding: 7px; border: 0; border-radius: 50%; cursor: pointer;" +
       " background: rgba(10,10,12,.62); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: 0 0 0 1px rgba(255,255,255,.18);" +
       " opacity: 0; transform: scale(.85); transition: opacity .15s ease, transform .15s ease, background .15s ease; }",
     ".tb-cw-x svg { display: block; width: 100%; height: 100%; fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; }",
     ".card:hover .tb-cw-x, .card:focus-within .tb-cw-x { opacity: 1; transform: none; }",
-    ".tb-cw-x:hover { background: var(--sleekfin-accent, #dc2626); }",
+    ".tb-cw-x:hover { background: var(--ue-accent, #dc2626); }",
     "@media (hover: none) { .tb-cw-x { opacity: .9; transform: none; } }",
     "html.layout-tv .tb-cw-x { display: none; }",
     ".card.tb-cw-going { opacity: 0; transform: scale(.92); transition: opacity .3s ease, transform .3s ease; pointer-events: none; }"

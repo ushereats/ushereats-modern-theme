@@ -1,0 +1,119 @@
+:root {
+    --app-font: "Funnel Sans", Inter, ui-sans-serif, system-ui, sans-serif;
+    --title-font: "Bebas Neue", "Funnel Sans", Inter, sans-serif;
+}
+
+html.ue-main-ui:root {
+    --ue-accent: __TB_ACCENT__;
+    --ue-background: #000;
+    --ue-page-background: var(--ue-background);   /* behind pages (see-through with the ambient background) */
+    --ue-border: #26292e;
+    --ue-border-hover: rgba(241, 242, 244, 0.22);
+    --ue-card-button-radius: __TB_CARD_BUTTON_RADIUS__;
+    --ue-card-play-radius: __TB_PLAY_RADIUS__;
+    --ue-card-radius: 12px;          /* cinejoy's corners */
+    --ue-card-inner-radius: 12px;
+    --ue-compact-card-radius: __TB_COMPACT_RADIUS__;
+    --ue-glass-border: 1px solid rgba(255, 255, 255, 0.07);
+    --ue-glass-filter: blur(18px) saturate(140%);
+    --ue-glass-shadow: inset 0 1px rgba(255, 255, 255, 0.08), 0 6px 14px -6px rgba(0, 0, 0, 0.55);
+    --ue-muted: #969aa1;
+    --ue-page-gutter: 24px;
+    --ue-person-radius: __TB_PERSON_RADIUS__;
+    --ue-person-inner-radius: __TB_PERSON_INNER_RADIUS__;
+    --ue-skeleton-line: rgba(211, 215, 221, 0.16);
+    --ue-skeleton-line-strong: rgba(226, 229, 234, 0.28);
+    --ue-skeleton-shimmer: rgba(226, 229, 234, 0.1);
+    --ue-surface: #101113;
+    --ue-surface-raised: #1a1c20;
+    --ue-text: #f1f2f4;
+    --jf-palette-background-default: var(--ue-background);
+    --jf-palette-background-defaultImage: none;
+    --jf-palette-background-paper: var(--ue-surface);
+    --jf-palette-background-paperChannel: 16 17 19;
+    --jf-palette-common-backgroundChannel: 0 0 0;
+    --jf-palette-common-onBackground: var(--ue-text);
+    --jf-palette-common-onBackgroundChannel: 241 242 244;
+    --jf-palette-text-primary: var(--ue-text);
+    --jf-palette-text-primaryChannel: 241 242 244;
+    --jf-palette-text-secondary: var(--ue-muted);
+    --jf-palette-text-secondaryChannel: 150 154 161;
+    --jf-palette-text-disabled: rgba(150, 154, 161, 0.6);
+    --jf-palette-text-icon: var(--ue-muted);
+    --jf-palette-divider: var(--ue-border);
+    --jf-palette-dividerChannel: 38 41 46;
+    --jf-palette-primary-main: var(--ue-accent);
+    --jf-palette-primary-mainChannel: 220 38 38;
+    --jf-palette-primary-dark: #b42318;
+    --jf-palette-primary-darkChannel: 180 35 24;
+    --jf-palette-primary-light: #f87171;
+    --jf-palette-primary-lightChannel: 248 113 113;
+    --jf-palette-primary-contrastText: #fff;
+    --jf-palette-primary-contrastTextChannel: 255 255 255;
+    --jf-palette-secondary-main: var(--ue-accent);
+    --jf-palette-secondary-mainChannel: 220 38 38;
+    --jf-palette-secondary-dark: #b42318;
+    --jf-palette-secondary-darkChannel: 180 35 24;
+    --jf-palette-secondary-light: #f87171;
+    --jf-palette-secondary-lightChannel: 248 113 113;
+    --jf-palette-secondary-contrastText: #fff;
+    --jf-palette-secondary-contrastTextChannel: 255 255 255;
+    --jf-palette-error-main: var(--ue-accent);
+    --jf-palette-error-mainChannel: 220 38 38;
+    --jf-palette-error-dark: #b42318;
+    --jf-palette-error-darkChannel: 180 35 24;
+    --jf-palette-error-light: #f87171;
+    --jf-palette-error-lightChannel: 248 113 113;
+    --jf-palette-action-active: var(--ue-text);
+    --jf-palette-action-activeChannel: 241 242 244;
+    --jf-palette-action-hover: rgba(241, 242, 244, 0.07);
+    --jf-palette-action-focus: rgba(241, 242, 244, 0.12);
+    --jf-palette-action-selected: rgba(241, 242, 244, 0.12);
+    --jf-palette-action-selectedChannel: 241 242 244;
+    --jf-palette-action-disabled: rgba(150, 154, 161, 0.38);
+    --jf-palette-action-disabledBackground: rgba(241, 242, 244, 0.07);
+    --jf-palette-AppBar-defaultBg: var(--ue-surface);
+    --jf-palette-AppBar-darkBg: var(--ue-surface);
+    --jf-palette-AppBar-darkColor: var(--ue-text);
+    --jf-palette-AppBar-transparentBg: rgba(0, 0, 0, 0.6);
+    --jf-palette-AppBar-gradient: none;
+    --jf-palette-Avatar-defaultBg: var(--ue-surface-raised);
+    --jf-palette-Button-inheritContainedBg: var(--ue-surface-raised);
+    --jf-palette-Button-inheritContainedHoverBg: var(--ue-border);
+    --jf-palette-Chip-defaultAvatarColor: var(--ue-text);
+    --jf-palette-Chip-defaultBorder: var(--ue-border);
+    --jf-palette-Chip-defaultIconColor: var(--ue-muted);
+    --jf-palette-FilledInput-bg: var(--ue-surface);
+    --jf-palette-FilledInput-borderColor: var(--ue-border);
+    --jf-palette-FilledInput-disabledBg: rgba(16, 17, 19, 0.6);
+    --jf-palette-FilledInput-hoverBg: var(--ue-surface-raised);
+    --jf-palette-LinearProgress-errorBg: rgb(110, 19, 19);
+    --jf-palette-LinearProgress-primaryBg: rgb(110, 19, 19);
+    --jf-palette-LinearProgress-secondaryBg: rgb(110, 19, 19);
+    --jf-palette-Skeleton-bg: var(--ue-skeleton-line);
+    --jf-palette-Slider-primaryTrack: rgb(110, 19, 19);
+    --jf-palette-SnackbarContent-bg: var(--ue-surface-raised);
+    --jf-palette-SnackbarContent-color: var(--ue-text);
+    --jf-palette-SpeedDialAction-fabHoverBg: var(--ue-border);
+    --jf-palette-StepConnector-border: var(--ue-border);
+    --jf-palette-StepContent-border: var(--ue-border);
+    --jf-palette-Switch-errorDisabledColor: rgb(99, 17, 17);
+    --jf-palette-Switch-primaryDisabledColor: rgb(99, 17, 17);
+    --jf-palette-Switch-secondaryDisabledColor: rgb(99, 17, 17);
+    --jf-palette-Tooltip-bg: rgba(26, 28, 32, 0.96);
+    --jf-palette-starIcon-main: var(--ue-accent);
+    --jf-palette-starIcon-mainChannel: 220 38 38;
+}
+
+/* page edges as on cinejoy.pk: 4% of the width on a tablet, 60 px on a computer */
+@media (min-width: 640px) {
+    html.ue-main-ui:root {
+        --ue-page-gutter: 4vw;
+    }
+}
+
+@media (min-width: 1024px) {
+    html.ue-main-ui:root {
+        --ue-page-gutter: 60px;
+    }
+}

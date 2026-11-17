@@ -1,6 +1,6 @@
 using System.Globalization;
 using System.Net;
-using Jellyfin.Plugin.UshereatsTheme.Sleek;
+using Jellyfin.Plugin.UshereatsTheme.Look;
 using System.Text;
 
 namespace Jellyfin.Plugin.UshereatsTheme;
@@ -96,19 +96,19 @@ public static class IndexPatch
         // The accent colour as plain numbers (see-through glows, dashboard skin): defined once, here, for every page
         sb.Append("<style>:root{--tb-accent-rgb:").Append(HexToRgb(ThemeAssets.Accent(build.Config))).Append("}</style>");
 
-        // SleekFin (built in): its page flags, colours and shapes, set before anything is drawn
+        // UeTheme (built in): its page flags, colours and shapes, set before anything is drawn
         {
-            SleekConfiguration s = ThemeAssets.SleekOf(build.Config);
+            LookConfiguration s = ThemeAssets.LookOf(build.Config);
             // (card shapes and the accent are written into the stylesheet itself, from these settings)
-            sb.Append(SleekBoot(s));
+            sb.Append(LookBoot(s));
             if (s.DetailsEnabled)
             {
                 // hides a details page until it's built (with a 4s safety), so the plain Jellyfin page never shows
-                sb.Append("<script>").Append(ThemeAssets.Text("sleek_details_boot.js")).Append("</script>");
+                sb.Append("<script>").Append(ThemeAssets.Text("look_details_boot.js")).Append("</script>");
             }
         }
 
-        // Ambient background from the first frame: pages are see-through and SleekFin's pieces take their ambient look
+        // Ambient background from the first frame: pages are see-through and UeTheme's pieces take their ambient look
         // straight away (the script only picks the picture later)
         if (build.Config.AmbientBackground)
         {
@@ -121,10 +121,10 @@ public static class IndexPatch
             sb.Append("<script>document.documentElement.classList.add(\"tb-hover\")</script>");
         }
 
-        // SleekFin header: Jellyfin's own header (logo, server name, plain tab links) never shows before SleekFin's
-        // header is ready, and SleekFin's header appears at once instead of fading in. Safety: shown anyway after 4s,
-        // and straight away on pages where SleekFin doesn't draw a header (sign-in, dashboard, player).
-        sb.Append("<style>html[data-sleekfin-header-enabled=\"true\"]:not(.sleekfin-header-mounted):not(.tb-hdr-ok) :is(header.MuiAppBar-root,.skinHeader){opacity:0!important}html.sleekfin-header-mounted [data-sleekfin-header]{animation:none!important}</style>");
+        // UeTheme header: Jellyfin's own header (logo, server name, plain tab links) never shows before UeTheme's
+        // header is ready, and UeTheme's header appears at once instead of fading in. Safety: shown anyway after 4s,
+        // and straight away on pages where UeTheme doesn't draw a header (sign-in, dashboard, player).
+        sb.Append("<style>html[data-ue-header-enabled=\"true\"]:not(.ue-header-mounted):not(.tb-hdr-ok) :is(header.MuiAppBar-root,.skinHeader){opacity:0!important}html.ue-header-mounted [data-ue-header]{animation:none!important}</style>");
         sb.Append("<script>(function(){var r=document.documentElement;function ok(){r.className+=\" tb-hdr-ok\"}if(/^#\\/?(login|selectserver|addserver|forgotpassword|wizard|dashboard|configurationpage|metadata|video)/i.test(location.hash))ok();else setTimeout(ok,4000)})();</script>");
 
         // Welcome splash: instant black cover on a new session, so the site never shows before it
@@ -164,7 +164,7 @@ public static class IndexPatch
             sb.Append("<style>html.tb-hs::before{content:\"\";position:absolute;z-index:10;pointer-events:none;left:var(--tb-hs-l,0);top:var(--tb-hs-t,0);width:var(--tb-hs-w,100%);height:var(--tb-hs-h,70vh);background:linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.52) 16%,rgba(0,0,0,.34) 32%,rgba(0,0,0,.19) 46%,rgba(0,0,0,.09) 57%,rgba(0,0,0,.03) 64%,transparent 70%),linear-gradient(transparent 50%,rgba(0,0,0,.12) 64%,rgba(0,0,0,.28) 76%,rgba(0,0,0,.46) 86%,rgba(0,0,0,.64) 94%,rgba(0,0,0,.78) 100%),var(--tb-hs-img,none) 50% 28%/cover no-repeat #0b0b0e;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 45%,rgba(0,0,0,.75) 62%,rgba(0,0,0,.35) 80%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 45%,rgba(0,0,0,.75) 62%,rgba(0,0,0,.35) 80%,transparent 100%);transition:opacity .3s ease}html.tb-hs.tb-hs-out::before{opacity:0}html.tb-hs .splashLogo{visibility:hidden!important}</style>");
             {
                 // the hero's look settings, so the hero never waits for a request
-                sb.Append("<script>window.__tbSleekHero=").Append(System.Text.Json.JsonSerializer.Serialize(SleekSettings.Hero(ThemeAssets.SleekOf(build.Config)))).Append("</script>");
+                sb.Append("<script>window.__tbLookHero=").Append(System.Text.Json.JsonSerializer.Serialize(LookSettings.Hero(ThemeAssets.LookOf(build.Config)))).Append("</script>");
             }
 
             sb.Append("<script>").Append(ThemeAssets.Text("hero_boot.js")).Append("</script>");
@@ -262,9 +262,9 @@ public static class IndexPatch
             string.Empty,
             System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
-    // SleekFin's boot flags (same as SleekFin's own): header/hero switches, card shapes, sizes, and the
+    // UeTheme's boot flags (same as UeTheme's own): header/hero switches, card shapes, sizes, and the
     // "header loading" state that keeps Jellyfin's plain header invisible until the real one is built
-    private static string SleekBoot(SleekConfiguration c)
+    private static string LookBoot(LookConfiguration c)
     {
         string headerEnabled = c.HeaderEnabled ? "true" : "false";
         string headerHeight = c.HeaderHeight.ToString(CultureInfo.InvariantCulture);
@@ -273,10 +273,10 @@ public static class IndexPatch
         string cardShape = WebUtility.HtmlEncode(c.MediaCardShape);
         string castShape = WebUtility.HtmlEncode(c.CastCrewShape);
         return "<script>(function(){var r=document.documentElement,t=(location.hash.slice(1)||location.pathname+location.search).replace(/^!+/,''),i=t.search(/[?&]/),p=(i<0?t:t.slice(0,i)).replace(/^[!\\/]+/,'/').replace(/\\/+$/,'')||'/',d=p==='/dashboard'||p.indexOf('/dashboard/')===0||p==='/configurationpage'||p==='/metadata'||p==='/video';"
-            + "r.dataset.sleekfinHeaderEnabled='" + headerEnabled + "';r.dataset.sleekfinMediaCardShape='" + cardShape + "';r.dataset.sleekfinCastCrewShape='" + castShape + "';"
-            + "r.style.setProperty('--sleekfin-header-height','" + headerHeight + "px');r.style.setProperty('--sleekfin-hero-mobile-height','" + heroMobileHeight + "vh');r.style.setProperty('--sleekfin-hero-desktop-height','" + heroDesktopHeight + "vh');"
-            + "if(" + headerEnabled + "&&!d)r.classList.add('sleekfin-header-boot-loading');"
-            + "if(" + headerEnabled + ")setTimeout(function(){r.classList.remove('sleekfin-header-boot-loading')},4000)})();</script>";
+            + "r.dataset.ueHeaderEnabled='" + headerEnabled + "';r.dataset.ueMediaCardShape='" + cardShape + "';r.dataset.ueCastCrewShape='" + castShape + "';"
+            + "r.style.setProperty('--ue-header-height','" + headerHeight + "px');r.style.setProperty('--ue-hero-mobile-height','" + heroMobileHeight + "vh');r.style.setProperty('--ue-hero-desktop-height','" + heroDesktopHeight + "vh');"
+            + "if(" + headerEnabled + "&&!d)r.classList.add('ue-header-boot-loading');"
+            + "if(" + headerEnabled + ")setTimeout(function(){r.classList.remove('ue-header-boot-loading')},4000)})();</script>";
     }
 
     // "#e8c050" -> "232, 192, 80" (the theme's see-through glows use the accent as plain numbers)

@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using Jellyfin.Plugin.UshereatsTheme.Sleek;
+using Jellyfin.Plugin.UshereatsTheme.Look;
 using Jellyfin.Plugin.UshereatsTheme.Configuration;
 
 namespace Jellyfin.Plugin.UshereatsTheme;
@@ -94,7 +94,7 @@ public static class ThemeAssets
         ["funnel-latin-ext.woff2"] = "font_funnel_latin_ext.woff2",
         ["bebas-latin.woff2"] = "font_bebas_latin.woff2",
         ["bebas-latin-ext.woff2"] = "font_bebas_latin_ext.woff2",
-        // SleekFin's font (Inter, SIL OFL)
+        // UeTheme's font (Inter, SIL OFL)
         ["inter-latin.woff2"] = "font_inter_latin.woff2",
         ["inter-latin-ext.woff2"] = "font_inter_latin_ext.woff2",
         ["inter-cyrillic.woff2"] = "font_inter_cyrillic.woff2",
@@ -124,7 +124,7 @@ public static class ThemeAssets
         ("js_12_player_skin.js", c => c.PlayerSkin),
         ("js_13_login_extras.js", c => c.LoginExtras),
         ("js_14_pause_screen.js", c => c.PauseScreen),
-        // with SleekFin built in, the accent is set from the page head instead (no script needed)
+        // with UeTheme built in, the accent is set from the page head instead (no script needed)
         ("js_21_hero.js", c => c.Hero),
         ("js_20_cards.js", c => c.HomeRows || c.Search),
         ("js_22_home_rows.js", c => c.HomeRows),
@@ -260,22 +260,22 @@ public static class ThemeAssets
 
         // ── CSS ──
         StringBuilder css = new StringBuilder();
-        // SleekFin (built in): its styles first, then the theme, in one file (nothing loads later and restyles the page)
+        // UeTheme (built in): its styles first, then the theme, in one file (nothing loads later and restyles the page)
         {
-            css.Append(ReadText("sleek.css")
+            css.Append(ReadText("look.css")
                 .Replace("__TB_FONT_V__", fontVersion, StringComparison.Ordinal)
                 .Replace("__TB_ACCENT__", Accent(config), StringComparison.Ordinal)
-                .Replace("__TB_CARD_BUTTON_RADIUS__", IndexPatch.ShapeRadius(SleekOf(config).CardButtonShape, 4, 12), StringComparison.Ordinal)
-                .Replace("__TB_PLAY_RADIUS__", IndexPatch.ShapeRadius(SleekOf(config).PlayButtonShape, 6, 18), StringComparison.Ordinal)
-                .Replace("__TB_COMPACT_RADIUS__", IndexPatch.ShapeRadius(SleekOf(config).MediaCardShape, 4, 16), StringComparison.Ordinal)
-                .Replace("__TB_PERSON_RADIUS__", IndexPatch.ShapeRadius(SleekOf(config).CastCrewShape, 4, 10), StringComparison.Ordinal)
-                .Replace("__TB_PERSON_INNER_RADIUS__", IndexPatch.ShapeRadius(SleekOf(config).CastCrewShape, 3, 9), StringComparison.Ordinal)
+                .Replace("__TB_CARD_BUTTON_RADIUS__", IndexPatch.ShapeRadius(LookOf(config).CardButtonShape, 4, 12), StringComparison.Ordinal)
+                .Replace("__TB_PLAY_RADIUS__", IndexPatch.ShapeRadius(LookOf(config).PlayButtonShape, 6, 18), StringComparison.Ordinal)
+                .Replace("__TB_COMPACT_RADIUS__", IndexPatch.ShapeRadius(LookOf(config).MediaCardShape, 4, 16), StringComparison.Ordinal)
+                .Replace("__TB_PERSON_RADIUS__", IndexPatch.ShapeRadius(LookOf(config).CastCrewShape, 4, 10), StringComparison.Ordinal)
+                .Replace("__TB_PERSON_INNER_RADIUS__", IndexPatch.ShapeRadius(LookOf(config).CastCrewShape, 3, 9), StringComparison.Ordinal)
                 .Replace("__TB_AMB_DIM__", Math.Clamp(config.AmbientDim, 0, 1).ToString("0.###", CultureInfo.InvariantCulture), StringComparison.Ordinal)
                 .Replace("__TB_AMB_FADE__", config.AmbientFade ? "1200" : "0", StringComparison.Ordinal)
                 ).Append('\n');
         }
 
-        css.Append(".tb-sleek-end{--tb-sleek-end:1}\n");   // marks where the built-in SleekFin's styles end (used by the visual test)
+        css.Append(".tb-look-end{--tb-look-end:1}\n");   // marks where the built-in UeTheme's styles end (used by the visual test)
         css.Append(ReadText("theme.css")).Append('\n');
         // the logo everywhere Jellyfin draws its own: the top bar, the loading screen, the sign-in page, and the
         // dashboard's and side menu's Jellyfin pictures (the stylesheet is at /UshereatsTheme/theme.css)
@@ -298,9 +298,9 @@ public static class ThemeAssets
         // ── JS ──
         // settings for the scripts (each file carries them, so they work in any load order)
         JsonObject tbConfig = JsonSerializer.SerializeToNode(config)!.AsObject();
-        tbConfig.Remove("Sleek");   // SleekFin's settings go separately (below), in the shape its scripts expect
+        tbConfig.Remove("Look");   // UeTheme's settings go separately (below), in the shape its scripts expect
         string prefix = "window.TB_CONFIG=" + tbConfig.ToJsonString() + ";\n"
-            + "window.__tbSleek=window.__tbSleek||" + SleekJson(config, ThemeAssets.SleekOf(config)) + ";\n"
+            + "window.__tbLook=window.__tbLook||" + LookJson(config, ThemeAssets.LookOf(config)) + ";\n"
             + "window.tbCfg=function(k,d){var c=window.TB_CONFIG||{},v=c[k];return v===undefined||v===null||v===\"\"?d:v};\n"
             // one shared page watcher that hands each script only what was just added (scripts look at those
             // parts instead of re-checking the whole page), once per frame, before it's drawn
@@ -404,9 +404,9 @@ public static class ThemeAssets
             ["player"] = new List<string>(),
             ["search"] = new List<string>(),
         };
-        if (ThemeAssets.SleekOf(config).DetailsEnabled)
+        if (ThemeAssets.LookOf(config).DetailsEnabled)
         {
-            partFiles["details"].Add("sleek_details.js");
+            partFiles["details"].Add("look_details.js");
         }
 
         foreach ((string file, Func<PluginConfiguration, bool> on) in Features)
@@ -453,7 +453,7 @@ public static class ThemeAssets
           .Append("window.tbLoadPart=load;")
           .Append("function route(){var h=location.hash||\"\";if(/^#!?\\/(details|item)/i.test(h))load(\"details\");if(/^#!?\\/search/i.test(h))load(\"search\");if(/^#!?\\/video/i.test(h)||document.getElementById(\"videoOsdPage\"))load(\"player\")}")
           // search: also the moment the pointer or focus reaches the search button
-          .Append("function near(e){var t=e.target;if(!t||!t.closest)return;if(t.closest(\".headerSearchButton,[data-sleekfin-header-item-id='jellyfin:search'],a[href*='#/search']\"))load(\"search\")}")
+          .Append("function near(e){var t=e.target;if(!t||!t.closest)return;if(t.closest(\".headerSearchButton,[data-ue-header-item-id='jellyfin:search'],a[href*='#/search']\"))load(\"search\")}")
           .Append("document.addEventListener(\"pointerover\",near,{capture:true,passive:true});document.addEventListener(\"focusin\",near,true);")
           .Append("route();window.addEventListener(\"hashchange\",route);window.addEventListener(\"popstate\",route);")
           .Append("var idle=window.requestIdleCallback||function(f){return setTimeout(f,1200)};")
@@ -463,10 +463,10 @@ public static class ThemeAssets
               ? "window.addEventListener(\"load\",function(){idle(function(){load(\"search\");load(\"player\");setTimeout(function(){load(\"details\")},4000)},{timeout:3000})})})();\n"
               : "window.addEventListener(\"load\",function(){load(\"details\");idle(function(){load(\"search\");load(\"player\")},{timeout:2500})})})();\n");
 
-        // SleekFin's scripts (built in; its own hero is left out: the plugin's hero replaces it)
-        foreach (string file in SleekScripts)
+        // UeTheme's scripts (built in; its own hero is left out: the plugin's hero replaces it)
+        foreach (string file in LookScripts)
         {
-            if (file != "sleek_details.js")
+            if (file != "look_details.js")
             {
                 AppendFeature(js, file, mp3Version, read);
             }
@@ -504,35 +504,35 @@ public static class ThemeAssets
         }
     }
 
-    private static readonly string[] SleekScripts = { "sleek_runtime.js", "sleek_theme.js", "sleek_header.js", "sleek_media.js", "sleek_details.js" };
+    private static readonly string[] LookScripts = { "look_runtime.js", "look_theme.js", "look_header.js", "look_media.js", "look_details.js" };
 
-    private static readonly SleekConfiguration DefaultSleek = new SleekConfiguration();
+    private static readonly LookConfiguration DefaultLook = new LookConfiguration();
 
     /// <summary>The one accent colour for the whole UI (main settings page).</summary>
     internal static string Accent(PluginConfiguration config) =>
-        Plugin.IsHex(config.AccentColor) ? config.AccentColor.ToLowerInvariant() : SleekOf(config).AccentColor;
+        Plugin.IsHex(config.AccentColor) ? config.AccentColor.ToLowerInvariant() : LookOf(config).AccentColor;
 
-    /// <summary>SleekFin's settings (defaults if none are saved yet).</summary>
-    internal static SleekConfiguration SleekOf(PluginConfiguration config) => config.Sleek ?? DefaultSleek;
+    /// <summary>UeTheme's settings (defaults if none are saved yet).</summary>
+    internal static LookConfiguration LookOf(PluginConfiguration config) => config.Look ?? DefaultLook;
 
-    /// <summary>SleekFin's settings in the shape its scripts expect (header, details, hero look).</summary>
-    internal static string SleekJson(PluginConfiguration config, SleekConfiguration s) => JsonSerializer.Serialize(new
+    /// <summary>UeTheme's settings in the shape its scripts expect (header, details, hero look).</summary>
+    internal static string LookJson(PluginConfiguration config, LookConfiguration s) => JsonSerializer.Serialize(new
     {
         icon = LogoUrl(config, "../") ?? string.Empty,
-        header = SleekSettings.Header(s),
-        details = SleekSettings.Details(s),
-        hero = SleekSettings.Hero(s),
+        header = LookSettings.Header(s),
+        details = LookSettings.Details(s),
+        hero = LookSettings.Hero(s),
     });
 
-    /// <summary>A file the SleekFin settings page loads on its own (details builder script + styles).</summary>
-    internal static Payload? SleekFile(string name)
+    /// <summary>A file the UeTheme settings page loads on its own (details builder script + styles).</summary>
+    internal static Payload? LookFile(string name)
     {
         string? file = name switch
         {
-            "sleekfin-details-builder.js" => "sleek_details_builder.js",
-            _ when name.StartsWith("sleekfin-", StringComparison.Ordinal) && name.EndsWith(".css", StringComparison.Ordinal)
-                && name.IndexOfAny(new[] { '/', '\\', '.' }, 0, name.Length - 4) < 0 => "sleekcss_" + name.Substring(9).Replace('-', '_'),
-            "sleekfin-runtime.js" => "sleek_runtime.js",
+            "ue-details-builder.js" => "look_details_builder.js",
+            _ when name.StartsWith("ue-", StringComparison.Ordinal) && name.EndsWith(".css", StringComparison.Ordinal)
+                && name.IndexOfAny(new[] { '/', '\\', '.' }, 0, name.Length - 4) < 0 => "lookcss_" + name.Substring(3).Replace('-', '_'),
+            "ue-runtime.js" => "look_runtime.js",
             _ => null,
         };
         if (file == null)

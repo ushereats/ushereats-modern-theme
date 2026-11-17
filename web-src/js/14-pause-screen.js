@@ -8,7 +8,7 @@
   var DELAY_SECONDS = tbCfg("PauseDelaySeconds", 0);        // idle time after pausing before it shows (0 = instant)
   var SHOW_DISC = true;         // "full" style only: spinning disc art on the right
 
-  var ACC = "var(--sleekfin-accent, rgb(232, 192, 80))";
+  var ACC = "var(--ue-accent, rgb(232, 192, 80))";
   var ROOT_CLASS = "tb-paused";
 
   var video = null, info = null, infoFor = null;

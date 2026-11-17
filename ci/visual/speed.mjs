@@ -27,7 +27,7 @@ const probe = `(function(){
     var seen = [];
     (e.sources||[]).forEach(function(x){ var n=x.node; if(!n||!n.querySelectorAll) return;
       // what in it could actually be seen at that moment (painted, on screen)
-      Array.prototype.slice.call(n.querySelectorAll('img,.cardImageContainer,h2,.sectionTitle,.cardText,bdi,.tb-row,.sleekfin-hero')).some(function(c){
+      Array.prototype.slice.call(n.querySelectorAll('img,.cardImageContainer,h2,.sectionTitle,.cardText,bdi,.tb-row,.ue-hero')).some(function(c){
         var cs=getComputedStyle(c), r=c.getBoundingClientRect();
         if (cs.visibility==='hidden'||cs.display==='none'||+cs.opacity===0||!r.width||!r.height||r.bottom<0||r.top>innerHeight) return false;
         for (var p=c; p&&p!==document.body; p=p.parentElement){ var ps=getComputedStyle(p); if(+ps.opacity===0||ps.visibility==='hidden') return false; }
@@ -105,7 +105,7 @@ report.logos = logos;
       if (!p) return false;
       const scope = fav ? [...p.querySelectorAll(".pageTabContent")].find((t) => t.id !== "homeTab" && t.getClientRects().length) : p;
       if (!scope) return false;
-      const el = [...scope.querySelectorAll(".sleekfin-details-title, .itemName, .card, .listItem, input, img")].find((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < innerHeight; });
+      const el = [...scope.querySelectorAll(".ue-details-title, .itemName, .card, .listItem, input, img")].find((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < innerHeight; });
       return !!el;
     }, hash, { timeout: 8000, polling: 16 }).then(() => Date.now() - t0).catch(() => -1);
     await page.waitForTimeout(2000);
@@ -133,7 +133,7 @@ report.logos = logos;
         const sp = document.querySelector("header.MuiAppBar-root + div[aria-hidden='true']"), m = document.querySelector("main"), pg = [...document.querySelectorAll(".page:not(.hide)")].pop();
         const cs = sp && getComputedStyle(sp);
         return { w, h, hash: hash.slice(0, 14), spacer: sp && sp.getBoundingClientRect().height, spacerCss: cs && [cs.height, cs.minHeight, sp.className].join(" "), mainTop: m && m.getBoundingClientRect().top,
-          page: pg && pg.id, pageTop: pg && pg.getBoundingClientRect().top, pagePad: pg && getComputedStyle(pg).paddingTop, headerH: getComputedStyle(document.documentElement).getPropertyValue("--sleekfin-header-height"), cls: document.documentElement.className.slice(0, 200) };
+          page: pg && pg.id, pageTop: pg && pg.getBoundingClientRect().top, pagePad: pg && getComputedStyle(pg).paddingTop, headerH: getComputedStyle(document.documentElement).getPropertyValue("--ue-header-height"), cls: document.documentElement.className.slice(0, 200) };
       }, [w, h, hash]));
     }
   }

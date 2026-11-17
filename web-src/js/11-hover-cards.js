@@ -113,5 +113,5 @@
     onEnter(e);
   }, { passive: true });
 
-  // (its look is part of the main stylesheet, from the first frame: sleekfin/Inject/Components/sleekfin-hover.css)
+  // (its look is part of the main stylesheet, from the first frame: look/Inject/Components/ue-hover.css)
 })();

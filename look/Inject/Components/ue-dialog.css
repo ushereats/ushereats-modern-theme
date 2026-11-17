@@ -1,0 +1,121 @@
+html.ue-main-ui .dialog.ue-more-menu,html.ue-main-ui .MuiDialog-paper,html.ue-main-ui #streaming-settings-modal > div {
+    -webkit-backdrop-filter: var(--ue-glass-filter);
+    backdrop-filter: var(--ue-glass-filter);
+    background: linear-gradient(rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.01)), var(--ue-surface) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55) !important;
+    color: var(--ue-text) !important;
+    font-family: var(--app-font);
+}
+
+html.ue-main-ui .dialog.ue-more-menu,html.ue-main-ui .MuiDialog-paper {
+    box-sizing: border-box;
+    max-height: calc(100% - 32px);
+    max-width: calc(100% - 32px);
+}
+
+@media (max-width: 80em), (max-height: 45em) {
+
+}
+
+html.ue-main-ui :is(.dialogBackdrop, .MuiBackdrop-root, #streaming-settings-modal) {
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    background-color: rgba(0, 0, 0, 0.65) !important;
+}
+
+html.ue-main-ui .dialogBackdropOpened {
+    opacity: 1;
+}
+
+html.ue-main-ui .MuiDialogTitle-root,html.ue-main-ui .MuiDialogActions-root {
+    background-color: transparent !important;
+    padding: 16px 20px 12px;
+}
+
+html.ue-main-ui .formDialogHeaderTitle,html.ue-main-ui .MuiDialogTitle-root,html.ue-main-ui #streaming-settings-modal > div > h3 {
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.025em;
+}
+
+html.ue-main-ui .MuiDialogActions-root .MuiButton-root {
+    border-radius: 12px;
+}
+
+html.ue-main-ui .dialog .formDialogHeader .paper-icon-button-light {
+    background: transparent !important;
+    border-radius: 50%;
+    border: 0;
+    color: rgba(255, 255, 255, 0.35) !important;
+    font-size: 18px !important;
+    height: 32px !important;
+    width: 32px !important;
+}
+
+html.ue-main-ui .dialog .formDialogHeader .paper-icon-button-light .material-icons {
+    font-size: 18px;
+}
+
+html.ue-main-ui .dialog .formDialogHeader .paper-icon-button-light:hover {
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+html.ue-main-ui .dialog.ue-more-menu {
+    background-color: rgba(22, 22, 24, 0.82) !important;
+    border: var(--ue-glass-border) !important;
+    border-radius: 12px !important;
+    flex-direction: column;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1;
+    font-family: var(--app-font);
+    height: auto;
+    min-width: 200px;
+    width: max-content;
+}
+
+html.ue-main-ui .ue-more-menu .actionSheetContent {
+    align-items: stretch;
+    padding: 6px !important;
+    text-align: start;
+}
+
+html.ue-main-ui .ue-more-menu .actionSheetScroller {
+    gap: 2px;
+    max-height: none;
+    max-width: none;
+    width: 100%;
+}
+
+html.ue-main-ui .ue-more-menu .actionSheetMenuItem {
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    font: inherit;
+    min-height: 38px;
+    padding: 0 10px;
+}
+
+html.ue-main-ui .ue-more-menu .actionSheetMenuItem:is(:hover, :focus) {
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--ue-text);
+}
+
+html.ue-main-ui .ue-more-menu .actionsheetMenuItemIcon {
+    font-size: 18px;
+    margin: 0 10px 0 0 !important;
+}
+
+html.ue-main-ui .ue-more-menu .actionsheetListItemBody {
+    padding: 0 !important;
+}
+
+html.ue-main-ui .ue-more-menu .btnCloseActionSheet {
+    align-self: flex-start;
+    font-size: 18px;
+    margin: 6px;
+    position: static;
+}

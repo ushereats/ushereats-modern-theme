@@ -216,7 +216,7 @@
     "#tb-hc .tb-hc-logo img{display:block;max-width:100%;max-height:64px;object-fit:contain;object-position:left bottom;filter:drop-shadow(0 2px 10px rgba(0,0,0,.6))}" +
     "#tb-hc .tb-hc-logo b{font:400 30px/1 var(--title-font,'Bebas Neue',sans-serif);letter-spacing:.02em;text-shadow:0 2px 12px rgba(0,0,0,.7)}" +
     "#tb-hc .tb-hc-prog{position:absolute;left:14px;right:14px;bottom:0;z-index:1;height:3px;border-radius:2px;background:rgba(255,255,255,.22);overflow:hidden;display:none}" +
-    "#tb-hc .tb-hc-prog.on{display:block}#tb-hc .tb-hc-prog i{display:block;height:100%;background:var(--sleekfin-accent,#dc2626)}" +
+    "#tb-hc .tb-hc-prog.on{display:block}#tb-hc .tb-hc-prog i{display:block;height:100%;background:var(--ue-accent,#dc2626)}" +
     "#tb-hc .tb-hc-info{padding:12px 14px 14px}" +
     "#tb-hc .tb-hc-btns{display:flex;align-items:center;gap:8px;min-height:38px}" +
     "#tb-hc .tb-hc-btns>span{display:contents}" +
@@ -226,10 +226,10 @@
     "#tb-hc .tb-hc-b{border:2px solid rgba(255,255,255,.45);color:#fff;background:rgba(40,40,44,.6)}" +
     "#tb-hc .tb-hc-b .material-icons{font-size:19px}" +
     "#tb-hc .tb-hc-b:hover{border-color:#fff;background:rgba(255,255,255,.12)}#tb-hc .tb-hc-play:hover{transform:scale(1.08)}" +
-    "#tb-hc .tb-hc-b[data-isfavorite='true'] .material-icons,#tb-hc .tb-hc-b[data-played='true'] .material-icons{color:var(--sleekfin-accent,#dc2626)}" +
+    "#tb-hc .tb-hc-b[data-isfavorite='true'] .material-icons,#tb-hc .tb-hc-b[data-played='true'] .material-icons{color:var(--ue-accent,#dc2626)}" +
     "#tb-hc .tb-hc-more{margin-left:auto}" +
     "#tb-hc .tb-hc-meta{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;margin-top:12px;font:600 13px/1.3 var(--app-font,Inter,sans-serif);color:rgba(255,255,255,.9)}" +
-    "#tb-hc .tb-hc-star{color:var(--sleekfin-accent,#dc2626)}" +
+    "#tb-hc .tb-hc-star{color:var(--ue-accent,#dc2626)}" +
     "#tb-hc .tb-hc-age{border:1px solid rgba(255,255,255,.5);border-radius:3px;padding:0 5px;font-size:11px;line-height:17px}" +
     "#tb-hc .tb-hc-gen{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px;font:500 13px/1.3 var(--app-font,Inter,sans-serif);color:rgba(255,255,255,.72)}" +
     "#tb-hc .tb-hc-dot{display:inline-block;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.4)}";

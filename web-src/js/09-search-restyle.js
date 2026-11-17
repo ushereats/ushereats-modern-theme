@@ -87,7 +87,7 @@
 
   var css = [
     /* ── Page + moving liquid background ── */
-    "html.sleekfin-media-mounted.sleekfin-media-mounted #searchPage, #searchPage {",
+    "html.ue-media-mounted.ue-media-mounted #searchPage, #searchPage {",
     "  background: " + bg + " !important;",
     "  isolation: isolate;",
     "  min-height: 100vh;",
@@ -127,7 +127,7 @@
     "#searchPage .searchFields.searchFields {",
     "  display: block !important;",
     "  max-width: 560px !important; margin: 0 auto !important;",
-    "  padding: calc(var(--sleekfin-header-height, 80px) + 8px) 16px 8px !important;",
+    "  padding: calc(var(--ue-header-height, 80px) + 8px) 16px 8px !important;",
     "  text-align: center; box-sizing: border-box;",
     "}",
     "#searchPage .searchFields::before {",
@@ -247,7 +247,7 @@
     "#searchPage .itemsContainer > .card:is(.squareCard, .overflowSquareCard) { width: clamp(118px, 12.5vw, 180px) !important; }",
     "#searchPage .cardBox { margin: 0 !important; }",
     /* titles hidden under posters (like the reference), kept for people & music */
-    "#searchPage .card:not(.personCard):not([data-type='Person']):not(.squareCard):not(.overflowSquareCard) :is(.cardFooter, .sleekfin-meta, .cardText, .cardTextStack) { display: none !important; }",
+    "#searchPage .card:not(.personCard):not([data-type='Person']):not(.squareCard):not(.overflowSquareCard) :is(.cardFooter, .ue-meta, .cardText, .cardTextStack) { display: none !important; }",
 
     /* ── People: circles with names underneath ── */
     "#searchPage .itemsContainer > .card:is(.personCard, [data-type='Person']) { width: clamp(96px, 9.5vw, 142px) !important; }",
@@ -268,7 +268,7 @@
 
     /* ── Phones ── */
     "@media (max-width: 599px) {",
-    "  #searchPage .searchFields { padding-top: calc(var(--sleekfin-header-height, 80px) - 6px) !important; }",
+    "  #searchPage .searchFields { padding-top: calc(var(--ue-header-height, 80px) - 6px) !important; }",
     "  #searchPage .itemsContainer { gap: 12px; }",
     "  #searchPage .itemsContainer > .card:is(.portraitCard, .overflowPortraitCard) { width: calc((100% - 24px) / 3) !important; }",
     "  #searchPage .itemsContainer > .card:is(.backdropCard, .overflowBackdropCard, .smallBackdropCard, .overflowSmallBackdropCard) { width: calc((100% - 12px) / 2) !important; }",

@@ -1,0 +1,72 @@
+.ue-control-3d,html.ue-main-ui .card[data-type] :is(button.cardOverlayButton) {
+    -webkit-backdrop-filter: var(--ue-glass-filter);
+    backdrop-filter: var(--ue-glass-filter);
+    background: linear-gradient(rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.01)), rgba(22, 22, 24, 0.82) !important;
+    border: var(--ue-glass-border) !important;
+    box-sizing: border-box;
+    box-shadow: var(--ue-glass-shadow);
+    transition: background 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.sliderContainer:has(.osdVolumeSlider, .osdPositionSlider) .mdl-slider-background-lower:not(.mdl-slider-background-lower-clear) {
+    background: var(--ue-accent) !important;
+}
+
+input[type="range"].mdl-slider:is(.osdVolumeSlider, .osdPositionSlider)::-webkit-slider-thumb {
+    background: var(--ue-accent) !important;
+}
+
+input[type="range"].mdl-slider:is(.osdVolumeSlider, .osdPositionSlider)::-moz-range-thumb {
+    background: var(--ue-accent) !important;
+}
+
+@media (hover: hover) {
+    .ue-control-3d:is(button, a):hover,html.ue-main-ui .card[data-type] :is(button.cardOverlayButton):hover {
+        background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03)), rgba(36, 36, 40, 0.9) !important;
+        border-color: rgba(255, 255, 255, 0.16) !important;
+        box-shadow: inset 0 1px rgba(255, 255, 255, 0.14), 0 8px 18px -6px rgba(0, 0, 0, 0.55);
+    }
+}
+
+html.ue-main-ui :is(.playstatebutton-played, .ratingbutton-withrating):not(:disabled),
+html.ue-main-ui .emby-checkbox:checked:not(:disabled) + span + .checkboxOutline {
+    background: var(--ue-accent) !important;
+    border-color: var(--ue-accent) !important;
+    color: var(--ue-surface) !important;
+}
+
+html.ue-main-ui :is(.playstatebutton-played, .ratingbutton-withrating):not(:disabled) :is(.playstatebutton-icon-played, .ratingbutton-icon-withrating),
+html.ue-main-ui .emby-checkbox:checked:not(:disabled) + span + .checkboxOutline > .checkboxIcon-checked {
+    color: var(--ue-surface) !important;
+}
+
+html.ue-main-ui .MuiCheckbox-root:is(.Mui-checked, .MuiCheckbox-indeterminate):not(.Mui-disabled) {
+    color: var(--ue-accent);
+}
+
+/* MUI's native check and minus are transparent cut-outs in its filled box icon. */
+html.ue-main-ui .MuiCheckbox-root:is(.Mui-checked, .MuiCheckbox-indeterminate):not(.Mui-disabled) > .MuiSvgIcon-root {
+    background: linear-gradient(var(--ue-surface), var(--ue-surface)) center / 66.6667% 66.6667% no-repeat;
+}
+
+/* Buttons: clear glass like cinejoy.pk (a see-through pill with a fine light edge, the picture behind it
+   blurred), not the dark solid surface. Menus and panels keep the darker surface above so text stays easy to read. */
+.ue-control-3d:is(button, a),
+html.ue-main-ui .card[data-type] :is(button.cardOverlayButton) {
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    backdrop-filter: blur(16px) saturate(160%);
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.1);
+    color: #fff !important;
+}
+
+@media (hover: hover) {
+    .ue-control-3d:is(button, a):hover,
+    html.ue-main-ui .card[data-type] :is(button.cardOverlayButton):hover {
+        background: rgba(255, 255, 255, 0.18) !important;
+        border-color: rgba(255, 255, 255, 0.22) !important;
+        box-shadow: inset 0 1px rgba(255, 255, 255, 0.14);
+    }
+}
+

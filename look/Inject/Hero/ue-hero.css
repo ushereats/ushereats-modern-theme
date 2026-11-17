@@ -1,0 +1,157 @@
+#indexPage.homePage.libraryPage:has(.ue-hero),
+html:is(.ue-hero-boot-loading, .ue-hero-loading) #indexPage.homePage.libraryPage {
+    background: var(--ue-page-background);
+    /* Jellyfin's wide absolute-tab rule might load after Modern home override. */
+    padding-top: 0 !important;
+}
+
+/* MediaBar sets its duplicate carousel inline, so hide it while UeTheme owns the home hero. */
+html.ue-hero-mounted #slides-container {
+    display: none !important;
+}
+
+/* the hero sits right before #homeTab; the rows rise over the bottom of the banner */
+#indexPage > .ue-hero + #homeTab > .sections {
+    margin-top: 0;
+}
+
+html:not(.layout-tv) #indexPage > .ue-hero + #homeTab > .sections.homeSectionsContainer {
+    margin-top: calc(-1 * var(--tb-lift, 0px)) !important;
+    pointer-events: none; /* the empty top of the rows must not block the banner */
+    position: relative;
+    z-index: 2;
+}
+
+html:not(.layout-tv) #indexPage > .ue-hero + #homeTab > .sections.homeSectionsContainer > * {
+    pointer-events: auto;
+}
+
+html:is(.ue-hero-boot-loading, .ue-hero-loading) #indexPage #homeTab.is-active > .sections::before {
+    animation: ue-skeleton-pulse 1.4s ease-in-out infinite alternate;
+    background:
+        linear-gradient(var(--ue-skeleton-line-strong, rgba(226, 229, 234, 0.28)) 0 0) var(--ue-page-gutter) calc(100% - 244px) / min(340px, 52vw) 76px no-repeat,
+        linear-gradient(var(--ue-skeleton-line, rgba(211, 215, 221, 0.16)) 0 0) var(--ue-page-gutter) calc(100% - 150px) / min(430px, 68vw) 14px no-repeat,
+        linear-gradient(var(--ue-skeleton-line, rgba(211, 215, 221, 0.16)) 0 0) var(--ue-page-gutter) calc(100% - 122px) / min(360px, 58vw) 14px no-repeat,
+        linear-gradient(var(--ue-skeleton-line-strong, rgba(226, 229, 234, 0.28)) 0 0) var(--ue-page-gutter) calc(100% - 70px) / 120px 40px no-repeat,
+        linear-gradient(115deg, var(--ue-surface, #101113) 15%, var(--ue-surface-raised, #1a1c20) 42%, var(--ue-surface, #101113) 70%);
+    content: "";
+    display: block;
+    height: var(--ue-hero-mobile-height, 70vh);
+    min-height: min(420px, var(--ue-hero-mobile-height, 70vh));
+}
+
+.ue-hero {
+    background: var(--ue-page-background);
+    box-sizing: border-box;
+    color: #fff;
+    font-family: var(--app-font);
+    height: var(--ue-hero-mobile-height, 70vh);
+    margin-top: 0;
+    min-height: min(420px, var(--ue-hero-mobile-height, 70vh));
+    overflow: hidden;
+    position: relative;
+    touch-action: auto;
+    width: 100%;
+}
+
+.ue-hero[data-swipe-enabled="true"] {
+    touch-action: pan-y;
+}
+
+.ue-hero::before,
+.ue-hero::after {
+    content: "";
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 320ms ease;
+    z-index: 2;
+}
+
+.ue-hero::before {
+    background:
+        linear-gradient(var(--ue-skeleton-line-strong, rgba(226, 229, 234, 0.28)) 0 0) var(--ue-page-gutter) calc(100% - 244px) / min(340px, 52vw) 76px no-repeat,
+        linear-gradient(var(--ue-skeleton-line, rgba(211, 215, 221, 0.16)) 0 0) var(--ue-page-gutter) calc(100% - 150px) / min(430px, 68vw) 14px no-repeat,
+        linear-gradient(var(--ue-skeleton-line, rgba(211, 215, 221, 0.16)) 0 0) var(--ue-page-gutter) calc(100% - 122px) / min(360px, 58vw) 14px no-repeat,
+        linear-gradient(var(--ue-skeleton-line-strong, rgba(226, 229, 234, 0.28)) 0 0) var(--ue-page-gutter) calc(100% - 70px) / 120px 40px no-repeat,
+        linear-gradient(115deg, var(--ue-surface, #101113) 15%, var(--ue-surface-raised, #1a1c20) 42%, var(--ue-surface, #101113) 70%);
+}
+
+.ue-hero::after {
+    animation: ue-skeleton-shimmer 1.6s linear infinite;
+    background: linear-gradient(105deg, transparent 35%, var(--ue-skeleton-shimmer, rgba(226, 229, 234, 0.1)) 50%, transparent 65%);
+    transform: translateX(-100%);
+}
+
+.ue-hero[data-state="loading"]::before,
+.ue-hero[data-state="loading"]::after {
+    opacity: 1;
+}
+
+@keyframes ue-skeleton-pulse {
+    from {
+        opacity: 0.62;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes ue-skeleton-shimmer {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+html:is(.ue-header-boot-loading, .ue-header-loading) .ue-hero,
+html.ue-header-mounted .ue-hero {
+    margin-top: calc(-1 * var(--ue-header-height));
+}
+
+/* Modern reserves the measured AppBar height, which can exceed the configured header height. */
+html:is(.ue-hero-boot-loading, .ue-hero-loading, .ue-hero-mounted):is(.ue-header-boot-loading, .ue-header-loading, .ue-header-mounted) header.MuiAppBar-root + div[aria-hidden="true"] {
+    height: 0 !important;
+}
+
+html:is(.ue-header-boot-loading, .ue-header-loading, .ue-header-mounted) header.MuiAppBar-root ~ main .ue-hero {
+    margin-top: 0;
+}
+
+@media (min-width: 768px) {
+    html:is(.ue-hero-boot-loading, .ue-hero-loading) #indexPage #homeTab.is-active > .sections::before,
+    .ue-hero {
+        height: var(--ue-hero-desktop-height, 85vh);
+        min-height: min(420px, var(--ue-hero-desktop-height, 85vh));
+    }
+}
+
+/* portrait monitors (taller than wide): the banners are as tall as a wide picture fits, not 85% of a very
+   tall screen (the title and buttons sat near the bottom of a mostly empty picture, rows far below) */
+@media (min-width: 900px) and (orientation: portrait) {
+  html .ue-hero.ue-hero {
+    height: min(var(--ue-hero-desktop-height, 85vh), 75vw) !important;
+    min-height: min(420px, 75vw) !important;
+  }
+  html:is(.ue-hero-boot-loading, .ue-hero-loading) #indexPage #homeTab.is-active > .sections::before {
+    height: min(var(--ue-hero-desktop-height, 85vh), 75vw) !important;
+  }
+  html.ue-details-mounted:not(#tb-x),
+  html.ue-details-mounted #itemDetailPage[data-ue-details],
+  html.ue-details-mounted #itemDetailPage[data-ue-details] > * {
+    --ue-details-hero-height: min(85vh, 75vw) !important;
+  }
+}
+
+/* phones on their side: the home banner fits the short screen under the top bar */
+@media (max-width: 899px) and (max-height: 540px) and (orientation: landscape) {
+  .ue-hero {
+    --ue-hero-title-size: 30px !important;
+    --ue-hero-description-lines: 2 !important;
+    --ue-hero-button-height: 38px !important;
+    height: 100vh !important;
+    height: 100svh !important;
+    min-height: 320px !important;
+  }
+}

@@ -60,7 +60,7 @@
     "#tb-pop{display:none;position:fixed;inset:0;z-index:1200;justify-content:center;align-items:flex-start}" +
     "#tb-pop .tb-pop-shade{position:absolute;inset:0;background:rgba(0,0,0,.62);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}" +
     "#tb-pop .tb-pop-box{position:relative;display:flex;margin-top:5vh;width:min(1100px,calc(100vw - 48px));height:90vh;max-height:90vh;border-radius:18px;overflow:hidden;isolation:isolate;" +
-    "background:var(--sleekfin-background,#0b0b0d);box-shadow:0 30px 90px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08)}" +
+    "background:var(--ue-background,#0b0b0d);box-shadow:0 30px 90px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08)}" +
     // the panel's background: the title's own picture, softened, like the ambient background everywhere else
     "#tb-pop .tb-pop-amb{position:absolute;inset:0;z-index:-1;background:50% 30%/cover no-repeat;opacity:0;transition:opacity .35s ease}" +
     "#tb-pop .tb-pop-amb.on{opacity:1}" +
@@ -80,12 +80,12 @@
     "#tb-pop .tb-pop-title{font-family:'Bebas Neue',var(--app-font);font-size:58px;line-height:.95;margin:0 0 14px;font-weight:400;letter-spacing:.01em}" +
     "#tb-pop .tb-pop-sub{font-weight:700;font-size:17px;margin:0 0 8px}" +
     "#tb-pop .tb-pop-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:14px;font-weight:600;color:rgba(255,255,255,.92)}" +
-    "#tb-pop .tb-pop-star{color:var(--sleekfin-accent,#4fc3f7)}" +
+    "#tb-pop .tb-pop-star{color:var(--ue-accent,#4fc3f7)}" +
     "#tb-pop .tb-pop-age{border:1px solid rgba(255,255,255,.55);border-radius:4px;padding:0 5px;font-size:11px;line-height:17px}" +
     "#tb-pop .tb-pop-genres{margin-top:6px;font-size:14px;color:rgba(255,255,255,.72)}" +
     "#tb-pop .tb-pop-prog{display:flex;align-items:center;gap:12px;margin-top:14px;font-size:13px;font-weight:600;color:rgba(255,255,255,.8)}" +
     "#tb-pop .tb-pop-prog b{display:block;width:180px;height:4px;border-radius:2px;background:rgba(255,255,255,.25);overflow:hidden}" +
-    "#tb-pop .tb-pop-prog b i{display:block;height:100%;background:var(--sleekfin-accent,#4fc3f7)}" +
+    "#tb-pop .tb-pop-prog b i{display:block;height:100%;background:var(--ue-accent,#4fc3f7)}" +
     "#tb-pop .tb-pop-ov{margin:14px 0 0;font-size:15px;line-height:1.5;color:rgba(255,255,255,.88);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}" +
     "#tb-pop .tb-pop-skel i{display:block;height:13px;margin-top:5px;border-radius:7px;background:rgba(255,255,255,.1);animation:tbPopSk 1.2s ease-in-out infinite alternate}" +
     "#tb-pop .tb-pop-skel i.o{width:100%;max-width:560px;margin-top:10px}#tb-pop .tb-pop-skel i:nth-of-type(3){margin-top:20px}" +
@@ -95,8 +95,8 @@
     "#tb-pop .tb-pop-actions>span{display:contents}" +
     "#tb-pop .tb-pop-ic{width:44px!important;height:44px!important;min-width:0!important;border-radius:50%!important;display:inline-flex;align-items:center;justify-content:center;color:#fff!important;padding:0!important;margin:0!important;cursor:pointer}" +
     "#tb-pop .tb-pop-ic .material-icons{font-size:20px}" +
-    "#tb-pop .tb-pop-actions .sleekfin-button{cursor:pointer;margin:0}" +
-    "#tb-pop .tb-pop-actions .sleekfin-button .material-icons{font-size:22px}" +
+    "#tb-pop .tb-pop-actions .ue-button{cursor:pointer;margin:0}" +
+    "#tb-pop .tb-pop-actions .ue-button .material-icons{font-size:22px}" +
     "#tb-pop .tb-pop-body{padding:6px 48px 44px}" +
     "#tb-pop .tb-pop-body .padded-left,#tb-pop .tb-pop-body .padded-right{padding-left:0!important;padding-right:0!important}" +
     "#tb-pop .tb-pop-body .verticalSection{margin:26px 0 0!important}" +
@@ -113,7 +113,7 @@
     "#tb-pop .tb-pop-ep-btn{all:unset;box-sizing:border-box;display:grid;width:100%;cursor:pointer;grid-template-columns:64px 240px minmax(0,1fr);" +
     "grid-template-areas:'num img title' 'num img ov' 'num img foot';grid-template-rows:auto auto auto;align-content:center;column-gap:22px;row-gap:6px;padding:16px 16px 16px 6px}" +
     "#tb-pop .tb-pop-ep-n{grid-area:num;align-self:center;justify-self:center;font-family:var(--title-font,'Bebas Neue',sans-serif);font-size:46px;line-height:1;letter-spacing:.02em;color:rgba(255,255,255,.38)}" +
-    "#tb-pop .tb-pop-ep[data-current] .tb-pop-ep-n{color:var(--sleekfin-accent,#4fc3f7)}" +
+    "#tb-pop .tb-pop-ep[data-current] .tb-pop-ep-n{color:var(--ue-accent,#4fc3f7)}" +
     "#tb-pop .tb-pop-ep[data-played]:not([data-current]) .tb-pop-ep-n{color:rgba(255,255,255,.2)}" +
     "#tb-pop .tb-pop-ep-img{grid-area:img;grid-row:1/span 3;position:relative;width:240px;height:135px;align-self:center;border-radius:8px;background:#1c1c20 center/cover no-repeat;overflow:hidden;box-shadow:0 6px 18px -8px rgba(0,0,0,.7)}" +
     "#tb-pop .tb-pop-ep[data-played]:not([data-current]) .tb-pop-ep-img{opacity:.55}" +
@@ -121,7 +121,7 @@
     "#tb-pop .tb-pop-ep-play::after{content:'';width:44px;height:44px;border-radius:50%;box-shadow:0 4px 14px rgba(0,0,0,.5);background:#fff url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b0b0b' d='M8 5.5v13l11-6.5z'/%3E%3C/svg%3E\") 55% 50%/20px 20px no-repeat}" +
     "#tb-pop .tb-pop-ep:hover .tb-pop-ep-play,#tb-pop .tb-pop-ep:focus-within .tb-pop-ep-play{opacity:1}" +
     "#tb-pop .tb-pop-ep-bar{position:absolute;left:8px;right:8px;bottom:8px;height:4px;border-radius:2px;background:rgba(255,255,255,.25);overflow:hidden}" +
-    "#tb-pop .tb-pop-ep-bar i{display:block;height:100%;border-radius:2px;background:var(--sleekfin-accent,#4fc3f7)}" +
+    "#tb-pop .tb-pop-ep-bar i{display:block;height:100%;border-radius:2px;background:var(--ue-accent,#4fc3f7)}" +
     "#tb-pop .tb-pop-ep-t{grid-area:title;align-self:end;font:600 17px/1.3 var(--app-font,Inter,sans-serif);color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}" +
     "#tb-pop .tb-pop-ep-o{grid-area:ov;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font:400 14px/1.5 var(--app-font,Inter,sans-serif);color:rgba(255,255,255,.62)}" +
     "#tb-pop .tb-pop-ep-f{grid-area:foot;align-self:start;display:flex;gap:16px;margin-top:2px;font:600 12px/16px var(--app-font,Inter,sans-serif);color:rgba(255,255,255,.55)}" +
@@ -479,8 +479,8 @@
     if (p.Overview) h += '<p class="tb-pop-ov tb-pop-bio">' + esc(p.Overview) + "</p>";
     var iu = p.UserData || {};
     h += '<div class="tb-pop-actions" is="emby-itemscontainer">' +
-      '<button is="emby-ratingbutton" type="button" data-action="none" class="tb-pop-ic sleekfin-control-3d" title="Favourite" data-id="' + p.Id + '" data-serverid="' + esc(p.ServerId || s) + '" data-itemtype="Person" data-likes="" data-isfavorite="' + !!iu.IsFavorite + '">' + icon("favorite") + "</button>" +
-      '<a class="tb-pop-ic sleekfin-control-3d tb-pop-full" href="' + detailsHref(p.Id) + '" title="Full page">' + icon("open_in_full") + "</a></div>";
+      '<button is="emby-ratingbutton" type="button" data-action="none" class="tb-pop-ic ue-control-3d" title="Favourite" data-id="' + p.Id + '" data-serverid="' + esc(p.ServerId || s) + '" data-itemtype="Person" data-likes="" data-isfavorite="' + !!iu.IsFavorite + '">' + icon("favorite") + "</button>" +
+      '<a class="tb-pop-ic ue-control-3d tb-pop-full" href="' + detailsHref(p.Id) + '" title="Full page">' + icon("open_in_full") + "</a></div>";
     h += '</div></div><div class="tb-pop-body"></div>';
     panel.innerHTML = h;
     upgrade(panel.querySelector(".tb-pop-person"));
@@ -556,17 +556,17 @@
       var label = target && target.Type === "Episode" && it.Type === "Series" && target.ParentIndexNumber != null && target.IndexNumber != null ? " S" + target.ParentIndexNumber + ":E" + target.IndexNumber : "";
       if (target) {
         if (u.PlaybackPositionTicks) {
-          h += "<span" + attrs(target, true) + '><button type="button" class="itemAction sleekfin-button sleekfin-button-primary" data-action="resume">' + icon("play_arrow") + "<span>Resume" + label + "</span></button></span>";
-          h += "<span" + attrs(target, false) + '><button type="button" class="itemAction sleekfin-button sleekfin-button-control sleekfin-control-3d" data-action="play">' + icon("replay") + "<span>Play from start</span></button></span>";
+          h += "<span" + attrs(target, true) + '><button type="button" class="itemAction ue-button ue-button-primary" data-action="resume">' + icon("play_arrow") + "<span>Resume" + label + "</span></button></span>";
+          h += "<span" + attrs(target, false) + '><button type="button" class="itemAction ue-button ue-button-control ue-control-3d" data-action="play">' + icon("replay") + "<span>Play from start</span></button></span>";
         } else {
-          h += "<span" + attrs(target, false) + '><button type="button" class="itemAction sleekfin-button sleekfin-button-primary" data-action="play">' + icon("play_arrow") + "<span>Play" + label + "</span></button></span>";
+          h += "<span" + attrs(target, false) + '><button type="button" class="itemAction ue-button ue-button-primary" data-action="play">' + icon("play_arrow") + "<span>Play" + label + "</span></button></span>";
         }
       }
       var iu = it.UserData || {};
-      h += '<button is="emby-ratingbutton" type="button" data-action="none" class="tb-pop-ic sleekfin-control-3d" title="Favourite" data-id="' + it.Id + '" data-serverid="' + esc(it.ServerId || s) + '" data-itemtype="' + esc(it.Type) + '" data-likes="" data-isfavorite="' + !!iu.IsFavorite + '">' + icon("favorite") + "</button>";
-      h += '<button is="emby-playstatebutton" type="button" data-action="none" class="tb-pop-ic sleekfin-control-3d" title="Watched" data-id="' + it.Id + '" data-serverid="' + esc(it.ServerId || s) + '" data-itemtype="' + esc(it.Type) + '" data-played="' + !!iu.Played + '">' + icon("check") + "</button>";
-      h += "<span" + attrs(it, false) + '><button type="button" class="itemAction tb-pop-ic sleekfin-control-3d" data-action="menu" title="More">' + icon("more_vert") + "</button></span>";
-      h += '<a class="tb-pop-ic sleekfin-control-3d tb-pop-full" href="' + detailsHref(it.Id) + '" title="Full page">' + icon("open_in_full") + "</a>";
+      h += '<button is="emby-ratingbutton" type="button" data-action="none" class="tb-pop-ic ue-control-3d" title="Favourite" data-id="' + it.Id + '" data-serverid="' + esc(it.ServerId || s) + '" data-itemtype="' + esc(it.Type) + '" data-likes="" data-isfavorite="' + !!iu.IsFavorite + '">' + icon("favorite") + "</button>";
+      h += '<button is="emby-playstatebutton" type="button" data-action="none" class="tb-pop-ic ue-control-3d" title="Watched" data-id="' + it.Id + '" data-serverid="' + esc(it.ServerId || s) + '" data-itemtype="' + esc(it.Type) + '" data-played="' + !!iu.Played + '">' + icon("check") + "</button>";
+      h += "<span" + attrs(it, false) + '><button type="button" class="itemAction tb-pop-ic ue-control-3d" data-action="menu" title="More">' + icon("more_vert") + "</button></span>";
+      h += '<a class="tb-pop-ic ue-control-3d tb-pop-full" href="' + detailsHref(it.Id) + '" title="Full page">' + icon("open_in_full") + "</a>";
       box.innerHTML = h;
       upgrade(box);
     }

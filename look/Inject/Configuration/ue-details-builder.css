@@ -1,0 +1,191 @@
+.ue-details-builder-editor {
+    border: 1px solid var(--divider, rgba(255, 255, 255, .2));
+}
+
+.ue-details-builder-preview {
+    background: #101010;
+    overflow: hidden;
+    position: relative;
+}
+
+.ue-details-builder-selectors {
+    display: flex;
+    gap: 8px;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    z-index: 5;
+}
+
+.ue-details-builder-selectors .ue-select {
+    background-color: rgba(24, 24, 24, .88);
+    border: 1px solid rgba(255, 255, 255, .2);
+    color: #fff;
+    color-scheme: dark;
+    font: 400 13px/1.4 "Noto Sans", sans-serif;
+    height: 34px;
+    min-height: 0;
+    padding: 0 30px 0 12px;
+    width: 152px;
+}
+
+.ue-details-builder-selectors .ue-select + .ue-select {
+    width: 120px;
+}
+
+.ue-details-builder-caption {
+    bottom: 12px;
+    color: #fff;
+    font: 400 .72em/1.2 Inter, "Noto Sans", sans-serif;
+    left: 15px;
+    max-width: calc(100% - 30px);
+    pointer-events: none;
+    position: absolute;
+    z-index: 4;
+}
+
+.ue-details-builder-item {
+    align-items: center;
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+    text-align: center;
+}
+
+.ue-details-builder-item-caption {
+    color: var(--secondaryTextColor, rgba(255, 255, 255, .5));
+    display: none;
+    font-size: .72em;
+    line-height: 1.2;
+    margin-top: 3px;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ue-details-builder-palette .ue-details-builder-item-caption {
+    display: block;
+}
+
+.ue-details-builder-content {
+    padding: 0 1em 1em;
+}
+
+.ue-details-builder-instruction {
+    color: #fff;
+    font-size: 1.05em;
+    margin: 1em 0 .75em;
+}
+
+.ue-details-builder .ue-details-builder-palette {
+    background: var(--cardBackground, #242424);
+    box-sizing: border-box;
+    gap: 18px;
+    margin: 0 0 1em !important;
+    min-height: 70px;
+    padding: 13px !important;
+}
+
+.ue-details-builder-action-groups {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.ue-details-builder .ue-details-builder-palette [data-ue-action-available="false"] {
+    color: #ff5252 !important;
+}
+
+.ue-details-builder-preview,
+.ue-details-builder-palette,
+.ue-details-drag-ghost {
+    font-family: var(--app-font);
+}
+
+.ue-details-builder .ue-details-preview .ue-details-stack > .mainDetailButtons {
+    display: block;
+    margin: var(--ue-details-description-to-buttons, 18px) 0 0 !important;
+    padding: 0 !important;
+    width: 100%;
+}
+
+.ue-details-builder .ue-details-builder-drop-zone {
+    align-self: auto;
+    flex: 0 1 auto;
+    margin: 0 !important;
+    min-height: var(--ue-details-button-height, 44px);
+    width: auto;
+}
+
+.ue-details-builder-drop-zone[data-ue-details-drop="right"] {
+    justify-content: flex-end;
+}
+
+.ue-details-builder-action-groups[data-mobile="true"][data-layout="Stack"] {
+    align-items: stretch;
+    flex-direction: column;
+}
+
+.ue-details-builder-action-groups[data-mobile="true"][data-layout="Stack"] .ue-details-builder-drop-zone {
+    justify-content: flex-start;
+}
+
+.ue-details-builder [data-ue-action-id] {
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+}
+
+.ue-details-builder .ue-details-action-control[data-ue-action-available="false"] {
+    border: 1px solid rgba(255, 82, 82, .55) !important;
+}
+
+.ue-details-builder .is-drop-target {
+    outline: 1px dashed var(--ue-accent, #00a4dc);
+    outline-offset: 5px;
+}
+
+.ue-details-builder .is-drag-source {
+    opacity: .3;
+}
+
+.ue-details-builder.is-dragging .ue-details-builder-drop-zone {
+    min-width: 24px;
+}
+
+.ue-details-builder .ue-details-drag-ghost {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .35);
+    cursor: grabbing;
+    margin: 0 !important;
+    min-height: 0;
+    padding: 0 !important;
+    pointer-events: none;
+    position: fixed;
+    z-index: 10000;
+}
+
+@media (max-width: 767px) {
+    .ue-details-builder-selectors {
+        max-width: 280px;
+        right: 12px;
+        top: 12px;
+        width: calc(100% - 24px);
+    }
+
+    .ue-details-builder-selectors .ue-select {
+        flex: 1.25 1 0;
+        min-width: 0;
+    }
+
+    .ue-details-builder-selectors .ue-select + .ue-select {
+        flex: 1 1 0;
+    }
+}
+.ue-details-builder {
+    --ue-background: #000;
+    --ue-muted: #969aa1;
+    --ue-surface: #101113;
+    --ue-text: #f1f2f4;
+}

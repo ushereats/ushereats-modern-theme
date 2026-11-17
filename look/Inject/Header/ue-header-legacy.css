@@ -1,0 +1,162 @@
+html.ue-header-mounted [data-ue-legacy-cluster] {
+    -webkit-backdrop-filter: var(--ue-glass-filter);
+    align-items: center;
+    backdrop-filter: var(--ue-glass-filter);
+    background: var(--ue-header-glass-background);
+    border: var(--ue-glass-border);
+    border-radius: 12px;
+    box-shadow: var(--ue-glass-shadow);
+    box-sizing: border-box;
+    display: flex;
+    gap: var(--ue-header-item-spacing);
+    height: calc(var(--ue-header-item-height) + var(--ue-header-bar-padding) + var(--ue-header-bar-padding));
+    max-width: calc(100vw - var(--ue-page-gutter) - var(--ue-page-gutter));
+    overflow: hidden;
+    padding: var(--ue-header-bar-padding);
+    pointer-events: auto;
+}
+
+html.ue-header-mounted[data-ue-header-bar-position="left"] [data-ue-legacy-cluster] {
+    margin-inline-end: auto;
+    margin-inline-start: 0;
+}
+
+html.ue-header-mounted[data-ue-header-bar-position="center"] [data-ue-legacy-cluster] {
+    margin-inline-end: auto;
+    margin-inline-start: auto;
+}
+
+html.ue-header-mounted[data-ue-header-bar-position="right"] [data-ue-legacy-cluster] {
+    margin-inline-end: 0;
+    margin-inline-start: auto;
+}
+
+html.ue-header-mounted [data-ue-legacy-cluster] .headerTabs,
+html.ue-header-mounted [data-ue-legacy-cluster] .emby-tabs-slider,
+html.ue-header-mounted [data-ue-legacy-cluster] .headerRight {
+    align-items: center !important;
+    background: transparent !important;
+    display: flex !important;
+    gap: var(--ue-header-item-spacing) !important;
+    height: var(--ue-header-item-height) !important;
+    margin: 0 !important;
+    min-height: var(--ue-header-item-height) !important;
+    padding: 0 !important;
+    position: static !important;
+    width: auto !important;
+}
+
+html.ue-header-mounted [data-ue-legacy-cluster] .headerRight::before {
+    background: rgba(255, 255, 255, 0.12);
+    content: "";
+    flex: 0 0 1px;
+    height: calc(var(--ue-header-item-height) - 16px);
+    margin: 0 6px 0 4px;
+}
+
+html.ue-header-mounted [data-ue-legacy-cluster] [data-ue-header-all-proxied="true"] {
+    min-width: 0 !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    width: 0 !important;
+}
+
+html.ue-header-mounted [data-ue-legacy-cluster] .headerRight[data-ue-header-all-proxied="true"]::before {
+    display: none;
+}
+
+html.ue-header-mounted [data-ue-legacy-cluster] .emby-tab-button {
+    background: var(--ue-header-item-background) !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    color: var(--ue-header-item-text) !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+    font-family: var(--app-font) !important;
+    height: var(--ue-header-item-height) !important;
+    margin: 0 !important;
+    min-height: var(--ue-header-item-height) !important;
+    padding: 0 12px !important;
+    text-transform: none !important;
+}
+
+html.ue-header-mounted [data-ue-legacy-cluster] .emby-tab-button-active {
+    background: var(--ue-header-active-background) !important;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.14) !important;
+    color: var(--ue-header-active-text) !important;
+    font-weight: 600 !important;
+    opacity: var(--ue-header-active-opacity);
+}
+
+html.ue-header-mounted [data-ue-legacy-cluster] .emby-tab-button:not(.emby-tab-button-active):hover {
+    opacity: var(--ue-header-hover-opacity);
+}
+
+html.ue-header-mounted [data-ue-legacy-cluster] button.headerButton,
+html.ue-header-mounted [data-ue-legacy-cluster] button.paper-icon-button-light {
+    background: var(--ue-header-item-background) !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    color: var(--ue-header-item-text) !important;
+    height: var(--ue-header-item-height) !important;
+    margin: 0 !important;
+    min-height: var(--ue-header-item-height) !important;
+    min-width: var(--ue-header-item-height) !important;
+    padding: 0 !important;
+    width: var(--ue-header-item-height) !important;
+}
+
+html.ue-header-mounted [data-ue-legacy-cluster] button.headerButton:hover,
+html.ue-header-mounted [data-ue-legacy-cluster] button.paper-icon-button-light:hover {
+    opacity: var(--ue-header-hover-opacity);
+}
+
+html.ue-header-mounted [data-ue-legacy-cluster] .headerUserButton > .headerUserButtonRound {
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    border-radius: 50% !important;
+    height: 20px !important;
+    margin: 0 !important;
+    min-height: 20px !important;
+    min-width: 20px !important;
+    padding: 0 !important;
+    transform: none !important;
+    width: 20px !important;
+}
+
+html.ue-header-mounted [data-ue-legacy-top] {
+    align-items: center !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    height: var(--ue-header-height) !important;
+    min-height: var(--ue-header-height) !important;
+    padding: 0 var(--ue-page-gutter) !important;
+    pointer-events: auto;
+}
+
+html.ue-header-mounted [data-ue-legacy-left] {
+    flex: 0 0 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+}
+
+html.ue-header-mounted [data-ue-legacy-left] .pageTitle {
+    display: none !important;
+}
+
+@media (max-width: 899px) {
+    html.ue-header-mounted:not(.layout-tv) body:not(.layout-tv) [data-ue-legacy-cluster] {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        height: auto;
+        max-width: none;
+        overflow: visible;
+        padding: 0;
+    }
+}

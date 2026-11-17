@@ -1,0 +1,165 @@
+html.ue-header-mounted [data-ue-header-brand],
+html.ue-header-mounted .ue-header-fallback-brand {
+    align-items: center;
+    color: var(--ue-header-name-color);
+    display: flex;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    font-family: var(--app-font);
+    gap: var(--ue-header-brand-gap);
+    height: var(--ue-header-logo-height);
+    max-width: 32vw;
+    text-decoration: none;
+    top: var(--ue-header-brand-top);
+}
+
+html.ue-header-mounted [data-ue-header-brand][data-ue-header-overlap-hidden="true"],
+html.ue-header-mounted .ue-header-fallback-brand[data-ue-header-overlap-hidden="true"],
+html.ue-header-mounted[data-ue-header-brand-display="none"] [data-ue-header-brand],
+html.ue-header-mounted[data-ue-header-brand-display="none"] .ue-header-fallback-brand {
+    display: none !important;
+}
+
+html.ue-header-mounted [data-ue-header-brand] {
+    align-items: center !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    color: var(--ue-header-name-color) !important;
+    display: flex !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
+    font-family: var(--app-font) !important;
+    gap: var(--ue-header-brand-gap) !important;
+    height: var(--ue-header-logo-height) !important;
+    margin: 0 !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    text-decoration: none !important;
+    text-overflow: ellipsis;
+    top: var(--ue-header-brand-top) !important;
+    white-space: nowrap;
+    z-index: 2;
+}
+
+/* PC layout: the brand is a 40px round glass button (same look as the library toolbar buttons) */
+html.ue-header-mounted[data-ue-header-layout="desktop"][data-ue-header-layout] [data-ue-header-brand] {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    border-radius: 50% !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    height: 40px !important;
+    transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease !important;
+    width: 40px;
+}
+
+html.ue-header-mounted[data-ue-header-layout="desktop"][data-ue-header-layout] [data-ue-header-brand]:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+}
+
+html.ue-header-mounted .ue-header-fallback-brand {
+    pointer-events: auto;
+    position: fixed;
+    z-index: 1101;
+}
+
+html.ue-header-mounted[data-ue-header-brand-position="left"] [data-ue-header-brand],
+html.ue-header-mounted[data-ue-header-brand-position="left"] .ue-header-fallback-brand {
+    left: var(--ue-page-gutter) !important;
+    right: auto !important;
+    transform: none;
+}
+
+html.ue-header-mounted[data-ue-header-brand-position="left"] [data-ue-header-menu-offset="true"] {
+    left: calc(var(--ue-page-gutter) + 56px) !important;
+    max-width: calc(32vw - 56px);
+}
+
+html.ue-header-mounted[data-ue-header-brand-position="center"] [data-ue-header-brand],
+html.ue-header-mounted[data-ue-header-brand-position="center"] .ue-header-fallback-brand {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+}
+
+html.ue-header-mounted[data-ue-header-brand-position="right"] [data-ue-header-brand],
+html.ue-header-mounted[data-ue-header-brand-position="right"] .ue-header-fallback-brand {
+    left: auto !important;
+    right: var(--ue-page-gutter) !important;
+    transform: none;
+}
+
+html.ue-header-mounted [data-ue-header-brand] .MuiButton-startIcon {
+    flex: 0 0 var(--ue-header-logo-height);
+    height: var(--ue-header-logo-height);
+    margin: 0 !important;
+    overflow: visible;
+    width: var(--ue-header-logo-height);
+}
+
+html.ue-header-mounted [data-ue-header-brand] img,
+html.ue-header-mounted [data-ue-header-brand] svg,
+html.ue-header-mounted .ue-header-fallback-brand img {
+    filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.35));
+    flex: 0 0 var(--ue-header-logo-height);
+    height: var(--ue-header-logo-height);
+    object-fit: contain;
+    width: var(--ue-header-logo-height);
+}
+
+html.ue-header-mounted [data-ue-header-brand] img,
+html.ue-header-mounted [data-ue-header-brand] svg {
+    height: var(--ue-header-logo-height) !important;
+    margin: 0 !important;
+    max-height: none !important;
+    max-width: none !important;
+    width: var(--ue-header-logo-height) !important;
+}
+
+html.ue-header-mounted .ue-header-fallback-brand span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+html.ue-header-mounted[data-ue-header-brand-display="logo"] [data-ue-header-brand] {
+    font-size: 0 !important;
+    gap: 0 !important;
+}
+
+html.ue-header-mounted[data-ue-header-brand-display="logo"] .ue-header-fallback-brand span,
+html.ue-header-mounted[data-ue-header-brand-display="servername"] [data-ue-header-brand] .MuiButton-startIcon,
+html.ue-header-mounted[data-ue-header-brand-display="servername"] [data-ue-header-brand] img,
+html.ue-header-mounted[data-ue-header-brand-display="servername"] [data-ue-header-brand] svg,
+html.ue-header-mounted[data-ue-header-brand-display="servername"] .ue-header-fallback-brand img {
+    display: none !important;
+}
+
+html.ue-header-mounted[data-ue-header-brand-display="servername"] [data-ue-header-brand],
+html.ue-header-mounted[data-ue-header-brand-display="servername"] .ue-header-fallback-brand {
+    gap: 0 !important;
+}
+
+@media (max-width: 899px) {
+    html.ue-header-mounted [data-ue-header-brand],
+    html.ue-header-mounted .ue-header-fallback-brand {
+        max-width: 38vw;
+    }
+
+    html.ue-header-mounted[data-ue-header-brand-position="left"] [data-ue-header-menu-offset="true"] {
+        max-width: calc(38vw - 56px);
+    }
+
+    html.ue-header-mounted [data-ue-header-brand] span,
+    html.ue-header-mounted .ue-header-fallback-brand span {
+        font-size: 13px;
+    }
+}

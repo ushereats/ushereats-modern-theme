@@ -1,14 +1,14 @@
 (function ushereatsHero() {
-  // Home hero: a copy of SleekFin's hero (same markup + classes, so SleekFin's own styling and all
+  // Home hero: a copy of UeTheme's hero (same markup + classes, so UeTheme's own styling and all
   // theme tweaks apply), but instant:
-  //  - the list + SleekFin's look settings were already requested from the page head before Jellyfin started
+  //  - the list + UeTheme's look settings were already requested from the page head before Jellyfin started
   //  - the first backdrop was already downloading (and painted) from the head
   //  - it is built once and kept: coming back to Home re-uses it, nothing reloads
   //  - it lives directly in the home page (#indexPage), OUTSIDE the rows area that KefinTweaks/Jellyfin
   //    rebuild, and if anything ever removes it, it's put back before the next frame is drawn (no flash)
-  //  - only the shown slide + the next one load their backdrop (SleekFin loads all of them at once)
+  //  - only the shown slide + the next one load their backdrop (UeTheme loads all of them at once)
   // Content: the 10 newest movies & shows by release date, random order.
-  // Needs SleekFin's own hero switched OFF in SleekFin's settings.
+  // Needs UeTheme's own hero switched OFF in UeTheme's settings.
   if (window.__tbHeroStarted) return;
   window.__tbHeroStarted = true;
 
@@ -25,9 +25,9 @@
     verticalAlignment: "Bottom", vignetteStrength: 72
   };
   var ICONS = {
-    play: '<svg class="sleekfin-icon" data-sleekfin-icon="play" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="5,3 19,12 5,21"></polygon></svg>',
-    info: '<svg class="sleekfin-icon" data-sleekfin-icon="info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>',
-    star: '<svg class="sleekfin-icon" data-sleekfin-icon="star" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>'
+    play: '<svg class="ue-icon" data-ue-icon="play" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="5,3 19,12 5,21"></polygon></svg>',
+    info: '<svg class="ue-icon" data-ue-icon="info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>',
+    star: '<svg class="ue-icon" data-ue-icon="star" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>'
   };
 
   // Shared page watcher: ONE observer for all custom scripts instead of one each.
@@ -101,7 +101,7 @@
           Fields: "Overview,Genres", ImageTypes: "Backdrop", EnableImageTypes: "Logo,Backdrop", ImageTypeLimit: 1,
           EnableUserData: false, EnableTotalRecordCount: false, MaxPremiereDate: new Date().toISOString()
         })).then(function (j) { return (j && j.Items) || null; })["catch"](function () { return null; }),
-        r[1] ? Promise.resolve(r[1]) : window.__tbSleek && window.__tbSleek.hero ? Promise.resolve(window.__tbSleek.hero) : Promise.resolve(null)
+        r[1] ? Promise.resolve(r[1]) : window.__tbLook && window.__tbLook.hero ? Promise.resolve(window.__tbLook.hero) : Promise.resolve(null)
       ]);
     }).then(function (r) {
       var list = (r[0] || []).map(slim).filter(function (x) { return x.Backdrop; });
@@ -117,35 +117,35 @@
     return dataPromise;
   }
 
-  // ── look (same CSS variables SleekFin sets) ──
+  // ── look (same CSS variables UeTheme sets) ──
   function applyLook(root, s) {
     function pick(k) { return s[k] != null && s[k] !== "" ? s[k] : DEFAULTS[k]; }
     var radius = { Pill: "999px", Rounded: "12px", Square: "0" }[pick("buttonCornerStyle")] || "999px";
     var v = {
-      "--sleekfin-hero-backdrop-fit": String(pick("backdropFit")).toLowerCase(),
-      "--sleekfin-hero-backdrop-focus": pick("backdropFocusX") + "% " + pick("backdropFocusY") + "%",
-      "--sleekfin-hero-backdrop-opacity": String(pick("backdropOpacity") / 100),
-      "--sleekfin-hero-button-height": pick("buttonHeight") + "px",
-      "--sleekfin-hero-button-radius": radius,
-      "--sleekfin-hero-content-max-width": pick("contentMaxWidth") + "px",
-      "--sleekfin-hero-description-color": pick("descriptionColor"),
-      "--sleekfin-hero-description-lines": String(pick("descriptionLines")),
-      "--sleekfin-hero-description-size": pick("descriptionSize") + "px",
-      "--sleekfin-hero-description-weight": String(pick("descriptionWeight")),
-      "--sleekfin-hero-desktop-height": pick("desktopHeight") + "vh",
-      "--sleekfin-hero-mobile-height": pick("mobileHeight") + "vh",
-      "--sleekfin-hero-primary-background": pick("primaryButtonBackgroundColor"),
-      "--sleekfin-hero-primary-opacity": pick("primaryButtonOpacity") + "%",
-      "--sleekfin-hero-primary-text": pick("primaryButtonTextColor"),
-      "--sleekfin-hero-secondary-background": pick("secondaryButtonBackgroundColor"),
-      "--sleekfin-hero-secondary-opacity": pick("secondaryButtonOpacity") + "%",
-      "--sleekfin-hero-secondary-text": pick("secondaryButtonTextColor"),
-      "--sleekfin-hero-title-color": pick("titleColor"),
-      "--sleekfin-hero-title-size": pick("titleSize") + "px",
-      "--sleekfin-hero-title-transform": pick("titleCase") === "Uppercase" ? "uppercase" : "none",
-      "--sleekfin-hero-title-weight": String(pick("titleWeight")),
-      "--sleekfin-hero-transition-duration": pick("transitionDurationMs") + "ms",
-      "--sleekfin-hero-vignette-opacity": String(pick("vignetteStrength") / 100)
+      "--ue-hero-backdrop-fit": String(pick("backdropFit")).toLowerCase(),
+      "--ue-hero-backdrop-focus": pick("backdropFocusX") + "% " + pick("backdropFocusY") + "%",
+      "--ue-hero-backdrop-opacity": String(pick("backdropOpacity") / 100),
+      "--ue-hero-button-height": pick("buttonHeight") + "px",
+      "--ue-hero-button-radius": radius,
+      "--ue-hero-content-max-width": pick("contentMaxWidth") + "px",
+      "--ue-hero-description-color": pick("descriptionColor"),
+      "--ue-hero-description-lines": String(pick("descriptionLines")),
+      "--ue-hero-description-size": pick("descriptionSize") + "px",
+      "--ue-hero-description-weight": String(pick("descriptionWeight")),
+      "--ue-hero-desktop-height": pick("desktopHeight") + "vh",
+      "--ue-hero-mobile-height": pick("mobileHeight") + "vh",
+      "--ue-hero-primary-background": pick("primaryButtonBackgroundColor"),
+      "--ue-hero-primary-opacity": pick("primaryButtonOpacity") + "%",
+      "--ue-hero-primary-text": pick("primaryButtonTextColor"),
+      "--ue-hero-secondary-background": pick("secondaryButtonBackgroundColor"),
+      "--ue-hero-secondary-opacity": pick("secondaryButtonOpacity") + "%",
+      "--ue-hero-secondary-text": pick("secondaryButtonTextColor"),
+      "--ue-hero-title-color": pick("titleColor"),
+      "--ue-hero-title-size": pick("titleSize") + "px",
+      "--ue-hero-title-transform": pick("titleCase") === "Uppercase" ? "uppercase" : "none",
+      "--ue-hero-title-weight": String(pick("titleWeight")),
+      "--ue-hero-transition-duration": pick("transitionDurationMs") + "ms",
+      "--ue-hero-vignette-opacity": String(pick("vignetteStrength") / 100)
     };
     for (var k in v) root.style.setProperty(k, v[k]);
     root.setAttribute("data-content-alignment", String(pick("contentAlignment")).toLowerCase());
@@ -154,9 +154,9 @@
     root.setAttribute("data-vertical-alignment", String(pick("verticalAlignment")).toLowerCase());
   }
 
-  // ── building (same markup as SleekFin's HeroSlide) ──
+  // ── building (same markup as UeTheme's HeroSlide) ──
   function button(item, action, variant, icon, label) {
-    var b = el("button", "sleekfin-button sleekfin-button-" + variant + (variant === "control" ? " sleekfin-control-3d" : "") + " itemAction");
+    var b = el("button", "ue-button ue-button-" + variant + (variant === "control" ? " ue-control-3d" : "") + " itemAction");
     b.type = "button";
     b.setAttribute("data-action", action);
     b.setAttribute("data-id", item.Id);
@@ -166,21 +166,21 @@
     var sid = item.ServerId || (window.ApiClient && ApiClient.serverId && ApiClient.serverId()) || "";
     if (sid) b.setAttribute("data-serverid", sid);
     b.appendChild(frag(ICONS[icon]));
-    b.appendChild(el("span", "sleekfin-button-label", label));
+    b.appendChild(el("span", "ue-button-label", label));
     return b;
   }
   function facts(item) {
     var out = [];
     var rating = Number(item.CommunityRating || 0);
-    if (rating > 0) out.push({ cls: "sleekfin-hero-score", icon: "star", text: rating.toFixed(1) });
+    if (rating > 0) out.push({ cls: "ue-hero-score", icon: "star", text: rating.toFixed(1) });
     var year = item.ProductionYear ? String(item.ProductionYear) : (item.PremiereDate ? String(new Date(item.PremiereDate).getFullYear()) : "");
     out.push({ text: year });
     out.push({ text: item.Type === "Series" ? "TV Show" : (item.Type || "") });
     (item.Genres || []).forEach(function (g) { out.push({ text: g }); });
-    var box = el("div", "sleekfin-hero-facts");
+    var box = el("div", "ue-hero-facts");
     out.filter(function (f) { return f.text; }).forEach(function (f, i) {
-      if (i > 0) box.appendChild(el("span", "sleekfin-fact-dot", "·"));
-      var s = el("span", "sleekfin-fact" + (f.cls ? " " + f.cls : ""));
+      if (i > 0) box.appendChild(el("span", "ue-fact-dot", "·"));
+      var s = el("span", "ue-fact" + (f.cls ? " " + f.cls : ""));
       if (f.icon) s.appendChild(frag(ICONS[f.icon]));
       s.appendChild(document.createTextNode(f.text));
       box.appendChild(s);
@@ -188,12 +188,12 @@
     return box;
   }
   function expandable(p) {
-    // click a cut-off description to open it (as SleekFin does)
+    // click a cut-off description to open it (as UeTheme does)
     var open = false;
     function cut() { return p.scrollHeight - p.clientHeight > 1; }
     function set(v) {
       open = v;
-      if (v) p.setAttribute("data-sleekfin-expanded", "true"); else p.removeAttribute("data-sleekfin-expanded");
+      if (v) p.setAttribute("data-ue-expanded", "true"); else p.removeAttribute("data-ue-expanded");
       p.style.display = v ? "block" : "";
       p.style.setProperty("-webkit-line-clamp", v ? "unset" : "");
     }
@@ -223,9 +223,9 @@
     });
   }
   function buildSlide(item, look) {
-    var sec = el("section", "sleekfin-hero-slide");
+    var sec = el("section", "ue-hero-slide");
     sec.setAttribute("data-active", "false");
-    var bg = el("img", "sleekfin-hero-backdrop");
+    var bg = el("img", "ue-hero-backdrop");
     bg.alt = "";
     bg.draggable = false;
     bg.decoding = "async";
@@ -233,15 +233,15 @@
     bg.__tbSrc = imgUrl(item.Id, "Backdrop", item.Backdrop);
     bg.addEventListener("load", function () { bg.setAttribute("data-loaded", "true"); });
     sec.appendChild(bg);
-    sec.appendChild(el("div", "sleekfin-hero-vignette"));
-    sec.appendChild(el("div", "sleekfin-hero-seam"));
-    var content = el("div", "sleekfin-hero-content");
-    var stack = el("div", "sleekfin-hero-stack");
-    var titleBox = el("div", "sleekfin-hero-title-box");
+    sec.appendChild(el("div", "ue-hero-vignette"));
+    sec.appendChild(el("div", "ue-hero-seam"));
+    var content = el("div", "ue-hero-content");
+    var stack = el("div", "ue-hero-stack");
+    var titleBox = el("div", "ue-hero-title-box");
     var treat = look.titleTreatment || DEFAULTS.titleTreatment;
-    var title = function () { titleBox.textContent = ""; titleBox.appendChild(el("span", "sleekfin-hero-title", item.Name || "")); };
+    var title = function () { titleBox.textContent = ""; titleBox.appendChild(el("span", "ue-hero-title", item.Name || "")); };
     if (treat !== "Text" && item.Logo) {
-      var logo = el("img", "sleekfin-hero-title-logo");
+      var logo = el("img", "ue-hero-title-logo");
       logo.alt = "";
       logo.draggable = false;
       logo.setAttribute("data-loaded", "false");
@@ -256,11 +256,11 @@
     stack.appendChild(titleBox);
     stack.appendChild(facts(item));
     if (item.Overview) {
-      var p = el("p", "sleekfin-hero-description", item.Overview);
+      var p = el("p", "ue-hero-description", item.Overview);
       stack.appendChild(p);
       expandable(p);
     }
-    var actions = el("div", "sleekfin-hero-actions");
+    var actions = el("div", "ue-hero-actions");
     actions.appendChild(button(item, "play", "primary", "play", "Play"));
     actions.appendChild(button(item, "link", "control", "info", "More info"));
     stack.appendChild(actions);
@@ -299,7 +299,7 @@
     var secs = Number(look.autoRotateSeconds) || DEFAULTS.autoRotateSeconds;
     timer = setInterval(function () {
       if (document.hidden || pointerX !== null || !isHomeRoute() || !root || !root.isConnected) return;
-      if (root.querySelector('.sleekfin-hero-slide[data-active="true"] [data-sleekfin-expanded]')) return;
+      if (root.querySelector('.ue-hero-slide[data-active="true"] [data-ue-expanded]')) return;
       show(active + 1);
     }, secs * 1000);
   }
@@ -308,7 +308,7 @@
   function build(data) {
     list = data.list;
     look = data.look || {};
-    root = frag('<div is="emby-itemscontainer" class="sleekfin-hero itemsContainer" data-contextmenu="false" data-multiselect="false" data-state="ready"></div>');
+    root = frag('<div is="emby-itemscontainer" class="ue-hero itemsContainer" data-contextmenu="false" data-multiselect="false" data-state="ready"></div>');
     applyLook(root, look);
     slides = list.map(function (it) { return buildSlide(it, look); });
     slides.forEach(function (s) { root.appendChild(s); });
@@ -369,9 +369,9 @@
   function hold(host) {
     if (holder || !html.classList.contains("tb-hero-on") || !host || !host.parentNode) return;
     holder = document.createElement("div");
-    holder.className = "sleekfin-hero tb-hero-hold";
+    holder.className = "ue-hero tb-hero-hold";
     holder.setAttribute("aria-hidden", "true");
-    try { applyLook(holder, window.__tbSleekHero || (window.__tbSleek && window.__tbSleek.hero) || {}); } catch (e) {}
+    try { applyLook(holder, window.__tbLookHero || (window.__tbLook && window.__tbLook.hero) || {}); } catch (e) {}
     host.parentNode.insertBefore(holder, host);
   }
   // the home rows call this as they go in, so the banner's space is there in the same frame as the rows
@@ -400,7 +400,7 @@
   function reconcile() {
     if (!isHomeRoute()) {
       if (root && root.style.display !== "none") root.style.display = "none";
-      html.classList.remove("sleekfin-hero-mounted", "tb-hs", "tb-hs-out", "tb-hero-boot");
+      html.classList.remove("ue-hero-mounted", "tb-hs", "tb-hs-out", "tb-hero-boot");
       stopTimer();
       return;
     }
@@ -418,7 +418,7 @@
     }
     if (root.style.display) root.style.display = "";
     place(host);
-    html.classList.add("sleekfin-hero-mounted");
+    html.classList.add("ue-hero-mounted");
     html.classList.remove("tb-hero-boot");
     if (!timer) startTimer();
     handOver();
@@ -444,18 +444,8 @@
   document.addEventListener("viewshow", schedule);
   document.addEventListener("load", function (e) {
     var t = e.target;
-    if (t && t.classList && t.classList.contains("sleekfin-hero-backdrop")) handOver();
+    if (t && t.classList && t.classList.contains("ue-hero-backdrop")) handOver();
   }, true);
-  var st = document.createElement("style");
-  st.id = "tb-hero-style";
-  st.textContent = [
-    // the hero now sits before #homeTab (not inside it): same spacing as SleekFin's hero
-    "#indexPage > .sleekfin-hero + #homeTab > .sections { margin-top: 0; }",
-    "html:not(.layout-tv) :not(#tb-x) #indexPage > .sleekfin-hero + #homeTab > .sections.homeSectionsContainer {",
-    "  margin-top: calc(-1 * var(--tb-lift, 0px)) !important; position: relative; z-index: 2; pointer-events: none; }",
-    "html:not(.layout-tv) :not(#tb-x) #indexPage > .sleekfin-hero + #homeTab > .sections.homeSectionsContainer > * { pointer-events: auto; }"
-  ].join("\n");
-  tbCss(st);
 
   loadData();   // start using the head's data straight away
   schedule();

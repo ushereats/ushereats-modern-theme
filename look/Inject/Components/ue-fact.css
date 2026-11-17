@@ -1,0 +1,15 @@
+.ue-fact {
+    align-items: center;
+    display: inline-flex;
+    gap: 4px;
+}
+
+.ue-fact > .ue-icon {
+    height: 13px;
+    width: 13px;
+}
+
+.ue-fact-dot {
+    color: rgba(255, 255, 255, 0.42);
+    margin: 0 8px;
+}

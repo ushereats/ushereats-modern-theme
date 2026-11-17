@@ -9,7 +9,7 @@
   if (window.__tbPageFx) return;
   window.__tbPageFx = true;
 
-  // ── where each page was scrolled to (one place for it: SleekFin's own copy is gone) ──
+  // ── where each page was scrolled to (one place for it: UeTheme's own copy is gone) ──
   // Going back puts you where you were; anything else (a title, the home button, a library) starts at the top.
   // Set while the old page is still held, and kept for a moment after, because Jellyfin and the rows growing
   // move the page a moment after it shows (that was the jump seen right after the change).
@@ -30,7 +30,7 @@
     [0, 50, 120, 250, 500, 900, 1400, 1950].forEach(function (d) { setTimeout(function () { if (want === y && Date.now() < until && !userMoved && Math.abs(scrolled() - y) > 1) scrollNow(y); }, d); });
   }
   // Library pages with a tab row in the top bar (Movies, Shows, Music, Live TV): the room for that row is kept from
-  // the moment the address changes (sleekfin-header-shared.css), instead of the page moving down when Jellyfin
+  // the moment the address changes (ue-header-shared.css), instead of the page moving down when Jellyfin
   // adds the row a moment later
   function libRoute() { document.documentElement.classList.toggle("tb-libtabs", /^#!?\/(movies|tv|music|livetv)(\.html)?([?#]|$)/i.test(location.hash)); }
   libRoute();
@@ -89,20 +89,20 @@
     // the background colour follows the page in the same cross-fade (not a slow change after it)
     if (t < 700 && window.tbAmbientPending && window.tbAmbientPending()) return false;
     if (p.id === "itemDetailPage") {
-      // collections, albums, artists, playlists, people: Jellyfin's own layout (SleekFin leaves them alone)
-      if (p.classList.contains("sleekfin-details-native")) {
-        if (html.classList.contains("sleekfin-details-concealed")) return false;
+      // collections, albums, artists, playlists, people: Jellyfin's own layout (UeTheme leaves them alone)
+      if (p.classList.contains("ue-details-native")) {
+        if (html.classList.contains("ue-details-concealed")) return false;
         var nn = p.querySelector(".itemName");
         return !!(nn && nn.textContent.trim()) && nn.textContent !== before;
       }
-      var sleek = !!document.querySelector("[data-sleekfin-details]") || html.classList.contains("sleekfin-details-mounted") || html.classList.contains("sleekfin-details-concealed");
-      if (sleek) {
-        if (!html.classList.contains("sleekfin-details-mounted") || html.classList.contains("sleekfin-details-concealed") || p.getAttribute("data-sleekfin-details") !== "true") return false;
-        var st = p.querySelectorAll(".sleekfin-details-title");
+      var built = !!document.querySelector("[data-ue-details]") || html.classList.contains("ue-details-mounted") || html.classList.contains("ue-details-concealed");
+      if (built) {
+        if (!html.classList.contains("ue-details-mounted") || html.classList.contains("ue-details-concealed") || p.getAttribute("data-ue-details") !== "true") return false;
+        var st = p.querySelectorAll(".ue-details-title");
         if (st.length !== 1 || !st[0].childNodes.length) return false;
-        // Jellyfin's own title still showing next to SleekFin's (for a moment the name is there twice)
+        // Jellyfin's own title still showing next to UeTheme's (for a moment the name is there twice)
         var nat = p.querySelectorAll(".nameContainer, .itemName, .parentName");
-        for (var i = 0; i < nat.length; i++) if (!nat[i].closest(".sleekfin-details-hero") && nat[i].getClientRects().length && nat[i].textContent.trim()) return false;
+        for (var i = 0; i < nat.length; i++) if (!nat[i].closest(".ue-details-hero") && nat[i].getClientRects().length && nat[i].textContent.trim()) return false;
         return st[0].innerHTML !== before;   // a new title, not the one we came from
       }
       var n = p.querySelector(".itemName");
@@ -110,9 +110,9 @@
     }
     if ((p.id === "indexPage" || p.querySelector("#homeTab")) && !/[?&]tab=[1-9]/.test(location.hash)) {
       // the banner's picture is in and the rows are really showing (Jellyfin re-draws home on the way back)
-      var hero = p.querySelector(".sleekfin-hero");
+      var hero = p.querySelector(".ue-hero");
       if (html.classList.contains("tb-hero-on") && !hero && t < 400) return false;
-      if (hero && t < 300 && !hero.querySelector(".sleekfin-hero-slide[data-active='true'] .sleekfin-hero-backdrop[data-loaded='true']")) return false;
+      if (hero && t < 300 && !hero.querySelector(".ue-hero-slide[data-active='true'] .ue-hero-backdrop[data-loaded='true']")) return false;
       if (hero && t < 300 && !hero.getClientRects().length) return false;
       return seen(p) || t > 300;
     }
@@ -142,7 +142,7 @@
   }
   function stamp(p) {
     if (!p) return "";
-    var st = p.querySelector(".sleekfin-details-title") || p.querySelector(".itemName");
+    var st = p.querySelector(".ue-details-title") || p.querySelector(".itemName");
     return st ? (st.classList.contains("itemName") ? st.textContent : st.innerHTML) : "";
   }
 
@@ -231,7 +231,7 @@
     var t = e.target && e.target.closest ? e.target : null;
     if (!t) return;
     // back arrows go back: the cross-fade starts from the history change they make (where you were is kept)
-    if (t.closest(".sleekfin-details-back, .headerBackButton")) return;
+    if (t.closest(".ue-details-back, .headerBackButton")) return;
     var b = t.closest("button");
     if (b && !b.matches("[data-action='link'], .cardImageContainer, .itemAction[data-action='link']")) return;   // play, menus, favourites...
     var a = t.closest("a[href]");

@@ -1,6 +1,6 @@
 (function tbCardsLib() {
   // Shared by the home rows and search: builds cards with Jellyfin's own markup (same classes and
-  // data-attributes as Jellyfin's card builder), so SleekFin's styling, the click/play/menu handling,
+  // data-attributes as Jellyfin's card builder), so UeTheme's styling, the click/play/menu handling,
   // played ticks, and every theme script (badges, hover cards, release dates...) treat them as native.
   if (window.tbCards) return;
 

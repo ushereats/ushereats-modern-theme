@@ -157,7 +157,7 @@
   // ── 4. Styles ──
   var X = ":not(#tb-x)";
   var P = "#videoOsdPage";
-  var ACC = "var(--sleekfin-accent, rgb(232, 192, 80))";
+  var ACC = "var(--ue-accent, rgb(232, 192, 80))";
   var css = [
     /* deeper, smoother shades top and bottom */
     P + " .videoOsdBottom" + X + " {",

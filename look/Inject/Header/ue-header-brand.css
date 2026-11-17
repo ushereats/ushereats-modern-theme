@@ -33,7 +33,6 @@ html.ue-header-mounted [data-ue-header-brand] {
     font-weight: 600 !important;
     font-size: 14px !important;
     line-height: 1 !important;
-    font-family: var(--app-font) !important;
     gap: var(--ue-header-brand-gap) !important;
     height: var(--ue-header-logo-height) !important;
     margin: 0 !important;

@@ -163,7 +163,6 @@ html.ue-header-mounted [data-ue-header-proxy] button {
     font-weight: 500;
     font-size: 13px;
     line-height: 1;
-    font-family: var(--app-font);
     gap: 6px;
     height: var(--ue-header-item-height);
     margin: 0;

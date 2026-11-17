@@ -50,7 +50,6 @@
 /* Row-title style (same as every row title) */
 .ue-details-season-title.ue-details-season-title {
     /* the row-title font (Bebas Neue, bold, 28 / 36 px) */
-    font-family: var(--title-font) !important;
     font-size: 28px !important;
     font-weight: 700 !important;
     letter-spacing: -0.025em !important;
@@ -144,7 +143,6 @@
     font-weight: 400;
     font-size: 13px;
     line-height: 1;
-    font-family: var(--app-font);
     height: 36px;
     inset: 0;
     opacity: 0;

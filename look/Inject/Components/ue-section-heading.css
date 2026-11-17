@@ -22,11 +22,6 @@
 .ue-section-title {
     color: var(--ue-text);
     font-style: normal;
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 1.05;
-    font-family: var(--title-font);
-    letter-spacing: -0.025em;
     margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -42,15 +37,11 @@
     font-weight: 400;
     font-size: 13px;
     line-height: 19.5px;
-    font-family: var(--app-font);
     margin: 2px 0 0;
     overflow: hidden;
 }
 
 @media (min-width: 768px) {
-    .ue-section-title {
-        font-size: 36px;
-    }
 
     .ue-section-subtitle {
         font-size: 14px;

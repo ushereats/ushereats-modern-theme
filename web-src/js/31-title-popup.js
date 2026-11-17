@@ -28,8 +28,19 @@
     p["catch"](function () { if (cache[url] && cache[url].p === p) delete cache[url]; });
     return p;
   }
+  // a title's details, kept a minute (hovering fetches them; opening the panel uses them straight away)
+  var items = {};
+  function itemP(id) {
+    var h = items[id];
+    if (h && Date.now() - h.at < KEEP) return h.p;
+    var e = { at: Date.now(), v: null };
+    e.p = Promise.resolve(api().getItem(uid(), id)).then(function (it) { e.v = it; return it; });
+    e.p["catch"](function () { if (items[id] === e) delete items[id]; });
+    items[id] = e;
+    return e.p;
+  }
   // anything that changes something (watched, favourite, playing) makes the kept answers stale
-  function forget() { cache = {}; }
+  function forget() { cache = {}; items = {}; }
   window.addEventListener("tb-playback-stopped", forget);
   (function () {
     var f = window.fetch;
@@ -56,7 +67,7 @@
     "html.tb-pop-open #tb-pop{display:flex}" +
     "#tb-pop{display:none;position:fixed;inset:0;z-index:1200;justify-content:center;align-items:flex-start}" +
     "#tb-pop .tb-pop-shade{position:absolute;inset:0;background:rgba(0,0,0,.62);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}" +
-    "#tb-pop .tb-pop-box{position:relative;display:flex;margin-top:5vh;width:min(1100px,calc(100vw - 48px));max-height:90vh;border-radius:18px;overflow:hidden;isolation:isolate;" +
+    "#tb-pop .tb-pop-box{position:relative;display:flex;margin-top:5vh;width:min(1100px,calc(100vw - 48px));height:90vh;max-height:90vh;border-radius:18px;overflow:hidden;isolation:isolate;" +
     "background:var(--sleekfin-background,#0b0b0d);box-shadow:0 30px 90px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08)}" +
     // the panel's background: the title's own picture, softened, like the ambient background everywhere else
     "#tb-pop .tb-pop-amb{position:absolute;inset:-12%;z-index:-1;background:50% 30%/cover no-repeat;filter:blur(46px) saturate(1.25);opacity:0;transition:opacity .35s ease}" +
@@ -71,6 +82,8 @@
     "#tb-pop .tb-pop-bd{position:absolute;inset:0;background:50% 25%/cover no-repeat;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 50%,rgba(0,0,0,.6) 72%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 50%,rgba(0,0,0,.6) 72%,transparent 100%)}" +
     "#tb-pop .tb-pop-bd::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.36) 45%,transparent 78%)}" +
     "#tb-pop .tb-pop-in{position:relative;z-index:1;padding:56px 48px 26px;max-width:680px}" +
+    "#tb-pop .tb-pop-logo-ph{height:110px;margin:0 0 16px}" +
+    "#tb-pop .tb-pop-logo,#tb-pop .tb-pop-title{animation:tbPopIn .25s ease-out}@keyframes tbPopIn{from{opacity:0}to{opacity:1}}" +
     "#tb-pop .tb-pop-logo{display:block;max-width:min(380px,75%);max-height:140px;margin:0 0 16px;object-fit:contain;object-position:left bottom}" +
     "#tb-pop .tb-pop-title{font-family:'Bebas Neue',var(--app-font);font-size:58px;line-height:.95;margin:0 0 14px;font-weight:400;letter-spacing:.01em}" +
     "#tb-pop .tb-pop-sub{font-weight:700;font-size:17px;margin:0 0 8px}" +
@@ -137,8 +150,7 @@
     "#tb-pop .tb-pop-ep-img{grid-row:1/span 2;width:100%;height:auto;aspect-ratio:16/9}#tb-pop .tb-pop-ep-n{grid-row:1/span 2;font-size:28px}" +
     "#tb-pop .tb-pop-ep-t{white-space:normal;font-size:15px}#tb-pop .tb-pop-ep-o{margin-top:8px;font-size:13px}" +
     "#tb-pop .tb-pop-close{top:12px;right:12px}}" +
-    ".tb-pop-ghost{position:fixed;z-index:1201;pointer-events:none;background:#16161a center/cover no-repeat;transform-origin:50% 50%;will-change:transform,opacity;box-shadow:0 20px 60px rgba(0,0,0,.5)}" +
-    ".tb-pop-ghost-wide{background-position:50% 25%;box-shadow:none;will-change:clip-path,opacity}";
+    ".tb-pop-ghost{position:fixed;z-index:1201;pointer-events:none;background:#16161a center/cover no-repeat;transform-origin:50% 50%;will-change:transform,opacity;box-shadow:0 20px 60px rgba(0,0,0,.5)}";
 
   // ── the panel's frame (made once) ──
   function frame() {
@@ -199,12 +211,14 @@
     if (!bg) return null;
     return { el: img, rect: r, bg: bg, radius: getComputedStyle(img).borderRadius || "8px" };
   }
-  // Two layers, both moved only with transform / opacity / clip (no resizing every frame: that's what jittered):
-  //  - the title's wide picture, at the panel's banner size, opened out from the poster's spot (clip)
-  //  - the poster itself, growing and fading over it
-  function layer(bg, r, radius, cls) {
+  // The real panel opens out of the poster's spot (a clip on the panel itself: what you see growing is exactly
+  // what you end up with, at its final size), while the poster grows and fades over it. Closing runs it backwards.
+  // Only clip / transform / opacity move.
+  var anims = [];
+  function stopAnims() { anims.forEach(function (x) { try { x.cancel(); } catch (e) {} }); anims = []; }
+  function layer(bg, r, radius) {
     var g = document.createElement("div");
-    g.className = "tb-pop-ghost" + (cls ? " " + cls : "");
+    g.className = "tb-pop-ghost";
     g.style.cssText = "left:" + r.left + "px;top:" + r.top + "px;width:" + r.width + "px;height:" + r.height + "px;border-radius:" + radius + ";background-image:" + bg;
     document.body.appendChild(g);
     return g;
@@ -215,54 +229,50 @@
     return "inset(" + t + "px " + rt + "px " + b + "px " + l + "px round 10px)";
   }
   function moveTo(r, to) {
-    // the poster's transform that puts its centre on the banner's centre, a little bigger
-    var sx = Math.min(to.width / r.width, to.height / r.height) * 0.9;
-    var dx = to.left + to.width / 2 - (r.left + r.width / 2), dy = to.top + to.height / 2 - (r.top + r.height / 2);
+    var sx = Math.min(to.width / r.width, to.height / r.height) * 0.55;
+    var dx = to.left + to.width / 2 - (r.left + r.width / 2), dy = to.top + Math.min(to.height, 520) / 2 - (r.top + r.height / 2);
     return "translate(" + dx + "px," + dy + "px) scale(" + sx.toFixed(3) + ")";
   }
-  function wideOf(src) {
-    var bd = panel && panel.querySelector(".tb-pop-bd");
-    var u = bd && bd.style.backgroundImage;
-    return u && u !== "none" ? u : null;
-  }
-  function heroRect() {
-    var h = panel && panel.querySelector(".tb-pop-hero"), b = root.querySelector(".tb-pop-box");
-    var br = b.getBoundingClientRect(), hr = h ? h.getBoundingClientRect() : br;
-    return { left: br.left, top: br.top, width: br.width, height: Math.min(hr.height || br.height, br.height) };
+  function visibleRect(el) {
+    if (!el || !el.isConnected || !el.getClientRects().length) return null;
+    var r = el.getBoundingClientRect();
+    return r.width < 24 || r.bottom < 0 || r.top > window.innerHeight ? null : r;
   }
   function flyIn(src) {
     if (!ANIM || !src || !root || !root.animate) return;
+    stopAnims();
     var box = root.querySelector(".tb-pop-box"), shade = root.querySelector(".tb-pop-shade");
-    var to = heroRect(), wide = wideOf(src), r = src.rect, D = 420;
-    if (wide) {
-      var w = layer(wide, to, "18px", "tb-pop-ghost-wide");
-      w.animate([{ clipPath: insetOf(r, to), opacity: 0.2 }, { clipPath: "inset(0px 0px 0px 0px round 18px)", opacity: 1, offset: 0.7 }, { clipPath: "inset(0px 0px 0px 0px round 18px)", opacity: 0 }],
-        { duration: D + 80, easing: EASE, fill: "forwards" }).onfinish = function () { w.remove(); };
-    }
-    var p = layer(src.bg, r, src.radius, "");
-    p.animate([{ transform: "none", opacity: 1 }, { transform: moveTo(r, to), opacity: wide ? 0 : 1, offset: wide ? 0.55 : 0.75 }, { transform: moveTo(r, to), opacity: 0 }],
-      { duration: D, easing: EASE, fill: "forwards" }).onfinish = function () { p.remove(); };
-    box.animate([{ opacity: 0, transform: "scale(.98)" }, { opacity: 1, transform: "none" }], { duration: 240, delay: 200, easing: EASE, fill: "backwards" });
-    shade.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 280, easing: "ease-out" });
+    var to = box.getBoundingClientRect(), r = src.rect, D = 400;
+    anims.push(box.animate([{ clipPath: insetOf(r, to) }, { clipPath: "inset(0px 0px 0px 0px round 18px)" }], { duration: D, easing: EASE }));
+    anims.push(shade.animate([{ opacity: 0 }, { opacity: 1 }], { duration: D, easing: "ease-out" }));
+    var p = layer(src.bg, r, src.radius);
+    p.animate([{ transform: "none", opacity: 1 }, { transform: moveTo(r, to), opacity: 0 }], { duration: D * 0.75, easing: EASE, fill: "forwards" }).onfinish = function () { p.remove(); };
   }
-  function flyBack(src) {
-    if (!ANIM || !src || !src.el || !src.el.isConnected || !root || !root.animate) return;
-    var r = src.el.getBoundingClientRect();
-    if (r.width < 24 || r.bottom < 0 || r.top > window.innerHeight || !src.el.getClientRects().length) return;
-    var from = heroRect(), wide = wideOf(src), D = 320;
-    if (wide) {
-      var w = layer(wide, from, "18px", "tb-pop-ghost-wide");
-      w.animate([{ clipPath: "inset(0px 0px 0px 0px round 18px)", opacity: 1 }, { clipPath: insetOf(r, from), opacity: 0 }],
-        { duration: D, easing: EASE, fill: "forwards" }).onfinish = function () { w.remove(); };
-    }
-    var p = layer(src.bg, r, src.radius, "");
-    p.animate([{ transform: moveTo(r, from), opacity: 0 }, { transform: "none", opacity: 1 }], { duration: D, easing: EASE, fill: "forwards" }).onfinish = function () { p.remove(); };
+  // closing: returns true when it animates (the panel is cleared when the animation ends)
+  function flyBack(src, done) {
+    if (!ANIM || !src || !root || !root.animate) return false;
+    var r = visibleRect(src.el);
+    if (!r) return false;
+    stopAnims();
+    var box = root.querySelector(".tb-pop-box"), shade = root.querySelector(".tb-pop-shade");
+    var from = box.getBoundingClientRect(), D = 320;
+    root.style.pointerEvents = "none";
+    var a = box.animate([{ clipPath: "inset(0px 0px 0px 0px round 18px)" }, { clipPath: insetOf(r, from) }], { duration: D, easing: EASE, fill: "forwards" });
+    anims.push(a);
+    anims.push(shade.animate([{ opacity: 1 }, { opacity: 0 }], { duration: D, easing: "ease-in", fill: "forwards" }));
+    var p = layer(src.bg, r, src.radius);
+    p.animate([{ transform: moveTo(r, from), opacity: 0 }, { transform: "none", opacity: 1, offset: 0.85 }, { transform: "none", opacity: 1 }], { duration: D + 40, easing: EASE, fill: "forwards" }).onfinish = function () { p.remove(); };
+    a.onfinish = done;
+    return true;
   }
 
   function open(id, type, fromHistory, src) {
     if (!id || !api() || !uid()) return false;
     frame();
-    var wasOpen = html.classList.contains("tb-pop-open");
+    stopAnims();
+    if (root) root.style.pointerEvents = "";
+    var wasOpen = html.classList.contains("tb-pop-open") && !closing;
+    closing = false;
     if (!fromHistory) {
       // a marker in the browser history (same address), so back / forward close and reopen the panel
       var st = {};
@@ -278,17 +288,8 @@
     var from = !fromHistory && !wasOpen && src && src.bg ? src : null;
     cur = { id: id, type: type || "", seriesId: null, src: from || (wasOpen && cur ? cur.src : null) };
     html.classList.add("tb-pop-open");
-    // instant first draw from what hovering the poster already fetched, then the full details
-    var known = window.tbItemMeta && window.tbItemMeta[id];
-    draw(known && known.Name ? known : { Id: id, Type: type || "" }, token, true);
     panel.scrollTop = 0;
-    if (from) { flyIn(from); cur.holdUntil = Date.now() + 430; }
-    try { panel.focus({ preventScroll: true }); } catch (e) {}
-    Promise.resolve(api().getItem(uid(), id)).then(function (item) {
-      // the panel drawing everything (rows, episodes) mid-animation is what makes it stutter: after it instead
-      var wait = cur && cur.holdUntil ? cur.holdUntil - Date.now() : 0;
-      return wait > 0 ? new Promise(function (res) { setTimeout(function () { res(item); }, wait); }) : item;
-    }).then(function (item) {
+    var full = function (item) {
       if (token !== gen || !item) return;
       if (item.Type === "Person") return drawPerson(item, token);
       if (!TYPES[item.Type]) {
@@ -300,29 +301,57 @@
       }
       if (item.Type === "Season" && item.SeriesId) {
         // a season: show its show, on that season
-        return Promise.resolve(api().getItem(uid(), item.SeriesId)).then(function (series) {
+        return itemP(item.SeriesId).then(function (series) {
           if (token !== gen || !series) return;
           cur.id = series.Id;
           draw(series, token, false, item.Id);
         });
       }
       draw(item, token, false);
-    })["catch"](function () {
+    };
+    var failed = function () {
       if (token !== gen) return;
-      var b = panel.querySelector(".tb-pop-body");
-      if (b) b.innerHTML = '<div class="tb-pop-empty">Couldn’t load this title. <a href="' + detailsHref(id) + '" style="color:inherit;text-decoration:underline">Open the full page</a></div>';
-    });
+      var bb = panel.querySelector(".tb-pop-body");
+      if (bb) bb.innerHTML = '<div class="tb-pop-empty">Couldn’t load this title. <a href="' + detailsHref(id) + '" style="color:inherit;text-decoration:underline">Open the full page</a></div>';
+    };
+    if (from) cur.holdUntil = Date.now() + 430;   // rows and episodes are drawn after the opening animation
+    // hovering the poster already fetched the details: the panel opens complete, nothing swaps in afterwards
+    var hit = items[id], ready = hit && hit.v && Date.now() - hit.at < KEEP ? hit.v : null;
+    if (ready && ready.Type !== "Season") {
+      full(ready);
+      if (from) flyIn(from);
+    } else {
+      // not fetched yet: the picture first (the logo fades in when the details arrive), then everything
+      var known = window.tbItemMeta && window.tbItemMeta[id];
+      draw(known ? known : { Id: id, Type: type || "" }, token, true);
+      if (from) flyIn(from);
+      itemP(id).then(function (item) {
+        var wait = cur && cur.holdUntil ? cur.holdUntil - Date.now() : 0;
+        return wait > 0 ? new Promise(function (res) { setTimeout(function () { res(item); }, wait); }) : item;
+      }).then(full)["catch"](failed);
+    }
+    try { panel.focus({ preventScroll: true }); } catch (e) {}
     return true;
   }
 
+  var closing = false;
   function closeUI(animate) {
     if (!cur && !html.classList.contains("tb-pop-open")) return;
-    if (animate && cur && cur.src) { try { flyBack(cur.src); } catch (e) {} }
-    gen++;
+    var src = cur && cur.src;
+    var my = ++gen;
     cur = null;
-    html.classList.remove("tb-pop-open");
-    if (panel) panel.innerHTML = "";
-    ambient(null);
+    var finish = function () {
+      if (my !== gen) return;          // opened again meanwhile
+      closing = false;
+      stopAnims();
+      if (root) root.style.pointerEvents = "";
+      html.classList.remove("tb-pop-open");
+      if (panel) panel.innerHTML = "";
+      ambient(null);
+    };
+    var flew = false;
+    if (animate && src) { try { closing = true; flew = flyBack(src, finish); } catch (e) { flew = false; } }
+    if (!flew) finish();
   }
   function userClose() {
     if (!cur) return;
@@ -357,7 +386,7 @@
     var h = '<div class="tb-pop-bar"><button type="button" class="tb-pop-close" aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>';
     ambient(bd);
     h += '<div class="tb-pop-hero"><div class="tb-pop-bd"' + (bd ? ' style="background-image:url(&quot;' + esc(bd) + '&quot;)"' : "") + '></div><div class="tb-pop-in">';
-    h += logo ? '<img class="tb-pop-logo" alt="' + esc(name) + '" src="' + esc(logo) + '">' : (name ? '<h1 class="tb-pop-title">' + esc(name) + "</h1>" : "");
+    h += logo ? '<img class="tb-pop-logo" alt="' + esc(name) + '" src="' + esc(logo) + '">' : (name && !quick ? '<h1 class="tb-pop-title">' + esc(name) + "</h1>" : quick ? '<div class="tb-pop-logo-ph"></div>' : "");
     if (isEp) h += '<div class="tb-pop-sub">' + (it.ParentIndexNumber != null && it.IndexNumber != null ? "S" + it.ParentIndexNumber + ":E" + it.IndexNumber + " · " : "") + esc(it.Name || "") + "</div>";
     if (!quick) {
       var meta = [];
@@ -386,7 +415,13 @@
     panel.innerHTML = h;
     if (quick) return;
     actions(it, token);
+    var wait = cur && cur.holdUntil ? cur.holdUntil - Date.now() : 0;
+    if (wait > 0) { setTimeout(function () { if (token === gen) rows(it, token, isEp, seasonId); }, wait); return; }
+    rows(it, token, isEp, seasonId);
+  }
+  function rows(it, token, isEp, seasonId) {
     var body = panel.querySelector(".tb-pop-body");
+    if (!body) return;
     if (it.Type === "BoxSet") { collection(it.Id, body, token); return; }
     if (it.Type === "Series" || (isEp && it.SeriesId)) {
       cur.seriesId = isEp ? it.SeriesId : it.Id;
@@ -629,11 +664,11 @@
       if (seasonId) qEpisodes(seriesId, seasonId).then(pics, function () {});
       else qNextUp(seriesId).then(function (n) { var e = n && n.Items && n.Items[0]; if (e && e.SeasonId) qEpisodes(seriesId, e.SeasonId).then(pics, function () {}); }, function () {});
     };
-    Promise.resolve(api().getItem(uid(), id)).then(function (it) {
+    itemP(id).then(function (it) {
       if (!it) return;
       if (it.Type === "Series") { qNextUp(it.Id); show(it.Id, null); qSimilar(it.Id); }
       else if (it.Type === "Episode" && it.SeriesId) { show(it.SeriesId, it.SeasonId); qSimilar(it.SeriesId); }
-      else if (it.Type === "Season" && it.SeriesId) { api().getItem(uid(), it.SeriesId); show(it.SeriesId, it.Id); qSimilar(it.SeriesId); }
+      else if (it.Type === "Season" && it.SeriesId) { itemP(it.SeriesId); show(it.SeriesId, it.Id); qSimilar(it.SeriesId); }
       else if (it.Type === "Person") qPersonItems(it.Id);
       else if (it.Type === "BoxSet") qCollection(it.Id);
       else qSimilar(it.Id);

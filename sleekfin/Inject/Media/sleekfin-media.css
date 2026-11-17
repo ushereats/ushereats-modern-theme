@@ -297,8 +297,9 @@ html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecomm
 }
 
 html.sleekfin-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedPage, #searchPage) .innerCardFooter:not(.show-card-titles .innerCardFooter) {
-    -webkit-backdrop-filter: blur(12px) saturate(120%);
-    backdrop-filter: blur(12px) saturate(120%);
+    /* (a solid tint: a frosted blur behind every progress bar re-blurred each card while scrolling) */
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     background: rgba(0, 0, 0, 0.78);
 }
 

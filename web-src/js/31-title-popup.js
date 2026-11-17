@@ -70,7 +70,7 @@
     "#tb-pop .tb-pop-box{position:relative;display:flex;margin-top:5vh;width:min(1100px,calc(100vw - 48px));height:90vh;max-height:90vh;border-radius:18px;overflow:hidden;isolation:isolate;" +
     "background:var(--sleekfin-background,#0b0b0d);box-shadow:0 30px 90px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08)}" +
     // the panel's background: the title's own picture, softened, like the ambient background everywhere else
-    "#tb-pop .tb-pop-amb{position:absolute;inset:-12%;z-index:-1;background:50% 30%/cover no-repeat;filter:blur(46px) saturate(1.25);opacity:0;transition:opacity .35s ease}" +
+    "#tb-pop .tb-pop-amb{position:absolute;inset:0;z-index:-1;background:50% 30%/cover no-repeat;opacity:0;transition:opacity .35s ease}" +
     "#tb-pop .tb-pop-amb.on{opacity:1}" +
     "#tb-pop .tb-pop-box::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.72) 100%)}" +
     "#tb-pop .tb-pop-panel{position:relative;flex:1;min-width:0;max-height:90vh;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;outline:none;scrollbar-width:thin;color:#fff;background:transparent}" +
@@ -526,11 +526,27 @@
     if (!a || url === ambUrl) return;
     ambUrl = url;
     if (!url) { a.classList.remove("on"); a.style.backgroundImage = ""; return; }
-    // the softened picture: a small copy is enough (it's blurred), shown once it has loaded
-    var small = url.replace(/([?&])(maxWidth|fillWidth)=\d+/i, "$1$2=480");
+    // the softened picture, made once: a tiny copy squashed and smoothed on a canvas, then stretched (looks
+    // blurred, costs nothing: a live blur filter re-blurred the whole panel every frame of every animation)
+    var small = url.replace(/([?&])(maxWidth|fillWidth)=\d+/i, "$1$2=160");
     var im = new Image();
     a.classList.remove("on");
-    im.onload = function () { if (ambUrl !== url) return; a.style.backgroundImage = 'url("' + small.replace(/"/g, "%22") + '")'; a.classList.add("on"); };
+    im.onload = function () {
+      if (ambUrl !== url) return;
+      var out = 'url("' + small.replace(/"/g, "%22") + '")';
+      try {
+        var c1 = document.createElement("canvas"), c2 = document.createElement("canvas");
+        c1.width = 24; c1.height = 14; c2.width = 192; c2.height = 108;
+        c1.getContext("2d").drawImage(im, 0, 0, 24, 14);
+        var g = c2.getContext("2d");
+        g.imageSmoothingEnabled = true; g.imageSmoothingQuality = "high";
+        if ("filter" in g) g.filter = "saturate(1.25)";
+        g.drawImage(c1, 0, 0, 192, 108);
+        out = 'url("' + c2.toDataURL("image/jpeg", 0.85) + '")';
+      } catch (e) {}
+      a.style.backgroundImage = out;
+      a.classList.add("on");
+    };
     im.src = small;
   }
 

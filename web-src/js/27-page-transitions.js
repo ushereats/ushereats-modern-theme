@@ -87,7 +87,7 @@
   function ready(p, t, before) {
     if (!p) return false;
     // the background colour follows the page in the same cross-fade (not a slow change after it)
-    if (t < 700 && window.tbAmbientPending && window.tbAmbientPending()) return false;
+    if (t < 400 && window.tbAmbientPending && window.tbAmbientPending()) return false;
     if (p.id === "itemDetailPage") {
       // collections, albums, artists, playlists, people: Jellyfin's own layout (the base look leaves them alone)
       if (p.classList.contains("ue-details-native")) {
@@ -117,7 +117,7 @@
       return seen(p) || t > 300;
     }
     // search: the theme's search box is put in a moment after Jellyfin's page shows
-    if (p.id === "searchPage" && t < 800 && !p.querySelector("#smart-search-wrapper")) return false;
+    if (p.id === "searchPage" && t < 250 && !p.querySelector("#smart-search-wrapper")) return false;
     return seen(p) || t > 300;
   }
   // a poster that's really on screen: laid out, inside the window, and not inside something hidden
@@ -208,12 +208,12 @@
             var changed = moved && (from === null ? (p !== page0 || (p && p.id === "itemDetailPage") || (tab0 && shownTab(p) !== tab0)) : (p !== page0 || location.hash !== from));
             if (changed && target !== null && Math.abs(scrolled() - target) > 1) scrollNow(target);
             var still = changed ? layout(p) : 0;
-            if (changed && still >= 60 && (!p || p.id !== "itemDetailPage" || now - last >= 50) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); if (target !== null) keep(target); return resolve(); }
+            if (changed && still >= 60 && (!p || p.id !== "itemDetailPage" || now - last >= 50 || now - moved > 300) && ready(p, now - moved, before)) { note("ready " + (now - t0) + "ms " + (p && p.id)); if (target !== null) keep(target); return resolve(); }
             // a title page waits for its content (cinejoy fades straight into the finished page, never a placeholder)
             // never hold the screen long: while it's held nothing moves, which feels like a freeze. Back / forward
-            // a quarter of a second, a click about half a second (a title page a little more), then the fade runs
+            // a quarter of a second, a click a third of a second (a title page a little under half), then the fade runs
             // into whatever is there
-            if (now - t0 > (already ? 280 : p && p.id === "itemDetailPage" ? 700 : 450)) { note("timeout " + (p && p.id) + " changed=" + !!changed + " still=" + still + " sig=" + sig + " ready=" + ready(p, now - moved, before)); if (changed && target !== null) keep(target); return resolve(); }
+            if (now - t0 > (already ? 280 : p && p.id === "itemDetailPage" ? 450 : 300)) { note("timeout " + (p && p.id) + " changed=" + !!changed + " still=" + still + " sig=" + sig + " ready=" + ready(p, now - moved, before)); if (changed && target !== null) keep(target); return resolve(); }
             setTimeout(tick, 16);
           })();
         });

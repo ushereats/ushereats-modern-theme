@@ -48,3 +48,10 @@
     height: 10px;
     width: 10px;
 }
+
+/* phones: a poster is too narrow for "★ 6.5 · 2003 · Movie" (the type was cut to "Mo"), so it shows rating and year */
+@media (max-width: 600px) {
+    .card .ue-meta > .ue-meta-item:nth-child(n+3) {
+        display: none;
+    }
+}

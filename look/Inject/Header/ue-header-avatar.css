@@ -89,10 +89,10 @@ body:has(#videoOsdPage:not(.hide)) #tb-header-avatar {
 /* ── The user menu: dark glass panel, your picture + name on top, accent bar on hover, red Sign out ── */
 #app-user-menu .MuiPaper-root {
     background: rgba(14, 14, 16, 0.94) !important;
-    background-image: none !important;
+    background-image: none;
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
     border-radius: 16px !important;
-    box-shadow: 0 24px 60px -16px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0 24px 60px -16px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(0, 0, 0, 0.4);
     color: #fff !important;
     font-family: var(--app-font) !important;
     margin-top: 8px;

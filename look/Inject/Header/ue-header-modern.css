@@ -6,13 +6,13 @@ html.ue-header-mounted [data-ue-header="modern"] {
 }
 
 html.ue-header-mounted [data-ue-header-toolbar] {
-    align-items: center !important;
-    box-sizing: border-box !important;
+    align-items: center;
+    box-sizing: border-box;
     display: flex !important;
-    gap: var(--ue-header-item-spacing) !important;
+    gap: var(--ue-header-item-spacing);
     height: var(--ue-header-height) !important;
-    min-height: var(--ue-header-height) !important;
-    overflow: visible !important;
+    min-height: var(--ue-header-height);
+    overflow: visible;
     padding: 0 var(--ue-page-gutter) !important;
     pointer-events: auto;
     position: relative;
@@ -47,16 +47,16 @@ html.ue-header-mounted [data-ue-header][data-ue-scrolled="true"] [data-ue-header
 }
 
 html.ue-header-mounted [data-ue-header-segment] {
-    align-items: center !important;
-    align-self: center !important;
+    align-items: center;
+    align-self: center;
     background: transparent !important;
     border: 0 !important;
-    box-shadow: none !important;
-    box-sizing: border-box !important;
+    box-shadow: none;
+    box-sizing: border-box;
     display: flex !important;
-    flex: 0 0 auto !important;
+    flex: 0 0 auto;
     height: calc(var(--ue-header-item-height) + var(--ue-header-bar-padding) + var(--ue-header-bar-padding)) !important;
-    min-height: calc(var(--ue-header-item-height) + var(--ue-header-bar-padding) + var(--ue-header-bar-padding)) !important;
+    min-height: calc(var(--ue-header-item-height) + var(--ue-header-bar-padding) + var(--ue-header-bar-padding));
     min-width: 0 !important;
     position: relative;
     z-index: 1;
@@ -75,7 +75,7 @@ html.ue-header-mounted[data-ue-header-bar-position="left"] [data-ue-header-last-
 }
 
 html.ue-header-mounted[data-ue-header-bar-position="center"] [data-ue-header-first-cluster="true"] {
-    margin-inline-start: auto !important;
+    margin-inline-start: auto;
 }
 
 html.ue-header-mounted[data-ue-header-bar-position="center"] [data-ue-header-last-cluster="true"] {
@@ -83,13 +83,13 @@ html.ue-header-mounted[data-ue-header-bar-position="center"] [data-ue-header-las
 }
 
 html.ue-header-mounted [data-ue-header-nav] {
-    gap: var(--ue-header-item-spacing) !important;
+    gap: var(--ue-header-item-spacing);
     padding: var(--ue-header-bar-padding) 0 var(--ue-header-bar-padding) var(--ue-header-bar-padding) !important;
-    position: static !important;
+    position: static;
 }
 
 html.ue-header-mounted [data-ue-header-actions] {
-    gap: var(--ue-header-item-spacing) !important;
+    gap: var(--ue-header-item-spacing);
     padding: var(--ue-header-bar-padding) 0 !important;
 }
 

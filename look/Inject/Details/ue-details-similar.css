@@ -26,7 +26,7 @@ html.ue-details-mounted #similarCollapsible .cardPadder {
  * card already reports the year, so hide this rather than repeat it.
  */
 html.ue-details-mounted #similarCollapsible :is(.cardText-secondary, .blurhash-canvas) {
-    display: none !important;
+    display: none;
 }
 
 html.ue-details-mounted #similarCollapsible .cardText {
@@ -36,7 +36,7 @@ html.ue-details-mounted #similarCollapsible .cardText {
     font-size: 13px;
     line-height: 1.375;
     padding: 10px 2px 0;
-    text-align: start !important;
+    text-align: start;
 }
 
 html.ue-details-mounted #similarCollapsible .cardText a {

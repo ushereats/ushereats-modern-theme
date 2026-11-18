@@ -85,7 +85,7 @@ html.ue-media-mounted :is(#indexPage, #searchPage) .verticalSection:not(:empty),
 html.ue-media-mounted :is(#indexPage, #searchPage) .sectionTitleContainer-cards {
     box-sizing: border-box;
     margin: 0 0 20px;
-    max-width: none !important;
+    max-width: none;
     padding-top: 28px;
     width: 100%;
 }
@@ -167,8 +167,8 @@ html.ue-media-mounted :is(#indexPage, #moviesPage, #tvshowsPage, #tvRecommendedP
 #indexPage .ranked-list .itemsContainer > .card .cardBox {
     margin-inline-end: calc(var(--rank-gap) + 12px) !important;
     margin-inline-start: var(--rank-num) !important;
-    margin-top: 0 !important;
-    overflow: visible !important;
+    margin-top: 0;
+    overflow: visible;
     position: relative;
     width: auto !important;
 }

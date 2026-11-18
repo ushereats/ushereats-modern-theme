@@ -61,5 +61,5 @@ html.tb-ambient :is(.backgroundContainer, .mainAnimatedPages, .skinBody, .mainAn
 
 /* Jellyfin's full-screen backdrop ("Backdrops" display setting): the ambient background replaces it */
 html.tb-ambient :is(.backdropContainer, .backgroundContainer.withBackdrop) {
-    display: none !important;
+    display: none;
 }

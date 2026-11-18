@@ -12,7 +12,7 @@ html.ue-details-mounted #itemDetailPage[data-ue-details] #similarCollapsible {
 }
 
 .ue-details-section-heading[hidden] {
-    display: none !important;
+    display: none;
 }
 
 .ue-details-section-heading {
@@ -31,7 +31,7 @@ html.ue-details-mounted #itemDetailPage[data-ue-details] #similarCollapsible {
 html.ue-details-mounted #itemDetailPage[data-ue-details].ue-details-has-episodes[data-ue-item-type="Series"]:not(.ue-details-season-posters) #childrenContent,
 html.ue-details-mounted #itemDetailPage[data-ue-details].ue-details-has-episodes[data-ue-item-type="Season"] #listChildrenCollapsible,
 html.ue-details-mounted #itemDetailPage[data-ue-details].ue-details-has-episodes[data-ue-item-type="Episode"] .moreFromSeasonSection {
-    display: none !important;
+    display: none;
 }
 
 html.ue-details-mounted #itemDetailPage[data-ue-details].ue-details-has-episodes[data-ue-item-type="Series"]:not(.ue-details-season-posters) #listChildrenCollapsible {
@@ -181,7 +181,7 @@ html.ue-details-mounted #castCollapsible .cardText {
     font-size: 13px;
     line-height: 18px;
     padding: 6px 0 0;
-    text-align: start !important;
+    text-align: start;
 }
 
 html.ue-details-mounted #castCollapsible .cardText-secondary {

@@ -414,47 +414,47 @@
 
 /* List view: big episode number, wide still with the progress bar on it, title, two-line synopsis, runtime
    (the theme's look; the base look's own list rules are gone so there is one set). */
-.ue-details-episode-list[data-view="list"] { gap: 0 !important; margin-top: 14px !important; }
+.ue-details-episode-list[data-view="list"] { gap: 0; margin-top: 14px; }
 .ue-details-episode-list[data-view="list"] .ue-details-episode.card { height: auto !important; aspect-ratio: auto !important; border: 0 !important; border-radius: 12px !important;
   overflow: visible !important; background: transparent; transition: background-color 160ms ease; }
 .ue-details-episode-list[data-view="list"] .ue-details-episode.card + .ue-details-episode.card::before { content: ''; position: absolute; left: 12px; right: 12px; top: 0;
   height: 1px; background: rgba(255,255,255,0.07); }
 .ue-details-episode-list[data-view="list"] .ue-details-episode.card:hover, .ue-details-episode-list[data-view="list"] .ue-details-episode.card:focus-within { background: rgba(255,255,255,0.05); }
-.ue-details-episode-list[data-view="list"] .ue-details-episode > .cardBox { height: auto !important; transform: none !important; filter: none !important; box-shadow: none !important;
-  clip-path: none !important; background: transparent !important; overflow: visible !important; }
-.ue-details-episode-list[data-view="list"] .ue-details-episode .cardScalable::after, .ue-details-episode-list[data-view="list"] .ue-details-episode .tb-hover-info { display: none !important; }
-.ue-details-episode-list[data-view="list"] .ue-details-episode-action { display: grid !important; height: auto !important; background: transparent !important;
+.ue-details-episode-list[data-view="list"] .ue-details-episode > .cardBox { height: auto !important; transform: none !important; filter: none !important; box-shadow: none;
+  clip-path: none !important; background: transparent !important; overflow: visible; }
+.ue-details-episode-list[data-view="list"] .ue-details-episode .cardScalable::after, .ue-details-episode-list[data-view="list"] .ue-details-episode .tb-hover-info { display: none; }
+.ue-details-episode-list[data-view="list"] .ue-details-episode-action { display: grid; height: auto !important; background: transparent !important;
   grid-template-columns: 64px 240px minmax(0, 1fr);
   grid-template-areas: 'num img title' 'num img overview' 'num img footer';
   grid-template-rows: auto auto auto; align-content: center;
   column-gap: 22px; row-gap: 6px; padding: 16px 128px 16px 6px !important;
-  contain: none !important; overflow: visible !important; border-radius: 0 !important; }
-.ue-details-episode-list[data-view="list"] .ue-details-episode-copy, .ue-details-episode-list[data-view="list"] .ue-details-episode-heading { display: contents !important; }
-.ue-details-episode-list[data-view="list"] .ue-details-episode-action > img { position: relative !important; inset: auto !important; grid-area: img; grid-row: 1 / span 3;
+  contain: none; overflow: visible; border-radius: 0 !important; }
+.ue-details-episode-list[data-view="list"] .ue-details-episode-copy, .ue-details-episode-list[data-view="list"] .ue-details-episode-heading { display: contents; }
+.ue-details-episode-list[data-view="list"] .ue-details-episode-action > img { position: relative; inset: auto !important; grid-area: img; grid-row: 1 / span 3;
   width: 240px !important; height: 135px !important; aspect-ratio: 16 / 9; object-fit: cover; align-self: center;
   border-radius: 8px; transform: none !important; box-shadow: 0 6px 18px -8px rgba(0,0,0,0.7); }
-.ue-details-episode-list[data-view="list"] .ue-details-episode-shade { position: relative !important; inset: auto !important; grid-area: img; grid-row: 1 / span 3; align-self: stretch;
-  display: flex !important; align-items: center; justify-content: center; z-index: 1;
+.ue-details-episode-list[data-view="list"] .ue-details-episode-shade { position: relative; inset: auto !important; grid-area: img; grid-row: 1 / span 3; align-self: stretch;
+  display: flex; align-items: center; justify-content: center; z-index: 1;
   border-radius: 8px; background: rgba(0,0,0,0.35) !important; opacity: 0; transition: opacity 160ms ease; }
 .ue-details-episode-list[data-view="list"] .ue-details-episode-shade::after { content: ''; width: 44px; height: 44px; border-radius: 50%;
   background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b0b0b' d='M8 5.5v13l11-6.5z'/%3E%3C/svg%3E") 55% 50% / 20px 20px no-repeat; box-shadow: 0 4px 14px rgba(0,0,0,0.5); }
 .ue-details-episode-list[data-view="list"] .ue-details-episode.card:hover .ue-details-episode-shade, .ue-details-episode-list[data-view="list"] .ue-details-episode.card:focus-within .ue-details-episode-shade { opacity: 1; }
-.ue-details-episode-list[data-view="list"] .ue-details-episode .innerCardFooter { position: relative !important; grid-area: img; grid-row: 3; align-self: end; z-index: 2;
+.ue-details-episode-list[data-view="list"] .ue-details-episode .innerCardFooter { position: relative; grid-area: img; grid-row: 3; align-self: end; z-index: 2;
   left: auto !important; right: auto !important; bottom: auto !important; margin: 0 8px 8px; background: none !important; }
 .ue-details-episode-list[data-view="list"] .ue-details-episode .itemProgressBar { height: 4px !important; border-radius: 2px; background: rgba(255,255,255,0.25) !important; overflow: hidden; }
 .ue-details-episode-list[data-view="list"] .ue-details-episode .itemProgressBar { display: block !important; position: relative; }
 .ue-details-episode-list[data-view="list"] .ue-details-episode .itemProgressBarForeground { display: block; height: 100%; background: var(--ue-accent, rgb(233, 196, 106)) !important; border-radius: 2px; }
-.ue-details-episode-list[data-view="list"] .ue-details-episode-number { grid-area: num; grid-row: 1 / span 3; justify-self: center; align-self: center; position: static !important;
-  padding: 0 !important; background: none !important; border: 0 !important; box-shadow: none !important;
-  -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+.ue-details-episode-list[data-view="list"] .ue-details-episode-number { grid-area: num; grid-row: 1 / span 3; justify-self: center; align-self: center; position: static;
+  padding: 0 !important; background: none !important; border: 0 !important; box-shadow: none;
+  -webkit-backdrop-filter: none !important; backdrop-filter: none;
   font-family: var(--title-font, 'Bebas Neue', sans-serif) !important; font-size: 46px !important; line-height: 1 !important;
   letter-spacing: 0.02em; color: rgba(255,255,255,0.38) !important; }
 .ue-details-episode-list[data-view="list"] .ue-details-episode.card:has(.itemProgressBar) .ue-details-episode-number { color: var(--ue-accent, rgb(233, 196, 106)) !important; }
 .ue-details-episode-list[data-view="list"] .ue-details-episode-title.cardText { grid-area: title; align-self: end; font: 600 17px/1.3 var(--app-font, Inter, sans-serif) !important;
-  color: #fff; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis; }
-.ue-details-episode-list[data-view="list"] .ue-details-episode-overview { grid-area: overview; margin: 0 !important; -webkit-line-clamp: 2 !important;
+  color: #fff; white-space: nowrap !important; overflow: hidden; text-overflow: ellipsis; }
+.ue-details-episode-list[data-view="list"] .ue-details-episode-overview { grid-area: overview; margin: 0 !important; -webkit-line-clamp: 2;
   font: 400 14px/1.5 var(--app-font, Inter, sans-serif) !important; color: rgba(255,255,255,0.62) !important; }
-.ue-details-episode-list[data-view="list"] .ue-details-episode-footer { grid-area: footer; align-self: start; justify-content: flex-start !important; gap: 16px; margin: 2px 0 0 !important;
+.ue-details-episode-list[data-view="list"] .ue-details-episode-footer { grid-area: footer; align-self: start; justify-content: flex-start; gap: 16px; margin: 2px 0 0 !important;
   font: 600 12px/16px var(--app-font, Inter, sans-serif) !important; color: rgba(255,255,255,0.55) !important; }
 .ue-details-episode-list[data-view="list"] .ue-details-episode.card:has(button[data-played='true']) .ue-details-episode-action > img { opacity: 0.55; }
 .ue-details-episode-list[data-view="list"] .ue-details-episode.card:has(button[data-played='true']) .ue-details-episode-number { color: rgba(255,255,255,0.2) !important; }

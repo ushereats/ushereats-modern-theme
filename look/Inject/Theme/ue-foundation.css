@@ -1,6 +1,6 @@
 /* No scrollbars anywhere, and one cursor (a soft ring) for everything */
 *::-webkit-scrollbar {
-    display: none !important;
+    display: none;
 }
 
 * {
@@ -10,7 +10,7 @@
 
 html.ue-main-ui:not(.transparentDocument) body {
     background-color: var(--ue-page-background) !important;
-    background-image: none !important;
+    background-image: none;
 }
 
 html.ue-main-ui:not(.transparentDocument),
@@ -18,7 +18,7 @@ html.ue-main-ui .nowPlayingPlaylist,
 html.ue-main-ui .wizardStartForm,
 html.ue-main-ui .dialog {
     background-color: var(--ue-background) !important;
-    background-image: none !important;
+    background-image: none;
 }
 
 html.ue-main-ui .collapseContent,

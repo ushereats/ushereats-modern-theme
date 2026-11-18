@@ -44,17 +44,17 @@ html:is(.ue-header-boot-loading, .ue-header-loading) :is(header.MuiAppBar-root, 
 html.ue-header-mounted [data-ue-header] {
     background: transparent !important;
     border: 0 !important;
-    box-shadow: none !important;
+    box-shadow: none;
     color: #fff;
     font-family: var(--app-font);
     height: var(--ue-header-height) !important;
     inset: 0 0 auto !important;
-    overflow: visible !important;
+    overflow: visible;
     pointer-events: none;
     position: fixed !important;
-    transition: none !important;
+    transition: none;
     width: 100% !important;
-    z-index: 1100 !important;
+    z-index: 1100;
 }
 
 html.layout-tv.ue-header-mounted [data-ue-header="legacy"],

@@ -13,7 +13,7 @@ html:is(.ue-hero-boot-loading, .ue-hero-loading) #indexPage.homePage.libraryPage
 }
 
 html:not(.layout-tv) #indexPage > .ue-hero + #homeTab > .sections.homeSectionsContainer {
-    margin-top: calc(-1 * var(--tb-lift, 0px)) !important;
+    margin-top: calc(-1 * var(--tb-lift, 0px));
     pointer-events: none; /* the empty top of the rows must not block the banner */
     position: relative;
     z-index: 2;

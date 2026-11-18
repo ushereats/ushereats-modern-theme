@@ -301,7 +301,7 @@ html.ue-main-ui[data-ue-media-card-shape="Circle"] .ue-details-episode-list[data
 /* ── Posters: rounded, no shadow under them (the large cinejoy shadow showed as a dark band under every row,
    cut off in a hard line where the row ends), the whole card pops on hover ── */
 .card .cardScalable {
-    box-shadow: none !important;
+    box-shadow: none;
     transform: none !important;
 }
 

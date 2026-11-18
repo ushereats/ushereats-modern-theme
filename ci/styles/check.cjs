@@ -198,7 +198,7 @@ async function snapshot(browser, css) {
     if (base[k] === snap[k]) continue;
     const a = Object.fromEntries(base[k].split('\n').map((x) => [x.slice(0, x.indexOf(':')), x.slice(x.indexOf(':') + 1)]));
     const b = Object.fromEntries(snap[k].split('\n').map((x) => [x.slice(0, x.indexOf(':')), x.slice(x.indexOf(':') + 1)]));
-    for (const p of new Set([...Object.keys(a), ...Object.keys(b)])) if (a[p] !== b[p]) { diffs++; if (lines.length < 60) lines.push(k.slice(0, 120) + ' | ' + p + ' | ' + a[p] + ' -> ' + b[p]); }
+    for (const p of new Set([...Object.keys(a), ...Object.keys(b)])) if (a[p] !== b[p]) { diffs++; if (lines.length < (process.env.FULL ? 1e9 : 60)) lines.push(k.slice(0, 120) + ' | ' + p + ' | ' + a[p] + ' -> ' + b[p]); }
   }
   const ji = process.argv.indexOf('--json');
   if (ji > 0) fs.writeFileSync(process.argv[ji + 1], JSON.stringify(Object.keys(base).filter((k) => k in snap && base[k] !== snap[k])));

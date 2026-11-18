@@ -69,7 +69,7 @@ html.ue-details-mounted {
 }
 
 html.ue-details-mounted body {
-    overflow: hidden !important;
+    overflow: hidden;
 }
 
 /* Jellyfin Modern reserves the fixed header height even when the details artwork fills the page. */
@@ -109,13 +109,13 @@ html.ue-details-mounted #itemDetailPage[data-ue-details] .detailPagePrimaryConta
 
 /* Jellyfin's own poster is never shown on these pages: hidden from the start, so it is never downloaded. */
 html[data-ue-details-boot] #itemDetailPage:not(.ue-details-native) .detailImageContainer {
-    display: none !important;
+    display: none;
 }
 
 /* Keep Jellyfin and plugin information in its original containers and hide only relocated UI. */
 html.ue-details-mounted #itemDetailPage[data-ue-details] .detailPagePrimaryContainer > :is(.detailImageContainer, .detailRibbon),
 html.ue-details-mounted #itemDetailPage[data-ue-details] .trackSelections {
-    display: none !important;
+    display: none;
 }
 
 html.ue-details-mounted #itemDetailPage[data-ue-details] .detailPagePrimaryContent {

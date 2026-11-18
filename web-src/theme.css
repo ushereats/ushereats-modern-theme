@@ -63,7 +63,7 @@ html body #searchPage .sectionTitle,
 html body #searchPage .sectionTitleTextButton { font-family: var(--app-font) !important; }
 
 #indexPage #homeTab {
-    margin-top: 0 !important;
+    margin-top: 0;
 }
 
 /* ── Top 10 ranked list (TryBox style) ── */
@@ -141,19 +141,19 @@ html body #searchPage .sectionTitleTextButton { font-family: var(--app-font) !im
 
 /* Arrow layer covers the poster row; top/height measured by Home Section Rules script */
 .verticalSection > .emby-scrollbuttons {
-  position: absolute !important;
+  position: absolute;
   top: 56px;            /* fallback until measured */
   bottom: 0;
   left: 0 !important;
   right: 0 !important;
   width: auto !important;
   display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  justify-content: space-between !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   padding: 0 10px !important;
   margin: 0 !important;
-  box-sizing: border-box !important;
+  box-sizing: border-box;
   pointer-events: none;
   z-index: 6;
   background: none !important;
@@ -624,7 +624,7 @@ html body .userPreferencesPage .listItem-border .listItem {
 }
 html body .userPreferencesPage .listItem-border .listItemIcon {
   width: 38px !important; height: 38px !important; flex: 0 0 38px; margin: 0 !important; padding: 0 !important;
-  display: flex !important; align-items: center; justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   border-radius: 10px !important; font-size: 20px !important;
   background: rgba(255, 255, 255, 0.06) !important; color: rgba(255, 255, 255, 0.82) !important;
   transition: background-color 140ms ease, color 140ms ease;
@@ -765,7 +765,7 @@ html body :is(.page, header.MuiAppBar-root) .MuiChip-root:not(#tb-x) {
 
 /* Play All + Shuffle: gold pill + round glass button */
 html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x) {
-  gap: 8px; box-shadow: none !important; border-radius: 0 !important; background: none !important;
+  gap: 8px; box-shadow: none; border-radius: 0 !important; background: none !important;
 }
 html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x) > .MuiButton-root {
   height: 40px; min-width: 0 !important; border-radius: 999px !important;
@@ -789,7 +789,7 @@ html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x)
 html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-contained:not(#tb-x) > .MuiButton-root:active { transform: scale(0.96); }
 
 /* Filter / Sort / View + page arrows: round glass buttons */
-html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) { gap: 6px; }
+html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text { gap: 6px; }
 html body :is(.page, header.MuiAppBar-root) .MuiButtonGroup-text:not(#tb-x) > .MuiButton-root:not([data-ue-header-link]):not([data-ue-header-brand]),
 html body :is(.page, header.MuiAppBar-root) .MuiStack-root > .MuiButton-text:not(#tb-x):not([data-ue-header-link]):not([data-ue-header-brand]) {
   width: 40px; height: 40px; min-width: 0 !important; padding: 0 !important;
@@ -892,7 +892,7 @@ body.layout-tv .skinHeader .currentTimeText { display: none !important; }
 
 
 /* the studio logos row scrolls inside itself on every screen (on narrow PC windows it pushed the page sideways) */
-html body .tb-studios .emby-scroller { overflow-x: auto !important; overflow-y: hidden !important; scrollbar-width: none; }
+html body .tb-studios .emby-scroller { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
 html body .tb-studios .emby-scroller::-webkit-scrollbar { display: none; }
 /* ═══════════ end phones, tablets, TVs ═══════════ */
 
@@ -900,10 +900,10 @@ html body .tb-studios .emby-scroller::-webkit-scrollbar { display: none; }
 /* ═══════════ Top bar menus (SyncPlay, cast, more): same dark panel as your user menu ═══════════ */
 :is(#app-sync-play-menu, #app-remote-play-menu, #app-remote-play-active-menu, #user-view-overflow-menu, #app-audio-player-menu) .MuiPaper-root {
   background: rgba(14, 14, 16, 0.96) !important;
-  background-image: none !important;
+  background-image: none;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 16px !important;
-  box-shadow: 0 24px 60px -16px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 24px 60px -16px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(0, 0, 0, 0.4);
   color: #fff !important;
   font-family: var(--app-font) !important;
   margin-top: 8px;
@@ -939,7 +939,7 @@ html body .tb-studios .emby-scroller::-webkit-scrollbar { display: none; }
 #itemDetailPage.ue-details-native :is(.detailPageWrapperContainer, .detailPageSecondaryContainer, .detailPageContent, .detailPagePrimaryContainer, .detailRibbon) {
   background: transparent !important;
   background-color: transparent !important;
-  box-shadow: none !important;
+  box-shadow: none;
 }
 #itemDetailPage.ue-details-native > #itemBackdrop {
   -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);

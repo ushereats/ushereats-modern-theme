@@ -142,7 +142,7 @@ html:is(.ue-header-boot-loading, .ue-header-loading, .ue-header-mounted) header.
 }
 
 /* phones on their side: the home banner fits the short screen under the top bar */
-@media (max-width: 899px) and (max-height: 540px) and (orientation: landscape) {
+@media (max-width: 999px) and (max-height: 540px) and (orientation: landscape) {
   .ue-hero {
     --ue-hero-title-size: 30px !important;
     --ue-hero-description-lines: 2 !important;

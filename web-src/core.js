@@ -7,6 +7,7 @@
 //   tbItems(ids, fields) poster lookups made within 30 ms merged into one request
 //   tbWatch(fn)          whole-page watcher, once per frame (every 1.5 s while a video plays or the tab is hidden)
 //   tbShared             one shared answer for your user / sessions when several scripts ask at once
+//   tbEsc(text)          text made safe to put into HTML
 window.tbCfg = function(k, d) {
   var c = window.TB_CONFIG || {}, v = c[k];
   return v === undefined || v === null || v === "" ? d : v;
@@ -221,3 +222,9 @@ window.tbShared = window.tbShared || function() {
     }
   };
 }();
+
+window.tbEsc = window.tbEsc || function(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function(c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+  });
+};

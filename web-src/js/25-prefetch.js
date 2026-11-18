@@ -58,30 +58,33 @@
   // shows the tab once they're back. Kept like the library pages, and the requests it made last time are made again
   // in idle time after the site opens, so even the first visit of a session shows at once.
   var FAV = /[?&](Filters=[^&]*IsFavorite|isFavorite=true)/i;
-  var FAV_KEY = "tb-fav-urls";
-  function rememberFav(url) {
+  // The library pages you opened last time (first page of Movies, Shows, a collection...) are fetched the same way,
+  // so the first click on them this session shows at once too.
+  var FAV_KEY = "tb-fav-urls", LIST_URLS = "tb-list-urls";
+  function remember(store, url, max) {
     try {
-      var k = String(new URL(url, location.href)), l = JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
+      var k = String(new URL(url, location.href)), l = JSON.parse(localStorage.getItem(store) || "[]");
       if (l.indexOf(k) >= 0) return;
-      l.push(k); if (l.length > 24) l.shift();
-      localStorage.setItem(FAV_KEY, JSON.stringify(l));
+      l.push(k); if (l.length > max) l.shift();
+      localStorage.setItem(store, JSON.stringify(l));
     } catch (e) {}
   }
-  function warmFavs() {
+  function rememberFav(url) { remember(FAV_KEY, url, 24); }
+  function warmStored(store, delay) {
     var api = window.ApiClient, uid = api && api.getCurrentUserId && api.getCurrentUserId();
     if (!uid || !api.accessToken || !api.accessToken()) return;
     var l = [];
-    try { l = JSON.parse(localStorage.getItem(FAV_KEY) || "[]"); } catch (e) {}
+    try { l = JSON.parse(localStorage.getItem(store) || "[]"); } catch (e) {}
     l.forEach(function (k, i) {
       if (k.indexOf(uid) < 0 || lists[key(k)]) return;   // another user's, or already here
       setTimeout(function () {
         window.fetch(k, { headers: { Authorization: 'MediaBrowser Token="' + api.accessToken() + '"' } })["catch"](function () {});
-      }, i * 60);
+      }, delay + i * 120);
     });
   }
   window.addEventListener("load", function () {
     var idle = window.requestIdleCallback || function (f) { return setTimeout(f, 2500); };
-    setTimeout(function () { idle(warmFavs, { timeout: 4000 }); }, 2500);
+    setTimeout(function () { idle(function () { warmStored(FAV_KEY, 0); warmStored(LIST_URLS, 1500); }, { timeout: 4000 }); }, 2500);
   });
 
   // After playback stops, clear the SW's cached /home response so the next home load fetches fresh.
@@ -126,7 +129,10 @@
       }
       return sent;
     }
-    if (LIST.test(url) && !(init && init.cache === "no-store") && !/[?&](SearchTerm|searchTerm)=/.test(url) && !/^#\/?home/i.test(location.hash)) return listFetch(this, arguments, url);
+    if (LIST.test(url) && !(init && init.cache === "no-store") && !/[?&](SearchTerm|searchTerm)=/.test(url) && !/^#\/?home/i.test(location.hash)) {
+      if (!/[?&]StartIndex=[1-9]/i.test(url) && /^#\/?(movies|tv|music|list|details)/i.test(location.hash)) remember(LIST_URLS, url, 12);
+      return listFetch(this, arguments, url);
+    }
     // Favourites: shown at once from the copy kept from last time (and fetched ahead in idle time, see below)
     if (FAV.test(url) && !(init && init.cache === "no-store")) { rememberFav(url); return listFetch(this, arguments, url); }
     if (!ITEM.test(url) || (init && init.cache === "no-store")) return realFetch.apply(this, arguments);

@@ -11,7 +11,7 @@
 
   function api() { return window.ApiClient || null; }
   function uid() { try { return api().getCurrentUserId(); } catch (e) { return null; } }
-  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  var esc = window.tbEsc;   // core.js
   var base = location.pathname.replace(/\/web(\/.*)?$/, "/");
   if (base.charAt(base.length - 1) !== "/") base += "/";
   function imgUrl(id, type, tag, q) { return base + "Items/" + id + "/Images/" + type + "?" + q + "&quality=85" + (window.__tbImgFmt || "") + "&tag=" + encodeURIComponent(tag); }

@@ -233,3 +233,26 @@
         font-size: 15px;
     }
 }
+
+/* phones on their side: a short screen, so a smaller logo and tighter spacing keep the whole banner text under the
+   top bar (the desktop sizes above pushed the logo up behind it) */
+@media (max-width: 999px) and (max-height: 540px) and (orientation: landscape) {
+    html:is(.ue-header-boot-loading, .ue-header-loading, .ue-header-mounted) .ue-hero-content,
+    .ue-hero-content {
+        padding-top: calc(var(--ue-header-height, 64px) + 8px);
+        padding-bottom: calc(var(--tb-lift, 0px) + 20px);
+    }
+
+    .ue-hero-title-box {
+        min-height: 56px;
+        width: min(320px, 45vw);
+    }
+
+    .ue-hero-title-logo {
+        height: 56px;
+    }
+
+    .ue-hero-facts {
+        font-size: 13px;
+    }
+}

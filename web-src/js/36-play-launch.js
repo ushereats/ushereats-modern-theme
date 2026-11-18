@@ -5,7 +5,7 @@
   if (window.tbLaunch) return;
   var html = document.documentElement, el = null, on = false, poll = 0, startedAt = 0, gen = 0;
 
-  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  var esc = window.tbEsc;   // core.js
   function inPlayer() { return /^#!?\/?video/i.test(location.hash); }
 
   function finish(fast) {

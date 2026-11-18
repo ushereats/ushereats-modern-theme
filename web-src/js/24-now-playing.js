@@ -82,7 +82,7 @@
     "@media (max-width:600px){#tb-np .np-grid{grid-template-columns:1fr}#tb-np .np-poster{flex-basis:96px}#tb-np .np-tools{margin-left:0}}"
   ].join("\n");
 
-  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  var esc = window.tbEsc;   // core.js
   function words(s) { return String(s || "").replace(/([a-z0-9])([A-Z])/g, "$1 $2"); }
   function api() { return window.ApiClient; }
   function img(id, type, tag, opts) {

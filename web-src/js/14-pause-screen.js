@@ -359,7 +359,7 @@
     "@keyframes tbPsSpin { to { transform: rotate(360deg); } }",
 
     /* close */
-    "#tb-pause .tb-ps-close { position: absolute; top: 22px; right: 26px; width: 46px; height: 46px; padding: 0;",
+    "#tb-pause .tb-ps-close { position: absolute; top: 76px; right: 26px; width: 46px; height: 46px; padding: 0;",
     "  display: flex; align-items: center; justify-content: center; cursor: pointer;",
     "  border-radius: 50%; border: 1px solid rgba(255,255,255,0.22); background: rgba(0,0,0,0.35); color: #fff;",
     "  transition: background 150ms ease, transform 150ms ease; }",

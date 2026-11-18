@@ -18,7 +18,7 @@
   function api() { return window.ApiClient || null; }
   function uid() { try { return api().getCurrentUserId(); } catch (e) { return null; } }
   function sid() { try { return api().serverId(); } catch (e) { return ""; } }
-  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  var esc = window.tbEsc;   // core.js
   var cache = {}, KEEP = 60000;
   function get(path, params) {
     var a = api(), url = a.getUrl(path, params || {}), hit = cache[url];

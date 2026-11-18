@@ -15,7 +15,7 @@
   function api() { return window.ApiClient || null; }
   function uid() { try { return api().getCurrentUserId(); } catch (e) { return null; } }
   function sid() { try { return api().serverId(); } catch (e) { return ""; } }
-  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  var esc = window.tbEsc;   // core.js
   function icon(n) { return '<span class="material-icons ' + n + '" aria-hidden="true"></span>'; }
   function runtime(ticks) {
     var m = Math.round((ticks || 0) / 600000000);

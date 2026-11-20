@@ -285,6 +285,19 @@ html.ue-details-mounted.ue-header-mounted [data-ue-header-menu-offset="true"] {
     color: inherit;
 }
 
+/* Episode pages: the show's logo links back to the show, and the episode reads "S5E3 - Name" (Jellyfin's own
+   "Season 5 - 3. Name" line is not shown) */
+.ue-details-series-link {
+    display: block;
+    max-width: var(--ue-details-logo-max-width, 340px);
+    width: 100%;
+}
+
+.ue-details-hero:not(.ue-details-has-logo) .ue-details-series-link,
+.ue-details-episode .ue-details-child-title .nameContainer > .itemName:not(.originalTitle) {
+    display: none;
+}
+
 .ue-details-hero .nameContainer .originalTitle {
     color: var(--ue-details-original-title-color, var(--ue-muted));
     display: block;

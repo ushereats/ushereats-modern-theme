@@ -73,6 +73,9 @@ export function createHero(page, { preview = false } = {}) {
   const stack = hero.querySelector('.ue-details-stack');
   const title = stack.querySelector('.ue-details-title');
   const childTitleRoot = stack.querySelector('.ue-details-child-title');
+  // episode pages: the show's logo goes back to the show, and the episode reads "S5E3 - Name"
+  const seriesLink = dom.element('<a class="ue-details-series-link"></a>');
+  const episodeHeading = dom.element('<h3 class="itemName ue-details-episode-heading"></h3>');
   const factsRoot = stack.querySelector('.ue-details-facts');
   const factsValuesRoot = dom.element('<span class="ue-details-fact-values"></span>');
   factsRoot.appendChild(factsValuesRoot);
@@ -120,6 +123,25 @@ export function createHero(page, { preview = false } = {}) {
     hero.classList.toggle('ue-details-has-child-title', isChild);
     const nameRoot = isChild ? childTitleRoot : title;
     if (name && name.parentNode !== nameRoot) nameRoot.appendChild(name);
+    const isEpisode = mediaItem.Type === 'Episode';
+    hero.classList.toggle('ue-details-episode', isEpisode);
+    if (isEpisode) {
+      const season = mediaItem.ParentIndexNumber != null ? `S${mediaItem.ParentIndexNumber}` : '';
+      const episode = mediaItem.IndexNumber != null ? `E${mediaItem.IndexNumber}${mediaItem.IndexNumberEnd != null ? `-E${mediaItem.IndexNumberEnd}` : ''}` : '';
+      const heading = `${season}${episode}${season || episode ? ' - ' : ''}${mediaItem.Name || ''}`;
+      if (episodeHeading.textContent !== heading) episodeHeading.textContent = heading;
+      if (episodeHeading.parentNode !== childTitleRoot) childTitleRoot.appendChild(episodeHeading);
+    } else episodeHeading.remove();
+    if (isEpisode && mediaItem.SeriesId && logo) {
+      const serverId = mediaItem.ServerId || window.ApiClient?.serverId?.() || '';
+      if (!preview) seriesLink.href = `#/details?id=${encodeURIComponent(mediaItem.SeriesId)}${serverId ? `&serverId=${encodeURIComponent(serverId)}` : ''}`;
+      seriesLink.title = mediaItem.SeriesName || '';
+      if (seriesLink.parentNode !== title) title.insertBefore(seriesLink, title.firstChild);
+      if (logo.parentNode !== seriesLink) seriesLink.appendChild(logo);
+    } else {
+      if (logo && logo.parentNode === seriesLink) title.insertBefore(logo, title.firstChild);
+      seriesLink.remove();
+    }
     render(<Facts values={factValues(mediaItem, seasons, settings)} />, factsValuesRoot);
     render(<Facts values={(mediaItem.Genres || []).map((genre) => ({ text: genre }))} />, genresRoot);
 

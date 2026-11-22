@@ -25,7 +25,7 @@ public class MeterController : ControllerBase
     public IActionResult Get([FromQuery] int seconds = 5)
     {
         (double total, double streams) = ServerMeter.Rate(Math.Clamp(seconds, 1, 25));
-        return Ok(new { totalMbps = Math.Round(total * 8 / 1e6, 2), streamsMbps = Math.Round(streams * 8 / 1e6, 2), seconds });
+        return Ok(new { totalMbps = Math.Round(total * 8 / 1e6, 2), streamsMbps = Math.Round(streams * 8 / 1e6, 2), seconds, perStream = ServerMeter.StreamRates(Math.Clamp(seconds, 1, 25)) });
     }
 
     /// <summary>The server process: CPU use since the last ask, memory, threads.</summary>

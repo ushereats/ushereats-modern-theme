@@ -63,6 +63,7 @@
     "#tb-np .np-l3 .np-chip:not(:first-of-type){flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}",
     "#tb-np .np-chip small{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.6}",
     "#tb-np .np-warn{display:inline-flex;align-items:center;height:22px;padding:0 7px;border-radius:7px;font:700 11px/1 var(--np-font);color:#ffd166;background:rgba(255,209,102,.1);border:1px solid rgba(255,209,102,.3);cursor:help;white-space:nowrap}",
+    "#tb-np .np-live{margin-left:auto;flex:0 0 auto;padding:2px 8px;border-radius:7px;font:700 12px/1.4 var(--np-font);color:var(--np-acc);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);white-space:nowrap;font-variant-numeric:tabular-nums}",
     "#tb-np .np-time{margin-left:auto;font:600 11px/1 var(--np-font);color:rgba(255,255,255,.5);white-space:nowrap}",
     /* the rest only when a card is opened (click it), or for all with "Show details" */
     "#tb-np .np-more{position:relative;display:none;flex-direction:column;gap:8px;padding:0 12px 12px}",
@@ -218,25 +219,20 @@
     var src = [res(v.Width, v.Height), hdr ? hdrName : "", codec(v.Codec)].filter(Boolean).join(" ");
     var outV = vConv ? [res(ti.Width, ti.Height), videoOut].filter(Boolean).join(" ") : "";
     var summary = src + (vConv && outV ? " → " + outV : "");
-    // where the speed comes from: what the transcoder aims for (capped by your limit) or the file's own bitrate
-    // (only when the picture itself is re-encoded: a copied picture goes out at the file's own rate whatever the
-    // transcoder's target says)
-    var rate = vConv && ti.Bitrate ? ti.Bitrate : ((v.BitRate || 0) + (a.BitRate || 0)) || it.Bitrate || (ti && ti.Bitrate) || 0;
-    var rateTag = vConv ? (reasons.indexOf("ContainerBitrateExceedsLimit") >= 0 ? "cap" : "target") : "file";
     var open = !!prefs.show || !!openCards[s.Id];
     var html = '<div class="np-card' + (open ? " np-open" : "") + '" data-m="' + m + '" data-paused="' + paused + '" data-sid="' + esc(s.Id) + '">' +
       (bg ? '<div class="np-bg" style="background-image:url(\'' + esc(bg) + '\')"></div>' : "") +
       '<div class="np-main" role="button" tabindex="0" title="Show or hide the details">' +
         '<div class="np-poster" style="' + (poster ? "background-image:url('" + esc(poster) + "')" : "") + '"></div>' +
         '<div class="np-info">' +
-          '<div class="np-l1"><span class="np-name">' + esc(title) + '</span>' + (subTitle ? '<span class="np-sub">' + esc(subTitle) + "</span>" : "") + "</div>" +
+          '<div class="np-l1"><span class="np-name">' + esc(title) + '</span>' + (subTitle ? '<span class="np-sub">' + esc(subTitle) + "</span>" : "") +
+            '<span class="np-live" data-ps="' + esc(ps.PlaySessionId || "") + '" data-dev="' + esc(s.DeviceId || "") + '" title="What this stream is sending right now (measured on the server)">' + liveRate(ps.PlaySessionId, s.DeviceId) + "</span></div>" +
           '<div class="np-l2"><span class="np-av" style="' + (av ? "background-image:url('" + esc(av) + "')" : "") + '">' + (av ? "" : esc((s.UserName || "?").charAt(0).toUpperCase())) + "</span>" +
             '<span class="np-user">' + esc(s.UserName || "") + '</span><span class="np-dev">' + esc((s.Client || "") + " · " + (s.DeviceName || "")) + "</span></div>" +
           '<div class="np-bar"><u style="width:' + Math.min(100, buffered) + '%"></u><i style="width:' + pct + '%"></i></div>' +
           '<div class="np-l3">' +
             '<span class="np-pill np-' + (paused ? "pa" : m) + '">' + (paused ? "❚❚ " : "") + LABEL[m] + "</span>" +
             (summary ? '<span class="np-chip' + (vConv ? " np-red" : "") + '">' + esc(summary) + "</span>" : "") +
-            (rate ? '<span class="np-chip' + (rateTag === "cap" ? " np-gold" : "") + '" title="' + (rateTag === "file" ? "The file's own bitrate (not transcoded)" : rateTag === "cap" ? "Transcoding to stay under the bitrate limit" : "What the transcoder aims for") + '">' + esc(mbps(rate)) + " <small>" + rateTag + "</small></span>" : "") +
             (reasons.length ? '<span class="np-warn" title="' + esc(reasons.map(function (r) { return REASONS[r] || words(r); }).join(" · ")) + '">⚠ ' + reasons.length + "</span>" : "") +
             '<span class="np-time">' + clock(pos) + " / " + clock(run) + " · ends " + eta(Math.max(0, run - pos)) + "</span>" +
           "</div>" +
@@ -342,7 +338,12 @@
   }
 
   // live upload, measured by the plugin on the server (everything Jellyfin sends / just streams), every 5 s
-  var upTimer = 0;
+  var upTimer = 0, rates = {};
+  // what one stream is sending now, measured on the server (by its play session, else its device)
+  function liveRate(playSession, device) {
+    var v = (playSession && rates["ps:" + playSession]) != null ? rates["ps:" + playSession] : device ? rates["dev:" + device] : null;
+    return v == null ? "–" : (v >= 100 ? Math.round(v) : v.toFixed(1)) + " Mbps";
+  }
   function mb(v) { return v == null ? "–" : (v >= 100 ? Math.round(v) : v.toFixed(1)) + " Mbps"; }
   function upload() {
     if (document.hidden || !root || !api()) return;
@@ -350,6 +351,11 @@
       var a = root.querySelector(".np-up-all"), s = root.querySelector(".np-up-streams");
       if (a) a.textContent = mb(r.totalMbps);
       if (s) s.textContent = mb(r.streamsMbps);
+      rates = r.perStream || {};
+      root.querySelectorAll(".np-live").forEach(function (el) {
+        var t = liveRate(el.getAttribute("data-ps"), el.getAttribute("data-dev"));
+        if (el.textContent !== t) el.textContent = t;
+      });
     }).catch(function () {});
   }
   function start() { if (!timer) { timer = setInterval(refresh, 3000); upTimer = setInterval(upload, 5000); } refresh(); setTimeout(upload, 50); }

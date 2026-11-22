@@ -29,6 +29,19 @@ public static partial class ServerMeter
     private static readonly ConcurrentDictionary<string, RouteStat> s_playback = new(StringComparer.Ordinal);
     private static readonly Stopwatch s_clock = Stopwatch.StartNew();
 
+    // what each stream is sending: keyed by its play session and by its device, with the same 30 one-second samples
+    private static readonly ConcurrentDictionary<string, Counter> s_perStream = new(StringComparer.OrdinalIgnoreCase);
+
+    private sealed class Counter
+    {
+        public long Bytes;
+        public readonly long[] Samples = new long[30];
+        public long LastSentAt = s_clock.ElapsedMilliseconds;
+    }
+
+    [GeneratedRegex(@"DeviceId=""([^""]+)""", RegexOptions.IgnoreCase)]
+    private static partial Regex AuthDeviceId();
+
     [GeneratedRegex(@"[0-9a-fA-F]{32}|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}")]
     private static partial Regex Guid();
 
@@ -65,7 +78,76 @@ public static partial class ServerMeter
         {
             s_sampleIndex = (s_sampleIndex + 1) % s_samples.Length;
             s_samples[s_sampleIndex] = (s_clock.ElapsedMilliseconds, Interlocked.Read(ref s_totalBytes), Interlocked.Read(ref s_streamBytes));
+            long now = s_clock.ElapsedMilliseconds;
+            foreach (KeyValuePair<string, Counter> kv in s_perStream)
+            {
+                kv.Value.Samples[s_sampleIndex] = Interlocked.Read(ref kv.Value.Bytes);
+
+                // nothing sent for two minutes: that stream has ended
+                if (now - Interlocked.Read(ref kv.Value.LastSentAt) > 120000)
+                {
+                    s_perStream.TryRemove(kv.Key, out _);
+                }
+            }
         }
+    }
+
+    /// <summary>Bits per second each stream is sending now (last <paramref name="seconds"/> s), by play session and by device.</summary>
+    public static Dictionary<string, double> StreamRates(int seconds)
+    {
+        EnsureTimer();
+        var result = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase);
+        lock (s_lock)
+        {
+            int then = ((s_sampleIndex - seconds) % s_samples.Length + s_samples.Length) % s_samples.Length;
+            double span = (s_samples[s_sampleIndex].At - s_samples[then].At) / 1000.0;
+            if (span <= 0)
+            {
+                return result;
+            }
+
+            foreach (KeyValuePair<string, Counter> kv in s_perStream)
+            {
+                long a = kv.Value.Samples[then], b = kv.Value.Samples[s_sampleIndex];
+                result[kv.Key] = Math.Round((b - Math.Min(a, b)) * 8 / span / 1e6, 2);
+            }
+        }
+
+        return result;
+    }
+
+    private static string[] StreamKeys(HttpContext context)
+    {
+        var keys = new List<string>(2);
+        IQueryCollection q = context.Request.Query;
+        string? play = q["PlaySessionId"].FirstOrDefault() ?? q["playSessionId"].FirstOrDefault();
+        if (!string.IsNullOrEmpty(play))
+        {
+            keys.Add("ps:" + play);
+        }
+
+        string? device = q["DeviceId"].FirstOrDefault() ?? q["deviceId"].FirstOrDefault();
+        if (string.IsNullOrEmpty(device))
+        {
+            string auth = context.Request.Headers.Authorization.ToString();
+            if (string.IsNullOrEmpty(auth))
+            {
+                auth = context.Request.Headers["X-Emby-Authorization"].ToString();
+            }
+
+            Match m = AuthDeviceId().Match(auth);
+            if (m.Success)
+            {
+                device = Uri.UnescapeDataString(m.Groups[1].Value);
+            }
+        }
+
+        if (!string.IsNullOrEmpty(device))
+        {
+            keys.Add("dev:" + device);
+        }
+
+        return keys.ToArray();
     }
 
     /// <summary>Bytes per second over the last <paramref name="seconds"/> seconds (whole service, streams only).</summary>
@@ -163,7 +245,7 @@ public static partial class ServerMeter
         CountingBody? counting = null;
         if (original != null)
         {
-            counting = new CountingBody(original, stream);
+            counting = new CountingBody(original, stream, stream ? StreamKeys(context) : Array.Empty<string>());
             context.Features.Set<IHttpResponseBodyFeature>(counting);
         }
 
@@ -211,10 +293,15 @@ public static partial class ServerMeter
         private PipeWriter? _writer;
         public long Sent;
 
-        public CountingBody(IHttpResponseBodyFeature inner, bool stream)
+        private readonly Counter[] _counters;
+        private readonly string[] _keys;
+
+        public CountingBody(IHttpResponseBodyFeature inner, bool stream, string[] keys)
         {
             _inner = inner;
             _stream = stream;
+            _keys = keys;
+            _counters = keys.Select(k => s_perStream.GetOrAdd(k, _ => new Counter())).ToArray();
             _body = new CountingStream(inner.Stream, this);
         }
 
@@ -226,6 +313,15 @@ public static partial class ServerMeter
         {
             Sent += bytes;
             Add(bytes, _stream);
+            for (int i = 0; i < _counters.Length; i++)
+            {
+                Counter c = _counters[i];
+                Interlocked.Add(ref c.Bytes, bytes);
+                Interlocked.Exchange(ref c.LastSentAt, s_clock.ElapsedMilliseconds);
+
+                // a long pause got it dropped: put it back while this response keeps sending
+                s_perStream.TryAdd(_keys[i], c);
+            }
         }
 
         public void DisableBuffering() => _inner.DisableBuffering();

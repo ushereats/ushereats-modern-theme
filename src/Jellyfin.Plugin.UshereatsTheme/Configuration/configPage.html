@@ -2434,6 +2434,19 @@
                         </div>
                     </div>
                     <div class="ue-section-container">
+                        <div class="ue-config-section-title">Server settings</div>
+                        <div class="ue-card">
+                            <p class="ue-field-description" style="margin:0 0 12px">Everything set in the dashboard, as plain text you can copy and paste anywhere: server info, general settings, every library with its options and folders, playback and transcoding, networking, metadata, branding, scheduled tasks, plugin repositories and every installed plugin with its settings. Passwords, keys and tokens are replaced with [hidden]. Users are counted, not listed.</p>
+                            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+                                <button type="button" id="tbSetRun" class="ue-builder-config-button">Collect settings</button>
+                                <button type="button" id="tbSetCopy" class="ue-builder-config-button" hidden>Copy</button>
+                                <button type="button" id="tbSetSave" class="ue-builder-config-button" hidden>Download</button>
+                                <span id="tbSetStatus" class="ue-field-description"></span>
+                            </div>
+                            <textarea id="tbSetOut" class="ue-input" rows="18" spellcheck="false" readonly hidden style="width:100%;box-sizing:border-box;margin-top:12px;font:12px/1.4 ui-monospace,monospace"></textarea>
+                        </div>
+                    </div>
+                    <div class="ue-section-container">
                         <div class="ue-config-section-title">Developer</div>
                         <div class="ue-card">
                             <div class="ue-input-group">
@@ -5995,6 +6008,92 @@
         var a = document.createElement("a");
         a.href = URL.createObjectURL(new Blob([out.value], { type: "application/json" }));
         a.download = "ushereats-speed-test-" + new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-") + ".json";
+        document.body.appendChild(a); a.click(); a.remove();
+      });
+    })();
+    </script>
+    <script>
+    (function serverSettingsExport() {
+      // Copies every dashboard setting as readable text (for pasting into a chat or a note). Read only.
+      var page = document.querySelector("#ueThemeConfigurationPage");
+      if (!page || !page.querySelector("#tbSetRun")) return;
+      var out = page.querySelector("#tbSetOut"), status = page.querySelector("#tbSetStatus"), btn = page.querySelector("#tbSetRun");
+      function say(t) { status.textContent = t; }
+      function get(path) {
+        return ApiClient.ajax({ type: "GET", url: ApiClient.getUrl(path), dataType: "json" }).then(function (r) { return r; }, function () { return undefined; });
+      }
+      var SECRET = /(password|passwd|secret|token|apikey|api_key|accesskey|privatekey|pin$|^key$|[a-z]key$)/i;
+      // and anything that works as a password by itself: webhook links (Discord, Slack...), links carrying a key or token
+      function hide(k, v) {
+        if (typeof v !== "string" || v === "") return false;
+        return SECRET.test(k) || /hook/i.test(k) || /\/api\/webhooks\/|hooks\.slack\.com|[?&](api_?key|apikey|token|key|secret|auth)=/i.test(v);
+      }
+      // plain text: "Key: value", nested things indented, empty values left out
+      function text(v, ind, key) {
+        var pad = new Array(ind + 1).join("  "), lines = [];
+        if (v === null || v === undefined || v === "") return lines;
+        if (Array.isArray(v)) {
+          if (!v.length) return lines;
+          if (v.every(function (x) { return x === null || typeof x !== "object"; })) { lines.push(pad + key + ": " + v.join(", ")); return lines; }
+          lines.push(pad + key + ":");
+          v.forEach(function (x, i) {
+            var name = x && (x.Name || x.name || x.Type || x.Id) ? (x.Name || x.name || x.Type || x.Id) : "#" + (i + 1);
+            lines = lines.concat(text(x, ind + 1, "- " + name));
+          });
+          return lines;
+        }
+        if (typeof v === "object") {
+          var keys = Object.keys(v).filter(function (k) { var x = v[k]; return !(x === null || x === undefined || x === "" || (Array.isArray(x) && !x.length)); });
+          if (!keys.length) return lines;
+          if (key) lines.push(pad + key + ":");
+          keys.forEach(function (k) { lines = lines.concat(hide(k, v[k]) ? [pad + (key ? "  " : "") + k + ": [hidden]"] : text(v[k], key ? ind + 1 : ind, k)); });
+          return lines;
+        }
+        lines.push(pad + key + ": " + String(v).replace(/\s*\n\s*/g, " "));
+        return lines;
+      }
+      function section(title, v) { var body = text(v, 0, ""); return body.length ? "== " + title + " ==\n" + body.join("\n") + "\n" : ""; }
+      btn.addEventListener("click", function () {
+        btn.disabled = true; out.hidden = true; say("Collecting…");
+        Promise.all([
+          get("System/Info"), get("System/Configuration"), get("System/Configuration/encoding"), get("System/Configuration/network"),
+          get("System/Configuration/metadata"), get("System/Configuration/xbmcmetadata"), get("System/Configuration/livetv"),
+          get("Branding/Configuration"), get("Library/VirtualFolders"), get("ScheduledTasks?isHidden=false"), get("Repositories"),
+          get("Plugins"), get("Users")
+        ]).then(function (r) {
+          var info = r[0] || {}, plugins = r[11] || [], users = r[12] || [];
+          var head = {
+            Server: info.ServerName, Version: info.Version, OS: info.OperatingSystemDisplayName || info.OperatingSystem, Architecture: info.SystemArchitecture,
+            Collected: new Date().toString(),
+            Users: users.length + " (" + users.filter(function (u) { return u.Policy && u.Policy.IsAdministrator; }).length + " admins, " + users.filter(function (u) { return u.Policy && u.Policy.IsDisabled; }).length + " disabled)"
+          };
+          var tasks = (r[9] || []).map(function (t) {
+            return { Name: t.Name, Category: t.Category, Triggers: (t.Triggers || []).map(function (g) {
+              return g.Type + (g.IntervalTicks ? " every " + Math.round(g.IntervalTicks / 36e9) / 10 + " h" : "") + (g.TimeOfDayTicks != null && g.Type === "DailyTrigger" ? " at " + new Date(g.TimeOfDayTicks / 1e4).toISOString().slice(11, 16) : "") + (g.DayOfWeek ? " on " + g.DayOfWeek : "");
+            }), LastResult: t.LastExecutionResult ? t.LastExecutionResult.Status + " (" + t.LastExecutionResult.EndTimeUtc + ")" : undefined };
+          });
+          return Promise.all(plugins.map(function (p) { return get("Plugins/" + p.Id + "/Configuration"); })).then(function (cfgs) {
+            var pl = plugins.map(function (p, i) { return { Name: p.Name, Version: p.Version, Status: p.Status, Settings: cfgs[i] }; });
+            var all = section("Server", head) + "\n" + section("General", r[1]) + "\n" + section("Libraries", r[8]) + "\n" +
+              section("Playback / transcoding", r[2]) + "\n" + section("Networking", r[3]) + "\n" + section("Metadata", r[4]) + "\n" +
+              section("NFO metadata", r[5]) + "\n" + section("Live TV", r[6]) + "\n" + section("Branding", r[7]) + "\n" +
+              section("Scheduled tasks", tasks) + "\n" + section("Plugin repositories", r[10]) + "\n" + section("Plugins", pl);
+            out.value = all.replace(/\n{3,}/g, "\n\n").trim() + "\n";
+            out.hidden = false;
+            page.querySelector("#tbSetCopy").hidden = false;
+            page.querySelector("#tbSetSave").hidden = false;
+            say("Done: " + out.value.split("\n").length + " lines.");
+          });
+        }).catch(function (e) { say("Couldn't collect: " + (e && e.message || e)); }).then(function () { btn.disabled = false; });
+      });
+      page.querySelector("#tbSetCopy").addEventListener("click", function () {
+        out.select();
+        (navigator.clipboard ? navigator.clipboard.writeText(out.value) : Promise.reject()).then(function () { say("Copied."); }, function () { document.execCommand("copy"); say("Copied."); });
+      });
+      page.querySelector("#tbSetSave").addEventListener("click", function () {
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([out.value], { type: "text/plain" }));
+        a.download = "jellyfin-settings-" + new Date().toISOString().slice(0, 10) + ".txt";
         document.body.appendChild(a); a.click(); a.remove();
       });
     })();

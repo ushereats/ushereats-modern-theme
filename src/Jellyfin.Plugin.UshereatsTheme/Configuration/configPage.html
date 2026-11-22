@@ -6035,10 +6035,10 @@
         if (Array.isArray(v)) {
           if (!v.length) return lines;
           if (v.every(function (x) { return x === null || typeof x !== "object"; })) { lines.push(pad + key + ": " + v.join(", ")); return lines; }
-          lines.push(pad + key + ":");
+          if (key) lines.push(pad + key + ":");
           v.forEach(function (x, i) {
             var name = x && (x.Name || x.name || x.Type || x.Id) ? (x.Name || x.name || x.Type || x.Id) : "#" + (i + 1);
-            lines = lines.concat(text(x, ind + 1, "- " + name));
+            lines = lines.concat(text(x, key ? ind + 1 : ind, "- " + name));
           });
           return lines;
         }
@@ -6069,7 +6069,7 @@
           };
           var tasks = (r[9] || []).map(function (t) {
             return { Name: t.Name, Category: t.Category, Triggers: (t.Triggers || []).map(function (g) {
-              return g.Type + (g.IntervalTicks ? " every " + Math.round(g.IntervalTicks / 36e9) / 10 + " h" : "") + (g.TimeOfDayTicks != null && g.Type === "DailyTrigger" ? " at " + new Date(g.TimeOfDayTicks / 1e4).toISOString().slice(11, 16) : "") + (g.DayOfWeek ? " on " + g.DayOfWeek : "");
+              return g.Type + (g.IntervalTicks ? " every " + (g.IntervalTicks >= 36e9 ? Math.round(g.IntervalTicks / 36e8) / 10 + " h" : Math.round(g.IntervalTicks / 6e8) + " min") : "") + (g.TimeOfDayTicks != null && g.Type === "DailyTrigger" ? " at " + new Date(g.TimeOfDayTicks / 1e4).toISOString().slice(11, 16) : "") + (g.DayOfWeek ? " on " + g.DayOfWeek : "");
             }), LastResult: t.LastExecutionResult ? t.LastExecutionResult.Status + " (" + t.LastExecutionResult.EndTimeUtc + ")" : undefined };
           });
           return Promise.all(plugins.map(function (p) { return get("Plugins/" + p.Id + "/Configuration"); })).then(function (cfgs) {

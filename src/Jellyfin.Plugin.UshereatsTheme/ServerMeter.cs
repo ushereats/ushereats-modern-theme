@@ -42,6 +42,10 @@ public static partial class ServerMeter
     [GeneratedRegex(@"DeviceId=""([^""]+)""", RegexOptions.IgnoreCase)]
     private static partial Regex AuthDeviceId();
 
+    // the item a stream belongs to (players that send neither a play session nor a device with the stream)
+    [GeneratedRegex(@"/(?:videos|audio)/([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})(?:/|$)", RegexOptions.IgnoreCase)]
+    private static partial Regex StreamItem();
+
     [GeneratedRegex(@"[0-9a-fA-F]{32}|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}")]
     private static partial Regex Guid();
 
@@ -145,6 +149,12 @@ public static partial class ServerMeter
         if (!string.IsNullOrEmpty(device))
         {
             keys.Add("dev:" + device);
+        }
+
+        Match item = StreamItem().Match(context.Request.Path.Value ?? string.Empty);
+        if (item.Success)
+        {
+            keys.Add("item:" + item.Groups[1].Value.Replace("-", string.Empty, StringComparison.Ordinal).ToLowerInvariant());
         }
 
         return keys.ToArray();

@@ -354,9 +354,15 @@ public static class ThemeAssets
                 // the dashboard home stays hidden until the skin has drawn it (at most 1.5 s), so it appears once
                 // instead of Jellyfin's boxes showing and then moving
                 js.Append("var hd=document.createElement(\"style\");hd.textContent=\"body.dashboardDocument:not(.tb-dash-ready) #dashboardPage .content-primary{visibility:hidden}\";document.head.appendChild(hd);");
+
+                // Jellyfin's own dashboard boxes are hidden under the theme's home, so their requests are never sent
+                // (only on the dashboard home, and only once the theme's home has drawn fine before)
+                js.Append("(function(){var X=XMLHttpRequest.prototype,O=X.open,S=X.send,R=/\\/(Sessions|System\\/ActivityLog\\/Entries|System\\/Info\\/Storage|ScheduledTasks|Items\\/Counts)(\\?|$)/i;"
+                    + "X.open=function(m,u){this.__tbU=u;return O.apply(this,arguments)};"
+                    + "X.send=function(){try{if(typeof this.__tbU===\"string\"&&R.test(this.__tbU)&&/^#\\/dashboard\\/?(\\?|$)/.test(location.hash)&&localStorage.getItem(\"tb-home-ok\")===\"1\")return}catch(e){}return S.apply(this,arguments)}})();");
             }
 
-            js.Append("function c(){if(done||!document.body.classList.contains(\"dashboardDocument\"))return;done=true;setTimeout(function(){document.body.classList.add(\"tb-dash-ready\")},1500);mo.disconnect();try{localStorage.setItem(\"tb-dash\",\"1\")}catch(e){}var s=document.createElement(\"script\");s.src=u;document.head.appendChild(s)}mo=new MutationObserver(c);mo.observe(document.body,{attributes:true,attributeFilter:[\"class\"]});c();"
+            js.Append("function c(){if(done||!document.body.classList.contains(\"dashboardDocument\"))return;done=true;setTimeout(function(){document.body.classList.add(\"tb-dash-ready\")},1500);mo.disconnect();try{localStorage.setItem(\"tb-dash\",\"1\")}catch(e){}var s=document.createElement(\"script\");s.src=u;s.onerror=function(){try{localStorage.removeItem(\"tb-home-ok\")}catch(e){}};document.head.appendChild(s)}mo=new MutationObserver(c);mo.observe(document.body,{attributes:true,attributeFilter:[\"class\"]});c();"
                 + "})();\n");
         }
 

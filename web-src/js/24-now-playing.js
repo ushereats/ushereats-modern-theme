@@ -53,7 +53,7 @@
     "#tb-np .np-card[data-m=dp]{border-left-color:#3ee0a1}",
     "#tb-np .np-card[data-m=ds],#tb-np .np-card[data-m=rm]{border-left-color:#4fb4ff}",
     "#tb-np .np-card[data-paused=true]{border-left-color:#ffbe55}",
-    "#tb-np .np-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(30px) saturate(1.3);opacity:.22;transform:scale(1.2);pointer-events:none}",
+    "#tb-np .np-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.2;pointer-events:none}",
     /* one row per stream: poster, title, who, progress, what happens to it */
     "#tb-np .np-main{position:relative;display:flex;gap:12px;padding:10px 12px;cursor:pointer;outline:none}",
     "#tb-np .np-main:focus-visible{box-shadow:inset 0 0 0 2px var(--np-acc)}",
@@ -222,7 +222,7 @@
     details += line("Engine", null, ti ? esc(ti.HardwareAccelerationType ? ti.HardwareAccelerationType.toUpperCase() : "Software (CPU)") + (ti.Framerate ? " • " + Math.round(ti.Framerate) + " fps" : "") : "Not applicable");
 
     var paused = !!ps.IsPaused;
-    var bg = img(it.Type === "Episode" ? it.SeriesId : it.Id, "Backdrop", it.Type === "Episode" ? (it.ParentBackdropImageTags || [])[0] : (it.BackdropImageTags || [])[0], { maxWidth: 480 }) || poster;
+    var bg = img(it.Type === "Episode" ? it.SeriesId : it.Id, "Backdrop", it.Type === "Episode" ? (it.ParentBackdropImageTags || [])[0] : (it.BackdropImageTags || [])[0], { maxWidth: 24, quality: 60 }) || "";
     var reasons = (ti && ti.TranscodeReasons) || [];
     // the one line that says what happens to the picture: "4K Dolby Vision HEVC → 1080p AV1"
     var vConv = ti && !ti.IsVideoDirect;
@@ -236,15 +236,15 @@
         '<div class="np-poster" style="' + (poster ? "background-image:url('" + esc(poster) + "')" : "") + '"></div>' +
         '<div class="np-info">' +
           '<div class="np-l1"><span class="np-name">' + esc(title) + '</span>' + (subTitle ? '<span class="np-sub">' + esc(subTitle) + "</span>" : "") +
-            '<span class="np-mbps" data-ps="' + esc(ps.PlaySessionId || "") + '" data-dev="' + esc(s.DeviceId || "") + '" title="What this stream is sending right now (measured on the server)">' + liveRate(ps.PlaySessionId, s.DeviceId) + "</span></div>" +
+            '<span class="np-mbps" data-k="' + esc(rateKeys(s).join(" ")) + '" title="What this stream is sending right now (measured on the server, last 10 seconds)">%%MBPS%%</span></div>' +
           '<div class="np-l2"><span class="np-av" style="' + (av ? "background-image:url('" + esc(av) + "')" : "") + '">' + (av ? "" : esc((s.UserName || "?").charAt(0).toUpperCase())) + "</span>" +
             '<span class="np-user">' + esc(s.UserName || "") + '</span><span class="np-dev">' + esc((s.Client || "") + " · " + (s.DeviceName || "")) + "</span></div>" +
-          '<div class="np-bar"><u style="width:' + Math.min(100, buffered) + '%"></u><i style="width:' + pct + '%"></i></div>' +
+          '<div class="np-bar"><u style="width:%%BUF%%%"></u><i style="width:%%PCT%%%"></i></div>' +
           '<div class="np-l3">' +
             '<span class="np-pill np-' + (paused ? "pa" : m) + '">' + (paused ? "❚❚ " : "") + LABEL[m] + "</span>" +
             (summary ? '<span class="np-chip' + (vConv ? " np-red" : "") + '">' + esc(summary) + "</span>" : "") +
             (reasons.length ? '<span class="np-warn" title="' + esc(reasons.map(function (r) { return REASONS[r] || words(r); }).join(" · ")) + '">⚠ ' + reasons.length + "</span>" : "") +
-            '<span class="np-time">' + clock(pos) + " / " + clock(run) + " · ends " + eta(Math.max(0, run - pos)) + "</span>" +
+            '<span class="np-time">%%TIME%%</span>' +
           "</div>" +
         "</div>" +
       "</div>" +
@@ -253,7 +253,8 @@
         '<dl class="np-details">' + details + "</dl>" +
       "</div>" +
     "</div>";
-    return { html: html, bitrate: bitrate };
+    // the card only changes when this part changes; progress, time and speed are updated in place
+    return { id: s.Id, key: html, buf: Math.min(100, buffered), pct: pct, time: clock(pos) + " / " + clock(run) + " · ends " + eta(Math.max(0, run - pos)), keys: rateKeys(s) };
   }
 
   function header(list) {
@@ -265,7 +266,7 @@
     return { counts: c, paused: paused };
   }
 
-  var root = null, timer = 0, busy = false, lastHtml = "", openCards = {};
+  var root = null, timer = 0, busy = false, openCards = {};
   function shell() {
     var r = document.createElement("section");
     r.id = ID;
@@ -283,7 +284,7 @@
       var main = e.target.closest && e.target.closest(".np-main");
       if (main) {
         var c = main.closest(".np-card"), id = c && c.getAttribute("data-sid");
-        if (id) { openCards[id] = !c.classList.contains("np-open"); c.classList.toggle("np-open", openCards[id]); lastHtml = ""; rememberHeight(); }
+        if (id) { openCards[id] = !c.classList.contains("np-open"); c.classList.toggle("np-open", openCards[id]); rememberHeight(); }
         return;
       }
       var b = e.target.closest && e.target.closest(".np-btn");
@@ -335,11 +336,14 @@
     if (root.parentNode !== h) h.insertBefore(root, h.firstChild);
     busy = true;
     Promise.resolve(api().getSessions({ ActiveWithinSeconds: 960 })).then(function (sessions) {
+      window.__tbDashSessions = { at: Date.now(), list: sessions || [] };   // the dashboard home reads these instead of asking again
       var playing = (sessions || []).filter(function (s) { return s.NowPlayingItem; });
+      itemCount = {};
+      playing.forEach(function (s) { itemCount[s.NowPlayingItem.Id] = (itemCount[s.NowPlayingItem.Id] || 0) + 1; });
       return Promise.all(playing.map(function (s) { return streamsFor(s).then(function (st) { return { s: s, st: st || [] }; }); }));
     }).then(function (list) {
       list.sort(function (a, b) { return (a.s.UserName || "").localeCompare(b.s.UserName || "") || (a.s.DeviceName || "").localeCompare(b.s.DeviceName || ""); });
-      var cards = list.map(function (x) { var r = card(x.s, x.st); x.bitrate = r.bitrate; return r.html; });
+      var cards = list.map(function (x) { return card(x.s, x.st); });
       var hd = header(list), c = hd.counts;
       var set = function (k, n) {
         var e = root.querySelector('.np-c[data-c="' + k + '"]'), b = e && e.querySelector("b"), t = (k === "pa" ? "⏸ " : "") + n;
@@ -350,30 +354,69 @@
       set("dp", c.dp); set("ds", c.ds); set("rm", c.rm); set("tc", c.tc); set("pa", hd.paused);
       var tot = root.querySelector(".np-total b");
       if (tot && tot.textContent !== String(list.length)) tot.textContent = String(list.length);
-      var html = list.length ? cards.join("") : '<div class="np-empty">Nothing is playing right now.</div>';
-      if (html !== lastHtml) { root.querySelector(".np-grid").innerHTML = html; lastHtml = html; }
+      draw(root.querySelector(".np-grid"), cards);
       if (root.style.minHeight) root.style.minHeight = "";
       rememberHeight();
     }).catch(function () {}).then(function () { busy = false; });
   }
 
+  // cards stay in the page: a card is only rebuilt when what it shows changes; progress, time and speed are set in place
+  function draw(grid, cards) {
+    if (!cards.length) {
+      if (!grid.querySelector(".np-empty")) grid.innerHTML = '<div class="np-empty">Nothing is playing right now.</div>';
+      return;
+    }
+    var empty = grid.querySelector(".np-empty");
+    if (empty) grid.removeChild(empty);
+    var old = {};
+    Array.prototype.forEach.call(grid.children, function (c) { old[c.getAttribute("data-sid")] = c; });
+    cards.forEach(function (c, i) {
+      var el = old[c.id];
+      delete old[c.id];
+      if (!el || el.__key !== c.key) {
+        var t = document.createElement("div");
+        t.innerHTML = c.key.replace("%%BUF%%", c.buf).replace("%%PCT%%", c.pct).replace("%%TIME%%", c.time).replace("%%MBPS%%", liveRate(c.keys));
+        var fresh = t.firstChild;
+        fresh.__key = c.key;
+        if (el) grid.replaceChild(fresh, el);
+        el = fresh;
+      } else {
+        var bar = el.querySelector(".np-bar"), tm = el.querySelector(".np-time");
+        bar.children[0].style.width = c.buf + "%";
+        bar.children[1].style.width = c.pct + "%";
+        if (tm.textContent !== c.time) tm.textContent = c.time;
+      }
+      if (grid.children[i] !== el) grid.insertBefore(el, grid.children[i] || null);
+    });
+    for (var k in old) grid.removeChild(old[k]);
+  }
+
   // live upload, measured by the plugin on the server (everything Jellyfin sends / just streams), every 5 s
-  var upTimer = 0, rates = {};
-  // what one stream is sending now, measured on the server (by its play session, else its device)
-  function liveRate(playSession, device) {
-    var v = (playSession && rates["ps:" + playSession]) != null ? rates["ps:" + playSession] : device ? rates["dev:" + device] : null;
-    return v == null ? "–" : (v >= 100 ? Math.round(v) : v.toFixed(1)) + " Mbps";
+  var upTimer = 0, rates = null, itemCount = {};
+  // which counters on the server belong to a session: its play session, its device, its item (only while one stream plays it)
+  function rateKeys(s) {
+    var ps = s.PlayState || {}, it = s.NowPlayingItem || {}, k = [];
+    if (ps.PlaySessionId) k.push("ps:" + ps.PlaySessionId);
+    if (s.DeviceId) k.push("dev:" + s.DeviceId);
+    if (it.Id && itemCount[it.Id] === 1) k.push("item:" + String(it.Id).replace(/-/g, "").toLowerCase());
+    return k;
+  }
+  // what one stream is sending now, measured on the server
+  function liveRate(keys) {
+    if (!rates) return "–";
+    for (var i = 0; i < keys.length; i++) if (rates[keys[i]] > 0) return mb(rates[keys[i]]) + " Mbps";
+    return "0.0 Mbps";
   }
   function mb(v) { return v == null ? "–" : String(v >= 100 ? Math.round(v) : v.toFixed(1)); }
   function upload() {
     if (document.hidden || !root || !api()) return;
-    api().getJSON(api().getUrl("UshereatsTheme/Meter", { seconds: 5 })).then(function (r) {
+    api().getJSON(api().getUrl("UshereatsTheme/Meter", { seconds: 10 })).then(function (r) {
       var a = root.querySelector(".np-up-all"), s = root.querySelector(".np-up-streams");
       if (a) a.textContent = mb(r.totalMbps);
       if (s) s.textContent = mb(r.streamsMbps);
       rates = r.perStream || {};
       root.querySelectorAll(".np-mbps").forEach(function (el) {
-        var t = liveRate(el.getAttribute("data-ps"), el.getAttribute("data-dev"));
+        var t = liveRate((el.getAttribute("data-k") || "").split(" ").filter(Boolean));
         if (el.textContent !== t) el.textContent = t;
       });
     }).catch(function () {});

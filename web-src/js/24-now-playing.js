@@ -63,7 +63,7 @@
     "#tb-np .np-l3 .np-chip:not(:first-of-type){flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}",
     "#tb-np .np-chip small{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.6}",
     "#tb-np .np-warn{display:inline-flex;align-items:center;height:22px;padding:0 7px;border-radius:7px;font:700 11px/1 var(--np-font);color:#ffd166;background:rgba(255,209,102,.1);border:1px solid rgba(255,209,102,.3);cursor:help;white-space:nowrap}",
-    "#tb-np .np-live{margin-left:auto;flex:0 0 auto;padding:2px 8px;border-radius:7px;font:700 12px/1.4 var(--np-font);color:var(--np-acc);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);white-space:nowrap;font-variant-numeric:tabular-nums}",
+    "#tb-np .np-mbps{margin-left:auto;flex:0 0 auto;padding:2px 8px;border-radius:7px;font:700 12px/1.4 var(--np-font);color:var(--np-acc);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);white-space:nowrap;font-variant-numeric:tabular-nums}",
     "#tb-np .np-time{margin-left:auto;font:600 11px/1 var(--np-font);color:rgba(255,255,255,.5);white-space:nowrap}",
     /* the rest only when a card is opened (click it), or for all with "Show details" */
     "#tb-np .np-more{position:relative;display:none;flex-direction:column;gap:8px;padding:0 12px 12px}",
@@ -226,7 +226,7 @@
         '<div class="np-poster" style="' + (poster ? "background-image:url('" + esc(poster) + "')" : "") + '"></div>' +
         '<div class="np-info">' +
           '<div class="np-l1"><span class="np-name">' + esc(title) + '</span>' + (subTitle ? '<span class="np-sub">' + esc(subTitle) + "</span>" : "") +
-            '<span class="np-live" data-ps="' + esc(ps.PlaySessionId || "") + '" data-dev="' + esc(s.DeviceId || "") + '" title="What this stream is sending right now (measured on the server)">' + liveRate(ps.PlaySessionId, s.DeviceId) + "</span></div>" +
+            '<span class="np-mbps" data-ps="' + esc(ps.PlaySessionId || "") + '" data-dev="' + esc(s.DeviceId || "") + '" title="What this stream is sending right now (measured on the server)">' + liveRate(ps.PlaySessionId, s.DeviceId) + "</span></div>" +
           '<div class="np-l2"><span class="np-av" style="' + (av ? "background-image:url('" + esc(av) + "')" : "") + '">' + (av ? "" : esc((s.UserName || "?").charAt(0).toUpperCase())) + "</span>" +
             '<span class="np-user">' + esc(s.UserName || "") + '</span><span class="np-dev">' + esc((s.Client || "") + " · " + (s.DeviceName || "")) + "</span></div>" +
           '<div class="np-bar"><u style="width:' + Math.min(100, buffered) + '%"></u><i style="width:' + pct + '%"></i></div>' +
@@ -352,7 +352,7 @@
       if (a) a.textContent = mb(r.totalMbps);
       if (s) s.textContent = mb(r.streamsMbps);
       rates = r.perStream || {};
-      root.querySelectorAll(".np-live").forEach(function (el) {
+      root.querySelectorAll(".np-mbps").forEach(function (el) {
         var t = liveRate(el.getAttribute("data-ps"), el.getAttribute("data-dev"));
         if (el.textContent !== t) el.textContent = t;
       });

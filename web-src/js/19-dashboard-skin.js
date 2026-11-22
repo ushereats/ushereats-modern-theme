@@ -1,14 +1,9 @@
 (function dashboardSkin() {
   // Admin dashboard restyle + upgrades. Jellyfin does NOT load Custom CSS on dashboard pages,
   // so this script injects its own styles. Everything is scoped to the admin area (body.dashboardDocument).
-  //  - Server hero card (name, online pulse, version, update/restart chips, live streams/devices/users)
-  //  - Stat tiles on one row, count-up numbers, "+X this week"
-  //  - Recently added poster strip
-  //  - Paths merged into one ring per drive (folders listed underneath)
-  //  - Activity: colour per event type, user pictures, repeats folded (x3), IPs blurred until hover
-  //  - Alerts: failed logins glow red with a weekly count per name
-  //  - Scan All Libraries fills up with live progress
-  //  - Restart / Shutdown: red panel + press-and-hold to confirm
+  //  - Home: our own layout (health strip, attention, library strip, recently added, storage, tasks, activity);
+  //    Jellyfin's own boxes there are hidden. Restart / Shutdown / Update all live in a Server menu, hold to confirm.
+  //  - Other admin pages: glass restyle, danger dialogs hold-to-confirm
   //  - Menu: Plugins section collapsible (remembered), icons per plugin
   if (window.__tbDash) return;
   window.__tbDash = true;
@@ -76,119 +71,7 @@
     var p = document.getElementById("dashboardPage");
     return p && !p.classList.contains("hide") ? p : null;
   }
-  var reduceMotion = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
 
-  // \u2550\u2550\u2550\u2550\u2550 1. Server hero \u2550\u2550\u2550\u2550\u2550
-  function serverPaper(p) {
-    var ic = $('svg[data-testid="RestartAltIcon"]', p);
-    var btn = ic && ic.closest("button");
-    var outer = btn && btn.parentElement && btn.parentElement.parentElement;
-    var paper = outer && outer.firstElementChild;
-    return paper && paper.classList.contains("MuiPaper-root") ? paper : null;
-  }
-  function doHero(p) {
-    var paper = serverPaper(p);
-    if (!paper) return;
-    var hero = paper.__tbHero;
-    if (!hero || hero.parentNode !== paper) {
-      setAttr(paper, "data-tb-hero", "");
-      hero = el("div", "tb-hero");
-      var left = el("div", "tb-hero-left");
-      hero.__name = el("div", "tb-hero-name", "");
-      hero.__chips = el("div", "tb-chips");
-      left.appendChild(hero.__name);
-      left.appendChild(hero.__chips);
-      hero.__stats = el("div", "tb-hero-stats");
-      hero.appendChild(left);
-      hero.appendChild(hero.__stats);
-      paper.appendChild(hero);
-      paper.__tbHero = hero;
-    }
-    kids(paper).forEach(function (c) { if (c !== hero) setAttr(c, "data-tb-hide", ""); });
-
-    // Drawn at once from last visit's numbers (the card has its final size from the first frame), then each part
-    // updated as it arrives: the users list alone takes seconds on a big server and used to hold the whole card back
-    var d = hero.__d;
-    if (!d) {
-      d = hero.__d = {};
-      try { var c = JSON.parse(localStorage.getItem("tb-dash-hero") || "null"); if (c) d = hero.__d = c; } catch (e) {}
-      draw(hero, d);
-    }
-    var a = api();
-    function upd() { return function (v) { if (v != null) { for (var x in v) d[x] = v[x]; draw(hero, d); try { localStorage.setItem("tb-dash-hero", JSON.stringify(d)); } catch (e) {} } }; }
-    cached("sysinfo", 60000, function () { return Promise.resolve(a.getSystemInfo()); })
-      .then(function (info) { info = info || {}; return { name: info.ServerName, version: info.Version, update: !!info.HasUpdateAvailable, restart: !!info.HasPendingRestart }; }).then(upd()).catch(noop);
-    cached("plugins", 300000, function () { return Promise.resolve(a.getInstalledPlugins()); })
-      .then(function (list) {
-        var me = (list || []).filter(function (x) { return String(x.Id || "").replace(/-/g, "") === "01c723cc57de4e19b13c514b644491a5"; })[0];
-        return me ? { theme: String(me.Version || "").replace(/\.0$/, "") } : null;
-      }).then(upd()).catch(noop);
-    cached("sessions", 10000, function () { return Promise.resolve(a.getSessions({ ActiveWithinSeconds: 960 })); })
-      .then(function (sessions) { return sessions ? { streams: sessions.filter(function (s) { return s.NowPlayingItem; }).length, devices: sessions.length } : null; }).then(upd()).catch(noop);
-    cached("users", 1800000, function () { return Promise.resolve(a.getUsers()); })
-      .then(function (users) { return users ? { users: users.length } : null; }).then(upd()).catch(noop);
-  }
-  function draw(hero, d) {
-    var key = [d.name, d.version, d.theme, d.update, d.restart, d.streams, d.devices, d.users].join("|");
-    if (hero.__key === key) return;
-    hero.__key = key;
-    hero.__name.textContent = d.name || "Jellyfin";
-    hero.__chips.textContent = "";
-    var on = el("span", "tb-chip on");
-    on.appendChild(el("i", "tb-dot"));
-    on.appendChild(document.createTextNode("Online"));
-    hero.__chips.appendChild(on);
-    if (d.version) hero.__chips.appendChild(el("span", "tb-chip", "v" + d.version));
-    if (d.theme) hero.__chips.appendChild(el("span", "tb-chip", "Ushereats Theme v" + d.theme));
-    if (d.update) hero.__chips.appendChild(el("span", "tb-chip acc", "Update available"));
-    if (d.restart) hero.__chips.appendChild(el("span", "tb-chip warn", "Restart pending"));
-    hero.__stats.textContent = "";
-    function stat(n, label, live) {
-      var s = el("div", "tb-hs" + (live && n > 0 ? " live" : ""));
-      s.appendChild(el("b", "", n == null ? "\u2013" : String(n)));   // a dash until the number is in (same size)
-      s.appendChild(el("span", "", label));
-      hero.__stats.appendChild(s);
-    }
-    stat(d.streams, "Streaming", true);
-    stat(d.devices, "Devices");
-    stat(d.users, "Users");
-  }
-
-  // \u2550\u2550\u2550\u2550\u2550 Scan progress on the Scan All Libraries button \u2550\u2550\u2550\u2550\u2550
-  var scanning = false, pollTimer = null, active = false;
-  function scanBtn() {
-    var p = page();
-    var i = p && $('svg[data-testid="RefreshIcon"]', p);
-    return i ? i.closest("button") : null;
-  }
-  function pollTasks() {
-    var b = scanBtn();
-    pollTimer = null;
-    if (!active) { scanning = false; return; }
-    var next = function () { if (active && !pollTimer) pollTimer = setTimeout(pollTasks, scanning ? 2000 : 8000); };
-    if (!b || document.hidden || !api()) { scanning = false; next(); return; }
-    Promise.resolve(api().getScheduledTasks({ isHidden: false })).then(function (tasks) {
-      var t = (tasks || []).filter(function (x) { return x.Key === "RefreshLibrary"; })[0];
-      var b2 = scanBtn();
-      if (!b2) return;
-      if (t && t.State === "Running") {
-        var pct = Math.max(0, Math.min(100, Math.round(t.CurrentProgressPercentage || 0)));
-        b2.style.setProperty("--p", pct + "%");
-        setAttr(b2, "data-tb-scan", " " + pct + "%");
-        scanning = true;
-      } else {
-        if (b2.hasAttribute("data-tb-scan")) b2.removeAttribute("data-tb-scan");
-        b2.style.removeProperty("--p");
-        scanning = false;
-      }
-    }).catch(noop).then(next);
-  }
-
-  // \u2550\u2550\u2550\u2550\u2550 2. Stat tiles \u2550\u2550\u2550\u2550\u2550
-  var TYPES = {
-    MovieIcon: ["Movie"], TvIcon: ["Series", "Episode"], MusicNoteIcon: ["MusicAlbum", "Audio"],
-    MusicVideoIcon: ["MusicVideo"], BookIcon: ["Book"], VideoLibraryIcon: ["BoxSet"]
-  };
   function weekly(type) {
     return cached("wk:" + type, 600000, function () {
       return Promise.resolve(api().getItems(uid(), {
@@ -200,114 +83,6 @@
         return n >= 100 ? "100+" : n;
       });
     });
-  }
-  function countUp(node, from, to) {
-    if (reduceMotion || from === to) { node.textContent = fmtNum(to); return; }
-    var t0 = null, dur = 900;
-    node.__anim = (node.__anim || 0) + 1;
-    var id = node.__anim;
-    function step(ts) {
-      if (node.__anim !== id) return;
-      if (t0 === null) t0 = ts;
-      var k = Math.min(1, (ts - t0) / dur);
-      var e = 1 - Math.pow(1 - k, 3);
-      node.textContent = fmtNum(Math.round(from + (to - from) * e));
-      if (k < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-  function tileIcons(p) { return $$(".MuiCard-root > .MuiStack-root > svg.MuiSvgIcon-fontSizeLarge", p); }
-  function doTiles(p) {
-    var icons = tileIcons(p);
-    if (!icons.length) return;
-    var grid = icons[0].closest(".MuiGrid-container");
-    if (grid) setAttr(grid, "data-tb-tiles", "");
-    icons.forEach(function (svg) {
-      var card = svg.closest(".MuiCard-root");
-      var item = card.closest(".MuiGrid-item");
-      var types = TYPES[svg.getAttribute("data-testid")] || [];
-      var boxes = kids(svg.parentElement).filter(function (c) { return c.tagName === "DIV"; });
-      if (item && boxes.length > 1) setAttr(item, "data-tb-two", "");
-      boxes.forEach(function (box, i) {
-        var h5 = $(".MuiTypography-h5", box);
-        if (!h5) return;
-        var raw = (h5.textContent || "").replace(/[^\d]/g, "");
-        var num = box.__tbNum;
-        if (raw === "") {                       // still loading
-          if (h5.hasAttribute("data-tb-hide")) h5.removeAttribute("data-tb-hide");
-          return;
-        }
-        if (!num || num.parentNode !== box) {
-          num = el("div", "tb-num");
-          box.insertBefore(num, h5.nextSibling);
-          box.__tbNum = num;
-        }
-        setAttr(h5, "data-tb-hide", "");
-        var v = parseInt(raw, 10);
-        if (num.__v !== v) { countUp(num, num.__v || 0, v); num.__v = v; }
-        var t = types[i];
-        // the "+X this week" line's space is there before its number arrives (the tiles grew when it came in)
-        if (t && (!box.__tbWeek || box.__tbWeek.parentNode !== box)) { box.__tbWeek = el("div", "tb-week", "\u00a0"); box.appendChild(box.__tbWeek); }
-        if (t && uid()) weekly(t).then(function (n) {
-          var w = box.__tbWeek;
-          if (!w || w.parentNode !== box) { w = el("div", "tb-week"); box.appendChild(w); box.__tbWeek = w; }
-          var txt = n ? "+" + n + " this week" : "\u00a0";   // nothing new: the line stays (empty), so the tile keeps its size
-          if (w.textContent !== txt) w.textContent = txt;
-        }).catch(noop);
-      });
-    });
-  }
-
-  // \u2550\u2550\u2550\u2550\u2550 Recently added strip \u2550\u2550\u2550\u2550\u2550
-  function doRecent(p) {
-    if (!RECENT_COUNT) return;
-    var icon = tileIcons(p)[0];
-    var grid = icon && icon.closest(".MuiGrid-container");
-    var box = grid && grid.parentElement;
-    if (!box || !uid()) return;
-    var wrap = box.__tbRecent;
-    if (!wrap || wrap.parentNode !== box) {
-      wrap = el("div", "tb-recent");
-      wrap.appendChild(el("div", "tb-sec-title", "Recently added"));
-      wrap.__sc = el("div", "tb-rscroll");
-      wrap.appendChild(wrap.__sc);
-      wrap.style.display = "none";
-      box.appendChild(wrap);
-      box.__tbRecent = wrap;
-    }
-    cached("recent", 300000, function () {
-      return getJSON("Users/" + uid() + "/Items/Latest", {
-        Limit: RECENT_COUNT, Fields: "PrimaryImageAspectRatio,ProductionYear", ImageTypeLimit: 1,
-        EnableImageTypes: "Primary", EnableUserData: false
-      });
-    }).then(function (items) {
-      items = items || [];
-      var key = items.map(function (i) { return i.Id; }).join(",");
-      if (wrap.__key === key) return;
-      wrap.__key = key;
-      var sc = wrap.__sc;
-      sc.textContent = "";
-      var sid = "";
-      try { sid = api().serverId(); } catch (e) {}
-      items.forEach(function (it) {
-        var a = el("a", "tb-rcard");
-        a.href = "#/details?id=" + encodeURIComponent(it.Id) + (sid ? "&serverId=" + encodeURIComponent(sid) : "");
-        var img = el("div", "tb-rimg");
-        var iid = null, tag = null;
-        if (it.ImageTags && it.ImageTags.Primary) { iid = it.Id; tag = it.ImageTags.Primary; }
-        else if (it.SeriesId && it.SeriesPrimaryImageTag) { iid = it.SeriesId; tag = it.SeriesPrimaryImageTag; }
-        if (iid) {
-          var url = api().getUrl("Items/" + iid + "/Images/Primary", { maxHeight: 330, quality: 90, tag: tag });
-          img.style.backgroundImage = "url(\"" + url.replace(/"/g, "%22") + "\")";
-        }
-        a.appendChild(img);
-        a.appendChild(el("div", "tb-rname", it.SeriesName || it.Name || ""));
-        var sub = it.ChildCount > 1 ? it.ChildCount + " new" : (it.ProductionYear ? String(it.ProductionYear) : (it.Type || ""));
-        a.appendChild(el("div", "tb-rsub", sub));
-        sc.appendChild(a);
-      });
-      wrap.style.display = items.length ? "" : "none";
-    }).catch(noop);
   }
 
   // \u2550\u2550\u2550\u2550\u2550 3. Drives (Paths) \u2550\u2550\u2550\u2550\u2550
@@ -352,171 +127,449 @@
     if (media > 1) { var n = 0; list.forEach(function (g) { if (!g.system && g.lib) g.title = "Media drive " + (++n); }); }
     return list;
   }
-  function driveCard(g) {
-    var pct = g.total > 0 ? Math.min(100, Math.round(g.used / g.total * 100)) : 0;
-    var col = pct >= 90 ? "#ff4d6d" : pct >= 80 ? "#ff9f43" : "var(--tbd-acc)";
-    var card = el("div", "tb-drive");
-    card.style.setProperty("--rc", col);
-    var top = el("div", "tb-drive-top");
-    var ring = el("div", "tb-ring");
-    var C = 2 * Math.PI * 36;
-    ring.innerHTML = '<svg viewBox="0 0 84 84" width="84" height="84" aria-hidden="true">' +
-      '<circle class="bg" cx="42" cy="42" r="36" fill="none" stroke-width="8"/>' +
-      '<circle class="fg" cx="42" cy="42" r="36" fill="none" stroke-width="8" stroke-dasharray="' + C.toFixed(2) +
-      '" stroke-dashoffset="' + C.toFixed(2) + '"/></svg>';
-    ring.appendChild(el("div", "tb-ring-pct", pct + "%"));
-    var info = el("div", "tb-drive-info");
-    info.appendChild(el("div", "tb-drive-name", g.title));
-    info.appendChild(el("div", "tb-drive-sub", g.dir));
-    var size = el("div", "tb-drive-size", fmtBytes(g.used) + " / " + fmtBytes(g.total) + "  ");
-    size.appendChild(el("i", "", fmtBytes(g.total - g.used) + " free"));
-    info.appendChild(size);
-    top.appendChild(ring);
-    top.appendChild(info);
-    card.appendChild(top);
-    var det = el("details");
-    det.appendChild(el("summary", "", g.items.length + (g.items.length === 1 ? " folder" : " folders")));
-    g.items.forEach(function (it) {
-      var row = el("div", "tb-folder");
-      row.appendChild(el("b", "", it.label));
-      row.appendChild(el("span", "", it.path));
-      det.appendChild(row);
-    });
-    card.appendChild(det);
-    var fg = ring.querySelector(".fg");
-    var target = (C * (1 - pct / 100)).toFixed(2);
-    if (reduceMotion) fg.style.strokeDashoffset = target;
-    else requestAnimationFrame(function () { requestAnimationFrame(function () { fg.style.strokeDashoffset = target; }); });
-    return card;
+
+  // ═════ Home: our own layout. Jellyfin's boxes on the dashboard home are hidden; everything here reads the API. ═════
+  //  health strip (server, CPU, memory, uptime, counts, Scan + a Server menu with the risky buttons)
+  //  attention (only what needs you: failed logins, full drives, pending restart, failed tasks)
+  //  library counts on one strip, recently added, storage bars, running tasks, activity one line per event
+  var esc = window.tbEsc;
+  var HOME_CSS = [
+    "#tb-home{--h-acc:var(--tbd-acc);--h-line:rgba(255,255,255,.08);--h-card:rgba(18,18,22,.55);--h-mut:rgba(255,255,255,.5);display:flex;flex-direction:column;gap:26px;color:#fff;font-family:var(--app-font,'Funnel Sans',Inter,sans-serif);margin-bottom:24px}",
+    "#tb-home *{box-sizing:border-box}",
+    "#tb-home .tbh-h{display:inline-flex;align-items:center;gap:8px;margin:0 0 12px;font:400 30px/1 var(--title-font,'Bebas Neue',sans-serif);letter-spacing:.04em;text-transform:uppercase;color:#fff;text-decoration:none}",
+    "#tb-home a.tbh-h::after{content:'\\203A';font:600 20px/1 var(--app-font,Inter,sans-serif);color:var(--h-acc);transition:transform .18s}",
+    "#tb-home a.tbh-h:hover::after{transform:translateX(4px)}",
+    "#tb-home .tbh-box{border:1px solid var(--h-line);border-radius:14px;background:var(--h-card);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}",
+    "#tb-home .tbh-cols{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:28px;align-items:start}",
+    "#tb-home .tbh-col{display:flex;flex-direction:column;gap:26px;min-width:0}",
+    /* health strip */
+    "#tb-home .tbh-health{display:flex;align-items:center;gap:22px;flex-wrap:wrap;padding:14px 20px;border:1px solid var(--h-line);border-radius:14px;background:radial-gradient(70% 160% at 0% 0%,rgba(var(--tbd-rgb),.16),transparent 60%),radial-gradient(60% 160% at 100% 100%,rgba(140,90,255,.12),transparent 60%),var(--h-card);position:relative;z-index:2}",
+    "#tb-home .tbh-info{display:flex;align-items:center;gap:22px;flex-wrap:wrap;min-width:0}",
+    "#tb-home .tbh-name{font:400 34px/1 var(--title-font,'Bebas Neue',sans-serif);letter-spacing:.04em}",
+    "#tb-home .tbh-chips{display:flex;gap:8px;flex-wrap:wrap}",
+    "#tb-home .tbh-chip{display:inline-flex;align-items:center;gap:7px;padding:4px 10px;border-radius:999px;font:700 12px/1.2 var(--app-font,Inter,sans-serif);color:rgba(255,255,255,.82);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}",
+    "#tb-home .tbh-chip.ok{color:#3ee0a1;background:rgba(62,224,161,.1);border-color:rgba(62,224,161,.35)}",
+    "#tb-home .tbh-chip.acc{color:var(--h-acc);background:rgba(var(--tbd-rgb),.12);border-color:rgba(var(--tbd-rgb),.4)}",
+    "#tb-home .tbh-chip.warn{color:#ffb347;background:rgba(255,159,67,.12);border-color:rgba(255,159,67,.4)}",
+    "#tb-home .tbh-sep{width:1px;height:30px;background:var(--h-line)}",
+    "#tb-home .tbh-stats{display:flex;gap:24px;flex-wrap:wrap}",
+    "#tb-home .tbh-st{display:flex;flex-direction:column;gap:4px}",
+    "#tb-home .tbh-st span{font:700 10.5px/1 var(--app-font,Inter,sans-serif);letter-spacing:.12em;text-transform:uppercase;color:var(--h-mut);white-space:nowrap}",
+    "#tb-home .tbh-st b{display:flex;align-items:center;gap:8px;font:800 17px/1.1 var(--app-font,Inter,sans-serif);font-variant-numeric:tabular-nums;white-space:nowrap}",
+    "#tb-home .tbh-st.live b{color:var(--h-acc)}",
+    "#tb-home .tbh-spark{display:inline-flex;align-items:flex-end;gap:2px;height:16px}",
+    "#tb-home .tbh-spark i{width:4px;min-height:2px;border-radius:1px;background:var(--h-acc);opacity:.85}",
+    "#tb-home .tbh-act{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}",
+    "#tb-home .tbh-status{font:600 12.5px/1.3 var(--app-font,Inter,sans-serif);color:var(--h-acc);max-width:340px}",
+    "#tb-home .tbh-btn,#tb-home .tbh-scan{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 16px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#fff;font:700 13px/1 var(--app-font,Inter,sans-serif);cursor:pointer;white-space:nowrap;transition:transform .16s,filter .16s,background-color .16s}",
+    "#tb-home .tbh-btn:hover{background:rgba(255,255,255,.1)}",
+    "#tb-home .tbh-scan{border:0;color:#111;background:linear-gradient(90deg,var(--h-acc) var(--p,100%),rgba(var(--tbd-rgb),.3) var(--p,100%));box-shadow:0 8px 26px -10px rgba(var(--tbd-rgb),.9)}",
+    "#tb-home .tbh-scan:hover{filter:brightness(1.08);transform:translateY(-1px)}",
+    "#tb-home .tbh-scan svg{width:16px;height:16px}",
+    "#tb-home .tbh-scan[data-tb-scan] svg{animation:tb-spin 1.1s linear infinite}",
+    "#tb-home .tbh-scan[data-tb-scan]::after{content:attr(data-tb-scan);font-variant-numeric:tabular-nums}",
+    "#tb-home .tbh-more{position:relative}",
+    "#tb-home .tbh-menu{position:absolute;right:0;top:44px;width:340px;padding:6px;border-radius:12px;background:rgba(20,20,26,.97);border:1px solid rgba(255,255,255,.12);box-shadow:0 24px 60px -10px rgba(0,0,0,.85);z-index:20}",
+    "#tb-home .tbh-menu[hidden]{display:none}",
+    "#tb-home .tbh-menu button{display:flex;flex-direction:column;align-items:flex-start;gap:3px;width:100%;padding:10px 12px;border:0;border-radius:8px;background:none;color:#fff;font:700 13.5px/1.2 var(--app-font,Inter,sans-serif);text-align:left;cursor:pointer}",
+    "#tb-home .tbh-menu button:hover,#tb-home .tbh-menu button:focus-visible{background:rgba(255,255,255,.07);outline:none}",
+    "#tb-home .tbh-menu button small{font:500 11.5px/1.3 var(--app-font,Inter,sans-serif);color:var(--h-mut)}",
+    "#tb-home .tbh-menu button.good small{color:var(--h-acc)}",
+    "#tb-home .tbh-menu button.red{color:#ff7b8f}",
+    "#tb-home .tbh-menu button:disabled{opacity:.45;cursor:default}",
+    "#tb-home .tbh-menu hr{border:0;border-top:1px solid var(--h-line);margin:4px 6px}",
+    /* attention */
+    "#tb-home .tbh-att[hidden]{display:none}",
+    "#tb-home .tbh-alist{display:flex;flex-direction:column;gap:6px}",
+    "#tb-home .tbh-al{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:12px;border:1px solid var(--h-line);background:var(--h-card);color:#fff;text-decoration:none}",
+    "#tb-home a.tbh-al:hover{background:rgba(255,255,255,.06)}",
+    "#tb-home .tbh-al > i{flex:0 0 30px;height:30px;border-radius:8px;display:grid;place-items:center;font:800 14px/1 var(--app-font,Inter,sans-serif);font-style:normal;color:var(--c);background:color-mix(in srgb,var(--c) 16%,transparent)}",
+    "#tb-home .tbh-al div{min-width:0}",
+    "#tb-home .tbh-al b{display:block;font:700 14px/1.3 var(--app-font,Inter,sans-serif)}",
+    "#tb-home .tbh-al span{display:block;font:500 12.5px/1.35 var(--app-font,Inter,sans-serif);color:var(--h-mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+    "#tb-home .tbh-al em{margin-left:auto;font:600 12.5px/1 var(--app-font,Inter,sans-serif);font-style:normal;color:var(--h-mut);white-space:nowrap}",
+    "#tb-home .tbh-al.red{border-color:rgba(255,80,100,.35);background:rgba(255,60,80,.07)}",
+    /* library strip */
+    "#tb-home .tbh-lib{display:flex;flex-wrap:wrap}",
+    "#tb-home .tbh-lib > div{flex:1 1 120px;position:relative;padding:16px 20px;border-right:1px solid var(--h-line)}",
+    "#tb-home .tbh-lib > div:last-child{border-right:0}",
+    "#tb-home .tbh-lib > div::before{content:'';position:absolute;left:20px;right:20px;top:0;height:2px;border-radius:2px;background:var(--c);opacity:.8}",
+    "#tb-home .tbh-lib span{display:block;font:700 10.5px/1 var(--app-font,Inter,sans-serif);letter-spacing:.12em;text-transform:uppercase;color:var(--h-mut)}",
+    "#tb-home .tbh-lib b{font:400 40px/1.1 var(--title-font,'Bebas Neue',sans-serif);letter-spacing:.02em;font-variant-numeric:tabular-nums}",
+    "#tb-home .tbh-lib em{margin-left:6px;font:800 11.5px/1 var(--app-font,Inter,sans-serif);font-style:normal;color:#3ee0a1}",
+    /* recently added */
+    "#tb-home .tb-rscroll{padding:4px 2px 10px}",
+    /* storage + tasks */
+    "#tb-home .tbh-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}",
+    "#tb-home .tbh-drv{padding:14px 18px}",
+    "#tb-home .tbh-drv + .tbh-drv{border-top:1px solid var(--h-line)}",
+    "#tb-home .tbh-drv .t{display:flex;justify-content:space-between;align-items:baseline;gap:12px}",
+    "#tb-home .tbh-drv .t b{font:400 22px/1 var(--title-font,'Bebas Neue',sans-serif);letter-spacing:.04em}",
+    "#tb-home .tbh-drv .t span{font:500 12px/1.3 var(--app-font,Inter,sans-serif);color:var(--h-mut);text-align:right}",
+    "#tb-home .tbh-drv .t span strong{color:#fff}",
+    "#tb-home .tbh-g{height:8px;margin-top:9px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}",
+    "#tb-home .tbh-g i{display:block;height:100%;border-radius:999px;background:var(--c);box-shadow:0 0 12px -2px var(--c)}",
+    "#tb-home .tbh-drv details{margin-top:9px}",
+    "#tb-home .tbh-drv summary{cursor:pointer;list-style:none;font:700 12px/1 var(--app-font,Inter,sans-serif);color:var(--h-acc)}",
+    "#tb-home .tbh-drv summary::-webkit-details-marker{display:none}",
+    "#tb-home .tbh-task{padding:14px 18px}",
+    "#tb-home .tbh-task + .tbh-task{border-top:1px solid var(--h-line)}",
+    "#tb-home .tbh-task .t{display:flex;justify-content:space-between;gap:12px;font:600 14px/1.3 var(--app-font,Inter,sans-serif)}",
+    "#tb-home .tbh-task .t span{color:var(--h-mut);font-variant-numeric:tabular-nums}",
+    "#tb-home .tbh-task .tbh-g{height:6px}",
+    "#tb-home .tbh-idle{padding:16px 18px;font:500 13px/1.4 var(--app-font,Inter,sans-serif);color:var(--h-mut)}",
+    /* activity */
+    "#tb-home .tbh-feed{padding:6px}",
+    "#tb-home .tbh-ev{display:grid;grid-template-columns:auto 24px minmax(0,1fr) auto;align-items:center;gap:10px;padding:8px 12px;border-radius:9px;color:#fff;text-decoration:none}",
+    "#tb-home .tbh-ev:nth-child(odd){background:rgba(255,255,255,.025)}",
+    "#tb-home .tbh-ev:hover{background:rgba(255,255,255,.07)}",
+    "#tb-home .tbh-ev time{min-width:44px;font:600 12.5px/1 var(--app-font,Inter,sans-serif);color:var(--h-mut);font-variant-numeric:tabular-nums;white-space:nowrap}",
+    "#tb-home .tbh-ev > i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font:800 10px/1 var(--app-font,Inter,sans-serif);font-style:normal;color:#111;background:var(--c) center/cover no-repeat;box-shadow:0 0 0 2px var(--c)}",
+    "#tb-home .tbh-ev p{margin:0;font:500 13.5px/1.3 var(--app-font,Inter,sans-serif);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}",
+    "#tb-home .tbh-ev p b{font-weight:700}",
+    "#tb-home .tbh-ev u{text-decoration:none;font:800 11px/1 var(--app-font,Inter,sans-serif);padding:3px 7px;border-radius:6px;color:var(--h-acc);background:rgba(var(--tbd-rgb),.14)}",
+    "#tb-home .tbh-ev u.red{color:#ff8a9a;background:rgba(255,70,90,.16)}",
+    /* confirm */
+    ".tbh-modal{position:fixed;inset:0;z-index:2000;display:grid;place-items:center;padding:16px;background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}",
+    ".tbh-dlg{width:min(440px,100%);padding:22px 22px 18px;border-radius:18px;color:#fff;background:linear-gradient(160deg,rgba(255,60,80,.18),rgba(16,16,20,.96) 55%);border:1px solid rgba(255,80,100,.32);box-shadow:0 30px 80px -20px rgba(0,0,0,.9);font-family:var(--app-font,'Funnel Sans',Inter,sans-serif)}",
+    ".tbh-dlg.calm{background:linear-gradient(160deg,rgba(var(--tbd-rgb),.16),rgba(16,16,20,.96) 55%);border-color:rgba(var(--tbd-rgb),.35)}",
+    ".tbh-dlg h3{margin:0 0 10px;font:400 30px/1 var(--title-font,'Bebas Neue',sans-serif);letter-spacing:.04em;color:#ff8a9a}",
+    ".tbh-dlg.calm h3{color:var(--tbd-acc)}",
+    ".tbh-dlg p{margin:0 0 8px;font:500 14px/1.45 var(--app-font,Inter,sans-serif);color:rgba(255,255,255,.85)}",
+    ".tbh-dlg .tbh-dlg-b{display:flex;justify-content:flex-end;gap:10px;margin-top:16px}",
+    ".tbh-dlg .tbh-btn{height:38px;padding:0 18px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;font:700 13.5px/1 var(--app-font,Inter,sans-serif);cursor:pointer}",
+    ".tbh-dlg.calm button[data-tb-hold]:not(#tb-x){background:rgba(var(--tbd-rgb),.18)!important;border-color:rgba(var(--tbd-rgb),.5)!important}",
+    ".tbh-dlg.calm .tb-hold-fill{background:linear-gradient(90deg,var(--tbd-acc),rgba(var(--tbd-rgb),.7))}",
+    /* portrait monitors, tablets, phones: one column, the order that matters first */
+    "@media (max-width:1199px){#tb-home .tbh-cols,#tb-home .tbh-col{display:contents}#tb-home .tbh-att{order:1}#tb-home .tbh-health{order:2}#tb-home .tbh-actsec{order:3}#tb-home .tbh-libsec{order:4}#tb-home .tbh-recsec{order:5}#tb-home .tbh-two{order:6}#tb-home .tbh-act{margin-left:0}}",
+    "@media (max-width:700px){#tb-home .tbh-two{grid-template-columns:1fr}#tb-home .tbh-health{gap:16px;padding:14px}#tb-home .tbh-stats{gap:16px}#tb-home .tbh-sep{display:none}#tb-home .tbh-lib > div{flex-basis:33%;border-right:0}#tb-home .tbh-menu{width:min(340px,calc(100vw - 32px))}#tb-home .tbh-h{font-size:24px}}"
+  ].join("\n");
+
+  var H = { sys: null, theme: null, users: null, proc: null, sessions: null, tasks: null, log: null, logUsers: {}, failed: null, storage: null, counts: null, weekly: {}, recent: null };
+  var home = null, cpuHist = [], scanAt = 0;
+  try { var saved = JSON.parse(localStorage.getItem("tb-dash-home") || "null"); if (saved) { H.sys = saved.sys; H.theme = saved.theme; H.users = saved.users; H.counts = saved.counts; } } catch (e) {}
+  function keep() { try { localStorage.setItem("tb-dash-home", JSON.stringify({ sys: H.sys, theme: H.theme, users: H.users, counts: H.counts })); } catch (e) {} }
+  function setHtml(node, html) { if (node && node.__html !== html) { node.innerHTML = html; node.__html = html; } }
+  function sid() { try { return api().serverId(); } catch (e) { return ""; } }
+  function realUser(e) { return !!e.UserId && !/^[0-]+$/.test(e.UserId); }
+  function playing() { return (H.sessions || []).filter(function (s) { return s.NowPlayingItem; }); }
+  function watchers() { return playing().filter(function (s) { return !(s.PlayState && s.PlayState.IsPaused); }).length; }
+  function people(n) { return n === 1 ? "1 person is watching" : n + " people are watching"; }
+  function hhmm(d) { try { return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }); } catch (e) { return d.getHours() + ":" + ("0" + d.getMinutes()).slice(-2); } }
+  function when(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return "";
+    if (new Date().toDateString() === d.toDateString()) return hhmm(d);
+    try { return d.toLocaleDateString([], { weekday: "short" }) + " " + hhmm(d); } catch (e) { return hhmm(d); }
   }
-  function doPaths(p) {
-    var list = null;
-    $$(".MuiList-root", p).some(function (l) {
-      if ($$(".MuiLinearProgress-root", l).length >= 3) { list = l; return true; }
-      return false;
-    });
-    if (!list) return;
-    var box = list.parentElement;
-    var wrap = box.__tbDrives;
-    if (!wrap || wrap.parentNode !== box) {
-      wrap = el("div", "tb-drives");
-      box.appendChild(wrap);
-      box.__tbDrives = wrap;
-    }
-    cached("storage", 60000, function () { return getJSON("System/Info/Storage"); }).then(function (s) {
-      var groups = s ? groupDrives(s) : [];
-      if (!groups.length) return;                   // keep Jellyfin's list if the data is missing
-      var key = groups.map(function (g) { return [g.title, g.used, g.total, g.items.length].join(":"); }).join("|");
-      setAttr(list, "data-tb-hide", "");
-      if (wrap.__key === key) return;
-      wrap.__key = key;
-      wrap.textContent = "";
-      groups.forEach(function (g) { wrap.appendChild(driveCard(g)); });
-    }).catch(noop);
+  function upFor(min) {
+    if (!(min >= 0)) return "–";
+    var d = Math.floor(min / 1440), h = Math.floor(min % 1440 / 60);
+    return d ? d + "d " + h + "h" : h ? h + "h " + (min % 60) + "m" : min + "m";
   }
 
-  // \u2550\u2550\u2550\u2550\u2550 4/5. Activity + Alerts \u2550\u2550\u2550\u2550\u2550
-  function typeColor(t) {
-    t = t || "";
-    if (/AuthenticationFailed|LockedOut|UserDeleted/.test(t)) return "#ff4d6d";
-    if (/AuthenticationSucceeded|SessionStarted|UserCreated/.test(t)) return "#3ee0a1";
-    if (/SessionEnded/.test(t)) return "#8a8f98";
-    if (/Playback/.test(t)) return "var(--tbd-acc)";
-    if (/Plugin|Update|Install/.test(t)) return "#b98bff";
-    if (/Password|Policy|Configuration/.test(t)) return "#ff9f43";
-    return "#4fc3ff";
-  }
-  var IP_RE = /IP address|\b\d{1,3}(?:\.\d{1,3}){3}\b|[0-9a-f]{1,4}(?::[0-9a-f]{0,4}){3,}/i;
-  // Badge rendered as CSS ::after on a data attribute — no appendChild, so the childList
-  // MutationObserver never fires for badge changes, breaking the doLog → fetch → DOM → MO loop.
-  function badge(row, text, cls) {
-    var link = $(".MuiListItemButton-root", row) || row;
-    if (!text) {
-      if (link.hasAttribute("data-tb-badge")) link.removeAttribute("data-tb-badge");
-      if (link.hasAttribute("data-tb-badge-cls")) link.removeAttribute("data-tb-badge-cls");
-      return;
+  var SCAN_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.65 6.35A7.96 7.96 0 0 0 12 4a8 8 0 1 0 7.73 10h-2.08A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>';
+  function shellHome() {
+    var r = el("div");
+    r.id = "tb-home";
+    r.innerHTML =
+      '<div class="tbh-health"><div class="tbh-info"></div><div class="tbh-act"><span class="tbh-status"></span>' +
+        '<button type="button" class="tbh-scan" title="Scan every library for new and changed files">' + SCAN_SVG + "<span>Scan all libraries</span></button>" +
+        '<div class="tbh-more"><button type="button" class="tbh-btn" aria-haspopup="true" aria-expanded="false">⋯ Server ▾</button>' +
+          '<div class="tbh-menu" role="menu" hidden>' +
+            '<button type="button" role="menuitem" class="good" data-a="upd-idle">Update all &amp; restart<small>Waits until nobody is watching (keep this page open)</small></button>' +
+            '<button type="button" role="menuitem" data-a="upd-now">Update all &amp; restart now<small data-w="now"></small></button><hr>' +
+            '<button type="button" role="menuitem" class="red" data-a="restart">Restart<small data-w="restart"></small></button>' +
+            '<button type="button" role="menuitem" class="red" data-a="shutdown">Shutdown<small data-w="shutdown"></small></button>' +
+          "</div></div></div></div>" +
+      '<div class="tbh-cols"><div class="tbh-col">' +
+        '<section class="tbh-att" hidden><a class="tbh-h" href="#/dashboard/activity?useractivity=false">Attention</a><div class="tbh-alist"></div></section>' +
+        '<section class="tbh-libsec"><a class="tbh-h" href="#/dashboard/libraries">Library</a><div class="tbh-box tbh-lib"></div></section>' +
+        '<section class="tbh-recsec" hidden><span class="tbh-h">Recently added</span><div class="tb-rscroll"></div></section>' +
+        '<div class="tbh-two"><section><span class="tbh-h">Storage</span><div class="tbh-box tbh-sto"></div></section>' +
+          '<section><a class="tbh-h" href="#/dashboard/tasks">Running tasks</a><div class="tbh-box tbh-tasks"><div class="tbh-idle">–</div></div></section></div>' +
+      '</div><div class="tbh-col">' +
+        '<section class="tbh-actsec"><a class="tbh-h" href="#/dashboard/activity?useractivity=true">Activity</a><div class="tbh-box tbh-feed"></div></section>' +
+      "</div></div>";
+    var q = function (s) { return r.querySelector(s); };
+    r.__ = { info: q(".tbh-info"), status: q(".tbh-status"), scan: q(".tbh-scan"), menuBtn: q(".tbh-more > .tbh-btn"), menu: q(".tbh-menu"),
+      att: q(".tbh-att"), alist: q(".tbh-alist"), lib: q(".tbh-lib"), rec: q(".tbh-recsec"), recSc: q(".tbh-recsec .tb-rscroll"), sto: q(".tbh-sto"), tasks: q(".tbh-tasks"), feed: q(".tbh-feed") };
+    var u = r.__;
+    u.scan.addEventListener("click", function () {
+      if (u.scan.hasAttribute("data-tb-scan")) return;
+      scanAt = Date.now();
+      post("Library/Refresh").then(function () { setAttr(u.scan, "data-tb-scan", " 0%"); u.scan.style.setProperty("--p", "0%"); loadTasks(); }, noop);
+    });
+    function menu(open) {
+      u.menu.hidden = !open;
+      u.menuBtn.setAttribute("aria-expanded", String(open));
+      if (open) { menuText(); loadSessions(); }
     }
-    if (link.getAttribute("data-tb-badge") !== text) link.setAttribute("data-tb-badge", text);
-    var c = cls || "";
-    if ((link.getAttribute("data-tb-badge-cls") || "") !== c) {
-      if (c) link.setAttribute("data-tb-badge-cls", c); else link.removeAttribute("data-tb-badge-cls");
-    }
+    u.menuBtn.addEventListener("click", function (e) { e.stopPropagation(); menu(u.menu.hidden); });
+    document.addEventListener("click", function (e) { if (!u.menu.hidden && !u.menu.contains(e.target)) menu(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !u.menu.hidden) menu(false); });
+    u.menu.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-a]");
+      if (!b || b.disabled) return;
+      menu(false);
+      var w = watchers(), a = b.getAttribute("data-a");
+      var who = w ? people(w) + ". They'll be cut off." : "Nobody is watching right now.";
+      if (a === "upd-idle") confirmBox(true, "Update all & restart", "Updates every plugin now. If anything was installed, the server restarts as soon as nobody is watching. Keep this page open until it's done.", "Hold to start", function () { updateAll(true); });
+      if (a === "upd-now") confirmBox(false, "Update all & restart now", "Updates every plugin, then restarts the server right away. " + who, "Hold to update", function () { updateAll(false); });
+      if (a === "restart") confirmBox(false, "Restart the server", who, "Hold to restart", function () { post("System/Restart").then(function () { setStatus("Restarting…"); setTimeout(waitForServer, 5000); }, noop); });
+      if (a === "shutdown") confirmBox(false, "Shut the server down", who + " It stays off until someone starts it again on the machine.", "Hold to shut down", function () { post("System/Shutdown").then(function () { setStatus("Server is shutting down"); }, noop); });
+    });
+    return r;
   }
-  function rowName(r) {
-    var t = $(".MuiListItemText-root", r);
-    var f = t && t.firstElementChild;
-    return f ? (f.textContent || "").trim() : "";
+  function menuText() {
+    if (!home) return;
+    var w = watchers(), t = w ? people(w) : "Nobody is watching";
+    $$("[data-w]", home.__.menu).forEach(function (s) { s.textContent = t + " · asks to confirm"; });
+    $$("button[data-a^=upd]", home.__.menu).forEach(function (b) { b.disabled = upd.busy; });
   }
-  function doLog(p, frag, isAlerts) {
-    var link = $('a[href*="' + frag + '"]', p);
-    var list = link && link.parentElement && kids(link.parentElement, "MuiList-root")[0];
-    if (!list) return;
-    var rows = kids(list, "MuiListItem-root");
-    if (!rows.length) return;
-    var names = rows.map(rowName);
-    var sig = names.join("\n");
-    if (list.__sig === sig && rows.every(function (r) { return r.__tbSeen; })) return;
-    list.__sig = sig;
-    var q = isAlerts
-      ? { startIndex: 0, limit: 200, minDate: new Date(Date.now() - 7 * DAY).toISOString(), hasUserId: false }
-      : { startIndex: 0, limit: 7, minDate: new Date(Date.now() - DAY).toISOString(), hasUserId: true };
-    // Cache with a 15 s floor so heroTimer re-runs (every 15 s) don't re-fetch when rows haven't changed.
-    // The sig + __tbSeen guard already prevents re-fetching when rows are stable; this TTL is a
-    // belt-and-suspenders cap in case Jellyfin re-renders the list while our data is still fresh.
-    var logKey = "actlog:" + (isAlerts ? "1" : "0");
-    cached(logKey, 15000, function () { return getJSON("System/ActivityLog/Entries", q); }).then(function (log) {
+  function confirmBox(calm, title, text, ok, fn) {
+    var d = el("div", "tbh-modal");
+    d.innerHTML = '<div class="tbh-dlg' + (calm ? " calm" : "") + '" role="dialog" aria-modal="true"><h3>' + esc(title) + "</h3><p>" + esc(text) + '</p><div class="tb-hold-hint">Press and hold the button to confirm</div>' +
+      '<div class="tbh-dlg-b"><button type="button" class="tbh-btn" data-x>Cancel</button><button type="button" data-tb-hold><span class="tb-hold-fill"></span>' + esc(ok) + "</button></div></div>";
+    function close() { if (d.parentNode) d.parentNode.removeChild(d); document.removeEventListener("keydown", key, true); }
+    function key(e) { if (e.key === "Escape") { e.stopPropagation(); close(); } }
+    d.addEventListener("click", function (e) { if (e.target === d || e.target.closest("[data-x]")) close(); });
+    document.addEventListener("keydown", key, true);
+    var b = $("button[data-tb-hold]", d);
+    bindHold(b);
+    b.addEventListener("click", function () { if (b.__tbOk) { close(); fn(); } });
+    document.body.appendChild(d);
+    b.focus();
+  }
+
+  // ── data ──
+  function loadSys() {
+    var a = api();
+    cached("sysinfo", 60000, function () { return Promise.resolve(a.getSystemInfo()); }).then(function (i) { H.sys = i ? { ServerName: i.ServerName, Version: i.Version, HasUpdateAvailable: !!i.HasUpdateAvailable, HasPendingRestart: !!i.HasPendingRestart } : H.sys; keep(); drawHealth(); drawAtt(); }, noop);
+    cached("plugins", 300000, function () { return Promise.resolve(a.getInstalledPlugins()); }).then(function (list) {
+      var me = (list || []).filter(function (x) { return String(x.Id || "").replace(/-/g, "") === "01c723cc57de4e19b13c514b644491a5"; })[0];
+      if (me) { H.theme = String(me.Version || "").replace(/\.0$/, ""); keep(); drawHealth(); }
+    }, noop);
+    cached("users", 1800000, function () { return Promise.resolve(a.getUsers()); }).then(function (u) { if (u) { H.users = u.length; keep(); drawHealth(); } }, noop);
+  }
+  function loadProc() {
+    getJSON("UshereatsTheme/Meter/Process").then(function (p) {
+      H.proc = p;
+      if (p && p.cpuPercent != null) { cpuHist.push(p.cpuPercent); if (cpuHist.length > 12) cpuHist.shift(); }
+      drawHealth();
+    }, noop);
+  }
+  function loadSessions() {
+    cached("sessions", 4000, function () { return Promise.resolve(api().getSessions({ ActiveWithinSeconds: 960 })); }).then(function (s) { H.sessions = s || []; drawHealth(); menuText(); }, noop);
+  }
+  function loadTasks() {
+    cached("tasks", 2500, function () { return getJSON("ScheduledTasks", { isHidden: false }); }).then(function (t) { H.tasks = t || []; drawTasks(); drawAtt(); }, noop);
+  }
+  function loadLog() {
+    cached("actlog", 15000, function () { return getJSON("System/ActivityLog/Entries", { startIndex: 0, limit: 60, minDate: new Date(Date.now() - 3 * DAY).toISOString() }); }).then(function (log) {
+      H.log = (log && log.Items) || [];
       var ids = {};
-      ((log && log.Items) || []).forEach(function (e) { if (e.UserId) ids[e.UserId] = 1; });
+      H.log.forEach(function (e) { if (realUser(e) && !H.logUsers[e.UserId]) ids[e.UserId] = 1; });
       return Promise.all(Object.keys(ids).map(function (id) {
-        return cached("user:" + id, 1800000, function () { return getJSON("Users/" + id); })["catch"](function () { return null; });
-      })).then(function (us) { return [log, us.filter(Boolean)]; });
-    }).then(function (r) {
-      if (list.__sig !== sig) return;
-      var entries = (r[0] && r[0].Items) || [];
-      var users = {};
-      (r[1] || []).forEach(function (u) { users[u.Id] = u; });
-      var byName = {};
-      entries.forEach(function (e) { var n = (e.Name || "").trim(); if (!byName[n]) byName[n] = e; });
-      var seen = {}, order = [];
-      rows.forEach(function (row, i) {
-        var e = entries[i];
-        if (!e || (e.Name || "").trim() !== names[i]) e = byName[names[i]];
-        if (!e) return;
-        var col = typeColor(e.Type);
-        row.style.setProperty("--tc", col);
-        setAttr(row, "data-tb-type", e.Type || "");
-        var av = $(".MuiAvatar-root", row);
-        if (av) {
-          av.style.background = col;
-          var u = e.UserId && users[e.UserId];
-          if (u && u.PrimaryImageTag && !av.__tbImg) {
-            var img = el("img", "tb-av-img");
-            img.alt = "";
-            img.src = api().getUrl("Users/" + u.Id + "/Images/Primary", { tag: u.PrimaryImageTag, maxWidth: 96, quality: 90 });
-            av.appendChild(img);
-            av.__tbImg = img;
-          }
-          if (!av.__tbDot) { av.__tbDot = el("span", "tb-type-dot"); av.appendChild(av.__tbDot); }
-        }
-        if (BLUR_IPS) $$(".MuiListItemText-root .MuiTypography-root", row).forEach(function (t, j) {
-          if (j > 0 && IP_RE.test(t.textContent || "")) setAttr(t, "data-tb-ip", "");
-        });
-        if (isAlerts) {
-          if (e.Type === "AuthenticationFailed") {
-            setAttr(row, "data-tb-failed", "");
-            var n = entries.filter(function (x) { return x.Type === e.Type && (x.Name || "").trim() === names[i]; }).length;
-            badge(row, "\u00d7" + n + " this week", "red");
-          }
-        } else {
-          var k = names[i];
-          if (seen[k]) { seen[k].n++; setAttr(row, "data-tb-fold", ""); }
-          else { seen[k] = { row: row, n: 1 }; order.push(k); if (row.hasAttribute("data-tb-fold")) row.removeAttribute("data-tb-fold"); }
-        }
-      });
-      order.forEach(function (k) { badge(seen[k].row, seen[k].n > 1 ? "\u00d7" + seen[k].n : null); });
-      rows.forEach(function (r) { r.__tbSeen = true; });
-    }).catch(function () { list.__sig = null; });
+        return cached("user:" + id, 1800000, function () { return getJSON("Users/" + id); }).then(function (u) { if (u) H.logUsers[id] = u; }, noop);
+      }));
+    }).then(drawFeed, noop);
+    cached("failed", 60000, function () { return getJSON("System/ActivityLog/Entries", { startIndex: 0, limit: 200, minDate: new Date(Date.now() - 7 * DAY).toISOString(), hasUserId: false }); }).then(function (log) {
+      H.failed = ((log && log.Items) || []).filter(function (e) { return e.Type === "AuthenticationFailed"; });
+      drawAtt();
+    }, noop);
   }
+  function loadStorage() {
+    cached("storage", 60000, function () { return getJSON("System/Info/Storage"); }).then(function (s) { H.storage = s ? groupDrives(s) : []; drawStorage(); drawAtt(); }, noop);
+  }
+  var LIB = [["Movies", "MovieCount", "Movie", "#ff5d73"], ["Series", "SeriesCount", "Series", "#4fc3ff"], ["Episodes", "EpisodeCount", "Episode", "#4fc3ff"],
+    ["Albums", "AlbumCount", "MusicAlbum", "#b98bff"], ["Songs", "SongCount", "Audio", "#b98bff"], ["Music videos", "MusicVideoCount", "MusicVideo", "#ff9f43"],
+    ["Books", "BookCount", "Book", "#ffd166"], ["Collections", "BoxSetCount", "BoxSet", "#3ee0a1"]];
+  function loadLibrary() {
+    if (!uid()) return;
+    cached("counts", 300000, function () { return Promise.resolve(api().getItemCounts(uid())); }).then(function (c) {
+      H.counts = c || {};
+      keep();
+      drawLib();
+      LIB.forEach(function (l) {
+        if ((H.counts[l[1]] || 0) > 0) weekly(l[2]).then(function (n) { H.weekly[l[2]] = n; drawLib(); }, noop);
+      });
+    }, noop);
+    if (RECENT_COUNT) cached("recent", 300000, function () {
+      return getJSON("Users/" + uid() + "/Items/Latest", { Limit: RECENT_COUNT, Fields: "PrimaryImageAspectRatio,ProductionYear", ImageTypeLimit: 1, EnableImageTypes: "Primary", EnableUserData: false });
+    }).then(function (items) { H.recent = items || []; drawRecent(); }, noop);
+  }
+
+  // ── drawing ──
+  function stat(label, value, live) { return '<div class="tbh-st' + (live ? " live" : "") + '"><span>' + esc(label) + "</span><b>" + value + "</b></div>"; }
+  function drawHealth() {
+    if (!home) return;
+    var s = H.sys || {}, p = H.proc || {}, ss = H.sessions, pl = playing();
+    var tc = pl.filter(function (x) { var ti = x.TranscodingInfo; return x.PlayState && x.PlayState.PlayMethod === "Transcode" && ti && !(ti.IsVideoDirect && ti.IsAudioDirect); }).length;
+    var max = Math.max.apply(null, cpuHist.concat([10]));
+    var spark = cpuHist.length > 1 ? '<span class="tbh-spark" aria-hidden="true">' + cpuHist.map(function (v) { return '<i style="height:' + Math.max(2, Math.round(v / max * 16)) + 'px"></i>'; }).join("") + "</span>" : "";
+    var html = '<div class="tbh-name">' + esc(s.ServerName || "Jellyfin") + '</div><div class="tbh-chips"><span class="tbh-chip ok"><i class="tb-dot"></i>Online</span>' +
+      (s.Version ? '<span class="tbh-chip">v' + esc(s.Version) + "</span>" : "") +
+      (H.theme ? '<span class="tbh-chip">Theme v' + esc(H.theme) + "</span>" : "") +
+      (s.HasUpdateAvailable ? '<span class="tbh-chip acc">Update available</span>' : "") +
+      (s.HasPendingRestart ? '<span class="tbh-chip warn">Restart pending</span>' : "") +
+      '</div><span class="tbh-sep"></span><div class="tbh-stats">' +
+      stat("Uptime", upFor(p.uptimeMinutes)) +
+      stat("CPU · Jellyfin", (p.cpuPercent != null ? Math.round(p.cpuPercent) + "%" : "–") + spark) +
+      stat("Memory", p.memoryMb ? (p.memoryMb >= 1024 ? (p.memoryMb / 1024).toFixed(1) + " GB" : p.memoryMb + " MB") : "–") +
+      stat("Transcoding", ss ? String(tc) : "–", tc > 0) +
+      stat("Devices", ss ? String(ss.length) : "–") +
+      stat("Users", H.users != null ? fmtNum(H.users) : "–") + "</div>";
+    setHtml(home.__.info, html);
+  }
+  function drawAtt() {
+    if (!home) return;
+    var items = [], s = H.sys || {};
+    if (H.failed && H.failed.length) {
+      var by = {}, order = [];
+      H.failed.forEach(function (e) {
+        var m = /from\s+(.+?)\s*$/i.exec(e.Name || ""), n = m ? m[1] : (e.Name || "?");
+        if (!by[n]) { by[n] = 0; order.push(n); }
+        by[n]++;
+      });
+      order.sort(function (a, b) { return by[b] - by[a]; });
+      items.push({ c: "#ff5d73", i: "!", red: true, href: "#/dashboard/activity?useractivity=false", t: H.failed.length + (H.failed.length === 1 ? " failed login" : " failed logins") + " this week",
+        s: order.slice(0, 4).map(function (n) { return n + " ×" + by[n]; }).join(" · ") + (order.length > 4 ? " · +" + (order.length - 4) + " more" : "") + " · last " + when(H.failed[0].Date), go: "View" });
+    }
+    (H.storage || []).forEach(function (g) {
+      var pct = g.total > 0 ? Math.round(g.used / g.total * 100) : 0;
+      if (pct >= 85) items.push({ c: pct >= 95 ? "#ff5d73" : "#ffb347", i: "▤", red: pct >= 95, t: g.title + " is " + pct + "% full", s: fmtBytes(g.total - g.used) + " free · " + g.dir });
+    });
+    if (s.HasPendingRestart) items.push({ c: "#ffb347", i: "↻", t: "Restart pending", s: "Something was installed or changed; it takes effect after a restart (Server menu)" });
+    if (s.HasUpdateAvailable) items.push({ c: "var(--tbd-acc)", i: "↑", t: "Jellyfin update available", s: "A newer server version is out" });
+    (H.tasks || []).forEach(function (t) {
+      var r = t.LastExecutionResult;
+      if (r && r.Status === "Failed" && Date.now() - Date.parse(r.EndTimeUtc) < DAY) items.push({ c: "#ff5d73", i: "×", red: true, href: "#/dashboard/tasks", t: "Task failed: " + t.Name, s: (r.ErrorMessage || "See the task's log") + " · " + when(r.EndTimeUtc), go: "Tasks" });
+    });
+    home.__.att.hidden = !items.length;
+    setHtml(home.__.alist, items.map(function (x) {
+      var tag = x.href ? 'a href="' + x.href + '"' : "div";
+      return "<" + tag + ' class="tbh-al' + (x.red ? " red" : "") + '" style="--c:' + x.c + '"><i>' + x.i + "</i><div><b>" + esc(x.t) + "</b><span>" + esc(x.s) + "</span></div>" + (x.go ? "<em>" + x.go + " ›</em>" : "") + "</" + (x.href ? "a" : "div") + ">";
+    }).join(""));
+  }
+  function drawLib() {
+    if (!home || !H.counts) return;
+    var c = H.counts;
+    setHtml(home.__.lib, LIB.filter(function (l, i) { return i < 3 || (c[l[1]] || 0) > 0; }).map(function (l) {
+      var w = H.weekly[l[2]];
+      return '<div style="--c:' + l[3] + '"><span>' + l[0] + "</span><b>" + fmtNum(c[l[1]] || 0) + "</b>" + (w ? "<em>+" + w + "</em>" : "") + "</div>";
+    }).join(""));
+  }
+  function drawRecent() {
+    if (!home || !H.recent) return;
+    var s = sid();
+    home.__.rec.hidden = !H.recent.length;
+    setHtml(home.__.recSc, H.recent.map(function (it) {
+      var iid = null, tag = null, url = "";
+      if (it.ImageTags && it.ImageTags.Primary) { iid = it.Id; tag = it.ImageTags.Primary; }
+      else if (it.SeriesId && it.SeriesPrimaryImageTag) { iid = it.SeriesId; tag = it.SeriesPrimaryImageTag; }
+      if (iid) url = api().getUrl("Items/" + iid + "/Images/Primary", { maxHeight: 330, quality: 90, tag: tag });
+      var sub = it.ChildCount > 1 ? it.ChildCount + " new" : (it.ProductionYear ? String(it.ProductionYear) : (it.Type || ""));
+      return '<a class="tb-rcard" href="#/details?id=' + encodeURIComponent(it.Id) + (s ? "&serverId=" + encodeURIComponent(s) : "") + '"><div class="tb-rimg"' +
+        (url ? ' style="background-image:url(&quot;' + esc(url) + '&quot;)"' : "") + '></div><div class="tb-rname">' + esc(it.SeriesName || it.Name || "") + '</div><div class="tb-rsub">' + esc(sub) + "</div></a>";
+    }).join(""));
+  }
+  function drawStorage() {
+    if (!home || !H.storage) return;
+    setHtml(home.__.sto, H.storage.length ? H.storage.map(function (g) {
+      var pct = g.total > 0 ? Math.min(100, Math.round(g.used / g.total * 100)) : 0;
+      var col = pct >= 95 ? "#ff4d6d" : pct >= 85 ? "#ffb347" : "#3ee0a1";
+      return '<div class="tbh-drv" style="--c:' + col + '"><div class="t"><b>' + esc(g.title) + "</b><span>" + esc(fmtBytes(g.used) + " / " + fmtBytes(g.total)) + " · <strong>" + esc(fmtBytes(g.total - g.used)) + " free</strong></span></div>" +
+        '<div class="tbh-g"><i style="width:' + pct + '%"></i></div><details><summary>' + pct + "% used · " + g.items.length + (g.items.length === 1 ? " folder" : " folders") + "</summary>" +
+        g.items.map(function (it) { return '<div class="tb-folder"><b>' + esc(it.label) + "</b><span>" + esc(it.path) + "</span></div>"; }).join("") + "</details></div>";
+    }).join("") : '<div class="tbh-idle">No drive info</div>');
+  }
+  function drawTasks() {
+    if (!home || !H.tasks) return;
+    var run = H.tasks.filter(function (t) { return t.State === "Running"; });
+    var scan = run.filter(function (t) { return t.Key === "RefreshLibrary"; })[0], b = home.__.scan;
+    if (scan) {
+      var pct = Math.max(0, Math.min(100, Math.round(scan.CurrentProgressPercentage || 0)));
+      b.style.setProperty("--p", pct + "%");
+      setAttr(b, "data-tb-scan", " " + pct + "%");
+    } else if (b.hasAttribute("data-tb-scan") && Date.now() - scanAt > 8000) {
+      b.removeAttribute("data-tb-scan");
+      b.style.removeProperty("--p");
+    }
+    var html;
+    if (run.length) {
+      html = run.map(function (t) {
+        var pct = Math.max(0, Math.min(100, Math.round(t.CurrentProgressPercentage || 0)));
+        return '<div class="tbh-task" style="--c:var(--tbd-acc)"><div class="t">' + esc(t.Name) + "<span>" + pct + '%</span></div><div class="tbh-g"><i style="width:' + pct + '%"></i></div></div>';
+      }).join("");
+    } else {
+      var lib = H.tasks.filter(function (t) { return t.Key === "RefreshLibrary"; })[0], last = lib && lib.LastExecutionResult;
+      html = '<div class="tbh-idle">Nothing running' + (last && last.EndTimeUtc ? " · last library scan " + esc(when(last.EndTimeUtc)) : "") + "</div>";
+    }
+    setHtml(home.__.tasks, html);
+  }
+  function evKind(t) {
+    t = t || "";
+    if (/AuthenticationFailed|LockedOut|UserDeleted/.test(t)) return ["#ff5d73", "!"];
+    if (/Playback/.test(t)) return ["var(--tbd-acc)", "▶"];
+    if (/SessionEnded/.test(t)) return ["#8a8f98", "○"];
+    if (/AuthenticationSucceeded|SessionStarted|UserCreated/.test(t)) return ["#3ee0a1", "●"];
+    if (/Plugin|Update|Install/.test(t)) return ["#b98bff", "✦"];
+    if (/Password|Policy|Configuration/.test(t)) return ["#ff9f43", "⚙"];
+    return ["#4fc3ff", "●"];
+  }
+  function drawFeed() {
+    if (!home || !H.log) return;
+    var groups = {}, rows = [];
+    H.log.forEach(function (e) {
+      var name = (e.Name || "").trim().replace(/(\S+) \1$/, "$1");   // "from iPhone iPhone" → "from iPhone"
+      if (groups[name]) { groups[name].n++; return; }
+      groups[name] = { e: e, name: name, n: 1 };
+      rows.push(groups[name]);
+    });
+    var html = rows.slice(0, 20).map(function (r) {
+      var e = r.e, k = evKind(e.Type), u = realUser(e) && H.logUsers[e.UserId], text = esc(r.name), pic = "";
+      if (u && u.Name && r.name.indexOf(u.Name) === 0) text = "<b>" + esc(u.Name) + "</b>" + esc(r.name.slice(u.Name.length));
+      if (u && u.PrimaryImageTag) pic = ";background-image:url(&quot;" + esc(api().getUrl("Users/" + u.Id + "/Images/Primary", { tag: u.PrimaryImageTag, maxWidth: 64, quality: 90 })) + "&quot;)";
+      var tip = BLUR_IPS ? (e.ShortOverview || "") : "";
+      return '<a class="tbh-ev" href="#/dashboard/activity?useractivity=' + (realUser(e) ? "true" : "false") + '"' + (tip ? ' title="' + esc(tip) + '"' : "") + "><time>" + esc(when(e.Date)) + '</time><i style="--c:' + k[0] + pic + '">' + (pic ? "" : k[1]) + "</i><p>" + text + "</p>" +
+        (r.n > 1 ? "<u" + (k[1] === "!" ? ' class="red"' : "") + ">×" + r.n + "</u>" : "<span></span>") + "</a>";
+    }).join("");
+    setHtml(home.__.feed, html || '<div class="tbh-idle">No activity in the last 3 days</div>');
+  }
+
+  // ── running ──
+  var homeTimer = 0, tickN = 0;
+  function tick() {
+    if (document.hidden || !home || !home.isConnected) return;
+    tickN++;
+    var running = (H.tasks || []).some(function (t) { return t.State === "Running"; });
+    if (running || tickN % 3 === 0) loadTasks();
+    if (tickN % 3 === 0) { loadSessions(); loadProc(); loadLog(); }
+    if (tickN % 12 === 0) { loadSys(); loadStorage(); }
+    if (tickN % 60 === 0) loadLibrary();
+  }
+  function doHome(p) {
+    var h = $(".content-primary", p);
+    if (!h) return;
+    if (!home) {
+      home = shellHome();
+      var hs = document.createElement("style");
+      hs.id = "tb-home-css";
+      hs.textContent = HOME_CSS;
+      document.head.appendChild(hs);
+      drawHealth(); drawLib(); drawAtt();
+    }
+    if (home.parentNode !== h) h.appendChild(home);
+    // Jellyfin's own boxes stay in the page (it keeps redrawing them) but aren't shown
+    kids(h).forEach(function (c) { if (c !== home && c.id !== "tb-np" && c.tagName !== "STYLE") setAttr(c, "data-tb-hide", ""); });
+    if (!homeTimer) {
+      homeTimer = setInterval(tick, 5000);
+      loadSys(); loadProc(); loadSessions(); loadTasks(); loadLog(); loadStorage(); loadLibrary();
+      setTimeout(loadProc, 2500);   // the CPU figure needs two readings
+    }
+  }
+  function stopHome() { if (homeTimer) { clearInterval(homeTimer); homeTimer = 0; } }
 
   // \u2550\u2550\u2550\u2550\u2550 8. Restart / Shutdown: press and hold \u2550\u2550\u2550\u2550\u2550
   function bindHold(b) {
@@ -561,48 +614,16 @@
     });
   }
 
-  // \u2550\u2550\u2550\u2550\u2550 Update all plugins, then restart (button next to Restart) \u2550\u2550\u2550\u2550\u2550
-  // Hold to confirm (like Restart). Runs Jellyfin's own "Update Plugins" task (it picks the right version of each
-  // plugin for this server), shows its progress on the button, then restarts the server if anything was installed
-  // and reloads this page once the server is back.
-  var upd = { busy: false, label: null };
-  var UPD_LABEL = "Update all & restart";
-  function restartBtn(p) {
-    var i = $('svg[data-testid="RestartAltIcon"]', p);
-    if (i) return i.closest("button");
-    var bs = $$("button", p);
-    for (var k = 0; k < bs.length; k++) if (/^\s*restart\s*$/i.test(bs[k].textContent || "")) return bs[k];
-    return null;
-  }
-  function doUpdateAll(p) {
-    var rb = restartBtn(p);
-    if (!rb || !rb.parentNode || rb.parentNode.querySelector("button[data-tb-upd]")) return;
-    var b = document.createElement("button");
-    b.type = "button";
-    b.className = rb.className;
-    b.setAttribute("data-tb-upd", "");
-    b.setAttribute("data-tb-hold", "");
-    b.title = "Hold to update every plugin, then restart the server";
-    b.appendChild(el("span", "tb-hold-fill"));
-    b.appendChild(el("span", "tb-upd-label", upd.label || UPD_LABEL));
-    rb.parentNode.insertBefore(b, rb.nextSibling);
-    bindHold(b);
-    b.addEventListener("click", function () { if (b.__tbOk) updateAll(); });
-  }
-  function setUpd(text, pct) {
-    upd.label = text;
-    $$("button[data-tb-upd]").forEach(function (b) {
-      var l = $(".tb-upd-label", b);
-      if (l && l.textContent !== text) l.textContent = text;
-      if (pct == null) { b.style.removeProperty("--p"); if (b.hasAttribute("data-tb-busy")) b.removeAttribute("data-tb-busy"); }
-      else { b.style.setProperty("--p", pct + "%"); setAttr(b, "data-tb-busy", ""); }
-    });
-  }
+  // ═════ Update all plugins, then restart (Server menu) ═════
+  // Runs Jellyfin's own "Update Plugins" task (it picks the right version of each plugin for this server), shows its
+  // progress next to the buttons, then restarts if anything was installed: right away, or once nobody is watching.
+  var upd = { busy: false };
+  function setStatus(text) { if (home) { var s = home.__.status; if (s.textContent !== text) s.textContent = text; } }
   function post(path) { var a = api(); return Promise.resolve(a.ajax({ type: "POST", url: a.getUrl(path) })); }
   function updDone(text) {
     upd.busy = false;
-    setUpd(text, null);
-    setTimeout(function () { if (!upd.busy) setUpd(UPD_LABEL, null); }, 6000);
+    setStatus(text);
+    setTimeout(function () { if (!upd.busy) setStatus(""); }, 8000);
   }
   function waitForServer() {
     // the server goes down, then comes back: reload once it answers again
@@ -615,10 +636,22 @@
       })["catch"](function () { if (++tries < 150) setTimeout(ping, 2000); });
     })();
   }
-  function updateAll() {
+  function restartWhenIdle() {
+    Promise.resolve(api().getSessions({ ActiveWithinSeconds: 960 })).then(function (s) {
+      H.sessions = s || [];
+      var w = watchers();
+      if (!w) {
+        setStatus("Nobody is watching — restarting…");
+        return post("System/Restart").then(function () { setTimeout(waitForServer, 5000); });
+      }
+      setStatus("Updates installed \u2014 restarts when nobody is watching (" + w + " still watching)");
+      setTimeout(restartWhenIdle, 20000);
+    })["catch"](function () { setTimeout(restartWhenIdle, 20000); });
+  }
+  function updateAll(waitIdle) {
     if (upd.busy || !api()) return;
     upd.busy = true;
-    setUpd("Checking for updates\u2026", 0);
+    setStatus("Checking for updates…");
     getJSON("ScheduledTasks").then(function (tasks) {
       var task = (tasks || []).filter(function (x) { return x.Key === "PluginUpdates"; })[0];
       if (!task) throw new Error("no task");
@@ -629,8 +662,7 @@
             getJSON("ScheduledTasks/" + task.Id).then(function (t) {
               if (t.State === "Running") {
                 seenRun = true;
-                var pct = Math.max(0, Math.min(100, Math.round(t.CurrentProgressPercentage || 0)));
-                setUpd("Updating plugins\u2026 " + pct + "%", pct);
+                setStatus("Updating plugins… " + Math.max(0, Math.min(100, Math.round(t.CurrentProgressPercentage || 0))) + "%");
               }
               if (t.State !== "Running" && (seenRun || Date.now() - t0 > 8000)) {
                 var res = t.LastExecutionResult || {};
@@ -645,14 +677,14 @@
     }).then(function () {
       return getJSON("System/Info");
     }).then(function (info) {
-      if (!info || !info.HasPendingRestart) return updDone("All plugins up to date \u2014 no restart needed");
-      setUpd("Restarting server\u2026", 100);
+      if (!info || !info.HasPendingRestart) return updDone("All plugins up to date — no restart needed");
+      if (waitIdle) return restartWhenIdle();
+      setStatus("Restarting server…");
       return post("System/Restart").then(function () { setTimeout(waitForServer, 5000); });
     })["catch"](function (e) {
-      updDone(e && e.message === "no task" ? "Couldn't find the Update Plugins task" : "Update failed \u2014 see Scheduled Tasks");
+      updDone(e && e.message === "no task" ? "Couldn't find the Update Plugins task" : "Update failed — see Scheduled Tasks");
     });
   }
-
   // \u2550\u2550\u2550\u2550\u2550 9. Menu: collapsible Plugins + icons \u2550\u2550\u2550\u2550\u2550
   var ICONS = [
     [/discord|notif|webhook|gotify|telegram/i, "M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"],
@@ -727,45 +759,37 @@
     });
   }
 
-  // \u2550\u2550\u2550\u2550\u2550 Run \u2550\u2550\u2550\u2550\u2550
+  // ═════ Run ═════
+  var active = false;
   function run() {
     if (!document.body.classList.contains("dashboardDocument") || !api()) return;
     try { doDrawer(); } catch (e) {}
-    var p = page();
-    if (!p) return;
-    try { doHero(p); } catch (e) {}
-    try { doTiles(p); } catch (e) {}
-    if (!document.body.classList.contains("tb-dash-ready")) document.body.classList.add("tb-dash-ready");
-    try { doRecent(p); } catch (e) {}
-    try { doPaths(p); } catch (e) {}
-    try { doLog(p, "useractivity=true", false); } catch (e) {}
-    try { doLog(p, "useractivity=false", true); } catch (e) {}
     try { doDialogs(); } catch (e) {}
-    try { doUpdateAll(p); } catch (e) {}
+    var p = page();
+    if (!p) { stopHome(); return; }
+    try { doHome(p); } catch (e) { console.error("[Ushereats Theme] dashboard home", e); }
+    if (!document.body.classList.contains("tb-dash-ready")) document.body.classList.add("tb-dash-ready");
   }
   var queued = false;
   function schedule() {
     if (queued) return;
     queued = true;
-    // before the next frame is drawn (it waited 200 ms, so Jellyfin's plain cards showed first and then moved)
+    // before the next frame is drawn, so Jellyfin's own boxes never flash
     requestAnimationFrame(function () { queued = false; run(); });
   }
-  var mo = new MutationObserver(schedule), heroTimer = null;
+  var mo = new MutationObserver(schedule);
   function enter() {
     if (active) return;
     active = true;
     if (!st.parentNode) document.head.appendChild(st);
     mo.observe(document.body, { childList: true, subtree: true });
-    heroTimer = setInterval(function () { if (page() && !document.hidden) run(); }, 15000);   // live numbers in the hero
-    if (!pollTimer) pollTimer = setTimeout(pollTasks, 1500);
     schedule();
   }
   function leave() {
     if (!active) return;
     active = false;
     mo.disconnect();
-    clearInterval(heroTimer);
-    if (pollTimer) { clearTimeout(pollTimer); pollTimer = null; }
+    stopHome();
     if (st.parentNode) st.parentNode.removeChild(st);
   }
   function check() {

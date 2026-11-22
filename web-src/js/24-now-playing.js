@@ -17,7 +17,7 @@
     "#tb-np .np-title{display:flex;align-items:center;gap:10px;font:400 30px/1 var(--title-font,'Bebas Neue',sans-serif);letter-spacing:.02em;margin-right:6px}",
     "#tb-np .np-title svg{width:26px;height:26px}",
     "#tb-np .np-pill{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;font:600 12px/1 var(--np-font);border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);white-space:nowrap}",
-    "#tb-np .np-live::before{content:'';width:6px;height:6px;border-radius:50%;background:#3ee0a1;box-shadow:0 0 8px #3ee0a1;animation:np-pulse 1.6s ease-in-out infinite}",
+    "#tb-np .np-dot{width:9px;height:9px;border-radius:50%;background:#3ee0a1;box-shadow:0 0 10px #3ee0a1;animation:np-pulse 1.6s ease-in-out infinite}",
     "@keyframes np-pulse{50%{opacity:.35}}",
     "#tb-np .np-dp{color:#3ee0a1;border-color:rgba(62,224,161,.35);background:rgba(62,224,161,.08)}",
     "#tb-np .np-ds{color:#4fb4ff;border-color:rgba(79,180,255,.35);background:rgba(79,180,255,.08)}",
@@ -28,13 +28,23 @@
     "#tb-np .np-btn{height:32px;padding:0 14px;border-radius:9px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;font:600 13px/1 var(--np-font);cursor:pointer}",
     "#tb-np .np-btn:hover{background:rgba(255,255,255,.12)}",
     "#tb-np .np-btn[aria-pressed=true]{border-color:var(--np-acc);color:var(--np-acc)}",
-    "#tb-np .np-stats{display:flex;align-items:center;gap:22px;flex-wrap:wrap;padding:12px 18px;margin-bottom:16px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:rgba(18,18,22,.55);font:600 12px/1 var(--np-font);letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55)}",
-    "#tb-np .np-stats b{font-size:16px;letter-spacing:0;color:#fff;margin-right:6px}",
-    "#tb-np .np-counts{display:flex;gap:22px;flex-wrap:wrap}",
-    "#tb-np .np-up{margin-left:auto;display:flex;align-items:center;gap:4px}",
-    "#tb-np .np-up i{font-style:normal;margin:0 8px;color:rgba(255,255,255,.3)}",
-    "#tb-np .np-up b{margin-right:6px}",
-    "#tb-np .np-up .np-up-all{color:var(--np-acc)}",
+    /* one bar: how many streams, how each plays, paused, and the upload they use */
+    "#tb-np .np-stats{display:flex;align-items:center;gap:12px 20px;flex-wrap:wrap;padding:12px 20px;margin-bottom:14px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:rgba(18,18,22,.55);font:600 14px/1 var(--np-font);color:rgba(255,255,255,.88)}",
+    "#tb-np .np-total{display:flex;align-items:baseline;gap:8px;font:700 11px/1 var(--np-font);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55)}",
+    "#tb-np .np-total b{font:400 34px/.9 var(--title-font,'Bebas Neue',sans-serif);letter-spacing:.02em;color:#fff}",
+    "#tb-np .np-sep{width:1px;height:26px;background:rgba(255,255,255,.1)}",
+    "#tb-np .np-c{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;cursor:help;transition:opacity .2s}",
+    "#tb-np .np-c b{font-size:17px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}",
+    "#tb-np .np-c i{width:9px;height:9px;border-radius:50%;background:var(--c)}",
+    "#tb-np .np-c[data-c=dp]{--c:#3ee0a1}#tb-np .np-c[data-c=ds]{--c:#4fb4ff}#tb-np .np-c[data-c=rm]{--c:#b98cff}#tb-np .np-c[data-c=tc]{--c:#ff6b8a}",
+    "#tb-np .np-c[data-c=pa],#tb-np .np-c[data-c=pa] b{color:#ffbe55}",
+    "#tb-np .np-c.np-z{opacity:.38}",
+    "#tb-np .np-up{margin-left:auto;display:flex;align-items:baseline;gap:8px;white-space:nowrap}",
+    "#tb-np .np-up b{font:800 22px/1 var(--np-font);font-variant-numeric:tabular-nums}",
+    "#tb-np .np-up small{font:700 11px/1 var(--np-font);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5)}",
+    "#tb-np .np-up small:first-of-type{margin-right:16px}",
+    "#tb-np .np-up .np-up-streams{color:var(--np-acc)}",
+    "#tb-np .np-up .np-up-all{color:rgba(255,255,255,.75)}",
     /* the dashboard's Devices list is not shown (and not fed, see the main script) */
     "#dashboardPage .MuiBox-root:has(> a[href*='dashboard/devices']){display:none!important}",
     "#tb-np .np-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:10px}",
@@ -260,10 +270,15 @@
     var r = document.createElement("section");
     r.id = ID;
     r.innerHTML =
-      '<div class="np-head"><div class="np-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z" fill="currentColor"/></svg>NOW PLAYING</div>' +
-      '<span class="np-pill np-live">LIVE</span><span class="np-pill np-dp" data-c="dp">0 Direct Play</span><span class="np-pill np-ds" data-c="ds">0 Direct Stream</span><span class="np-pill np-rm" data-c="rm">0 Remux</span><span class="np-pill np-tc" data-c="tc">0 Transcode</span><span class="np-pill np-pa" data-c="pa">0 Paused</span>' +
+      '<div class="np-head"><div class="np-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z" fill="currentColor"/></svg>NOW PLAYING<i class="np-dot" title="Live: updates every 3 seconds"></i></div>' +
       '<div class="np-tools"><button type="button" class="np-btn" data-t="compact">Compact</button><button type="button" class="np-btn" data-t="collapsed">Hide</button><button type="button" class="np-btn" data-t="show">Show details</button></div></div>' +
-      '<div class="np-stats"><span class="np-counts"><span><b>0</b>Active streams</span><span><b>0</b>Direct</span><span><b>0</b>Transcoding</span></span><span class="np-up" title="What Jellyfin is sending right now (everything) / just video and music streams. Updated every 5 seconds."><b class="np-up-all">–</b>Upload<i>/</i><b class="np-up-streams">–</b>Streams</span></div><div class="np-grid"></div>';
+      '<div class="np-stats"><span class="np-total"><b>0</b>Streams</span><i class="np-sep"></i>' +
+        '<span class="np-c np-z" data-c="dp" title="Direct Play: the file plays as it is, nothing changed"><i></i><b>0</b>Direct Play</span>' +
+        '<span class="np-c np-z" data-c="ds" title="Direct Stream: the picture is sent as it is, only the sound or subtitles are converted"><i></i><b>0</b>Direct Stream</span>' +
+        '<span class="np-c np-z" data-c="rm" title="Remux: picture and sound copied as they are, only the container changed"><i></i><b>0</b>Remux</span>' +
+        '<span class="np-c np-z" data-c="tc" title="Transcode: the picture is re-encoded (uses the GPU)"><i></i><b>0</b>Transcode</span><i class="np-sep"></i>' +
+        '<span class="np-c np-z" data-c="pa" title="Paused right now (counted in the types above too)"><b>⏸ 0</b>Paused</span>' +
+        '<span class="np-up" title="Streams: what all playback is sending now (the cards add up to it). Total: everything the server sends, artwork and pages included. Every 5 seconds."><b class="np-up-streams">–</b><small>Mbps streams</small><b class="np-up-all">–</b><small>Mbps total upload</small></span></div><div class="np-grid"></div>';
     r.addEventListener("click", function (e) {
       var main = e.target.closest && e.target.closest(".np-main");
       if (main) {
@@ -326,10 +341,15 @@
       list.sort(function (a, b) { return (a.s.UserName || "").localeCompare(b.s.UserName || "") || (a.s.DeviceName || "").localeCompare(b.s.DeviceName || ""); });
       var cards = list.map(function (x) { var r = card(x.s, x.st); x.bitrate = r.bitrate; return r.html; });
       var hd = header(list), c = hd.counts;
-      var set = function (k, n, label) { var e = root.querySelector('[data-c="' + k + '"]'); if (e) e.textContent = n + " " + label; };
-      set("dp", c.dp, "Direct Play"); set("ds", c.ds, "Direct Stream"); set("rm", c.rm, "Remux"); set("tc", c.tc, "Transcode"); set("pa", hd.paused, "Paused");
-      var counts = root.querySelector(".np-counts");
-      if (counts) counts.innerHTML = "<span><b>" + list.length + "</b>Active streams</span><span><b>" + (c.dp + c.ds + c.rm) + "</b>Direct</span><span><b>" + c.tc + "</b>Transcoding</span>";
+      var set = function (k, n) {
+        var e = root.querySelector('.np-c[data-c="' + k + '"]'), b = e && e.querySelector("b"), t = (k === "pa" ? "⏸ " : "") + n;
+        if (!b) return;
+        if (b.textContent !== t) b.textContent = t;
+        e.classList.toggle("np-z", !n);
+      };
+      set("dp", c.dp); set("ds", c.ds); set("rm", c.rm); set("tc", c.tc); set("pa", hd.paused);
+      var tot = root.querySelector(".np-total b");
+      if (tot && tot.textContent !== String(list.length)) tot.textContent = String(list.length);
       var html = list.length ? cards.join("") : '<div class="np-empty">Nothing is playing right now.</div>';
       if (html !== lastHtml) { root.querySelector(".np-grid").innerHTML = html; lastHtml = html; }
       if (root.style.minHeight) root.style.minHeight = "";
@@ -344,7 +364,7 @@
     var v = (playSession && rates["ps:" + playSession]) != null ? rates["ps:" + playSession] : device ? rates["dev:" + device] : null;
     return v == null ? "–" : (v >= 100 ? Math.round(v) : v.toFixed(1)) + " Mbps";
   }
-  function mb(v) { return v == null ? "–" : (v >= 100 ? Math.round(v) : v.toFixed(1)) + " Mbps"; }
+  function mb(v) { return v == null ? "–" : String(v >= 100 ? Math.round(v) : v.toFixed(1)); }
   function upload() {
     if (document.hidden || !root || !api()) return;
     api().getJSON(api().getUrl("UshereatsTheme/Meter", { seconds: 5 })).then(function (r) {

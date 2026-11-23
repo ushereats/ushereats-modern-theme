@@ -22,10 +22,13 @@ public class MeterController : ControllerBase
 
     /// <summary>What Jellyfin is sending right now (average of the last 5 s): everything, and streams only.</summary>
     [HttpGet]
-    public IActionResult Get([FromQuery] int seconds = 5)
+    public IActionResult Get([FromQuery] int seconds = 5, [FromQuery] int streamSeconds = 0)
     {
-        (double total, double streams) = ServerMeter.Rate(Math.Clamp(seconds, 1, 25));
-        return Ok(new { totalMbps = Math.Round(total * 8 / 1e6, 2), streamsMbps = Math.Round(streams * 8 / 1e6, 2), seconds, perStream = ServerMeter.StreamRates(Math.Clamp(seconds, 1, 25)) });
+        (double total, double streams) = ServerMeter.Rate(Math.Clamp(seconds, 1, 60));
+        // each stream over a longer stretch: players download in bursts (fill their buffer, then wait), so a few
+        // seconds often shows 0 for a stream that's playing fine
+        int per = Math.Clamp(streamSeconds > 0 ? streamSeconds : seconds, 1, 60);
+        return Ok(new { totalMbps = Math.Round(total * 8 / 1e6, 2), streamsMbps = Math.Round(streams * 8 / 1e6, 2), seconds, streamSeconds = per, perStream = ServerMeter.StreamRates(per) });
     }
 
     /// <summary>The server process: CPU use since the last ask, memory, threads.</summary>

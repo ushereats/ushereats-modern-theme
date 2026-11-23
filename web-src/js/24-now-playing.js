@@ -236,7 +236,7 @@
         '<div class="np-poster" style="' + (poster ? "background-image:url('" + esc(poster) + "')" : "") + '"></div>' +
         '<div class="np-info">' +
           '<div class="np-l1"><span class="np-name">' + esc(title) + '</span>' + (subTitle ? '<span class="np-sub">' + esc(subTitle) + "</span>" : "") +
-            '<span class="np-mbps" data-k="' + esc(rateKeys(s).join(" ")) + '" title="What this stream is sending right now (measured on the server, last 10 seconds)">%%MBPS%%</span></div>' +
+            '<span class="np-mbps" data-k="' + esc(rateKeys(s).join(" ")) + '" data-p="' + (paused ? 1 : 0) + '" title="What this stream is using of your upload: measured on the server, average of the last 30 seconds (players download in bursts)">%%MBPS%%</span></div>' +
           '<div class="np-l2"><span class="np-av" style="' + (av ? "background-image:url('" + esc(av) + "')" : "") + '">' + (av ? "" : esc((s.UserName || "?").charAt(0).toUpperCase())) + "</span>" +
             '<span class="np-user">' + esc(s.UserName || "") + '</span><span class="np-dev">' + esc((s.Client || "") + " · " + (s.DeviceName || "")) + "</span></div>" +
           '<div class="np-bar"><u style="width:%%BUF%%%"></u><i style="width:%%PCT%%%"></i></div>' +
@@ -254,7 +254,7 @@
       "</div>" +
     "</div>";
     // the card only changes when this part changes; progress, time and speed are updated in place
-    return { id: s.Id, key: html, buf: Math.min(100, buffered), pct: pct, time: clock(pos) + " / " + clock(run) + " · ends " + eta(Math.max(0, run - pos)), keys: rateKeys(s) };
+    return { id: s.Id, key: html, buf: Math.min(100, buffered), pct: pct, time: clock(pos) + " / " + clock(run) + " · ends " + eta(Math.max(0, run - pos)), keys: rateKeys(s), paused: paused };
   }
 
   function header(list) {
@@ -378,7 +378,7 @@
       delete old[c.id];
       if (!el || el.__key !== c.key) {
         var t = document.createElement("div");
-        t.innerHTML = c.key.replace("%%BUF%%", c.buf).replace("%%PCT%%", c.pct).replace("%%TIME%%", c.time).replace("%%MBPS%%", liveRate(c.keys));
+        t.innerHTML = c.key.replace("%%BUF%%", c.buf).replace("%%PCT%%", c.pct).replace("%%TIME%%", c.time).replace("%%MBPS%%", liveRate(c.keys, c.paused));
         var fresh = t.firstChild;
         fresh.__key = c.key;
         if (el) grid.replaceChild(fresh, el);
@@ -405,21 +405,21 @@
     return k;
   }
   // what one stream is sending now, measured on the server
-  function liveRate(keys) {
+  function liveRate(keys, paused) {
     if (!rates) return "–";
-    for (var i = 0; i < keys.length; i++) if (rates[keys[i]] > 0) return mb(rates[keys[i]]) + " Mbps";
-    return "0.0 Mbps";
+    for (var i = 0; i < keys.length; i++) if (rates[keys[i]] > 0.05) return mb(rates[keys[i]]) + " Mbps";
+    return paused ? "Paused" : "0.0 Mbps";
   }
   function mb(v) { return v == null ? "–" : String(v >= 100 ? Math.round(v) : v.toFixed(1)); }
   function upload() {
     if (document.hidden || !root || !api()) return;
-    api().getJSON(api().getUrl("UshereatsTheme/Meter", { seconds: 10 })).then(function (r) {
+    api().getJSON(api().getUrl("UshereatsTheme/Meter", { seconds: 10, streamSeconds: 30 })).then(function (r) {
       var a = root.querySelector(".np-up-all"), s = root.querySelector(".np-up-streams");
       if (a) a.textContent = mb(r.totalMbps);
       if (s) s.textContent = mb(r.streamsMbps);
       rates = r.perStream || {};
       root.querySelectorAll(".np-mbps").forEach(function (el) {
-        var t = liveRate((el.getAttribute("data-k") || "").split(" ").filter(Boolean));
+        var t = liveRate((el.getAttribute("data-k") || "").split(" ").filter(Boolean), el.getAttribute("data-p") === "1");
         if (el.textContent !== t) el.textContent = t;
       });
     }).catch(function () {});

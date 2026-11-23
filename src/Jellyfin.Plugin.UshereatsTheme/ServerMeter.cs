@@ -18,7 +18,7 @@ public static partial class ServerMeter
     private static long s_streamBytes;
 
     // one sample per second, last 30 s: (time, total bytes, stream bytes)
-    private static readonly (long At, long Total, long Streams)[] s_samples = new (long, long, long)[30];
+    private static readonly (long At, long Total, long Streams)[] s_samples = new (long, long, long)[61];   // one a second: up to a minute back
     private static int s_sampleIndex;
     private static Timer? s_timer;
     private static readonly object s_lock = new();
@@ -35,7 +35,7 @@ public static partial class ServerMeter
     private sealed class Counter
     {
         public long Bytes;
-        public readonly long[] Samples = new long[30];
+        public readonly long[] Samples = new long[61];
         public long LastSentAt = s_clock.ElapsedMilliseconds;
     }
 

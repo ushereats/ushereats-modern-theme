@@ -134,6 +134,7 @@ export function updateScrolledState(mount) {
   // Jellyfin detail pages scroll their page element instead of the window.
   const offset = Math.max(window.scrollY, ...Array.from(document.querySelectorAll('.page:not(.hide)'), (page) => page.scrollTop));
   mark(mount, mount.header, 'data-ue-scrolled', offset > 20 ? 'true' : 'false');
+  document.documentElement.classList.toggle('ue-header-scrolled', offset > 20);
 }
 
 function restoreOwnedAttributes(mount) {

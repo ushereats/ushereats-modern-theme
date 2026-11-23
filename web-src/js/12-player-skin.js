@@ -109,8 +109,24 @@
     document.documentElement.classList.add(ROOT_ON);
   }
 
+  // "controls hidden" as a class on the page root, from the controls bar's own class (the stylesheet used
+  // body:has(.videoOsdBottom-hidden), which made every change anywhere on every page re-check the whole page)
+  var idleMo = null, idleBar = null;
+  function watchIdle(page) {
+    var bar = page && page.querySelector(".videoOsdBottom");
+    if (bar === idleBar) return;
+    if (idleMo) idleMo.disconnect();
+    idleBar = bar;
+    var set = function () { document.documentElement.classList.toggle("tb-osd-idle", !!(idleBar && idleBar.classList.contains("videoOsdBottom-hidden"))); };
+    set();
+    if (!bar) return;
+    idleMo = new MutationObserver(set);
+    idleMo.observe(bar, { attributes: true, attributeFilter: ["class"] });
+  }
+
   function update() {
     var page = videoPage();
+    watchIdle(page);
     if (!page) {
       document.documentElement.classList.remove(ROOT_ON);
       shownId = null;
@@ -359,7 +375,7 @@
       "  html.tb-dock:not(.layout-tv) ." + LOGO_CLASS + " { left: 88px; top: 18px; }",
       // Skip Intro / Next sits above the dock instead of behind it
       "  html.tb-dock:not(.layout-tv) .skip-button-container { --skip-btn-bottom: 12.5em; }",
-      "  html.tb-dock:not(.layout-tv) body:has(.videoOsdBottom-hidden) .skip-button-container { transform: translateY(8em); }",
+      "  html.tb-dock.tb-osd-idle:not(.layout-tv) .skip-button-container { transform: translateY(8em); }",
       "}"
     ].join("\n");
   }

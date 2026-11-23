@@ -751,6 +751,21 @@
     var id = card.getAttribute("data-id");
     warmT = setTimeout(function () { preload(id); }, 150);
   }, { capture: true, passive: true });
+  // phones: a finger landing on a poster starts it straight away (the tap's click comes ~100 ms later);
+  // TVs and keyboards: resting the focus on a poster, like resting the pointer
+  document.addEventListener("pointerdown", function (e) {
+    if (!enabled || e.pointerType === "mouse") return;
+    var card = e.target && e.target.closest && e.target.closest(".card[data-id]");
+    if (card && TYPES[card.getAttribute("data-type")]) preload(card.getAttribute("data-id"));
+  }, { capture: true, passive: true });
+  document.addEventListener("focusin", function (e) {
+    if (!enabled) return;
+    var card = e.target && e.target.closest && e.target.closest(".card[data-id]");
+    clearTimeout(warmT);
+    if (!card || !TYPES[card.getAttribute("data-type")]) return;
+    var id = card.getAttribute("data-id");
+    warmT = setTimeout(function () { preload(id); }, 250);
+  }, true);
 
   // ── every way of opening a title opens the panel instead of the page ──
   // cards, the home banner's "More info", the show name under an episode, list rows, plain links to a title

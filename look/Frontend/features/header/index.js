@@ -13,6 +13,7 @@ const ROOT_LOADING_CLASS = 'ue-header-loading';
 const SOURCE_CACHE_KEY = 'ue:header-sources:v2';
 const SETTINGS_CHANGED_EVENT = 'ue:header-settings-changed';
 const WINDOW_EVENTS = ['hashchange', 'pageshow', 'popstate', 'resize'];
+const HEADER_PARTS = 'header, .skinHeader, .headerTop, .MuiAppBar-root, .MuiToolbar-root, .MuiDrawer-root, .mainDrawer';
 const PUBLIC_PATHS = new Set(['/addserver', '/selectserver', '/login', '/forgotpassword', '/forgotpasswordpin', '/wizardremoteaccess', '/wizardfinish', '/wizardlibrary', '/wizardsettings', '/wizardstart', '/wizarduser']);
 const DISABLED_SETTINGS = Object.freeze({ ...DEFAULT_SETTINGS, enabled: false });
 const PUBLIC_SETTINGS = Object.freeze(normalizeSettings({
@@ -382,13 +383,35 @@ function createHeaderFeature() {
       });
   }
 
+  // Ushereats: page changes that don't touch any header (rows of cards filling in, a pop-up opening...) can't
+  // change it, so they're skipped. Checking the header measured the page each time (a forced layout per change).
+  function touchesHeader(records) {
+    for (let i = 0; i < records.length; i += 1) {
+      const record = records[i];
+      const target = record.target.nodeType === 1 ? record.target : record.target.parentElement;
+      if (target && target.closest(HEADER_PARTS)) return true;
+      const lists = [record.addedNodes, record.removedNodes];
+      for (let l = 0; l < 2; l += 1) {
+        for (let k = 0; k < lists[l].length; k += 1) {
+          const node = lists[l][k];
+          if (node.nodeType === 1 && (node.matches(HEADER_PARTS) || node.querySelector(HEADER_PARTS))) return true;
+        }
+      }
+    }
+    return false;
+  }
+
   function watchHeader(event) {
+    if (!Array.isArray(event)) document.documentElement.classList.toggle('tb-in-video', /^#\/?video/i.test(window.location.hash));
+    const mounted = state.mount && dom.isConnected(state.mount.header);
+    if (Array.isArray(event) && mounted && state.settingsResolved && !touchesHeader(event)) return;
     const scopeChanged = syncServerScope();
     clearStaleDashboardMenu();
     if (isExcludedRoute()) {
       unmount();
       finishLoading();
-    } else if (event?.type !== 'scroll') captureHeaderSources(findSurface());
+    } else if (event?.type !== 'scroll' && !Array.isArray(event)) captureHeaderSources(findSurface());
+    // (page changes: the reconcile below, a moment later, reads the header's controls once for the whole burst)
     // Ushereats: no header yet, or Jellyfin swapped its header out: build ours right now, inside this
     // page-change callback, so the browser never paints a frame without it.
     const mount = state.mount;

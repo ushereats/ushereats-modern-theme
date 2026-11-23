@@ -110,6 +110,7 @@ function draw(header, userId, user) {
     element.appendChild(letter);
   }
   header.appendChild(element);
+  document.documentElement.classList.add('tb-has-avatar');
 }
 
 function refresh(header, userId) {
@@ -140,13 +141,16 @@ function refresh(header, userId) {
 /** Puts the avatar in the header (called whenever the header is built or checked). */
 export function syncAvatar(header) {
   const existing = document.getElementById(ID);
+  // Ushereats: plain classes on the page root instead of html:has() / body:has() in the stylesheet (those made
+  // every change anywhere on the page re-check the whole page)
+  document.documentElement.classList.toggle('tb-in-video', isVideoPage());
   if (!header || isVideoPage()) {
-    existing?.remove();
+    removeAvatar();
     return;
   }
   const userId = currentUserId();
   if (!userId) {
-    existing?.remove();
+    removeAvatar();
     return;
   }
   const user = readCache(userId);
@@ -156,6 +160,7 @@ export function syncAvatar(header) {
 
 export function removeAvatar() {
   document.getElementById(ID)?.remove();
+  document.documentElement.classList.remove('tb-has-avatar');
 }
 
 // ── the menu ──

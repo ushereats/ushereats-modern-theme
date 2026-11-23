@@ -81,8 +81,7 @@
 }
 
 /* not while a video plays */
-body:has(.videoPlayerContainer:not(.hide)) #tb-header-avatar,
-body:has(#videoOsdPage:not(.hide)) #tb-header-avatar {
+html.tb-in-video #tb-header-avatar {
     display: none !important;
 }
 
@@ -117,7 +116,7 @@ body:has(#videoOsdPage:not(.hide)) #tb-header-avatar {
 }
 
 @media (min-width: 900px) {
-    html:has([data-ue-header][data-ue-scrolled="true"]) #app-user-menu .MuiPaper-root {
+    html.ue-header-scrolled #app-user-menu .MuiPaper-root {
         top: 44px !important; /* shrunk header: 56px tall, 32px avatar */
     }
 }
@@ -260,7 +259,7 @@ body:has(#videoOsdPage:not(.hide)) #tb-header-avatar {
 
 @media (max-width: 899px) {
     /* your picture (top right) opens the user menu: no second user button in the floating bar */
-    html:has(#tb-header-avatar) [data-ue-header-proxy] [data-ue-header-proxy-item="jellyfin:user-menu"] {
+    html.tb-has-avatar [data-ue-header-proxy] [data-ue-header-proxy-item="jellyfin:user-menu"] {
         display: none !important;
     }
 }

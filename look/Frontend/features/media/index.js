@@ -89,7 +89,9 @@ function reconcile() {
   const activeCards = new Set();
   const missing = [];
   document.querySelectorAll(PAGE_SELECTOR).forEach((page) => {
-    if (!dom.isVisible(page)) return;
+    // Ushereats: Jellyfin hides the pages you're not on with the "hide" class; checking that is free, measuring
+    // the page (what isVisible does) forced a layout on every pass while rows were filling in
+    if (page.classList.contains('hide') || !dom.isConnected(page)) return;
 
     page.querySelectorAll('.card[data-id][data-type]').forEach((card) => {
       const id = card.dataset.id;

@@ -418,8 +418,9 @@
     }
     if (root.style.display) root.style.display = "";
     place(host);
-    html.classList.add("ue-hero-mounted");
-    html.classList.remove("tb-hero-boot");
+    // (only when it changes: adding a class that's already there is still a change of the page root)
+    if (!html.classList.contains("ue-hero-mounted")) html.classList.add("ue-hero-mounted");
+    if (html.classList.contains("tb-hero-boot")) html.classList.remove("tb-hero-boot");
     if (!timer) startTimer();
     handOver();
     if (!rectTimer && !rectSaved) rectTimer = setTimeout(saveRect, 3000);   // once the page has settled

@@ -5666,6 +5666,9 @@
           function label(n) { var e = n.nodeType === 1 ? n : n.parentElement; if (!e) return "?"; return (e.id ? "#" + e.id : e.tagName.toLowerCase()) + (e.className && typeof e.className === "string" ? "." + e.className.trim().split(/\s+/).slice(0, 2).join(".") : ""); }
           var mo = new w.MutationObserver(function (l) {
             l.forEach(function (m) {
+              // the live panels (Now Playing, the dashboard's numbers) update all the time on purpose: not "still drawing"
+              var tg = m.target.nodeType === 1 ? m.target : m.target.parentElement;
+              if (tg && tg.closest && tg.closest("#tb-np, #tb-home")) return;
               if (m.type === "childList") {
                 muts++; lastChange = now(); recent.push([lastChange, label(m.target)]);   // things added/removed = still building
                 if (m.target === w.document.head) Array.prototype.forEach.call(m.addedNodes, function (n) {
@@ -5721,6 +5724,7 @@
         var seen = {};
         res.forEach(function (e) {
           if (/^(img|css|link|script)$/.test(e.initiatorType) && !/\/(Items|Users|Sessions|System|UshereatsTheme\/(home|trending|Meter))/.test(e.name)) return;
+          if (/\/(Sessions\?ActiveWithinSeconds|UshereatsTheme\/Meter|ScheduledTasks)/.test(e.name)) return;   // live panels ask these on a timer
           var k = e.name.replace(location.origin, "").replace(/([?&])(tbBench|_|t)=[^&]*/g, "$1");
           seen[k] = (seen[k] || 0) + 1;
         });
@@ -5738,6 +5742,9 @@
         m.themeErrors = m.errors.filter(function (e) { return /Ushereats Theme|theme\.js|dashboard\.js/.test(e); });
         var root = (w.__tbRoot || []).filter(function (e) { return e.t >= since; });
         m.pageRootChanges = root.length;
+        // what it costs: the browser rechecks the page once per frame, however many changes that frame had
+        var fr = {}; root.forEach(function (e) { fr[Math.floor(e.t / 16)] = 1; });
+        m.pageRootFrames = Object.keys(fr).length;
       }
       // the theme's stylesheets: how many rules, and the kinds that make every change on the page slower
       function cssAudit(w) {
@@ -5986,7 +5993,7 @@
           (p.errors || []).filter(function (e) { return (p.themeErrors || []).indexOf(e) < 0; }).slice(0, 3).forEach(function (e) { flags.push("ERROR on " + p.page + ": " + e); });
           (p.perf && p.perf.failed || []).forEach(function (f) { flags.push("FAILED on " + p.page + ": " + f); });
           (p.perf && p.perf.duplicates || []).forEach(function (d) { flags.push("ASKED TWICE on " + p.page + ": " + d); });
-          if (p.pageRootChanges > 30) flags.push("PAGE ROOT CHURN: " + p.page + " changed the page root's class/style " + p.pageRootChanges + " times (each one rechecks the whole page)");
+          if (p.pageRootFrames > 15) flags.push("PAGE ROOT CHURN: " + p.page + " changed the page root's class/style in " + p.pageRootFrames + " separate frames (" + p.pageRootChanges + " changes; each frame rechecks the whole page)");
         });
         if (r.themeStyles && r.themeStyles.pageWideHas.length) flags.push("SLOW STYLE RULES: " + r.themeStyles.pageWideHas.length + " page-wide :has() rule(s): " + r.themeStyles.pageWideHas.join(" | "));
         (r.pages || []).forEach(function (p) { if (p.addedToHead && p.addedToHead.length) { var n = parseInt(p.addedToHead[0], 10); if (n > 30) flags.push("CHURN: " + p.page + " adds to the page head: " + p.addedToHead[0]); } });

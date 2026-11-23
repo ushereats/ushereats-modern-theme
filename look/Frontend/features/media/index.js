@@ -127,7 +127,7 @@ function schedule(delay) {
     return;
   }
 
-  document.documentElement.classList.add(ROOT_CLASS);
+  if (!document.documentElement.classList.contains(ROOT_CLASS)) document.documentElement.classList.add(ROOT_CLASS);
   state.timer = window.setTimeout(reconcile, typeof delay === 'number' ? delay : 40);
 }
 

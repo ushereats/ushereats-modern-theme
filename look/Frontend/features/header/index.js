@@ -125,7 +125,8 @@ function createHeaderFeature() {
   function finishLoading() {
     window.clearTimeout(state.loadingTimer);
     state.loadingTimer = 0;
-    document.documentElement.classList.remove(ROOT_BOOT_LOADING_CLASS, ROOT_LOADING_CLASS);
+    const cl = document.documentElement.classList;
+    if (cl.contains(ROOT_BOOT_LOADING_CLASS) || cl.contains(ROOT_LOADING_CLASS)) cl.remove(ROOT_BOOT_LOADING_CLASS, ROOT_LOADING_CLASS);
   }
 
   function prepareLoading() {
@@ -260,10 +261,17 @@ function createHeaderFeature() {
   }
 
   function unmount() {
+    // what the page root had before the theme, kept from a header swap: put back now
+    if (state.keptRoot) {
+      const kept = state.keptRoot;
+      state.keptRoot = null;
+      kept.styles.slice().reverse().forEach((r) => { if (r.value) r.element.style.setProperty(r.name, r.value, r.priority); else r.element.style.removeProperty(r.name); });
+      kept.attrs.slice().reverse().forEach((r) => { if (r.hadValue) r.element.setAttribute(r.name, r.value); else r.element.removeAttribute(r.name); });
+    }
     removeAvatar();
     cleanupMount();
     brand.removeFallback();
-    document.documentElement.classList.remove(ROOT_CLASS);
+    if (document.documentElement.classList.contains(ROOT_CLASS)) document.documentElement.classList.remove(ROOT_CLASS);
   }
 
   function reconcile() {
@@ -283,7 +291,17 @@ function createHeaderFeature() {
     }
 
     if (!surface) {
-      unmount();
+      // Ushereats: Jellyfin is swapping its header out (it does this a few times while pages open): ours comes back
+      // in a moment, so the page root keeps its values and its class meanwhile (each change there makes the
+      // browser recheck the whole page); a real removal (another kind of page, header off) still clears them
+      if (state.mount) {
+        const old = state.mount, root = document.documentElement;
+        state.keptRoot = { styles: old.ownedStyles.filter((r) => r.element === root), attrs: old.ownedAttributes.filter((r) => r.element === root) };
+        removeAvatar();
+        adapters[old.kind].cleanup(old, true);
+        state.mount = null;
+        brand.removeFallback();
+      } else if (!state.keptRoot) unmount();
       prepareLoading();
       return;
     }
@@ -293,7 +311,8 @@ function createHeaderFeature() {
       // Ushereats: a rebuild keeps the page root's values (see cleanup); what they were before the theme is
       // handed to the new header, so a later full removal still puts them back
       const old = state.mount, root = document.documentElement;
-      const kept = old ? { styles: old.ownedStyles.filter((r) => r.element === root), attrs: old.ownedAttributes.filter((r) => r.element === root) } : null;
+      const kept = old ? { styles: old.ownedStyles.filter((r) => r.element === root), attrs: old.ownedAttributes.filter((r) => r.element === root) } : state.keptRoot;
+      state.keptRoot = null;
       if (old) {
         adapters[old.kind].cleanup(old, true);
         state.mount = null;
@@ -304,7 +323,7 @@ function createHeaderFeature() {
         state.mount.ownedStyles.unshift(...kept.styles);
         state.mount.ownedAttributes.unshift(...kept.attrs);
       }
-      document.documentElement.classList.add(ROOT_CLASS);
+      if (!document.documentElement.classList.contains(ROOT_CLASS)) document.documentElement.classList.add(ROOT_CLASS);
       finishLoading();
     }
     adapter.refresh(state.mount);

@@ -304,9 +304,12 @@
     return r;
   }
   // remembered for the next visit: the main theme keeps this much room for the panel from the first frame
+  var lastH = 0;
   function rememberHeight() {
     if (!root || !root.isConnected) return;
     var h = Math.round(root.getBoundingClientRect().height) + 24;
+    if (h === lastH) return;   // unchanged: nothing written (a write on the page root rechecks the whole page)
+    lastH = h;
     try { localStorage.setItem("tb-np-h", String(h)); } catch (e) {}
     document.documentElement.style.setProperty("--tb-np-h", h + "px");
   }

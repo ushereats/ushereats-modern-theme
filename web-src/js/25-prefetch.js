@@ -170,9 +170,27 @@
         try { xhr.addEventListener("loadend", function () { try { window.dispatchEvent(new Event("tb-playback-stopped")); } catch (e) {} }); } catch (e) {}
       }
       if (/\/PlayedItems\//i.test(su)) clearHomeSwCache();
+    } else if (/(^|\/)config\.json(\?|$)/.test(String(url || ""))) {
+      // Jellyfin reads its config.json again for every page (6 times on a title page), a round trip each for people
+      // outside the house. Read once, then handed over from memory for 10 minutes (a fresh copy after that).
+      if (cfgUrl && Date.now() - cfgAt < 600000) {
+        var args = Array.prototype.slice.call(arguments);
+        args[1] = cfgUrl;
+        return open.apply(this, args);
+      }
+      var cx = this;
+      cx.addEventListener("load", function () {
+        try {
+          if (cx.status !== 200 || !cx.responseText || cx.responseText.charAt(0) !== "{") return;
+          if (cfgUrl) URL.revokeObjectURL(cfgUrl);
+          cfgUrl = URL.createObjectURL(new window.Blob([cx.responseText], { type: "application/json" }));
+          cfgAt = Date.now();
+        } catch (e) {}
+      });
     }
     return open.apply(this, arguments);
   };
+  var cfgUrl = null, cfgAt = 0;
 
   function webp() { return /webp/.test(window.__tbImgFmt || ""); }
   function fmt(clear) { return webp() ? "webp" : clear ? "" : "jpg"; }

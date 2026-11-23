@@ -142,7 +142,95 @@
     if (attached) { C.upgrade(ic); C.refreshScroller(sec); C.decorate(); }
     C.load(sec);
     if (r.type === "continue") addRemove(ic);
+    if (r.ranked) widen(sec);
   }
+
+  // ── Top 10: the #1 title as a wide card (its backdrop and logo, a few words, Play / Trailer / More info) ──
+  // Its details are kept from the last visit, so the card is wide from the first frame.
+  if (tbCfg("TopTenStyle", "badges") === "badges") html.classList.add("tb-rank-badges");
+  var wideInfo = (function () { try { return JSON.parse(localStorage.getItem("tbWide") || "null"); } catch (e) { return null; } })();
+  function ytId(it) {
+    var t = (it.RemoteTrailers || []).map(function (x) { return /(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/)|youtu\.be\/)([\w-]{11})/.exec(x.Url || ""); }).filter(Boolean)[0];
+    return t ? t[1] : "";
+  }
+  function wideData(it) {
+    return {
+      id: it.Id, name: it.Name || "", year: it.ProductionYear || "", rating: it.CommunityRating ? it.CommunityRating.toFixed(1) : "",
+      genres: (it.Genres || []).slice(0, 2).join(", "), cast: (it.People || []).filter(function (x) { return x.Type === "Actor"; }).slice(0, 3).map(function (x) { return x.Name; }).join(", "),
+      ov: it.Overview || "", bd: (it.BackdropImageTags || [])[0] || "", logo: (it.ImageTags && it.ImageTags.Logo) || "", yt: ytId(it)
+    };
+  }
+  function wideHtml(d) {
+    var api = window.ApiClient, bd = "", logo = "";
+    try {
+      if (d.bd) bd = api.getScaledImageUrl(d.id, { type: "Backdrop", maxWidth: 1280, quality: 90, tag: d.bd });
+      if (d.logo) logo = api.getScaledImageUrl(d.id, { type: "Logo", maxWidth: 600, quality: 90, tag: d.logo });
+    } catch (e) {}
+    var meta = [d.rating ? "<b>\u2605 " + C.esc(d.rating) + "</b>" : "", C.esc(String(d.year)), C.esc(d.genres), '<span class="tb-wide-cast">' + C.esc(d.cast) + "</span>"].filter(function (x) { return x && x !== '<span class="tb-wide-cast"></span>'; }).join(" \u00b7 ");
+    return '<div class="tb-wide-info"' + (bd ? ' style="background-image:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.5) 42%,transparent 75%),linear-gradient(0deg,rgba(0,0,0,.6),transparent 55%),url(&quot;' + C.esc(bd) + '&quot;)"' : "") + ">" +
+      (logo ? '<img class="tb-wide-logo" alt="' + C.esc(d.name) + '" src="' + C.esc(logo) + '">' : '<div class="tb-wide-name">' + C.esc(d.name) + "</div>") +
+      '<div class="tb-wide-meta">' + meta + "</div>" + (d.ov ? '<div class="tb-wide-ov">' + C.esc(d.ov) + "</div>" : "") +
+      '<div class="tb-wide-btns"><button type="button" class="itemAction tb-wide-play" data-action="play"><span class="material-icons play_arrow" aria-hidden="true"></span>Play</button>' +
+      (d.yt ? '<button type="button" class="tb-wide-tr" data-action="none" data-yt="' + C.esc(d.yt) + '">Trailer</button>' : "") +
+      '<span class="tb-wide-more">More info</span></div></div>';
+  }
+  function unwide(c) {
+    c.classList.remove("tb-wide");
+    var i = c.querySelector(".tb-wide-info");
+    if (i) i.parentNode.removeChild(i);
+    c.__tbWide = null;
+  }
+  function applyWide(sec, c, d) {
+    if (!c.parentNode || c.getAttribute("data-id") !== d.id) return;
+    var img = c.querySelector(".cardImageContainer");
+    if (!img) return;
+    var key = JSON.stringify(d);
+    if (c.__tbWide === key && img.querySelector(".tb-wide-info")) return;
+    var old = img.querySelector(".tb-wide-info");
+    if (old) old.parentNode.removeChild(old);
+    img.insertAdjacentHTML("beforeend", wideHtml(d));
+    c.__tbWide = key;
+    if (!c.classList.contains("tb-wide")) { c.classList.add("tb-wide"); if (sec.isConnected) C.refreshScroller(sec); }
+  }
+  function widen(sec) {
+    var ic = sec.querySelector(".itemsContainer");
+    if (!ic) return;
+    var c = null;
+    for (var k = ic.firstElementChild; k; k = k.nextElementSibling) {
+      if (!c && k.classList.contains("card") && k.hasAttribute("data-id")) c = k;
+      else if (k.classList.contains("tb-wide")) unwide(k);
+    }
+    if (!c) return;
+    var id = c.getAttribute("data-id"), api = window.ApiClient;
+    if (wideInfo && wideInfo.id === id) applyWide(sec, c, wideInfo);
+    if (!api || c.__tbWideAsked === id) return;
+    c.__tbWideAsked = id;
+    Promise.resolve(api.getItem(api.getCurrentUserId(), id)).then(function (it) {
+      var d = wideData(it);
+      wideInfo = d;
+      try { localStorage.setItem("tbWide", JSON.stringify(d)); } catch (e) {}
+      applyWide(sec, c, d);
+    }, function () { c.__tbWideAsked = null; });
+  }
+  // Trailer: YouTube's player in a box over the page (Escape, the ✕ or a click outside closes it)
+  function trailer(yt) {
+    var box = document.createElement("div");
+    box.className = "tb-trailer";
+    box.innerHTML = '<div class="tb-trailer-in"><iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(yt) + '?autoplay=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Trailer"></iframe>' +
+      '<button type="button" class="tb-trailer-x" aria-label="Close">\u2715</button></div>';
+    function close() { if (box.parentNode) box.parentNode.removeChild(box); document.removeEventListener("keydown", key, true); }
+    function key(e) { if (e.key === "Escape" || e.key === "Backspace" || e.keyCode === 461) { e.preventDefault(); e.stopPropagation(); close(); } }
+    box.addEventListener("click", function (e) { if (e.target === box || e.target.closest(".tb-trailer-x")) close(); });
+    document.addEventListener("keydown", key, true);
+    document.body.appendChild(box);
+  }
+  window.addEventListener("click", function (e) {
+    var b = e.target && e.target.closest && e.target.closest(".tb-wide-tr");
+    if (!b) return;
+    e.preventDefault();
+    e.stopPropagation();
+    trailer(b.getAttribute("data-yt"));
+  }, true);
 
   // ── Continue Watching: ✕ on a card removes it ──
   //  - part-watched: the saved position is cleared in Jellyfin, so every app (Moonfin, phones, TVs) drops it too

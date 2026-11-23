@@ -65,6 +65,9 @@ public class PluginConfiguration : BasePluginConfiguration
 
     /// <summary>Gets or sets how often (hours) TMDB's trending chart is read again. New titles are matched to it straight away.</summary>
     public int TrendingRefreshHours { get; set; } = 6;
+
+    /// <summary>Gets or sets how Top 10 rows show the rank: "badges" (small TOP n on each poster) or "numbers" (big outlined numbers). #1 is a wide card either way.</summary>
+    public string TopTenStyle { get; set; } = "badges";
     public string TmdbCountries { get; set; } = "AU,US";
     public string IconUrl { get; set; } = "https://i.imgur.com/ckrwhZ1.png";
 

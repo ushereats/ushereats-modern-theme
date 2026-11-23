@@ -57,7 +57,7 @@
     if (c === card) return;
     clearTimeout(timer);
     card = null;
-    if (!c || off() || !TYPES[c.getAttribute("data-type")] || c.closest("#tb-pop, #tb-pep, #tb-hc, .tb-studios")) return;
+    if (!c || off() || !TYPES[c.getAttribute("data-type")] || c.closest("#tb-pop, #tb-pep, #tb-hc, .tb-studios") || c.classList.contains("tb-wide")) return;
     card = c;
     // not while the mouse rests on the poster's own play button (the card would cover it): it waits until the
     // mouse moves off it, onto the rest of the poster

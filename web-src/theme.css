@@ -134,6 +134,77 @@ html body #searchPage .sectionTitleTextButton { font-family: var(--app-font) !im
 }
 
 
+/* ── Top 10: #1 as a wide card (backdrop, logo, a few words, Play / Trailer / More info) ── */
+.ranked-list .itemsContainer > .card.tb-wide {
+  width: calc(var(--rank-num) + var(--rank-poster) * 2.85 + var(--rank-gap)) !important;
+}
+.ranked-list .itemsContainer > .card.tb-wide .cardPadder { padding-bottom: calc(1.5 / 2.85 * 100%) !important; }
+.tb-wide-info {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; justify-content: flex-end; gap: calc(var(--rank-poster) * 0.045);
+  padding: calc(var(--rank-poster) * 0.11);
+  background: #111 center 30% / cover no-repeat;
+  color: #fff; text-align: left; white-space: normal; border-radius: inherit;
+}
+/* the text keeps its size; the logo gives way when the card is short */
+.tb-wide-info > * { flex: none; }
+.tb-wide-info > .tb-wide-logo {
+  flex: 0 1 auto; min-height: 0;
+  align-self: flex-start; max-width: 50%; max-height: calc(var(--rank-poster) * 0.5);
+  object-fit: contain; object-position: left bottom; margin-bottom: calc(var(--rank-poster) * 0.03);
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+}
+.tb-wide-name { font: 400 calc(var(--rank-poster) * 0.3)/1 var(--title-font, "Bebas Neue", sans-serif); letter-spacing: 0.02em; max-width: 60%; }
+.tb-wide-meta {
+  max-width: 62%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font: 600 calc(var(--rank-poster) * 0.075)/1.3 var(--app-font, Inter, sans-serif); color: rgba(255, 255, 255, 0.75);
+}
+.tb-wide-meta b { color: #3ee0a1; font-weight: 800; }
+.tb-wide-ov {
+  max-width: 58%; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical;
+  font: 500 calc(var(--rank-poster) * 0.082)/1.42 var(--app-font, Inter, sans-serif); color: rgba(255, 255, 255, 0.9);
+}
+.tb-wide-btns { display: flex; align-items: center; gap: calc(var(--rank-poster) * 0.05); margin-top: calc(var(--rank-poster) * 0.04); }
+.tb-wide-btns > * {
+  display: inline-flex; align-items: center; gap: 4px; height: calc(var(--rank-poster) * 0.22); margin: 0; padding: 0 calc(var(--rank-poster) * 0.11);
+  border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.22); background: rgba(255, 255, 255, 0.16); color: #fff;
+  font: 700 calc(var(--rank-poster) * 0.08)/1 var(--app-font, Inter, sans-serif); cursor: pointer; white-space: nowrap;
+  transition: background-color 0.15s, transform 0.15s;
+}
+.tb-wide-btns > *:hover { background: rgba(255, 255, 255, 0.28); transform: translateY(-1px); }
+.tb-wide-btns .tb-wide-play { background: #fff; color: #111; border-color: #fff; }
+.tb-wide-btns .tb-wide-play:hover { background: #e8e8e8; }
+.tb-wide-btns .material-icons { font-size: calc(var(--rank-poster) * 0.12); }
+@media (max-width: 700px) {
+  .tb-wide-cast { display: none; }
+  .tb-wide-meta, .tb-wide-ov { max-width: 80%; }
+  .tb-wide-ov { -webkit-line-clamp: 2; line-clamp: 2; }
+  .tb-wide-logo { max-height: calc(var(--rank-poster) * 0.36); }
+}
+
+/* Top 10 as small "TOP n" badges on the posters (setting: Top 10 style) instead of the big numbers */
+html.tb-rank-badges .ranked-list .itemsContainer > .card,
+html.tb-rank-badges .ranked-list .itemsContainer > .card:nth-child(n+10) { --rank-num: 0px; }
+html.tb-rank-badges .ranked-list .itemsContainer > .card .cardBox::before {
+  content: "TOP\A" counter(top-rank);
+  white-space: pre; top: 8px; left: 8px; right: auto; z-index: 6; transform: none;
+  padding: 4px 7px 5px; border-radius: 5px; background: #e50914; color: #fff; -webkit-text-stroke: 0;
+  font: 900 15px/1 var(--app-font, Inter, sans-serif); letter-spacing: 0; text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+html.tb-rank-badges .ranked-list .itemsContainer > .card:nth-child(n+10) .cardBox::before { transform: none; letter-spacing: 0; }
+/* on the wide #1 the badge sits top right, clear of the logo */
+html.tb-rank-badges .ranked-list .itemsContainer > .card.tb-wide .cardBox::before { left: auto; right: 8px; }
+
+/* Trailer box */
+.tb-trailer { position: fixed; inset: 0; z-index: 99999; display: grid; place-items: center; padding: 24px; background: rgba(0, 0, 0, 0.82); }
+.tb-trailer-in { position: relative; width: min(1280px, 100%, calc((100vh - 48px) * 16 / 9)); aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: #000; box-shadow: 0 30px 90px rgba(0, 0, 0, 0.8); }
+.tb-trailer-in iframe { width: 100%; height: 100%; border: 0; display: block; }
+.tb-trailer-x {
+  position: absolute; top: 10px; right: 10px; width: 38px; height: 38px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(0, 0, 0, 0.6); color: #fff; font: 700 16px/1 sans-serif;
+}
+
 /* ── Row scroll arrows (bare chevrons on hover) + screen-edge fade ── */
 .verticalSection:has(> .emby-scrollbuttons) {
   position: relative;

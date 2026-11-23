@@ -5,7 +5,7 @@ import { appRoute, catalogDescriptors, catalogSignature, chromeSignature, cloneC
 import { createLegacyAdapter } from './legacy.js';
 import { createModernAdapter } from './modern.js';
 import { DEFAULT_SETTINGS, normalizeSettings, settingsSignature } from './settings.js';
-import { findSurface, layoutMode } from './shared.js';
+import { findSurface, layoutMode, updateScrolledState } from './shared.js';
 
 const ROOT_BOOT_LOADING_CLASS = 'ue-header-boot-loading';
 const ROOT_CLASS = 'ue-header-mounted';
@@ -290,9 +290,20 @@ function createHeaderFeature() {
 
     const adapter = adapters[surface.kind];
     if (!state.mount || state.mount.kind !== surface.kind || adapter.needsReplacement(state.mount, surface, state.settings)) {
-      cleanupMount();
+      // Ushereats: a rebuild keeps the page root's values (see cleanup); what they were before the theme is
+      // handed to the new header, so a later full removal still puts them back
+      const old = state.mount, root = document.documentElement;
+      const kept = old ? { styles: old.ownedStyles.filter((r) => r.element === root), attrs: old.ownedAttributes.filter((r) => r.element === root) } : null;
+      if (old) {
+        adapters[old.kind].cleanup(old, true);
+        state.mount = null;
+      }
       brand.removeFallback();
       state.mount = adapter.mount(surface.header, state.settings);
+      if (kept) {
+        state.mount.ownedStyles.unshift(...kept.styles);
+        state.mount.ownedAttributes.unshift(...kept.attrs);
+      }
       document.documentElement.classList.add(ROOT_CLASS);
       finishLoading();
     }
@@ -425,8 +436,20 @@ function createHeaderFeature() {
   }
 
   // Scroll does not bubble, so capture it to also see pages that scroll inside their own element.
+  // Ushereats: scrolling only changes "scrolled or not" (the header's shrunk look): that alone, once per frame,
+  // instead of a full header check every 40 ms while scrolling
+  let scrollFrame = 0;
   function onScroll(event) {
-    if (event.target === document || event.target.classList.contains('page')) watchHeader(event);
+    if (event.target !== document && !event.target.classList.contains('page')) return;
+    if (!state.mount || !dom.isConnected(state.mount.header)) {
+      watchHeader(event);
+      return;
+    }
+    if (scrollFrame) return;
+    scrollFrame = window.requestAnimationFrame(() => {
+      scrollFrame = 0;
+      if (state.mount && dom.isConnected(state.mount.header)) updateScrolledState(state.mount);
+    });
   }
 
   function start() {

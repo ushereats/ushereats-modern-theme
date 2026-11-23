@@ -137,9 +137,9 @@ export function updateScrolledState(mount) {
   document.documentElement.classList.toggle('ue-header-scrolled', offset > 20);
 }
 
-function restoreOwnedAttributes(mount) {
+function restoreOwnedAttributes(mount, keepRoot) {
   mount.ownedAttributes
-    .slice()
+    .filter((record) => !(keepRoot && record.element === document.documentElement))
     .reverse()
     .forEach((record) => {
       if (record.hadValue) {
@@ -162,9 +162,9 @@ function restoreMovedNodes(mount) {
   }
 }
 
-function restoreOwnedStyles(mount) {
+function restoreOwnedStyles(mount, keepRoot) {
   mount.ownedStyles
-    .slice()
+    .filter((record) => !(keepRoot && record.element === document.documentElement))
     .reverse()
     .forEach((record) => {
       if (record.value) {
@@ -175,7 +175,10 @@ function restoreOwnedStyles(mount) {
     });
 }
 
-export function cleanup(mount) {
+// keepRoot (Ushereats): the header is being rebuilt straight away (Jellyfin swapped its header element): the page
+// root keeps the values the new one would write again, instead of every one being removed and put back (each
+// change on the page root makes the browser recheck the whole page)
+export function cleanup(mount, keepRoot) {
   if (!mount) return;
 
   mount.active = false;
@@ -189,8 +192,8 @@ export function cleanup(mount) {
   }
   mount.resizeObserver?.disconnect();
   mount.overflow?.destroy();
-  restoreOwnedAttributes(mount);
-  restoreOwnedStyles(mount);
+  restoreOwnedAttributes(mount, keepRoot);
+  restoreOwnedStyles(mount, keepRoot);
   restoreMovedNodes(mount);
   mount.proxy?.remove();
   mount.cluster?.remove();

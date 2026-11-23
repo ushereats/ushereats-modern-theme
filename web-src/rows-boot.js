@@ -161,7 +161,9 @@
       try {
         // HomeInOneRequest: use batch endpoint (and SW cache copy) only when feature is on for Everyone
         var earlyHome = window.__tbEarlyHome || null;   // asked from the page head, before Jellyfin started
-        batchP = featOn("HomeInOneRequest")
+        // (this runs from the page head, before the theme's settings are in the page: the early request is only
+        // made when "all rows in one request" is on, so its being there is the setting)
+        batchP = earlyHome || featOn("HomeInOneRequest")
           ? (earlyHome ||
               get("UshereatsTheme/home?userId=" + enc(user) + "&rows=" + enc(JSON.stringify(nonStudio)), token)
                 ["catch"](function () { return null; }))

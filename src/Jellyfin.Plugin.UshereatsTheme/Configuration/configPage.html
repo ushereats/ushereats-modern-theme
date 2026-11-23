@@ -5717,11 +5717,53 @@
         r.requests = res.length;
         r.downloadedKb = res.reduce(function (s, e) { return s + kb(e.transferSize); }, 0);
         r.byOwner = byOwner;
+        // asked twice or more on this page (same address, ignoring cache-busters), and anything that failed
+        var seen = {};
+        res.forEach(function (e) {
+          if (/^(img|css|link|script)$/.test(e.initiatorType) && !/\/(Items|Users|Sessions|System|UshereatsTheme\/(home|trending|Meter))/.test(e.name)) return;
+          var k = e.name.replace(location.origin, "").replace(/([?&])(tbBench|_|t)=[^&]*/g, "$1");
+          seen[k] = (seen[k] || 0) + 1;
+        });
+        r.duplicates = Object.keys(seen).filter(function (k) { return seen[k] > 1; }).map(function (k) { return seen[k] + "x " + k.slice(0, 160); });
+        r.failed = res.filter(function (e) { return e.responseStatus >= 400; }).map(function (e) { return e.responseStatus + " " + e.name.replace(location.origin, "").slice(0, 160); });
         r.slowest = res.slice().sort(function (a, b) { return b.duration - a.duration; }).slice(0, 12).map(function (e) {
           return { ms: round(e.duration), wait: round(e.responseStart - e.requestStart), kb: kb(e.transferSize || e.encodedBodySize), cached: e.transferSize === 0 && e.decodedBodySize > 0, type: e.initiatorType, who: owner(e.name), url: e.name.replace(location.origin, "").replace(/([?&]api_key=)[^&]+/, "$1…").slice(0, 160) };
         });
         return r;
       }
+
+      function health(w, since, m) {
+        var errs = (w.__tbErrs || []).filter(function (e) { return e.t >= since && !/tbBench|ERR_TUNNEL|Failed to load resource/.test(e.msg); });
+        m.errors = errs.map(function (e) { return e.msg; }).slice(0, 10);
+        m.themeErrors = m.errors.filter(function (e) { return /Ushereats Theme|theme\.js|dashboard\.js/.test(e); });
+        var root = (w.__tbRoot || []).filter(function (e) { return e.t >= since; });
+        m.pageRootChanges = root.length;
+      }
+      // the theme's stylesheets: how many rules, and the kinds that make every change on the page slower
+      function cssAudit(w) {
+        var a = { rules: 0, important: 0, pageWideHas: [], slowEndings: 0, sheets: 0 };
+        Array.prototype.forEach.call(w.document.styleSheets, function (sh) {
+          var mine = /UshereatsTheme/.test(sh.href || "") || /^tb-|^ue-/.test((sh.ownerNode && sh.ownerNode.id) || "");
+          if (!mine) return;
+          a.sheets++;
+          var walk = function (list) {
+            Array.prototype.forEach.call(list, function (r) {
+              if (r.cssRules && !r.selectorText) { walk(r.cssRules); return; }
+              if (!r.selectorText) return;
+              a.rules++;
+              a.important += (r.cssText.match(/!important/g) || []).length;
+              r.selectorText.split(/,(?![^(]*\))/).forEach(function (sel) {
+                sel = sel.trim();
+                if (/^(html|body|:root)[^\s]*:has\(/.test(sel)) a.pageWideHas.push(sel.slice(0, 120));
+                if (/(^|[\s>+~]):is\([^()]*\)[^\s>+~()]*$/.test(sel)) a.slowEndings++;   // tried on every element
+              });
+            });
+          };
+          try { walk(sh.cssRules); } catch (e) {}
+        });
+        return a;
+      }
+      var styleAudit = null;
 
       function navigate(w, hash, want, label) {
         var since = w.performance.now();
@@ -5732,6 +5774,7 @@
           var p = perfOf(w, since);
           var lt = (w.__tbLongAll || []).filter(function (e) { return e.startTime >= since; });
           m.page = label; m.perf = p;
+          health(w, since, m);
           var sh = (w.__tbShifts || []).filter(function (e) { return e.t >= since; });
           m.layoutShift = Math.round(sh.reduce(function (s, e) { return s + e.value; }, 0) * 1000) / 1000;
           m.jumps = sh.sort(function (a, b) { return b.value - a.value; }).slice(0, 5).map(function (e) { return { at: round(e.t - since), value: Math.round(e.value * 1000) / 1000, what: e.what }; });
@@ -5818,6 +5861,15 @@
             var w = frame.contentWindow;
             try { w.performance.setResourceTimingBufferSize(20000); } catch (e) {}   // default keeps only 250 files
             w.__tbShifts = [];
+            // errors (the theme's own features log "[Ushereats Theme] file" when one breaks), and changes to the page
+            // root's class / style (each one makes the browser recheck the whole page)
+            w.__tbErrs = []; w.__tbRoot = [];
+            var errAt = function (msg) { w.__tbErrs.push({ t: w.performance.now(), msg: String(msg || "").slice(0, 300) }); };
+            w.addEventListener("error", function (e) { errAt((e.message || "error") + (e.filename ? " @ " + e.filename.split("/").pop() + ":" + e.lineno : "")); });
+            w.addEventListener("unhandledrejection", function (e) { errAt("promise: " + (e.reason && (e.reason.message || e.reason) || "?")); });
+            var ce = w.console.error;
+            w.console.error = function () { try { errAt(Array.prototype.map.call(arguments, function (a) { return a && a.message ? a.message : String(a); }).join(" ")); } catch (x) {} return ce.apply(this, arguments); };
+            try { new w.MutationObserver(function (l) { l.forEach(function (m) { w.__tbRoot.push({ t: w.performance.now(), a: m.attributeName }); }); }).observe(w.document.documentElement, { attributes: true, attributeFilter: ["class", "style"] }); } catch (e) {}
             // long tasks (the page freezing) and layout jumps, from the very start
             w.__tbLongAll = [];
             var cls = 0;
@@ -5834,6 +5886,8 @@
             watch(w, t0, ["header", "rows", "banner"]).then(function (m) {
               m.page = "home (fresh open)";
               m.perf = perfOf(w, 0);
+              health(w, 0, m);
+              styleAudit = cssAudit(w);
               m.perf.lcp = round(lcp);
               m.layoutShift = Math.round(cls * 1000) / 1000;
               m.jumps = (w.__tbShifts || []).slice().sort(function (a, b) { return b.value - a.value; }).slice(0, 5).map(function (e) { return { at: round(e.t), value: Math.round(e.value * 1000) / 1000, what: e.what }; });
@@ -5927,6 +5981,14 @@
           if (r.server.process && r.server.process.cpuPercent > 60) flags.push("SERVER CPU high during the test: " + r.server.process.cpuPercent + "%");
           (r.server.tasks || []).forEach(function (x) { if (x.lastSeconds > 600) flags.push("LONG task: " + x.name + " took " + Math.round(x.lastSeconds / 60) + " min last time (" + x.category + ")"); });
         }
+        (r.pages || []).forEach(function (p) {
+          (p.themeErrors || []).forEach(function (e) { flags.push("THEME ERROR on " + p.page + ": " + e); });
+          (p.errors || []).filter(function (e) { return (p.themeErrors || []).indexOf(e) < 0; }).slice(0, 3).forEach(function (e) { flags.push("ERROR on " + p.page + ": " + e); });
+          (p.perf && p.perf.failed || []).forEach(function (f) { flags.push("FAILED on " + p.page + ": " + f); });
+          (p.perf && p.perf.duplicates || []).forEach(function (d) { flags.push("ASKED TWICE on " + p.page + ": " + d); });
+          if (p.pageRootChanges > 30) flags.push("PAGE ROOT CHURN: " + p.page + " changed the page root's class/style " + p.pageRootChanges + " times (each one rechecks the whole page)");
+        });
+        if (r.themeStyles && r.themeStyles.pageWideHas.length) flags.push("SLOW STYLE RULES: " + r.themeStyles.pageWideHas.length + " page-wide :has() rule(s): " + r.themeStyles.pageWideHas.join(" | "));
         (r.pages || []).forEach(function (p) { if (p.addedToHead && p.addedToHead.length) { var n = parseInt(p.addedToHead[0], 10); if (n > 30) flags.push("CHURN: " + p.page + " adds to the page head: " + p.addedToHead[0]); } });
         if (r.state && r.state.tasksRunning.length) flags.push("Tasks running during the test: " + r.state.tasksRunning.join(", "));
         if (r.state && r.state.playing.some(function (p) { return p.transcode; })) flags.push("Someone is transcoding during the test");
@@ -5982,7 +6044,7 @@
           say("Checking what plugins add to every page…");
           return indexInjections().then(function (i) { report.everyPageLoads = i; }).catch(function (e) { report.everyPageLoads = { error: String(e) }; });
         }).then(function () {
-          return framePages(sample, series, targets).then(function (p) { report.pages = p.pages; report.afterPages = p.after; });
+          return framePages(sample, series, targets).then(function (p) { report.pages = p.pages; report.afterPages = p.after; report.themeStyles = styleAudit; });
         }).then(function () {
           // what the server did during the test: slowest kinds of request (Jellyfin's and every plugin's), CPU, memory
           return Promise.all([meter("/Routes"), meter("/Process"), tasks(), meter("/Playback")]).then(function (r) {
@@ -6001,8 +6063,8 @@
           closeFrame();
           report.error = String(e && e.stack || e);
         }).then(function () {
-          report.problems = summary(report);
-          var text = JSON.stringify(report, null, 1);
+          // problems first, so they're the first thing anyone reading it sees
+          var text = JSON.stringify(Object.assign({ problems: summary(report) }, report), null, 1);
           out.value = text;
           out.hidden = false;
           page.querySelector("#tbBenchCopy").hidden = false;

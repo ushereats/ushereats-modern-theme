@@ -159,8 +159,8 @@ export function createModernAdapter(brand) {
     scheduleMeasurement(mount);
   }
 
-  function cleanup(mount) {
-    cleanupShared(mount);
+  function cleanup(mount, keepRoot) {
+    cleanupShared(mount, keepRoot);
     mount.toolbar.style.removeProperty('--ue-header-pill-left');
     mount.toolbar.style.removeProperty('--ue-header-pill-width');
   }

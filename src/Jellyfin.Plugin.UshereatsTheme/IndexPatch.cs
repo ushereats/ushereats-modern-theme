@@ -187,6 +187,7 @@ public static class IndexPatch
               .Append("var creds=null;try{creds=JSON.parse(localStorage.getItem(\"jellyfin_credentials\")||\"null\")}catch(e){}")
               .Append("var servers=(creds&&creds.Servers)||[],srv=null;")
               .Append("for(var i=0;i<servers.length;i++){var x=servers[i];if(x&&x.AccessToken&&x.UserId&&(!srv||(x.DateLastAccessed||0)>(srv.DateLastAccessed||0)))srv=x;}")
+              .Append(build.Config.HomeInOneRequest == Configuration.FeatureLevel.Everyone ? string.Empty : "return;")
               .Append("if(!srv)return;")
               .Append("var ns=rows.filter(function(r){return r.type!==\"studios\";});")
               .Append("var base=location.pathname.replace(/\\/web(\\/.*)?$/,\"/\");")

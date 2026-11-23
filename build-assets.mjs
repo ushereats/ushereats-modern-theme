@@ -6,6 +6,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import postcss from "postcss";
+import selParser from "postcss-selector-parser";
 
 // Lint + typecheck: build fails on errors
 const isWin = process.platform === "win32";
@@ -74,6 +75,49 @@ function stripCss(css) {
   }
   return minCss(out);
 }
+// Faster matching, same result: a selector whose last part is ":is(.a, .b)" can't be filed under a class by the
+// browser, so it's tried against every element on every style check. Written out as ".a, .b" it's only tried on
+// elements that have those classes. Only done when every choice is a plain class / id / tag / attribute and all
+// have the same weight (so which rule wins never changes); anything else is left exactly as written.
+function spec(n) {
+  let a = 0, b = 0, c = 0;
+  n.walk((x) => { if (x.type === "id") a++; else if (x.type === "class" || x.type === "attribute") b++; else if (x.type === "tag" && x.value !== "*") c++; });
+  return a + "," + b + "," + c;
+}
+const SIMPLE = new Set(["class", "id", "tag", "attribute"]);
+function expandIs(selector) {
+  let out = null;
+  try {
+    selParser((root) => {
+      const list = [];
+      root.each((sel) => {
+        const nodes = sel.nodes;
+        let start = nodes.length;
+        while (start > 0 && nodes[start - 1].type !== "combinator") start--;
+        const last = nodes.slice(start);
+        const isIdx = last.findIndex((n) => n.type === "pseudo" && n.value === ":is");
+        const plain = last.some((n) => n.type === "class" || n.type === "id" || n.type === "tag" || n.type === "nesting");
+        const isNode = isIdx >= 0 ? last[isIdx] : null;
+        const args = isNode ? isNode.nodes : [];
+        const ok = isNode && !plain && last.filter((n) => n.type === "pseudo" && n.value === ":is").length === 1 &&
+          !last.some((n) => n.type === "pseudo" && /^::|^:(before|after)$/.test(n.value)) &&
+          args.length > 1 && args.every((arg) => arg.nodes.length >= 1 && arg.nodes.every((x) => SIMPLE.has(x.type)) && arg.nodes.filter((x) => x.type === "tag").length <= 1) &&
+          new Set(args.map(spec)).size === 1;
+        if (!ok) { list.push(sel.toString().trim()); return; }
+        const prefix = nodes.slice(0, start).map(String).join("");
+        const rest = last.filter((n) => n !== isNode).map(String).join("");
+        for (const arg of args) {
+          const parts = arg.nodes.map((x) => String(x).trim());
+          const tag = arg.nodes.findIndex((x) => x.type === "tag");
+          const head = tag >= 0 ? parts[tag] + parts.filter((_, i) => i !== tag).join("") : parts.join("");
+          list.push((prefix + head + rest).trim());
+        }
+      });
+      out = list;
+    }).processSync(selector);
+  } catch (e) { out = null; }
+  return out;
+}
 // Whitespace-only minify: same rules, same order, same values (nothing merged or rewritten), just no spaces/newlines
 // the browser doesn't need. Values with quotes are left exactly as written.
 function minCss(css) {
@@ -83,7 +127,12 @@ function minCss(css) {
   root.walk((n) => {
     n.raws.before = ""; n.raws.after = "";
     if (n.type === "decl") { n.raws.between = ":"; n.value = ws(n.value); if (n.important) n.raws.important = "!important"; }
-    else if (n.type === "rule") { n.raws.between = ""; n.raws.semicolon = false; n.selector = n.selectors.map(ws).join(","); }
+    else if (n.type === "rule") {
+      n.raws.between = ""; n.raws.semicolon = false;
+      const inKeyframes = n.parent && n.parent.type === "atrule" && /keyframes/i.test(n.parent.name);
+      const sels = inKeyframes ? n.selectors : n.selectors.flatMap((x) => expandIs(x) || [x]);
+      n.selector = sels.map(ws).join(",");
+    }
     else if (n.type === "atrule") { n.raws.between = ""; n.raws.afterName = " "; n.raws.semicolon = false; n.params = ws(n.params); if (!n.params) n.raws.afterName = ""; }
   });
   root.raws.after = "";
